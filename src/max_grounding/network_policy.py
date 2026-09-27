@@ -40,4 +40,4 @@ def is_admissible_result_url(url: str) -> bool:
             return False
         return True
 
-    return address.is_global
+    return address.is_global and not address.is_multicast
