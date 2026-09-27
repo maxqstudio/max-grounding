@@ -43,7 +43,7 @@ Project governance follows `maxqstudio/Skill_Workflow` pinned at:
 
 `9e22feddb8f94e8c0f1af6a33e14b64de5068f8f`
 
-Canonical human-facing governance documentation is generated under `docs/` from `.workflow/*.json`.
+Canonical human-facing governance documentation is generated under `docs/` from structured specs under `.workflow/`.
 
 ## Support
 
