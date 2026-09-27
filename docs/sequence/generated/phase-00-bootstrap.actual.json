@@ -1,0 +1,37 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [],
+  "entries": [
+    "src/max_grounding/__init__.py::project_identity"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/__init__.py::project_identity",
+      "kind": "function",
+      "label": "src/max_grounding/__init__.py::project_identity",
+      "language": "Python",
+      "line_end": 15,
+      "line_start": 8,
+      "locator": "src/max_grounding/__init__.py::project_identity"
+    }
+  ],
+  "observed_head": "f0b579b181571bc6bb5470571de6514c65bb644f",
+  "schema_version": 1,
+  "source_digest": "b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a"
+}

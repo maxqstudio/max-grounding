@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "project": {
+    "name": "MAX Grounding",
+    "repository": "maxqstudio/max-grounding",
+    "purpose": "Provide a self-hostable evidence-first grounding engine that retrieves, validates, compresses, and cites external evidence for LLMs and agents without giving the model authority to invent facts.",
+    "primary_users": [
+      "application developers",
+      "agent developers",
+      "operators of self-hosted AI systems"
+    ],
+    "expected_outcomes": [
+      "grounded responses backed by explicit evidence and citations",
+      "bounded and observable retrieval behavior",
+      "cross-platform core runtime with containerized service integrations"
+    ]
+  },
+  "technology": {
+    "languages": [
+      "Python"
+    ],
+    "frameworks": [
+      "Python standard library during Phase 0"
+    ],
+    "persistence": [
+      "none during Phase 0"
+    ],
+    "external_systems": [
+      "GitHub Actions"
+    ]
+  },
+  "entry_points": [
+    {
+      "name": "Python package",
+      "path": "src/max_grounding/__init__.py",
+      "purpose": "bootstrap runtime identity and package boundary"
+    }
+  ],
+  "constraints": [
+    "GitHub Actions is the acceptance authority.",
+    "Every completed phase is merged to main only after all required checks pass.",
+    "Core runtime must remain portable across Linux, Windows, and macOS.",
+    "Untrusted network content must never be treated as executable instructions.",
+    "No secrets may be committed to the repository."
+  ]
+}

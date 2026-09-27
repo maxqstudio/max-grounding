@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "api_contracts": [
+    {
+      "method": "PYTHON",
+      "path": "max_grounding.project_identity()",
+      "purpose": "Return stable bootstrap package identity for smoke and runtime acceptance.",
+      "authority": "src/max_grounding/__init__.py::project_identity",
+      "mutation": "none",
+      "error_behavior": "No expected domain error; import/runtime failures fail acceptance."
+    }
+  ],
+  "data_contracts": [
+    {
+      "name": "ProjectIdentity",
+      "source_of_truth": "src/max_grounding/__init__.py::project_identity",
+      "mutability": "immutable within a release",
+      "legal_writes": [
+        "governed source change in an accepted phase"
+      ],
+      "retention": "source-controlled release history",
+      "invariants": [
+        "name remains max-grounding",
+        "cross_platform remains true while three-OS acceptance is required"
+      ]
+    }
+  ],
+  "ui_surfaces": [],
+  "runbook_steps": [
+    {
+      "name": "unit-tests",
+      "command": "python -m unittest discover -s tests -v",
+      "expected": "all tests PASS"
+    },
+    {
+      "name": "compile",
+      "command": "python -m compileall -q src tests .workflow/tools",
+      "expected": "exit code 0"
+    },
+    {
+      "name": "docs-sync",
+      "command": "python .workflow/tools/sync_project_truth.py",
+      "expected": "PROJECT_DOCS_SYNC=PASS"
+    },
+    {
+      "name": "strict-truth",
+      "command": "python .workflow/tools/validate_project_truth.py",
+      "expected": "result PASS"
+    }
+  ]
+}

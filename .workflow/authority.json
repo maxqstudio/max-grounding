@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "authorities": [
+    {
+      "concern": "source",
+      "authority": "GitHub main branch",
+      "meaning": "Merged main is the source authority after phase acceptance.",
+      "mutable": true
+    },
+    {
+      "concern": "runtime",
+      "authority": "GitHub Actions runner matrix",
+      "meaning": "Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority.",
+      "mutable": false
+    },
+    {
+      "concern": "acceptance",
+      "authority": "GitHub Actions required workflows",
+      "meaning": "A phase is accepted only when its required workflow checks pass on the exact candidate commit.",
+      "mutable": false
+    },
+    {
+      "concern": "documentation",
+      "authority": ".workflow/*.json plus deterministic Project Truth Compiler",
+      "meaning": "Structured specs are semantic authority; docs/ is generated projection.",
+      "mutable": true
+    },
+    {
+      "concern": "skill_workflow",
+      "authority": "maxqstudio/Skill_Workflow@9e22feddb8f94e8c0f1af6a33e14b64de5068f8f",
+      "meaning": "Pinned governance tooling and rules used by Phase 0.",
+      "mutable": false
+    }
+  ],
+  "invariants": [
+    "Do not merge a phase while any required GitHub Actions check is failing or unproven.",
+    "After a phase merge, revalidate main before starting the next accepted baseline.",
+    "Generated docs must match the exact tracked source/spec snapshot."
+  ]
+}

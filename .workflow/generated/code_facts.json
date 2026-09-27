@@ -1,0 +1,108 @@
+{
+  "coverage": {
+    "call_inventory": "Python AST token calls only",
+    "limitations": [
+      "non-Python symbol extraction requires language-specific parsers or Ctags",
+      "dynamic dispatch/dependency injection/reflection are not resolved",
+      "JS/TS function-level semantics are not inferred here"
+    ],
+    "module_inventory": "multi-language by extension",
+    "python_parse_failures": [],
+    "route_inventory": "Python decorator routes only",
+    "symbol_inventory": "Python AST only"
+  },
+  "modules": [
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/__init__.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 15
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_bootstrap.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 24
+    }
+  ],
+  "python_calls": [
+    {
+      "caller": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
+      "target_token": "project_identity"
+    },
+    {
+      "caller": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
+      "target_token": "self.assertIs"
+    },
+    {
+      "caller": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_bootstrap.py::BootstrapTests.test_runtime_uses_supported_python",
+      "target_token": "self.assertGreaterEqual"
+    },
+    {
+      "caller": "tests/test_bootstrap.py::BootstrapTests.test_runtime_uses_supported_python",
+      "target_token": "self.assertIn"
+    }
+  ],
+  "python_routes": [],
+  "python_symbols": [
+    {
+      "file": "src/max_grounding/__init__.py",
+      "kind": "function",
+      "line_end": 15,
+      "line_start": 8,
+      "locator": "src/max_grounding/__init__.py::project_identity",
+      "symbol": "project_identity"
+    },
+    {
+      "file": "tests/test_bootstrap.py",
+      "kind": "class",
+      "line_end": 20,
+      "line_start": 10,
+      "locator": "tests/test_bootstrap.py::BootstrapTests",
+      "symbol": "BootstrapTests"
+    },
+    {
+      "file": "tests/test_bootstrap.py",
+      "kind": "method",
+      "line_end": 16,
+      "line_start": 11,
+      "locator": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
+      "symbol": "BootstrapTests.test_project_identity_is_stable_and_cross_platform"
+    },
+    {
+      "file": "tests/test_bootstrap.py",
+      "kind": "method",
+      "line_end": 20,
+      "line_start": 18,
+      "locator": "tests/test_bootstrap.py::BootstrapTests.test_runtime_uses_supported_python",
+      "symbol": "BootstrapTests.test_runtime_uses_supported_python"
+    }
+  ],
+  "schema_version": 1,
+  "source_digest": "b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a",
+  "source_summary": {
+    "files": 2,
+    "languages": {
+      "Python": 2
+    },
+    "lines": 39,
+    "test_files": 1
+  },
+  "tests": [
+    "tests/test_bootstrap.py"
+  ]
+}

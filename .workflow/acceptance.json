@@ -1,0 +1,78 @@
+{
+  "evidence_boundary": "Phase 0 proves governed repository bootstrap, package import/smoke behavior, deterministic documentation, sequence extraction, and native core-runtime execution on GitHub-hosted Linux/Windows/macOS. It does not prove web retrieval, crawling, vector search, MCP, REST, or production deployment.",
+  "human_comprehension_questions": {
+    "How does failure/recovery behave?": "PASS",
+    "How does important data flow through the system?": "PASS",
+    "What are the important lifecycle states and transitions?": "PASS",
+    "What are the main user/domain workflows?": "PASS",
+    "What are the major components and how do they relate?": "PASS",
+    "What is mutable and what is immutable?": "PASS",
+    "What is proven and what is not proven?": "PASS",
+    "What is the current project state?": "PASS",
+    "What is the project and what problem does it solve?": "PASS",
+    "What may happen next and what is blocked?": "PASS",
+    "Who uses it and what are the primary outcomes?": "PASS",
+    "Who/what is authoritative for important decisions?": "PASS"
+  },
+  "human_comprehension_status": "PASS",
+  "requirements": [
+    {
+      "id": "P0-OS",
+      "requirement": "Core runtime executes on Ubuntu, Windows, and macOS.",
+      "status": "PASS",
+      "tests": [
+        "tests/test_bootstrap.py"
+      ]
+    },
+    {
+      "id": "P0-GOV",
+      "requirement": "STRICT governance docs and validators are deterministic and synchronized.",
+      "status": "PASS",
+      "tests": [
+        "GitHub Actions governance job"
+      ]
+    },
+    {
+      "id": "P0-MERGE",
+      "requirement": "Merge is allowed only after required GitHub Actions checks pass.",
+      "status": "PASS",
+      "tests": [
+        "GitHub pull request acceptance"
+      ]
+    }
+  ],
+  "runtime_checks": [
+    "Import max_grounding and execute project_identity on Linux, Windows, and macOS runners."
+  ],
+  "runtime_status": "PASS",
+  "schema_version": 1,
+  "sequence_mode": "DURING",
+  "sequence_session": "docs/sequence/sessions/phase-00-bootstrap.json",
+  "sequence_sync_status": "PASS",
+  "test_commands": [
+    "python -m unittest discover -s tests -v",
+    "python -m compileall -q src tests .workflow/tools",
+    "python .workflow/tools/validate_sequence_sessions.py",
+    "python .workflow/tools/validate_project_truth.py"
+  ],
+  "truth_gates": {
+    "BEHAVIORAL_SYNC": "PASS",
+    "CROSS_DOCUMENT_CONSISTENCY": "PASS",
+    "DOC_LAYOUT": "PASS",
+    "DOC_READABILITY": "PASS",
+    "DOC_SOURCE_TRACEABILITY": "PASS",
+    "DOC_TEST_TRACEABILITY": "PASS",
+    "HUMAN_COMPREHENSION": "PASS",
+    "PROJECT_DOCS_NORMALIZED": "PASS",
+    "PROJECT_DOCS_SYNC": "PASS",
+    "PROJECT_STATE_SYNC": "PASS",
+    "PROVENANCE_SYNC": "PASS",
+    "REFERENCE_SYNC": "PASS",
+    "RUNTIME_E2E": "PASS",
+    "SEMANTIC_SYNC": "PASS",
+    "SEQUENCE_SYNC": "PASS",
+    "SOURCE_TESTS": "PASS",
+    "STRUCTURAL_SYNC": "PASS",
+    "TEST_RUNTIME_TRACEABILITY": "PASS"
+  }
+}

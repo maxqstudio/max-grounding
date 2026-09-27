@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "components": [
+    {
+      "id": "core-package",
+      "name": "Core Python Package",
+      "purpose": "Portable package boundary for grounding functionality.",
+      "owns": [
+        "public Python package identity"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "governance",
+      "name": "Project Truth Governance",
+      "purpose": "Deterministically projects project state and traceability.",
+      "owns": [
+        "docs projection",
+        "truth validation"
+      ],
+      "depends_on": [
+        "core-package"
+      ]
+    },
+    {
+      "id": "ci",
+      "name": "GitHub Actions Acceptance",
+      "purpose": "Executes cross-platform tests and governance gates.",
+      "owns": [
+        "phase acceptance evidence"
+      ],
+      "depends_on": [
+        "core-package",
+        "governance"
+      ]
+    }
+  ],
+  "data_flows": [
+    {
+      "from": "tracked source/specs",
+      "to": "Project Truth Compiler",
+      "meaning": "deterministic source and semantic facts"
+    },
+    {
+      "from": "Project Truth Compiler",
+      "to": "docs/",
+      "meaning": "generated human-facing project documentation"
+    },
+    {
+      "from": "candidate commit",
+      "to": "GitHub Actions",
+      "meaning": "cross-platform test and acceptance evidence"
+    }
+  ],
+  "external_boundaries": [
+    {
+      "name": "GitHub-hosted runners",
+      "contract": "External execution environments for cross-platform acceptance."
+    },
+    {
+      "name": "Application network retrieval",
+      "contract": "Not implemented in Phase 0."
+    }
+  ]
+}

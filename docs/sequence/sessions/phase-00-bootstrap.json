@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-00-bootstrap",
+  "phase": "PHASE_00_GOVERNED_CROSS_PLATFORM_BASELINE",
+  "mode": "DURING",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "CANDIDATE",
+  "implementation_base_sha": "2669e624f86e688f1f709dbf31a4cb198688f85f",
+  "plan": {
+    "required": false,
+    "contract": "",
+    "frozen": false,
+    "frozen_commit": "",
+    "sha256": "",
+    "diagram": ""
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-00-bootstrap.actual.json",
+    "diagram": "docs/sequence/generated/phase-00-bootstrap.actual.mmd",
+    "source_digest": "",
+    "entries": [
+      "src/max_grounding/__init__.py::project_identity"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_bootstrap.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}

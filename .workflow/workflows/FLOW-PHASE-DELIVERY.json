@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PHASE-DELIVERY",
+  "title": "Governed phase delivery",
+  "purpose": "Move each implementation phase from isolated branch to accepted main without bypassing executable evidence.",
+  "critical": true,
+  "entry_condition": "A phase branch exists from the current accepted main baseline.",
+  "authority": "GitHub Actions required checks",
+  "states": [
+    "BRANCH_ACTIVE",
+    "CANDIDATE",
+    "ACTIONS_PASS",
+    "MERGED_MAIN",
+    "MAIN_REVALIDATED"
+  ],
+  "transitions": [
+    {
+      "from": "BRANCH_ACTIVE",
+      "to": "CANDIDATE",
+      "action": "complete minimum scoped implementation and tests"
+    },
+    {
+      "from": "CANDIDATE",
+      "to": "ACTIONS_PASS",
+      "action": "all required GitHub Actions checks pass"
+    },
+    {
+      "from": "ACTIONS_PASS",
+      "to": "MERGED_MAIN",
+      "action": "merge pull request"
+    },
+    {
+      "from": "MERGED_MAIN",
+      "to": "MAIN_REVALIDATED",
+      "action": "GitHub Actions revalidate merged main"
+    }
+  ],
+  "invariants": [
+    "No merge transition is legal while a required check is failing or missing.",
+    "The next phase starts from revalidated main."
+  ],
+  "failure_behavior": [
+    "A failed check keeps the phase unaccepted and requires repair on the phase branch."
+  ],
+  "restart_behavior": [
+    "Rerun only after a source/spec/test repair or a justified transient-run retry."
+  ],
+  "rollback_behavior": [
+    "A defective merged phase must be reverted through a new governed change and revalidated."
+  ],
+  "source_owners": [
+    ".github/workflows/ci.yml",
+    ".workflow/state.json"
+  ],
+  "tests": [
+    "tests/test_bootstrap.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-00-bootstrap.json"
+}
