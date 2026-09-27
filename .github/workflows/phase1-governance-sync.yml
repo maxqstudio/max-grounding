@@ -1,0 +1,64 @@
+name: Phase 1 governance sync
+
+on:
+  push:
+    branches:
+      - work/phase-01-core-contracts
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Prove Phase 1 source tests
+        run: |
+          python -m pip install .
+          python -m unittest discover -s tests -v
+          python -m compileall -q src tests .workflow/tools
+      - name: Generate actual Phase 1 sequence
+        run: |
+          python .workflow/tools/generate_sequence_actual.py \
+            --output-json docs/sequence/generated/phase-01-core-contracts.actual.json \
+            --output-mermaid docs/sequence/generated/phase-01-core-contracts.actual.mmd \
+            --entry src/max_grounding/engine.py::GroundingEngine.ground
+      - name: Validate frozen plan against actual source
+        run: |
+          python .workflow/tools/validate_sequence_contract.py \
+            --session docs/sequence/sessions/phase-01-core-contracts.json
+      - name: Synchronize project truth
+        run: python .workflow/tools/sync_project_truth.py
+      - name: Create local generated snapshot
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .workflow/acceptance.json .workflow/generated docs
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+          else
+            git commit -m "docs: generate phase 1 actual and project truth"
+          fi
+      - name: Validate generated STRICT snapshot
+        run: |
+          python .workflow/tools/validate_project_docs.py
+          python .workflow/tools/validate_doc_quality.py
+          python .workflow/tools/validate_handoff.py
+          python .workflow/tools/validate_human_comprehension.py --require-pass
+          python .workflow/tools/validate_sequence_sessions.py
+          python .workflow/tools/validate_cross_document_consistency.py \
+            --base fc655d5191c5b35186be7da7c0fb8a08ad0f09a4 --require-base
+          python .workflow/tools/validate_project_truth.py
+          test -z "$(git status --porcelain)"
+      - name: Push validated generated snapshot
+        run: git push
