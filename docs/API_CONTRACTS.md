@@ -4,6 +4,8 @@
 
 | Method | Path / Event | Purpose | Authority | Mutation | Error behavior |
 |---|---|---|---|---|---|
-| PYTHON | max_grounding.project_identity() | Return stable bootstrap package identity for smoke and runtime acceptance. | src/max_grounding/__init__.py::project_identity | none | No expected domain error; import/runtime failures fail acceptance. |
+| PYTHON | max_grounding.project_identity() | Return stable package identity for smoke acceptance. | src/max_grounding/__init__.py::project_identity | none | Import/runtime failure blocks acceptance. |
+| PYTHON | GroundingEngine.ground(request) | Produce a bounded evidence pack from one grounding request. | src/max_grounding/engine.py::ground | in-memory request budget only | Invalid requests raise before provider access; provider failures return PROVIDER_ERROR evidence status. |
+| PROTOCOL | SearchProvider.search(query) | Return untrusted source candidates for exactly one budgeted provider call. | src/max_grounding/providers/base.py::SearchProvider | provider-defined external behavior; no Phase 1 implementation | Provider exception is contained by GroundingEngine and fails closed. |
 
 Declared in .workflow/contracts.json. Observed routes are listed in FLOW_INDEX.

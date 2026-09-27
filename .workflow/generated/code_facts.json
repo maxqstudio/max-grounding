@@ -20,14 +20,282 @@
       "lines": 15
     },
     {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/budget.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 30
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/engine.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 57
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/errors.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 13
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/evidence.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 97
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/models.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 73
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/policy.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 51
+    },
+    {
+      "directory": "src/max_grounding/providers",
+      "file": "src/max_grounding/providers/__init__.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 5
+    },
+    {
+      "directory": "src/max_grounding/providers",
+      "file": "src/max_grounding/providers/base.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 23
+    },
+    {
       "directory": "tests",
       "file": "tests/test_bootstrap.py",
       "is_test": true,
       "language": "Python",
       "lines": 24
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_budget.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 25
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_engine.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 118
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_evidence.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 54
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_policy.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 47
     }
   ],
   "python_calls": [
+    {
+      "caller": "src/max_grounding/budget.py::SearchBudget.__post_init__",
+      "target_token": "ValueError"
+    },
+    {
+      "caller": "src/max_grounding/budget.py::SearchBudget.consume_search_call",
+      "target_token": "SearchBudgetExceeded"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.__init__",
+      "target_token": "GroundingPolicy"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "self._policy.validate_request"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "SearchBudget"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "budget.consume_search_call"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "SearchQuery"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "invoke_search"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "sources.extend"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "normalize_candidates"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "build_evidence_pack"
+    },
+    {
+      "caller": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::canonicalize_url",
+      "target_token": "urlsplit"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::canonicalize_url",
+      "target_token": "url.strip"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::canonicalize_url",
+      "target_token": "parsed.scheme.lower"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::canonicalize_url",
+      "target_token": "parsed.hostname.lower"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::canonicalize_url",
+      "target_token": "host.startswith"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::canonicalize_url",
+      "target_token": "path.rstrip"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::canonicalize_url",
+      "target_token": "urlunsplit"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::normalize_candidates",
+      "target_token": "canonicalize_url"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::normalize_candidates",
+      "target_token": "seen_urls.add"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::normalize_candidates",
+      "target_token": "normalized.append"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::normalize_candidates",
+      "target_token": "EvidenceSource"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::normalize_candidates",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::build_evidence_pack",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/evidence.py::build_evidence_pack",
+      "target_token": "EvidencePack"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "join"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "request.query.split"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "lower"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "request.language.strip"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "upper"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "request.country.strip"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "lower"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "request.freshness.strip"
+    },
+    {
+      "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "target_token": "replace"
+    },
+    {
+      "caller": "src/max_grounding/providers/base.py::invoke_search",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/providers/base.py::invoke_search",
+      "target_token": "provider.search"
+    },
     {
       "caller": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
       "target_token": "project_identity"
@@ -55,6 +323,406 @@
     {
       "caller": "tests/test_bootstrap.py::BootstrapTests.test_runtime_uses_supported_python",
       "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_budget.py::SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected",
+      "target_token": "SearchBudget"
+    },
+    {
+      "caller": "tests/test_budget.py::SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected",
+      "target_token": "budget.consume_search_call"
+    },
+    {
+      "caller": "tests/test_budget.py::SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected",
+      "target_token": "budget.consume_search_call"
+    },
+    {
+      "caller": "tests/test_budget.py::SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_budget.py::SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_budget.py::SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_budget.py::SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected",
+      "target_token": "budget.consume_search_call"
+    },
+    {
+      "caller": "tests/test_budget.py::SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_budget.py::SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap",
+      "target_token": "SearchBudget"
+    },
+    {
+      "caller": "tests/test_engine.py::candidate",
+      "target_token": "SourceCandidate"
+    },
+    {
+      "caller": "tests/test_engine.py::FakeProvider.__init__",
+      "target_token": "list"
+    },
+    {
+      "caller": "tests/test_engine.py::FakeProvider.search",
+      "target_token": "self.calls.append"
+    },
+    {
+      "caller": "tests/test_engine.py::FakeProvider.search",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_engine.py::FakeProvider.search",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_engine.py::FailingProvider.search",
+      "target_token": "RuntimeError"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "FakeProvider"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "candidate"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "ground"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "GroundingEngine"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "FakeProvider"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "candidate"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "candidate"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "ground"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "GroundingEngine"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted",
+      "target_token": "FakeProvider"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted",
+      "target_token": "ground"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted",
+      "target_token": "GroundingEngine"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop",
+      "target_token": "FailingProvider"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop",
+      "target_token": "ground"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop",
+      "target_token": "GroundingEngine"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_invalid_request_never_calls_provider",
+      "target_token": "FakeProvider"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_invalid_request_never_calls_provider",
+      "target_token": "candidate"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_invalid_request_never_calls_provider",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_invalid_request_never_calls_provider",
+      "target_token": "ground"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_invalid_request_never_calls_provider",
+      "target_token": "GroundingEngine"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_invalid_request_never_calls_provider",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_invalid_request_never_calls_provider",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_receives_bounded_round_metadata",
+      "target_token": "FakeProvider"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_receives_bounded_round_metadata",
+      "target_token": "ground"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_receives_bounded_round_metadata",
+      "target_token": "GroundingEngine"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_receives_bounded_round_metadata",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_receives_bounded_round_metadata",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_receives_bounded_round_metadata",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_receives_bounded_round_metadata",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_receives_bounded_round_metadata",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_engine.py::GroundingEngineTests.test_provider_receives_bounded_round_metadata",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash",
+      "target_token": "SourceCandidate"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash",
+      "target_token": "SourceCandidate"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash",
+      "target_token": "set"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash",
+      "target_token": "normalize_candidates"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded",
+      "target_token": "SourceCandidate"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded",
+      "target_token": "SourceCandidate"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded",
+      "target_token": "normalize_candidates"
+    },
+    {
+      "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded",
+      "target_token": "set"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.setUp",
+      "target_token": "GroundingPolicy"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_blank_query",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_blank_query",
+      "target_token": "self.policy.validate_request"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_blank_query",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_more_than_two_search_rounds",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_more_than_two_search_rounds",
+      "target_token": "self.policy.validate_request"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_more_than_two_search_rounds",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_normalizes_query_and_locale",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_normalizes_query_and_locale",
+      "target_token": "self.policy.validate_request"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_normalizes_query_and_locale",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_normalizes_query_and_locale",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_normalizes_query_and_locale",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
+      "target_token": "self.policy.validate_request"
     }
   ],
   "python_routes": [],
@@ -66,6 +734,198 @@
       "line_start": 8,
       "locator": "src/max_grounding/__init__.py::project_identity",
       "symbol": "project_identity"
+    },
+    {
+      "file": "src/max_grounding/budget.py",
+      "kind": "class",
+      "line_end": 30,
+      "line_start": 13,
+      "locator": "src/max_grounding/budget.py::SearchBudget",
+      "symbol": "SearchBudget"
+    },
+    {
+      "file": "src/max_grounding/budget.py",
+      "kind": "method",
+      "line_end": 21,
+      "line_start": 19,
+      "locator": "src/max_grounding/budget.py::SearchBudget.__post_init__",
+      "symbol": "SearchBudget.__post_init__"
+    },
+    {
+      "file": "src/max_grounding/budget.py",
+      "kind": "method",
+      "line_end": 25,
+      "line_start": 24,
+      "locator": "src/max_grounding/budget.py::SearchBudget.remaining",
+      "symbol": "SearchBudget.remaining"
+    },
+    {
+      "file": "src/max_grounding/budget.py",
+      "kind": "method",
+      "line_end": 30,
+      "line_start": 27,
+      "locator": "src/max_grounding/budget.py::SearchBudget.consume_search_call",
+      "symbol": "SearchBudget.consume_search_call"
+    },
+    {
+      "file": "src/max_grounding/engine.py",
+      "kind": "class",
+      "line_end": 57,
+      "line_start": 12,
+      "locator": "src/max_grounding/engine.py::GroundingEngine",
+      "symbol": "GroundingEngine"
+    },
+    {
+      "file": "src/max_grounding/engine.py",
+      "kind": "method",
+      "line_end": 22,
+      "line_start": 15,
+      "locator": "src/max_grounding/engine.py::GroundingEngine.__init__",
+      "symbol": "GroundingEngine.__init__"
+    },
+    {
+      "file": "src/max_grounding/engine.py",
+      "kind": "method",
+      "line_end": 57,
+      "line_start": 24,
+      "locator": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "symbol": "GroundingEngine.ground"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 5,
+      "line_start": 4,
+      "locator": "src/max_grounding/errors.py::GroundingError",
+      "symbol": "GroundingError"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 9,
+      "line_start": 8,
+      "locator": "src/max_grounding/errors.py::InvalidGroundingRequest",
+      "symbol": "InvalidGroundingRequest"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 13,
+      "line_start": 12,
+      "locator": "src/max_grounding/errors.py::SearchBudgetExceeded",
+      "symbol": "SearchBudgetExceeded"
+    },
+    {
+      "file": "src/max_grounding/evidence.py",
+      "kind": "function",
+      "line_end": 46,
+      "line_start": 17,
+      "locator": "src/max_grounding/evidence.py::canonicalize_url",
+      "symbol": "canonicalize_url"
+    },
+    {
+      "file": "src/max_grounding/evidence.py",
+      "kind": "function",
+      "line_end": 70,
+      "line_start": 49,
+      "locator": "src/max_grounding/evidence.py::normalize_candidates",
+      "symbol": "normalize_candidates"
+    },
+    {
+      "file": "src/max_grounding/evidence.py",
+      "kind": "function",
+      "line_end": 97,
+      "line_start": 73,
+      "locator": "src/max_grounding/evidence.py::build_evidence_pack",
+      "symbol": "build_evidence_pack"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 14,
+      "line_start": 9,
+      "locator": "src/max_grounding/models.py::EvidenceStatus",
+      "symbol": "EvidenceStatus"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 27,
+      "line_start": 18,
+      "locator": "src/max_grounding/models.py::GroundingRequest",
+      "symbol": "GroundingRequest"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 39,
+      "line_start": 31,
+      "locator": "src/max_grounding/models.py::SearchQuery",
+      "symbol": "SearchQuery"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 50,
+      "line_start": 43,
+      "locator": "src/max_grounding/models.py::SourceCandidate",
+      "symbol": "SourceCandidate"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 62,
+      "line_start": 54,
+      "locator": "src/max_grounding/models.py::EvidenceSource",
+      "symbol": "EvidenceSource"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 73,
+      "line_start": 66,
+      "locator": "src/max_grounding/models.py::EvidencePack",
+      "symbol": "EvidencePack"
+    },
+    {
+      "file": "src/max_grounding/policy.py",
+      "kind": "class",
+      "line_end": 51,
+      "line_start": 15,
+      "locator": "src/max_grounding/policy.py::GroundingPolicy",
+      "symbol": "GroundingPolicy"
+    },
+    {
+      "file": "src/max_grounding/policy.py",
+      "kind": "method",
+      "line_end": 51,
+      "line_start": 18,
+      "locator": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "symbol": "GroundingPolicy.validate_request"
+    },
+    {
+      "file": "src/max_grounding/providers/base.py",
+      "kind": "class",
+      "line_end": 15,
+      "line_start": 10,
+      "locator": "src/max_grounding/providers/base.py::SearchProvider",
+      "symbol": "SearchProvider"
+    },
+    {
+      "file": "src/max_grounding/providers/base.py",
+      "kind": "method",
+      "line_end": 15,
+      "line_start": 13,
+      "locator": "src/max_grounding/providers/base.py::SearchProvider.search",
+      "symbol": "SearchProvider.search"
+    },
+    {
+      "file": "src/max_grounding/providers/base.py",
+      "kind": "function",
+      "line_end": 23,
+      "line_start": 18,
+      "locator": "src/max_grounding/providers/base.py::invoke_search",
+      "symbol": "invoke_search"
     },
     {
       "file": "tests/test_bootstrap.py",
@@ -90,19 +950,231 @@
       "line_start": 18,
       "locator": "tests/test_bootstrap.py::BootstrapTests.test_runtime_uses_supported_python",
       "symbol": "BootstrapTests.test_runtime_uses_supported_python"
+    },
+    {
+      "file": "tests/test_budget.py",
+      "kind": "class",
+      "line_end": 21,
+      "line_start": 9,
+      "locator": "tests/test_budget.py::SearchBudgetTests",
+      "symbol": "SearchBudgetTests"
+    },
+    {
+      "file": "tests/test_budget.py",
+      "kind": "method",
+      "line_end": 17,
+      "line_start": 10,
+      "locator": "tests/test_budget.py::SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected",
+      "symbol": "SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected"
+    },
+    {
+      "file": "tests/test_budget.py",
+      "kind": "method",
+      "line_end": 21,
+      "line_start": 19,
+      "locator": "tests/test_budget.py::SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap",
+      "symbol": "SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "function",
+      "line_end": 17,
+      "line_start": 10,
+      "locator": "tests/test_engine.py::candidate",
+      "symbol": "candidate"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "class",
+      "line_end": 30,
+      "line_start": 20,
+      "locator": "tests/test_engine.py::FakeProvider",
+      "symbol": "FakeProvider"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "method",
+      "line_end": 23,
+      "line_start": 21,
+      "locator": "tests/test_engine.py::FakeProvider.__init__",
+      "symbol": "FakeProvider.__init__"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "method",
+      "line_end": 30,
+      "line_start": 25,
+      "locator": "tests/test_engine.py::FakeProvider.search",
+      "symbol": "FakeProvider.search"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "class",
+      "line_end": 39,
+      "line_start": 33,
+      "locator": "tests/test_engine.py::FailingProvider",
+      "symbol": "FailingProvider"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "method",
+      "line_end": 35,
+      "line_start": 34,
+      "locator": "tests/test_engine.py::FailingProvider.__init__",
+      "symbol": "FailingProvider.__init__"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "method",
+      "line_end": 39,
+      "line_start": 37,
+      "locator": "tests/test_engine.py::FailingProvider.search",
+      "symbol": "FailingProvider.search"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "class",
+      "line_end": 114,
+      "line_start": 42,
+      "locator": "tests/test_engine.py::GroundingEngineTests",
+      "symbol": "GroundingEngineTests"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "method",
+      "line_end": 51,
+      "line_start": 43,
+      "locator": "tests/test_engine.py::GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient",
+      "symbol": "GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "method",
+      "line_end": 70,
+      "line_start": 53,
+      "locator": "tests/test_engine.py::GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency",
+      "symbol": "GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "method",
+      "line_end": 79,
+      "line_start": 72,
+      "locator": "tests/test_engine.py::GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted",
+      "symbol": "GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "method",
+      "line_end": 89,
+      "line_start": 81,
+      "locator": "tests/test_engine.py::GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop",
+      "symbol": "GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "method",
+      "line_end": 97,
+      "line_start": 91,
+      "locator": "tests/test_engine.py::GroundingEngineTests.test_invalid_request_never_calls_provider",
+      "symbol": "GroundingEngineTests.test_invalid_request_never_calls_provider"
+    },
+    {
+      "file": "tests/test_engine.py",
+      "kind": "method",
+      "line_end": 114,
+      "line_start": 99,
+      "locator": "tests/test_engine.py::GroundingEngineTests.test_provider_receives_bounded_round_metadata",
+      "symbol": "GroundingEngineTests.test_provider_receives_bounded_round_metadata"
+    },
+    {
+      "file": "tests/test_evidence.py",
+      "kind": "class",
+      "line_end": 50,
+      "line_start": 9,
+      "locator": "tests/test_evidence.py::EvidenceNormalizationTests",
+      "symbol": "EvidenceNormalizationTests"
+    },
+    {
+      "file": "tests/test_evidence.py",
+      "kind": "method",
+      "line_end": 31,
+      "line_start": 10,
+      "locator": "tests/test_evidence.py::EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash",
+      "symbol": "EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash"
+    },
+    {
+      "file": "tests/test_evidence.py",
+      "kind": "method",
+      "line_end": 50,
+      "line_start": 33,
+      "locator": "tests/test_evidence.py::EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded",
+      "symbol": "EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded"
+    },
+    {
+      "file": "tests/test_policy.py",
+      "kind": "class",
+      "line_end": 43,
+      "line_start": 10,
+      "locator": "tests/test_policy.py::GroundingPolicyTests",
+      "symbol": "GroundingPolicyTests"
+    },
+    {
+      "file": "tests/test_policy.py",
+      "kind": "method",
+      "line_end": 12,
+      "line_start": 11,
+      "locator": "tests/test_policy.py::GroundingPolicyTests.setUp",
+      "symbol": "GroundingPolicyTests.setUp"
+    },
+    {
+      "file": "tests/test_policy.py",
+      "kind": "method",
+      "line_end": 16,
+      "line_start": 14,
+      "locator": "tests/test_policy.py::GroundingPolicyTests.test_rejects_blank_query",
+      "symbol": "GroundingPolicyTests.test_rejects_blank_query"
+    },
+    {
+      "file": "tests/test_policy.py",
+      "kind": "method",
+      "line_end": 22,
+      "line_start": 18,
+      "locator": "tests/test_policy.py::GroundingPolicyTests.test_rejects_more_than_two_search_rounds",
+      "symbol": "GroundingPolicyTests.test_rejects_more_than_two_search_rounds"
+    },
+    {
+      "file": "tests/test_policy.py",
+      "kind": "method",
+      "line_end": 33,
+      "line_start": 24,
+      "locator": "tests/test_policy.py::GroundingPolicyTests.test_normalizes_query_and_locale",
+      "symbol": "GroundingPolicyTests.test_normalizes_query_and_locale"
+    },
+    {
+      "file": "tests/test_policy.py",
+      "kind": "method",
+      "line_end": 43,
+      "line_start": 35,
+      "locator": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
+      "symbol": "GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits"
     }
   ],
   "schema_version": 1,
-  "source_digest": "b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a",
+  "source_digest": "f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897",
   "source_summary": {
-    "files": 2,
+    "files": 14,
     "languages": {
-      "Python": 2
+      "Python": 14
     },
-    "lines": 39,
-    "test_files": 1
+    "lines": 632,
+    "test_files": 5
   },
   "tests": [
-    "tests/test_bootstrap.py"
+    "tests/test_bootstrap.py",
+    "tests/test_budget.py",
+    "tests/test_engine.py",
+    "tests/test_evidence.py",
+    "tests/test_policy.py"
   ]
 }

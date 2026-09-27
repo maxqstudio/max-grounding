@@ -1,0 +1,246 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [
+    {
+      "action": "SearchBudgetExceeded",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/budget.py::SearchBudget.consume_search_call",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::SearchBudgetExceeded"
+    },
+    {
+      "action": "SearchBudget",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/budget.py::SearchBudget"
+    },
+    {
+      "action": "budget.consume_search_call",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/budget.py::SearchBudget.consume_search_call"
+    },
+    {
+      "action": "build_evidence_pack",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence.py::build_evidence_pack"
+    },
+    {
+      "action": "normalize_candidates",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence.py::normalize_candidates"
+    },
+    {
+      "action": "SearchQuery",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::SearchQuery"
+    },
+    {
+      "action": "self._policy.validate_request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/policy.py::GroundingPolicy.validate_request"
+    },
+    {
+      "action": "invoke_search",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/base.py::invoke_search"
+    },
+    {
+      "action": "EvidencePack",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence.py::build_evidence_pack",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::EvidencePack"
+    },
+    {
+      "action": "canonicalize_url",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence.py::normalize_candidates",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence.py::canonicalize_url"
+    },
+    {
+      "action": "EvidenceSource",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence.py::normalize_candidates",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::EvidenceSource"
+    },
+    {
+      "action": "InvalidGroundingRequest",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "action": "provider.search",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/base.py::invoke_search",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/base.py::SearchProvider.search"
+    }
+  ],
+  "entries": [
+    "src/max_grounding/engine.py::GroundingEngine.ground"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/budget.py::SearchBudget",
+      "kind": "class",
+      "label": "src/max_grounding/budget.py::SearchBudget",
+      "language": "Python",
+      "line_end": 30,
+      "line_start": 13,
+      "locator": "src/max_grounding/budget.py::SearchBudget"
+    },
+    {
+      "id": "src/max_grounding/budget.py::SearchBudget.consume_search_call",
+      "kind": "method",
+      "label": "src/max_grounding/budget.py::SearchBudget.consume_search_call",
+      "language": "Python",
+      "line_end": 30,
+      "line_start": 27,
+      "locator": "src/max_grounding/budget.py::SearchBudget.consume_search_call"
+    },
+    {
+      "id": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "kind": "method",
+      "label": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "language": "Python",
+      "line_end": 57,
+      "line_start": 24,
+      "locator": "src/max_grounding/engine.py::GroundingEngine.ground"
+    },
+    {
+      "id": "src/max_grounding/errors.py::InvalidGroundingRequest",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::InvalidGroundingRequest",
+      "language": "Python",
+      "line_end": 9,
+      "line_start": 8,
+      "locator": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "id": "src/max_grounding/errors.py::SearchBudgetExceeded",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::SearchBudgetExceeded",
+      "language": "Python",
+      "line_end": 13,
+      "line_start": 12,
+      "locator": "src/max_grounding/errors.py::SearchBudgetExceeded"
+    },
+    {
+      "id": "src/max_grounding/evidence.py::build_evidence_pack",
+      "kind": "function",
+      "label": "src/max_grounding/evidence.py::build_evidence_pack",
+      "language": "Python",
+      "line_end": 97,
+      "line_start": 73,
+      "locator": "src/max_grounding/evidence.py::build_evidence_pack"
+    },
+    {
+      "id": "src/max_grounding/evidence.py::canonicalize_url",
+      "kind": "function",
+      "label": "src/max_grounding/evidence.py::canonicalize_url",
+      "language": "Python",
+      "line_end": 46,
+      "line_start": 17,
+      "locator": "src/max_grounding/evidence.py::canonicalize_url"
+    },
+    {
+      "id": "src/max_grounding/evidence.py::normalize_candidates",
+      "kind": "function",
+      "label": "src/max_grounding/evidence.py::normalize_candidates",
+      "language": "Python",
+      "line_end": 70,
+      "line_start": 49,
+      "locator": "src/max_grounding/evidence.py::normalize_candidates"
+    },
+    {
+      "id": "src/max_grounding/models.py::EvidencePack",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::EvidencePack",
+      "language": "Python",
+      "line_end": 73,
+      "line_start": 66,
+      "locator": "src/max_grounding/models.py::EvidencePack"
+    },
+    {
+      "id": "src/max_grounding/models.py::EvidenceSource",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::EvidenceSource",
+      "language": "Python",
+      "line_end": 62,
+      "line_start": 54,
+      "locator": "src/max_grounding/models.py::EvidenceSource"
+    },
+    {
+      "id": "src/max_grounding/models.py::SearchQuery",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::SearchQuery",
+      "language": "Python",
+      "line_end": 39,
+      "line_start": 31,
+      "locator": "src/max_grounding/models.py::SearchQuery"
+    },
+    {
+      "id": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "kind": "method",
+      "label": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "language": "Python",
+      "line_end": 51,
+      "line_start": 18,
+      "locator": "src/max_grounding/policy.py::GroundingPolicy.validate_request"
+    },
+    {
+      "id": "src/max_grounding/providers/base.py::SearchProvider.search",
+      "kind": "method",
+      "label": "src/max_grounding/providers/base.py::SearchProvider.search",
+      "language": "Python",
+      "line_end": 15,
+      "line_start": 13,
+      "locator": "src/max_grounding/providers/base.py::SearchProvider.search"
+    },
+    {
+      "id": "src/max_grounding/providers/base.py::invoke_search",
+      "kind": "function",
+      "label": "src/max_grounding/providers/base.py::invoke_search",
+      "language": "Python",
+      "line_end": 23,
+      "line_start": 18,
+      "locator": "src/max_grounding/providers/base.py::invoke_search"
+    }
+  ],
+  "observed_head": "fd5dfab7cc8cfe3c065512a3ac4424023ecfb6df",
+  "schema_version": 1,
+  "source_digest": "f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897"
+}

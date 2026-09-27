@@ -4,5 +4,6 @@
 
 1. unit-tests — python -m unittest discover -s tests -v — expected: all tests PASS
 2. compile — python -m compileall -q src tests .workflow/tools — expected: exit code 0
-3. docs-sync — python .workflow/tools/sync_project_truth.py — expected: PROJECT_DOCS_SYNC=PASS
-4. strict-truth — python .workflow/tools/validate_project_truth.py — expected: result PASS
+3. sequence — python .workflow/tools/validate_sequence_sessions.py — expected: SEQUENCE_SYNC PASS
+4. docs-sync — python .workflow/tools/sync_project_truth.py — expected: PROJECT_DOCS_SYNC=PASS
+5. strict-truth — python .workflow/tools/validate_project_truth.py — expected: result PASS

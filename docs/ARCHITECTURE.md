@@ -2,32 +2,39 @@
 
 # ARCHITECTURE
 
-Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
+Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 
 ## Components
 
 | ID | Component | Purpose | Owns | Depends On |
 |---|---|---|---|---|
-| core-package | Core Python Package | Portable package boundary for grounding functionality. | public Python package identity |  |
-| governance | Project Truth Governance | Deterministically projects project state and traceability. | docs projection, truth validation | core-package |
-| ci | GitHub Actions Acceptance | Executes cross-platform tests and governance gates. | phase acceptance evidence | core-package, governance |
+| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus |  |
+| policy | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
+| budget | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
+| provider-boundary | Search Provider Boundary | Expose one deterministic provider invocation without implementing live network access in Phase 1. | SearchProvider protocol, invoke_search | models |
+| evidence | Evidence Normalization | Canonicalize HTTP(S) URLs, deduplicate sources, and classify evidence fail-closed. | canonical URLs, evidence sufficiency classification | models |
+| engine | Grounding Engine | Orchestrate validation, bounded search calls, evidence normalization, and fail-closed output. | grounding flow | policy, budget, provider-boundary, evidence |
 
 ## Data flow
 
-- tracked source/specs -> Project Truth Compiler: deterministic source and semantic facts
-- Project Truth Compiler -> docs/: generated human-facing project documentation
-- candidate commit -> GitHub Actions: cross-platform test and acceptance evidence
+- GroundingRequest -> GroundingPolicy: untrusted caller intent is normalized and bounded
+- GroundingPolicy -> GroundingEngine: validated immutable request
+- GroundingEngine -> SearchBudget: consume one call before each provider invocation
+- GroundingEngine -> Search Provider Boundary: provider receives normalized SearchQuery
+- Search Provider Boundary -> Evidence Normalization: untrusted source candidates
+- Evidence Normalization -> GroundingEngine: unique normalized HTTP(S) evidence
+- GroundingEngine -> EvidencePack: grounded or fail-closed result
 
 ## External boundaries
 
-- GitHub-hosted runners: External execution environments for cross-platform acceptance.
-- Application network retrieval: Not implemented in Phase 0.
+- SearchProvider implementation: Provider output is untrusted; Phase 1 supplies only a protocol and tests with deterministic fakes.
+- GitHub-hosted runners: Cross-platform acceptance authority for Python 3.11-3.14 on Linux, Windows, and macOS.
 
 ## Observed implementation inventory
 
-Source files: 2
-Source lines: 39
-Languages: Python=2
+Source files: 14
+Source lines: 632
+Languages: Python=14
 
 Structural facts come from the code extractor. Component meaning comes from
 .workflow/architecture.json.

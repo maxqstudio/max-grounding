@@ -4,4 +4,6 @@
 
 | Data / Artifact | Source of truth | Mutability | Legal writes | Retention | Invariants |
 |---|---|---|---|---|---|
-| ProjectIdentity | src/max_grounding/__init__.py::project_identity | immutable within a release | governed source change in an accepted phase | source-controlled release history | name remains max-grounding; cross_platform remains true while three-OS acceptance is required |
+| GroundingRequest | src/max_grounding/models.py::GroundingRequest | immutable | caller construction before validation | request lifetime | max_search_rounds is validated to 1..2; results_per_call is validated to 1..10; min_evidence_sources is at least 1 |
+| EvidencePack | src/max_grounding/models.py::EvidencePack | immutable | GroundingEngine.ground result construction | caller-defined after return | GROUNDED requires minimum unique evidence sources; provider error before sufficiency is PROVIDER_ERROR; budget exhaustion without sufficiency is INSUFFICIENT_EVIDENCE |
+| Canonical source URL | src/max_grounding/evidence.py::canonicalize_url | derived | evidence normalization | evidence-pack lifetime | only http and https are accepted; credentials are rejected; fragments do not distinguish sources; duplicate canonical URLs count once |

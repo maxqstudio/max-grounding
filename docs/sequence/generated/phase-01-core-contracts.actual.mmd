@@ -1,0 +1,32 @@
+%% GENERATED FILE - DO NOT EDIT
+%% SOURCE_DIGEST: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
+%% OBSERVED_HEAD: fd5dfab7cc8cfe3c065512a3ac4424023ecfb6df
+%% GENERATED_BY: generate_sequence_actual.py
+sequenceDiagram
+    participant src_max_grounding_budget_py__SearchBudget_0 as src/max_grounding/budget.py::SearchBudget
+    participant src_max_grounding_budget_py__SearchBudget_consume_search_call_1 as src/max_grounding/budget.py::SearchBudget.consume_search_call
+    participant src_max_grounding_engine_py__GroundingEngine_ground_2 as src/max_grounding/engine.py::GroundingEngine.ground
+    participant src_max_grounding_errors_py__InvalidGroundingRequest_3 as src/max_grounding/errors.py::InvalidGroundingRequest
+    participant src_max_grounding_errors_py__SearchBudgetExceeded_4 as src/max_grounding/errors.py::SearchBudgetExceeded
+    participant src_max_grounding_evidence_py__build_evidence_pack_5 as src/max_grounding/evidence.py::build_evidence_pack
+    participant src_max_grounding_evidence_py__canonicalize_url_6 as src/max_grounding/evidence.py::canonicalize_url
+    participant src_max_grounding_evidence_py__normalize_candidates_7 as src/max_grounding/evidence.py::normalize_candidates
+    participant src_max_grounding_models_py__EvidencePack_8 as src/max_grounding/models.py::EvidencePack
+    participant src_max_grounding_models_py__EvidenceSource_9 as src/max_grounding/models.py::EvidenceSource
+    participant src_max_grounding_models_py__SearchQuery_10 as src/max_grounding/models.py::SearchQuery
+    participant src_max_grounding_policy_py__GroundingPolicy_validate_request_11 as src/max_grounding/policy.py::GroundingPolicy.validate_request
+    participant src_max_grounding_providers_base_py__SearchProvider_search_12 as src/max_grounding/providers/base.py::SearchProvider.search
+    participant src_max_grounding_providers_base_py__invoke_search_13 as src/max_grounding/providers/base.py::invoke_search
+    src_max_grounding_budget_py__SearchBudget_consume_search_call_1->>src_max_grounding_errors_py__SearchBudgetExceeded_4: SearchBudgetExceeded [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_budget_py__SearchBudget_0: SearchBudget [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_budget_py__SearchBudget_consume_search_call_1: budget.consume_search_call [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_evidence_py__build_evidence_pack_5: build_evidence_pack [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_evidence_py__normalize_candidates_7: normalize_candidates [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_models_py__SearchQuery_10: SearchQuery [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_policy_py__GroundingPolicy_validate_request_11: self._policy.validate_request [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_providers_base_py__invoke_search_13: invoke_search [STATIC]
+    src_max_grounding_evidence_py__build_evidence_pack_5->>src_max_grounding_models_py__EvidencePack_8: EvidencePack [STATIC]
+    src_max_grounding_evidence_py__normalize_candidates_7->>src_max_grounding_evidence_py__canonicalize_url_6: canonicalize_url [STATIC]
+    src_max_grounding_evidence_py__normalize_candidates_7->>src_max_grounding_models_py__EvidenceSource_9: EvidenceSource [STATIC]
+    src_max_grounding_policy_py__GroundingPolicy_validate_request_11->>src_max_grounding_errors_py__InvalidGroundingRequest_3: InvalidGroundingRequest [STATIC]
+    src_max_grounding_providers_base_py__invoke_search_13->>src_max_grounding_providers_base_py__SearchProvider_search_12: provider.search [STATIC]

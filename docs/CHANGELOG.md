@@ -7,3 +7,9 @@
 Type: change
 
 - None declared.
+
+## 2026-09-27 —
+
+Type: change
+
+- None declared.

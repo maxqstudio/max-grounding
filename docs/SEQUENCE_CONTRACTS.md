@@ -16,8 +16,8 @@ Status: CURRENT
 
 | Flow | Mode | Critical | Sequence session | Status |
 |---|---|---|---|---|
-| FLOW-GROUND-REQUEST | BEFORE | YES | docs/sequence/sessions/phase-01-core-contracts.json | NOT_PROVEN |
-| FLOW-PHASE-DELIVERY | BEFORE | YES | docs/sequence/sessions/phase-00-bootstrap.json | NOT_PROVEN |
+| FLOW-GROUND-REQUEST | BEFORE | YES | docs/sequence/sessions/phase-01-core-contracts.json | PASS |
+| FLOW-PHASE-DELIVERY | BEFORE | YES | docs/sequence/sessions/phase-00-bootstrap.json | PASS |
 
 ## Mismatch handling
 

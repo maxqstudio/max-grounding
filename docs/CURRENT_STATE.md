@@ -8,7 +8,7 @@ Governance profile: strict
 
 ## Current phase
 Phase: PHASE_01_GROUNDING_CORE_CONTRACTS
-Status: PLAN_FREEZE_IN_PROGRESS
+Status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 ## Source
 Repository: maxqstudio/max-grounding
@@ -16,11 +16,11 @@ Branch: work/phase-01-core-contracts
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: fc655d5191c5b35186be7da7c0fb8a08ad0f09a4
 Current candidate SHA: external final acceptance evidence
-Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
+Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
-Runtime status: NOT_PROVEN
+Runtime status: PASS
 
 ## Documentation governance
 Documentation root: docs/
@@ -34,17 +34,16 @@ PROJECT_DOCS_SYNC: PASS
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
 Current sequence session: docs/sequence/sessions/phase-01-core-contracts.json
-SEQUENCE_SYNC: NOT_PROVEN
+SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 0 accepted baseline is available at main SHA fc655d5191c5b35186be7da7c0fb8a08ad0f09a4.
-- GitHub Actions is the acceptance authority.
-- The Phase 1 plan is being frozen before any Phase 1 product source implementation.
+- Phase 1 BEFORE plan is frozen at c939a9128c078f99ab6bbf76fae161d52790e5de with SHA-256 809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15.
+- TDD RED was observed on GitHub Actions before implementation.
+- Phase 1 unit tests are GREEN on the implementation branch.
 
 ## Not proven
-- Phase 1 GroundingRequest and EvidencePack contracts are not implemented yet.
-- The hard maximum of two search calls per request is not implemented yet.
-- Fail-closed insufficient-evidence behavior is not implemented yet.
+- Final Phase 1 candidate is not accepted until full GitHub Actions matrix and STRICT governance pass on the exact PR head.
+- Live network search/fetch/crawl and downstream retrieval/reranking remain outside Phase 1.
 
 ## Known blockers
 - None declared.
@@ -53,9 +52,10 @@ SEQUENCE_SYNC: NOT_PROVEN
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Freeze the Phase 1 BEFORE sequence plan and generated plan Mermaid.
-- After plan freeze, add failing tests before implementation.
+- Generate actual sequence evidence and compare it to the frozen plan.
+- Synchronize generated governance docs.
+- Run full GitHub Actions PR acceptance; merge only if every required job passes.
 
 ## Explicitly blocked
-- Do not implement Phase 1 product source before the BEFORE plan is frozen.
-- Do not claim live network grounding; network providers are later phases.
+- Do not merge Phase 1 while any required Action is failing or missing.
+- Do not claim live web grounding capability from the Phase 1 core.

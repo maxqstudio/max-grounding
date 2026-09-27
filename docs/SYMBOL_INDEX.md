@@ -3,15 +3,65 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
+Source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
 |---|---|---|---|---|---|---|---|
 | src/max_grounding/__init__.py | project_identity | function | 8-15 | Observed Python symbol | | | |
+| src/max_grounding/budget.py | SearchBudget | class | 13-30 | Observed Python symbol | | | |
+| src/max_grounding/budget.py | SearchBudget.__post_init__ | method | 19-21 | Observed Python symbol | | | |
+| src/max_grounding/budget.py | SearchBudget.remaining | method | 24-25 | Observed Python symbol | | | |
+| src/max_grounding/budget.py | SearchBudget.consume_search_call | method | 27-30 | Observed Python symbol | | | |
+| src/max_grounding/engine.py | GroundingEngine | class | 12-57 | Observed Python symbol | | | |
+| src/max_grounding/engine.py | GroundingEngine.__init__ | method | 15-22 | Observed Python symbol | | | |
+| src/max_grounding/engine.py | GroundingEngine.ground | method | 24-57 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | GroundingError | class | 4-5 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | InvalidGroundingRequest | class | 8-9 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | SearchBudgetExceeded | class | 12-13 | Observed Python symbol | | | |
+| src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
+| src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
+| src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceStatus | class | 9-14 | Observed Python symbol | | | |
+| src/max_grounding/models.py | GroundingRequest | class | 18-27 | Observed Python symbol | | | |
+| src/max_grounding/models.py | SearchQuery | class | 31-39 | Observed Python symbol | | | |
+| src/max_grounding/models.py | SourceCandidate | class | 43-50 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceSource | class | 54-62 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidencePack | class | 66-73 | Observed Python symbol | | | |
+| src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
+| src/max_grounding/policy.py | GroundingPolicy.validate_request | method | 18-51 | Observed Python symbol | | | |
+| src/max_grounding/providers/base.py | SearchProvider | class | 10-15 | Observed Python symbol | | | |
+| src/max_grounding/providers/base.py | SearchProvider.search | method | 13-15 | Observed Python symbol | | | |
+| src/max_grounding/providers/base.py | invoke_search | function | 18-23 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests | class | 10-20 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_project_identity_is_stable_and_cross_platform | method | 11-16 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_runtime_uses_supported_python | method | 18-20 | Observed Python symbol | | | |
+| tests/test_budget.py | SearchBudgetTests | class | 9-21 | Observed Python symbol | | | |
+| tests/test_budget.py | SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected | method | 10-17 | Observed Python symbol | | | |
+| tests/test_budget.py | SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap | method | 19-21 | Observed Python symbol | | | |
+| tests/test_engine.py | candidate | function | 10-17 | Observed Python symbol | | | |
+| tests/test_engine.py | FakeProvider | class | 20-30 | Observed Python symbol | | | |
+| tests/test_engine.py | FakeProvider.__init__ | method | 21-23 | Observed Python symbol | | | |
+| tests/test_engine.py | FakeProvider.search | method | 25-30 | Observed Python symbol | | | |
+| tests/test_engine.py | FailingProvider | class | 33-39 | Observed Python symbol | | | |
+| tests/test_engine.py | FailingProvider.__init__ | method | 34-35 | Observed Python symbol | | | |
+| tests/test_engine.py | FailingProvider.search | method | 37-39 | Observed Python symbol | | | |
+| tests/test_engine.py | GroundingEngineTests | class | 42-114 | Observed Python symbol | | | |
+| tests/test_engine.py | GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient | method | 43-51 | Observed Python symbol | | | |
+| tests/test_engine.py | GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency | method | 53-70 | Observed Python symbol | | | |
+| tests/test_engine.py | GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted | method | 72-79 | Observed Python symbol | | | |
+| tests/test_engine.py | GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop | method | 81-89 | Observed Python symbol | | | |
+| tests/test_engine.py | GroundingEngineTests.test_invalid_request_never_calls_provider | method | 91-97 | Observed Python symbol | | | |
+| tests/test_engine.py | GroundingEngineTests.test_provider_receives_bounded_round_metadata | method | 99-114 | Observed Python symbol | | | |
+| tests/test_evidence.py | EvidenceNormalizationTests | class | 9-50 | Observed Python symbol | | | |
+| tests/test_evidence.py | EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash | method | 10-31 | Observed Python symbol | | | |
+| tests/test_evidence.py | EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded | method | 33-50 | Observed Python symbol | | | |
+| tests/test_policy.py | GroundingPolicyTests | class | 10-43 | Observed Python symbol | | | |
+| tests/test_policy.py | GroundingPolicyTests.setUp | method | 11-12 | Observed Python symbol | | | |
+| tests/test_policy.py | GroundingPolicyTests.test_rejects_blank_query | method | 14-16 | Observed Python symbol | | | |
+| tests/test_policy.py | GroundingPolicyTests.test_rejects_more_than_two_search_rounds | method | 18-22 | Observed Python symbol | | | |
+| tests/test_policy.py | GroundingPolicyTests.test_normalizes_query_and_locale | method | 24-33 | Observed Python symbol | | | |
+| tests/test_policy.py | GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits | method | 35-43 | Observed Python symbol | | | |
 
 ## Coverage
 
