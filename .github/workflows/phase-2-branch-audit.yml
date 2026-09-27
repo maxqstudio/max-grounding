@@ -1,0 +1,54 @@
+name: Phase 2 Branch Audit
+
+on:
+  push:
+    branches:
+      - work/phase-02-searxng-provider
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Install candidate
+        run: python -m pip install .
+      - name: Source tests
+        run: |
+          python -m unittest discover -s tests -v
+          python -m compileall -q src tests .workflow/tools
+      - name: Verify generated truth is synchronized
+        run: |
+          python .workflow/tools/sync_project_truth.py
+          git diff --exit-code
+      - name: Validate STRICT project governance
+        shell: bash
+        run: |
+          python .workflow/tools/validate_project_docs.py
+          python .workflow/tools/validate_doc_quality.py
+          python .workflow/tools/validate_handoff.py
+          python .workflow/tools/validate_human_comprehension.py --require-pass
+          python .workflow/tools/validate_sequence_sessions.py
+          BASE=$(python -c "import json; print(json.load(open('.workflow/state.json', encoding='utf-8'))['last_accepted_sha'])")
+          python .workflow/tools/validate_cross_document_consistency.py --base "$BASE" --require-base
+          python .workflow/tools/validate_project_truth.py
+          test -z "$(git status --porcelain)"
+      - name: Checkout pinned Skill Workflow authority
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          repository: maxqstudio/Skill_Workflow
+          ref: 9e22feddb8f94e8c0f1af6a33e14b64de5068f8f
+          path: .skill-workflow-authority
+          persist-credentials: false
+      - name: Self-test pinned STRICT workflow authority
+        run: python .skill-workflow-authority/scripts/selftest_strict_project_workflow.py
