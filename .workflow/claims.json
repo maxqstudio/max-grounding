@@ -43,9 +43,9 @@
         "PROJECT_TRUTH_SYNC.md"
       ],
       "source_owners": [
-        "src/max_grounding/policy.py::GroundingPolicy.validate_request",
-        "src/max_grounding/budget.py::SearchBudget.consume_search_call",
-        "src/max_grounding/engine.py::GroundingEngine.ground"
+        "src/max_grounding/policy.py::validate_request",
+        "src/max_grounding/budget.py::consume_search_call",
+        "src/max_grounding/engine.py::ground"
       ],
       "tests": [
         "tests/test_policy.py",
@@ -64,7 +64,7 @@
         "PROJECT_TRUTH_SYNC.md"
       ],
       "source_owners": [
-        "src/max_grounding/engine.py::GroundingEngine.ground",
+        "src/max_grounding/engine.py::ground",
         "src/max_grounding/evidence.py::build_evidence_pack"
       ],
       "tests": [
