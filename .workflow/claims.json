@@ -93,6 +93,61 @@
         ".github/workflows/ci.yml"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P2-SEARXNG-001",
+      "claim": "SearxngProvider keeps the configured SearXNG authority fixed, requests JSON search output, bounds response bytes, rejects redirects, validates result shape, and emits SourceCandidate values.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/providers/searxng.py::search",
+        "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+        "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+        "src/max_grounding/providers/searxng.py::parse_searxng_results"
+      ],
+      "tests": [
+        "tests/test_searxng_provider.py"
+      ],
+      "runtime_evidence": [
+        ".github/workflows/ci.yml"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P2-RESULT-URL-001",
+      "claim": "SearXNG result URLs using credentials, unsupported schemes, localhost names, ambiguous numeric host spellings, or literal non-public/multicast IP targets are rejected before SourceCandidate admission.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/network_policy.py::is_admissible_result_url"
+      ],
+      "tests": [
+        "tests/test_network_policy.py",
+        "tests/test_searxng_provider.py"
+      ],
+      "runtime_evidence": [
+        ".github/workflows/ci.yml"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P2-BOUNDARY-001",
+      "claim": "Phase 2 does not claim DNS-rebinding protection or page-fetch safety because result pages are not fetched in this phase.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/network_policy.py::is_admissible_result_url"
+      ],
+      "tests": [
+        "tests/test_network_policy.py"
+      ],
+      "runtime_evidence": [
+        "NOT_APPLICABLE"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []
