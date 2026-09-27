@@ -13,7 +13,7 @@
       "method": "PYTHON",
       "path": "GroundingEngine.ground(request)",
       "purpose": "Produce a bounded evidence pack from one grounding request.",
-      "authority": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "authority": "src/max_grounding/engine.py::ground",
       "mutation": "in-memory request budget only",
       "error_behavior": "Invalid requests raise before provider access; provider failures return PROVIDER_ERROR evidence status."
     },
