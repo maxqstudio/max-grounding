@@ -64,7 +64,14 @@ jobs:
           BASE=$(python -c "import json; print(json.load(open('.workflow/state.json', encoding='utf-8'))['last_accepted_sha'])")
           python .workflow/tools/validate_cross_document_consistency.py --base "$BASE" --require-base
           python .workflow/tools/validate_project_truth.py
-      - name: Self-test vendored STRICT workflow
-        run: python .workflow/tools/selftest_strict_project_workflow.py
+      - name: Checkout pinned Skill Workflow authority
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          repository: maxqstudio/Skill_Workflow
+          ref: 9e22feddb8f94e8c0f1af6a33e14b64de5068f8f
+          path: .skill-workflow-authority
+          persist-credentials: false
+      - name: Self-test pinned STRICT workflow authority
+        run: python .skill-workflow-authority/scripts/selftest_strict_project_workflow.py
       - name: Require clean final worktree
         run: test -z "$(git status --porcelain)"
