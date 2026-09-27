@@ -5,14 +5,14 @@
   "mode": "BEFORE",
   "scope": "CURRENT",
   "critical": true,
-  "status": "PLANNED",
-  "implementation_base_sha": "",
+  "status": "FROZEN",
+  "implementation_base_sha": "68ab9a0307b57d1c8a162dc3c942e65e86149eb0",
   "plan": {
     "required": true,
     "contract": "docs/sequence/plans/phase-02-searxng-provider.plan.json",
     "frozen": true,
-    "frozen_commit": "",
-    "sha256": "",
+    "frozen_commit": "68ab9a0307b57d1c8a162dc3c942e65e86149eb0",
+    "sha256": "415f0e54a0c1628724f50c22537c4df4f2e280da342524af89be26646d105977",
     "diagram": "docs/sequence/generated/phase-02-searxng-provider.plan.mmd"
   },
   "actual": {
