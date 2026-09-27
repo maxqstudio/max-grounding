@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "phase": "PHASE_01_GROUNDING_CORE_CONTRACTS",
-  "status": "PLAN_FREEZE_IN_PROGRESS",
+  "status": "PLAN_FROZEN_READY_FOR_TDD",
   "working_branch": "work/phase-01-core-contracts",
   "last_accepted_sha": "fc655d5191c5b35186be7da7c0fb8a08ad0f09a4",
   "last_accepted_branch": "main",
   "proven": [
     "Phase 0 accepted baseline is available at main SHA fc655d5191c5b35186be7da7c0fb8a08ad0f09a4.",
-    "GitHub Actions is the acceptance authority.",
-    "The Phase 1 plan is being frozen before any Phase 1 product source implementation."
+    "Phase 1 BEFORE plan is frozen at commit c939a9128c078f99ab6bbf76fae161d52790e5de.",
+    "Phase 1 plan SHA-256 is 809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15."
   ],
   "not_proven": [
     "Phase 1 GroundingRequest and EvidencePack contracts are not implemented yet.",
@@ -17,11 +17,11 @@
   ],
   "blockers": [],
   "next_authorized_actions": [
-    "Freeze the Phase 1 BEFORE sequence plan and generated plan Mermaid.",
-    "After plan freeze, add failing tests before implementation."
+    "Add failing Phase 1 tests for request validation, two-call budget, fail-closed behavior, and evidence deduplication.",
+    "Implement only the minimum source required to make the frozen Phase 1 contract pass."
   ],
   "blocked_actions": [
-    "Do not implement Phase 1 product source before the BEFORE plan is frozen.",
-    "Do not claim live network grounding; network providers are later phases."
+    "Do not modify the frozen Phase 1 plan without explicit PLAN_CHANGE classification.",
+    "Do not add live network providers in Phase 1."
   ]
 }
