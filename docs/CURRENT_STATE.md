@@ -3,18 +3,18 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: 2669e624f86e688f1f709dbf31a4cb198688f85f
+Authority verified at SHA: aba1b1838d649b92e863f19cb96e74799caf388c
 Governance profile: strict
 
 ## Current phase
 Phase: PHASE_00_GOVERNED_CROSS_PLATFORM_BASELINE
-Status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Status: ACCEPTED
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: work/phase-00-governance
+Branch: main
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: 2669e624f86e688f1f709dbf31a4cb198688f85f
+Last accepted SHA: aba1b1838d649b92e863f19cb96e74799caf388c
 Current candidate SHA: external final acceptance evidence
 Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
 
@@ -37,12 +37,14 @@ Current sequence session: docs/sequence/sessions/phase-00-bootstrap.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Repository exists and has an initial main commit.
-- Skill Workflow authority is pinned to the declared upstream commit.
-- Phase 0 candidate contains native Python smoke coverage for Linux, Windows, and macOS.
+- Phase 0 governed baseline is merged to main.
+- GitHub Actions revalidated STRICT governance and the Python core on Ubuntu, Windows, and macOS at main SHA aba1b1838d649b92e863f19cb96e74799caf388c.
+- Skill Workflow authority remains pinned to 9e22feddb8f94e8c0f1af6a33e14b64de5068f8f.
+- Saweria and PayPal funding links are present.
 
 ## Not proven
-- Phase 0 is not accepted until all required GitHub Actions checks pass on the final candidate commit.
+- Live web search and crawling are not implemented in Phase 0.
+- Hybrid retrieval, reranking, claim verification, REST, MCP, and production service deployment are not implemented in Phase 0.
 
 ## Known blockers
 - None declared.
@@ -51,10 +53,9 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Run Phase 0 GitHub Actions acceptance.
-- Merge Phase 0 to main only after all required checks pass.
-- Revalidate merged main, then start Phase 1 retrieval contracts.
+- Start Phase 1 from accepted main.
+- Freeze the Phase 1 BEFORE sequence plan before product implementation.
 
 ## Explicitly blocked
-- Do not claim product grounding capability during Phase 0.
-- Do not merge this phase with failing or missing required checks.
+- Do not claim live grounding capability from the Phase 0 baseline.
+- Do not bypass GitHub Actions acceptance for later phases.

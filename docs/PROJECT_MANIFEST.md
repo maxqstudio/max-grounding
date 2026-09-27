@@ -10,9 +10,9 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: work/phase-00-governance
+Active branch: main
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: 2669e624f86e688f1f709dbf31a4cb198688f85f
+Last accepted SHA: aba1b1838d649b92e863f19cb96e74799caf388c
 Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
 
 ## Authorities
