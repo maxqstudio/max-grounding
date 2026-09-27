@@ -4,17 +4,17 @@
 
 ## Evidence boundary
 
-Phase 1 proves the deterministic in-process grounding core: request normalization, hard two-call search budget, provider boundary, canonical URL deduplication, fail-closed evidence status, frozen-plan sequence conformance, and supported-Python execution through GitHub Actions. It does not prove live web search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, or production deployment.
+Phase 2 planning defines the intended SearXNG live-search provider, bounded HTTP response handling, and conservative admission of untrusted search-result URLs. Implementation and runtime behavior remain NOT_PROVEN until TDD implementation and GitHub Actions acceptance. Phase 2 does not fetch result pages, resolve result hostnames for DNS-rebinding protection, crawl content, embed, rerank, expose REST/MCP, or prove production deployment.
 
 Final tested source: external final acceptance evidence.
 Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P1-BUDGET | A grounding request can consume at most two search-provider calls. | tests/test_policy.py; tests/test_budget.py; tests/test_engine.py | PASS |
-| P1-FAIL-CLOSED | Insufficient or failed retrieval cannot be reported as grounded. | tests/test_engine.py | PASS |
-| P1-DEDUPE | Duplicate canonical source URLs do not inflate evidence sufficiency. | tests/test_evidence.py; tests/test_engine.py | PASS |
-| P1-CROSS-OS | Phase 1 core behavior passes on Python 3.11-3.14 across Linux, Windows, and macOS. | GitHub Actions Acceptance matrix | PASS |
+| P2-SEARXNG | SearXNGProvider sends a bounded JSON search request only to the configured operator-trusted SearXNG endpoint and maps valid results into SourceCandidate values. | tests/test_searxng_provider.py | NOT_PROVEN |
+| P2-RESULT-URL-SAFETY | Search results with unsupported schemes, credentials, localhost names, or literal non-public IP targets are rejected before they can enter evidence. | tests/test_network_policy.py; tests/test_searxng_provider.py | NOT_PROVEN |
+| P2-FAIL-CLOSED-HTTP | Redirects, invalid JSON/schema, oversized responses, HTTP failures, and transport failures cannot fabricate evidence and surface as provider failure. | tests/test_searxng_provider.py; tests/test_engine.py | NOT_PROVEN |
+| P2-CROSS-OS | Phase 2 provider behavior passes on Python 3.11-3.14 across Linux, Windows, and macOS. | GitHub Actions Acceptance matrix | NOT_PROVEN |
 
 ## Test commands
 
@@ -25,13 +25,13 @@ Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be
 
 ## Runtime checks
 
-- Run the complete source suite on Python 3.11, 3.12, 3.13, and 3.14 on Ubuntu, Windows, and macOS GitHub-hosted runners.
+- Run the complete source suite on Python 3.11, 3.12, 3.13, and 3.14 on Ubuntu, Windows, and macOS GitHub-hosted runners using deterministic local HTTP fixtures; do not depend on public search engines.
 
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-01-core-contracts.json
-SEQUENCE_SYNC: PASS
+Sequence session contract: docs/sequence/sessions/phase-02-searxng-provider.json
+SEQUENCE_SYNC: NOT_PROVEN
 
 ## Project Truth Compiler evidence
 

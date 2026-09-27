@@ -74,11 +74,24 @@ Authority: GitHub Actions required checks
 - ACTIONS_PASS -> MERGED_MAIN : merge pull request
 - MERGED_MAIN -> MAIN_REVALIDATED : GitHub Actions revalidate merged main
 
+### FLOW-SEARXNG-SEARCH — SearXNG live search provider
+
+Execute one budgeted search against an operator-configured SearXNG JSON endpoint, bound response handling, reject obviously unsafe result URLs, and return untrusted SourceCandidate values without fetching result pages.
+
+Authority: SearxngProvider transport policy and result URL admission policy
+
+- CONFIGURED -> REQUEST_BUILT : build fixed-endpoint SearXNG JSON request
+- REQUEST_BUILT -> RESPONSE_RECEIVED : perform bounded HTTP request without redirect following
+- RESPONSE_RECEIVED -> RESULTS_VALIDATED : validate status, size, JSON object, and results list
+- RESULTS_VALIDATED -> CANDIDATES_READY : retain only admissible HTTP(S) result URLs and map SourceCandidate values
+- REQUEST_BUILT -> PROVIDER_ERROR : transport or HTTP policy failure
+- RESPONSE_RECEIVED -> PROVIDER_ERROR : response size, media type, JSON, or schema failure
+
 ## Lifecycle and state
 
-Current phase: PHASE_01_GROUNDING_CORE_CONTRACTS
+Current phase: PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER
 
-Current status: ACCEPTED
+Current status: PLAN_FREEZE_IN_PROGRESS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -115,16 +128,18 @@ compiler does not infer them from implementation names.
 - FLOW-GROUND-REQUEST: Invalid requests fail before any provider call.
 - FLOW-GROUND-REQUEST: Provider failure returns a fail-closed evidence status and does not fabricate evidence.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.
+- FLOW-SEARXNG-SEARCH: Transport, redirect, HTTP, media-type, size, JSON, and schema failures raise a controlled provider error.
+- FLOW-SEARXNG-SEARCH: GroundingEngine converts provider failure before evidence sufficiency into fail-closed PROVIDER_ERROR status.
 
 ## Current project state
 
 Next authorized actions:
-- Start Phase 2 from accepted main.
-- Freeze the Phase 2 BEFORE sequence plan before product implementation.
+- Freeze the Phase 2 BEFORE sequence plan and generated plan Mermaid.
+- After plan freeze, add failing tests and obtain TDD RED evidence before implementation.
 
 Blocked actions:
-- Do not claim live web grounding capability from the Phase 1 core.
-- Do not bypass GitHub Actions acceptance or main revalidation for later phases.
+- Do not implement Phase 2 product source before the BEFORE plan is frozen.
+- Do not claim page-fetch SSRF protection, crawling, or extracted-content grounding in Phase 2.
 
 Known blockers:
 - None declared.
@@ -133,14 +148,15 @@ Known blockers:
 
 ### Proven
 
-- Phase 1 bounded grounding core is merged to main at 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.
-- GitHub Actions run 17 revalidated STRICT governance and the Python core on Python 3.11-3.14 across Ubuntu, Windows, and macOS at main SHA 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.
-- Phase 1 BEFORE plan was frozen before implementation and sequence acceptance passed.
-- The deterministic core enforces a hard maximum of two provider calls, canonical URL deduplication, and fail-closed evidence status.
+- Phase 1 is accepted and final main revalidation run 19 passed all 13 required jobs at d99350f5d2222c174d7f5b4d861514bd67fb66b2.
+- GitHub Actions remains the sole acceptance authority.
+- Phase 2 product implementation is blocked until the BEFORE sequence plan is frozen.
 
 ### Not proven
 
-- Live network search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, and production deployment remain outside Phase 1.
+- SearXNG live HTTP search is not implemented yet.
+- Unsafe result URL rejection is not implemented yet.
+- HTTP timeout, response-size, redirect, and JSON/schema failure handling are not implemented yet.
 
 ## Important limitations
 

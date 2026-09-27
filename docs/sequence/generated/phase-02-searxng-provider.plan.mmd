@@ -1,0 +1,13 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 415f0e54a0c1628724f50c22537c4df4f2e280da342524af89be26646d105977
+%% FLOW_ID: FLOW-SEARXNG-SEARCH
+sequenceDiagram
+    participant search_0 as SearxngProvider.search
+    participant build_1 as build_searxng_search_url
+    participant fetch_2 as fetch_searxng_json
+    participant parse_3 as parse_searxng_results
+    participant safe_4 as is_admissible_result_url
+    search_0->>build_1: build fixed-endpoint search request [MUST]
+    search_0->>fetch_2: perform bounded JSON request [MUST]
+    search_0->>parse_3: parse provider results [MUST]
+    parse_3->>safe_4: admit safe result URLs only [MUST]

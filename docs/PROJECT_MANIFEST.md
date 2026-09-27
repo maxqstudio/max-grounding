@@ -10,9 +10,9 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase-02-searxng-provider
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe
+Last accepted SHA: d99350f5d2222c174d7f5b4d861514bd67fb66b2
 Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 
 ## Authorities

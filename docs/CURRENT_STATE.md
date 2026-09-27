@@ -3,24 +3,24 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe
+Authority verified at SHA: d99350f5d2222c174d7f5b4d861514bd67fb66b2
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_01_GROUNDING_CORE_CONTRACTS
-Status: ACCEPTED
+Phase: PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER
+Status: PLAN_FREEZE_IN_PROGRESS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-02-searxng-provider
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe
+Last accepted SHA: d99350f5d2222c174d7f5b4d861514bd67fb66b2
 Current candidate SHA: external final acceptance evidence
 Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
-Runtime status: PASS
+Runtime status: NOT_PROVEN
 
 ## Documentation governance
 Documentation root: docs/
@@ -33,17 +33,18 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-01-core-contracts.json
-SEQUENCE_SYNC: PASS
+Current sequence session: docs/sequence/sessions/phase-02-searxng-provider.json
+SEQUENCE_SYNC: NOT_PROVEN
 
 ## Proven
-- Phase 1 bounded grounding core is merged to main at 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.
-- GitHub Actions run 17 revalidated STRICT governance and the Python core on Python 3.11-3.14 across Ubuntu, Windows, and macOS at main SHA 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.
-- Phase 1 BEFORE plan was frozen before implementation and sequence acceptance passed.
-- The deterministic core enforces a hard maximum of two provider calls, canonical URL deduplication, and fail-closed evidence status.
+- Phase 1 is accepted and final main revalidation run 19 passed all 13 required jobs at d99350f5d2222c174d7f5b4d861514bd67fb66b2.
+- GitHub Actions remains the sole acceptance authority.
+- Phase 2 product implementation is blocked until the BEFORE sequence plan is frozen.
 
 ## Not proven
-- Live network search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, and production deployment remain outside Phase 1.
+- SearXNG live HTTP search is not implemented yet.
+- Unsafe result URL rejection is not implemented yet.
+- HTTP timeout, response-size, redirect, and JSON/schema failure handling are not implemented yet.
 
 ## Known blockers
 - None declared.
@@ -52,9 +53,9 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Start Phase 2 from accepted main.
-- Freeze the Phase 2 BEFORE sequence plan before product implementation.
+- Freeze the Phase 2 BEFORE sequence plan and generated plan Mermaid.
+- After plan freeze, add failing tests and obtain TDD RED evidence before implementation.
 
 ## Explicitly blocked
-- Do not claim live web grounding capability from the Phase 1 core.
-- Do not bypass GitHub Actions acceptance or main revalidation for later phases.
+- Do not implement Phase 2 product source before the BEFORE plan is frozen.
+- Do not claim page-fetch SSRF protection, crawling, or extracted-content grounding in Phase 2.
