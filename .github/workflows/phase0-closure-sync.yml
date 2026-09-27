@@ -1,0 +1,41 @@
+name: Phase 0 closure sync
+
+on:
+  push:
+    branches:
+      - work/phase-00-closure
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout closure branch
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Prove source unchanged
+        run: |
+          python -m pip install .
+          python -m unittest discover -s tests -v
+      - name: Synchronize generated project truth
+        run: python .workflow/tools/sync_project_truth.py
+      - name: Commit generated closure docs
+        shell: bash
+        run: |
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "No generated changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .workflow/acceptance.json .workflow/generated docs
+          git commit -m "docs: generate phase 0 closure state"
+          git push
