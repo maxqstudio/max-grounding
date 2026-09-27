@@ -2,7 +2,7 @@
 
 # ARCHITECTURE
 
-Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
+Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
 
 ## Components
 
@@ -11,9 +11,11 @@ Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be
 | models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus |  |
 | policy | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | budget | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
-| provider-boundary | Search Provider Boundary | Expose one deterministic provider invocation without implementing live network access in Phase 1. | SearchProvider protocol, invoke_search | models |
+| provider-boundary | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
 | evidence | Evidence Normalization | Canonicalize HTTP(S) URLs, deduplicate sources, and classify evidence fail-closed. | canonical URLs, evidence sufficiency classification | models |
 | engine | Grounding Engine | Orchestrate validation, bounded search calls, evidence normalization, and fail-closed output. | grounding flow | policy, budget, provider-boundary, evidence |
+| searxng-provider | SearXNG Provider | Build a fixed-authority JSON search request, perform bounded non-redirecting HTTP, validate response shape, and emit SourceCandidate values. | SearxngProvider, SearXNG request construction, bounded JSON response handling | models, network-policy |
+| network-policy | Result URL Admission Policy | Reject obviously unsafe untrusted search-result URLs before evidence admission without claiming DNS-rebinding protection. | scheme/userinfo validation, localhost rejection, literal non-public IP rejection |  |
 
 ## Data flow
 
@@ -24,17 +26,20 @@ Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be
 - Search Provider Boundary -> Evidence Normalization: untrusted source candidates
 - Evidence Normalization -> GroundingEngine: unique normalized HTTP(S) evidence
 - GroundingEngine -> EvidencePack: grounded or fail-closed result
+- GroundingEngine -> SearXNG Provider: already-budgeted SearchQuery
+- SearXNG Provider -> operator-configured SearXNG instance: bounded GET /search request for JSON output
+- SearXNG Provider -> Result URL Admission Policy: untrusted result URL before SourceCandidate construction
 
 ## External boundaries
 
-- SearchProvider implementation: Provider output is untrusted; Phase 1 supplies only a protocol and tests with deterministic fakes.
+- SearXNG service: Operator config chooses the trusted provider endpoint. Search-result URLs and returned content remain untrusted; Phase 2 does not fetch result pages or resolve their DNS.
 - GitHub-hosted runners: Cross-platform acceptance authority for Python 3.11-3.14 on Linux, Windows, and macOS.
 
 ## Observed implementation inventory
 
-Source files: 14
-Source lines: 632
-Languages: Python=14
+Source files: 18
+Source lines: 1156
+Languages: Python=18
 
 Structural facts come from the code extractor. Component meaning comes from
 .workflow/architecture.json.

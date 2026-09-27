@@ -26,7 +26,7 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 14 files, 1 language categories.
+Observed source inventory: 18 files, 1 language categories.
 
 ## Major components
 
@@ -35,9 +35,11 @@ Observed source inventory: 14 files, 1 language categories.
 | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus |  |
 | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
-| Search Provider Boundary | Expose one deterministic provider invocation without implementing live network access in Phase 1. | SearchProvider protocol, invoke_search | models |
+| Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
 | Evidence Normalization | Canonicalize HTTP(S) URLs, deduplicate sources, and classify evidence fail-closed. | canonical URLs, evidence sufficiency classification | models |
 | Grounding Engine | Orchestrate validation, bounded search calls, evidence normalization, and fail-closed output. | grounding flow | policy, budget, provider-boundary, evidence |
+| SearXNG Provider | Build a fixed-authority JSON search request, perform bounded non-redirecting HTTP, validate response shape, and emit SourceCandidate values. | SearxngProvider, SearXNG request construction, bounded JSON response handling | models, network-policy |
+| Result URL Admission Policy | Reject obviously unsafe untrusted search-result URLs before evidence admission without claiming DNS-rebinding protection. | scheme/userinfo validation, localhost rejection, literal non-public IP rejection |  |
 
 ## Main data flow
 
@@ -48,6 +50,9 @@ Observed source inventory: 14 files, 1 language categories.
 - Search Provider Boundary -> Evidence Normalization: untrusted source candidates
 - Evidence Normalization -> GroundingEngine: unique normalized HTTP(S) evidence
 - GroundingEngine -> EvidencePack: grounded or fail-closed result
+- GroundingEngine -> SearXNG Provider: already-budgeted SearchQuery
+- SearXNG Provider -> operator-configured SearXNG instance: bounded GET /search request for JSON output
+- SearXNG Provider -> Result URL Admission Policy: untrusted result URL before SourceCandidate construction
 
 ## Main user workflows
 
@@ -91,7 +96,7 @@ Authority: SearxngProvider transport policy and result URL admission policy
 
 Current phase: PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER
 
-Current status: PLAN_FREEZE_IN_PROGRESS
+Current status: CANDIDATE
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -134,12 +139,14 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Freeze the Phase 2 BEFORE sequence plan and generated plan Mermaid.
-- After plan freeze, add failing tests and obtain TDD RED evidence before implementation.
+- Generate and validate the Phase 2 actual sequence graph from current source.
+- Synchronize deterministic docs and run STRICT governance.
+- Open the Phase 2 pull request only after branch governance passes.
 
 Blocked actions:
-- Do not implement Phase 2 product source before the BEFORE plan is frozen.
-- Do not claim page-fetch SSRF protection, crawling, or extracted-content grounding in Phase 2.
+- Do not claim page-fetch SSRF protection from result-URL admission alone.
+- Do not merge Phase 2 until final pull-request Acceptance passes all required jobs.
+- Do not close Phase 2 until merged main is revalidated.
 
 Known blockers:
 - None declared.
@@ -148,15 +155,16 @@ Known blockers:
 
 ### Proven
 
-- Phase 1 is accepted and final main revalidation run 19 passed all 13 required jobs at d99350f5d2222c174d7f5b4d861514bd67fb66b2.
-- GitHub Actions remains the sole acceptance authority.
-- Phase 2 product implementation is blocked until the BEFORE sequence plan is frozen.
+- Phase 2 BEFORE plan is frozen at 68ab9a0307b57d1c8a162dc3c942e65e86149eb0 before product implementation.
+- TDD RED run 36327147032 failed for the intended missing Phase 2 modules/types before implementation.
+- Phase 2 GREEN run 36327403347 passed the full suite and compile after implementation and security repair.
+- Phase 2 Cross Platform run 36327480973 passed 12/12 jobs on Python 3.11-3.14 across Ubuntu, Windows, and macOS.
+- SearxngProvider performs bounded JSON HTTP search to an operator-configured trusted endpoint and filters obvious unsafe result URLs before candidate admission.
 
 ### Not proven
 
-- SearXNG live HTTP search is not implemented yet.
-- Unsafe result URL rejection is not implemented yet.
-- HTTP timeout, response-size, redirect, and JSON/schema failure handling are not implemented yet.
+- A specific external SearXNG deployment and its upstream engine availability/ranking quality are not proven by deterministic CI fixtures.
+- Page fetching, DNS-rebinding protection at connection time, crawling, content extraction, embeddings, vector retrieval, reranking, REST, MCP, and production deployment remain outside Phase 2.
 
 ## Important limitations
 

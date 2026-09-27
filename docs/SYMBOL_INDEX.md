@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
+Source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
@@ -19,6 +19,8 @@ Status: CURRENT
 | src/max_grounding/errors.py | GroundingError | class | 4-5 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | InvalidGroundingRequest | class | 8-9 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | SearchBudgetExceeded | class | 12-13 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | SearchProviderError | class | 16-17 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | InvalidProviderConfiguration | class | 20-21 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
@@ -28,11 +30,21 @@ Status: CURRENT
 | src/max_grounding/models.py | SourceCandidate | class | 43-50 | Observed Python symbol | | | |
 | src/max_grounding/models.py | EvidenceSource | class | 54-62 | Observed Python symbol | | | |
 | src/max_grounding/models.py | EvidencePack | class | 66-73 | Observed Python symbol | | | |
+| src/max_grounding/network_policy.py | is_admissible_result_url | function | 14-43 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy.validate_request | method | 18-51 | Observed Python symbol | | | |
 | src/max_grounding/providers/base.py | SearchProvider | class | 10-15 | Observed Python symbol | | | |
 | src/max_grounding/providers/base.py | SearchProvider.search | method | 13-15 | Observed Python symbol | | | |
 | src/max_grounding/providers/base.py | invoke_search | function | 18-23 | Observed Python symbol | | | |
+| src/max_grounding/providers/searxng.py | _NoRedirect | class | 24-28 | Observed Python symbol | | | |
+| src/max_grounding/providers/searxng.py | _NoRedirect.redirect_request | method | 27-28 | Observed Python symbol | | | |
+| src/max_grounding/providers/searxng.py | _normalize_base_url | function | 31-54 | Observed Python symbol | | | |
+| src/max_grounding/providers/searxng.py | build_searxng_search_url | function | 57-74 | Observed Python symbol | | | |
+| src/max_grounding/providers/searxng.py | fetch_searxng_json | function | 77-137 | Observed Python symbol | | | |
+| src/max_grounding/providers/searxng.py | parse_searxng_results | function | 140-178 | Observed Python symbol | | | |
+| src/max_grounding/providers/searxng.py | SearxngProvider | class | 181-220 | Observed Python symbol | | | |
+| src/max_grounding/providers/searxng.py | SearxngProvider.__init__ | method | 184-206 | Observed Python symbol | | | |
+| src/max_grounding/providers/searxng.py | SearxngProvider.search | method | 208-220 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests | class | 10-20 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_project_identity_is_stable_and_cross_platform | method | 11-16 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_runtime_uses_supported_python | method | 18-20 | Observed Python symbol | | | |
@@ -56,12 +68,35 @@ Status: CURRENT
 | tests/test_evidence.py | EvidenceNormalizationTests | class | 9-50 | Observed Python symbol | | | |
 | tests/test_evidence.py | EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash | method | 10-31 | Observed Python symbol | | | |
 | tests/test_evidence.py | EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded | method | 33-50 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests | class | 8-42 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets | method | 9-11 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes | method | 13-16 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_localhost_names | method | 18-20 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets | method | 22-39 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_malformed_ports | method | 41-42 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests | class | 10-43 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.setUp | method | 11-12 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_blank_query | method | 14-16 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_more_than_two_search_rounds | method | 18-22 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_normalizes_query_and_locale | method | 24-33 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits | method | 35-43 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | _ResponseHandler | class | 18-34 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | _ResponseHandler.do_GET | method | 24-31 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | _ResponseHandler.log_message | method | 33-34 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | _Server | class | 37-67 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | _Server.__init__ | method | 38-57 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | _Server.__enter__ | method | 59-62 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | _Server.__exit__ | method | 64-67 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | query | function | 70-78 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | SearxngProviderTests | class | 81-202 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host | method | 82-130 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host.fake_fetch | method | 85-102 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | SearxngProviderTests.test_base_url_rejects_credentials_query_and_fragment | method | 132-142 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | SearxngProviderTests.test_fetch_accepts_bounded_json_object | method | 144-152 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | SearxngProviderTests.test_fetch_rejects_redirects | method | 154-161 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | SearxngProviderTests.test_fetch_rejects_oversized_response_before_json_decode | method | 163-170 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | SearxngProviderTests.test_fetch_rejects_non_json_and_invalid_json | method | 172-185 | Observed Python symbol | | | |
+| tests/test_searxng_provider.py | SearxngProviderTests.test_provider_rejects_invalid_results_schema | method | 187-202 | Observed Python symbol | | | |
 
 ## Coverage
 

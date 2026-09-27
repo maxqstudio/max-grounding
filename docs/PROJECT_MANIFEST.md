@@ -13,7 +13,7 @@ Repository: maxqstudio/max-grounding
 Active branch: work/phase-02-searxng-provider
 Current authoritative SHA: external final acceptance evidence
 Last accepted SHA: d99350f5d2222c174d7f5b4d861514bd67fb66b2
-Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
+Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.
@@ -25,15 +25,16 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 
 ## Technology
 Languages: Python
-Frameworks: Python standard library during Phase 0
-Persistence: none during Phase 0
-External systems: GitHub Actions
+Frameworks: Python standard library
+Persistence: none through Phase 2
+External systems: GitHub Actions, operator-configured SearXNG instance
 
 ## Entry points
 
 | Entry | Path | Purpose |
 |---|---|---|
 | Python package | src/max_grounding/__init__.py | bootstrap runtime identity and package boundary |
+| SearXNG provider | src/max_grounding/providers/searxng.py | bounded live HTTP search against a trusted self-hosted SearXNG endpoint |
 
 ## Critical directories
 

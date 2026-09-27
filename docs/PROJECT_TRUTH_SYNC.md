@@ -11,24 +11,24 @@ HEAD is recorded externally after the commit exists.
 
 | Gate | Status | Evidence / Notes |
 |---|---|---|
-| SOURCE_TESTS | NOT_PROVEN | |
-| RUNTIME_E2E | NOT_PROVEN | |
+| SOURCE_TESTS | PASS | |
+| RUNTIME_E2E | PASS | |
 | PROVENANCE_SYNC | PASS | |
 | REFERENCE_SYNC | PASS | |
-| STRUCTURAL_SYNC | NOT_PROVEN | |
-| SEMANTIC_SYNC | NOT_PROVEN | |
-| BEHAVIORAL_SYNC | NOT_PROVEN | |
-| CROSS_DOCUMENT_CONSISTENCY | NOT_PROVEN | |
+| STRUCTURAL_SYNC | PASS | |
+| SEMANTIC_SYNC | PASS | |
+| BEHAVIORAL_SYNC | PASS | |
+| CROSS_DOCUMENT_CONSISTENCY | PASS | |
 | HUMAN_COMPREHENSION | PASS | |
-| SEQUENCE_SYNC | NOT_PROVEN | |
+| SEQUENCE_SYNC | PASS | |
 | DOC_LAYOUT | PASS | |
 | PROJECT_DOCS_NORMALIZED | PASS | |
 | DOC_READABILITY | PASS | |
 | PROJECT_DOCS_SYNC | PASS | |
-| DOC_SOURCE_TRACEABILITY | NOT_PROVEN | |
-| DOC_TEST_TRACEABILITY | NOT_PROVEN | |
-| TEST_RUNTIME_TRACEABILITY | NOT_PROVEN | |
-| PROJECT_STATE_SYNC | NOT_PROVEN | |
+| DOC_SOURCE_TRACEABILITY | PASS | |
+| DOC_TEST_TRACEABILITY | PASS | |
+| TEST_RUNTIME_TRACEABILITY | PASS | |
+| PROJECT_STATE_SYNC | PASS | |
 
 ## Critical claim traceability
 
@@ -39,6 +39,9 @@ HEAD is recorded externally after the commit exists.
 | TRUTH-P1-BUDGET-001 | Every GroundingRequest is hard-capped at two search-provider calls and budget is consumed before provider invocation. | PROJECT_TRUTH_SYNC.md | src/max_grounding/policy.py::validate_request; src/max_grounding/budget.py::consume_search_call; src/max_grounding/engine.py::ground | tests/test_policy.py; tests/test_budget.py; tests/test_engine.py | .github/workflows/ci.yml | PASS |
 | TRUTH-P1-FAIL-CLOSED-001 | Provider errors or exhausted search budget without sufficient unique evidence cannot produce GROUNDED status. | PROJECT_TRUTH_SYNC.md | src/max_grounding/engine.py::ground; src/max_grounding/evidence.py::build_evidence_pack | tests/test_engine.py | .github/workflows/ci.yml | PASS |
 | TRUTH-P1-DEDUPE-001 | Evidence sufficiency counts canonical HTTP(S) source URLs once, discarding unsupported or hostless URLs. | PROJECT_TRUTH_SYNC.md | src/max_grounding/evidence.py::canonicalize_url; src/max_grounding/evidence.py::normalize_candidates | tests/test_evidence.py; tests/test_engine.py | .github/workflows/ci.yml | PASS |
+| TRUTH-P2-SEARXNG-001 | SearxngProvider keeps the configured SearXNG authority fixed, requests JSON search output, bounds response bytes, rejects redirects, validates result shape, and emits SourceCandidate values. | PROJECT_TRUTH_SYNC.md | src/max_grounding/providers/searxng.py::search; src/max_grounding/providers/searxng.py::build_searxng_search_url; src/max_grounding/providers/searxng.py::fetch_searxng_json; src/max_grounding/providers/searxng.py::parse_searxng_results | tests/test_searxng_provider.py | .github/workflows/ci.yml | PASS |
+| TRUTH-P2-RESULT-URL-001 | SearXNG result URLs using credentials, unsupported schemes, localhost names, ambiguous numeric host spellings, or literal non-public/multicast IP targets are rejected before SourceCandidate admission. | PROJECT_TRUTH_SYNC.md | src/max_grounding/network_policy.py::is_admissible_result_url | tests/test_network_policy.py; tests/test_searxng_provider.py | .github/workflows/ci.yml | PASS |
+| TRUTH-P2-BOUNDARY-001 | Phase 2 does not claim DNS-rebinding protection or page-fetch safety because result pages are not fetched in this phase. | PROJECT_TRUTH_SYNC.md | src/max_grounding/network_policy.py::is_admissible_result_url | tests/test_network_policy.py | NOT_APPLICABLE | PASS |
 
 ## Claim relations
 

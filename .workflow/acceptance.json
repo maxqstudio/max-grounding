@@ -17,27 +17,27 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
+      "evidence": "tests/test_searxng_provider.py; Phase 2 GREEN run 36327403347",
       "id": "P2-SEARXNG",
       "requirement": "SearxngProvider sends a bounded JSON search request only to the configured operator-trusted SearXNG endpoint and maps valid results into SourceCandidate values.",
-      "evidence": "tests/test_searxng_provider.py; Phase 2 GREEN run 36327403347",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_network_policy.py; tests/test_searxng_provider.py",
       "id": "P2-RESULT-URL-SAFETY",
       "requirement": "Search results with unsupported schemes, credentials, localhost names, ambiguous numeric hosts, or literal non-public/multicast IP targets are rejected before SourceCandidate admission.",
-      "evidence": "tests/test_network_policy.py; tests/test_searxng_provider.py",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_searxng_provider.py; tests/test_engine.py",
       "id": "P2-FAIL-CLOSED-HTTP",
       "requirement": "Redirects, invalid JSON/schema, oversized responses, HTTP failures, and transport failures cannot fabricate evidence and surface as controlled provider failure.",
-      "evidence": "tests/test_searxng_provider.py; tests/test_engine.py",
       "status": "PASS"
     },
     {
+      "evidence": "Phase 2 Cross Platform run 36327480973: 12/12 jobs PASS",
       "id": "P2-CROSS-OS",
       "requirement": "Phase 2 provider behavior passes on Python 3.11-3.14 across Linux, Windows, and macOS.",
-      "evidence": "Phase 2 Cross Platform run 36327480973: 12/12 jobs PASS",
       "status": "PASS"
     }
   ],

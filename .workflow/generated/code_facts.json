@@ -38,7 +38,7 @@
       "file": "src/max_grounding/errors.py",
       "is_test": false,
       "language": "Python",
-      "lines": 13
+      "lines": 21
     },
     {
       "directory": "src/max_grounding",
@@ -56,6 +56,13 @@
     },
     {
       "directory": "src/max_grounding",
+      "file": "src/max_grounding/network_policy.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 43
+    },
+    {
+      "directory": "src/max_grounding",
       "file": "src/max_grounding/policy.py",
       "is_test": false,
       "language": "Python",
@@ -66,7 +73,7 @@
       "file": "src/max_grounding/providers/__init__.py",
       "is_test": false,
       "language": "Python",
-      "lines": 5
+      "lines": 6
     },
     {
       "directory": "src/max_grounding/providers",
@@ -74,6 +81,13 @@
       "is_test": false,
       "language": "Python",
       "lines": 23
+    },
+    {
+      "directory": "src/max_grounding/providers",
+      "file": "src/max_grounding/providers/searxng.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 220
     },
     {
       "directory": "tests",
@@ -105,10 +119,24 @@
     },
     {
       "directory": "tests",
+      "file": "tests/test_network_policy.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 46
+    },
+    {
+      "directory": "tests",
       "file": "tests/test_policy.py",
       "is_test": true,
       "language": "Python",
       "lines": 47
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_searxng_provider.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 206
     }
   ],
   "python_calls": [
@@ -225,6 +253,42 @@
       "target_token": "EvidencePack"
     },
     {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "urlsplit"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "url.strip"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "parsed.scheme.lower"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "lower"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "parsed.hostname.rstrip"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "host.endswith"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "ip_address"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "isdigit"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "host.replace"
+    },
+    {
       "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
       "target_token": "join"
     },
@@ -295,6 +359,262 @@
     {
       "caller": "src/max_grounding/providers/base.py::invoke_search",
       "target_token": "provider.search"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::_normalize_base_url",
+      "target_token": "urlsplit"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::_normalize_base_url",
+      "target_token": "base_url.strip"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::_normalize_base_url",
+      "target_token": "parsed.scheme.lower"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::_normalize_base_url",
+      "target_token": "InvalidProviderConfiguration"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::_normalize_base_url",
+      "target_token": "InvalidProviderConfiguration"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::_normalize_base_url",
+      "target_token": "InvalidProviderConfiguration"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::_normalize_base_url",
+      "target_token": "InvalidProviderConfiguration"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::_normalize_base_url",
+      "target_token": "parsed.path.rstrip"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::_normalize_base_url",
+      "target_token": "urlunsplit"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+      "target_token": "base_url.rstrip"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+      "target_token": "str"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+      "target_token": "str"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+      "target_token": "params.append"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+      "target_token": "urlencode"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "InvalidProviderConfiguration"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "InvalidProviderConfiguration"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "Request"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "build_opener"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "_NoRedirect"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "opener.open"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "response.headers.get_content_type"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "response.headers.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "int"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "response.read"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "json.loads"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "body.decode"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "item.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "item.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "item.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "SearchProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "candidates.append"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "SourceCandidate"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::SearxngProvider.__init__",
+      "target_token": "InvalidProviderConfiguration"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::SearxngProvider.__init__",
+      "target_token": "InvalidProviderConfiguration"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::SearxngProvider.__init__",
+      "target_token": "InvalidProviderConfiguration"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::SearxngProvider.__init__",
+      "target_token": "_normalize_base_url"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::SearxngProvider.__init__",
+      "target_token": "float"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::SearxngProvider.__init__",
+      "target_token": "int"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
+      "target_token": "build_searxng_search_url"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
+      "target_token": "fetch_searxng_json"
+    },
+    {
+      "caller": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
+      "target_token": "parse_searxng_results"
     },
     {
       "caller": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
@@ -653,6 +973,82 @@
       "target_token": "set"
     },
     {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_localhost_names",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_localhost_names",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_localhost_names",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_localhost_names",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_malformed_ports",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_malformed_ports",
+      "target_token": "is_admissible_result_url"
+    },
+    {
       "caller": "tests/test_policy.py::GroundingPolicyTests.setUp",
       "target_token": "GroundingPolicy"
     },
@@ -723,6 +1119,278 @@
     {
       "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
       "target_token": "self.policy.validate_request"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "self.send_response"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "type"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "self.send_header"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "type"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "type"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "self.send_header"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "type"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "self.send_header"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "str"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "type"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "self.end_headers"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "self.wfile.write"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "target_token": "type"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_Server.__init__",
+      "target_token": "type"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_Server.__init__",
+      "target_token": "ThreadingHTTPServer"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_Server.__init__",
+      "target_token": "threading.Thread"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_Server.__enter__",
+      "target_token": "self.thread.start"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_Server.__exit__",
+      "target_token": "self.httpd.shutdown"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_Server.__exit__",
+      "target_token": "self.httpd.server_close"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::_Server.__exit__",
+      "target_token": "self.thread.join"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::query",
+      "target_token": "SearchQuery"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "SearxngProvider"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "provider.search"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "query"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "urlsplit"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "str"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "parse_qs"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_base_url_rejects_credentials_query_and_fragment",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_base_url_rejects_credentials_query_and_fragment",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_base_url_rejects_credentials_query_and_fragment",
+      "target_token": "SearxngProvider"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_accepts_bounded_json_object",
+      "target_token": "encode"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_accepts_bounded_json_object",
+      "target_token": "json.dumps"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_accepts_bounded_json_object",
+      "target_token": "_Server"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_accepts_bounded_json_object",
+      "target_token": "fetch_searxng_json"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_accepts_bounded_json_object",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_redirects",
+      "target_token": "_Server"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_redirects",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_redirects",
+      "target_token": "fetch_searxng_json"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_oversized_response_before_json_decode",
+      "target_token": "_Server"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_oversized_response_before_json_decode",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_oversized_response_before_json_decode",
+      "target_token": "fetch_searxng_json"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_non_json_and_invalid_json",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_non_json_and_invalid_json",
+      "target_token": "_Server"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_non_json_and_invalid_json",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_non_json_and_invalid_json",
+      "target_token": "fetch_searxng_json"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_provider_rejects_invalid_results_schema",
+      "target_token": "SearxngProvider"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_provider_rejects_invalid_results_schema",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_provider_rejects_invalid_results_schema",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_provider_rejects_invalid_results_schema",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_provider_rejects_invalid_results_schema",
+      "target_token": "provider.search"
+    },
+    {
+      "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_provider_rejects_invalid_results_schema",
+      "target_token": "query"
     }
   ],
   "python_routes": [],
@@ -816,6 +1484,22 @@
       "symbol": "SearchBudgetExceeded"
     },
     {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 17,
+      "line_start": 16,
+      "locator": "src/max_grounding/errors.py::SearchProviderError",
+      "symbol": "SearchProviderError"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 21,
+      "line_start": 20,
+      "locator": "src/max_grounding/errors.py::InvalidProviderConfiguration",
+      "symbol": "InvalidProviderConfiguration"
+    },
+    {
       "file": "src/max_grounding/evidence.py",
       "kind": "function",
       "line_end": 46,
@@ -888,6 +1572,14 @@
       "symbol": "EvidencePack"
     },
     {
+      "file": "src/max_grounding/network_policy.py",
+      "kind": "function",
+      "line_end": 43,
+      "line_start": 14,
+      "locator": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "symbol": "is_admissible_result_url"
+    },
+    {
       "file": "src/max_grounding/policy.py",
       "kind": "class",
       "line_end": 51,
@@ -926,6 +1618,78 @@
       "line_start": 18,
       "locator": "src/max_grounding/providers/base.py::invoke_search",
       "symbol": "invoke_search"
+    },
+    {
+      "file": "src/max_grounding/providers/searxng.py",
+      "kind": "class",
+      "line_end": 28,
+      "line_start": 24,
+      "locator": "src/max_grounding/providers/searxng.py::_NoRedirect",
+      "symbol": "_NoRedirect"
+    },
+    {
+      "file": "src/max_grounding/providers/searxng.py",
+      "kind": "method",
+      "line_end": 28,
+      "line_start": 27,
+      "locator": "src/max_grounding/providers/searxng.py::_NoRedirect.redirect_request",
+      "symbol": "_NoRedirect.redirect_request"
+    },
+    {
+      "file": "src/max_grounding/providers/searxng.py",
+      "kind": "function",
+      "line_end": 54,
+      "line_start": 31,
+      "locator": "src/max_grounding/providers/searxng.py::_normalize_base_url",
+      "symbol": "_normalize_base_url"
+    },
+    {
+      "file": "src/max_grounding/providers/searxng.py",
+      "kind": "function",
+      "line_end": 74,
+      "line_start": 57,
+      "locator": "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+      "symbol": "build_searxng_search_url"
+    },
+    {
+      "file": "src/max_grounding/providers/searxng.py",
+      "kind": "function",
+      "line_end": 137,
+      "line_start": 77,
+      "locator": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "symbol": "fetch_searxng_json"
+    },
+    {
+      "file": "src/max_grounding/providers/searxng.py",
+      "kind": "function",
+      "line_end": 178,
+      "line_start": 140,
+      "locator": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "symbol": "parse_searxng_results"
+    },
+    {
+      "file": "src/max_grounding/providers/searxng.py",
+      "kind": "class",
+      "line_end": 220,
+      "line_start": 181,
+      "locator": "src/max_grounding/providers/searxng.py::SearxngProvider",
+      "symbol": "SearxngProvider"
+    },
+    {
+      "file": "src/max_grounding/providers/searxng.py",
+      "kind": "method",
+      "line_end": 206,
+      "line_start": 184,
+      "locator": "src/max_grounding/providers/searxng.py::SearxngProvider.__init__",
+      "symbol": "SearxngProvider.__init__"
+    },
+    {
+      "file": "src/max_grounding/providers/searxng.py",
+      "kind": "method",
+      "line_end": 220,
+      "line_start": 208,
+      "locator": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
+      "symbol": "SearxngProvider.search"
     },
     {
       "file": "tests/test_bootstrap.py",
@@ -1112,6 +1876,54 @@
       "symbol": "EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded"
     },
     {
+      "file": "tests/test_network_policy.py",
+      "kind": "class",
+      "line_end": 42,
+      "line_start": 8,
+      "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests",
+      "symbol": "ResultUrlAdmissionTests"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 11,
+      "line_start": 9,
+      "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets",
+      "symbol": "ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 16,
+      "line_start": 13,
+      "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes",
+      "symbol": "ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 20,
+      "line_start": 18,
+      "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_localhost_names",
+      "symbol": "ResultUrlAdmissionTests.test_rejects_localhost_names"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 39,
+      "line_start": 22,
+      "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets",
+      "symbol": "ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 42,
+      "line_start": 41,
+      "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_malformed_ports",
+      "symbol": "ResultUrlAdmissionTests.test_rejects_malformed_ports"
+    },
+    {
       "file": "tests/test_policy.py",
       "kind": "class",
       "line_end": 43,
@@ -1158,23 +1970,161 @@
       "line_start": 35,
       "locator": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
       "symbol": "GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "class",
+      "line_end": 34,
+      "line_start": 18,
+      "locator": "tests/test_searxng_provider.py::_ResponseHandler",
+      "symbol": "_ResponseHandler"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 31,
+      "line_start": 24,
+      "locator": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
+      "symbol": "_ResponseHandler.do_GET"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 34,
+      "line_start": 33,
+      "locator": "tests/test_searxng_provider.py::_ResponseHandler.log_message",
+      "symbol": "_ResponseHandler.log_message"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "class",
+      "line_end": 67,
+      "line_start": 37,
+      "locator": "tests/test_searxng_provider.py::_Server",
+      "symbol": "_Server"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 57,
+      "line_start": 38,
+      "locator": "tests/test_searxng_provider.py::_Server.__init__",
+      "symbol": "_Server.__init__"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 62,
+      "line_start": 59,
+      "locator": "tests/test_searxng_provider.py::_Server.__enter__",
+      "symbol": "_Server.__enter__"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 67,
+      "line_start": 64,
+      "locator": "tests/test_searxng_provider.py::_Server.__exit__",
+      "symbol": "_Server.__exit__"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "function",
+      "line_end": 78,
+      "line_start": 70,
+      "locator": "tests/test_searxng_provider.py::query",
+      "symbol": "query"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "class",
+      "line_end": 202,
+      "line_start": 81,
+      "locator": "tests/test_searxng_provider.py::SearxngProviderTests",
+      "symbol": "SearxngProviderTests"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 130,
+      "line_start": 82,
+      "locator": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host",
+      "symbol": "SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 102,
+      "line_start": 85,
+      "locator": "tests/test_searxng_provider.py::SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host.fake_fetch",
+      "symbol": "SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host.fake_fetch"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 142,
+      "line_start": 132,
+      "locator": "tests/test_searxng_provider.py::SearxngProviderTests.test_base_url_rejects_credentials_query_and_fragment",
+      "symbol": "SearxngProviderTests.test_base_url_rejects_credentials_query_and_fragment"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 152,
+      "line_start": 144,
+      "locator": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_accepts_bounded_json_object",
+      "symbol": "SearxngProviderTests.test_fetch_accepts_bounded_json_object"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 161,
+      "line_start": 154,
+      "locator": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_redirects",
+      "symbol": "SearxngProviderTests.test_fetch_rejects_redirects"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 170,
+      "line_start": 163,
+      "locator": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_oversized_response_before_json_decode",
+      "symbol": "SearxngProviderTests.test_fetch_rejects_oversized_response_before_json_decode"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 185,
+      "line_start": 172,
+      "locator": "tests/test_searxng_provider.py::SearxngProviderTests.test_fetch_rejects_non_json_and_invalid_json",
+      "symbol": "SearxngProviderTests.test_fetch_rejects_non_json_and_invalid_json"
+    },
+    {
+      "file": "tests/test_searxng_provider.py",
+      "kind": "method",
+      "line_end": 202,
+      "line_start": 187,
+      "locator": "tests/test_searxng_provider.py::SearxngProviderTests.test_provider_rejects_invalid_results_schema",
+      "symbol": "SearxngProviderTests.test_provider_rejects_invalid_results_schema"
     }
   ],
   "schema_version": 1,
-  "source_digest": "f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897",
+  "source_digest": "5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d",
   "source_summary": {
-    "files": 14,
+    "files": 18,
     "languages": {
-      "Python": 14
+      "Python": 18
     },
-    "lines": 632,
-    "test_files": 5
+    "lines": 1156,
+    "test_files": 7
   },
   "tests": [
     "tests/test_bootstrap.py",
     "tests/test_budget.py",
     "tests/test_engine.py",
     "tests/test_evidence.py",
-    "tests/test_policy.py"
+    "tests/test_network_policy.py",
+    "tests/test_policy.py",
+    "tests/test_searxng_provider.py"
   ]
 }

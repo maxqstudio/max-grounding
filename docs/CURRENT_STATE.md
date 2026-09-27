@@ -8,7 +8,7 @@ Governance profile: strict
 
 ## Current phase
 Phase: PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER
-Status: PLAN_FREEZE_IN_PROGRESS
+Status: CANDIDATE
 
 ## Source
 Repository: maxqstudio/max-grounding
@@ -16,11 +16,11 @@ Branch: work/phase-02-searxng-provider
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: d99350f5d2222c174d7f5b4d861514bd67fb66b2
 Current candidate SHA: external final acceptance evidence
-Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
+Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
-Runtime status: NOT_PROVEN
+Runtime status: PASS
 
 ## Documentation governance
 Documentation root: docs/
@@ -34,17 +34,18 @@ PROJECT_DOCS_SYNC: PASS
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
 Current sequence session: docs/sequence/sessions/phase-02-searxng-provider.json
-SEQUENCE_SYNC: NOT_PROVEN
+SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 1 is accepted and final main revalidation run 19 passed all 13 required jobs at d99350f5d2222c174d7f5b4d861514bd67fb66b2.
-- GitHub Actions remains the sole acceptance authority.
-- Phase 2 product implementation is blocked until the BEFORE sequence plan is frozen.
+- Phase 2 BEFORE plan is frozen at 68ab9a0307b57d1c8a162dc3c942e65e86149eb0 before product implementation.
+- TDD RED run 36327147032 failed for the intended missing Phase 2 modules/types before implementation.
+- Phase 2 GREEN run 36327403347 passed the full suite and compile after implementation and security repair.
+- Phase 2 Cross Platform run 36327480973 passed 12/12 jobs on Python 3.11-3.14 across Ubuntu, Windows, and macOS.
+- SearxngProvider performs bounded JSON HTTP search to an operator-configured trusted endpoint and filters obvious unsafe result URLs before candidate admission.
 
 ## Not proven
-- SearXNG live HTTP search is not implemented yet.
-- Unsafe result URL rejection is not implemented yet.
-- HTTP timeout, response-size, redirect, and JSON/schema failure handling are not implemented yet.
+- A specific external SearXNG deployment and its upstream engine availability/ranking quality are not proven by deterministic CI fixtures.
+- Page fetching, DNS-rebinding protection at connection time, crawling, content extraction, embeddings, vector retrieval, reranking, REST, MCP, and production deployment remain outside Phase 2.
 
 ## Known blockers
 - None declared.
@@ -53,9 +54,11 @@ SEQUENCE_SYNC: NOT_PROVEN
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Freeze the Phase 2 BEFORE sequence plan and generated plan Mermaid.
-- After plan freeze, add failing tests and obtain TDD RED evidence before implementation.
+- Generate and validate the Phase 2 actual sequence graph from current source.
+- Synchronize deterministic docs and run STRICT governance.
+- Open the Phase 2 pull request only after branch governance passes.
 
 ## Explicitly blocked
-- Do not implement Phase 2 product source before the BEFORE plan is frozen.
-- Do not claim page-fetch SSRF protection, crawling, or extracted-content grounding in Phase 2.
+- Do not claim page-fetch SSRF protection from result-URL admission alone.
+- Do not merge Phase 2 until final pull-request Acceptance passes all required jobs.
+- Do not close Phase 2 until merged main is revalidated.
