@@ -24,6 +24,14 @@
       "date": "2026-09-27",
       "decision": "The core grounding budget rejects requests above two search-provider calls and never silently expands the budget.",
       "rationale": "Bounded retrieval cost and predictable provider usage are product requirements; later query decomposition may parallelize candidates inside a round but may not exceed the request-level search-call cap."
+    },
+    {
+      "id": "DEC-0004",
+      "title": "Trust the configured SearXNG endpoint, not returned result URLs",
+      "status": "ACCEPTED",
+      "date": "2026-09-27",
+      "decision": "Treat the operator-configured SearXNG base URL as trusted deployment configuration, while treating every returned result URL as untrusted data. Reject obvious unsafe result targets before evidence admission; defer DNS resolution and rebinding protection to the later page-fetch boundary.",
+      "rationale": "Self-hosted SearXNG commonly runs on localhost or private networks, so blocking private provider endpoints would break the intended deployment. Result URLs are a different trust boundary and must never inherit that trust."
     }
   ]
 }
