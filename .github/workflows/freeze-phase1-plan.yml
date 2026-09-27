@@ -1,0 +1,42 @@
+name: Freeze Phase 1 plan
+
+on:
+  push:
+    branches:
+      - work/phase-01-core-contracts
+
+permissions:
+  contents: write
+
+jobs:
+  freeze:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout planning branch
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - name: Render frozen Phase 1 plan
+        run: |
+          python .workflow/tools/generate_sequence_plan.py \
+            --plan docs/sequence/plans/phase-01-core-contracts.plan.json \
+            --output docs/sequence/generated/phase-01-core-contracts.plan.mmd
+      - name: Synchronize planning docs
+        run: python .workflow/tools/sync_project_truth.py
+      - name: Commit deterministic plan artifacts
+        shell: bash
+        run: |
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
+            echo "No generated changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .workflow/acceptance.json .workflow/generated docs
+          git commit -m "docs: freeze phase 1 plan artifacts"
+          git push
