@@ -30,7 +30,7 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 1 adds the deterministic grounding core: bounded request policy, a hard two-call search budget, provider contracts, evidence URL deduplication, and fail-closed evidence status. Live network retrieval remains a later phase.
+Phase 2 adds a stdlib-only SearXNG live-search provider on top of the deterministic core: fixed provider authority, bounded JSON HTTP, no redirect following, controlled provider failures, and conservative rejection of obviously unsafe result URLs. Result-page fetching and DNS-rebinding protection remain later-phase work.
 
 ## Platform policy
 
