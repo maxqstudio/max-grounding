@@ -3,24 +3,24 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: aba1b1838d649b92e863f19cb96e74799caf388c
+Authority verified at SHA: fc655d5191c5b35186be7da7c0fb8a08ad0f09a4
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_00_GOVERNED_CROSS_PLATFORM_BASELINE
-Status: ACCEPTED
+Phase: PHASE_01_GROUNDING_CORE_CONTRACTS
+Status: PLAN_FREEZE_IN_PROGRESS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-01-core-contracts
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: aba1b1838d649b92e863f19cb96e74799caf388c
+Last accepted SHA: fc655d5191c5b35186be7da7c0fb8a08ad0f09a4
 Current candidate SHA: external final acceptance evidence
 Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
-Runtime status: PASS
+Runtime status: NOT_PROVEN
 
 ## Documentation governance
 Documentation root: docs/
@@ -32,19 +32,19 @@ PROJECT_DOCS_SYNC: PASS
 
 ## Sequence governance
 Sequence policy: REQUIRED
-Current sequence mode: DURING
-Current sequence session: docs/sequence/sessions/phase-00-bootstrap.json
-SEQUENCE_SYNC: PASS
+Current sequence mode: BEFORE
+Current sequence session: docs/sequence/sessions/phase-01-core-contracts.json
+SEQUENCE_SYNC: NOT_PROVEN
 
 ## Proven
-- Phase 0 governed baseline is merged to main.
-- GitHub Actions revalidated STRICT governance and the Python core on Ubuntu, Windows, and macOS at main SHA aba1b1838d649b92e863f19cb96e74799caf388c.
-- Skill Workflow authority remains pinned to 9e22feddb8f94e8c0f1af6a33e14b64de5068f8f.
-- Saweria and PayPal funding links are present.
+- Phase 0 accepted baseline is available at main SHA fc655d5191c5b35186be7da7c0fb8a08ad0f09a4.
+- GitHub Actions is the acceptance authority.
+- The Phase 1 plan is being frozen before any Phase 1 product source implementation.
 
 ## Not proven
-- Live web search and crawling are not implemented in Phase 0.
-- Hybrid retrieval, reranking, claim verification, REST, MCP, and production service deployment are not implemented in Phase 0.
+- Phase 1 GroundingRequest and EvidencePack contracts are not implemented yet.
+- The hard maximum of two search calls per request is not implemented yet.
+- Fail-closed insufficient-evidence behavior is not implemented yet.
 
 ## Known blockers
 - None declared.
@@ -53,9 +53,9 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Start Phase 1 from accepted main.
-- Freeze the Phase 1 BEFORE sequence plan before product implementation.
+- Freeze the Phase 1 BEFORE sequence plan and generated plan Mermaid.
+- After plan freeze, add failing tests before implementation.
 
 ## Explicitly blocked
-- Do not claim live grounding capability from the Phase 0 baseline.
-- Do not bypass GitHub Actions acceptance for later phases.
+- Do not implement Phase 1 product source before the BEFORE plan is frozen.
+- Do not claim live network grounding; network providers are later phases.

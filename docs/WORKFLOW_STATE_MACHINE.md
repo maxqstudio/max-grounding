@@ -2,6 +2,52 @@
 
 # WORKFLOW STATE MACHINE
 
+## FLOW-GROUND-REQUEST — Bounded grounding request
+
+Purpose: Turn one validated grounding request into a deterministic evidence pack without exceeding the request search budget or reporting insufficient evidence as grounded.
+Critical: TRUE
+Entry condition: A caller supplies a GroundingRequest and a SearchProvider implementation.
+Authority: GroundingPolicy and SearchBudget
+
+### States
+
+- RECEIVED
+- VALIDATED
+- SEARCHING
+- EVIDENCE_READY
+- INSUFFICIENT_EVIDENCE
+- PROVIDER_ERROR
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| RECEIVED | VALIDATED | validate request and policy limits | GroundingPolicy and SearchBudget |  |
+| VALIDATED | SEARCHING | consume a search call before provider invocation | GroundingPolicy and SearchBudget |  |
+| SEARCHING | EVIDENCE_READY | normalized unique evidence meets minimum source requirement | GroundingPolicy and SearchBudget |  |
+| SEARCHING | INSUFFICIENT_EVIDENCE | budget exhausted without sufficient unique evidence | GroundingPolicy and SearchBudget |  |
+| SEARCHING | PROVIDER_ERROR | provider raises before sufficient evidence exists | GroundingPolicy and SearchBudget |  |
+
+### Invariants
+
+- Search-provider calls per request never exceed two.
+- A provider call is never issued without first consuming budget.
+- Duplicate canonical source URLs count once.
+- INSUFFICIENT_EVIDENCE and PROVIDER_ERROR are never labeled GROUNDED.
+
+### Failure behavior
+
+- Invalid requests fail before any provider call.
+- Provider failure returns a fail-closed evidence status and does not fabricate evidence.
+
+### Restart behavior
+
+- Retry is a new grounding request with a new budget.
+
+### Rollback behavior
+
+- The core flow has no persistent mutation in Phase 1.
+
 ## FLOW-PHASE-DELIVERY — Governed phase delivery
 
 Purpose: Move each implementation phase from isolated branch to accepted main without bypassing executable evidence.

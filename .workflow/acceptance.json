@@ -17,27 +17,27 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
+      "evidence": "tests/test_engine.py",
       "id": "P1-BUDGET",
       "requirement": "A grounding request can consume at most two search-provider calls.",
-      "evidence": "tests/test_engine.py",
       "status": "NOT_PROVEN"
     },
     {
+      "evidence": "tests/test_engine.py",
       "id": "P1-FAIL-CLOSED",
       "requirement": "Insufficient or failed retrieval cannot be reported as grounded.",
-      "evidence": "tests/test_engine.py",
       "status": "NOT_PROVEN"
     },
     {
+      "evidence": "tests/test_evidence.py",
       "id": "P1-DEDUPE",
       "requirement": "Duplicate source URLs do not inflate evidence sufficiency.",
-      "evidence": "tests/test_evidence.py",
       "status": "NOT_PROVEN"
     },
     {
+      "evidence": "GitHub Actions Acceptance matrix",
       "id": "P1-CROSS-OS",
       "requirement": "Phase 1 core behavior passes on Linux, Windows, and macOS.",
-      "evidence": "GitHub Actions Acceptance matrix",
       "status": "NOT_PROVEN"
     }
   ],

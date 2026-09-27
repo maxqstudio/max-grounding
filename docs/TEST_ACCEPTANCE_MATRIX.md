@@ -4,16 +4,17 @@
 
 ## Evidence boundary
 
-Phase 0 proves governed repository bootstrap, package import/smoke behavior, deterministic documentation, sequence extraction, and native core-runtime execution on GitHub-hosted Linux/Windows/macOS. It does not prove web retrieval, crawling, vector search, MCP, REST, or production deployment.
+Phase 1 planning currently defines the intended deterministic core grounding flow only. Product implementation, bounded search behavior, fail-closed evidence handling, and cross-platform runtime evidence remain NOT_PROVEN until implementation and GitHub Actions acceptance.
 
 Final tested source: external final acceptance evidence.
 Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P0-OS | Core runtime executes on Ubuntu, Windows, and macOS. |  | PASS |
-| P0-GOV | STRICT governance docs and validators are deterministic and synchronized. |  | PASS |
-| P0-MERGE | Merge is allowed only after required GitHub Actions checks pass. |  | PASS |
+| P1-BUDGET | A grounding request can consume at most two search-provider calls. | tests/test_engine.py | NOT_PROVEN |
+| P1-FAIL-CLOSED | Insufficient or failed retrieval cannot be reported as grounded. | tests/test_engine.py | NOT_PROVEN |
+| P1-DEDUPE | Duplicate source URLs do not inflate evidence sufficiency. | tests/test_evidence.py | NOT_PROVEN |
+| P1-CROSS-OS | Phase 1 core behavior passes on Linux, Windows, and macOS. | GitHub Actions Acceptance matrix | NOT_PROVEN |
 
 ## Test commands
 
@@ -24,13 +25,13 @@ Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48
 
 ## Runtime checks
 
-- Import max_grounding and execute project_identity on Linux, Windows, and macOS runners.
+- Execute Phase 1 unit/integration suite on Ubuntu, Windows, and macOS GitHub-hosted runners.
 
 ## Sequence contract evidence
 
-Sequence mode for this phase/session: DURING
-Sequence session contract: docs/sequence/sessions/phase-00-bootstrap.json
-SEQUENCE_SYNC: PASS
+Sequence mode for this phase/session: BEFORE
+Sequence session contract: docs/sequence/sessions/phase-01-core-contracts.json
+SEQUENCE_SYNC: NOT_PROVEN
 
 ## Project Truth Compiler evidence
 

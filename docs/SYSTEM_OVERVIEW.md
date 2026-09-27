@@ -44,6 +44,18 @@ Observed source inventory: 2 files, 1 language categories.
 
 ## Main user workflows
 
+### FLOW-GROUND-REQUEST — Bounded grounding request
+
+Turn one validated grounding request into a deterministic evidence pack without exceeding the request search budget or reporting insufficient evidence as grounded.
+
+Authority: GroundingPolicy and SearchBudget
+
+- RECEIVED -> VALIDATED : validate request and policy limits
+- VALIDATED -> SEARCHING : consume a search call before provider invocation
+- SEARCHING -> EVIDENCE_READY : normalized unique evidence meets minimum source requirement
+- SEARCHING -> INSUFFICIENT_EVIDENCE : budget exhausted without sufficient unique evidence
+- SEARCHING -> PROVIDER_ERROR : provider raises before sufficient evidence exists
+
 ### FLOW-PHASE-DELIVERY — Governed phase delivery
 
 Move each implementation phase from isolated branch to accepted main without bypassing executable evidence.
@@ -57,9 +69,9 @@ Authority: GitHub Actions required checks
 
 ## Lifecycle and state
 
-Current phase: PHASE_00_GOVERNED_CROSS_PLATFORM_BASELINE
+Current phase: PHASE_01_GROUNDING_CORE_CONTRACTS
 
-Current status: ACCEPTED
+Current status: PLAN_FREEZE_IN_PROGRESS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -93,17 +105,19 @@ compiler does not infer them from implementation names.
 
 ## Failure and recovery
 
+- FLOW-GROUND-REQUEST: Invalid requests fail before any provider call.
+- FLOW-GROUND-REQUEST: Provider failure returns a fail-closed evidence status and does not fabricate evidence.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.
 
 ## Current project state
 
 Next authorized actions:
-- Start Phase 1 from accepted main.
-- Freeze the Phase 1 BEFORE sequence plan before product implementation.
+- Freeze the Phase 1 BEFORE sequence plan and generated plan Mermaid.
+- After plan freeze, add failing tests before implementation.
 
 Blocked actions:
-- Do not claim live grounding capability from the Phase 0 baseline.
-- Do not bypass GitHub Actions acceptance for later phases.
+- Do not implement Phase 1 product source before the BEFORE plan is frozen.
+- Do not claim live network grounding; network providers are later phases.
 
 Known blockers:
 - None declared.
@@ -112,15 +126,15 @@ Known blockers:
 
 ### Proven
 
-- Phase 0 governed baseline is merged to main.
-- GitHub Actions revalidated STRICT governance and the Python core on Ubuntu, Windows, and macOS at main SHA aba1b1838d649b92e863f19cb96e74799caf388c.
-- Skill Workflow authority remains pinned to 9e22feddb8f94e8c0f1af6a33e14b64de5068f8f.
-- Saweria and PayPal funding links are present.
+- Phase 0 accepted baseline is available at main SHA fc655d5191c5b35186be7da7c0fb8a08ad0f09a4.
+- GitHub Actions is the acceptance authority.
+- The Phase 1 plan is being frozen before any Phase 1 product source implementation.
 
 ### Not proven
 
-- Live web search and crawling are not implemented in Phase 0.
-- Hybrid retrieval, reranking, claim verification, REST, MCP, and production service deployment are not implemented in Phase 0.
+- Phase 1 GroundingRequest and EvidencePack contracts are not implemented yet.
+- The hard maximum of two search calls per request is not implemented yet.
+- Fail-closed insufficient-evidence behavior is not implemented yet.
 
 ## Important limitations
 
