@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-01-core-contracts",
+  "phase": "PHASE_01_GROUNDING_CORE_CONTRACTS",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "CANDIDATE",
+  "implementation_base_sha": "c939a9128c078f99ab6bbf76fae161d52790e5de",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-01-core-contracts.plan.json",
+    "frozen": true,
+    "frozen_commit": "c939a9128c078f99ab6bbf76fae161d52790e5de",
+    "sha256": "809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15",
+    "diagram": "docs/sequence/generated/phase-01-core-contracts.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-01-core-contracts.actual.json",
+    "diagram": "docs/sequence/generated/phase-01-core-contracts.actual.mmd",
+    "source_digest": "",
+    "entries": [
+      "src/max_grounding/engine.py::GroundingEngine.ground"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_engine.py",
+    "tests/test_policy.py",
+    "tests/test_evidence.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}

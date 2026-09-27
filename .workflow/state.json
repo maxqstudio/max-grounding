@@ -1,27 +1,27 @@
 {
   "schema_version": 1,
-  "phase": "PHASE_00_GOVERNED_CROSS_PLATFORM_BASELINE",
-  "status": "ACCEPTED",
-  "working_branch": "main",
-  "last_accepted_sha": "aba1b1838d649b92e863f19cb96e74799caf388c",
+  "phase": "PHASE_01_GROUNDING_CORE_CONTRACTS",
+  "status": "CANDIDATE_PENDING_GITHUB_ACTIONS",
+  "working_branch": "work/phase-01-core-contracts",
+  "last_accepted_sha": "fc655d5191c5b35186be7da7c0fb8a08ad0f09a4",
   "last_accepted_branch": "main",
   "proven": [
-    "Phase 0 governed baseline is merged to main.",
-    "GitHub Actions revalidated STRICT governance and the Python core on Ubuntu, Windows, and macOS at main SHA aba1b1838d649b92e863f19cb96e74799caf388c.",
-    "Skill Workflow authority remains pinned to 9e22feddb8f94e8c0f1af6a33e14b64de5068f8f.",
-    "Saweria and PayPal funding links are present."
+    "Phase 1 BEFORE plan is frozen at c939a9128c078f99ab6bbf76fae161d52790e5de with SHA-256 809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15.",
+    "TDD RED was observed on GitHub Actions before implementation.",
+    "Phase 1 unit tests are GREEN on the implementation branch."
   ],
   "not_proven": [
-    "Live web search and crawling are not implemented in Phase 0.",
-    "Hybrid retrieval, reranking, claim verification, REST, MCP, and production service deployment are not implemented in Phase 0."
+    "Final Phase 1 candidate is not accepted until full GitHub Actions matrix and STRICT governance pass on the exact PR head.",
+    "Live network search/fetch/crawl and downstream retrieval/reranking remain outside Phase 1."
   ],
   "blockers": [],
   "next_authorized_actions": [
-    "Start Phase 1 from accepted main.",
-    "Freeze the Phase 1 BEFORE sequence plan before product implementation."
+    "Generate actual sequence evidence and compare it to the frozen plan.",
+    "Synchronize generated governance docs.",
+    "Run full GitHub Actions PR acceptance; merge only if every required job passes."
   ],
   "blocked_actions": [
-    "Do not claim live grounding capability from the Phase 0 baseline.",
-    "Do not bypass GitHub Actions acceptance for later phases."
+    "Do not merge Phase 1 while any required Action is failing or missing.",
+    "Do not claim live web grounding capability from the Phase 1 core."
   ]
 }

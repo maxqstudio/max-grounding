@@ -17,3 +17,11 @@ Status: ACCEPTED
 Test the Python core natively on Linux, Windows, and macOS; isolate service-heavy dependencies behind contracts and Linux containers.
 
 Rationale: This proves application portability without making false claims that every external service runs identically and natively on every operating system.
+
+## DEC-0003 — Hard-cap search calls at two per grounding request
+
+Status: ACCEPTED
+
+The core grounding budget rejects requests above two search-provider calls and never silently expands the budget.
+
+Rationale: Bounded retrieval cost and predictable provider usage are product requirements; later query decomposition may parallelize candidates inside a round but may not exceed the request-level search-call cap.

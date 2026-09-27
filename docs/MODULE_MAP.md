@@ -3,12 +3,24 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
+Source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
 |---|---|---:|---|---|
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
+| src/max_grounding/budget.py | Python | 30 | src/max_grounding | NO |
+| src/max_grounding/engine.py | Python | 57 | src/max_grounding | NO |
+| src/max_grounding/errors.py | Python | 13 | src/max_grounding | NO |
+| src/max_grounding/evidence.py | Python | 97 | src/max_grounding | NO |
+| src/max_grounding/models.py | Python | 73 | src/max_grounding | NO |
+| src/max_grounding/policy.py | Python | 51 | src/max_grounding | NO |
+| src/max_grounding/providers/__init__.py | Python | 5 | src/max_grounding/providers | NO |
+| src/max_grounding/providers/base.py | Python | 23 | src/max_grounding/providers | NO |
 | tests/test_bootstrap.py | Python | 24 | tests | YES |
+| tests/test_budget.py | Python | 25 | tests | YES |
+| tests/test_engine.py | Python | 118 | tests | YES |
+| tests/test_evidence.py | Python | 54 | tests | YES |
+| tests/test_policy.py | Python | 47 | tests | YES |
 
 Machine-derived facts do not invent semantic ownership.

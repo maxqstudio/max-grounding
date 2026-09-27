@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-GROUND-REQUEST",
+  "title": "Bounded grounding request",
+  "purpose": "Turn one validated grounding request into a deterministic evidence pack without exceeding the request search budget or reporting insufficient evidence as grounded.",
+  "critical": true,
+  "entry_condition": "A caller supplies a GroundingRequest and a SearchProvider implementation.",
+  "authority": "GroundingPolicy and SearchBudget",
+  "states": [
+    "RECEIVED",
+    "VALIDATED",
+    "SEARCHING",
+    "EVIDENCE_READY",
+    "INSUFFICIENT_EVIDENCE",
+    "PROVIDER_ERROR"
+  ],
+  "transitions": [
+    {
+      "from": "RECEIVED",
+      "to": "VALIDATED",
+      "action": "validate request and policy limits"
+    },
+    {
+      "from": "VALIDATED",
+      "to": "SEARCHING",
+      "action": "consume a search call before provider invocation"
+    },
+    {
+      "from": "SEARCHING",
+      "to": "EVIDENCE_READY",
+      "action": "normalized unique evidence meets minimum source requirement"
+    },
+    {
+      "from": "SEARCHING",
+      "to": "INSUFFICIENT_EVIDENCE",
+      "action": "budget exhausted without sufficient unique evidence"
+    },
+    {
+      "from": "SEARCHING",
+      "to": "PROVIDER_ERROR",
+      "action": "provider raises before sufficient evidence exists"
+    }
+  ],
+  "invariants": [
+    "Search-provider calls per request never exceed two.",
+    "A provider call is never issued without first consuming budget.",
+    "Duplicate canonical source URLs count once.",
+    "INSUFFICIENT_EVIDENCE and PROVIDER_ERROR are never labeled GROUNDED."
+  ],
+  "failure_behavior": [
+    "Invalid requests fail before any provider call.",
+    "Provider failure returns a fail-closed evidence status and does not fabricate evidence."
+  ],
+  "restart_behavior": [
+    "Retry is a new grounding request with a new budget."
+  ],
+  "rollback_behavior": [
+    "The core flow has no persistent mutation in Phase 1."
+  ],
+  "source_owners": [
+    "src/max_grounding/engine.py::ground",
+    "src/max_grounding/policy.py::validate_request",
+    "src/max_grounding/budget.py::consume_search_call",
+    "src/max_grounding/providers/base.py::invoke_search",
+    "src/max_grounding/evidence.py::normalize_candidates",
+    "src/max_grounding/evidence.py::build_evidence_pack"
+  ],
+  "tests": [
+    "tests/test_engine.py",
+    "tests/test_policy.py",
+    "tests/test_evidence.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-01-core-contracts.json"
+}

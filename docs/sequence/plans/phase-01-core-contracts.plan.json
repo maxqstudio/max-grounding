@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-GROUND-REQUEST",
+  "title": "Phase 1 bounded grounding core",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "ground",
+      "label": "GroundingEngine.ground",
+      "locator": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "kind": "source"
+    },
+    {
+      "id": "policy",
+      "label": "GroundingPolicy.validate_request",
+      "locator": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "kind": "source"
+    },
+    {
+      "id": "budget",
+      "label": "SearchBudget.consume_search_call",
+      "locator": "src/max_grounding/budget.py::SearchBudget.consume_search_call",
+      "kind": "source"
+    },
+    {
+      "id": "provider",
+      "label": "invoke_search",
+      "locator": "src/max_grounding/providers/base.py::invoke_search",
+      "kind": "source"
+    },
+    {
+      "id": "normalize",
+      "label": "normalize_candidates",
+      "locator": "src/max_grounding/evidence.py::normalize_candidates",
+      "kind": "source"
+    },
+    {
+      "id": "pack",
+      "label": "build_evidence_pack",
+      "locator": "src/max_grounding/evidence.py::build_evidence_pack",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "ground",
+      "to": "policy",
+      "action": "validate request",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "ground",
+      "to": "budget",
+      "action": "consume before provider call",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "ground",
+      "to": "provider",
+      "action": "invoke bounded provider",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "ground",
+      "to": "normalize",
+      "action": "normalize and dedupe",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "ground",
+      "to": "pack",
+      "action": "build fail-closed evidence pack",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}

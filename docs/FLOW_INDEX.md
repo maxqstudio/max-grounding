@@ -3,12 +3,13 @@
 # FLOW INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
+Source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 
 ## Flow inventory
 
 | Flow | Entry | Authority symbol | State mutation | Tests | Sequence session | Sequence status |
 |---|---|---|---|---|---|---|
+| FLOW-GROUND-REQUEST | A caller supplies a GroundingRequest and a SearchProvider implementation. | src/max_grounding/engine.py::ground, src/max_grounding/policy.py::validate_request, src/max_grounding/budget.py::consume_search_call, src/max_grounding/providers/base.py::invoke_search, src/max_grounding/evidence.py::normalize_candidates, src/max_grounding/evidence.py::build_evidence_pack | VALIDATED, SEARCHING, EVIDENCE_READY, INSUFFICIENT_EVIDENCE, PROVIDER_ERROR | tests/test_engine.py, tests/test_policy.py, tests/test_evidence.py | docs/sequence/sessions/phase-01-core-contracts.json | DECLARED |
 | FLOW-PHASE-DELIVERY | A phase branch exists from the current accepted main baseline. | .github/workflows/ci.yml, .workflow/state.json | CANDIDATE, ACTIONS_PASS, MERGED_MAIN, MAIN_REVALIDATED | tests/test_bootstrap.py | docs/sequence/sessions/phase-00-bootstrap.json | DECLARED |
 
 ## Observed Python HTTP routes

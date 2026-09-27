@@ -3,20 +3,20 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: aba1b1838d649b92e863f19cb96e74799caf388c
+Authority verified at SHA: fc655d5191c5b35186be7da7c0fb8a08ad0f09a4
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_00_GOVERNED_CROSS_PLATFORM_BASELINE
-Status: ACCEPTED
+Phase: PHASE_01_GROUNDING_CORE_CONTRACTS
+Status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-01-core-contracts
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: aba1b1838d649b92e863f19cb96e74799caf388c
+Last accepted SHA: fc655d5191c5b35186be7da7c0fb8a08ad0f09a4
 Current candidate SHA: external final acceptance evidence
-Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
+Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -32,19 +32,18 @@ PROJECT_DOCS_SYNC: PASS
 
 ## Sequence governance
 Sequence policy: REQUIRED
-Current sequence mode: DURING
-Current sequence session: docs/sequence/sessions/phase-00-bootstrap.json
+Current sequence mode: BEFORE
+Current sequence session: docs/sequence/sessions/phase-01-core-contracts.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 0 governed baseline is merged to main.
-- GitHub Actions revalidated STRICT governance and the Python core on Ubuntu, Windows, and macOS at main SHA aba1b1838d649b92e863f19cb96e74799caf388c.
-- Skill Workflow authority remains pinned to 9e22feddb8f94e8c0f1af6a33e14b64de5068f8f.
-- Saweria and PayPal funding links are present.
+- Phase 1 BEFORE plan is frozen at c939a9128c078f99ab6bbf76fae161d52790e5de with SHA-256 809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15.
+- TDD RED was observed on GitHub Actions before implementation.
+- Phase 1 unit tests are GREEN on the implementation branch.
 
 ## Not proven
-- Live web search and crawling are not implemented in Phase 0.
-- Hybrid retrieval, reranking, claim verification, REST, MCP, and production service deployment are not implemented in Phase 0.
+- Final Phase 1 candidate is not accepted until full GitHub Actions matrix and STRICT governance pass on the exact PR head.
+- Live network search/fetch/crawl and downstream retrieval/reranking remain outside Phase 1.
 
 ## Known blockers
 - None declared.
@@ -53,9 +52,10 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Start Phase 1 from accepted main.
-- Freeze the Phase 1 BEFORE sequence plan before product implementation.
+- Generate actual sequence evidence and compare it to the frozen plan.
+- Synchronize generated governance docs.
+- Run full GitHub Actions PR acceptance; merge only if every required job passes.
 
 ## Explicitly blocked
-- Do not claim live grounding capability from the Phase 0 baseline.
-- Do not bypass GitHub Actions acceptance for later phases.
+- Do not merge Phase 1 while any required Action is failing or missing.
+- Do not claim live web grounding capability from the Phase 1 core.

@@ -30,7 +30,7 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 0 establishes the governed, cross-platform project baseline. Product retrieval features land in later accepted phases.
+Phase 1 adds the deterministic grounding core: bounded request policy, a hard two-call search budget, provider contracts, evidence URL deduplication, and fail-closed evidence status. Live network retrieval remains a later phase.
 
 ## Platform policy
 

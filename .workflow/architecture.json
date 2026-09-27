@@ -2,64 +2,126 @@
   "schema_version": 1,
   "components": [
     {
-      "id": "core-package",
-      "name": "Core Python Package",
-      "purpose": "Portable package boundary for grounding functionality.",
+      "id": "models",
+      "name": "Grounding Contracts",
+      "purpose": "Immutable request, provider-query, source, and evidence-pack contracts.",
       "owns": [
-        "public Python package identity"
+        "GroundingRequest",
+        "SearchQuery",
+        "SourceCandidate",
+        "EvidenceSource",
+        "EvidencePack",
+        "EvidenceStatus"
       ],
       "depends_on": []
     },
     {
-      "id": "governance",
-      "name": "Project Truth Governance",
-      "purpose": "Deterministically projects project state and traceability.",
+      "id": "policy",
+      "name": "Grounding Policy",
+      "purpose": "Normalize requests and reject invalid or over-budget caller intent before provider access.",
       "owns": [
-        "docs projection",
-        "truth validation"
+        "request validation",
+        "two-call product cap",
+        "per-call result bounds"
       ],
       "depends_on": [
-        "core-package"
+        "models"
       ]
     },
     {
-      "id": "ci",
-      "name": "GitHub Actions Acceptance",
-      "purpose": "Executes cross-platform tests and governance gates.",
+      "id": "budget",
+      "name": "Search Budget",
+      "purpose": "Consume request-level search budget before every provider invocation.",
       "owns": [
-        "phase acceptance evidence"
+        "search calls used",
+        "remaining calls"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "provider-boundary",
+      "name": "Search Provider Boundary",
+      "purpose": "Expose one deterministic provider invocation without implementing live network access in Phase 1.",
+      "owns": [
+        "SearchProvider protocol",
+        "invoke_search"
       ],
       "depends_on": [
-        "core-package",
-        "governance"
+        "models"
+      ]
+    },
+    {
+      "id": "evidence",
+      "name": "Evidence Normalization",
+      "purpose": "Canonicalize HTTP(S) URLs, deduplicate sources, and classify evidence fail-closed.",
+      "owns": [
+        "canonical URLs",
+        "evidence sufficiency classification"
+      ],
+      "depends_on": [
+        "models"
+      ]
+    },
+    {
+      "id": "engine",
+      "name": "Grounding Engine",
+      "purpose": "Orchestrate validation, bounded search calls, evidence normalization, and fail-closed output.",
+      "owns": [
+        "grounding flow"
+      ],
+      "depends_on": [
+        "policy",
+        "budget",
+        "provider-boundary",
+        "evidence"
       ]
     }
   ],
   "data_flows": [
     {
-      "from": "tracked source/specs",
-      "to": "Project Truth Compiler",
-      "meaning": "deterministic source and semantic facts"
+      "from": "GroundingRequest",
+      "to": "GroundingPolicy",
+      "meaning": "untrusted caller intent is normalized and bounded"
     },
     {
-      "from": "Project Truth Compiler",
-      "to": "docs/",
-      "meaning": "generated human-facing project documentation"
+      "from": "GroundingPolicy",
+      "to": "GroundingEngine",
+      "meaning": "validated immutable request"
     },
     {
-      "from": "candidate commit",
-      "to": "GitHub Actions",
-      "meaning": "cross-platform test and acceptance evidence"
+      "from": "GroundingEngine",
+      "to": "SearchBudget",
+      "meaning": "consume one call before each provider invocation"
+    },
+    {
+      "from": "GroundingEngine",
+      "to": "Search Provider Boundary",
+      "meaning": "provider receives normalized SearchQuery"
+    },
+    {
+      "from": "Search Provider Boundary",
+      "to": "Evidence Normalization",
+      "meaning": "untrusted source candidates"
+    },
+    {
+      "from": "Evidence Normalization",
+      "to": "GroundingEngine",
+      "meaning": "unique normalized HTTP(S) evidence"
+    },
+    {
+      "from": "GroundingEngine",
+      "to": "EvidencePack",
+      "meaning": "grounded or fail-closed result"
     }
   ],
   "external_boundaries": [
     {
-      "name": "GitHub-hosted runners",
-      "contract": "External execution environments for cross-platform acceptance."
+      "name": "SearchProvider implementation",
+      "contract": "Provider output is untrusted; Phase 1 supplies only a protocol and tests with deterministic fakes."
     },
     {
-      "name": "Application network retrieval",
-      "contract": "Not implemented in Phase 0."
+      "name": "GitHub-hosted runners",
+      "contract": "Cross-platform acceptance authority for Python 3.11-3.14 on Linux, Windows, and macOS."
     }
   ]
 }

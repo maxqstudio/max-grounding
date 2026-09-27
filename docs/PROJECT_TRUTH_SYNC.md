@@ -36,6 +36,9 @@ HEAD is recorded externally after the commit exists.
 |---|---|---|---|---|---|---|
 | TRUTH-CROSS-PLATFORM-001 | The Phase 0 core package is platform-neutral Python and is acceptance-tested on Linux, Windows, and macOS GitHub-hosted runners. | PROJECT_TRUTH_SYNC.md | src/max_grounding/__init__.py::project_identity; .github/workflows/ci.yml | tests/test_bootstrap.py | .github/workflows/ci.yml | PASS |
 | TRUTH-ACCEPTANCE-001 | A project phase may merge to main only after all required GitHub Actions checks pass. | PROJECT_TRUTH_SYNC.md | .github/workflows/ci.yml | tests/test_bootstrap.py | .github/workflows/ci.yml | PASS |
+| TRUTH-P1-BUDGET-001 | Every GroundingRequest is hard-capped at two search-provider calls and budget is consumed before provider invocation. | PROJECT_TRUTH_SYNC.md | src/max_grounding/policy.py::validate_request; src/max_grounding/budget.py::consume_search_call; src/max_grounding/engine.py::ground | tests/test_policy.py; tests/test_budget.py; tests/test_engine.py | .github/workflows/ci.yml | PASS |
+| TRUTH-P1-FAIL-CLOSED-001 | Provider errors or exhausted search budget without sufficient unique evidence cannot produce GROUNDED status. | PROJECT_TRUTH_SYNC.md | src/max_grounding/engine.py::ground; src/max_grounding/evidence.py::build_evidence_pack | tests/test_engine.py | .github/workflows/ci.yml | PASS |
+| TRUTH-P1-DEDUPE-001 | Evidence sufficiency counts canonical HTTP(S) source URLs once, discarding unsupported or hostless URLs. | PROJECT_TRUTH_SYNC.md | src/max_grounding/evidence.py::canonicalize_url; src/max_grounding/evidence.py::normalize_candidates | tests/test_evidence.py; tests/test_engine.py | .github/workflows/ci.yml | PASS |
 
 ## Claim relations
 

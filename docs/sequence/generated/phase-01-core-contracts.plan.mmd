@@ -1,0 +1,15 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15
+%% FLOW_ID: FLOW-GROUND-REQUEST
+sequenceDiagram
+    participant ground_0 as GroundingEngine.ground
+    participant policy_1 as GroundingPolicy.validate_request
+    participant budget_2 as SearchBudget.consume_search_call
+    participant provider_3 as invoke_search
+    participant normalize_4 as normalize_candidates
+    participant pack_5 as build_evidence_pack
+    ground_0->>policy_1: validate request [MUST]
+    ground_0->>budget_2: consume before provider call [MUST]
+    ground_0->>provider_3: invoke bounded provider [MUST]
+    ground_0->>normalize_4: normalize and dedupe [MUST]
+    ground_0->>pack_5: build fail-closed evidence pack [MUST]

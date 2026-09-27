@@ -26,23 +26,42 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 2 files, 1 language categories.
+Observed source inventory: 14 files, 1 language categories.
 
 ## Major components
 
 | Component | Purpose | Owns / Decides | Depends On |
 |---|---|---|---|
-| Core Python Package | Portable package boundary for grounding functionality. | public Python package identity |  |
-| Project Truth Governance | Deterministically projects project state and traceability. | docs projection, truth validation | core-package |
-| GitHub Actions Acceptance | Executes cross-platform tests and governance gates. | phase acceptance evidence | core-package, governance |
+| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus |  |
+| Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
+| Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
+| Search Provider Boundary | Expose one deterministic provider invocation without implementing live network access in Phase 1. | SearchProvider protocol, invoke_search | models |
+| Evidence Normalization | Canonicalize HTTP(S) URLs, deduplicate sources, and classify evidence fail-closed. | canonical URLs, evidence sufficiency classification | models |
+| Grounding Engine | Orchestrate validation, bounded search calls, evidence normalization, and fail-closed output. | grounding flow | policy, budget, provider-boundary, evidence |
 
 ## Main data flow
 
-- tracked source/specs -> Project Truth Compiler: deterministic source and semantic facts
-- Project Truth Compiler -> docs/: generated human-facing project documentation
-- candidate commit -> GitHub Actions: cross-platform test and acceptance evidence
+- GroundingRequest -> GroundingPolicy: untrusted caller intent is normalized and bounded
+- GroundingPolicy -> GroundingEngine: validated immutable request
+- GroundingEngine -> SearchBudget: consume one call before each provider invocation
+- GroundingEngine -> Search Provider Boundary: provider receives normalized SearchQuery
+- Search Provider Boundary -> Evidence Normalization: untrusted source candidates
+- Evidence Normalization -> GroundingEngine: unique normalized HTTP(S) evidence
+- GroundingEngine -> EvidencePack: grounded or fail-closed result
 
 ## Main user workflows
+
+### FLOW-GROUND-REQUEST — Bounded grounding request
+
+Turn one validated grounding request into a deterministic evidence pack without exceeding the request search budget or reporting insufficient evidence as grounded.
+
+Authority: GroundingPolicy and SearchBudget
+
+- RECEIVED -> VALIDATED : validate request and policy limits
+- VALIDATED -> SEARCHING : consume a search call before provider invocation
+- SEARCHING -> EVIDENCE_READY : normalized unique evidence meets minimum source requirement
+- SEARCHING -> INSUFFICIENT_EVIDENCE : budget exhausted without sufficient unique evidence
+- SEARCHING -> PROVIDER_ERROR : provider raises before sufficient evidence exists
 
 ### FLOW-PHASE-DELIVERY — Governed phase delivery
 
@@ -57,9 +76,9 @@ Authority: GitHub Actions required checks
 
 ## Lifecycle and state
 
-Current phase: PHASE_00_GOVERNED_CROSS_PLATFORM_BASELINE
+Current phase: PHASE_01_GROUNDING_CORE_CONTRACTS
 
-Current status: ACCEPTED
+Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -93,17 +112,20 @@ compiler does not infer them from implementation names.
 
 ## Failure and recovery
 
+- FLOW-GROUND-REQUEST: Invalid requests fail before any provider call.
+- FLOW-GROUND-REQUEST: Provider failure returns a fail-closed evidence status and does not fabricate evidence.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.
 
 ## Current project state
 
 Next authorized actions:
-- Start Phase 1 from accepted main.
-- Freeze the Phase 1 BEFORE sequence plan before product implementation.
+- Generate actual sequence evidence and compare it to the frozen plan.
+- Synchronize generated governance docs.
+- Run full GitHub Actions PR acceptance; merge only if every required job passes.
 
 Blocked actions:
-- Do not claim live grounding capability from the Phase 0 baseline.
-- Do not bypass GitHub Actions acceptance for later phases.
+- Do not merge Phase 1 while any required Action is failing or missing.
+- Do not claim live web grounding capability from the Phase 1 core.
 
 Known blockers:
 - None declared.
@@ -112,15 +134,14 @@ Known blockers:
 
 ### Proven
 
-- Phase 0 governed baseline is merged to main.
-- GitHub Actions revalidated STRICT governance and the Python core on Ubuntu, Windows, and macOS at main SHA aba1b1838d649b92e863f19cb96e74799caf388c.
-- Skill Workflow authority remains pinned to 9e22feddb8f94e8c0f1af6a33e14b64de5068f8f.
-- Saweria and PayPal funding links are present.
+- Phase 1 BEFORE plan is frozen at c939a9128c078f99ab6bbf76fae161d52790e5de with SHA-256 809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15.
+- TDD RED was observed on GitHub Actions before implementation.
+- Phase 1 unit tests are GREEN on the implementation branch.
 
 ### Not proven
 
-- Live web search and crawling are not implemented in Phase 0.
-- Hybrid retrieval, reranking, claim verification, REST, MCP, and production service deployment are not implemented in Phase 0.
+- Final Phase 1 candidate is not accepted until full GitHub Actions matrix and STRICT governance pass on the exact PR head.
+- Live network search/fetch/crawl and downstream retrieval/reranking remain outside Phase 1.
 
 ## Important limitations
 

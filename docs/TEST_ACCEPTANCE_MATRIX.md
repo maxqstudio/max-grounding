@@ -4,16 +4,17 @@
 
 ## Evidence boundary
 
-Phase 0 proves governed repository bootstrap, package import/smoke behavior, deterministic documentation, sequence extraction, and native core-runtime execution on GitHub-hosted Linux/Windows/macOS. It does not prove web retrieval, crawling, vector search, MCP, REST, or production deployment.
+Phase 1 proves the deterministic in-process grounding core: request normalization, hard two-call search budget, provider boundary, canonical URL deduplication, fail-closed evidence status, frozen-plan sequence conformance, and supported-Python execution through GitHub Actions. It does not prove live web search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, or production deployment.
 
 Final tested source: external final acceptance evidence.
-Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
+Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P0-OS | Core runtime executes on Ubuntu, Windows, and macOS. |  | PASS |
-| P0-GOV | STRICT governance docs and validators are deterministic and synchronized. |  | PASS |
-| P0-MERGE | Merge is allowed only after required GitHub Actions checks pass. |  | PASS |
+| P1-BUDGET | A grounding request can consume at most two search-provider calls. | tests/test_policy.py; tests/test_budget.py; tests/test_engine.py | PASS |
+| P1-FAIL-CLOSED | Insufficient or failed retrieval cannot be reported as grounded. | tests/test_engine.py | PASS |
+| P1-DEDUPE | Duplicate canonical source URLs do not inflate evidence sufficiency. | tests/test_evidence.py; tests/test_engine.py | PASS |
+| P1-CROSS-OS | Phase 1 core behavior passes on Python 3.11-3.14 across Linux, Windows, and macOS. | GitHub Actions Acceptance matrix | PASS |
 
 ## Test commands
 
@@ -24,12 +25,12 @@ Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48
 
 ## Runtime checks
 
-- Import max_grounding and execute project_identity on Linux, Windows, and macOS runners.
+- Run the complete source suite on Python 3.11, 3.12, 3.13, and 3.14 on Ubuntu, Windows, and macOS GitHub-hosted runners.
 
 ## Sequence contract evidence
 
-Sequence mode for this phase/session: DURING
-Sequence session contract: docs/sequence/sessions/phase-00-bootstrap.json
+Sequence mode for this phase/session: BEFORE
+Sequence session contract: docs/sequence/sessions/phase-01-core-contracts.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

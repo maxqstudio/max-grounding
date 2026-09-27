@@ -10,10 +10,10 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase-01-core-contracts
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: aba1b1838d649b92e863f19cb96e74799caf388c
-Current source digest: b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a
+Last accepted SHA: fc655d5191c5b35186be7da7c0fb8a08ad0f09a4
+Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.

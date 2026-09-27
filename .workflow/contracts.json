@@ -4,24 +4,70 @@
     {
       "method": "PYTHON",
       "path": "max_grounding.project_identity()",
-      "purpose": "Return stable bootstrap package identity for smoke and runtime acceptance.",
+      "purpose": "Return stable package identity for smoke acceptance.",
       "authority": "src/max_grounding/__init__.py::project_identity",
       "mutation": "none",
-      "error_behavior": "No expected domain error; import/runtime failures fail acceptance."
+      "error_behavior": "Import/runtime failure blocks acceptance."
+    },
+    {
+      "method": "PYTHON",
+      "path": "GroundingEngine.ground(request)",
+      "purpose": "Produce a bounded evidence pack from one grounding request.",
+      "authority": "src/max_grounding/engine.py::ground",
+      "mutation": "in-memory request budget only",
+      "error_behavior": "Invalid requests raise before provider access; provider failures return PROVIDER_ERROR evidence status."
+    },
+    {
+      "method": "PROTOCOL",
+      "path": "SearchProvider.search(query)",
+      "purpose": "Return untrusted source candidates for exactly one budgeted provider call.",
+      "authority": "src/max_grounding/providers/base.py::SearchProvider",
+      "mutation": "provider-defined external behavior; no Phase 1 implementation",
+      "error_behavior": "Provider exception is contained by GroundingEngine and fails closed."
     }
   ],
   "data_contracts": [
     {
-      "name": "ProjectIdentity",
-      "source_of_truth": "src/max_grounding/__init__.py::project_identity",
-      "mutability": "immutable within a release",
+      "name": "GroundingRequest",
+      "source_of_truth": "src/max_grounding/models.py::GroundingRequest",
+      "mutability": "immutable",
       "legal_writes": [
-        "governed source change in an accepted phase"
+        "caller construction before validation"
       ],
-      "retention": "source-controlled release history",
+      "retention": "request lifetime",
       "invariants": [
-        "name remains max-grounding",
-        "cross_platform remains true while three-OS acceptance is required"
+        "max_search_rounds is validated to 1..2",
+        "results_per_call is validated to 1..10",
+        "min_evidence_sources is at least 1"
+      ]
+    },
+    {
+      "name": "EvidencePack",
+      "source_of_truth": "src/max_grounding/models.py::EvidencePack",
+      "mutability": "immutable",
+      "legal_writes": [
+        "GroundingEngine.ground result construction"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "GROUNDED requires minimum unique evidence sources",
+        "provider error before sufficiency is PROVIDER_ERROR",
+        "budget exhaustion without sufficiency is INSUFFICIENT_EVIDENCE"
+      ]
+    },
+    {
+      "name": "Canonical source URL",
+      "source_of_truth": "src/max_grounding/evidence.py::canonicalize_url",
+      "mutability": "derived",
+      "legal_writes": [
+        "evidence normalization"
+      ],
+      "retention": "evidence-pack lifetime",
+      "invariants": [
+        "only http and https are accepted",
+        "credentials are rejected",
+        "fragments do not distinguish sources",
+        "duplicate canonical URLs count once"
       ]
     }
   ],
@@ -36,6 +82,11 @@
       "name": "compile",
       "command": "python -m compileall -q src tests .workflow/tools",
       "expected": "exit code 0"
+    },
+    {
+      "name": "sequence",
+      "command": "python .workflow/tools/validate_sequence_sessions.py",
+      "expected": "SEQUENCE_SYNC PASS"
     },
     {
       "name": "docs-sync",
