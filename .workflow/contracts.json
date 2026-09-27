@@ -2,22 +2,27 @@
   "schema_version": 1,
   "api_contracts": [
     {
-      "name": "project_identity",
+      "method": "PYTHON",
+      "path": "max_grounding.project_identity()",
       "purpose": "Return stable bootstrap package identity for smoke and runtime acceptance.",
-      "input": "none",
-      "output": "mapping with name, version, cross_platform and interfaces",
-      "errors": "none",
-      "side_effects": "none",
-      "idempotency": "idempotent"
+      "authority": "src/max_grounding/__init__.py::project_identity",
+      "mutation": "none",
+      "error_behavior": "No expected domain error; import/runtime failures fail acceptance."
     }
   ],
   "data_contracts": [
     {
       "name": "ProjectIdentity",
-      "schema": "name:string; version:string; cross_platform:boolean; interfaces:tuple[string]",
-      "source_of_truth": "src/max_grounding/__init__.py",
-      "mutability": "immutable per release",
-      "validation": "tests/test_bootstrap.py"
+      "source_of_truth": "src/max_grounding/__init__.py::project_identity",
+      "mutability": "immutable within a release",
+      "legal_writes": [
+        "governed source change in an accepted phase"
+      ],
+      "retention": "source-controlled release history",
+      "invariants": [
+        "name remains max-grounding",
+        "cross_platform remains true while three-OS acceptance is required"
+      ]
     }
   ],
   "ui_surfaces": [],
@@ -25,22 +30,22 @@
     {
       "name": "unit-tests",
       "command": "python -m unittest discover -s tests -v",
-      "purpose": "run portable source tests"
+      "expected": "all tests PASS"
     },
     {
       "name": "compile",
       "command": "python -m compileall -q src tests .workflow/tools",
-      "purpose": "prove Python syntax across tracked code"
+      "expected": "exit code 0"
     },
     {
       "name": "docs-sync",
       "command": "python .workflow/tools/sync_project_truth.py",
-      "purpose": "regenerate and validate governed documentation"
+      "expected": "PROJECT_DOCS_SYNC=PASS"
     },
     {
       "name": "strict-truth",
       "command": "python .workflow/tools/validate_project_truth.py",
-      "purpose": "validate strict project truth gates"
+      "expected": "result PASS"
     }
   ]
 }
