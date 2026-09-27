@@ -1,27 +1,27 @@
 {
   "schema_version": 1,
   "phase": "PHASE_01_GROUNDING_CORE_CONTRACTS",
-  "status": "PLAN_FROZEN_READY_FOR_TDD",
+  "status": "CANDIDATE_PENDING_GITHUB_ACTIONS",
   "working_branch": "work/phase-01-core-contracts",
   "last_accepted_sha": "fc655d5191c5b35186be7da7c0fb8a08ad0f09a4",
   "last_accepted_branch": "main",
   "proven": [
-    "Phase 0 accepted baseline is available at main SHA fc655d5191c5b35186be7da7c0fb8a08ad0f09a4.",
-    "Phase 1 BEFORE plan is frozen at commit c939a9128c078f99ab6bbf76fae161d52790e5de.",
-    "Phase 1 plan SHA-256 is 809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15."
+    "Phase 1 BEFORE plan is frozen at c939a9128c078f99ab6bbf76fae161d52790e5de with SHA-256 809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15.",
+    "TDD RED was observed on GitHub Actions before implementation.",
+    "Phase 1 unit tests are GREEN on the implementation branch."
   ],
   "not_proven": [
-    "Phase 1 GroundingRequest and EvidencePack contracts are not implemented yet.",
-    "The hard maximum of two search calls per request is not implemented yet.",
-    "Fail-closed insufficient-evidence behavior is not implemented yet."
+    "Final Phase 1 candidate is not accepted until full GitHub Actions matrix and STRICT governance pass on the exact PR head.",
+    "Live network search/fetch/crawl and downstream retrieval/reranking remain outside Phase 1."
   ],
   "blockers": [],
   "next_authorized_actions": [
-    "Add failing Phase 1 tests for request validation, two-call budget, fail-closed behavior, and evidence deduplication.",
-    "Implement only the minimum source required to make the frozen Phase 1 contract pass."
+    "Generate actual sequence evidence and compare it to the frozen plan.",
+    "Synchronize generated governance docs.",
+    "Run full GitHub Actions PR acceptance; merge only if every required job passes."
   ],
   "blocked_actions": [
-    "Do not modify the frozen Phase 1 plan without explicit PLAN_CHANGE classification.",
-    "Do not add live network providers in Phase 1."
+    "Do not merge Phase 1 while any required Action is failing or missing.",
+    "Do not claim live web grounding capability from the Phase 1 core."
   ]
 }

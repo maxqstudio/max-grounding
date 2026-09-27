@@ -1,5 +1,5 @@
 {
-  "evidence_boundary": "Phase 1 planning currently defines the intended deterministic core grounding flow only. Product implementation, bounded search behavior, fail-closed evidence handling, and cross-platform runtime evidence remain NOT_PROVEN until implementation and GitHub Actions acceptance.",
+  "evidence_boundary": "Phase 1 proves the deterministic in-process grounding core: request normalization, hard two-call search budget, provider boundary, canonical URL deduplication, fail-closed evidence status, frozen-plan sequence conformance, and supported-Python execution through GitHub Actions. It does not prove live web search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, or production deployment.",
   "human_comprehension_questions": {
     "How does failure/recovery behave?": "PASS",
     "How does important data flow through the system?": "PASS",
@@ -17,38 +17,38 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
-      "evidence": "tests/test_engine.py",
       "id": "P1-BUDGET",
       "requirement": "A grounding request can consume at most two search-provider calls.",
-      "status": "NOT_PROVEN"
+      "evidence": "tests/test_policy.py; tests/test_budget.py; tests/test_engine.py",
+      "status": "PASS"
     },
     {
-      "evidence": "tests/test_engine.py",
       "id": "P1-FAIL-CLOSED",
       "requirement": "Insufficient or failed retrieval cannot be reported as grounded.",
-      "status": "NOT_PROVEN"
+      "evidence": "tests/test_engine.py",
+      "status": "PASS"
     },
     {
-      "evidence": "tests/test_evidence.py",
       "id": "P1-DEDUPE",
-      "requirement": "Duplicate source URLs do not inflate evidence sufficiency.",
-      "status": "NOT_PROVEN"
+      "requirement": "Duplicate canonical source URLs do not inflate evidence sufficiency.",
+      "evidence": "tests/test_evidence.py; tests/test_engine.py",
+      "status": "PASS"
     },
     {
-      "evidence": "GitHub Actions Acceptance matrix",
       "id": "P1-CROSS-OS",
-      "requirement": "Phase 1 core behavior passes on Linux, Windows, and macOS.",
-      "status": "NOT_PROVEN"
+      "requirement": "Phase 1 core behavior passes on Python 3.11-3.14 across Linux, Windows, and macOS.",
+      "evidence": "GitHub Actions Acceptance matrix",
+      "status": "PASS"
     }
   ],
   "runtime_checks": [
-    "Execute Phase 1 unit/integration suite on Ubuntu, Windows, and macOS GitHub-hosted runners."
+    "Run the complete source suite on Python 3.11, 3.12, 3.13, and 3.14 on Ubuntu, Windows, and macOS GitHub-hosted runners."
   ],
-  "runtime_status": "NOT_PROVEN",
+  "runtime_status": "PASS",
   "schema_version": 1,
   "sequence_mode": "BEFORE",
   "sequence_session": "docs/sequence/sessions/phase-01-core-contracts.json",
-  "sequence_sync_status": "NOT_PROVEN",
+  "sequence_sync_status": "PASS",
   "test_commands": [
     "python -m unittest discover -s tests -v",
     "python -m compileall -q src tests .workflow/tools",
@@ -56,23 +56,23 @@
     "python .workflow/tools/validate_project_truth.py"
   ],
   "truth_gates": {
-    "BEHAVIORAL_SYNC": "NOT_PROVEN",
-    "CROSS_DOCUMENT_CONSISTENCY": "NOT_PROVEN",
+    "BEHAVIORAL_SYNC": "PASS",
+    "CROSS_DOCUMENT_CONSISTENCY": "PASS",
     "DOC_LAYOUT": "PASS",
     "DOC_READABILITY": "PASS",
-    "DOC_SOURCE_TRACEABILITY": "NOT_PROVEN",
-    "DOC_TEST_TRACEABILITY": "NOT_PROVEN",
+    "DOC_SOURCE_TRACEABILITY": "PASS",
+    "DOC_TEST_TRACEABILITY": "PASS",
     "HUMAN_COMPREHENSION": "PASS",
     "PROJECT_DOCS_NORMALIZED": "PASS",
     "PROJECT_DOCS_SYNC": "PASS",
-    "PROJECT_STATE_SYNC": "NOT_PROVEN",
+    "PROJECT_STATE_SYNC": "PASS",
     "PROVENANCE_SYNC": "PASS",
     "REFERENCE_SYNC": "PASS",
-    "RUNTIME_E2E": "NOT_PROVEN",
-    "SEMANTIC_SYNC": "NOT_PROVEN",
-    "SEQUENCE_SYNC": "NOT_PROVEN",
-    "SOURCE_TESTS": "NOT_PROVEN",
-    "STRUCTURAL_SYNC": "NOT_PROVEN",
-    "TEST_RUNTIME_TRACEABILITY": "NOT_PROVEN"
+    "RUNTIME_E2E": "PASS",
+    "SEMANTIC_SYNC": "PASS",
+    "SEQUENCE_SYNC": "PASS",
+    "SOURCE_TESTS": "PASS",
+    "STRUCTURAL_SYNC": "PASS",
+    "TEST_RUNTIME_TRACEABILITY": "PASS"
   }
 }

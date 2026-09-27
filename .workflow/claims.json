@@ -35,6 +35,64 @@
         ".github/workflows/ci.yml"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P1-BUDGET-001",
+      "claim": "Every GroundingRequest is hard-capped at two search-provider calls and budget is consumed before provider invocation.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+        "src/max_grounding/budget.py::SearchBudget.consume_search_call",
+        "src/max_grounding/engine.py::GroundingEngine.ground"
+      ],
+      "tests": [
+        "tests/test_policy.py",
+        "tests/test_budget.py",
+        "tests/test_engine.py"
+      ],
+      "runtime_evidence": [
+        ".github/workflows/ci.yml"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P1-FAIL-CLOSED-001",
+      "claim": "Provider errors or exhausted search budget without sufficient unique evidence cannot produce GROUNDED status.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/engine.py::GroundingEngine.ground",
+        "src/max_grounding/evidence.py::build_evidence_pack"
+      ],
+      "tests": [
+        "tests/test_engine.py"
+      ],
+      "runtime_evidence": [
+        ".github/workflows/ci.yml"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P1-DEDUPE-001",
+      "claim": "Evidence sufficiency counts canonical HTTP(S) source URLs once, discarding unsupported or hostless URLs.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/evidence.py::canonicalize_url",
+        "src/max_grounding/evidence.py::normalize_candidates"
+      ],
+      "tests": [
+        "tests/test_evidence.py",
+        "tests/test_engine.py"
+      ],
+      "runtime_evidence": [
+        ".github/workflows/ci.yml"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []

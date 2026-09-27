@@ -4,6 +4,10 @@
     {
       "date": "2026-09-27",
       "change": "Initialized MAX Grounding Phase 0 governed cross-platform baseline."
+    },
+    {
+      "date": "2026-09-27",
+      "change": "Phase 1 candidate adds bounded grounding contracts, hard two-call search budget, canonical evidence deduplication, and fail-closed evidence status."
     }
   ]
 }

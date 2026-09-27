@@ -5,7 +5,7 @@
   "mode": "BEFORE",
   "scope": "CURRENT",
   "critical": true,
-  "status": "FROZEN",
+  "status": "CANDIDATE",
   "implementation_base_sha": "c939a9128c078f99ab6bbf76fae161d52790e5de",
   "plan": {
     "required": true,
@@ -33,5 +33,5 @@
     "required": false,
     "graph": ""
   },
-  "acceptance_report": "artifacts/sequence/phase-01-core-contracts.acceptance.json"
+  "acceptance_report": ""
 }
