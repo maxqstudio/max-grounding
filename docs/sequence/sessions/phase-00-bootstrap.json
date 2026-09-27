@@ -3,9 +3,9 @@
   "session_id": "phase-00-bootstrap",
   "phase": "PHASE_00_GOVERNED_CROSS_PLATFORM_BASELINE",
   "mode": "DURING",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
-  "status": "CANDIDATE",
+  "status": "ACCEPTED",
   "implementation_base_sha": "2669e624f86e688f1f709dbf31a4cb198688f85f",
   "plan": {
     "required": false,

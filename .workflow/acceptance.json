@@ -1,5 +1,5 @@
 {
-  "evidence_boundary": "Phase 0 proves governed repository bootstrap, package import/smoke behavior, deterministic documentation, sequence extraction, and native core-runtime execution on GitHub-hosted Linux/Windows/macOS. It does not prove web retrieval, crawling, vector search, MCP, REST, or production deployment.",
+  "evidence_boundary": "Phase 1 planning currently defines the intended deterministic core grounding flow only. Product implementation, bounded search behavior, fail-closed evidence handling, and cross-platform runtime evidence remain NOT_PROVEN until implementation and GitHub Actions acceptance.",
   "human_comprehension_questions": {
     "How does failure/recovery behave?": "PASS",
     "How does important data flow through the system?": "PASS",
@@ -17,38 +17,38 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
-      "id": "P0-OS",
-      "requirement": "Core runtime executes on Ubuntu, Windows, and macOS.",
-      "status": "PASS",
-      "tests": [
-        "tests/test_bootstrap.py"
-      ]
+      "id": "P1-BUDGET",
+      "requirement": "A grounding request can consume at most two search-provider calls.",
+      "evidence": "tests/test_engine.py",
+      "status": "NOT_PROVEN"
     },
     {
-      "id": "P0-GOV",
-      "requirement": "STRICT governance docs and validators are deterministic and synchronized.",
-      "status": "PASS",
-      "tests": [
-        "GitHub Actions governance job"
-      ]
+      "id": "P1-FAIL-CLOSED",
+      "requirement": "Insufficient or failed retrieval cannot be reported as grounded.",
+      "evidence": "tests/test_engine.py",
+      "status": "NOT_PROVEN"
     },
     {
-      "id": "P0-MERGE",
-      "requirement": "Merge is allowed only after required GitHub Actions checks pass.",
-      "status": "PASS",
-      "tests": [
-        "GitHub pull request acceptance"
-      ]
+      "id": "P1-DEDUPE",
+      "requirement": "Duplicate source URLs do not inflate evidence sufficiency.",
+      "evidence": "tests/test_evidence.py",
+      "status": "NOT_PROVEN"
+    },
+    {
+      "id": "P1-CROSS-OS",
+      "requirement": "Phase 1 core behavior passes on Linux, Windows, and macOS.",
+      "evidence": "GitHub Actions Acceptance matrix",
+      "status": "NOT_PROVEN"
     }
   ],
   "runtime_checks": [
-    "Import max_grounding and execute project_identity on Linux, Windows, and macOS runners."
+    "Execute Phase 1 unit/integration suite on Ubuntu, Windows, and macOS GitHub-hosted runners."
   ],
-  "runtime_status": "PASS",
+  "runtime_status": "NOT_PROVEN",
   "schema_version": 1,
-  "sequence_mode": "DURING",
-  "sequence_session": "docs/sequence/sessions/phase-00-bootstrap.json",
-  "sequence_sync_status": "PASS",
+  "sequence_mode": "BEFORE",
+  "sequence_session": "docs/sequence/sessions/phase-01-core-contracts.json",
+  "sequence_sync_status": "NOT_PROVEN",
   "test_commands": [
     "python -m unittest discover -s tests -v",
     "python -m compileall -q src tests .workflow/tools",
@@ -56,23 +56,23 @@
     "python .workflow/tools/validate_project_truth.py"
   ],
   "truth_gates": {
-    "BEHAVIORAL_SYNC": "PASS",
-    "CROSS_DOCUMENT_CONSISTENCY": "PASS",
+    "BEHAVIORAL_SYNC": "NOT_PROVEN",
+    "CROSS_DOCUMENT_CONSISTENCY": "NOT_PROVEN",
     "DOC_LAYOUT": "PASS",
     "DOC_READABILITY": "PASS",
-    "DOC_SOURCE_TRACEABILITY": "PASS",
-    "DOC_TEST_TRACEABILITY": "PASS",
+    "DOC_SOURCE_TRACEABILITY": "NOT_PROVEN",
+    "DOC_TEST_TRACEABILITY": "NOT_PROVEN",
     "HUMAN_COMPREHENSION": "PASS",
     "PROJECT_DOCS_NORMALIZED": "PASS",
     "PROJECT_DOCS_SYNC": "PASS",
-    "PROJECT_STATE_SYNC": "PASS",
+    "PROJECT_STATE_SYNC": "NOT_PROVEN",
     "PROVENANCE_SYNC": "PASS",
     "REFERENCE_SYNC": "PASS",
-    "RUNTIME_E2E": "PASS",
-    "SEMANTIC_SYNC": "PASS",
-    "SEQUENCE_SYNC": "PASS",
-    "SOURCE_TESTS": "PASS",
-    "STRUCTURAL_SYNC": "PASS",
-    "TEST_RUNTIME_TRACEABILITY": "PASS"
+    "RUNTIME_E2E": "NOT_PROVEN",
+    "SEMANTIC_SYNC": "NOT_PROVEN",
+    "SEQUENCE_SYNC": "NOT_PROVEN",
+    "SOURCE_TESTS": "NOT_PROVEN",
+    "STRUCTURAL_SYNC": "NOT_PROVEN",
+    "TEST_RUNTIME_TRACEABILITY": "NOT_PROVEN"
   }
 }
