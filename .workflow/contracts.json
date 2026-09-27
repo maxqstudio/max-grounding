@@ -22,8 +22,24 @@
       "path": "SearchProvider.search(query)",
       "purpose": "Return untrusted source candidates for exactly one budgeted provider call.",
       "authority": "src/max_grounding/providers/base.py::SearchProvider",
-      "mutation": "provider-defined external behavior; no Phase 1 implementation",
-      "error_behavior": "Provider exception is contained by GroundingEngine and fails closed."
+      "mutation": "provider-defined external behavior; Phase 2 ships SearxngProvider",
+      "error_behavior": "Provider exceptions are contained by GroundingEngine and fail closed."
+    },
+    {
+      "method": "PYTHON",
+      "path": "SearxngProvider.search(query)",
+      "purpose": "Perform one already-budgeted live JSON search against the configured SearXNG endpoint.",
+      "authority": "src/max_grounding/providers/searxng.py::search",
+      "mutation": "network GET to operator-configured SearXNG only; no persistent mutation",
+      "error_behavior": "Transport, redirect, HTTP, content type, response-size, JSON, or result-schema failures raise SearchProviderError."
+    },
+    {
+      "method": "INTERNAL",
+      "path": "fetch_searxng_json(url)",
+      "purpose": "Read one bounded application/json response without redirect following.",
+      "authority": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "mutation": "network read only",
+      "error_behavior": "Fails closed with SearchProviderError on invalid or oversized response."
     }
   ],
   "data_contracts": [
@@ -68,6 +84,22 @@
         "credentials are rejected",
         "fragments do not distinguish sources",
         "duplicate canonical URLs count once"
+      ]
+    },
+    {
+      "name": "Admissible search-result URL",
+      "source_of_truth": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "mutability": "derived",
+      "legal_writes": [
+        "SearXNG result parsing"
+      ],
+      "retention": "SourceCandidate/evidence lifetime",
+      "invariants": [
+        "scheme is http or https",
+        "userinfo credentials are forbidden",
+        "localhost names are forbidden",
+        "literal IP targets must be globally routable and non-multicast",
+        "DNS resolution and rebinding validation are explicitly deferred to the page-fetch boundary"
       ]
     }
   ],
