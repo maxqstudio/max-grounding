@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "phase": "PHASE_00_GOVERNED_CROSS_PLATFORM_BASELINE",
+  "status": "CANDIDATE_PENDING_GITHUB_ACTIONS",
+  "working_branch": "work/phase-00-governance",
+  "last_accepted_sha": "2669e624f86e688f1f709dbf31a4cb198688f85f",
+  "last_accepted_branch": "main",
+  "proven": [
+    "Repository exists and has an initial main commit.",
+    "Skill Workflow authority is pinned to the declared upstream commit.",
+    "Phase 0 candidate contains native Python smoke coverage for Linux, Windows, and macOS."
+  ],
+  "not_proven": [
+    "Phase 0 is not accepted until all required GitHub Actions checks pass on the final candidate commit."
+  ],
+  "blockers": [],
+  "next_authorized_actions": [
+    "Run Phase 0 GitHub Actions acceptance.",
+    "Merge Phase 0 to main only after all required checks pass.",
+    "Revalidate merged main, then start Phase 1 retrieval contracts."
+  ],
+  "blocked_actions": [
+    "Do not claim product grounding capability during Phase 0.",
+    "Do not merge this phase with failing or missing required checks."
+  ]
+}

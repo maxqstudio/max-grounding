@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "claims": [
+    {
+      "id": "TRUTH-CROSS-PLATFORM-001",
+      "claim": "The Phase 0 core package is platform-neutral Python and is acceptance-tested on Linux, Windows, and macOS GitHub-hosted runners.",
+      "documents": [
+        "SYSTEM_OVERVIEW.md",
+        "TEST_ACCEPTANCE_MATRIX.md"
+      ],
+      "sources": [
+        "src/max_grounding/__init__.py::project_identity",
+        ".github/workflows/ci.yml"
+      ],
+      "tests": [
+        "tests/test_bootstrap.py"
+      ],
+      "runtime": [
+        ".github/workflows/ci.yml"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-ACCEPTANCE-001",
+      "claim": "A project phase may merge to main only after all required GitHub Actions checks pass.",
+      "documents": [
+        "CURRENT_STATE.md",
+        "SOURCE_AUTHORITY_MAP.md",
+        "TEST_ACCEPTANCE_MATRIX.md"
+      ],
+      "sources": [
+        ".github/workflows/ci.yml"
+      ],
+      "tests": [
+        "tests/test_bootstrap.py"
+      ],
+      "runtime": [
+        ".github/workflows/ci.yml"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "relations": []
+}

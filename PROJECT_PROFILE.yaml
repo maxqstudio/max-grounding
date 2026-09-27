@@ -1,0 +1,26 @@
+profile: strict
+
+contracts:
+  api_contracts: required
+  data_contracts: required
+  ui_information_architecture: not_applicable
+  runbook: required
+  decisions: required
+  known_defects: required
+  glossary: required
+  changelog: required
+
+runtime:
+  e2e_required: true
+
+documentation:
+  generated: true
+  spec_root: .workflow
+  docs_root: docs
+
+sequence:
+  required: true
+  runtime_trace_required: false
+
+notes:
+  profile_reason: production network-facing grounding infrastructure with untrusted input, external retrieval, evidence lineage, multi-agent use, and cross-platform acceptance

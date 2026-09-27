@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "max-grounding"
+version = "0.0.1"
+description = "Self-hostable evidence-first grounding engine for LLMs and agents."
+requires-python = ">=3.11"
+readme = "README.md"
+authors = [{name = "maxqstudio"}]
+keywords = ["grounding", "rag", "mcp", "retrieval", "llm"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+
+[project.urls]
+Repository = "https://github.com/maxqstudio/max-grounding"
+Saweria = "https://saweria.co/maxq"
+PayPal = "https://paypal.me/JacksonJackson1501"
+
+[tool.setuptools.packages.find]
+where = ["src"]

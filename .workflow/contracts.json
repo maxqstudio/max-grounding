@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "api_contracts": [
+    {
+      "name": "project_identity",
+      "purpose": "Return stable bootstrap package identity for smoke and runtime acceptance.",
+      "input": "none",
+      "output": "mapping with name, version, cross_platform and interfaces",
+      "errors": "none",
+      "side_effects": "none",
+      "idempotency": "idempotent"
+    }
+  ],
+  "data_contracts": [
+    {
+      "name": "ProjectIdentity",
+      "schema": "name:string; version:string; cross_platform:boolean; interfaces:tuple[string]",
+      "source_of_truth": "src/max_grounding/__init__.py",
+      "mutability": "immutable per release",
+      "validation": "tests/test_bootstrap.py"
+    }
+  ],
+  "ui_surfaces": [],
+  "runbook_steps": [
+    {
+      "name": "unit-tests",
+      "command": "python -m unittest discover -s tests -v",
+      "purpose": "run portable source tests"
+    },
+    {
+      "name": "compile",
+      "command": "python -m compileall -q src tests .workflow/tools",
+      "purpose": "prove Python syntax across tracked code"
+    },
+    {
+      "name": "docs-sync",
+      "command": "python .workflow/tools/sync_project_truth.py",
+      "purpose": "regenerate and validate governed documentation"
+    },
+    {
+      "name": "strict-truth",
+      "command": "python .workflow/tools/validate_project_truth.py",
+      "purpose": "validate strict project truth gates"
+    }
+  ]
+}

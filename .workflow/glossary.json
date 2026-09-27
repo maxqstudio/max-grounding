@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "terms": [
+    {
+      "term": "Grounding",
+      "definition": "Binding generated claims to retrieved external evidence with explicit provenance."
+    },
+    {
+      "term": "Evidence pack",
+      "definition": "A bounded normalized set of sources and claim-support material passed to a model."
+    },
+    {
+      "term": "Acceptance authority",
+      "definition": "The execution environment whose successful checks permit a phase to merge."
+    }
+  ]
+}

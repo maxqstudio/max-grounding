@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "decisions": [
+    {
+      "id": "DEC-0001",
+      "date": "2026-09-27",
+      "context": "The grounding engine is network-facing infrastructure intended for multiple apps and agents.",
+      "decision": "Use STRICT Skill Workflow governance and GitHub Actions as the sole project acceptance authority.",
+      "reason": "Network trust boundaries, evidence lineage, cross-platform support, and multi-session development require explicit acceptance and provenance.",
+      "alternatives": [
+        "LITE governance",
+        "Owner-PC acceptance"
+      ],
+      "impact": "Every phase must pass required Actions checks, merge to main, and revalidate main."
+    },
+    {
+      "id": "DEC-0002",
+      "date": "2026-09-27",
+      "context": "Cross-platform support must be real rather than a Linux-container-only claim.",
+      "decision": "Test the Python core natively on Linux, Windows, and macOS; isolate service-heavy dependencies behind contracts and Linux containers.",
+      "reason": "This preserves portable application logic without pretending SearXNG/Qdrant run natively identically on every OS.",
+      "alternatives": [
+        "Docker-only support"
+      ],
+      "impact": "Core code may not depend on OS-specific shell behavior."
+    }
+  ]
+}
