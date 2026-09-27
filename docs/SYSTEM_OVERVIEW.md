@@ -78,7 +78,7 @@ Authority: GitHub Actions required checks
 
 Current phase: PHASE_01_GROUNDING_CORE_CONTRACTS
 
-Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Current status: ACCEPTED
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -119,13 +119,12 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Generate actual sequence evidence and compare it to the frozen plan.
-- Synchronize generated governance docs.
-- Run full GitHub Actions PR acceptance; merge only if every required job passes.
+- Start Phase 2 from accepted main.
+- Freeze the Phase 2 BEFORE sequence plan before product implementation.
 
 Blocked actions:
-- Do not merge Phase 1 while any required Action is failing or missing.
 - Do not claim live web grounding capability from the Phase 1 core.
+- Do not bypass GitHub Actions acceptance or main revalidation for later phases.
 
 Known blockers:
 - None declared.
@@ -134,14 +133,14 @@ Known blockers:
 
 ### Proven
 
-- Phase 1 BEFORE plan is frozen at c939a9128c078f99ab6bbf76fae161d52790e5de with SHA-256 809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15.
-- TDD RED was observed on GitHub Actions before implementation.
-- Phase 1 unit tests are GREEN on the implementation branch.
+- Phase 1 bounded grounding core is merged to main at 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.
+- GitHub Actions run 17 revalidated STRICT governance and the Python core on Python 3.11-3.14 across Ubuntu, Windows, and macOS at main SHA 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.
+- Phase 1 BEFORE plan was frozen before implementation and sequence acceptance passed.
+- The deterministic core enforces a hard maximum of two provider calls, canonical URL deduplication, and fail-closed evidence status.
 
 ### Not proven
 
-- Final Phase 1 candidate is not accepted until full GitHub Actions matrix and STRICT governance pass on the exact PR head.
-- Live network search/fetch/crawl and downstream retrieval/reranking remain outside Phase 1.
+- Live network search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, and production deployment remain outside Phase 1.
 
 ## Important limitations
 

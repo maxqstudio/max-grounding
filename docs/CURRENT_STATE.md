@@ -3,18 +3,18 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: fc655d5191c5b35186be7da7c0fb8a08ad0f09a4
+Authority verified at SHA: 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe
 Governance profile: strict
 
 ## Current phase
 Phase: PHASE_01_GROUNDING_CORE_CONTRACTS
-Status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Status: ACCEPTED
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: work/phase-01-core-contracts
+Branch: main
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: fc655d5191c5b35186be7da7c0fb8a08ad0f09a4
+Last accepted SHA: 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe
 Current candidate SHA: external final acceptance evidence
 Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
 
@@ -37,13 +37,13 @@ Current sequence session: docs/sequence/sessions/phase-01-core-contracts.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 1 BEFORE plan is frozen at c939a9128c078f99ab6bbf76fae161d52790e5de with SHA-256 809f28b0beae749099fc6b35f3590774a6d28b48506a68960dbfc7d6a071ef15.
-- TDD RED was observed on GitHub Actions before implementation.
-- Phase 1 unit tests are GREEN on the implementation branch.
+- Phase 1 bounded grounding core is merged to main at 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.
+- GitHub Actions run 17 revalidated STRICT governance and the Python core on Python 3.11-3.14 across Ubuntu, Windows, and macOS at main SHA 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.
+- Phase 1 BEFORE plan was frozen before implementation and sequence acceptance passed.
+- The deterministic core enforces a hard maximum of two provider calls, canonical URL deduplication, and fail-closed evidence status.
 
 ## Not proven
-- Final Phase 1 candidate is not accepted until full GitHub Actions matrix and STRICT governance pass on the exact PR head.
-- Live network search/fetch/crawl and downstream retrieval/reranking remain outside Phase 1.
+- Live network search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, and production deployment remain outside Phase 1.
 
 ## Known blockers
 - None declared.
@@ -52,10 +52,9 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Generate actual sequence evidence and compare it to the frozen plan.
-- Synchronize generated governance docs.
-- Run full GitHub Actions PR acceptance; merge only if every required job passes.
+- Start Phase 2 from accepted main.
+- Freeze the Phase 2 BEFORE sequence plan before product implementation.
 
 ## Explicitly blocked
-- Do not merge Phase 1 while any required Action is failing or missing.
 - Do not claim live web grounding capability from the Phase 1 core.
+- Do not bypass GitHub Actions acceptance or main revalidation for later phases.
