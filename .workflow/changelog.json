@@ -8,6 +8,10 @@
     {
       "date": "2026-09-27",
       "change": "Phase 1 candidate adds bounded grounding contracts, hard two-call search budget, canonical evidence deduplication, and fail-closed evidence status."
+    },
+    {
+      "date": "2026-09-27",
+      "change": "Phase 2 candidate adds the stdlib-only SearXNG live-search provider, bounded non-redirecting JSON HTTP handling, conservative result-URL admission, and 12-job cross-platform runtime evidence."
     }
   ]
 }
