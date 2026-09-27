@@ -1,26 +1,27 @@
 {
   "schema_version": 1,
-  "phase": "PHASE_01_GROUNDING_CORE_CONTRACTS",
-  "status": "ACCEPTED",
-  "working_branch": "main",
-  "last_accepted_sha": "47696df7fdfb9aad5ba8c367f402bd0b0d954fbe",
+  "phase": "PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER",
+  "status": "PLAN_FREEZE_IN_PROGRESS",
+  "working_branch": "work/phase-02-searxng-provider",
+  "last_accepted_sha": "d99350f5d2222c174d7f5b4d861514bd67fb66b2",
   "last_accepted_branch": "main",
   "proven": [
-    "Phase 1 bounded grounding core is merged to main at 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.",
-    "GitHub Actions run 17 revalidated STRICT governance and the Python core on Python 3.11-3.14 across Ubuntu, Windows, and macOS at main SHA 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.",
-    "Phase 1 BEFORE plan was frozen before implementation and sequence acceptance passed.",
-    "The deterministic core enforces a hard maximum of two provider calls, canonical URL deduplication, and fail-closed evidence status."
+    "Phase 1 is accepted and final main revalidation run 19 passed all 13 required jobs at d99350f5d2222c174d7f5b4d861514bd67fb66b2.",
+    "GitHub Actions remains the sole acceptance authority.",
+    "Phase 2 product implementation is blocked until the BEFORE sequence plan is frozen."
   ],
   "not_proven": [
-    "Live network search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, and production deployment remain outside Phase 1."
+    "SearXNG live HTTP search is not implemented yet.",
+    "Unsafe result URL rejection is not implemented yet.",
+    "HTTP timeout, response-size, redirect, and JSON/schema failure handling are not implemented yet."
   ],
   "blockers": [],
   "next_authorized_actions": [
-    "Start Phase 2 from accepted main.",
-    "Freeze the Phase 2 BEFORE sequence plan before product implementation."
+    "Freeze the Phase 2 BEFORE sequence plan and generated plan Mermaid.",
+    "After plan freeze, add failing tests and obtain TDD RED evidence before implementation."
   ],
   "blocked_actions": [
-    "Do not claim live web grounding capability from the Phase 1 core.",
-    "Do not bypass GitHub Actions acceptance or main revalidation for later phases."
+    "Do not implement Phase 2 product source before the BEFORE plan is frozen.",
+    "Do not claim page-fetch SSRF protection, crawling, or extracted-content grounding in Phase 2."
   ]
 }
