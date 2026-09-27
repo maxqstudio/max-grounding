@@ -49,3 +49,11 @@ Canonical human-facing governance documentation is generated under `docs/` from 
 
 - Saweria: https://saweria.co/maxq
 - PayPal: https://paypal.me/JacksonJackson1501
+
+## Canonical documentation
+
+- [System overview](docs/SYSTEM_OVERVIEW.md)
+- [Current state](docs/CURRENT_STATE.md)
+- [Project manifest](docs/PROJECT_MANIFEST.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Acceptance matrix](docs/TEST_ACCEPTANCE_MATRIX.md)
