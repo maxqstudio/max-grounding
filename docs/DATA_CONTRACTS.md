@@ -4,4 +4,4 @@
 
 | Data / Artifact | Source of truth | Mutability | Legal writes | Retention | Invariants |
 |---|---|---|---|---|---|
-| ProjectIdentity | src/max_grounding/__init__.py | immutable per release |  |  |  |
+| ProjectIdentity | src/max_grounding/__init__.py::project_identity | immutable within a release | governed source change in an accepted phase | source-controlled release history | name remains max-grounding; cross_platform remains true while three-OS acceptance is required |

@@ -4,6 +4,6 @@
 
 | Method | Path / Event | Purpose | Authority | Mutation | Error behavior |
 |---|---|---|---|---|---|
-|  |  | Return stable bootstrap package identity for smoke and runtime acceptance. |  |  |  |
+| PYTHON | max_grounding.project_identity() | Return stable bootstrap package identity for smoke and runtime acceptance. | src/max_grounding/__init__.py::project_identity | none | No expected domain error; import/runtime failures fail acceptance. |
 
 Declared in .workflow/contracts.json. Observed routes are listed in FLOW_INDEX.

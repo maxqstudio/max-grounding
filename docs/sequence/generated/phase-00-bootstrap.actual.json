@@ -31,7 +31,7 @@
       "locator": "src/max_grounding/__init__.py::project_identity"
     }
   ],
-  "observed_head": "d3062ee6da70667728820274180aee3ccda806e0",
+  "observed_head": "f0b579b181571bc6bb5470571de6514c65bb644f",
   "schema_version": 1,
   "source_digest": "b1c862c457a49d793fccb8e557025928c0b57acf96f3375bcd6dfad48039e37a"
 }

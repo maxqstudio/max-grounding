@@ -2,7 +2,7 @@
 
 # RUNBOOK
 
-1. unit-tests — python -m unittest discover -s tests -v
-2. compile — python -m compileall -q src tests .workflow/tools
-3. docs-sync — python .workflow/tools/sync_project_truth.py
-4. strict-truth — python .workflow/tools/validate_project_truth.py
+1. unit-tests — python -m unittest discover -s tests -v — expected: all tests PASS
+2. compile — python -m compileall -q src tests .workflow/tools — expected: exit code 0
+3. docs-sync — python .workflow/tools/sync_project_truth.py — expected: PROJECT_DOCS_SYNC=PASS
+4. strict-truth — python .workflow/tools/validate_project_truth.py — expected: result PASS

@@ -34,8 +34,8 @@ HEAD is recorded externally after the commit exists.
 
 | Claim ID | Claim | Documents | Source owner(s) | Test(s) | Runtime/E2E evidence | Status |
 |---|---|---|---|---|---|---|
-| TRUTH-CROSS-PLATFORM-001 | The Phase 0 core package is platform-neutral Python and is acceptance-tested on Linux, Windows, and macOS GitHub-hosted runners. | SYSTEM_OVERVIEW.md; TEST_ACCEPTANCE_MATRIX.md |  | tests/test_bootstrap.py | NOT_APPLICABLE | PASS |
-| TRUTH-ACCEPTANCE-001 | A project phase may merge to main only after all required GitHub Actions checks pass. | CURRENT_STATE.md; SOURCE_AUTHORITY_MAP.md; TEST_ACCEPTANCE_MATRIX.md |  | tests/test_bootstrap.py | NOT_APPLICABLE | PASS |
+| TRUTH-CROSS-PLATFORM-001 | The Phase 0 core package is platform-neutral Python and is acceptance-tested on Linux, Windows, and macOS GitHub-hosted runners. | PROJECT_TRUTH_SYNC.md | src/max_grounding/__init__.py::project_identity; .github/workflows/ci.yml | tests/test_bootstrap.py | .github/workflows/ci.yml | PASS |
+| TRUTH-ACCEPTANCE-001 | A project phase may merge to main only after all required GitHub Actions checks pass. | PROJECT_TRUTH_SYNC.md | .github/workflows/ci.yml | tests/test_bootstrap.py | .github/workflows/ci.yml | PASS |
 
 ## Claim relations
 

@@ -2,18 +2,18 @@
 
 # DECISIONS
 
-## DEC-0001 —
+## DEC-0001 — Use STRICT governance and GitHub Actions acceptance
 
 Status: ACCEPTED
 
 Use STRICT Skill Workflow governance and GitHub Actions as the sole project acceptance authority.
 
-Rationale:
+Rationale: The system is network-facing infrastructure with evidence lineage, untrusted input, cross-platform requirements, and multi-session development.
 
-## DEC-0002 —
+## DEC-0002 — Native core portability with containerized service boundaries
 
 Status: ACCEPTED
 
 Test the Python core natively on Linux, Windows, and macOS; isolate service-heavy dependencies behind contracts and Linux containers.
 
-Rationale:
+Rationale: This proves application portability without making false claims that every external service runs identically and natively on every operating system.
