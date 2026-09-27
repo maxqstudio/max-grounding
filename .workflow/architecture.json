@@ -53,7 +53,13 @@
     }
   ],
   "external_boundaries": [
-    "GitHub-hosted runners are external execution environments.",
-    "No application network retrieval is implemented in Phase 0."
+    {
+      "name": "GitHub-hosted runners",
+      "contract": "External execution environments for cross-platform acceptance."
+    },
+    {
+      "name": "Application network retrieval",
+      "contract": "Not implemented in Phase 0."
+    }
   ]
 }
