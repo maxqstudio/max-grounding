@@ -23,6 +23,9 @@ class ResultUrlAdmissionTests(unittest.TestCase):
         blocked = [
             "http://127.0.0.1/",
             "http://[::1]/",
+            "http://[::ffff:127.0.0.1]/",
+            "http://127.1/",
+            "http://2130706433/",
             "http://10.0.0.5/",
             "http://172.16.0.5/",
             "http://192.168.1.5/",
