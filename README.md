@@ -34,7 +34,7 @@ No Owner-PC execution is part of the project acceptance authority.
 
 Phase 9 is a candidate for deterministic contradiction/corroboration handling and an in-memory evidence graph.
 
-The candidate accepts at most 8 explicit structured assertions backed by accepted Phase 8 quality provenance, normalizes claim/value semantics deterministically, emits corroboration for equal values and contradiction only for explicitly exclusive single-value claims, and builds distinct-source clusters without allowing repeated chunks from one source to inflate independent evidence weight.
+The candidate accepts at most 8 explicit structured assertions backed by accepted Phase 8 quality provenance, normalizes claim/value semantics deterministically, emits corroboration for equal values and contradiction only for explicitly exclusive single-value claims, and builds distinct-URL clusters without allowing repeated chunks from one source to inflate independent evidence weight.
 
 The graph does not majority-vote or declare a winning truth. Automatic structured-assertion extraction, arbitrary natural-language contradiction inference, answer-claim verification/citations, persistent graph/vector storage, REST, MCP, and production deployment remain later work.
 
