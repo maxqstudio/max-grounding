@@ -187,6 +187,37 @@ Authority: GitHub Actions required checks
 - ACTIONS_PASS -> MERGED_MAIN : merge pull request
 - MERGED_MAIN -> MAIN_REVALIDATED : GitHub Actions revalidate merged main
 
+### FLOW-PRODUCTION-MCP — Phase 12 production MCP server
+
+Expose the same accepted service facade through explicitly named authenticated MCP tools without creating additional model authority.
+
+Authority: MCP tool names, schemas, bounded service calls, and Streamable HTTP mounting behavior
+
+- MCP_REQUEST -> TOOL_VALIDATED : MCP SDK validates one registered bounded tool call
+- TOOL_VALIDATED -> SERVICE_CALLED : tool wrapper invokes exactly one accepted GroundingService capability
+- SERVICE_CALLED -> TOOL_RESULT : return structured JSON-compatible provenance result
+
+### FLOW-PRODUCTION-REST — Phase 12 production REST API
+
+Expose bounded authenticated JSON REST operations for accepted grounding capabilities plus minimal health/readiness probes.
+
+Authority: REST routes, request/response bounds, authentication, and safe error mapping
+
+- REQUEST_RECEIVED -> AUTHENTICATED : authenticate non-health requests with configured bearer/API token
+- AUTHENTICATED -> VALIDATED : validate bounded typed request body
+- VALIDATED -> SERVICE_CALLED : call exactly one explicit GroundingService capability
+- SERVICE_CALLED -> RESPONSE_RETURNED : serialize bounded provenance-preserving JSON response
+
+### FLOW-PRODUCTION-RUNTIME — Phase 12 production runtime facade
+
+Compose accepted search, secure fetch, Ollama embedding, Qdrant persistence, and bounded retrieval operations behind one explicit service facade without inventing synthesis capabilities.
+
+Authority: Production service composition and exact capability boundary over accepted Phase 0-11 primitives
+
+- CONFIG_RECEIVED -> RUNTIME_BUILT : validate production settings and construct accepted provider/store adapters
+- RUNTIME_BUILT -> OPERATION_EXECUTED : execute bounded search, secure fetch, persistent index, or persistent semantic query
+- RUNTIME_BUILT -> FAILED_CLOSED : reject invalid configuration or provider/store/runtime failure
+
 ### FLOW-RERANK-COMPRESS — Bounded reranking and extractive context compression
 
 Rerank already-bounded hybrid hits through an injected provider, validate scores fail-closed, then extract a bounded provenance-preserving context without generative rewriting.
@@ -297,6 +328,13 @@ compiler does not infer them from implementation names.
 - FLOW-PERSISTENT-QUERY: Transport/HTTP/JSON/vector/schema/payload failures raise controlled errors and return no partial trusted result.
 - FLOW-PERSISTENT-QUERY: Missing or incompatible collection is an explicit provider/index failure.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.
+- FLOW-PRODUCTION-MCP: Invalid MCP input or service failure returns controlled tool/protocol error without fabricated success.
+- FLOW-PRODUCTION-MCP: Authentication failure is rejected before tool execution.
+- FLOW-PRODUCTION-REST: Missing/invalid authentication returns controlled 401/403-style failure.
+- FLOW-PRODUCTION-REST: Oversized/malformed requests fail before service execution.
+- FLOW-PRODUCTION-REST: Domain/service failures map to bounded JSON errors and never become fabricated 2xx success.
+- FLOW-PRODUCTION-RUNTIME: Missing/invalid required configuration fails before serving traffic.
+- FLOW-PRODUCTION-RUNTIME: Provider, fetch, embedding, or vector-store failures remain controlled domain/service errors; no partial fabricated success is returned.
 - FLOW-RERANK-COMPRESS: Invalid ranks, duplicate chunks, invalid bounds, provider exceptions, wrong score counts, or invalid scores fail closed with a controlled reranking error.
 - FLOW-RERANK-COMPRESS: No partial reranked or compressed result is returned after validation failure.
 - FLOW-SEARXNG-SEARCH: Transport, redirect, HTTP, media-type, size, JSON, and schema failures raise a controlled provider error.
@@ -312,14 +350,14 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Freeze a Phase 12 BEFORE sequence plan before implementing REST, MCP, production container, or public service behavior.
-- Define bounded public API/MCP contracts that reuse accepted Phase 0-11 fail-closed grounding and provenance boundaries.
-- Keep Linux/Windows/macOS portable-core regression while validating Linux service/container boundaries separately.
+- Freeze all three Phase 12 BEFORE sequence plans and bind their exact Git ancestry before source implementation.
+- Then implement the minimum production service facade, authenticated REST API, authenticated MCP Streamable HTTP endpoint, and production container boundary under the frozen contracts.
+- Require cross-platform service-unit regression plus Linux real-service E2E, security, bounded load, and amd64/arm64 container-build evidence before Phase 12 acceptance.
 
 Blocked actions:
-- Do not implement Phase 12 public service source before its BEFORE plan is frozen.
-- Do not claim production readiness, load capacity, or security hardening before explicit Phase 12 acceptance evidence.
-- Do not weaken pinned Phase 11 Ollama/Qdrant schema/runtime contracts without a governed change.
+- Do not implement Phase 12 source before all three BEFORE plans are frozen.
+- Do not expose research/final-answer/synthesis capabilities not accepted by Phase 0-11.
+- Do not claim production readiness until real E2E, security, load, container, exact-head PR, and post-merge main acceptance all pass.
 
 Known blockers:
 - None declared.

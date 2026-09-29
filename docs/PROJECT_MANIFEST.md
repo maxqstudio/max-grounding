@@ -10,7 +10,7 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase-12-production-api-mcp
 Current authoritative SHA: external final acceptance evidence
 Last accepted SHA: 1b193080922fc95a7955123e0d4c6c950f83c081
 Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2

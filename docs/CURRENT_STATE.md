@@ -14,7 +14,7 @@ ROADMAP_SYNC: PASS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-12-production-api-mcp
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: 1b193080922fc95a7955123e0d4c6c950f83c081
 Current candidate SHA: external final acceptance evidence
@@ -62,11 +62,11 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Freeze a Phase 12 BEFORE sequence plan before implementing REST, MCP, production container, or public service behavior.
-- Define bounded public API/MCP contracts that reuse accepted Phase 0-11 fail-closed grounding and provenance boundaries.
-- Keep Linux/Windows/macOS portable-core regression while validating Linux service/container boundaries separately.
+- Freeze all three Phase 12 BEFORE sequence plans and bind their exact Git ancestry before source implementation.
+- Then implement the minimum production service facade, authenticated REST API, authenticated MCP Streamable HTTP endpoint, and production container boundary under the frozen contracts.
+- Require cross-platform service-unit regression plus Linux real-service E2E, security, bounded load, and amd64/arm64 container-build evidence before Phase 12 acceptance.
 
 ## Explicitly blocked
-- Do not implement Phase 12 public service source before its BEFORE plan is frozen.
-- Do not claim production readiness, load capacity, or security hardening before explicit Phase 12 acceptance evidence.
-- Do not weaken pinned Phase 11 Ollama/Qdrant schema/runtime contracts without a governed change.
+- Do not implement Phase 12 source before all three BEFORE plans are frozen.
+- Do not expose research/final-answer/synthesis capabilities not accepted by Phase 0-11.
+- Do not claim production readiness until real E2E, security, load, container, exact-head PR, and post-merge main acceptance all pass.
