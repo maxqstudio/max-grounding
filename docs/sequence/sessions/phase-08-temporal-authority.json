@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-08-temporal-authority",
+  "phase": "PHASE_08_TEMPORAL_AUTHORITY",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "FROZEN",
+  "implementation_base_sha": "0810115190890db456b4a90634e1dd10fb29da08",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-08-temporal-authority.plan.json",
+    "frozen": true,
+    "frozen_commit": "0810115190890db456b4a90634e1dd10fb29da08",
+    "sha256": "13f5323fe69c40d0907060f951633eb9adca44c89fe46b6d5d76aa179fa3cdc8",
+    "diagram": "docs/sequence/generated/phase-08-temporal-authority.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-08-temporal-authority.actual.json",
+    "diagram": "docs/sequence/generated/phase-08-temporal-authority.actual.mmd",
+    "source_digest": "e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047",
+    "entries": [
+      "src/max_grounding/temporal.py::score_evidence_quality"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_temporal_scoring.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}

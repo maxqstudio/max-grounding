@@ -152,6 +152,38 @@
       "authority": "src/max_grounding/reranking.py::build_grounded_context",
       "mutation": "none beyond one injected provider compute call",
       "error_behavior": "Reranking/provider/compression failures propagate fail-closed without partial context."
+    },
+    {
+      "method": "PROTOCOL",
+      "path": "AuthorityProvider.score(subjects)",
+      "purpose": "Return exactly one domain-policy authority score in [0,1] per already-bounded source subject without hardcoding authority opinions into the core.",
+      "authority": "src/max_grounding/temporal.py::AuthorityProvider",
+      "mutation": "provider-defined policy compute only; core performs no persistent mutation",
+      "error_behavior": "Provider exceptions, non-Sequence output, wrong score count, booleans/non-numeric values, non-finite values, or scores outside [0,1] raise AuthorityProviderError."
+    },
+    {
+      "method": "PYTHON",
+      "path": "score_authority(metadata, provider)",
+      "purpose": "Validate bounded source context and obtain one authority score sequence through the injected policy.",
+      "authority": "src/max_grounding/temporal.py::score_authority",
+      "mutation": "none beyond one bounded provider call",
+      "error_behavior": "Unbounded/non-Sequence metadata and malformed provider output fail closed without partial authority scores."
+    },
+    {
+      "method": "PYTHON",
+      "path": "score_temporal_components(metadata, now, freshness_horizon_seconds)",
+      "purpose": "Compute deterministic freshness decay and point-in-time validity from explicit UTC metadata and evaluation time.",
+      "authority": "src/max_grounding/temporal.py::score_temporal_components",
+      "mutation": "none; pure in-memory derivation",
+      "error_behavior": "Naive/non-UTC/future timestamps, inverted validity windows, unbounded input, or out-of-range freshness horizon raise TemporalScoringError."
+    },
+    {
+      "method": "PYTHON",
+      "path": "score_evidence_quality(excerpts, metadata, provider, now, freshness_horizon_seconds)",
+      "purpose": "Bind evidence to matching metadata, combine injected authority with freshness and temporal validity, and return stable quality-ranked evidence.",
+      "authority": "src/max_grounding/temporal.py::score_evidence_quality",
+      "mutation": "none beyond one bounded authority provider call",
+      "error_behavior": "Identity/rank/temporal/provider defects fail closed without partial quality-ranked output."
     }
   ],
   "data_contracts": [
@@ -324,6 +356,51 @@
         "source_url, chunk_id, chunk_index, and rerank_rank preserve evidence provenance",
         "one excerpt never exceeds 1200 characters",
         "compressed output never exceeds 8 excerpts or 6000 total excerpt characters"
+      ]
+    },
+    {
+      "name": "EvidenceMetadata",
+      "source_of_truth": "src/max_grounding/models.py::EvidenceMetadata",
+      "mutability": "immutable",
+      "legal_writes": [
+        "caller construction before Phase 8 validation"
+      ],
+      "retention": "caller-defined after scoring",
+      "invariants": [
+        "source_url and chunk_id must match the paired EvidenceExcerpt exactly",
+        "retrieved_at and optional published_at/validity timestamps are timezone-aware UTC",
+        "retrieved_at and published_at are not later than explicit evaluation now",
+        "published_at is not later than retrieved_at",
+        "valid_from is not later than valid_until when both exist",
+        "source_type and geography are optional context for injected authority policy"
+      ]
+    },
+    {
+      "name": "AuthoritySubject",
+      "source_of_truth": "src/max_grounding/models.py::AuthoritySubject",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/temporal.py::score_authority derivation"
+      ],
+      "retention": "authority-provider call lifetime",
+      "invariants": [
+        "contains only source URL, optional source type, and optional geography",
+        "does not encode a core-owned authority score"
+      ]
+    },
+    {
+      "name": "EvidenceQualityScore",
+      "source_of_truth": "src/max_grounding/models.py::EvidenceQualityScore",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/temporal.py::score_evidence_quality result construction"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "authority_score, freshness_score, temporal_validity, and combined score remain in [0,1]",
+        "combined score equals authority_score * freshness_score * temporal_validity",
+        "rank is contiguous from 1 after deterministic descending combined-score ordering",
+        "ties preserve prior rerank rank before stable source/chunk provenance"
       ]
     }
   ],

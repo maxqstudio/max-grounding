@@ -495,6 +495,78 @@
         "GitHub Actions Candidate Verify run 36577449523"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P8-TEMPORAL-001",
+      "claim": "Phase 8 validates one-to-one explicit UTC EvidenceMetadata for at most 8 evidence excerpts and computes freshness against an explicit caller-supplied evaluation time without an implicit wall-clock read.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/temporal.py::score_temporal_components",
+        "src/max_grounding/models.py::EvidenceMetadata"
+      ],
+      "tests": [
+        "tests/test_temporal_scoring.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions final GREEN run 36581966102"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P8-AUTHORITY-001",
+      "claim": "Phase 8 obtains source authority through one injected bounded AuthorityProvider score sequence and rejects unbounded inputs, provider failures, malformed score counts, non-finite values, and scores outside [0,1]; the core contains no hardcoded source authority hierarchy.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/temporal.py::AuthorityProvider",
+        "src/max_grounding/temporal.py::score_authority"
+      ],
+      "tests": [
+        "tests/test_temporal_scoring.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions adversarial RED run 36581829818; final GREEN run 36581966102"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P8-SCORE-001",
+      "claim": "Phase 8 combines authority, linear freshness decay, and inclusive temporal validity multiplicatively, assigns zero temporal validity outside valid_from/valid_until, and resolves equal combined scores by prior rerank rank then stable provenance.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/temporal.py::score_evidence_quality",
+        "src/max_grounding/models.py::EvidenceQualityScore"
+      ],
+      "tests": [
+        "tests/test_temporal_scoring.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions final GREEN run 36581966102"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P8-CROSS-OS-001",
+      "claim": "Phase 8 temporal and authority scoring conforms to the frozen BEFORE plan and passes the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/temporal.py::score_evidence_quality",
+        ".github/workflows/ci.yml"
+      ],
+      "tests": [
+        "tests/test_temporal_scoring.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions Candidate Verify run 36582080120"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []

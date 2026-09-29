@@ -39,3 +39,11 @@ class RerankingError(GroundingError, ValueError):
 
 class RerankProviderError(GroundingError):
     """Raised when a reranking provider fails or returns invalid scores."""
+
+
+class TemporalScoringError(GroundingError, ValueError):
+    """Raised when temporal evidence metadata or scoring bounds are invalid."""
+
+
+class AuthorityProviderError(GroundingError):
+    """Raised when an authority policy provider fails or returns invalid scores."""

@@ -195,6 +195,25 @@
         "hybrid-fusion",
         "lexical-retrieval"
       ]
+    },
+    {
+      "id": "temporal-authority",
+      "name": "Temporal and Source Authority Scoring",
+      "purpose": "Bind explicit UTC temporal/source metadata to bounded evidence, obtain authority scores through an injected policy, and deterministically score freshness and point-in-time validity.",
+      "owns": [
+        "AuthorityProvider protocol",
+        "score_authority",
+        "score_temporal_components",
+        "score_evidence_quality",
+        "explicit evaluation-time policy",
+        "freshness horizon bounds",
+        "temporal validity checks",
+        "stable quality ranking"
+      ],
+      "depends_on": [
+        "models",
+        "rerank-compress"
+      ]
     }
   ],
   "data_flows": [
@@ -332,6 +351,26 @@
       "from": "RerankedHit",
       "to": "EvidenceExcerpt",
       "meaning": "deterministic query-relevant source substrings are selected under hard excerpt and total-character budgets"
+    },
+    {
+      "from": "EvidenceExcerpt",
+      "to": "Temporal and Source Authority Scoring",
+      "meaning": "at most 8 extractive excerpts retain source/chunk/rerank provenance and receive one-to-one EvidenceMetadata"
+    },
+    {
+      "from": "EvidenceMetadata",
+      "to": "Temporal and Source Authority Scoring",
+      "meaning": "explicit timezone-aware UTC retrieval/publication/validity context is validated against caller-supplied evaluation time"
+    },
+    {
+      "from": "AuthorityProvider",
+      "to": "Temporal and Source Authority Scoring",
+      "meaning": "one bounded finite [0,1] score sequence supplies domain-specific authority without hardcoded core opinions"
+    },
+    {
+      "from": "Temporal and Source Authority Scoring",
+      "to": "EvidenceQualityScore",
+      "meaning": "authority, freshness, and temporal validity combine multiplicatively and rank deterministically"
     }
   ],
   "external_boundaries": [

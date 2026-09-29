@@ -2,7 +2,7 @@
 
 # ARCHITECTURE
 
-Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
+Current source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
 
 ## Components
 
@@ -21,6 +21,7 @@ Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e
 | semantic-retrieval | Semantic Retrieval | Build bounded deterministic chunks, obtain role-separated dense embeddings through an injected provider, validate vectors fail-closed, and rank positive semantic matches by cosine similarity. | EmbeddingProvider protocol, retrieve_semantic, build_semantic_chunks, embed_bounded, rank_semantic, cosine_similarity, embedding batch/call/dimension bounds, semantic provenance ordering | models, lexical-retrieval |
 | hybrid-fusion | Hybrid Fusion | Combine bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion while preserving immutable chunk provenance. | retrieve_hybrid, fuse_hybrid, fixed RRF k=60, hybrid rank validation, hybrid provenance conflict rejection | models, lexical-retrieval, semantic-retrieval |
 | rerank-compress | Reranking and Context Compression | Rerank bounded HybridHit candidates through an injected provider, validate scores fail-closed, and emit bounded extractive evidence excerpts without generative rewriting. | RerankProvider protocol, rerank_hybrid, compress_context, build_grounded_context, rerank score validation, extractive context budgets, rerank and source provenance | models, hybrid-fusion, lexical-retrieval |
+| temporal-authority | Temporal and Source Authority Scoring | Bind explicit UTC temporal/source metadata to bounded evidence, obtain authority scores through an injected policy, and deterministically score freshness and point-in-time validity. | AuthorityProvider protocol, score_authority, score_temporal_components, score_evidence_quality, explicit evaluation-time policy, freshness horizon bounds, temporal validity checks, stable quality ranking | models, rerank-compress |
 
 ## Data flow
 
@@ -51,6 +52,10 @@ Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e
 - RerankProvider -> Reranking and Context Compression: exact bounded finite score sequence is accepted; malformed or unbounded provider output fails closed
 - Reranking and Context Compression -> RerankedHit: immutable reranked hits preserve hybrid, lexical, semantic, chunk, and source provenance
 - RerankedHit -> EvidenceExcerpt: deterministic query-relevant source substrings are selected under hard excerpt and total-character budgets
+- EvidenceExcerpt -> Temporal and Source Authority Scoring: at most 8 extractive excerpts retain source/chunk/rerank provenance and receive one-to-one EvidenceMetadata
+- EvidenceMetadata -> Temporal and Source Authority Scoring: explicit timezone-aware UTC retrieval/publication/validity context is validated against caller-supplied evaluation time
+- AuthorityProvider -> Temporal and Source Authority Scoring: one bounded finite [0,1] score sequence supplies domain-specific authority without hardcoded core opinions
+- Temporal and Source Authority Scoring -> EvidenceQualityScore: authority, freshness, and temporal validity combine multiplicatively and rank deterministically
 
 ## External boundaries
 
@@ -62,9 +67,9 @@ Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e
 
 ## Observed implementation inventory
 
-Source files: 28
-Source lines: 3761
-Languages: Python=28
+Source files: 30
+Source lines: 4520
+Languages: Python=30
 
 Structural facts come from the code extractor. Component meaning comes from
 .workflow/architecture.json.

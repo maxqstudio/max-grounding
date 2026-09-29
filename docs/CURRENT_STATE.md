@@ -3,20 +3,20 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: 499a14608f2458adb675302d38109af1f2776800
+Authority verified at SHA: b5a7271b5bb52c3760889b8f533a3b19710f2db3
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_07_RERANK_COMPRESS
-Status: ACCEPTED
+Phase: PHASE_08_TEMPORAL_AUTHORITY
+Status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-08-temporal-authority
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: 499a14608f2458adb675302d38109af1f2776800
+Last accepted SHA: b5a7271b5bb52c3760889b8f533a3b19710f2db3
 Current candidate SHA: external final acceptance evidence
-Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
+Current source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -33,24 +33,25 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-07-rerank-compress.json
+Current sequence session: docs/sequence/sessions/phase-08-temporal-authority.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 6 closure is merged to main at b2e524997947dd357a577eb4d17edd27f0d62f28 and closure-main Acceptance run 36575665763 passed all 13 required jobs.
-- The Phase 7 BEFORE plan was frozen before implementation at 93a36ccf107251f434d77b0bf42b9df97bbf1a01 with SHA-256 717c3f8e3ad4148474298847b470cd98fc243202b76b8d838445e8bf435b498a.
-- TDD RED run 36576719998 failed because the Phase 7 reranking contract did not yet exist.
-- Initial GREEN run 36577036647 passed the full unit suite and compile checks after the minimum reranking and extractive compression implementation.
-- Adversarial regression run 36577161655 proved that arbitrary iterable provider output could bypass the bounded-sequence contract before repair.
-- Final GREEN run 36577271817 passed the full unit suite and compile checks after rejecting unbounded provider iterables.
-- Candidate verification run 36577449523 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
-- Phase 7 reranking admits at most 20 candidates, calls the injected rerank provider once, requires an exact bounded score sequence, and rejects provider exceptions, wrong counts, booleans, non-numeric values, and non-finite scores.
-- Phase 7 compression is extractive only and caps output at 8 excerpts, 1200 characters per excerpt, and 6000 total excerpt characters while preserving source and rerank provenance.
-- Phase 7 exact pull-request head ea616e47d3a9504f9717a67094d0b5d58f551c4d passed Acceptance run 36578247993.
-- Phase 7 merged main SHA 499a14608f2458adb675302d38109af1f2776800 passed post-merge Acceptance run 36579234527 with 13/13 jobs PASS.
+- Phase 7 closure is merged to main at b5a7271b5bb52c3760889b8f533a3b19710f2db3 and closure-main Acceptance run 36580565442 passed all 13 required jobs.
+- The Phase 8 BEFORE plan was frozen before implementation at 0810115190890db456b4a90634e1dd10fb29da08 with SHA-256 13f5323fe69c40d0907060f951633eb9adca44c89fe46b6d5d76aa179fa3cdc8.
+- TDD RED run 36581283756 failed because the Phase 8 temporal/authority contract did not yet exist.
+- Initial GREEN run 36581662845 passed the full unit suite and compile checks after the minimum Phase 8 implementation.
+- Adversarial regression run 36581829818 proved generator inputs and an invalid prior rerank rank could bypass the bounded input contract before repair.
+- Final GREEN run 36581966102 passed the full unit suite and compile checks after bounded-sequence and prior-rank validation repair.
+- Candidate verification run 36582080120 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
+- Phase 8 accepts at most 8 evidence excerpts, binds each excerpt one-to-one to explicit EvidenceMetadata, and rejects malformed or duplicate provenance.
+- Phase 8 requires timezone-aware UTC temporal metadata and an explicit evaluation time; scoring performs no implicit wall-clock read.
+- Source authority is supplied by one injected bounded AuthorityProvider score sequence; the core contains no hardcoded source authority hierarchy.
+- Combined evidence quality is authority_score * freshness_score * temporal_validity with stable prior-rerank/provenance ordering for ties.
 
 ## Not proven
-- No concrete cross-encoder or learned reranker model, generative/LLM compression, reranking-quality benchmark, freshness/authority scoring, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment is proven by accepted Phase 7.
+- Final Phase 8 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- Phase 8 does not prove any universal source-authority hierarchy, source metadata extractor, learned authority model, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment.
 
 ## Known blockers
 - None declared.
@@ -59,9 +60,12 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Start Phase 8 planning from accepted main SHA 499a14608f2458adb675302d38109af1f2776800.
-- Freeze the Phase 8 BEFORE sequence plan before implementing freshness, source authority, and temporal scoring.
+- Synchronize the Phase 8 ACTUAL sequence and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 8 candidate head.
+- Merge Phase 8 only if every required job passes, then revalidate merged main.
 
 ## Explicitly blocked
-- Do not claim a concrete reranker model, learned ranking superiority, or generative compression from accepted Phase 7.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
+- Do not hardcode a universal source-authority ranking into the Phase 8 core.
+- Do not claim source timestamps or validity windows are automatically extracted or independently verified by Phase 8.
+- Do not merge Phase 8 while any required GitHub Actions job is failing or missing.
+- Do not bypass post-merge main revalidation.

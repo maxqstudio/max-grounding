@@ -1,0 +1,364 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [
+    {
+      "action": "_bounded_sequence",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_bounded_excerpt_sequence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_bounded_sequence"
+    },
+    {
+      "action": "_bounded_sequence",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_bounded_metadata_sequence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_bounded_sequence"
+    },
+    {
+      "action": "TemporalScoringError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_bounded_sequence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::TemporalScoringError"
+    },
+    {
+      "action": "TemporalScoringError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_validate_basic_metadata",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::TemporalScoringError"
+    },
+    {
+      "action": "TemporalScoringError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_validate_excerpt_metadata_pairs",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::TemporalScoringError"
+    },
+    {
+      "action": "TemporalScoringError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_validate_horizon",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::TemporalScoringError"
+    },
+    {
+      "action": "TemporalScoringError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_validate_temporal_inputs",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::TemporalScoringError"
+    },
+    {
+      "action": "_validate_basic_metadata",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_validate_temporal_inputs",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_validate_basic_metadata"
+    },
+    {
+      "action": "_validate_horizon",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_validate_temporal_inputs",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_validate_horizon"
+    },
+    {
+      "action": "_validate_utc",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_validate_temporal_inputs",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_validate_utc"
+    },
+    {
+      "action": "TemporalScoringError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::_validate_utc",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::TemporalScoringError"
+    },
+    {
+      "action": "AuthorityProviderError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_authority",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::AuthorityProviderError"
+    },
+    {
+      "action": "AuthoritySubject",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_authority",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::AuthoritySubject"
+    },
+    {
+      "action": "provider.score",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_authority",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::AuthorityProvider.score"
+    },
+    {
+      "action": "_bounded_metadata_sequence",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_authority",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_bounded_metadata_sequence"
+    },
+    {
+      "action": "_validate_basic_metadata",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_authority",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_validate_basic_metadata"
+    },
+    {
+      "action": "EvidenceQualityScore",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_evidence_quality",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::EvidenceQualityScore"
+    },
+    {
+      "action": "_bounded_excerpt_sequence",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_evidence_quality",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_bounded_excerpt_sequence"
+    },
+    {
+      "action": "_bounded_metadata_sequence",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_evidence_quality",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_bounded_metadata_sequence"
+    },
+    {
+      "action": "_validate_excerpt_metadata_pairs",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_evidence_quality",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_validate_excerpt_metadata_pairs"
+    },
+    {
+      "action": "_validate_temporal_inputs",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_evidence_quality",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_validate_temporal_inputs"
+    },
+    {
+      "action": "score_authority",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_evidence_quality",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::score_authority"
+    },
+    {
+      "action": "score_temporal_components",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_evidence_quality",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::score_temporal_components"
+    },
+    {
+      "action": "TemporalComponents",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_temporal_components",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::TemporalComponents"
+    },
+    {
+      "action": "_bounded_metadata_sequence",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_temporal_components",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_bounded_metadata_sequence"
+    },
+    {
+      "action": "_validate_temporal_inputs",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/temporal.py::score_temporal_components",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/temporal.py::_validate_temporal_inputs"
+    }
+  ],
+  "entries": [
+    "src/max_grounding/temporal.py::score_evidence_quality"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/errors.py::AuthorityProviderError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::AuthorityProviderError",
+      "language": "Python",
+      "line_end": 49,
+      "line_start": 48,
+      "locator": "src/max_grounding/errors.py::AuthorityProviderError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::TemporalScoringError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::TemporalScoringError",
+      "language": "Python",
+      "line_end": 45,
+      "line_start": 44,
+      "locator": "src/max_grounding/errors.py::TemporalScoringError"
+    },
+    {
+      "id": "src/max_grounding/models.py::AuthoritySubject",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::AuthoritySubject",
+      "language": "Python",
+      "line_end": 173,
+      "line_start": 168,
+      "locator": "src/max_grounding/models.py::AuthoritySubject"
+    },
+    {
+      "id": "src/max_grounding/models.py::EvidenceQualityScore",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::EvidenceQualityScore",
+      "language": "Python",
+      "line_end": 194,
+      "line_start": 185,
+      "locator": "src/max_grounding/models.py::EvidenceQualityScore"
+    },
+    {
+      "id": "src/max_grounding/models.py::TemporalComponents",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::TemporalComponents",
+      "language": "Python",
+      "line_end": 181,
+      "line_start": 177,
+      "locator": "src/max_grounding/models.py::TemporalComponents"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::AuthorityProvider.score",
+      "kind": "method",
+      "label": "src/max_grounding/temporal.py::AuthorityProvider.score",
+      "language": "Python",
+      "line_end": 33,
+      "line_start": 29,
+      "locator": "src/max_grounding/temporal.py::AuthorityProvider.score"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::_bounded_excerpt_sequence",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::_bounded_excerpt_sequence",
+      "language": "Python",
+      "line_end": 92,
+      "line_start": 84,
+      "locator": "src/max_grounding/temporal.py::_bounded_excerpt_sequence"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::_bounded_metadata_sequence",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::_bounded_metadata_sequence",
+      "language": "Python",
+      "line_end": 81,
+      "line_start": 73,
+      "locator": "src/max_grounding/temporal.py::_bounded_metadata_sequence"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::_bounded_sequence",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::_bounded_sequence",
+      "language": "Python",
+      "line_end": 70,
+      "line_start": 54,
+      "locator": "src/max_grounding/temporal.py::_bounded_sequence"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::_validate_basic_metadata",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::_validate_basic_metadata",
+      "language": "Python",
+      "line_end": 120,
+      "line_start": 95,
+      "locator": "src/max_grounding/temporal.py::_validate_basic_metadata"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::_validate_excerpt_metadata_pairs",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::_validate_excerpt_metadata_pairs",
+      "language": "Python",
+      "line_end": 294,
+      "line_start": 258,
+      "locator": "src/max_grounding/temporal.py::_validate_excerpt_metadata_pairs"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::_validate_horizon",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::_validate_horizon",
+      "language": "Python",
+      "line_end": 51,
+      "line_start": 44,
+      "locator": "src/max_grounding/temporal.py::_validate_horizon"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::_validate_temporal_inputs",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::_validate_temporal_inputs",
+      "language": "Python",
+      "line_end": 163,
+      "line_start": 123,
+      "locator": "src/max_grounding/temporal.py::_validate_temporal_inputs"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::_validate_utc",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::_validate_utc",
+      "language": "Python",
+      "line_end": 41,
+      "line_start": 36,
+      "locator": "src/max_grounding/temporal.py::_validate_utc"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::score_authority",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::score_authority",
+      "language": "Python",
+      "line_end": 222,
+      "line_start": 166,
+      "locator": "src/max_grounding/temporal.py::score_authority"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::score_evidence_quality",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::score_evidence_quality",
+      "language": "Python",
+      "line_end": 360,
+      "line_start": 297,
+      "locator": "src/max_grounding/temporal.py::score_evidence_quality"
+    },
+    {
+      "id": "src/max_grounding/temporal.py::score_temporal_components",
+      "kind": "function",
+      "label": "src/max_grounding/temporal.py::score_temporal_components",
+      "language": "Python",
+      "line_end": 255,
+      "line_start": 225,
+      "locator": "src/max_grounding/temporal.py::score_temporal_components"
+    }
+  ],
+  "observed_head": "9dcfa1ac48a34d99ed74761cb77d488890aee204",
+  "schema_version": 1,
+  "source_digest": "e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047"
+}

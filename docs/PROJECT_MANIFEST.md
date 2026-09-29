@@ -10,10 +10,10 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase-08-temporal-authority
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: 499a14608f2458adb675302d38109af1f2776800
-Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
+Last accepted SHA: b5a7271b5bb52c3760889b8f533a3b19710f2db3
+Current source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.
@@ -26,7 +26,7 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 ## Technology
 Languages: Python
 Frameworks: Python standard library
-Persistence: none through accepted Phase 7
+Persistence: none through Phase 8 candidate
 External systems: GitHub Actions, operator-configured SearXNG instance
 
 ## Entry points
@@ -39,6 +39,7 @@ External systems: GitHub Actions, operator-configured SearXNG instance
 | Semantic retrieval | src/max_grounding/semantic.py | bounded provider-agnostic dense semantic retrieval with role-separated embedding contracts |
 | Hybrid fusion | src/max_grounding/hybrid.py | fixed equal-weight reciprocal-rank fusion of bounded lexical and semantic results |
 | Reranking and context compression | src/max_grounding/reranking.py | bounded provider-agnostic reranking plus deterministic extractive evidence compression |
+| Temporal authority scoring | src/max_grounding/temporal.py | validate explicit temporal/source metadata, obtain injected authority scores, and rank bounded evidence by deterministic freshness and point-in-time validity |
 
 ## Critical directories
 

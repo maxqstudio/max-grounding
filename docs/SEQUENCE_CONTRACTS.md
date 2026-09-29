@@ -24,6 +24,7 @@ Status: CURRENT
 | FLOW-SEARXNG-SEARCH | BEFORE | YES | docs/sequence/sessions/phase-02-searxng-provider.json | PASS |
 | FLOW-SECURE-FETCH | BEFORE | YES | docs/sequence/sessions/phase-03-secure-fetch.json | PASS |
 | FLOW-SEMANTIC-RETRIEVAL | BEFORE | YES | docs/sequence/sessions/phase-05-semantic-retrieval.json | PASS |
+| FLOW-TEMPORAL-AUTHORITY | BEFORE | YES | docs/sequence/sessions/phase-08-temporal-authority.json | PASS |
 
 ## Mismatch handling
 
