@@ -16,6 +16,10 @@
     {
       "date": "2026-09-29",
       "change": "Phase 2 accepted on main after exact-PR Acceptance and post-merge main revalidation both passed STRICT governance and the full 12-job cross-platform runtime matrix."
+    },
+    {
+      "date": "2026-09-29",
+      "change": "Phase 3 candidate adds secure DNS-all-answer validation, IP-pinned HTTP(S) result-page fetching, bounded fail-closed response handling, safe text extraction, security regression coverage, frozen-plan conformance, and final 12-job cross-platform evidence."
     }
   ]
 }
