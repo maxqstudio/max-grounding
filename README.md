@@ -32,11 +32,11 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 5 is a candidate for bounded dense semantic retrieval.
+Phase 5 is accepted on main at `f29bb162ea49f24a78091231706e829f286bf8e4`.
 
-The candidate preserves distinct query and document embedding roles, caps semantic chunks, batches and provider calls, rejects malformed or unsafe vectors fail-closed, and ranks positive cosine matches with deterministic source-provenance ordering.
+Accepted Phase 5 adds a bounded provider-agnostic dense semantic retrieval core with distinct query/document embedding roles, strict vector validation, bounded embedding calls and batches, positive cosine ranking, immutable results, and deterministic provenance tie ordering.
 
-The candidate is provider-agnostic by design. It does **not** yet claim Qwen3 Embedding, BGE-M3, ONNX/local inference, Qdrant, persistent vector indexes, hybrid fusion, reranking, claim verification, REST, MCP, or production deployment.
+Phase 6 is authorized for planning only until its BEFORE sequence plan is frozen. A concrete embedding model/runtime, Qdrant or other persistent vector database, hybrid fusion, reranking, claim verification, REST, MCP, and production deployment are not yet accepted capabilities.
 
 ## Platform policy
 

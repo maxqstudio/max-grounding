@@ -33,7 +33,8 @@ Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910
 - Final GREEN run 36557612077 passed full unit and compile checks after the role-separated provider repair.
 - Sequence verification run 36557689216 passed generated PLAN-to-ACTUAL validation.
 - Cross-platform run 36557753677 passed 12/12 Python/OS jobs.
-- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 5 closure.
+- Phase 5 pull-request Acceptance run 36558360516 passed 13/13 required jobs on exact head 54d4ec9752fb9cd4d50a3e9a4c0c3c500568b941.
+- Phase 5 post-merge main Acceptance run 36563782579 passed 13/13 required jobs on main SHA f29bb162ea49f24a78091231706e829f286bf8e4.
 
 ## Sequence contract evidence
 
