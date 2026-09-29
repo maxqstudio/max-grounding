@@ -55,3 +55,15 @@ class EvidenceGraphError(GroundingError, ValueError):
 
 class ClaimVerificationError(GroundingError, ValueError):
     """Raised when answer claims or evidence graphs violate verification policy."""
+
+
+class RuntimeProviderError(GroundingError, ValueError):
+    """Raised when a concrete runtime provider is unsafe, incompatible, or unavailable."""
+
+
+class VectorStoreError(GroundingError, ValueError):
+    """Raised when a persistent vector store violates the accepted contract."""
+
+
+class PersistentIndexError(GroundingError, ValueError):
+    """Raised when persistent semantic indexing or retrieval fails closed."""
