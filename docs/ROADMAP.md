@@ -19,8 +19,8 @@ Planned core phases: 13
 | 6 | Deterministic lexical-semantic hybrid fusion | ACCEPTED |
 | 7 | Reranking and evidence/context compression | ACCEPTED |
 | 8 | Freshness, source authority, and temporal scoring | ACCEPTED |
-| 9 | Contradiction/corroboration engine and evidence graph | CURRENT_CANDIDATE |
-| 10 | Claim-level verification, citations, confidence, and fail-closed synthesis | PLANNED |
+| 9 | Contradiction/corroboration engine and evidence graph | ACCEPTED |
+| 10 | Claim-level verification, citations, confidence, and fail-closed synthesis | NEXT_PLANNED |
 | 11 | Concrete embedding runtime plus Qdrant/persistent index and production adapters | PLANNED |
 | 12 | REST, MCP, multi-arch containers, E2E/security/load, and production acceptance | PLANNED |
 

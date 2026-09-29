@@ -3,18 +3,18 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: af3bd6bb578861de802a972d11e8a2a2c2368955
+Authority verified at SHA: 263595c161c68001b7785bfa65e3d723f5f21d42
 Governance profile: strict
 
 ## Current phase
 Phase: PHASE_09_EVIDENCE_GRAPH
-Status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Status: ACCEPTED
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: work/phase-09-evidence-graph
+Branch: main
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: af3bd6bb578861de802a972d11e8a2a2c2368955
+Last accepted SHA: 263595c161c68001b7785bfa65e3d723f5f21d42
 Current candidate SHA: external final acceptance evidence
 Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
 
@@ -46,11 +46,12 @@ SEQUENCE_SYNC: PASS
 - Equivalent normalized claim/value assertions corroborate; differing values contradict only when that claim key is explicitly exclusive/single-valued.
 - Clusters count distinct source URLs and sum only each source's maximum Phase 8 quality score so repeated chunks from one source do not inflate distinct-URL evidence weight.
 - Phase 9 emits no winner, truth label, or majority-vote verdict.
+- Phase 9 exact pull-request head f2e4818ba717a0900b6fe5aa84733b7d4b882760 passed Acceptance run 36587717765.
+- Phase 9 merged main SHA 263595c161c68001b7785bfa65e3d723f5f21d42 passed post-merge Acceptance run 36590741523 with 13/13 jobs PASS.
 
 ## Not proven
-- Final Phase 9 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
-- Phase 9 does not automatically extract structured assertions, infer natural-language contradiction, select which conflicting value is true, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.
-- Phase 9 distinct source URLs do not prove editorial or organizational independence between sources; the graph exposes URL-level counts only.
+- Accepted Phase 9 does not automatically extract structured assertions, infer arbitrary natural-language contradiction, select which conflicting value is true, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.
+- Distinct source URLs remain only a URL-level independence proxy and do not prove editorial or organizational independence.
 
 ## Known blockers
 - None declared.
@@ -59,12 +60,9 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Synchronize the Phase 9 ACTUAL sequence and deterministic Project Truth documentation.
-- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 9 candidate head.
-- Merge Phase 9 only if every required job passes, then revalidate merged main.
+- Start Phase 10 planning from accepted main SHA 263595c161c68001b7785bfa65e3d723f5f21d42.
+- Freeze the Phase 10 BEFORE sequence plan before implementing claim-level verification, citations, confidence, and fail-closed synthesis.
 
 ## Explicitly blocked
-- Do not treat descriptive cluster quality_weight_sum as a probability, confidence score, or truth verdict.
-- Do not claim natural-language contradiction inference or claim verification from the structured Phase 9 graph.
-- Do not merge Phase 9 while any required GitHub Actions job is failing or missing.
-- Do not bypass post-merge main revalidation.
+- Do not treat Phase 9 graph cluster weights as truth probabilities or verification results.
+- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
