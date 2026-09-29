@@ -3,7 +3,7 @@
   "session_id": "phase-05-semantic-retrieval",
   "phase": "PHASE_05_SEMANTIC_RETRIEVAL",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
   "status": "FROZEN",
   "implementation_base_sha": "c33519539d32e72e09cf507686bd50a1f6cf087c",
