@@ -5,14 +5,14 @@
   "mode": "BEFORE",
   "scope": "CURRENT",
   "critical": true,
-  "status": "PLANNED",
-  "implementation_base_sha": "",
+  "status": "FROZEN",
+  "implementation_base_sha": "e8519742f3f7662b76822be5265fe1076cc62bbf",
   "plan": {
     "required": true,
     "contract": "docs/sequence/plans/phase-03-secure-fetch.plan.json",
     "frozen": true,
-    "frozen_commit": "",
-    "sha256": "",
+    "frozen_commit": "e8519742f3f7662b76822be5265fe1076cc62bbf",
+    "sha256": "0760581b40a1906da335d5b07cfc2a6d28e51539bc453b314aa783a5c2a879c9",
     "diagram": "docs/sequence/generated/phase-03-secure-fetch.plan.mmd"
   },
   "actual": {
