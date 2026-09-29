@@ -83,3 +83,23 @@ class FetchedDocument:
     charset: str
     byte_length: int
     text: str
+
+
+@dataclass(frozen=True, slots=True)
+class TextChunk:
+    """Deterministic bounded text slice retaining source provenance."""
+
+    chunk_id: str
+    source_url: str
+    chunk_index: int
+    text: str
+    token_count: int
+
+
+@dataclass(frozen=True, slots=True)
+class LexicalHit:
+    """One immutable positive-score lexical retrieval result."""
+
+    chunk: TextChunk
+    score: float
+    rank: int
