@@ -606,7 +606,7 @@
     },
     {
       "id": "TRUTH-P9-CLUSTER-001",
-      "claim": "Phase 9 value clusters count distinct source URLs and compute descriptive quality_weight_sum using only each source's maximum accepted Phase 8 quality score, preventing repeated chunks from one source from inflating source independence.",
+      "claim": "Phase 9 value clusters count distinct source URLs and compute descriptive quality_weight_sum using only each source's maximum accepted Phase 8 quality score, preventing repeated chunks from one source from inflating editorial/distinct source-URL contribution.",
       "documents": [
         "PROJECT_TRUTH_SYNC.md"
       ],
