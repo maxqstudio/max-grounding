@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-SEARXNG-SEARCH",
+  "title": "Phase 2 SearXNG live search provider",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "search",
+      "label": "SearxngProvider.search",
+      "locator": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
+      "kind": "source"
+    },
+    {
+      "id": "build",
+      "label": "build_searxng_search_url",
+      "locator": "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+      "kind": "source"
+    },
+    {
+      "id": "fetch",
+      "label": "fetch_searxng_json",
+      "locator": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "kind": "source"
+    },
+    {
+      "id": "parse",
+      "label": "parse_searxng_results",
+      "locator": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "kind": "source"
+    },
+    {
+      "id": "safe",
+      "label": "is_admissible_result_url",
+      "locator": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "search",
+      "to": "build",
+      "action": "build fixed-endpoint search request",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "search",
+      "to": "fetch",
+      "action": "perform bounded JSON request",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "search",
+      "to": "parse",
+      "action": "parse provider results",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "parse",
+      "to": "safe",
+      "action": "admit safe result URLs only",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}

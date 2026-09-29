@@ -3,7 +3,7 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
+Source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
@@ -11,16 +11,20 @@ Generated/refreshed: current compiler run
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
 | src/max_grounding/budget.py | Python | 30 | src/max_grounding | NO |
 | src/max_grounding/engine.py | Python | 57 | src/max_grounding | NO |
-| src/max_grounding/errors.py | Python | 13 | src/max_grounding | NO |
+| src/max_grounding/errors.py | Python | 21 | src/max_grounding | NO |
 | src/max_grounding/evidence.py | Python | 97 | src/max_grounding | NO |
 | src/max_grounding/models.py | Python | 73 | src/max_grounding | NO |
+| src/max_grounding/network_policy.py | Python | 43 | src/max_grounding | NO |
 | src/max_grounding/policy.py | Python | 51 | src/max_grounding | NO |
-| src/max_grounding/providers/__init__.py | Python | 5 | src/max_grounding/providers | NO |
+| src/max_grounding/providers/__init__.py | Python | 6 | src/max_grounding/providers | NO |
 | src/max_grounding/providers/base.py | Python | 23 | src/max_grounding/providers | NO |
+| src/max_grounding/providers/searxng.py | Python | 220 | src/max_grounding/providers | NO |
 | tests/test_bootstrap.py | Python | 24 | tests | YES |
 | tests/test_budget.py | Python | 25 | tests | YES |
 | tests/test_engine.py | Python | 118 | tests | YES |
 | tests/test_evidence.py | Python | 54 | tests | YES |
+| tests/test_network_policy.py | Python | 46 | tests | YES |
 | tests/test_policy.py | Python | 47 | tests | YES |
+| tests/test_searxng_provider.py | Python | 206 | tests | YES |
 
 Machine-derived facts do not invent semantic ownership.

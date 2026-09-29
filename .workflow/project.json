@@ -20,13 +20,14 @@
       "Python"
     ],
     "frameworks": [
-      "Python standard library during Phase 0"
+      "Python standard library"
     ],
     "persistence": [
-      "none during Phase 0"
+      "none through Phase 2"
     ],
     "external_systems": [
-      "GitHub Actions"
+      "GitHub Actions",
+      "operator-configured SearXNG instance"
     ]
   },
   "entry_points": [
@@ -34,6 +35,11 @@
       "name": "Python package",
       "path": "src/max_grounding/__init__.py",
       "purpose": "bootstrap runtime identity and package boundary"
+    },
+    {
+      "name": "SearXNG provider",
+      "path": "src/max_grounding/providers/searxng.py",
+      "purpose": "bounded live HTTP search against a trusted self-hosted SearXNG endpoint"
     }
   ],
   "constraints": [

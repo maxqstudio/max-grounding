@@ -41,10 +41,11 @@
     {
       "id": "provider-boundary",
       "name": "Search Provider Boundary",
-      "purpose": "Expose one deterministic provider invocation without implementing live network access in Phase 1.",
+      "purpose": "Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation.",
       "owns": [
         "SearchProvider protocol",
-        "invoke_search"
+        "invoke_search",
+        "provider failure boundary"
       ],
       "depends_on": [
         "models"
@@ -75,6 +76,31 @@
         "provider-boundary",
         "evidence"
       ]
+    },
+    {
+      "id": "searxng-provider",
+      "name": "SearXNG Provider",
+      "purpose": "Build a fixed-authority JSON search request, perform bounded non-redirecting HTTP, validate response shape, and emit SourceCandidate values.",
+      "owns": [
+        "SearxngProvider",
+        "SearXNG request construction",
+        "bounded JSON response handling"
+      ],
+      "depends_on": [
+        "models",
+        "network-policy"
+      ]
+    },
+    {
+      "id": "network-policy",
+      "name": "Result URL Admission Policy",
+      "purpose": "Reject obviously unsafe untrusted search-result URLs before evidence admission without claiming DNS-rebinding protection.",
+      "owns": [
+        "scheme/userinfo validation",
+        "localhost rejection",
+        "literal non-public IP rejection"
+      ],
+      "depends_on": []
     }
   ],
   "data_flows": [
@@ -112,12 +138,27 @@
       "from": "GroundingEngine",
       "to": "EvidencePack",
       "meaning": "grounded or fail-closed result"
+    },
+    {
+      "from": "GroundingEngine",
+      "to": "SearXNG Provider",
+      "meaning": "already-budgeted SearchQuery"
+    },
+    {
+      "from": "SearXNG Provider",
+      "to": "operator-configured SearXNG instance",
+      "meaning": "bounded GET /search request for JSON output"
+    },
+    {
+      "from": "SearXNG Provider",
+      "to": "Result URL Admission Policy",
+      "meaning": "untrusted result URL before SourceCandidate construction"
     }
   ],
   "external_boundaries": [
     {
-      "name": "SearchProvider implementation",
-      "contract": "Provider output is untrusted; Phase 1 supplies only a protocol and tests with deterministic fakes."
+      "name": "SearXNG service",
+      "contract": "Operator config chooses the trusted provider endpoint. Search-result URLs and returned content remain untrusted; Phase 2 does not fetch result pages or resolve their DNS."
     },
     {
       "name": "GitHub-hosted runners",

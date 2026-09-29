@@ -4,17 +4,17 @@
 
 ## Evidence boundary
 
-Phase 1 proves the deterministic in-process grounding core: request normalization, hard two-call search budget, provider boundary, canonical URL deduplication, fail-closed evidence status, frozen-plan sequence conformance, and supported-Python execution through GitHub Actions. It does not prove live web search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, or production deployment.
+Phase 2 proves the SearXNG provider protocol against deterministic local HTTP fixtures: fixed configured authority, JSON query construction, bounded non-redirecting HTTP response handling, schema validation, conservative result-URL admission, integration with the fail-closed core, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove availability or ranking quality of any specific external SearXNG deployment/upstream engine, page fetching, DNS-rebinding protection, crawling, embeddings, vector databases, reranking, REST, MCP, or production deployment.
 
 Final tested source: external final acceptance evidence.
-Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
+Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P1-BUDGET | A grounding request can consume at most two search-provider calls. | tests/test_policy.py; tests/test_budget.py; tests/test_engine.py | PASS |
-| P1-FAIL-CLOSED | Insufficient or failed retrieval cannot be reported as grounded. | tests/test_engine.py | PASS |
-| P1-DEDUPE | Duplicate canonical source URLs do not inflate evidence sufficiency. | tests/test_evidence.py; tests/test_engine.py | PASS |
-| P1-CROSS-OS | Phase 1 core behavior passes on Python 3.11-3.14 across Linux, Windows, and macOS. | GitHub Actions Acceptance matrix | PASS |
+| P2-SEARXNG | SearxngProvider sends a bounded JSON search request only to the configured operator-trusted SearXNG endpoint and maps valid results into SourceCandidate values. | tests/test_searxng_provider.py; Phase 2 GREEN run 36327403347 | PASS |
+| P2-RESULT-URL-SAFETY | Search results with unsupported schemes, credentials, localhost names, ambiguous numeric hosts, or literal non-public/multicast IP targets are rejected before SourceCandidate admission. | tests/test_network_policy.py; tests/test_searxng_provider.py | PASS |
+| P2-FAIL-CLOSED-HTTP | Redirects, invalid JSON/schema, oversized responses, HTTP failures, and transport failures cannot fabricate evidence and surface as controlled provider failure. | tests/test_searxng_provider.py; tests/test_engine.py | PASS |
+| P2-CROSS-OS | Phase 2 provider behavior passes on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 2 Cross Platform run 36327480973: 12/12 jobs PASS | PASS |
 
 ## Test commands
 
@@ -25,12 +25,13 @@ Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be
 
 ## Runtime checks
 
-- Run the complete source suite on Python 3.11, 3.12, 3.13, and 3.14 on Ubuntu, Windows, and macOS GitHub-hosted runners.
+- Phase 2 Cross Platform run 36327480973 executed the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS using deterministic local HTTP fixtures.
+- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before phase closure.
 
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-01-core-contracts.json
+Sequence session contract: docs/sequence/sessions/phase-02-searxng-provider.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

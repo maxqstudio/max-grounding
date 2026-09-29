@@ -18,6 +18,7 @@ Status: CURRENT
 |---|---|---|---|---|
 | FLOW-GROUND-REQUEST | BEFORE | YES | docs/sequence/sessions/phase-01-core-contracts.json | PASS |
 | FLOW-PHASE-DELIVERY | BEFORE | YES | docs/sequence/sessions/phase-00-bootstrap.json | PASS |
+| FLOW-SEARXNG-SEARCH | BEFORE | YES | docs/sequence/sessions/phase-02-searxng-provider.json | PASS |
 
 ## Mismatch handling
 

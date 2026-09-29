@@ -88,3 +88,51 @@ Authority: GitHub Actions required checks
 ### Rollback behavior
 
 - A defective merged phase must be reverted through a new governed change and revalidated.
+
+## FLOW-SEARXNG-SEARCH — SearXNG live search provider
+
+Purpose: Execute one budgeted search against an operator-configured SearXNG JSON endpoint, bound response handling, reject obviously unsafe result URLs, and return untrusted SourceCandidate values without fetching result pages.
+Critical: TRUE
+Entry condition: GroundingEngine invokes SearxngProvider with a validated SearchQuery and operator-trusted SearXNG base URL.
+Authority: SearxngProvider transport policy and result URL admission policy
+
+### States
+
+- CONFIGURED
+- REQUEST_BUILT
+- RESPONSE_RECEIVED
+- RESULTS_VALIDATED
+- CANDIDATES_READY
+- PROVIDER_ERROR
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| CONFIGURED | REQUEST_BUILT | build fixed-endpoint SearXNG JSON request | SearxngProvider transport policy and result URL admission policy |  |
+| REQUEST_BUILT | RESPONSE_RECEIVED | perform bounded HTTP request without redirect following | SearxngProvider transport policy and result URL admission policy |  |
+| RESPONSE_RECEIVED | RESULTS_VALIDATED | validate status, size, JSON object, and results list | SearxngProvider transport policy and result URL admission policy |  |
+| RESULTS_VALIDATED | CANDIDATES_READY | retain only admissible HTTP(S) result URLs and map SourceCandidate values | SearxngProvider transport policy and result URL admission policy |  |
+| REQUEST_BUILT | PROVIDER_ERROR | transport or HTTP policy failure | SearxngProvider transport policy and result URL admission policy |  |
+| RESPONSE_RECEIVED | PROVIDER_ERROR | response size, media type, JSON, or schema failure | SearxngProvider transport policy and result URL admission policy |  |
+
+### Invariants
+
+- SearchQuery data cannot replace the configured SearXNG authority/host.
+- The provider requests JSON search output and never follows redirects.
+- A response is bounded by a configured byte limit before JSON decoding.
+- Returned result URLs are untrusted and obvious localhost/private/link-local/reserved literal targets are rejected.
+- Phase 2 does not fetch result URLs and does not claim DNS-rebinding protection.
+
+### Failure behavior
+
+- Transport, redirect, HTTP, media-type, size, JSON, and schema failures raise a controlled provider error.
+- GroundingEngine converts provider failure before evidence sufficiency into fail-closed PROVIDER_ERROR status.
+
+### Restart behavior
+
+- Retry occurs only as a new budgeted provider invocation controlled by GroundingEngine.
+
+### Rollback behavior
+
+- Phase 2 has no persistent state mutation.

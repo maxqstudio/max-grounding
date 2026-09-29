@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-02-searxng-provider",
+  "phase": "PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "FROZEN",
+  "implementation_base_sha": "68ab9a0307b57d1c8a162dc3c942e65e86149eb0",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-02-searxng-provider.plan.json",
+    "frozen": true,
+    "frozen_commit": "68ab9a0307b57d1c8a162dc3c942e65e86149eb0",
+    "sha256": "415f0e54a0c1628724f50c22537c4df4f2e280da342524af89be26646d105977",
+    "diagram": "docs/sequence/generated/phase-02-searxng-provider.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-02-searxng-provider.actual.json",
+    "diagram": "docs/sequence/generated/phase-02-searxng-provider.actual.mmd",
+    "source_digest": "",
+    "entries": [
+      "src/max_grounding/providers/searxng.py::SearxngProvider.search"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_searxng_provider.py",
+    "tests/test_network_policy.py",
+    "tests/test_engine.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}

@@ -1,0 +1,23 @@
+%% GENERATED FILE - DO NOT EDIT
+%% SOURCE_DIGEST: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
+%% OBSERVED_HEAD: 1ffce7803a49f2704322069d8df419aa18fe5b9a
+%% GENERATED_BY: generate_sequence_actual.py
+sequenceDiagram
+    participant src_max_grounding_errors_py__InvalidProviderConfiguration_0 as src/max_grounding/errors.py::InvalidProviderConfiguration
+    participant src_max_grounding_errors_py__SearchProviderError_1 as src/max_grounding/errors.py::SearchProviderError
+    participant src_max_grounding_models_py__SourceCandidate_2 as src/max_grounding/models.py::SourceCandidate
+    participant src_max_grounding_network_policy_py__is_admissible_result_url_3 as src/max_grounding/network_policy.py::is_admissible_result_url
+    participant src_max_grounding_providers_searxng_py__SearxngProvider_search_4 as src/max_grounding/providers/searxng.py::SearxngProvider.search
+    participant src_max_grounding_providers_searxng_py___NoRedirect_5 as src/max_grounding/providers/searxng.py::_NoRedirect
+    participant src_max_grounding_providers_searxng_py__build_searxng_search_url_6 as src/max_grounding/providers/searxng.py::build_searxng_search_url
+    participant src_max_grounding_providers_searxng_py__fetch_searxng_json_7 as src/max_grounding/providers/searxng.py::fetch_searxng_json
+    participant src_max_grounding_providers_searxng_py__parse_searxng_results_8 as src/max_grounding/providers/searxng.py::parse_searxng_results
+    src_max_grounding_providers_searxng_py__SearxngProvider_search_4->>src_max_grounding_providers_searxng_py__build_searxng_search_url_6: build_searxng_search_url [STATIC]
+    src_max_grounding_providers_searxng_py__SearxngProvider_search_4->>src_max_grounding_providers_searxng_py__fetch_searxng_json_7: fetch_searxng_json [STATIC]
+    src_max_grounding_providers_searxng_py__SearxngProvider_search_4->>src_max_grounding_providers_searxng_py__parse_searxng_results_8: parse_searxng_results [STATIC]
+    src_max_grounding_providers_searxng_py__fetch_searxng_json_7->>src_max_grounding_errors_py__InvalidProviderConfiguration_0: InvalidProviderConfiguration [STATIC]
+    src_max_grounding_providers_searxng_py__fetch_searxng_json_7->>src_max_grounding_errors_py__SearchProviderError_1: SearchProviderError [STATIC]
+    src_max_grounding_providers_searxng_py__fetch_searxng_json_7->>src_max_grounding_providers_searxng_py___NoRedirect_5: _NoRedirect [STATIC]
+    src_max_grounding_providers_searxng_py__parse_searxng_results_8->>src_max_grounding_errors_py__SearchProviderError_1: SearchProviderError [STATIC]
+    src_max_grounding_providers_searxng_py__parse_searxng_results_8->>src_max_grounding_models_py__SourceCandidate_2: SourceCandidate [STATIC]
+    src_max_grounding_providers_searxng_py__parse_searxng_results_8->>src_max_grounding_network_policy_py__is_admissible_result_url_3: is_admissible_result_url [STATIC]

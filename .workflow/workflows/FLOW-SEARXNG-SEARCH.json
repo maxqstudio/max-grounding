@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-SEARXNG-SEARCH",
+  "title": "SearXNG live search provider",
+  "purpose": "Execute one budgeted search against an operator-configured SearXNG JSON endpoint, bound response handling, reject obviously unsafe result URLs, and return untrusted SourceCandidate values without fetching result pages.",
+  "critical": true,
+  "entry_condition": "GroundingEngine invokes SearxngProvider with a validated SearchQuery and operator-trusted SearXNG base URL.",
+  "authority": "SearxngProvider transport policy and result URL admission policy",
+  "states": [
+    "CONFIGURED",
+    "REQUEST_BUILT",
+    "RESPONSE_RECEIVED",
+    "RESULTS_VALIDATED",
+    "CANDIDATES_READY",
+    "PROVIDER_ERROR"
+  ],
+  "transitions": [
+    {
+      "from": "CONFIGURED",
+      "to": "REQUEST_BUILT",
+      "action": "build fixed-endpoint SearXNG JSON request"
+    },
+    {
+      "from": "REQUEST_BUILT",
+      "to": "RESPONSE_RECEIVED",
+      "action": "perform bounded HTTP request without redirect following"
+    },
+    {
+      "from": "RESPONSE_RECEIVED",
+      "to": "RESULTS_VALIDATED",
+      "action": "validate status, size, JSON object, and results list"
+    },
+    {
+      "from": "RESULTS_VALIDATED",
+      "to": "CANDIDATES_READY",
+      "action": "retain only admissible HTTP(S) result URLs and map SourceCandidate values"
+    },
+    {
+      "from": "REQUEST_BUILT",
+      "to": "PROVIDER_ERROR",
+      "action": "transport or HTTP policy failure"
+    },
+    {
+      "from": "RESPONSE_RECEIVED",
+      "to": "PROVIDER_ERROR",
+      "action": "response size, media type, JSON, or schema failure"
+    }
+  ],
+  "invariants": [
+    "SearchQuery data cannot replace the configured SearXNG authority/host.",
+    "The provider requests JSON search output and never follows redirects.",
+    "A response is bounded by a configured byte limit before JSON decoding.",
+    "Returned result URLs are untrusted and obvious localhost/private/link-local/reserved literal targets are rejected.",
+    "Phase 2 does not fetch result URLs and does not claim DNS-rebinding protection."
+  ],
+  "failure_behavior": [
+    "Transport, redirect, HTTP, media-type, size, JSON, and schema failures raise a controlled provider error.",
+    "GroundingEngine converts provider failure before evidence sufficiency into fail-closed PROVIDER_ERROR status."
+  ],
+  "restart_behavior": [
+    "Retry occurs only as a new budgeted provider invocation controlled by GroundingEngine."
+  ],
+  "rollback_behavior": [
+    "Phase 2 has no persistent state mutation."
+  ],
+  "source_owners": [
+    "src/max_grounding/providers/searxng.py::search",
+    "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+    "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+    "src/max_grounding/providers/searxng.py::parse_searxng_results",
+    "src/max_grounding/network_policy.py::is_admissible_result_url"
+  ],
+  "tests": [
+    "tests/test_searxng_provider.py",
+    "tests/test_network_policy.py",
+    "tests/test_engine.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-02-searxng-provider.json"
+}

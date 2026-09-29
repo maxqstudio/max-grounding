@@ -1,0 +1,173 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [
+    {
+      "action": "build_searxng_search_url",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/searxng.py::build_searxng_search_url"
+    },
+    {
+      "action": "fetch_searxng_json",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/searxng.py::fetch_searxng_json"
+    },
+    {
+      "action": "parse_searxng_results",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/searxng.py::parse_searxng_results"
+    },
+    {
+      "action": "InvalidProviderConfiguration",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::InvalidProviderConfiguration"
+    },
+    {
+      "action": "SearchProviderError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::SearchProviderError"
+    },
+    {
+      "action": "_NoRedirect",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/searxng.py::_NoRedirect"
+    },
+    {
+      "action": "SearchProviderError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::SearchProviderError"
+    },
+    {
+      "action": "SourceCandidate",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::SourceCandidate"
+    },
+    {
+      "action": "is_admissible_result_url",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/network_policy.py::is_admissible_result_url"
+    }
+  ],
+  "entries": [
+    "src/max_grounding/providers/searxng.py::SearxngProvider.search"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/errors.py::InvalidProviderConfiguration",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::InvalidProviderConfiguration",
+      "language": "Python",
+      "line_end": 21,
+      "line_start": 20,
+      "locator": "src/max_grounding/errors.py::InvalidProviderConfiguration"
+    },
+    {
+      "id": "src/max_grounding/errors.py::SearchProviderError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::SearchProviderError",
+      "language": "Python",
+      "line_end": 17,
+      "line_start": 16,
+      "locator": "src/max_grounding/errors.py::SearchProviderError"
+    },
+    {
+      "id": "src/max_grounding/models.py::SourceCandidate",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::SourceCandidate",
+      "language": "Python",
+      "line_end": 50,
+      "line_start": 43,
+      "locator": "src/max_grounding/models.py::SourceCandidate"
+    },
+    {
+      "id": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "kind": "function",
+      "label": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "language": "Python",
+      "line_end": 43,
+      "line_start": 14,
+      "locator": "src/max_grounding/network_policy.py::is_admissible_result_url"
+    },
+    {
+      "id": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
+      "kind": "method",
+      "label": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
+      "language": "Python",
+      "line_end": 220,
+      "line_start": 208,
+      "locator": "src/max_grounding/providers/searxng.py::SearxngProvider.search"
+    },
+    {
+      "id": "src/max_grounding/providers/searxng.py::_NoRedirect",
+      "kind": "class",
+      "label": "src/max_grounding/providers/searxng.py::_NoRedirect",
+      "language": "Python",
+      "line_end": 28,
+      "line_start": 24,
+      "locator": "src/max_grounding/providers/searxng.py::_NoRedirect"
+    },
+    {
+      "id": "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+      "kind": "function",
+      "label": "src/max_grounding/providers/searxng.py::build_searxng_search_url",
+      "language": "Python",
+      "line_end": 74,
+      "line_start": 57,
+      "locator": "src/max_grounding/providers/searxng.py::build_searxng_search_url"
+    },
+    {
+      "id": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "kind": "function",
+      "label": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
+      "language": "Python",
+      "line_end": 137,
+      "line_start": 77,
+      "locator": "src/max_grounding/providers/searxng.py::fetch_searxng_json"
+    },
+    {
+      "id": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "kind": "function",
+      "label": "src/max_grounding/providers/searxng.py::parse_searxng_results",
+      "language": "Python",
+      "line_end": 178,
+      "line_start": 140,
+      "locator": "src/max_grounding/providers/searxng.py::parse_searxng_results"
+    }
+  ],
+  "observed_head": "1ffce7803a49f2704322069d8df419aa18fe5b9a",
+  "schema_version": 1,
+  "source_digest": "5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d"
+}

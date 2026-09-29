@@ -1,5 +1,5 @@
 {
-  "evidence_boundary": "Phase 1 proves the deterministic in-process grounding core: request normalization, hard two-call search budget, provider boundary, canonical URL deduplication, fail-closed evidence status, frozen-plan sequence conformance, and supported-Python execution through GitHub Actions. It does not prove live web search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, or production deployment.",
+  "evidence_boundary": "Phase 2 proves the SearXNG provider protocol against deterministic local HTTP fixtures: fixed configured authority, JSON query construction, bounded non-redirecting HTTP response handling, schema validation, conservative result-URL admission, integration with the fail-closed core, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove availability or ranking quality of any specific external SearXNG deployment/upstream engine, page fetching, DNS-rebinding protection, crawling, embeddings, vector databases, reranking, REST, MCP, or production deployment.",
   "human_comprehension_questions": {
     "How does failure/recovery behave?": "PASS",
     "How does important data flow through the system?": "PASS",
@@ -17,37 +17,38 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
-      "evidence": "tests/test_policy.py; tests/test_budget.py; tests/test_engine.py",
-      "id": "P1-BUDGET",
-      "requirement": "A grounding request can consume at most two search-provider calls.",
+      "evidence": "tests/test_searxng_provider.py; Phase 2 GREEN run 36327403347",
+      "id": "P2-SEARXNG",
+      "requirement": "SearxngProvider sends a bounded JSON search request only to the configured operator-trusted SearXNG endpoint and maps valid results into SourceCandidate values.",
       "status": "PASS"
     },
     {
-      "evidence": "tests/test_engine.py",
-      "id": "P1-FAIL-CLOSED",
-      "requirement": "Insufficient or failed retrieval cannot be reported as grounded.",
+      "evidence": "tests/test_network_policy.py; tests/test_searxng_provider.py",
+      "id": "P2-RESULT-URL-SAFETY",
+      "requirement": "Search results with unsupported schemes, credentials, localhost names, ambiguous numeric hosts, or literal non-public/multicast IP targets are rejected before SourceCandidate admission.",
       "status": "PASS"
     },
     {
-      "evidence": "tests/test_evidence.py; tests/test_engine.py",
-      "id": "P1-DEDUPE",
-      "requirement": "Duplicate canonical source URLs do not inflate evidence sufficiency.",
+      "evidence": "tests/test_searxng_provider.py; tests/test_engine.py",
+      "id": "P2-FAIL-CLOSED-HTTP",
+      "requirement": "Redirects, invalid JSON/schema, oversized responses, HTTP failures, and transport failures cannot fabricate evidence and surface as controlled provider failure.",
       "status": "PASS"
     },
     {
-      "evidence": "GitHub Actions Acceptance matrix",
-      "id": "P1-CROSS-OS",
-      "requirement": "Phase 1 core behavior passes on Python 3.11-3.14 across Linux, Windows, and macOS.",
+      "evidence": "Phase 2 Cross Platform run 36327480973: 12/12 jobs PASS",
+      "id": "P2-CROSS-OS",
+      "requirement": "Phase 2 provider behavior passes on Python 3.11-3.14 across Linux, Windows, and macOS.",
       "status": "PASS"
     }
   ],
   "runtime_checks": [
-    "Run the complete source suite on Python 3.11, 3.12, 3.13, and 3.14 on Ubuntu, Windows, and macOS GitHub-hosted runners."
+    "Phase 2 Cross Platform run 36327480973 executed the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS using deterministic local HTTP fixtures.",
+    "Final pull-request Acceptance and post-merge main Acceptance remain mandatory before phase closure."
   ],
   "runtime_status": "PASS",
   "schema_version": 1,
   "sequence_mode": "BEFORE",
-  "sequence_session": "docs/sequence/sessions/phase-01-core-contracts.json",
+  "sequence_session": "docs/sequence/sessions/phase-02-searxng-provider.json",
   "sequence_sync_status": "PASS",
   "test_commands": [
     "python -m unittest discover -s tests -v",

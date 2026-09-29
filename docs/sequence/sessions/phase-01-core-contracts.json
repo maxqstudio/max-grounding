@@ -3,9 +3,9 @@
   "session_id": "phase-01-core-contracts",
   "phase": "PHASE_01_GROUNDING_CORE_CONTRACTS",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
-  "status": "CANDIDATE",
+  "status": "ACCEPTED",
   "implementation_base_sha": "c939a9128c078f99ab6bbf76fae161d52790e5de",
   "plan": {
     "required": true,

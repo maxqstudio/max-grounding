@@ -3,20 +3,20 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe
+Authority verified at SHA: d99350f5d2222c174d7f5b4d861514bd67fb66b2
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_01_GROUNDING_CORE_CONTRACTS
-Status: ACCEPTED
+Phase: PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER
+Status: CANDIDATE
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-02-searxng-provider
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe
+Last accepted SHA: d99350f5d2222c174d7f5b4d861514bd67fb66b2
 Current candidate SHA: external final acceptance evidence
-Current source digest: f3b22a2d8f226488792fd8d1ff4f4fdd646474bcaec66b388f2a611be8722897
+Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -33,17 +33,19 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-01-core-contracts.json
+Current sequence session: docs/sequence/sessions/phase-02-searxng-provider.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 1 bounded grounding core is merged to main at 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.
-- GitHub Actions run 17 revalidated STRICT governance and the Python core on Python 3.11-3.14 across Ubuntu, Windows, and macOS at main SHA 47696df7fdfb9aad5ba8c367f402bd0b0d954fbe.
-- Phase 1 BEFORE plan was frozen before implementation and sequence acceptance passed.
-- The deterministic core enforces a hard maximum of two provider calls, canonical URL deduplication, and fail-closed evidence status.
+- Phase 2 BEFORE plan is frozen at 68ab9a0307b57d1c8a162dc3c942e65e86149eb0 before product implementation.
+- TDD RED run 36327147032 failed for the intended missing Phase 2 modules/types before implementation.
+- Phase 2 GREEN run 36327403347 passed the full suite and compile after implementation and security repair.
+- Phase 2 Cross Platform run 36327480973 passed 12/12 jobs on Python 3.11-3.14 across Ubuntu, Windows, and macOS.
+- SearxngProvider performs bounded JSON HTTP search to an operator-configured trusted endpoint and filters obvious unsafe result URLs before candidate admission.
 
 ## Not proven
-- Live network search, HTTP fetching, crawling, embeddings, vector databases, reranking, REST, MCP, and production deployment remain outside Phase 1.
+- A specific external SearXNG deployment and its upstream engine availability/ranking quality are not proven by deterministic CI fixtures.
+- Page fetching, DNS-rebinding protection at connection time, crawling, content extraction, embeddings, vector retrieval, reranking, REST, MCP, and production deployment remain outside Phase 2.
 
 ## Known blockers
 - None declared.
@@ -52,9 +54,11 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Start Phase 2 from accepted main.
-- Freeze the Phase 2 BEFORE sequence plan before product implementation.
+- Generate and validate the Phase 2 actual sequence graph from current source.
+- Synchronize deterministic docs and run STRICT governance.
+- Open the Phase 2 pull request only after branch governance passes.
 
 ## Explicitly blocked
-- Do not claim live web grounding capability from the Phase 1 core.
-- Do not bypass GitHub Actions acceptance or main revalidation for later phases.
+- Do not claim page-fetch SSRF protection from result-URL admission alone.
+- Do not merge Phase 2 until final pull-request Acceptance passes all required jobs.
+- Do not close Phase 2 until merged main is revalidated.
