@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-EVIDENCE-GRAPH",
+  "title": "Deterministic contradiction, corroboration, and evidence graph",
+  "purpose": "Convert bounded structured assertions backed by accepted Phase 8 evidence-quality scores into a deterministic graph of corroborating and contradicting relations without selecting a truth winner.",
+  "critical": true,
+  "entry_condition": "At most 8 structured EvidenceAssertion values each retain one accepted EvidenceQualityScore.",
+  "authority": "Structured assertion normalization, relation semantics, source independence accounting, and graph construction",
+  "states": [
+    "ASSERTIONS_RECEIVED",
+    "ASSERTIONS_NORMALIZED",
+    "RELATIONS_BUILT",
+    "GRAPH_BUILT",
+    "REJECTED"
+  ],
+  "transitions": [
+    {
+      "from": "ASSERTIONS_RECEIVED",
+      "to": "ASSERTIONS_NORMALIZED",
+      "action": "validate bounded assertion identity, evidence provenance, quality scores, and consistent exclusivity semantics"
+    },
+    {
+      "from": "ASSERTIONS_NORMALIZED",
+      "to": "RELATIONS_BUILT",
+      "action": "derive corroborates and contradicts edges deterministically from normalized claim/value semantics"
+    },
+    {
+      "from": "RELATIONS_BUILT",
+      "to": "GRAPH_BUILT",
+      "action": "group equivalent assertions into value clusters with distinct-source counts and bounded quality-weight sums"
+    }
+  ],
+  "invariants": [
+    "At most 8 assertions enter graph construction and arbitrary iterables are rejected.",
+    "assertion_id is unique and non-empty; claim_key and value are non-empty after Unicode NFKC, whitespace normalization, and casefolding.",
+    "Each assertion retains an immutable EvidenceQualityScore with finite component scores in [0,1] and matching source/chunk provenance.",
+    "All assertions sharing one normalized claim_key must agree on whether that claim is exclusive/single-valued.",
+    "Same normalized claim_key plus same normalized value yields a CORROBORATES relation.",
+    "Same normalized exclusive claim_key plus different normalized values yields a CONTRADICTS relation.",
+    "Non-exclusive different values do not contradict and produce no relation.",
+    "Relations use canonical assertion-id ordering and are emitted once per assertion pair.",
+    "Clusters count distinct source URLs so repeated chunks from one source do not inflate source independence.",
+    "Cluster quality_weight_sum is the sum of each distinct source's maximum accepted Phase 8 quality score; it is descriptive evidence weight and never a probability or truth verdict.",
+    "The graph never majority-votes, selects a winning value, or labels any assertion true/false."
+  ],
+  "failure_behavior": [
+    "Malformed bounds, duplicate identity, inconsistent exclusivity, invalid evidence provenance, invalid quality scores, or unsupported values fail closed with EvidenceGraphError.",
+    "No partial graph is returned after validation failure."
+  ],
+  "restart_behavior": [
+    "Graph construction is stateless and deterministic for identical assertions."
+  ],
+  "rollback_behavior": [
+    "Phase 9 performs no persistent state mutation."
+  ],
+  "source_owners": [
+    "src/max_grounding/evidence_graph.py::build_evidence_graph",
+    "src/max_grounding/evidence_graph.py::build_relations",
+    "src/max_grounding/evidence_graph.py::build_clusters"
+  ],
+  "tests": [
+    "tests/test_evidence_graph.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-09-evidence-graph.json"
+}
