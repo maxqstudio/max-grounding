@@ -55,3 +55,17 @@ jobs:
                       self.generic_visit(node)
               V().visit(tree)
           PY
+      - name: Print generated actual edges
+        shell: bash
+        run: |
+          python .workflow/tools/generate_sequence_actual.py \
+            --output-json /tmp/index.actual.json \
+            --output-mermaid /tmp/index.actual.mmd \
+            --entry src/max_grounding/persistent.py::index_documents
+          python - <<'PY'
+          import json
+          g=json.load(open("/tmp/index.actual.json",encoding="utf-8"))
+          for edge in g.get("edges",[]):
+              if "persistent.py::index_documents" in edge.get("from","") or "ensure_collection" in edge.get("to","") or "upsert_chunks" in edge.get("to",""):
+                  print("EDGE",json.dumps(edge,sort_keys=True))
+          PY
