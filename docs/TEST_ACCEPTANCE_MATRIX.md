@@ -30,7 +30,8 @@ Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924
 - Initial GREEN run 36564936847 exposed an invalid test fixture rank; the fixture alone was repaired to match the frozen contiguous-rank contract.
 - Final GREEN run 36565015354 passed the full unit suite and compile checks.
 - Candidate verification run 36565138383 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
-- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 6 closure.
+- Phase 6 pull-request Acceptance run 36574618437 passed 13/13 required jobs on exact head de6548e2e8c56159b9de33331800cc403dfd9bc9.
+- Phase 6 post-merge main Acceptance run 36575022736 passed 13/13 required jobs on main SHA b4142fb22ee80837b98617d3c29a276fbe924294.
 
 ## Sequence contract evidence
 

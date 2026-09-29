@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "phase": "PHASE_06_HYBRID_FUSION",
-  "status": "CANDIDATE_PENDING_GITHUB_ACTIONS",
-  "working_branch": "work/phase-06-hybrid-fusion",
-  "last_accepted_sha": "f29bb162ea49f24a78091231706e829f286bf8e4",
+  "status": "ACCEPTED",
+  "working_branch": "main",
+  "last_accepted_sha": "b4142fb22ee80837b98617d3c29a276fbe924294",
   "last_accepted_branch": "main",
   "proven": [
     "Phase 5 closure is merged to main at 45c18dc09a314e106881cb68b641109a373e1369 and closure-main Acceptance run 36564262272 passed all 13 required jobs.",
@@ -16,21 +16,20 @@
     "Each modality contributes at most 20 ranked hits and final hybrid output is capped at 20 results.",
     "Duplicate chunk identities are merged only when full immutable chunk provenance matches; conflicting provenance for the same chunk_id fails closed.",
     "Equal fused scores resolve by stable source URL, chunk index, and chunk identity.",
-    "Production V1 roadmap is governed in .workflow/project.json as Phase 0 through Phase 12, with optional post-V1 expansion Phase 13 through Phase 16."
+    "Production V1 roadmap is governed in .workflow/project.json as Phase 0 through Phase 12, with optional post-V1 expansion Phase 13 through Phase 16.",
+    "Phase 6 exact pull-request head de6548e2e8c56159b9de33331800cc403dfd9bc9 passed Acceptance run 36574618437 with STRICT governance plus all 12 Linux/Windows/macOS Python 3.11-3.14 jobs.",
+    "Phase 6 merged main SHA b4142fb22ee80837b98617d3c29a276fbe924294 passed post-merge Acceptance run 36575022736 with 13/13 jobs PASS."
   ],
   "not_proven": [
-    "Final Phase 6 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.",
-    "Concrete embedding runtimes/models, persistent vector databases such as Qdrant, learned or cross-encoder reranking, retrieval-quality benchmarks, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 6."
+    "Concrete embedding runtimes/models, persistent vector databases such as Qdrant, learned or cross-encoder reranking, retrieval-quality benchmarks, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside accepted Phase 6."
   ],
   "blockers": [],
   "next_authorized_actions": [
-    "Regenerate and validate deterministic Project Truth documentation including docs/ROADMAP.md.",
-    "Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 6 candidate head.",
-    "Merge Phase 6 only if every required job passes, then revalidate merged main."
+    "Start Phase 7 planning from accepted main SHA b4142fb22ee80837b98617d3c29a276fbe924294.",
+    "Freeze the Phase 7 BEFORE sequence plan before implementing reranking and evidence/context compression."
   ],
   "blocked_actions": [
-    "Do not merge Phase 6 while any required GitHub Actions job is failing or missing.",
-    "Do not claim reranking, a concrete embedding model, or a persistent vector database from Phase 6 fixed RRF fusion.",
-    "Do not bypass post-merge main revalidation."
+    "Do not claim reranking, a concrete embedding model, or a persistent vector database from accepted Phase 6 fixed RRF fusion.",
+    "Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases."
   ]
 }

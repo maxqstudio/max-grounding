@@ -3,18 +3,18 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: f29bb162ea49f24a78091231706e829f286bf8e4
+Authority verified at SHA: b4142fb22ee80837b98617d3c29a276fbe924294
 Governance profile: strict
 
 ## Current phase
 Phase: PHASE_06_HYBRID_FUSION
-Status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Status: ACCEPTED
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: work/phase-06-hybrid-fusion
+Branch: main
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: f29bb162ea49f24a78091231706e829f286bf8e4
+Last accepted SHA: b4142fb22ee80837b98617d3c29a276fbe924294
 Current candidate SHA: external final acceptance evidence
 Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
 
@@ -48,10 +48,11 @@ SEQUENCE_SYNC: PASS
 - Duplicate chunk identities are merged only when full immutable chunk provenance matches; conflicting provenance for the same chunk_id fails closed.
 - Equal fused scores resolve by stable source URL, chunk index, and chunk identity.
 - Production V1 roadmap is governed in .workflow/project.json as Phase 0 through Phase 12, with optional post-V1 expansion Phase 13 through Phase 16.
+- Phase 6 exact pull-request head de6548e2e8c56159b9de33331800cc403dfd9bc9 passed Acceptance run 36574618437 with STRICT governance plus all 12 Linux/Windows/macOS Python 3.11-3.14 jobs.
+- Phase 6 merged main SHA b4142fb22ee80837b98617d3c29a276fbe924294 passed post-merge Acceptance run 36575022736 with 13/13 jobs PASS.
 
 ## Not proven
-- Final Phase 6 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
-- Concrete embedding runtimes/models, persistent vector databases such as Qdrant, learned or cross-encoder reranking, retrieval-quality benchmarks, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 6.
+- Concrete embedding runtimes/models, persistent vector databases such as Qdrant, learned or cross-encoder reranking, retrieval-quality benchmarks, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside accepted Phase 6.
 
 ## Known blockers
 - None declared.
@@ -60,11 +61,9 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Regenerate and validate deterministic Project Truth documentation including docs/ROADMAP.md.
-- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 6 candidate head.
-- Merge Phase 6 only if every required job passes, then revalidate merged main.
+- Start Phase 7 planning from accepted main SHA b4142fb22ee80837b98617d3c29a276fbe924294.
+- Freeze the Phase 7 BEFORE sequence plan before implementing reranking and evidence/context compression.
 
 ## Explicitly blocked
-- Do not merge Phase 6 while any required GitHub Actions job is failing or missing.
-- Do not claim reranking, a concrete embedding model, or a persistent vector database from Phase 6 fixed RRF fusion.
-- Do not bypass post-merge main revalidation.
+- Do not claim reranking, a concrete embedding model, or a persistent vector database from accepted Phase 6 fixed RRF fusion.
+- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.

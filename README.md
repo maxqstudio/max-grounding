@@ -32,11 +32,11 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 6 is a candidate for bounded deterministic hybrid retrieval.
+Phase 6 is accepted on main at `b4142fb22ee80837b98617d3c29a276fbe924294`.
 
-The candidate combines accepted lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion (`k=60`), caps each modality and final output at 20 hits, preserves lexical/semantic rank provenance, rejects rank or chunk-identity conflicts, and uses stable provenance ordering for ties.
+Accepted Phase 6 combines bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion (`k=60`), preserves per-modality rank provenance, rejects malformed ranks and conflicting chunk identity, caps each modality and final output at 20 hits, and uses deterministic provenance ordering for ties.
 
-The exact candidate still requires full pull-request Acceptance and post-merge main revalidation before Phase 6 is accepted. A concrete embedding model/runtime, Qdrant or another persistent vector database, learned reranking, retrieval-quality benchmarking, claim verification, REST, MCP, and production deployment remain later work.
+Phase 7 is the next planned phase: reranking plus evidence/context compression. A concrete embedding runtime/model, Qdrant or another persistent vector database, learned reranking, retrieval-quality benchmarking, evidence scoring, claim verification, REST, MCP, and production deployment are not yet accepted capabilities.
 
 ## Platform policy
 

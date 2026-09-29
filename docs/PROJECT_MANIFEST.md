@@ -10,9 +10,9 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: work/phase-06-hybrid-fusion
+Active branch: main
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: f29bb162ea49f24a78091231706e829f286bf8e4
+Last accepted SHA: b4142fb22ee80837b98617d3c29a276fbe924294
 Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
 
 ## Authorities
@@ -26,7 +26,7 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 ## Technology
 Languages: Python
 Frameworks: Python standard library
-Persistence: none through Phase 6 candidate
+Persistence: none through accepted Phase 6
 External systems: GitHub Actions, operator-configured SearXNG instance
 
 ## Entry points
