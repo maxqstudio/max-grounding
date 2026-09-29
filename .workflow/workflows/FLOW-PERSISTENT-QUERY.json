@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PERSISTENT-QUERY",
+  "title": "Concrete persistent semantic query",
+  "purpose": "Embed one bounded query through the pinned Ollama Qwen3 service, query the compatible persistent Qdrant collection, validate stored provenance, and return deterministic SemanticHit values.",
+  "critical": true,
+  "entry_condition": "A non-empty bounded query and compatible trusted Ollama/Qdrant services are available.",
+  "authority": "Concrete query embedding, Qdrant query contract, stored payload validation, and deterministic SemanticHit reconstruction",
+  "states": [
+    "QUERY_RECEIVED",
+    "QUERY_EMBEDDED",
+    "VECTOR_RESULTS_RECEIVED",
+    "PROVENANCE_VALIDATED",
+    "SEMANTIC_HITS_RETURNED",
+    "REJECTED"
+  ],
+  "transitions": [
+    {
+      "from": "QUERY_RECEIVED",
+      "to": "QUERY_EMBEDDED",
+      "action": "embed query with Ollama qwen3-embedding:0.6b and require 1024 dimensions"
+    },
+    {
+      "from": "QUERY_EMBEDDED",
+      "to": "VECTOR_RESULTS_RECEIVED",
+      "action": "query Qdrant collection through the query-points REST endpoint with hard result cap"
+    },
+    {
+      "from": "VECTOR_RESULTS_RECEIVED",
+      "to": "PROVENANCE_VALIDATED",
+      "action": "validate score, model identity, full chunk payload, deterministic point identity, and collection schema"
+    },
+    {
+      "from": "PROVENANCE_VALIDATED",
+      "to": "SEMANTIC_HITS_RETURNED",
+      "action": "reconstruct immutable SemanticHit values in returned score order with deterministic tie handling"
+    }
+  ],
+  "invariants": [
+    "Query embeddings and indexed vectors use the same pinned model identity and 1024-dimensional schema.",
+    "Qdrant result limit is bounded to the accepted MAX_RESULTS=20.",
+    "Only finite positive similarity scores and complete provenance payloads may become SemanticHit values.",
+    "A returned point whose deterministic ID, chunk payload, model identity, or schema version does not match expected values fails closed.",
+    "No Qdrant server ranking is reinterpreted as truth; it is semantic candidate retrieval only."
+  ],
+  "failure_behavior": [
+    "Transport/HTTP/JSON/vector/schema/payload failures raise controlled errors and return no partial trusted result.",
+    "Missing or incompatible collection is an explicit provider/index failure."
+  ],
+  "restart_behavior": [
+    "Identical persistent state and query/model inputs yield equivalent ordered semantic candidates subject to Qdrant deterministic score ordering and explicit tie stabilization."
+  ],
+  "rollback_behavior": [
+    "Query path is read-only."
+  ],
+  "source_owners": [
+    "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+    "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider",
+    "src/max_grounding/providers/qdrant.py::QdrantVectorStore"
+  ],
+  "tests": [
+    "tests/test_ollama_embedding.py",
+    "tests/test_qdrant_store.py",
+    "tests/test_persistent_semantic.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-11-persistent-query.json"
+}

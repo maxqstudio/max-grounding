@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-11-persistent-query",
+  "phase": "PHASE_11_CONCRETE_RUNTIME_INDEX",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "PLANNED",
+  "implementation_base_sha": "",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-11-persistent-query.plan.json",
+    "frozen": true,
+    "frozen_commit": "",
+    "sha256": "",
+    "diagram": "docs/sequence/generated/phase-11-persistent-query.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-11-persistent-query.actual.json",
+    "diagram": "docs/sequence/generated/phase-11-persistent-query.actual.mmd",
+    "source_digest": "",
+    "entries": [
+      "src/max_grounding/persistent.py::retrieve_persistent_semantic"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_ollama_embedding.py",
+    "tests/test_qdrant_store.py",
+    "tests/test_persistent_semantic.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}
