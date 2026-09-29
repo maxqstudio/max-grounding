@@ -7,12 +7,12 @@ Authority verified at SHA: f1e391ffa0429fdf8be88456b7835347d3453cd6
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_03_SECURE_FETCH_EXTRACTION
-Status: ACCEPTED
+Phase: PHASE_04_LEXICAL_RETRIEVAL
+Status: PLAN_FREEZE_IN_PROGRESS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-04-lexical-retrieval
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: f1e391ffa0429fdf8be88456b7835347d3453cd6
 Current candidate SHA: external final acceptance evidence
@@ -37,23 +37,15 @@ Current sequence session: docs/sequence/sessions/phase-03-secure-fetch.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 3 started from post-closure main SHA a9124380b74b7ff42097a7434b6bee22b0aed9d6.
-- The Phase 3 BEFORE plan was frozen before implementation at e8519742f3f7662b76822be5265fe1076cc62bbf with SHA-256 0760581b40a1906da335d5b07cfc2a6d28e51539bc453b314aa783a5c2a879c9.
-- TDD RED run 36547347512 failed because the secure-fetch contract did not yet exist; implementation followed the frozen plan.
-- Security regression run 36548079506 reproduced fail-open handling for missing Content-Type and ASCII control characters before the minimum repair.
-- Security GREEN run 36548150250 passed the full unit suite and compile checks after the repair.
-- Sequence verification run 36548516860 passed full tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.
-- Final cross-platform run 36548604321 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs after the final simplification.
-- The fetch boundary resolves all DNS answers, rejects the whole set if any address is non-public, and pins the socket to a validated IP while preserving the original HTTPS server name.
-- Result pages are fail-closed on redirects/non-200 responses, non-identity content encoding, missing/disallowed media type, disallowed charset, or response byte overflow.
-- HTML extraction removes script, style, noscript, template, and svg content; extracted text remains untrusted evidence data.
-- Phase 3 Project Truth sync run 36550916141 generated and validated the current ACTUAL sequence and deterministic documentation before push.
-- Pull request #7 Acceptance run 36551148939 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs on exact PR head ca3f3f3e7972d355ca2279b1df9883fb48daad2f.
-- Post-merge main Acceptance run 36551315900 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs on merged main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6.
+- Phase 3 secure result-page fetching is accepted on main at f1e391ffa0429fdf8be88456b7835347d3453cd6.
+- Phase 3 closure is merged to main at 9ee23d526c6c68bccc0e0000e66e4c2de080b44c and closure-main Acceptance run 36551954260 passed all 13 required jobs.
+- GitHub Actions remains the sole acceptance authority.
+- Phase 4 product implementation is blocked until the BEFORE sequence plan is frozen.
 
 ## Not proven
-- Behavior against arbitrary real-world websites, JavaScript-rendered pages, and hostile TLS/network infrastructure is not proven by deterministic CI fixtures.
-- Crawling, browser rendering, hybrid retrieval, embeddings, vector databases, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 3.
+- Deterministic bounded text chunking is not implemented yet.
+- BM25 lexical retrieval over fetched documents is not implemented yet.
+- Semantic embeddings, vector retrieval, hybrid fusion, reranking, persistent indexes, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment are not proven by Phase 4 planning.
 
 ## Known blockers
 - None declared.
@@ -62,10 +54,10 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Start Phase 4 planning from accepted main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6.
-- Freeze the Phase 4 BEFORE sequence plan and acceptance boundary before any Phase 4 product implementation.
+- Freeze the Phase 4 BEFORE sequence plan and generated plan Mermaid.
+- After plan freeze, add failing lexical-retrieval tests and obtain TDD RED evidence before implementation.
 
 ## Explicitly blocked
-- Do not begin Phase 4 product implementation before its BEFORE plan is frozen.
-- Do not claim browser/JavaScript crawling, hybrid/vector retrieval, reranking, claim verification, REST, MCP, or production deployment until later phase evidence proves them.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation.
+- Do not implement Phase 4 product source before the BEFORE plan is frozen.
+- Do not add embeddings, vector databases, semantic retrieval, hybrid fusion, or reranking in Phase 4.
+- Do not bypass GitHub Actions acceptance or post-merge main revalidation.

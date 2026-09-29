@@ -1,0 +1,11 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 9e967d5afddbf5e86f77dd54a489267ca8fd314bdeb563793122cc066168de90
+%% FLOW_ID: FLOW-LEXICAL-RETRIEVAL
+sequenceDiagram
+    participant retrieve_0 as retrieve_lexical
+    participant chunk_1 as chunk_document
+    participant rank_2 as rank_chunks
+    participant tokenize_3 as tokenize_text
+    retrieve_0->>chunk_1: build bounded deterministic chunks [MUST]
+    retrieve_0->>rank_2: rank collected chunks lexically [MUST]
+    rank_2->>tokenize_3: tokenize query and chunk text deterministically [MUST]

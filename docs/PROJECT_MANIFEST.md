@@ -10,7 +10,7 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase-04-lexical-retrieval
 Current authoritative SHA: external final acceptance evidence
 Last accepted SHA: f1e391ffa0429fdf8be88456b7835347d3453cd6
 Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
