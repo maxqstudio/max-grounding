@@ -33,7 +33,7 @@ jobs:
       - name: Commit frozen plan artifact
         shell: bash
         run: |
-          if git diff --quiet; then
+          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
             echo 'Plan artifact already synchronized.'
             exit 0
           fi
