@@ -3,9 +3,9 @@
   "session_id": "phase-02-searxng-provider",
   "phase": "PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
-  "status": "FROZEN",
+  "status": "ACCEPTED",
   "implementation_base_sha": "68ab9a0307b57d1c8a162dc3c942e65e86149eb0",
   "plan": {
     "required": true,
