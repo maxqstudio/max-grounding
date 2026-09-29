@@ -32,9 +32,9 @@ No Owner-PC execution is part of the project acceptance authority.
 
 Phase 3 is accepted on main at `f1e391ffa0429fdf8be88456b7835347d3453cd6`.
 
-It provides secure result-page fetching and extraction: every result-page hostname is revalidated at the fetch boundary, the complete DNS answer set is rejected if any target is non-public, the socket is pinned to a validated IP while preserving the original HTTPS server name, redirects/compression/disallowed media/oversized responses fail closed, and visible text extraction discards executable/styling HTML content.
+Accepted Phase 3 provides a secure static result-page fetch boundary: every hostname is resolved at fetch time, the complete DNS answer set fails closed if any target is non-public, transport is pinned to a validated IP, the original HTTPS server name is preserved for TLS, redirects/compression/disallowed media/oversized responses are rejected, and HTML extraction removes executable/styling content before returning untrusted text.
 
-The next authorized work is Phase 4 planning and BEFORE-plan freeze. JavaScript/browser crawling, hybrid retrieval, embeddings, vector databases, reranking, claim verification, REST, MCP, and production deployment remain later work until separately proven.
+Phase 4 is authorized for planning only until its BEFORE sequence plan is frozen. JavaScript/browser crawling, hybrid retrieval, embeddings, vector databases, reranking, claim verification, REST, and MCP are not yet accepted capabilities.
 
 ## Platform policy
 
