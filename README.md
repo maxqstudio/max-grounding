@@ -32,13 +32,11 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 11 is a candidate for the concrete self-hosted embedding runtime and persistent semantic index.
+Phase 11 is accepted on main at `1b193080922fc95a7955123e0d4c6c950f83c081`.
 
-The candidate uses pinned Ollama 0.34.0 with qwen3-embedding:0.6b and validates exactly 1024 embedding dimensions. It uses a stdlib Qdrant REST adapter pinned to Qdrant 1.19.1 with a versioned named-vector collection schema, deterministic chunk point IDs, and provenance payload validation.
+Accepted Phase 11 uses pinned Ollama 0.34.0 with `qwen3-embedding:0.6b` and validates 1024-dimensional embeddings. Qdrant 1.19.1 provides a versioned persistent vector schema with deterministic provenance-bound point identity. GitHub Actions real-service evidence proved indexing/query and persistence across Qdrant restart, while the portable core/adapters pass Python 3.11-3.14 on Linux, Windows, and macOS.
 
-GitHub Actions real-service evidence proves indexing and semantic query against the pinned services and proves the same expected evidence remains queryable after a Qdrant service restart using the persistent volume. The portable Python core/adapters also pass Python 3.11-3.14 on Linux, Windows, and macOS.
-
-Phase 11 does not expose public REST/MCP endpoints or claim production deployment; those remain Phase 12.
+Phase 12 is now the current planning phase: REST, MCP, multi-architecture service containers, end-to-end/security/load validation, and production acceptance. None of those Phase 12 production-service claims are accepted yet.
 
 ## Platform policy
 

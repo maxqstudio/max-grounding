@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "current_phase": "PHASE_11_CONCRETE_RUNTIME_INDEX",
+  "current_phase": "PHASE_12_PRODUCTION_API_MCP",
   "phases": [
     {
       "id": "PHASE_00_GOVERNANCE_BASELINE",
@@ -104,20 +104,20 @@
     {
       "id": "PHASE_11_CONCRETE_RUNTIME_INDEX",
       "title": "Concrete embedding runtime plus Qdrant/persistent index and production adapters",
-      "status": "CURRENT",
+      "status": "ACCEPTED",
       "objective": "Integrate a concrete self-hosted embedding runtime and persistent Qdrant semantic index while preserving portable stdlib core boundaries and provenance.",
       "exit_criteria": [
-        "Both BEFORE sequence plans are frozen before source implementation.",
-        "Portable core and adapter tests pass on Python 3.11-3.14 across Linux, Windows, and macOS.",
-        "A real Ubuntu Ollama v0.34.0 integration proves qwen3-embedding:0.6b returns validated 1024-dimensional embeddings.",
-        "A real Qdrant v1.19.1 integration proves collection schema, upsert/query provenance, and persistence across service restart.",
-        "Exact-head PR Acceptance and merged-main revalidation pass before Phase 11 closure."
+        "Both BEFORE sequence plans were frozen before implementation.",
+        "Portable core/adapters passed Python 3.11-3.14 across Linux, Windows, and macOS.",
+        "Real Ollama 0.34.0 + qwen3-embedding:0.6b produced validated 1024-dimensional embeddings.",
+        "Real Qdrant 1.19.1 proved compatible collection schema, provenance-bound upsert/query, and restart persistence.",
+        "Exact PR head 9ec4814be35641a6f2e643d4216fecd09cf008b0 passed Acceptance run 36632963021 and merged main 1b193080922fc95a7955123e0d4c6c950f83c081 passed run 36633188935."
       ]
     },
     {
       "id": "PHASE_12_PRODUCTION_API_MCP",
       "title": "REST, MCP, multi-arch containers, E2E/security/load, and production acceptance",
-      "status": "PLANNED",
+      "status": "CURRENT",
       "objective": "Deliver REST, MCP, multi-arch containers, E2E/security/load, and production acceptance without weakening accepted fail-closed and provenance contracts.",
       "exit_criteria": [
         "Freeze a BEFORE sequence plan before implementation.",
