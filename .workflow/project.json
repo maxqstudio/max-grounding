@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through Phase 6 candidate"
+      "none through accepted Phase 6"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -101,12 +101,12 @@
       {
         "phase": 6,
         "name": "Deterministic lexical-semantic hybrid fusion",
-        "status": "CURRENT_CANDIDATE"
+        "status": "ACCEPTED"
       },
       {
         "phase": 7,
         "name": "Reranking and evidence/context compression",
-        "status": "PLANNED"
+        "status": "NEXT_PLANNED"
       },
       {
         "phase": 8,
