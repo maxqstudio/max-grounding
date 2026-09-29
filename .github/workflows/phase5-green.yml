@@ -1,0 +1,28 @@
+name: Phase 5 GREEN
+
+on:
+  push:
+    branches:
+      - work/phase-05-semantic-retrieval
+
+permissions:
+  contents: read
+
+jobs:
+  green:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-05-semantic-retrieval
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Install package
+        run: python -m pip install .
+      - name: Full unit suite
+        run: python -m unittest discover -s tests -v
+      - name: Compile tracked Python
+        run: python -m compileall -q src tests .workflow/tools
