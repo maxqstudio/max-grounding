@@ -10,7 +10,7 @@ Planned core phases: 13
 
 | Phase | Scope | Status |
 |---:|---|---|
-|  | Governance and cross-platform baseline | ACCEPTED |
+| 0 | Governance and cross-platform baseline | ACCEPTED |
 | 1 | Grounding contracts and bounded search orchestration | ACCEPTED |
 | 2 | SearXNG live web search provider | ACCEPTED |
 | 3 | Secure result-page fetch and extraction | ACCEPTED |
@@ -26,10 +26,10 @@ Planned core phases: 13
 
 ## Optional post-V1 expansion
 
-- - Phase 13 — Browser and JavaScript rendering/crawling
-- - Phase 14 — Multimodal PDF/image/table grounding
-- - Phase 15 — Knowledge graph / GraphRAG
-- - Phase 16 — Learned ranking and evaluation optimization
+- Phase 13 — Browser and JavaScript rendering/crawling
+- Phase 14 — Multimodal PDF/image/table grounding
+- Phase 15 — Knowledge graph / GraphRAG
+- Phase 16 — Learned ranking and evaluation optimization
 
 ## Roadmap rules
 
