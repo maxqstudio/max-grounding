@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through accepted Phase 7"
+      "none through Phase 8 candidate"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -60,6 +60,11 @@
       "name": "Reranking and context compression",
       "path": "src/max_grounding/reranking.py",
       "purpose": "bounded provider-agnostic reranking plus deterministic extractive evidence compression"
+    },
+    {
+      "name": "Temporal authority scoring",
+      "path": "src/max_grounding/temporal.py",
+      "purpose": "validate explicit temporal/source metadata, obtain injected authority scores, and rank bounded evidence by deterministic freshness and point-in-time validity"
     }
   ],
   "constraints": [
@@ -116,7 +121,7 @@
       {
         "phase": 8,
         "name": "Freshness, source authority, and temporal scoring",
-        "status": "NEXT_PLANNED"
+        "status": "CURRENT_CANDIDATE"
       },
       {
         "phase": 9,
