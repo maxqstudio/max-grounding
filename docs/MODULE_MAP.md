@@ -3,7 +3,7 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
+Source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
@@ -11,16 +11,17 @@ Generated/refreshed: current compiler run
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
 | src/max_grounding/budget.py | Python | 30 | src/max_grounding | NO |
 | src/max_grounding/engine.py | Python | 57 | src/max_grounding | NO |
-| src/max_grounding/errors.py | Python | 33 | src/max_grounding | NO |
+| src/max_grounding/errors.py | Python | 41 | src/max_grounding | NO |
 | src/max_grounding/evidence.py | Python | 97 | src/max_grounding | NO |
 | src/max_grounding/fetcher.py | Python | 298 | src/max_grounding | NO |
 | src/max_grounding/hybrid.py | Python | 149 | src/max_grounding | NO |
-| src/max_grounding/models.py | Python | 125 | src/max_grounding | NO |
+| src/max_grounding/models.py | Python | 149 | src/max_grounding | NO |
 | src/max_grounding/network_policy.py | Python | 93 | src/max_grounding | NO |
 | src/max_grounding/policy.py | Python | 51 | src/max_grounding | NO |
 | src/max_grounding/providers/__init__.py | Python | 6 | src/max_grounding/providers | NO |
 | src/max_grounding/providers/base.py | Python | 23 | src/max_grounding/providers | NO |
 | src/max_grounding/providers/searxng.py | Python | 220 | src/max_grounding/providers | NO |
+| src/max_grounding/reranking.py | Python | 295 | src/max_grounding | NO |
 | src/max_grounding/retrieval.py | Python | 219 | src/max_grounding | NO |
 | src/max_grounding/semantic.py | Python | 285 | src/max_grounding | NO |
 | tests/test_bootstrap.py | Python | 24 | tests | YES |
@@ -30,6 +31,7 @@ Generated/refreshed: current compiler run
 | tests/test_hybrid.py | Python | 168 | tests | YES |
 | tests/test_network_policy.py | Python | 123 | tests | YES |
 | tests/test_policy.py | Python | 47 | tests | YES |
+| tests/test_reranking.py | Python | 279 | tests | YES |
 | tests/test_retrieval.py | Python | 181 | tests | YES |
 | tests/test_searxng_provider.py | Python | 206 | tests | YES |
 | tests/test_secure_fetcher.py | Python | 216 | tests | YES |

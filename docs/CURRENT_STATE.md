@@ -7,16 +7,16 @@ Authority verified at SHA: b4142fb22ee80837b98617d3c29a276fbe924294
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_06_HYBRID_FUSION
-Status: ACCEPTED
+Phase: PHASE_07_RERANK_COMPRESS
+Status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-07-rerank-compress
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: b4142fb22ee80837b98617d3c29a276fbe924294
 Current candidate SHA: external final acceptance evidence
-Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
+Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -33,26 +33,23 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-06-hybrid-fusion.json
+Current sequence session: docs/sequence/sessions/phase-07-rerank-compress.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 5 closure is merged to main at 45c18dc09a314e106881cb68b641109a373e1369 and closure-main Acceptance run 36564262272 passed all 13 required jobs.
-- The Phase 6 BEFORE plan was frozen before implementation at a5e30b00c777e66b3aafdea6002970d28a181982 with SHA-256 a9465785aba1386a466e658aab89bc23ff1cbfffb8608bb9ff70434305948a04.
-- TDD RED run 36564783433 failed because the Phase 6 hybrid fusion module did not yet exist.
-- Initial GREEN run 36564936847 exposed a test-fixture rank that violated the already-frozen contiguous-rank contract; only the fixture was corrected and product source was unchanged.
-- Final GREEN run 36565015354 passed the full unit suite and compile checks.
-- Candidate verification run 36565138383 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
-- Phase 6 uses fixed equal-weight reciprocal-rank fusion with RRF k=60 and no tunable modality weights.
-- Each modality contributes at most 20 ranked hits and final hybrid output is capped at 20 results.
-- Duplicate chunk identities are merged only when full immutable chunk provenance matches; conflicting provenance for the same chunk_id fails closed.
-- Equal fused scores resolve by stable source URL, chunk index, and chunk identity.
-- Production V1 roadmap is governed in .workflow/project.json as Phase 0 through Phase 12, with optional post-V1 expansion Phase 13 through Phase 16.
-- Phase 6 exact pull-request head de6548e2e8c56159b9de33331800cc403dfd9bc9 passed Acceptance run 36574618437 with STRICT governance plus all 12 Linux/Windows/macOS Python 3.11-3.14 jobs.
-- Phase 6 merged main SHA b4142fb22ee80837b98617d3c29a276fbe924294 passed post-merge Acceptance run 36575022736 with 13/13 jobs PASS.
+- Phase 6 closure is merged to main at b2e524997947dd357a577eb4d17edd27f0d62f28 and closure-main Acceptance run 36575665763 passed all 13 required jobs.
+- The Phase 7 BEFORE plan was frozen before implementation at 93a36ccf107251f434d77b0bf42b9df97bbf1a01 with SHA-256 717c3f8e3ad4148474298847b470cd98fc243202b76b8d838445e8bf435b498a.
+- TDD RED run 36576719998 failed because the Phase 7 reranking contract did not yet exist.
+- Initial GREEN run 36577036647 passed the full unit suite and compile checks after the minimum reranking and extractive compression implementation.
+- Adversarial regression run 36577161655 proved that arbitrary iterable provider output could bypass the bounded-sequence contract before repair.
+- Final GREEN run 36577271817 passed the full unit suite and compile checks after rejecting unbounded provider iterables.
+- Candidate verification run 36577449523 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
+- Phase 7 reranking admits at most 20 candidates, calls the injected rerank provider once, requires an exact bounded score sequence, and rejects provider exceptions, wrong counts, booleans, non-numeric values, and non-finite scores.
+- Phase 7 compression is extractive only and caps output at 8 excerpts, 1200 characters per excerpt, and 6000 total excerpt characters while preserving source and rerank provenance.
 
 ## Not proven
-- Concrete embedding runtimes/models, persistent vector databases such as Qdrant, learned or cross-encoder reranking, retrieval-quality benchmarks, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside accepted Phase 6.
+- Final Phase 7 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- No concrete cross-encoder or learned reranker model, generative/LLM compression, reranking-quality benchmark, freshness/authority scoring, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment is proven by Phase 7.
 
 ## Known blockers
 - None declared.
@@ -61,9 +58,11 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Start Phase 7 planning from accepted main SHA b4142fb22ee80837b98617d3c29a276fbe924294.
-- Freeze the Phase 7 BEFORE sequence plan before implementing reranking and evidence/context compression.
+- Synchronize the Phase 7 ACTUAL sequence and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 7 candidate head.
+- Merge Phase 7 only if every required job passes, then revalidate merged main.
 
 ## Explicitly blocked
-- Do not claim reranking, a concrete embedding model, or a persistent vector database from accepted Phase 6 fixed RRF fusion.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
+- Do not claim a concrete reranker model, generative compression, or retrieval-quality superiority from the provider-agnostic Phase 7 core.
+- Do not merge Phase 7 while any required GitHub Actions job is failing or missing.
+- Do not bypass post-merge main revalidation.

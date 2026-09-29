@@ -17,34 +17,34 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
+      "evidence": "tests/test_reranking.py; final GREEN run 36577271817",
       "id": "P7-RERANK",
       "requirement": "Reranking accepts at most 20 unique contiguous HybridHit candidates, performs exactly one provider score call, and deterministically preserves prior rank provenance.",
-      "status": "PASS",
-      "evidence": "tests/test_reranking.py; final GREEN run 36577271817"
+      "status": "PASS"
     },
     {
+      "evidence": "adversarial RED run 36577161655; final GREEN run 36577271817",
       "id": "P7-PROVIDER",
       "requirement": "Provider exceptions, unbounded iterable output, wrong score counts, booleans, non-numeric values, and non-finite scores fail closed without partial output.",
-      "status": "PASS",
-      "evidence": "adversarial RED run 36577161655; final GREEN run 36577271817"
+      "status": "PASS"
     },
     {
+      "evidence": "tests/test_reranking.py; final GREEN run 36577271817",
       "id": "P7-COMPRESS",
       "requirement": "Context compression is extractive only and enforces hard excerpt count, per-excerpt character, and total-character budgets while retaining provenance.",
-      "status": "PASS",
-      "evidence": "tests/test_reranking.py; final GREEN run 36577271817"
+      "status": "PASS"
     },
     {
+      "evidence": "Phase 7 Candidate Verify run 36577449523",
       "id": "P7-SEQUENCE",
       "requirement": "build_grounded_context invokes rerank_hybrid then compress_context in conformance with the frozen Phase 7 BEFORE plan.",
-      "status": "PASS",
-      "evidence": "Phase 7 Candidate Verify run 36577449523"
+      "status": "PASS"
     },
     {
+      "evidence": "Phase 7 Candidate Verify run 36577449523: sequence plus 12/12 runtime matrix jobs PASS",
       "id": "P7-CROSS-OS",
       "requirement": "The Phase 7 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS.",
-      "status": "PASS",
-      "evidence": "Phase 7 Candidate Verify run 36577449523: sequence plus 12/12 runtime matrix jobs PASS"
+      "status": "PASS"
     }
   ],
   "runtime_checks": [

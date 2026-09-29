@@ -18,7 +18,7 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-07-rerank-compress.actual.json",
     "diagram": "docs/sequence/generated/phase-07-rerank-compress.actual.mmd",
-    "source_digest": "",
+    "source_digest": "780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e",
     "entries": [
       "src/max_grounding/reranking.py::build_grounded_context"
     ]

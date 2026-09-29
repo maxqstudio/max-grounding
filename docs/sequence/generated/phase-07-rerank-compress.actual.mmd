@@ -1,0 +1,45 @@
+%% GENERATED FILE - DO NOT EDIT
+%% SOURCE_DIGEST: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
+%% OBSERVED_HEAD: 1e5f2a2761cbc87b814fd21cff2c6ecc98ea1625
+%% GENERATED_BY: generate_sequence_actual.py
+sequenceDiagram
+    participant src_max_grounding_errors_py__RerankProviderError_0 as src/max_grounding/errors.py::RerankProviderError
+    participant src_max_grounding_errors_py__RerankingError_1 as src/max_grounding/errors.py::RerankingError
+    participant src_max_grounding_models_py__EvidenceExcerpt_2 as src/max_grounding/models.py::EvidenceExcerpt
+    participant src_max_grounding_models_py__RerankedHit_3 as src/max_grounding/models.py::RerankedHit
+    participant src_max_grounding_reranking_py__RerankProvider_score_4 as src/max_grounding/reranking.py::RerankProvider.score
+    participant src_max_grounding_reranking_py___best_extractive_sentence_5 as src/max_grounding/reranking.py::_best_extractive_sentence
+    participant src_max_grounding_reranking_py___sentences_6 as src/max_grounding/reranking.py::_sentences
+    participant src_max_grounding_reranking_py___validate_hybrid_hits_7 as src/max_grounding/reranking.py::_validate_hybrid_hits
+    participant src_max_grounding_reranking_py___validate_optional_rank_8 as src/max_grounding/reranking.py::_validate_optional_rank
+    participant src_max_grounding_reranking_py___validate_reranked_hits_9 as src/max_grounding/reranking.py::_validate_reranked_hits
+    participant src_max_grounding_reranking_py___validated_finite_number_10 as src/max_grounding/reranking.py::_validated_finite_number
+    participant src_max_grounding_reranking_py___validated_query_11 as src/max_grounding/reranking.py::_validated_query
+    participant src_max_grounding_reranking_py__build_grounded_context_12 as src/max_grounding/reranking.py::build_grounded_context
+    participant src_max_grounding_reranking_py__compress_context_13 as src/max_grounding/reranking.py::compress_context
+    participant src_max_grounding_reranking_py__rerank_hybrid_14 as src/max_grounding/reranking.py::rerank_hybrid
+    participant src_max_grounding_retrieval_py__tokenize_text_15 as src/max_grounding/retrieval.py::tokenize_text
+    src_max_grounding_reranking_py___best_extractive_sentence_5->>src_max_grounding_reranking_py___sentences_6: _sentences [STATIC]
+    src_max_grounding_reranking_py___best_extractive_sentence_5->>src_max_grounding_retrieval_py__tokenize_text_15: tokenize_text [STATIC]
+    src_max_grounding_reranking_py___validate_hybrid_hits_7->>src_max_grounding_errors_py__RerankingError_1: RerankingError [STATIC]
+    src_max_grounding_reranking_py___validate_hybrid_hits_7->>src_max_grounding_reranking_py___validate_optional_rank_8: _validate_optional_rank [STATIC]
+    src_max_grounding_reranking_py___validate_hybrid_hits_7->>src_max_grounding_reranking_py___validated_finite_number_10: _validated_finite_number [STATIC]
+    src_max_grounding_reranking_py___validate_optional_rank_8->>src_max_grounding_errors_py__RerankingError_1: RerankingError [STATIC]
+    src_max_grounding_reranking_py___validate_reranked_hits_9->>src_max_grounding_errors_py__RerankingError_1: RerankingError [STATIC]
+    src_max_grounding_reranking_py___validate_reranked_hits_9->>src_max_grounding_reranking_py___validate_optional_rank_8: _validate_optional_rank [STATIC]
+    src_max_grounding_reranking_py___validate_reranked_hits_9->>src_max_grounding_reranking_py___validated_finite_number_10: _validated_finite_number [STATIC]
+    src_max_grounding_reranking_py___validated_finite_number_10->>src_max_grounding_errors_py__RerankingError_1: RerankingError [STATIC]
+    src_max_grounding_reranking_py___validated_query_11->>src_max_grounding_errors_py__RerankingError_1: RerankingError [STATIC]
+    src_max_grounding_reranking_py__build_grounded_context_12->>src_max_grounding_reranking_py__compress_context_13: compress_context [STATIC]
+    src_max_grounding_reranking_py__build_grounded_context_12->>src_max_grounding_reranking_py__rerank_hybrid_14: rerank_hybrid [STATIC]
+    src_max_grounding_reranking_py__compress_context_13->>src_max_grounding_errors_py__RerankingError_1: RerankingError [STATIC]
+    src_max_grounding_reranking_py__compress_context_13->>src_max_grounding_models_py__EvidenceExcerpt_2: EvidenceExcerpt [STATIC]
+    src_max_grounding_reranking_py__compress_context_13->>src_max_grounding_reranking_py___best_extractive_sentence_5: _best_extractive_sentence [STATIC]
+    src_max_grounding_reranking_py__compress_context_13->>src_max_grounding_reranking_py___validate_reranked_hits_9: _validate_reranked_hits [STATIC]
+    src_max_grounding_reranking_py__compress_context_13->>src_max_grounding_reranking_py___validated_query_11: _validated_query [STATIC]
+    src_max_grounding_reranking_py__rerank_hybrid_14->>src_max_grounding_errors_py__RerankProviderError_0: RerankProviderError [STATIC]
+    src_max_grounding_reranking_py__rerank_hybrid_14->>src_max_grounding_errors_py__RerankingError_1: RerankingError [STATIC]
+    src_max_grounding_reranking_py__rerank_hybrid_14->>src_max_grounding_models_py__RerankedHit_3: RerankedHit [STATIC]
+    src_max_grounding_reranking_py__rerank_hybrid_14->>src_max_grounding_reranking_py__RerankProvider_score_4: provider.score [STATIC]
+    src_max_grounding_reranking_py__rerank_hybrid_14->>src_max_grounding_reranking_py___validate_hybrid_hits_7: _validate_hybrid_hits [STATIC]
+    src_max_grounding_reranking_py__rerank_hybrid_14->>src_max_grounding_reranking_py___validated_query_11: _validated_query [STATIC]

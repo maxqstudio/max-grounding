@@ -17,7 +17,7 @@ Planned core phases: 13
 | 4 | Deterministic lexical BM25 retrieval | ACCEPTED |
 | 5 | Bounded dense semantic retrieval | ACCEPTED |
 | 6 | Deterministic lexical-semantic hybrid fusion | ACCEPTED |
-| 7 | Reranking and evidence/context compression | NEXT_PLANNED |
+| 7 | Reranking and evidence/context compression | CURRENT_CANDIDATE |
 | 8 | Freshness, source authority, and temporal scoring | PLANNED |
 | 9 | Contradiction/corroboration engine and evidence graph | PLANNED |
 | 10 | Claim-level verification, citations, confidence, and fail-closed synthesis | PLANNED |
