@@ -1,0 +1,25 @@
+name: Phase 12 TDD RED
+
+on:
+  push:
+    branches:
+      - work/phase-12-production-api-mcp
+
+permissions:
+  contents: read
+
+jobs:
+  red:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-12-production-api-mcp
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Install prospective service test dependencies
+        run: python -m pip install fastapi==0.141.1 uvicorn==0.54.0 mcp==2.2.0 httpx==0.28.1
+      - run: python -m pip install .
+      - name: Expected RED
+        run: python -m unittest discover -s tests -v
