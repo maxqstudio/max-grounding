@@ -58,6 +58,7 @@ Canonical human-facing governance documentation is generated under `docs/` from 
 
 ## Canonical documentation
 
+- [Roadmap](docs/ROADMAP.md)
 - [System overview](docs/SYSTEM_OVERVIEW.md)
 - [Current state](docs/CURRENT_STATE.md)
 - [Project manifest](docs/PROJECT_MANIFEST.md)
