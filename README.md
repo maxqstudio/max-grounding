@@ -32,11 +32,13 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 9 is accepted on main at `263595c161c68001b7785bfa65e3d723f5f21d42`.
+Phase 10 is a candidate for claim-level verification, citations, confidence indexing, and fail-closed synthesis gating.
 
-Accepted Phase 9 converts at most 8 explicit structured assertions backed by accepted Phase 8 quality provenance into deterministic corroboration/contradiction relations and distinct-URL evidence clusters. Different values contradict only for explicitly exclusive single-value claim keys, repeated chunks from one URL cannot inflate distinct-source contribution, and the graph never declares a truth winner.
+The candidate accepts at most 16 explicit structured answer claims and verifies them by exact normalized claim key/value matching against the accepted Phase 9 evidence graph. Claims are classified as `SUPPORTED`, `PARTIALLY_SUPPORTED`, `CONFLICTED`, or `UNSUPPORTED`. Exact conflicts on exclusive claims override evidence weight.
 
-Phase 10 is the next planned phase: claim-level verification, citations, confidence, and fail-closed synthesis. Automatic assertion extraction, arbitrary natural-language contradiction inference, selecting which conflicting value is true, persistent graph/vector storage, REST, MCP, and production deployment are not yet accepted capabilities.
+Claim citations retain exact assertion/source/chunk/excerpt provenance. The reported confidence value is a deterministic evidence-sufficiency index based on distinct-source Phase 8 quality and source-threshold coverage; it is not a calibrated probability that a claim is true.
+
+Only `SUPPORTED` claims are exposed in the synthesis-safe set. Phase 10 does not extract claims from free-form LLM text, perform fuzzy semantic verification, generate final prose, provide concrete model/vector runtimes, expose REST/MCP, or prove production deployment.
 
 ## Platform policy
 
