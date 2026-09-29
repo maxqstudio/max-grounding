@@ -32,11 +32,11 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 8 is a candidate for explicit freshness, source-authority, and temporal evidence scoring.
+Phase 8 is accepted on main at `af3bd6bb578861de802a972d11e8a2a2c2368955`.
 
-The candidate binds at most 8 extractive evidence excerpts to matching timezone-aware UTC metadata, evaluates freshness against an explicit caller-supplied `now` and bounded horizon, applies inclusive validity windows, obtains source authority through one injected bounded `AuthorityProvider` sequence, and ranks by `authority × freshness × temporal validity`. The core intentionally contains no universal hardcoded source-authority hierarchy.
+Accepted Phase 8 binds at most 8 evidence excerpts to explicit timezone-aware UTC metadata, computes freshness from a caller-supplied evaluation time and bounded horizon, applies inclusive validity windows, obtains source authority through one injected bounded policy, and ranks deterministically by `authority × freshness × temporal validity`. No universal source-authority hierarchy is hardcoded into the core.
 
-The exact candidate still requires full pull-request Acceptance and post-merge main revalidation before Phase 8 is accepted. Automatic metadata extraction/verification, contradiction handling, claim verification, persistent vector storage, REST, MCP, and production deployment remain later work.
+Phase 9 is the next planned phase: contradiction/corroboration handling and an evidence graph. Automatic metadata extraction/verification, claim verification, persistent vector storage, REST, MCP, and production deployment remain later work.
 
 ## Platform policy
 
