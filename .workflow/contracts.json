@@ -196,7 +196,7 @@
     {
       "method": "PYTHON",
       "path": "build_clusters(assertions)",
-      "purpose": "Group equivalent normalized claim/value assertions and account for independent sources without duplicate-source weight inflation.",
+      "purpose": "Group equivalent normalized claim/value assertions and account for distinct source URLs without duplicate-source weight inflation.",
       "authority": "src/max_grounding/evidence_graph.py::build_clusters",
       "mutation": "none; pure in-memory derivation",
       "error_behavior": "The same fail-closed assertion validation applies; no partial clusters are returned."
