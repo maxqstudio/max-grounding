@@ -68,6 +68,10 @@
     {
       "date": "2026-09-29",
       "change": "Phase 8 accepted on main after exact-PR Acceptance and post-merge main revalidation both passed STRICT governance and the full Linux/Windows/macOS Python 3.11-3.14 matrix."
+    },
+    {
+      "date": "2026-09-29",
+      "change": "Phase 9 candidate adds bounded structured evidence assertions, deterministic corroboration/contradiction edges, distinct-source value clusters, duplicate-source quality-weight protection, no-winner semantics, frozen-plan conformance, and 12-job cross-platform evidence."
     }
   ]
 }
