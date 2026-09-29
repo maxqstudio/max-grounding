@@ -151,6 +151,9 @@ def read_bounded_response(
     if encoding != "identity":
         raise FetchError("compressed result pages are not accepted")
 
+    if not response.headers.get("Content-Type"):
+        raise FetchError("result-page Content-Type is required")
+
     try:
         media_type = response.headers.get_content_type().lower()
     except (AttributeError, TypeError, ValueError) as exc:
