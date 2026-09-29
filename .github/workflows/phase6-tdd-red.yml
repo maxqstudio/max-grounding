@@ -1,0 +1,23 @@
+name: Phase 6 TDD RED
+
+on:
+  push:
+    branches:
+      - work/phase-06-hybrid-fusion
+
+permissions:
+  contents: read
+
+jobs:
+  red:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-06-hybrid-fusion
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - run: python -m pip install .
+      - name: Expected RED
+        run: python -m unittest discover -s tests -v
