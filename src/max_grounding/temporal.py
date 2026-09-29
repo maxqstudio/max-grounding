@@ -15,6 +15,7 @@ from .models import (
     EvidenceQualityScore,
     TemporalComponents,
 )
+from .retrieval import MAX_RESULTS
 
 MAX_TEMPORAL_EVIDENCE = 8
 MIN_FRESHNESS_HORIZON_SECONDS = 60
@@ -48,6 +49,47 @@ def _validate_horizon(value: object) -> int:
             "freshness_horizon_seconds is outside the accepted range"
         )
     return value
+
+
+def _bounded_sequence(
+    value: object,
+    *,
+    label: str,
+    maximum: int,
+) -> tuple[object, ...]:
+    if isinstance(value, (str, bytes)) or not isinstance(value, Sequence):
+        raise TemporalScoringError(f"{label} must be a bounded sequence")
+    try:
+        count = len(value)
+    except Exception as exc:
+        raise TemporalScoringError(f"{label} must expose a bounded length") from exc
+    if count > maximum:
+        raise TemporalScoringError(
+            f"{label} must not exceed {maximum} items"
+        )
+    return tuple(value)
+
+
+def _bounded_metadata_sequence(
+    value: object,
+) -> tuple[EvidenceMetadata, ...]:
+    raw = _bounded_sequence(
+        value,
+        label="evidence metadata",
+        maximum=MAX_TEMPORAL_EVIDENCE,
+    )
+    return tuple(raw)  # validated by _validate_basic_metadata
+
+
+def _bounded_excerpt_sequence(
+    value: object,
+) -> tuple[EvidenceExcerpt, ...]:
+    raw = _bounded_sequence(
+        value,
+        label="evidence excerpts",
+        maximum=MAX_TEMPORAL_EVIDENCE,
+    )
+    return tuple(raw)  # validated by _validate_excerpt_metadata_pairs
 
 
 def _validate_basic_metadata(items: tuple[EvidenceMetadata, ...]) -> None:
@@ -126,7 +168,7 @@ def score_authority(
     provider: AuthorityProvider,
 ) -> tuple[float, ...]:
     """Obtain one bounded authority-score sequence without hardcoded opinions."""
-    items = tuple(metadata)
+    items = _bounded_metadata_sequence(metadata)
     _validate_basic_metadata(items)
     if not items:
         return ()
@@ -149,6 +191,16 @@ def score_authority(
             "authority provider output must be a bounded score sequence"
         )
 
+    try:
+        returned_count = len(raw_scores)
+    except Exception as exc:
+        raise AuthorityProviderError(
+            "authority provider output must expose a bounded length"
+        ) from exc
+    if returned_count != len(items):
+        raise AuthorityProviderError(
+            "authority provider returned the wrong score count"
+        )
     returned = tuple(raw_scores)
     if len(returned) != len(items):
         raise AuthorityProviderError(
@@ -177,7 +229,7 @@ def score_temporal_components(
     freshness_horizon_seconds: int = DEFAULT_FRESHNESS_HORIZON_SECONDS,
 ) -> tuple[TemporalComponents, ...]:
     """Score explicit freshness and point-in-time validity deterministically."""
-    items = tuple(metadata)
+    items = _bounded_metadata_sequence(metadata)
     evaluated_at, horizon = _validate_temporal_inputs(
         items,
         now=now,
@@ -217,6 +269,7 @@ def _validate_excerpt_metadata_pairs(
         )
 
     seen: set[str] = set()
+    seen_rerank_ranks: set[int] = set()
     for item, meta in zip(excerpts, metadata):
         if not isinstance(item, EvidenceExcerpt):
             raise TemporalScoringError("evidence items must be EvidenceExcerpt")
@@ -225,6 +278,16 @@ def _validate_excerpt_metadata_pairs(
                 "evidence excerpts contain invalid or duplicate chunk identity"
             )
         seen.add(item.chunk_id)
+        if (
+            isinstance(item.rerank_rank, bool)
+            or not isinstance(item.rerank_rank, int)
+            or not 1 <= item.rerank_rank <= MAX_RESULTS
+            or item.rerank_rank in seen_rerank_ranks
+        ):
+            raise TemporalScoringError(
+                "evidence excerpts contain invalid or duplicate rerank rank"
+            )
+        seen_rerank_ranks.add(item.rerank_rank)
         if item.source_url != meta.source_url or item.chunk_id != meta.chunk_id:
             raise TemporalScoringError(
                 "evidence excerpt and metadata provenance must match exactly"
@@ -240,8 +303,8 @@ def score_evidence_quality(
     freshness_horizon_seconds: int = DEFAULT_FRESHNESS_HORIZON_SECONDS,
 ) -> tuple[EvidenceQualityScore, ...]:
     """Combine injected authority with deterministic freshness and validity."""
-    evidence = tuple(excerpts)
-    metadata_items = tuple(metadata)
+    evidence = _bounded_excerpt_sequence(excerpts)
+    metadata_items = _bounded_metadata_sequence(metadata)
     _validate_excerpt_metadata_pairs(evidence, metadata_items)
 
     # Validate all temporal inputs before any external policy call.
