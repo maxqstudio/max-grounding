@@ -3,18 +3,18 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: f0f64637895465b98a227d299db42a7704d3d894
+Authority verified at SHA: f1e391ffa0429fdf8be88456b7835347d3453cd6
 Governance profile: strict
 
 ## Current phase
 Phase: PHASE_03_SECURE_FETCH_EXTRACTION
-Status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Status: ACCEPTED
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: work/phase-03-secure-fetch
+Branch: main
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: f0f64637895465b98a227d299db42a7704d3d894
+Last accepted SHA: f1e391ffa0429fdf8be88456b7835347d3453cd6
 Current candidate SHA: external final acceptance evidence
 Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
 
@@ -48,9 +48,10 @@ SEQUENCE_SYNC: PASS
 - Result pages are fail-closed on redirects/non-200 responses, non-identity content encoding, missing/disallowed media type, disallowed charset, or response byte overflow.
 - HTML extraction removes script, style, noscript, template, and svg content; extracted text remains untrusted evidence data.
 - Phase 3 Project Truth sync run 36550916141 generated and validated the current ACTUAL sequence and deterministic documentation before push.
+- Pull request #7 Acceptance run 36551148939 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs on exact PR head ca3f3f3e7972d355ca2279b1df9883fb48daad2f.
+- Post-merge main Acceptance run 36551315900 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs on merged main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6.
 
 ## Not proven
-- Final Phase 3 acceptance is not proven until the exact PR head passes the full Acceptance workflow and merged main is revalidated.
 - Behavior against arbitrary real-world websites, JavaScript-rendered pages, and hostile TLS/network infrastructure is not proven by deterministic CI fixtures.
 - Crawling, browser rendering, hybrid retrieval, embeddings, vector databases, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 3.
 
@@ -61,10 +62,10 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Open the Phase 3 pull request and run the full STRICT GitHub Actions Acceptance workflow on the exact candidate head.
-- Merge Phase 3 only if every required pull-request job passes, then revalidate merged main.
+- Start Phase 4 planning from accepted main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6.
+- Freeze the Phase 4 BEFORE sequence plan and acceptance boundary before any Phase 4 product implementation.
 
 ## Explicitly blocked
-- Do not merge Phase 3 while any required GitHub Actions job is failing or missing.
-- Do not claim browser/JavaScript crawling or downstream retrieval/reranking from the Phase 3 secure fetcher.
-- Do not bypass post-merge main revalidation.
+- Do not begin Phase 4 product implementation before its BEFORE plan is frozen.
+- Do not claim browser/JavaScript crawling, hybrid/vector retrieval, reranking, claim verification, REST, MCP, or production deployment until later phase evidence proves them.
+- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation.

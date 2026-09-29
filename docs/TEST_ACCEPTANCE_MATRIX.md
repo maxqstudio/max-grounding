@@ -31,7 +31,8 @@ Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a8
 - Security GREEN run 36548150250 passed full unit and compile checks after repair.
 - Sequence verification run 36548516860 passed generated PLAN-to-ACTUAL validation.
 - Final cross-platform run 36548604321 passed 12/12 Python/OS jobs after the final simplification.
-- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 3 closure.
+- Pull request #7 Acceptance run 36551148939 passed 13/13 required jobs on exact PR head ca3f3f3e7972d355ca2279b1df9883fb48daad2f.
+- Post-merge main Acceptance run 36551315900 passed 13/13 required jobs on merged main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6.
 
 ## Sequence contract evidence
 
