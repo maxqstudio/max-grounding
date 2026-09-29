@@ -5,14 +5,14 @@
   "mode": "BEFORE",
   "scope": "CURRENT",
   "critical": true,
-  "status": "PLANNED",
-  "implementation_base_sha": "",
+  "status": "FROZEN",
+  "implementation_base_sha": "0810115190890db456b4a90634e1dd10fb29da08",
   "plan": {
     "required": true,
     "contract": "docs/sequence/plans/phase-08-temporal-authority.plan.json",
     "frozen": true,
-    "frozen_commit": "",
-    "sha256": "",
+    "frozen_commit": "0810115190890db456b4a90634e1dd10fb29da08",
+    "sha256": "13f5323fe69c40d0907060f951633eb9adca44c89fe46b6d5d76aa179fa3cdc8",
     "diagram": "docs/sequence/generated/phase-08-temporal-authority.plan.mmd"
   },
   "actual": {
