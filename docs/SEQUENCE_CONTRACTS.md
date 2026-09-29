@@ -21,6 +21,8 @@ Status: CURRENT
 | FLOW-GROUND-REQUEST | BEFORE | YES | docs/sequence/sessions/phase-01-core-contracts.json | PASS |
 | FLOW-HYBRID-FUSION | BEFORE | YES | docs/sequence/sessions/phase-06-hybrid-fusion.json | PASS |
 | FLOW-LEXICAL-RETRIEVAL | BEFORE | YES | docs/sequence/sessions/phase-04-lexical-retrieval.json | PASS |
+| FLOW-PERSISTENT-INDEX | BEFORE | YES | docs/sequence/sessions/phase-11-persistent-index.json | PASS |
+| FLOW-PERSISTENT-QUERY | BEFORE | YES | docs/sequence/sessions/phase-11-persistent-query.json | PASS |
 | FLOW-PHASE-DELIVERY | BEFORE | YES | docs/sequence/sessions/phase-00-bootstrap.json | PASS |
 | FLOW-RERANK-COMPRESS | BEFORE | YES | docs/sequence/sessions/phase-07-rerank-compress.json | PASS |
 | FLOW-SEARXNG-SEARCH | BEFORE | YES | docs/sequence/sessions/phase-02-searxng-provider.json | PASS |

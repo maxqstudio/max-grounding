@@ -49,3 +49,11 @@ Status: ACCEPTED
 Pin governance to maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259, vendor its current project-local runtime tool pack, and make .workflow/roadmap.json the sole roadmap semantic authority instead of embedding roadmap state inside project.json.
 
 Rationale: The latest Skill Workflow makes roadmap/state synchronization a blocking truth gate. A separate roadmap authority removes duplicate phase state and prevents generated ROADMAP.md from drifting from CURRENT_STATE.
+
+## DEC-0007 — Use Ollama Qwen3 Embedding and Qdrant for first concrete runtime
+
+Status: ACCEPTED
+
+Phase 11 uses Ollama v0.34.0 with qwen3-embedding:0.6b as the first concrete local embedding service and Qdrant v1.19.1 REST as the persistent vector index. Python core adapters remain stdlib-only and service processes remain external/container boundaries.
+
+Rationale: The 0.6B embedding model is small enough for practical self-hosting while retaining 1024-dimensional multilingual embeddings; Qdrant provides a mature persistent vector service. Keeping both behind HTTP contracts preserves native Linux/Windows/macOS core portability and avoids heavyweight Python ML/vector dependencies.

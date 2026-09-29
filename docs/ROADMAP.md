@@ -2,8 +2,8 @@
 
 # ROADMAP
 
-Current project phase: PHASE_10_CLAIM_VERIFICATION
-Current roadmap phase: PHASE_10_CLAIM_VERIFICATION
+Current project phase: PHASE_11_CONCRETE_RUNTIME_INDEX
+Current roadmap phase: PHASE_11_CONCRETE_RUNTIME_INDEX
 ROADMAP_SYNC: PASS
 
 ## Phase plan
@@ -20,8 +20,8 @@ ROADMAP_SYNC: PASS
 | 8 | PHASE_07_RERANK_COMPRESS | Reranking and evidence/context compression | ACCEPTED | Deliver Reranking and evidence/context compression without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
 | 9 | PHASE_08_TEMPORAL_AUTHORITY | Freshness, source authority, and temporal scoring | ACCEPTED | Deliver Freshness, source authority, and temporal scoring without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
 | 10 | PHASE_09_EVIDENCE_GRAPH | Contradiction/corroboration engine and evidence graph | ACCEPTED | Deliver Contradiction/corroboration engine and evidence graph without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
-| 11 | PHASE_10_CLAIM_VERIFICATION | Claim-level verification, citations, confidence, and fail-closed synthesis | CURRENT | Deliver Claim-level verification, citations, confidence, and fail-closed synthesis without weakening accepted fail-closed and provenance contracts. | Phase 10 product acceptance merged to main and post-merge main revalidation passed.<br>Phase 10 closure passes Skill Workflow c1d7e58a0fcadc606c8cf75c6283a17278f99259 and merged main is revalidated. |
-| 12 | PHASE_11_CONCRETE_RUNTIME_INDEX | Concrete embedding runtime plus Qdrant/persistent index and production adapters | PLANNED | Deliver Concrete embedding runtime plus Qdrant/persistent index and production adapters without weakening accepted fail-closed and provenance contracts. | Freeze a BEFORE sequence plan before implementation.<br>Pass exact-head pull-request Acceptance and post-merge main revalidation. |
+| 11 | PHASE_10_CLAIM_VERIFICATION | Claim-level verification, citations, confidence, and fail-closed synthesis | ACCEPTED | Deliver Claim-level verification, citations, confidence, and fail-closed synthesis without weakening accepted fail-closed and provenance contracts. | Phase 10 closure main 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed 13/13 Acceptance with latest Skill Workflow governance. |
+| 12 | PHASE_11_CONCRETE_RUNTIME_INDEX | Concrete embedding runtime plus Qdrant/persistent index and production adapters | CURRENT | Integrate a concrete self-hosted embedding runtime and persistent Qdrant semantic index while preserving portable stdlib core boundaries and provenance. | Both BEFORE sequence plans are frozen before source implementation.<br>Portable core and adapter tests pass on Python 3.11-3.14 across Linux, Windows, and macOS.<br>A real Ubuntu Ollama v0.34.0 integration proves qwen3-embedding:0.6b returns validated 1024-dimensional embeddings.<br>A real Qdrant v1.19.1 integration proves collection schema, upsert/query provenance, and persistence across service restart.<br>Exact-head PR Acceptance and merged-main revalidation pass before Phase 11 closure. |
 | 13 | PHASE_12_PRODUCTION_API_MCP | REST, MCP, multi-arch containers, E2E/security/load, and production acceptance | PLANNED | Deliver REST, MCP, multi-arch containers, E2E/security/load, and production acceptance without weakening accepted fail-closed and provenance contracts. | Freeze a BEFORE sequence plan before implementation.<br>Pass exact-head pull-request Acceptance and post-merge main revalidation. |
 | 14 | PHASE_13_BROWSER_JS | Browser and JavaScript rendering/crawling | OPTIONAL | Optional post-V1 expansion: Browser and JavaScript rendering/crawling. | Explicit Owner/roadmap promotion from OPTIONAL.<br>Dedicated acceptance evidence passes before merge. |
 | 15 | PHASE_14_MULTIMODAL | Multimodal PDF/image/table grounding | OPTIONAL | Optional post-V1 expansion: Multimodal PDF/image/table grounding. | Explicit Owner/roadmap promotion from OPTIONAL.<br>Dedicated acceptance evidence passes before merge. |

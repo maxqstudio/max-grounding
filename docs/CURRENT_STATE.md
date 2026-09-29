@@ -3,20 +3,20 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: dab1961e04f7610a4bf7a9de55a8a649a6fe8990
+Authority verified at SHA: 15bff377b920e6cf7e9198af554b8f7dc31f2119
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_10_CLAIM_VERIFICATION
-Status: ACCEPTED_PENDING_LATEST_WORKFLOW_CLOSURE
-Roadmap phase: PHASE_10_CLAIM_VERIFICATION
+Phase: PHASE_11_CONCRETE_RUNTIME_INDEX
+Status: PLANNING
+Roadmap phase: PHASE_11_CONCRETE_RUNTIME_INDEX
 ROADMAP_SYNC: PASS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: work/phase-10-closure
+Branch: work/phase-11-concrete-runtime-index
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: dab1961e04f7610a4bf7a9de55a8a649a6fe8990
+Last accepted SHA: 15bff377b920e6cf7e9198af554b8f7dc31f2119
 Current candidate SHA: external final acceptance evidence
 Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f
 
@@ -39,21 +39,13 @@ Current sequence session: docs/sequence/sessions/phase-10-claim-verification.jso
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 9 closure is merged to main at f5b48f55fcae1617a4c5f0a1c86c3877b361c71f and closure-main Acceptance run 36591359413 passed all 13 required jobs.
-- The Phase 10 BEFORE plan was frozen before implementation at a1cfc956e004330bf27dcda56fd1987d0d4ac53b with SHA-256 a0b794328b62a21fd049868ff1aab22fb8f611437dba7f311f16fbf7ef955428.
-- TDD RED run 36591980379 failed because the Phase 10 claim-verification contract did not yet exist.
-- GREEN run 36592414508 passed the full unit suite and compile checks after the minimum Phase 10 implementation.
-- Candidate verification run 36592538343 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
-- Phase 10 accepts at most 16 explicit structured AnswerClaim values and rejects arbitrary iterables, duplicate normalized claim identifiers, malformed graphs, and invalid source-threshold policy.
-- Phase 10 classifies exact structured claims as SUPPORTED, PARTIALLY_SUPPORTED, CONFLICTED, or UNSUPPORTED; exact conflicts take precedence over evidence weight.
-- Claim citations preserve exact supporting assertion, source URL, chunk identity, and excerpt text from the accepted evidence graph.
-- Phase 10 confidence is a deterministic evidence-sufficiency index derived from mean distinct-source Phase 8 quality and bounded source coverage; it is not a probability of truth.
-- Only SUPPORTED claims are exposed in synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims are fail-closed into blocked_claims.
-- Phase 10 exact pull-request head e5fd57f65216b58163b447df8011293185105f5f passed Acceptance run 36593330960 with 13/13 required jobs.
-- Phase 10 merged main SHA dab1961e04f7610a4bf7a9de55a8a649a6fe8990 passed post-merge Acceptance run 36594071609 with 13/13 required jobs.
+- Phase 10 product and closure are accepted; closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.
+- Skill Workflow authority is maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259 with ROADMAP_SYNC enforced.
+- Phase 11 planning selects service boundaries rather than adding heavy ML/vector Python dependencies to the portable core.
 
 ## Not proven
-- Accepted Phase 10 does not extract answer claims from free-form LLM text, perform fuzzy semantic/NLI verification, generate free-form final prose, calibrate truth probabilities, provide a concrete embedding/rerank model, persist Qdrant indexes, expose REST/MCP, or prove production deployment.
+- No Phase 11 source implementation, Ollama runtime call, Qwen3 embedding output, Qdrant persistence, persistent semantic retrieval, or service restart recovery is proven before the frozen BEFORE plans are accepted and implementation tests execute.
+- REST/MCP public service exposure remains Phase 12.
 
 ## Known blockers
 - None declared.
@@ -62,12 +54,12 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Validate Phase 10 closure under Skill Workflow c1d7e58a0fcadc606c8cf75c6283a17278f99259.
-- Merge closure only after exact-head full Acceptance passes and revalidate merged main.
-- Then advance state.phase and roadmap.current_phase together to PHASE_11_CONCRETE_RUNTIME_INDEX before Phase 11 implementation.
+- Freeze both Phase 11 BEFORE sequence plans and bind their exact Git ancestry before source implementation.
+- Then implement the minimum stdlib Ollama embedding adapter, Qdrant REST store, and persistent indexing/query orchestration under the frozen contracts.
+- Require cross-platform core regression plus real Ubuntu integration evidence for Ollama qwen3-embedding:0.6b and Qdrant v1.19.1 before Phase 11 acceptance.
 
 ## Explicitly blocked
-- Do not describe the accepted Phase 10 confidence index as a probability that a claim is true.
-- Do not claim fuzzy semantic verification or final prose generation from accepted Phase 10.
-- Do not start Phase 11 source implementation before Phase 10 closure-main revalidation.
-- Do not change state.phase without changing roadmap.current_phase in the same transaction.
+- Do not implement Phase 11 source before both BEFORE plans are frozen and committed.
+- Do not claim concrete model/runtime acceptance from HTTP mocks alone.
+- Do not expose public REST or MCP server endpoints in Phase 11.
+- Do not weaken the existing provider-agnostic semantic contracts or accepted fail-closed provenance rules.
