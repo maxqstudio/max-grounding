@@ -7,7 +7,7 @@
 Purpose: Convert bounded structured assertions backed by accepted Phase 8 evidence-quality scores into a deterministic graph of corroborating and contradicting relations without selecting a truth winner.
 Critical: TRUE
 Entry condition: At most 8 structured EvidenceAssertion values each retain one accepted EvidenceQualityScore.
-Authority: Structured assertion normalization, relation semantics, source independence accounting, and graph construction
+Authority: Structured assertion normalization, relation semantics, distinct source-URL accounting, and graph construction
 
 ### States
 
@@ -21,9 +21,9 @@ Authority: Structured assertion normalization, relation semantics, source indepe
 
 | From | To | Action | Authority | Side effects |
 |---|---|---|---|---|
-| ASSERTIONS_RECEIVED | ASSERTIONS_NORMALIZED | validate bounded assertion identity, evidence provenance, quality scores, and consistent exclusivity semantics | Structured assertion normalization, relation semantics, source independence accounting, and graph construction |  |
-| ASSERTIONS_NORMALIZED | RELATIONS_BUILT | derive corroborates and contradicts edges deterministically from normalized claim/value semantics | Structured assertion normalization, relation semantics, source independence accounting, and graph construction |  |
-| RELATIONS_BUILT | GRAPH_BUILT | group equivalent assertions into value clusters with distinct-source counts and bounded quality-weight sums | Structured assertion normalization, relation semantics, source independence accounting, and graph construction |  |
+| ASSERTIONS_RECEIVED | ASSERTIONS_NORMALIZED | validate bounded assertion identity, evidence provenance, quality scores, and consistent exclusivity semantics | Structured assertion normalization, relation semantics, distinct source-URL accounting, and graph construction |  |
+| ASSERTIONS_NORMALIZED | RELATIONS_BUILT | derive corroborates and contradicts edges deterministically from normalized claim/value semantics | Structured assertion normalization, relation semantics, distinct source-URL accounting, and graph construction |  |
+| RELATIONS_BUILT | GRAPH_BUILT | group equivalent assertions into value clusters with distinct-source counts and bounded quality-weight sums | Structured assertion normalization, relation semantics, distinct source-URL accounting, and graph construction |  |
 
 ### Invariants
 
@@ -35,7 +35,7 @@ Authority: Structured assertion normalization, relation semantics, source indepe
 - Same normalized exclusive claim_key plus different normalized values yields a CONTRADICTS relation.
 - Non-exclusive different values do not contradict and produce no relation.
 - Relations use canonical assertion-id ordering and are emitted once per assertion pair.
-- Clusters count distinct source URLs so repeated chunks from one source do not inflate source independence.
+- Clusters count distinct source URLs so repeated chunks from one source do not inflate editorial/distinct source-URL contribution.
 - Cluster quality_weight_sum is the sum of each distinct source's maximum accepted Phase 8 quality score; it is descriptive evidence weight and never a probability or truth verdict.
 - The graph never majority-votes, selects a winning value, or labels any assertion true/false.
 

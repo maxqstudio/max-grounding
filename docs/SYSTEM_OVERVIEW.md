@@ -46,7 +46,7 @@ Observed source inventory: 32 files, 1 language categories.
 | Hybrid Fusion | Combine bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion while preserving immutable chunk provenance. | retrieve_hybrid, fuse_hybrid, fixed RRF k=60, hybrid rank validation, hybrid provenance conflict rejection | models, lexical-retrieval, semantic-retrieval |
 | Reranking and Context Compression | Rerank bounded HybridHit candidates through an injected provider, validate scores fail-closed, and emit bounded extractive evidence excerpts without generative rewriting. | RerankProvider protocol, rerank_hybrid, compress_context, build_grounded_context, rerank score validation, extractive context budgets, rerank and source provenance | models, hybrid-fusion, lexical-retrieval |
 | Temporal and Source Authority Scoring | Bind explicit UTC temporal/source metadata to bounded evidence, obtain authority scores through an injected policy, and deterministically score freshness and point-in-time validity. | AuthorityProvider protocol, score_authority, score_temporal_components, score_evidence_quality, explicit evaluation-time policy, freshness horizon bounds, temporal validity checks, stable quality ranking | models, rerank-compress |
-| Evidence Graph | Normalize bounded structured assertions backed by Phase 8 quality evidence, derive deterministic corroboration/contradiction edges, and cluster equivalent values with distinct-source accounting without declaring truth. | build_evidence_graph, build_relations, build_clusters, structured assertion normalization, explicit exclusivity semantics, distinct-source quality-weight accounting, no-winner graph contract | models, temporal-authority |
+| Evidence Graph | Normalize bounded structured assertions backed by Phase 8 quality evidence, derive deterministic corroboration/contradiction edges, and cluster equivalent values with distinct source-URL accounting without declaring truth. | build_evidence_graph, build_relations, build_clusters, structured assertion normalization, explicit exclusivity semantics, distinct-URL quality-weight accounting, no-winner graph contract | models, temporal-authority |
 
 ## Main data flow
 
@@ -83,7 +83,7 @@ Observed source inventory: 32 files, 1 language categories.
 - Temporal and Source Authority Scoring -> EvidenceQualityScore: authority, freshness, and temporal validity combine multiplicatively and rank deterministically
 - EvidenceQualityScore -> Evidence Graph: validated Phase 8 quality provenance supplies bounded descriptive evidence weight
 - EvidenceAssertion -> Evidence Graph: caller-supplied structured claim key/value/exclusivity semantics are normalized and validated
-- Evidence Graph -> EvidenceGraph: immutable normalized assertions, corroboration/contradiction edges, and distinct-source value clusters are returned without a truth winner
+- Evidence Graph -> EvidenceGraph: immutable normalized assertions, corroboration/contradiction edges, and distinct-URL value clusters are returned without a truth winner
 
 ## Main user workflows
 
@@ -91,7 +91,7 @@ Observed source inventory: 32 files, 1 language categories.
 
 Convert bounded structured assertions backed by accepted Phase 8 evidence-quality scores into a deterministic graph of corroborating and contradicting relations without selecting a truth winner.
 
-Authority: Structured assertion normalization, relation semantics, source independence accounting, and graph construction
+Authority: Structured assertion normalization, relation semantics, distinct source-URL accounting, and graph construction
 
 - ASSERTIONS_RECEIVED -> ASSERTIONS_NORMALIZED : validate bounded assertion identity, evidence provenance, quality scores, and consistent exclusivity semantics
 - ASSERTIONS_NORMALIZED -> RELATIONS_BUILT : derive corroborates and contradicts edges deterministically from normalized claim/value semantics
@@ -285,13 +285,14 @@ Known blockers:
 - Candidate verification run 36586034657 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
 - Phase 9 accepts at most 8 bounded structured assertions backed by valid Phase 8 EvidenceQualityScore provenance.
 - Equivalent normalized claim/value assertions corroborate; differing values contradict only when that claim key is explicitly exclusive/single-valued.
-- Clusters count distinct source URLs and sum only each source's maximum Phase 8 quality score so repeated chunks from one source do not inflate independent-source evidence weight.
+- Clusters count distinct source URLs and sum only each source's maximum Phase 8 quality score so repeated chunks from one source do not inflate distinct-URL evidence weight.
 - Phase 9 emits no winner, truth label, or majority-vote verdict.
 
 ### Not proven
 
 - Final Phase 9 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
 - Phase 9 does not automatically extract structured assertions, infer natural-language contradiction, select which conflicting value is true, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.
+- Phase 9 distinct source URLs do not prove editorial or organizational independence between sources; the graph exposes URL-level counts only.
 
 ## Important limitations
 

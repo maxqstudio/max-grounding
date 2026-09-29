@@ -44,12 +44,13 @@ SEQUENCE_SYNC: PASS
 - Candidate verification run 36586034657 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
 - Phase 9 accepts at most 8 bounded structured assertions backed by valid Phase 8 EvidenceQualityScore provenance.
 - Equivalent normalized claim/value assertions corroborate; differing values contradict only when that claim key is explicitly exclusive/single-valued.
-- Clusters count distinct source URLs and sum only each source's maximum Phase 8 quality score so repeated chunks from one source do not inflate independent-source evidence weight.
+- Clusters count distinct source URLs and sum only each source's maximum Phase 8 quality score so repeated chunks from one source do not inflate distinct-URL evidence weight.
 - Phase 9 emits no winner, truth label, or majority-vote verdict.
 
 ## Not proven
 - Final Phase 9 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
 - Phase 9 does not automatically extract structured assertions, infer natural-language contradiction, select which conflicting value is true, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.
+- Phase 9 distinct source URLs do not prove editorial or organizational independence between sources; the graph exposes URL-level counts only.
 
 ## Known blockers
 - None declared.

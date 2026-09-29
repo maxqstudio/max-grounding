@@ -266,7 +266,7 @@
       "locator": "src/max_grounding/models.py::EvidenceRelation"
     }
   ],
-  "observed_head": "b6fb138372a45ab50f814fed87befc49515b81c6",
+  "observed_head": "4c6c9a076c7e332ec5322f84e7937d063bec05cc",
   "schema_version": 1,
   "source_digest": "54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982"
 }

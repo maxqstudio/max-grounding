@@ -4,7 +4,7 @@
 
 ## Evidence boundary
 
-Phase 9 proves bounded deterministic structured corroboration/contradiction graph construction over at most 8 assertions backed by accepted Phase 8 quality provenance. It normalizes claim/value text, applies explicit exclusive-claim semantics, counts distinct sources, prevents duplicate-source quality-weight inflation, conforms to the frozen plan, and passes Python 3.11-3.14 across Ubuntu, Windows, and macOS. It does not automatically extract assertions, infer arbitrary natural-language contradiction, choose a truth winner, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.
+Phase 9 proves bounded deterministic structured corroboration/contradiction graph construction over at most 8 assertions backed by accepted Phase 8 quality provenance. It normalizes claim/value text, applies explicit exclusive-claim semantics, counts distinct sources, prevents duplicate-source quality-weight inflation, conforms to the frozen plan, and passes Python 3.11-3.14 across Ubuntu, Windows, and macOS. It does not automatically extract assertions, infer arbitrary natural-language contradiction, choose a truth winner, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment. Distinct source URLs do not prove editorial or organizational independence.
 
 Final tested source: external final acceptance evidence.
 Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
