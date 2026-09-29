@@ -1,0 +1,100 @@
+name: Freeze Phase 11 Plans
+
+on:
+  push:
+    branches:
+      - work/phase-11-concrete-runtime-index
+
+permissions:
+  contents: write
+
+jobs:
+  freeze:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Phase 11 planning branch
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-11-concrete-runtime-index
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+
+      - name: Render both frozen plans
+        shell: bash
+        run: |
+          python .workflow/tools/generate_sequence_plan.py             --plan docs/sequence/plans/phase-11-persistent-index.plan.json             --output docs/sequence/generated/phase-11-persistent-index.plan.mmd
+          python .workflow/tools/generate_sequence_plan.py             --plan docs/sequence/plans/phase-11-persistent-query.plan.json             --output docs/sequence/generated/phase-11-persistent-query.plan.mmd
+
+      - name: Synchronize Phase 11 planning truth
+        run: python .workflow/tools/sync_project_truth.py
+
+      - name: Commit frozen plan snapshot
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .workflow/acceptance.json .workflow/generated docs
+          git commit -m 'docs: freeze phase 11 plan snapshot'
+
+      - name: Bind exact frozen ancestry and hashes
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+
+          frozen = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+          names = ("phase-11-persistent-index", "phase-11-persistent-query")
+          for name in names:
+              plan = Path(f"docs/sequence/plans/{name}.plan.json")
+              session_path = Path(f"docs/sequence/sessions/{name}.json")
+              session = json.loads(session_path.read_text(encoding="utf-8"))
+              session["status"] = "FROZEN"
+              session["implementation_base_sha"] = frozen
+              session["plan"]["frozen_commit"] = frozen
+              session["plan"]["sha256"] = hashlib.sha256(plan.read_bytes()).hexdigest()
+              session_path.write_text(json.dumps(session, indent=2) + "\n", encoding="utf-8")
+          PY
+          git add docs/sequence/sessions
+          git commit -m 'plan: bind phase 11 frozen authorities'
+
+      - name: Regenerate after binding
+        run: python .workflow/tools/sync_project_truth.py
+
+      - name: Commit regenerated planning docs
+        shell: bash
+        run: |
+          git add .workflow/acceptance.json .workflow/generated docs
+          if git diff --cached --quiet; then
+            echo 'No post-bind generated changes.'
+          else
+            git commit -m 'docs: sync phase 11 frozen planning truth'
+          fi
+
+      - name: Verify planning authority
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for name in ("phase-11-persistent-index", "phase-11-persistent-query"):
+              session = json.loads(Path(f"docs/sequence/sessions/{name}.json").read_text())
+              assert session["status"] == "FROZEN"
+              assert session["plan"]["frozen_commit"]
+              assert len(session["plan"]["sha256"]) == 64
+              assert session["implementation_base_sha"] == session["plan"]["frozen_commit"]
+          roadmap = json.loads(Path(".workflow/roadmap.json").read_text())
+          state = json.loads(Path(".workflow/state.json").read_text())
+          assert state["phase"] == roadmap["current_phase"] == "PHASE_11_CONCRETE_RUNTIME_INDEX"
+          assert sum(p["status"] == "CURRENT" for p in roadmap["phases"]) == 1
+          PY
+          python .workflow/tools/validate_project_docs.py
+          python .workflow/tools/validate_doc_quality.py
+
+      - name: Push frozen Phase 11 planning lineage
+        run: git push origin HEAD:work/phase-11-concrete-runtime-index
