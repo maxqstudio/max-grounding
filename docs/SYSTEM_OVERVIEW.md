@@ -87,6 +87,16 @@ Observed source inventory: 32 files, 1 language categories.
 
 ## Main user workflows
 
+### FLOW-CLAIM-VERIFICATION — Claim-level verification, citations, confidence, and fail-closed synthesis
+
+Verify bounded structured answer claims against the accepted Phase 9 evidence graph, emit source-bound claim citations, compute a deterministic evidence-sufficiency confidence index, and expose only fully supported claims to synthesis.
+
+Authority: Exact structured claim matching, conflict precedence, source-count sufficiency, citation provenance, confidence-index formula, and fail-closed synthesis eligibility
+
+- CLAIMS_RECEIVED -> CLAIMS_VERIFIED : normalize structured claim key/value and classify support against graph clusters and contradiction edges
+- CLAIMS_VERIFIED -> CITATIONS_BOUND : bind exact supporting assertion provenance as claim-level citations
+- CITATIONS_BOUND -> SYNTHESIS_PACKET_BUILT : include only SUPPORTED claims in the synthesis-safe claim set and retain all blocked verification results separately
+
 ### FLOW-EVIDENCE-GRAPH — Deterministic contradiction, corroboration, and evidence graph
 
 Convert bounded structured assertions backed by accepted Phase 8 evidence-quality scores into a deterministic graph of corroborating and contradicting relations without selecting a truth winner.
@@ -237,6 +247,8 @@ compiler does not infer them from implementation names.
 
 ## Failure and recovery
 
+- FLOW-CLAIM-VERIFICATION: Malformed claim bounds/identity, invalid graph shape/provenance, invalid required_sources, or duplicate identifiers fail closed with ClaimVerificationError.
+- FLOW-CLAIM-VERIFICATION: No partial verification or synthesis packet is returned after validation failure.
 - FLOW-EVIDENCE-GRAPH: Malformed bounds, duplicate identity, inconsistent exclusivity, invalid evidence provenance, invalid quality scores, or unsupported values fail closed with EvidenceGraphError.
 - FLOW-EVIDENCE-GRAPH: No partial graph is returned after validation failure.
 - FLOW-GROUND-REQUEST: Invalid requests fail before any provider call.

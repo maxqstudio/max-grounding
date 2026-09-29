@@ -2,6 +2,58 @@
 
 # WORKFLOW STATE MACHINE
 
+## FLOW-CLAIM-VERIFICATION — Claim-level verification, citations, confidence, and fail-closed synthesis
+
+Purpose: Verify bounded structured answer claims against the accepted Phase 9 evidence graph, emit source-bound claim citations, compute a deterministic evidence-sufficiency confidence index, and expose only fully supported claims to synthesis.
+Critical: TRUE
+Entry condition: At most 16 explicit AnswerClaim values and one validated EvidenceGraph are available.
+Authority: Exact structured claim matching, conflict precedence, source-count sufficiency, citation provenance, confidence-index formula, and fail-closed synthesis eligibility
+
+### States
+
+- CLAIMS_RECEIVED
+- CLAIMS_VERIFIED
+- CITATIONS_BOUND
+- SYNTHESIS_PACKET_BUILT
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| CLAIMS_RECEIVED | CLAIMS_VERIFIED | normalize structured claim key/value and classify support against graph clusters and contradiction edges | Exact structured claim matching, conflict precedence, source-count sufficiency, citation provenance, confidence-index formula, and fail-closed synthesis eligibility |  |
+| CLAIMS_VERIFIED | CITATIONS_BOUND | bind exact supporting assertion provenance as claim-level citations | Exact structured claim matching, conflict precedence, source-count sufficiency, citation provenance, confidence-index formula, and fail-closed synthesis eligibility |  |
+| CITATIONS_BOUND | SYNTHESIS_PACKET_BUILT | include only SUPPORTED claims in the synthesis-safe claim set and retain all blocked verification results separately | Exact structured claim matching, conflict precedence, source-count sufficiency, citation provenance, confidence-index formula, and fail-closed synthesis eligibility |  |
+
+### Invariants
+
+- At most 16 claims enter verification and arbitrary iterables are rejected.
+- claim_id is unique and non-empty; text, claim_key, and value are normalized deterministically with Unicode NFKC, whitespace normalization, and casefolding for matching.
+- Claim verification never performs fuzzy semantic matching or invents a graph assertion.
+- If an exact claim/value cluster is absent the claim is UNSUPPORTED.
+- If an exact cluster exists for an exclusive claim and any different-value cluster exists for the same claim_key, status is CONFLICTED regardless of evidence weight.
+- If an exact cluster exists without conflict but distinct source URL count is below required_sources, status is PARTIALLY_SUPPORTED.
+- If an exact cluster exists without conflict and meets required_sources, status is SUPPORTED.
+- required_sources is caller supplied in the bounded range 1..3.
+- Confidence is an evidence-sufficiency index, not a truth probability: mean distinct-source Phase 8 quality times bounded source-coverage fraction; CONFLICTED and UNSUPPORTED confidence is zero.
+- Citations are exact supporting assertion provenance and preserve source URL, chunk identity, excerpt text, and assertion identity.
+- At most 8 citations are emitted per claim in deterministic assertion-id order.
+- Only SUPPORTED claims appear in synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims are blocked from synthesis.
+- The synthesis packet contains structured verified claims and citations only; Phase 10 does not generate free-form prose.
+
+### Failure behavior
+
+- Malformed claim bounds/identity, invalid graph shape/provenance, invalid required_sources, or duplicate identifiers fail closed with ClaimVerificationError.
+- No partial verification or synthesis packet is returned after validation failure.
+
+### Restart behavior
+
+- Verification is stateless and deterministic for identical claims, graph, and required_sources.
+
+### Rollback behavior
+
+- Phase 10 performs no persistent state mutation.
+
 ## FLOW-EVIDENCE-GRAPH — Deterministic contradiction, corroboration, and evidence graph
 
 Purpose: Convert bounded structured assertions backed by accepted Phase 8 evidence-quality scores into a deterministic graph of corroborating and contradicting relations without selecting a truth winner.
