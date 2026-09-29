@@ -54,9 +54,7 @@
     "Sequence verification run 36548516860 passed generated PLAN-to-ACTUAL validation.",
     "Final cross-platform run 36548604321 passed 12/12 Python/OS jobs after the final simplification.",
     "Pull request #7 Acceptance run 36551148939 passed 13/13 required jobs on exact PR head ca3f3f3e7972d355ca2279b1df9883fb48daad2f.",
-    "Post-merge main Acceptance run 36551315900 passed 13/13 required jobs on merged main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6.",
-    "Phase 3 pull-request Acceptance run 36551148939 passed STRICT governance and all 12 cross-platform runtime jobs on exact head ca3f3f3e7972d355ca2279b1df9883fb48daad2f.",
-    "Phase 3 post-merge main Acceptance run 36551315900 passed 13/13 jobs on main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6."
+    "Post-merge main Acceptance run 36551315900 passed 13/13 required jobs on merged main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6."
   ],
   "runtime_status": "PASS",
   "schema_version": 1,
