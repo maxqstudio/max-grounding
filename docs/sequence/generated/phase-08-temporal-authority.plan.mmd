@@ -1,0 +1,9 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 13f5323fe69c40d0907060f951633eb9adca44c89fe46b6d5d76aa179fa3cdc8
+%% FLOW_ID: FLOW-TEMPORAL-AUTHORITY
+sequenceDiagram
+    participant score_0 as score_evidence_quality
+    participant authority_1 as score_authority
+    participant temporal_2 as score_temporal_components
+    score_0->>authority_1: obtain one bounded injected authority score sequence [MUST]
+    score_0->>temporal_2: compute freshness and temporal validity from explicit UTC metadata and evaluation time [MUST]

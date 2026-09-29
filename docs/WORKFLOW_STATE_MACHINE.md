@@ -372,3 +372,51 @@ Authority: Semantic retrieval bounds, embedding validation, and deterministic co
 ### Rollback behavior
 
 - Phase 5 has no persistent mutation.
+
+## FLOW-TEMPORAL-AUTHORITY — Freshness, source authority, and temporal evidence scoring
+
+Purpose: Attach validated temporal/source metadata to bounded evidence excerpts, obtain authority scores through an injected bounded policy, and deterministically score freshness and temporal validity without hardcoding domain authority opinions.
+Critical: TRUE
+Entry condition: Bounded EvidenceExcerpt values have one-to-one EvidenceMetadata and an explicit timezone-aware UTC evaluation time.
+Authority: Temporal metadata validation, deterministic freshness/validity formulas, and injected authority-score boundary
+
+### States
+
+- EVIDENCE_RECEIVED
+- AUTHORITY_SCORED
+- TEMPORAL_SCORED
+- QUALITY_RANKED
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| EVIDENCE_RECEIVED | AUTHORITY_SCORED | validate excerpt/metadata identity and obtain one bounded authority score sequence | Temporal metadata validation, deterministic freshness/validity formulas, and injected authority-score boundary |  |
+| AUTHORITY_SCORED | TEMPORAL_SCORED | compute deterministic freshness and validity against explicit now | Temporal metadata validation, deterministic freshness/validity formulas, and injected authority-score boundary |  |
+| TEMPORAL_SCORED | QUALITY_RANKED | combine authority, freshness, and temporal validity multiplicatively and rank stably | Temporal metadata validation, deterministic freshness/validity formulas, and injected authority-score boundary |  |
+
+### Invariants
+
+- At most 8 evidence excerpts enter Phase 8 scoring.
+- Every excerpt has exactly one metadata record with matching source URL and chunk identity.
+- All timestamps are timezone-aware UTC; retrieved_at and published_at cannot be later than evaluation now.
+- valid_from later than valid_until is rejected; future valid_from or expired valid_until yields temporal_validity=0 instead of fabricated validity.
+- Authority scoring is injected and called once for the bounded source sequence; the core contains no hardcoded domain authority hierarchy.
+- Authority scores are finite numeric non-boolean values in [0,1].
+- Freshness uses explicit age and a bounded caller-selected horizon; no wall-clock read occurs inside scoring.
+- Combined score is authority_score * freshness_score * temporal_validity and therefore remains in [0,1].
+- Equal combined scores preserve prior rerank rank before stable source/chunk provenance ordering.
+
+### Failure behavior
+
+- Malformed identity, timestamps, horizon, provider exceptions, non-sequence authority output, wrong score count, or invalid scores fail closed with controlled Phase 8 errors.
+- No partial quality-ranked output is returned after validation failure.
+
+### Restart behavior
+
+- Scoring is stateless and deterministic for identical evidence, metadata, authority scores, evaluation time, and freshness horizon.
+
+### Rollback behavior
+
+- Phase 8 performs no persistent state mutation.

@@ -170,6 +170,16 @@ Authority: Semantic retrieval bounds, embedding validation, and deterministic co
 - DOCUMENTS_RECEIVED -> INVALID_REQUEST : reject invalid query, chunk, batch, or result bounds before provider work
 - CHUNKS_READY -> PROVIDER_ERROR : fail closed on provider exception, wrong vector count, invalid dimension, non-finite value, inconsistent shape, or zero vector
 
+### FLOW-TEMPORAL-AUTHORITY — Freshness, source authority, and temporal evidence scoring
+
+Attach validated temporal/source metadata to bounded evidence excerpts, obtain authority scores through an injected bounded policy, and deterministically score freshness and temporal validity without hardcoding domain authority opinions.
+
+Authority: Temporal metadata validation, deterministic freshness/validity formulas, and injected authority-score boundary
+
+- EVIDENCE_RECEIVED -> AUTHORITY_SCORED : validate excerpt/metadata identity and obtain one bounded authority score sequence
+- AUTHORITY_SCORED -> TEMPORAL_SCORED : compute deterministic freshness and validity against explicit now
+- TEMPORAL_SCORED -> QUALITY_RANKED : combine authority, freshness, and temporal validity multiplicatively and rank stably
+
 ## Lifecycle and state
 
 Current phase: PHASE_07_RERANK_COMPRESS
@@ -224,6 +234,8 @@ compiler does not infer them from implementation names.
 - FLOW-SEMANTIC-RETRIEVAL: Invalid caller bounds raise RetrievalError before provider work.
 - FLOW-SEMANTIC-RETRIEVAL: Embedding provider or vector-validation failures raise EmbeddingProviderError without returning partial semantic hits.
 - FLOW-SEMANTIC-RETRIEVAL: No positive semantic match returns an empty immutable result rather than fabricated relevance.
+- FLOW-TEMPORAL-AUTHORITY: Malformed identity, timestamps, horizon, provider exceptions, non-sequence authority output, wrong score count, or invalid scores fail closed with controlled Phase 8 errors.
+- FLOW-TEMPORAL-AUTHORITY: No partial quality-ranked output is returned after validation failure.
 
 ## Current project state
 
