@@ -124,6 +124,12 @@ class SecureFetcherTests(unittest.TestCase):
             fetch_document("https://example.com:8443/private", resolver=resolver)
         resolver.assert_not_called()
 
+    def test_read_rejects_missing_content_type(self) -> None:
+        response = _Response(body=b"looks like text")
+        del response.headers["Content-Type"]
+        with self.assertRaises(FetchError):
+            read_bounded_response(response, max_response_bytes=64)
+
     def test_read_rejects_redirect_compression_binary_and_oversize(self) -> None:
         cases = [
             _Response(status=302, body=b"redirect"),
