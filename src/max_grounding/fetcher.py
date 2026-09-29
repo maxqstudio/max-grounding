@@ -236,7 +236,6 @@ def fetch_document(
     timeout_seconds: float = DEFAULT_TIMEOUT_SECONDS,
     max_response_bytes: int = DEFAULT_MAX_RESPONSE_BYTES,
     resolver=socket.getaddrinfo,
-    connection_opener=open_pinned_connection,
 ) -> FetchedDocument:
     """Fetch and extract one untrusted result page through a pinned public IP."""
     if timeout_seconds <= 0:
@@ -251,7 +250,7 @@ def fetch_document(
         resolver=resolver,
     )
     pinned_ip = addresses[0]
-    connection = connection_opener(
+    connection = open_pinned_connection(
         scheme=scheme,
         host=host,
         port=port,
