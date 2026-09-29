@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-06-hybrid-fusion",
+  "phase": "PHASE_06_HYBRID_FUSION",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "PLANNED",
+  "implementation_base_sha": "",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-06-hybrid-fusion.plan.json",
+    "frozen": true,
+    "frozen_commit": "",
+    "sha256": "",
+    "diagram": "docs/sequence/generated/phase-06-hybrid-fusion.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-06-hybrid-fusion.actual.json",
+    "diagram": "docs/sequence/generated/phase-06-hybrid-fusion.actual.mmd",
+    "source_digest": "",
+    "entries": ["src/max_grounding/hybrid.py::retrieve_hybrid"]
+  },
+  "test_traceability_required": true,
+  "tests": ["tests/test_hybrid.py"],
+  "runtime_trace": {"required": false, "graph": ""},
+  "acceptance_report": ""
+}
