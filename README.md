@@ -30,9 +30,11 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 2 is accepted on main. It provides a stdlib-only SearXNG live-search provider with fixed provider authority, bounded JSON HTTP, no redirect following, controlled provider failures, and conservative rejection of obviously unsafe result URLs.
+Phase 3 is a candidate for secure result-page fetching and extraction.
 
-The next authorized phase is secure result-page fetching and extraction, including connection-time SSRF/DNS-rebinding protections. Embeddings, vector retrieval, reranking, REST, and MCP remain later work.
+The candidate resolves every result-page hostname at the fetch boundary, rejects the complete DNS answer set if any target is non-public, pins the socket to a validated IP, preserves the original HTTPS server name for TLS, refuses redirects/compression/disallowed media/oversized responses, and extracts visible text while discarding executable/styling HTML content.
+
+The exact candidate still requires full pull-request Acceptance and post-merge main revalidation before Phase 3 is accepted. JavaScript/browser crawling, hybrid retrieval, embeddings, vector databases, reranking, claim verification, REST, and MCP remain later work.
 
 ## Platform policy
 
