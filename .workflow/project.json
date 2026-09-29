@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through accepted Phase 6"
+      "none through Phase 7 candidate"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -55,6 +55,11 @@
       "name": "Hybrid fusion",
       "path": "src/max_grounding/hybrid.py",
       "purpose": "fixed equal-weight reciprocal-rank fusion of bounded lexical and semantic results"
+    },
+    {
+      "name": "Reranking and context compression",
+      "path": "src/max_grounding/reranking.py",
+      "purpose": "bounded provider-agnostic reranking plus deterministic extractive evidence compression"
     }
   ],
   "constraints": [
@@ -106,7 +111,7 @@
       {
         "phase": 7,
         "name": "Reranking and evidence/context compression",
-        "status": "NEXT_PLANNED"
+        "status": "CURRENT_CANDIDATE"
       },
       {
         "phase": 8,
