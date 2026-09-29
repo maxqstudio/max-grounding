@@ -51,3 +51,7 @@ class AuthorityProviderError(GroundingError):
 
 class EvidenceGraphError(GroundingError, ValueError):
     """Raised when structured evidence cannot form a valid bounded graph."""
+
+
+class ClaimVerificationError(GroundingError, ValueError):
+    """Raised when answer claims or evidence graphs violate verification policy."""

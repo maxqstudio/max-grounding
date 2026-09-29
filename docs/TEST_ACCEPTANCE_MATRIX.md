@@ -4,18 +4,20 @@
 
 ## Evidence boundary
 
-Phase 9 proves bounded deterministic structured corroboration/contradiction graph construction over at most 8 assertions backed by accepted Phase 8 quality provenance. It normalizes claim/value text, applies explicit exclusive-claim semantics, counts distinct sources, prevents duplicate-source quality-weight inflation, conforms to the frozen plan, and passes Python 3.11-3.14 across Ubuntu, Windows, and macOS. It does not automatically extract assertions, infer arbitrary natural-language contradiction, choose a truth winner, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment. Distinct source URLs do not prove editorial or organizational independence.
+Phase 10 proves bounded exact structured answer-claim verification against the accepted Phase 9 evidence graph. It emits four fail-closed verification states, exact claim-level citations, a deterministic evidence-sufficiency confidence index, and a structured synthesis packet that exposes only SUPPORTED claims. It does not extract claims from free-form LLM text, perform fuzzy semantic verification, generate final prose, calibrate truth probabilities, provide concrete model/vector runtimes, persist Qdrant indexes, expose REST/MCP, or prove production deployment.
 
 Final tested source: external final acceptance evidence.
-Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
+Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P9-STRUCTURE | At most 8 bounded structured assertions are normalized and validated fail-closed with unique assertion/evidence identity and valid Phase 8 quality provenance. | tests/test_evidence_graph.py; GREEN run 36585895878 | PASS |
-| P9-RELATIONS | Equivalent normalized values corroborate; different values contradict only for explicitly exclusive claim keys; no truth winner is emitted. | tests/test_evidence_graph.py; GREEN run 36585895878 | PASS |
-| P9-CLUSTERS | Equivalent assertion clusters count distinct source URLs and use one maximum accepted quality score per source for descriptive weight. | tests/test_evidence_graph.py; GREEN run 36585895878 | PASS |
-| P9-SEQUENCE | build_evidence_graph invokes build_relations and build_clusters in conformance with the frozen Phase 9 BEFORE plan. | Phase 9 Candidate Verify run 36586034657 | PASS |
-| P9-CROSS-OS | The Phase 9 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 9 Candidate Verify run 36586034657: sequence plus 12/12 runtime matrix jobs PASS | PASS |
+| P10-STRUCTURE | At most 16 bounded AnswerClaim values are normalized and validated fail-closed with unique normalized IDs, exact structured key/value matching, canonical graph validation, and required_sources bounded to 1..3. | tests/test_verification.py; GREEN run 36592414508 | PASS |
+| P10-STATUS | Exact claim/value evidence produces SUPPORTED or PARTIALLY_SUPPORTED by source threshold; an exact conflicting exclusive value produces CONFLICTED regardless of evidence weight; absent exact support produces UNSUPPORTED. | tests/test_verification.py; GREEN run 36592414508 | PASS |
+| P10-CITATIONS | Claim citations preserve exact supporting assertion/source/chunk/excerpt provenance and unsupported claims receive no citation. | tests/test_verification.py; GREEN run 36592414508 | PASS |
+| P10-CONFIDENCE | Confidence is a deterministic evidence-sufficiency index, not a truth probability; conflicted and unsupported claims receive zero. | tests/test_verification.py; GREEN run 36592414508 | PASS |
+| P10-SYNTHESIS | Only SUPPORTED claims enter synthesis_claims; all other verification states are retained in blocked_claims and no free-form prose is generated. | tests/test_verification.py; GREEN run 36592414508 | PASS |
+| P10-SEQUENCE | build_synthesis_packet invokes verify_claims and build_claim_citations in conformance with the frozen Phase 10 BEFORE plan. | Phase 10 Candidate Verify run 36592538343 | PASS |
+| P10-CROSS-OS | Phase 10 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 10 Candidate Verify run 36592538343: sequence plus 12/12 runtime matrix jobs PASS | PASS |
 
 ## Test commands
 
@@ -26,16 +28,15 @@ Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d3045025669
 
 ## Runtime checks
 
-- TDD RED run 36585530409 proved the Phase 9 graph contract absent before implementation.
-- GREEN run 36585895878 passed the full unit suite and compile checks.
-- Candidate verification run 36586034657 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
-- Phase 9 pull-request Acceptance run 36587717765 passed on exact head f2e4818ba717a0900b6fe5aa84733b7d4b882760.
-- Phase 9 post-merge main Acceptance run 36590741523 passed 13/13 required jobs on main SHA 263595c161c68001b7785bfa65e3d723f5f21d42.
+- TDD RED run 36591980379 proved the Phase 10 verification contract absent before implementation.
+- GREEN run 36592414508 passed the full unit suite and compile checks.
+- Candidate verification run 36592538343 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
+- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 10 closure.
 
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-09-evidence-graph.json
+Sequence session contract: docs/sequence/sessions/phase-10-claim-verification.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

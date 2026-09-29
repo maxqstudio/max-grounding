@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through accepted Phase 9"
+      "none through Phase 10 candidate"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -70,6 +70,11 @@
       "name": "Evidence graph",
       "path": "src/max_grounding/evidence_graph.py",
       "purpose": "build bounded structured corroboration/contradiction relations and distinct-source evidence clusters without selecting truth"
+    },
+    {
+      "name": "Claim verification",
+      "path": "src/max_grounding/verification.py",
+      "purpose": "verify exact structured answer claims against the evidence graph, bind claim-level citations, compute a deterministic evidence-sufficiency index, and expose only supported claims for synthesis"
     }
   ],
   "constraints": [
@@ -136,7 +141,7 @@
       {
         "phase": 10,
         "name": "Claim-level verification, citations, confidence, and fail-closed synthesis",
-        "status": "NEXT_PLANNED"
+        "status": "CURRENT_CANDIDATE"
       },
       {
         "phase": 11,

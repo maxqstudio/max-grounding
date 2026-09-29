@@ -26,13 +26,13 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 32 files, 1 language categories.
+Observed source inventory: 34 files, 1 language categories.
 
 ## Major components
 
 | Component | Purpose | Owns / Decides | Depends On |
 |---|---|---|---|
-| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt, EvidenceAssertion, EvidenceRelationType, EvidenceRelation, EvidenceCluster, EvidenceGraph |  |
+| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt, EvidenceAssertion, EvidenceRelationType, EvidenceRelation, EvidenceCluster, EvidenceGraph, AnswerClaim, ClaimVerificationStatus, ClaimCitation, ClaimVerification, SynthesisPacket |  |
 | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -47,6 +47,7 @@ Observed source inventory: 32 files, 1 language categories.
 | Reranking and Context Compression | Rerank bounded HybridHit candidates through an injected provider, validate scores fail-closed, and emit bounded extractive evidence excerpts without generative rewriting. | RerankProvider protocol, rerank_hybrid, compress_context, build_grounded_context, rerank score validation, extractive context budgets, rerank and source provenance | models, hybrid-fusion, lexical-retrieval |
 | Temporal and Source Authority Scoring | Bind explicit UTC temporal/source metadata to bounded evidence, obtain authority scores through an injected policy, and deterministically score freshness and point-in-time validity. | AuthorityProvider protocol, score_authority, score_temporal_components, score_evidence_quality, explicit evaluation-time policy, freshness horizon bounds, temporal validity checks, stable quality ranking | models, rerank-compress |
 | Evidence Graph | Normalize bounded structured assertions backed by Phase 8 quality evidence, derive deterministic corroboration/contradiction edges, and cluster equivalent values with distinct source-URL accounting without declaring truth. | build_evidence_graph, build_relations, build_clusters, structured assertion normalization, explicit exclusivity semantics, distinct-URL quality-weight accounting, no-winner graph contract | models, temporal-authority |
+| Claim Verification and Synthesis Gate | Verify bounded exact structured answer claims against the accepted evidence graph, bind exact citations, derive a transparent evidence-sufficiency index, and expose only fully supported claims to synthesis. | verify_claims, build_claim_citations, build_synthesis_packet, four-state claim verification, claim-level citation provenance, evidence-sufficiency confidence index, fail-closed synthesis eligibility | models, evidence-graph |
 
 ## Main data flow
 
@@ -84,8 +85,22 @@ Observed source inventory: 32 files, 1 language categories.
 - EvidenceQualityScore -> Evidence Graph: validated Phase 8 quality provenance supplies bounded descriptive evidence weight
 - EvidenceAssertion -> Evidence Graph: caller-supplied structured claim key/value/exclusivity semantics are normalized and validated
 - Evidence Graph -> EvidenceGraph: immutable normalized assertions, corroboration/contradiction edges, and distinct-URL value clusters are returned without a truth winner
+- EvidenceGraph -> Claim Verification and Synthesis Gate: validated structured clusters and contradiction edges are revalidated before exact claim verification
+- AnswerClaim -> Claim Verification and Synthesis Gate: at most 16 explicit claim IDs/text/key/value tuples are normalized and matched exactly; no fuzzy semantic inference occurs
+- Claim Verification and Synthesis Gate -> ClaimCitation: exact supporting assertion excerpts retain source URL, chunk identity, and assertion identity per answer claim
+- Claim Verification and Synthesis Gate -> SynthesisPacket: only SUPPORTED claims become synthesis-safe; partial, conflicted, and unsupported claims remain blocked
 
 ## Main user workflows
+
+### FLOW-CLAIM-VERIFICATION — Claim-level verification, citations, confidence, and fail-closed synthesis
+
+Verify bounded structured answer claims against the accepted Phase 9 evidence graph, emit source-bound claim citations, compute a deterministic evidence-sufficiency confidence index, and expose only fully supported claims to synthesis.
+
+Authority: Exact structured claim matching, conflict precedence, source-count sufficiency, citation provenance, confidence-index formula, and fail-closed synthesis eligibility
+
+- CLAIMS_RECEIVED -> CLAIMS_VERIFIED : normalize structured claim key/value and classify support against graph clusters and contradiction edges
+- CLAIMS_VERIFIED -> CITATIONS_BOUND : bind exact supporting assertion provenance as claim-level citations
+- CITATIONS_BOUND -> SYNTHESIS_PACKET_BUILT : include only SUPPORTED claims in the synthesis-safe claim set and retain all blocked verification results separately
 
 ### FLOW-EVIDENCE-GRAPH — Deterministic contradiction, corroboration, and evidence graph
 
@@ -201,9 +216,9 @@ Authority: Temporal metadata validation, deterministic freshness/validity formul
 
 ## Lifecycle and state
 
-Current phase: PHASE_09_EVIDENCE_GRAPH
+Current phase: PHASE_10_CLAIM_VERIFICATION
 
-Current status: ACCEPTED
+Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -237,6 +252,8 @@ compiler does not infer them from implementation names.
 
 ## Failure and recovery
 
+- FLOW-CLAIM-VERIFICATION: Malformed claim bounds/identity, invalid graph shape/provenance, invalid required_sources, or duplicate identifiers fail closed with ClaimVerificationError.
+- FLOW-CLAIM-VERIFICATION: No partial verification or synthesis packet is returned after validation failure.
 - FLOW-EVIDENCE-GRAPH: Malformed bounds, duplicate identity, inconsistent exclusivity, invalid evidence provenance, invalid quality scores, or unsupported values fail closed with EvidenceGraphError.
 - FLOW-EVIDENCE-GRAPH: No partial graph is returned after validation failure.
 - FLOW-GROUND-REQUEST: Invalid requests fail before any provider call.
@@ -261,12 +278,15 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Start Phase 10 planning from accepted main SHA 263595c161c68001b7785bfa65e3d723f5f21d42.
-- Freeze the Phase 10 BEFORE sequence plan before implementing claim-level verification, citations, confidence, and fail-closed synthesis.
+- Synchronize the Phase 10 ACTUAL sequence and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 10 candidate head.
+- Merge Phase 10 only if every required job passes, then revalidate merged main.
 
 Blocked actions:
-- Do not treat Phase 9 graph cluster weights as truth probabilities or verification results.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
+- Do not describe the Phase 10 confidence index as a probability that a claim is true.
+- Do not expose PARTIALLY_SUPPORTED, CONFLICTED, or UNSUPPORTED claims as synthesis-safe facts.
+- Do not claim fuzzy or natural-language claim verification from exact structured Phase 10 matching.
+- Do not merge Phase 10 while any required GitHub Actions job is failing or missing.
 
 Known blockers:
 - None declared.
@@ -275,22 +295,21 @@ Known blockers:
 
 ### Proven
 
-- Phase 8 closure is merged to main at 8766a2d3f06c5d800c1a09c204acf2fc83817336 and closure-main Acceptance run 36584346207 passed all 13 required jobs.
-- The Phase 9 BEFORE plan was frozen before implementation at 63654b4f8430ab4a6859686e26b4946d82c1e99d with SHA-256 205bf17abf45a4661fd1561b35162e2e6c2672c3171d85c528e8169606b80804.
-- TDD RED run 36585530409 failed because the Phase 9 evidence-graph contract did not yet exist.
-- GREEN run 36585895878 passed the full unit suite and compile checks after the minimum deterministic evidence-graph implementation.
-- Candidate verification run 36586034657 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
-- Phase 9 accepts at most 8 bounded structured assertions backed by valid Phase 8 EvidenceQualityScore provenance.
-- Equivalent normalized claim/value assertions corroborate; differing values contradict only when that claim key is explicitly exclusive/single-valued.
-- Clusters count distinct source URLs and sum only each source's maximum Phase 8 quality score so repeated chunks from one source do not inflate distinct-URL evidence weight.
-- Phase 9 emits no winner, truth label, or majority-vote verdict.
-- Phase 9 exact pull-request head f2e4818ba717a0900b6fe5aa84733b7d4b882760 passed Acceptance run 36587717765.
-- Phase 9 merged main SHA 263595c161c68001b7785bfa65e3d723f5f21d42 passed post-merge Acceptance run 36590741523 with 13/13 jobs PASS.
+- Phase 9 closure is merged to main at f5b48f55fcae1617a4c5f0a1c86c3877b361c71f and closure-main Acceptance run 36591359413 passed all 13 required jobs.
+- The Phase 10 BEFORE plan was frozen before implementation at a1cfc956e004330bf27dcda56fd1987d0d4ac53b with SHA-256 a0b794328b62a21fd049868ff1aab22fb8f611437dba7f311f16fbf7ef955428.
+- TDD RED run 36591980379 failed because the Phase 10 claim-verification contract did not yet exist.
+- GREEN run 36592414508 passed the full unit suite and compile checks after the minimum Phase 10 implementation.
+- Candidate verification run 36592538343 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
+- Phase 10 accepts at most 16 explicit structured AnswerClaim values and rejects arbitrary iterables, duplicate normalized claim identifiers, malformed graphs, and invalid source-threshold policy.
+- Phase 10 classifies exact structured claims as SUPPORTED, PARTIALLY_SUPPORTED, CONFLICTED, or UNSUPPORTED; exact conflicts take precedence over evidence weight.
+- Claim citations preserve exact supporting assertion, source URL, chunk identity, and excerpt text from the accepted evidence graph.
+- Phase 10 confidence is a deterministic evidence-sufficiency index derived from mean distinct-source Phase 8 quality and bounded source coverage; it is not a probability of truth.
+- Only SUPPORTED claims are exposed in synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims are fail-closed into blocked_claims.
 
 ### Not proven
 
-- Accepted Phase 9 does not automatically extract structured assertions, infer arbitrary natural-language contradiction, select which conflicting value is true, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.
-- Distinct source URLs remain only a URL-level independence proxy and do not prove editorial or organizational independence.
+- Final Phase 10 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- Phase 10 does not extract answer claims from free-form LLM text, perform fuzzy semantic claim matching, generate free-form final prose, prove truth probability calibration, provide a concrete embedding/rerank model, persist Qdrant indexes, expose REST/MCP, or prove production deployment.
 
 ## Important limitations
 

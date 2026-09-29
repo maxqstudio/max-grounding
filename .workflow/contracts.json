@@ -208,6 +208,30 @@
       "authority": "src/max_grounding/evidence_graph.py::build_evidence_graph",
       "mutation": "none",
       "error_behavior": "Any assertion, provenance, exclusivity, bound, or quality validation defect raises EvidenceGraphError without partial graph output."
+    },
+    {
+      "method": "PYTHON",
+      "path": "verify_claims(claims, graph, required_sources)",
+      "purpose": "Classify bounded exact structured answer claims as SUPPORTED, PARTIALLY_SUPPORTED, CONFLICTED, or UNSUPPORTED.",
+      "authority": "src/max_grounding/verification.py::verify_claims",
+      "mutation": "none; deterministic in-memory derivation",
+      "error_behavior": "Unbounded/malformed claims, duplicate normalized IDs, invalid required_sources, or a graph that does not rebuild canonically raise ClaimVerificationError without partial output."
+    },
+    {
+      "method": "PYTHON",
+      "path": "build_claim_citations(claims, graph)",
+      "purpose": "Bind exact supporting graph assertions to answer claims with source/chunk/excerpt provenance.",
+      "authority": "src/max_grounding/verification.py::build_claim_citations",
+      "mutation": "none; deterministic in-memory derivation",
+      "error_behavior": "Invalid claims, malformed graph state, unknown assertion references, or citation-cap violations raise ClaimVerificationError."
+    },
+    {
+      "method": "PYTHON",
+      "path": "build_synthesis_packet(claims, graph, required_sources)",
+      "purpose": "Combine claim verification and exact citations into a fail-closed packet that exposes only SUPPORTED claims as synthesis-safe.",
+      "authority": "src/max_grounding/verification.py::build_synthesis_packet",
+      "mutation": "none",
+      "error_behavior": "Verification/citation defects propagate fail-closed; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims remain in blocked_claims instead of synthesis_claims."
     }
   ],
   "data_contracts": [
@@ -486,6 +510,67 @@
         "contains only deterministic clusters and corroborates/contradicts edges",
         "contains no winner or truth-label field",
         "graph construction performs no persistence"
+      ]
+    },
+    {
+      "name": "AnswerClaim",
+      "source_of_truth": "src/max_grounding/models.py::AnswerClaim",
+      "mutability": "immutable",
+      "legal_writes": [
+        "caller construction before Phase 10 validation"
+      ],
+      "retention": "verification-call lifetime unless caller retains it",
+      "invariants": [
+        "claim_id is normalized and unique inside one verification call",
+        "text, claim_key, and value are non-empty and bounded",
+        "claim_key and value match the Phase 9 structured graph exactly after deterministic normalization",
+        "Phase 10 performs no fuzzy semantic matching"
+      ]
+    },
+    {
+      "name": "ClaimCitation",
+      "source_of_truth": "src/max_grounding/models.py::ClaimCitation",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/verification.py::build_claim_citations result construction"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "citation is bound to one answer claim and one exact supporting assertion",
+        "source_url, chunk_id, and excerpt text come from the assertion's accepted evidence provenance",
+        "no unsupported citation is invented",
+        "at most 8 citations are emitted per claim"
+      ]
+    },
+    {
+      "name": "ClaimVerification",
+      "source_of_truth": "src/max_grounding/models.py::ClaimVerification",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/verification.py::verify_claims and build_synthesis_packet result construction"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "status is SUPPORTED, PARTIALLY_SUPPORTED, CONFLICTED, or UNSUPPORTED",
+        "conflict takes precedence over support weight for exclusive claims",
+        "confidence is a deterministic evidence-sufficiency index in [0,1], not a calibrated truth probability",
+        "CONFLICTED and UNSUPPORTED confidence is zero",
+        "supporting_source_count uses Phase 9 distinct source URL accounting"
+      ]
+    },
+    {
+      "name": "SynthesisPacket",
+      "source_of_truth": "src/max_grounding/models.py::SynthesisPacket",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/verification.py::build_synthesis_packet result construction"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "verifications contains every validated answer claim",
+        "synthesis_claims contains only SUPPORTED claims",
+        "blocked_claims contains every PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claim",
+        "Phase 10 packet is structured evidence handoff and does not generate free-form prose"
       ]
     }
   ],

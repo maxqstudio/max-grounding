@@ -1,0 +1,9 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: a0b794328b62a21fd049868ff1aab22fb8f611437dba7f311f16fbf7ef955428
+%% FLOW_ID: FLOW-CLAIM-VERIFICATION
+sequenceDiagram
+    participant packet_0 as build_synthesis_packet
+    participant verify_1 as verify_claims
+    participant citations_2 as build_claim_citations
+    packet_0->>verify_1: classify each bounded answer claim against exact structured evidence [MUST]
+    packet_0->>citations_2: bind exact supporting evidence provenance for verified claims [MUST]

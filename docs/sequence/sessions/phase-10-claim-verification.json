@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-10-claim-verification",
+  "phase": "PHASE_10_CLAIM_VERIFICATION",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "FROZEN",
+  "implementation_base_sha": "a1cfc956e004330bf27dcda56fd1987d0d4ac53b",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-10-claim-verification.plan.json",
+    "frozen": true,
+    "frozen_commit": "a1cfc956e004330bf27dcda56fd1987d0d4ac53b",
+    "sha256": "a0b794328b62a21fd049868ff1aab22fb8f611437dba7f311f16fbf7ef955428",
+    "diagram": "docs/sequence/generated/phase-10-claim-verification.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-10-claim-verification.actual.json",
+    "diagram": "docs/sequence/generated/phase-10-claim-verification.actual.mmd",
+    "source_digest": "4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f",
+    "entries": [
+      "src/max_grounding/verification.py::build_synthesis_packet"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_verification.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}

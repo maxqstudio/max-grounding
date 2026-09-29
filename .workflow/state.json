@@ -1,34 +1,36 @@
 {
   "schema_version": 1,
-  "phase": "PHASE_09_EVIDENCE_GRAPH",
-  "status": "ACCEPTED",
-  "working_branch": "main",
-  "last_accepted_sha": "263595c161c68001b7785bfa65e3d723f5f21d42",
+  "phase": "PHASE_10_CLAIM_VERIFICATION",
+  "status": "CANDIDATE_PENDING_GITHUB_ACTIONS",
+  "working_branch": "work/phase-10-claim-verification",
+  "last_accepted_sha": "f5b48f55fcae1617a4c5f0a1c86c3877b361c71f",
   "last_accepted_branch": "main",
   "proven": [
-    "Phase 8 closure is merged to main at 8766a2d3f06c5d800c1a09c204acf2fc83817336 and closure-main Acceptance run 36584346207 passed all 13 required jobs.",
-    "The Phase 9 BEFORE plan was frozen before implementation at 63654b4f8430ab4a6859686e26b4946d82c1e99d with SHA-256 205bf17abf45a4661fd1561b35162e2e6c2672c3171d85c528e8169606b80804.",
-    "TDD RED run 36585530409 failed because the Phase 9 evidence-graph contract did not yet exist.",
-    "GREEN run 36585895878 passed the full unit suite and compile checks after the minimum deterministic evidence-graph implementation.",
-    "Candidate verification run 36586034657 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.",
-    "Phase 9 accepts at most 8 bounded structured assertions backed by valid Phase 8 EvidenceQualityScore provenance.",
-    "Equivalent normalized claim/value assertions corroborate; differing values contradict only when that claim key is explicitly exclusive/single-valued.",
-    "Clusters count distinct source URLs and sum only each source's maximum Phase 8 quality score so repeated chunks from one source do not inflate distinct-URL evidence weight.",
-    "Phase 9 emits no winner, truth label, or majority-vote verdict.",
-    "Phase 9 exact pull-request head f2e4818ba717a0900b6fe5aa84733b7d4b882760 passed Acceptance run 36587717765.",
-    "Phase 9 merged main SHA 263595c161c68001b7785bfa65e3d723f5f21d42 passed post-merge Acceptance run 36590741523 with 13/13 jobs PASS."
+    "Phase 9 closure is merged to main at f5b48f55fcae1617a4c5f0a1c86c3877b361c71f and closure-main Acceptance run 36591359413 passed all 13 required jobs.",
+    "The Phase 10 BEFORE plan was frozen before implementation at a1cfc956e004330bf27dcda56fd1987d0d4ac53b with SHA-256 a0b794328b62a21fd049868ff1aab22fb8f611437dba7f311f16fbf7ef955428.",
+    "TDD RED run 36591980379 failed because the Phase 10 claim-verification contract did not yet exist.",
+    "GREEN run 36592414508 passed the full unit suite and compile checks after the minimum Phase 10 implementation.",
+    "Candidate verification run 36592538343 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.",
+    "Phase 10 accepts at most 16 explicit structured AnswerClaim values and rejects arbitrary iterables, duplicate normalized claim identifiers, malformed graphs, and invalid source-threshold policy.",
+    "Phase 10 classifies exact structured claims as SUPPORTED, PARTIALLY_SUPPORTED, CONFLICTED, or UNSUPPORTED; exact conflicts take precedence over evidence weight.",
+    "Claim citations preserve exact supporting assertion, source URL, chunk identity, and excerpt text from the accepted evidence graph.",
+    "Phase 10 confidence is a deterministic evidence-sufficiency index derived from mean distinct-source Phase 8 quality and bounded source coverage; it is not a probability of truth.",
+    "Only SUPPORTED claims are exposed in synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims are fail-closed into blocked_claims."
   ],
   "not_proven": [
-    "Accepted Phase 9 does not automatically extract structured assertions, infer arbitrary natural-language contradiction, select which conflicting value is true, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.",
-    "Distinct source URLs remain only a URL-level independence proxy and do not prove editorial or organizational independence."
+    "Final Phase 10 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.",
+    "Phase 10 does not extract answer claims from free-form LLM text, perform fuzzy semantic claim matching, generate free-form final prose, prove truth probability calibration, provide a concrete embedding/rerank model, persist Qdrant indexes, expose REST/MCP, or prove production deployment."
   ],
   "blockers": [],
   "next_authorized_actions": [
-    "Start Phase 10 planning from accepted main SHA 263595c161c68001b7785bfa65e3d723f5f21d42.",
-    "Freeze the Phase 10 BEFORE sequence plan before implementing claim-level verification, citations, confidence, and fail-closed synthesis."
+    "Synchronize the Phase 10 ACTUAL sequence and deterministic Project Truth documentation.",
+    "Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 10 candidate head.",
+    "Merge Phase 10 only if every required job passes, then revalidate merged main."
   ],
   "blocked_actions": [
-    "Do not treat Phase 9 graph cluster weights as truth probabilities or verification results.",
-    "Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases."
+    "Do not describe the Phase 10 confidence index as a probability that a claim is true.",
+    "Do not expose PARTIALLY_SUPPORTED, CONFLICTED, or UNSUPPORTED claims as synthesis-safe facts.",
+    "Do not claim fuzzy or natural-language claim verification from exact structured Phase 10 matching.",
+    "Do not merge Phase 10 while any required GitHub Actions job is failing or missing."
   ]
 }

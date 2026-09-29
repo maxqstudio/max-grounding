@@ -16,6 +16,7 @@ Status: CURRENT
 
 | Flow | Mode | Critical | Sequence session | Status |
 |---|---|---|---|---|
+| FLOW-CLAIM-VERIFICATION | BEFORE | YES | docs/sequence/sessions/phase-10-claim-verification.json | PASS |
 | FLOW-EVIDENCE-GRAPH | BEFORE | YES | docs/sequence/sessions/phase-09-evidence-graph.json | PASS |
 | FLOW-GROUND-REQUEST | BEFORE | YES | docs/sequence/sessions/phase-01-core-contracts.json | PASS |
 | FLOW-HYBRID-FUSION | BEFORE | YES | docs/sequence/sessions/phase-06-hybrid-fusion.json | PASS |
