@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through Phase 4 candidate"
+      "none through Phase 6 candidate"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -45,6 +45,16 @@
       "name": "Lexical retrieval",
       "path": "src/max_grounding/retrieval.py",
       "purpose": "deterministic bounded chunking and in-memory BM25 lexical retrieval over fetched text"
+    },
+    {
+      "name": "Semantic retrieval",
+      "path": "src/max_grounding/semantic.py",
+      "purpose": "bounded provider-agnostic dense semantic retrieval with role-separated embedding contracts"
+    },
+    {
+      "name": "Hybrid fusion",
+      "path": "src/max_grounding/hybrid.py",
+      "purpose": "fixed equal-weight reciprocal-rank fusion of bounded lexical and semantic results"
     }
   ],
   "constraints": [
