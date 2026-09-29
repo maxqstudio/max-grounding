@@ -158,12 +158,11 @@ compiler does not infer them from implementation names.
 
 Next authorized actions:
 - Start Phase 4 planning from accepted main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6.
-- Freeze the Phase 4 BEFORE sequence plan and acceptance boundary before any Phase 4 product implementation.
+- Freeze the Phase 4 BEFORE sequence plan before product implementation.
 
 Blocked actions:
-- Do not begin Phase 4 product implementation before its BEFORE plan is frozen.
-- Do not claim browser/JavaScript crawling, hybrid/vector retrieval, reranking, claim verification, REST, MCP, or production deployment until later phase evidence proves them.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation.
+- Do not claim browser/JavaScript crawling or downstream retrieval/reranking from accepted Phase 3.
+- Do not bypass GitHub Actions acceptance or post-merge main revalidation for later phases.
 
 Known blockers:
 - None declared.
@@ -189,7 +188,7 @@ Known blockers:
 ### Not proven
 
 - Behavior against arbitrary real-world websites, JavaScript-rendered pages, and hostile TLS/network infrastructure is not proven by deterministic CI fixtures.
-- Crawling, browser rendering, hybrid retrieval, embeddings, vector databases, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 3.
+- Crawling, browser rendering, hybrid retrieval, embeddings, vector databases, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside accepted Phase 3.
 
 ## Important limitations
 
