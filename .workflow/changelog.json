@@ -44,6 +44,10 @@
     {
       "date": "2026-09-29",
       "change": "Phase 6 candidate adds bounded fixed equal-weight reciprocal-rank fusion over lexical and semantic hits, strict rank/provenance validation, frozen-plan conformance, and 12-job cross-platform evidence."
+    },
+    {
+      "date": "2026-09-29",
+      "change": "Declared the governed Phase 0-12 production roadmap with optional Phase 13-16 expansion and added deterministic ROADMAP.md generation."
     }
   ]
 }
