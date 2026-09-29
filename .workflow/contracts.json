@@ -120,6 +120,38 @@
       "authority": "src/max_grounding/hybrid.py::fuse_hybrid",
       "mutation": "none",
       "error_behavior": "Invalid/non-contiguous ranks, over-limit hit lists, duplicate modality chunk identities, conflicting cross-modality provenance, or invalid output limits raise RetrievalError."
+    },
+    {
+      "method": "PROTOCOL",
+      "path": "RerankProvider.score(query, documents)",
+      "purpose": "Return exactly one relevance score per already-bounded hybrid candidate without coupling the core to a concrete reranker model or runtime.",
+      "authority": "src/max_grounding/reranking.py::RerankProvider",
+      "mutation": "provider-defined compute only; core performs no persistent mutation",
+      "error_behavior": "Provider exceptions, unbounded/non-Sequence output, wrong score count, boolean/non-numeric values, or non-finite scores raise RerankProviderError."
+    },
+    {
+      "method": "PYTHON",
+      "path": "rerank_hybrid(query, hits, provider)",
+      "purpose": "Validate bounded HybridHit candidates, score them once through the injected provider, and return deterministic immutable RerankedHit values.",
+      "authority": "src/max_grounding/reranking.py::rerank_hybrid",
+      "mutation": "none; one bounded provider call",
+      "error_behavior": "Invalid query/candidate/rank/result bounds raise RerankingError; provider/output defects raise RerankProviderError without partial results."
+    },
+    {
+      "method": "PYTHON",
+      "path": "compress_context(query, hits)",
+      "purpose": "Select exact query-relevant source excerpts from reranked chunks under hard excerpt and total-character budgets.",
+      "authority": "src/max_grounding/reranking.py::compress_context",
+      "mutation": "none; extractive in-memory derivation only",
+      "error_behavior": "Invalid query, reranked provenance/rank input, or compression bounds raise RerankingError; no generated/paraphrased fallback is produced."
+    },
+    {
+      "method": "PYTHON",
+      "path": "build_grounded_context(query, hits, provider)",
+      "purpose": "Run bounded reranking followed by deterministic extractive context compression.",
+      "authority": "src/max_grounding/reranking.py::build_grounded_context",
+      "mutation": "none beyond one injected provider compute call",
+      "error_behavior": "Reranking/provider/compression failures propagate fail-closed without partial context."
     }
   ],
   "data_contracts": [
@@ -260,6 +292,38 @@
         "lexical_rank and semantic_rank preserve source modality rank when present",
         "chunk identity/provenance is identical anywhere the same chunk_id appears",
         "final hit count never exceeds the hard-capped result limit"
+      ]
+    },
+    {
+      "name": "RerankedHit",
+      "source_of_truth": "src/max_grounding/models.py::RerankedHit",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/reranking.py::rerank_hybrid result construction"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "rank is contiguous from 1 in descending provider score order",
+        "equal provider scores preserve prior HybridHit rank before source provenance ordering",
+        "hybrid_rank preserves the incoming hybrid rank",
+        "lexical_rank and semantic_rank preserve accepted hybrid provenance",
+        "chunk preserves exact immutable source provenance",
+        "reranked hit count never exceeds 20"
+      ]
+    },
+    {
+      "name": "EvidenceExcerpt",
+      "source_of_truth": "src/max_grounding/models.py::EvidenceExcerpt",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/reranking.py::compress_context result construction"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "text is an exact substring prefix of a selected source sentence and is never generated or paraphrased",
+        "source_url, chunk_id, chunk_index, and rerank_rank preserve evidence provenance",
+        "one excerpt never exceeds 1200 characters",
+        "compressed output never exceeds 8 excerpts or 6000 total excerpt characters"
       ]
     }
   ],
