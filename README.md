@@ -30,7 +30,9 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 2 adds a stdlib-only SearXNG live-search provider on top of the deterministic core: fixed provider authority, bounded JSON HTTP, no redirect following, controlled provider failures, and conservative rejection of obviously unsafe result URLs. Result-page fetching and DNS-rebinding protection remain later-phase work.
+Phase 2 is accepted on main. It provides a stdlib-only SearXNG live-search provider with fixed provider authority, bounded JSON HTTP, no redirect following, controlled provider failures, and conservative rejection of obviously unsafe result URLs.
+
+The next authorized phase is secure result-page fetching and extraction, including connection-time SSRF/DNS-rebinding protections. Embeddings, vector retrieval, reranking, REST, and MCP remain later work.
 
 ## Platform policy
 
