@@ -47,8 +47,9 @@ class ResultUrlAdmissionTests(unittest.TestCase):
         self.assertFalse(is_admissible_result_url("https://example.com:99999/x"))
 
     def test_rejects_ascii_control_characters_anywhere_in_url(self) -> None:
-        for character in ("\\x00", "\\x1f", "\\x7f"):
-            with self.subTest(codepoint=ord(character)):
+        for codepoint in (0x00, 0x1F, 0x7F):
+            character = chr(codepoint)
+            with self.subTest(codepoint=codepoint):
                 self.assertFalse(
                     is_admissible_result_url(
                         "https://example.com/path" + character + "suffix"
