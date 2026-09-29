@@ -208,6 +208,44 @@ class Phase8TemporalScoringTests(unittest.TestCase):
         )
         self.assertEqual(provider.calls, [])
 
+    def test_rejects_unbounded_iterable_inputs(self) -> None:
+        item = metadata(self.a)
+        provider = _AuthorityProvider((1.0,))
+        with self.assertRaises(TemporalScoringError):
+            score_authority((value for value in (item,)), provider)
+        with self.assertRaises(TemporalScoringError):
+            score_temporal_components(
+                (value for value in (item,)),
+                now=NOW,
+                freshness_horizon_seconds=60,
+            )
+        with self.assertRaises(TemporalScoringError):
+            score_evidence_quality(
+                (value for value in (self.a,)),
+                (item,),
+                provider,
+                now=NOW,
+                freshness_horizon_seconds=60,
+            )
+
+    def test_invalid_prior_rerank_rank_fails_closed(self) -> None:
+        invalid = EvidenceExcerpt(
+            source_url=self.a.source_url,
+            chunk_id=self.a.chunk_id,
+            chunk_index=self.a.chunk_index,
+            rerank_rank=0,
+            text=self.a.text,
+            char_count=self.a.char_count,
+        )
+        with self.assertRaises(TemporalScoringError):
+            score_evidence_quality(
+                (invalid,),
+                (metadata(invalid),),
+                _AuthorityProvider((1.0,)),
+                now=NOW,
+                freshness_horizon_seconds=60,
+            )
+
     def test_provider_failures_and_invalid_scores_fail_closed(self) -> None:
         providers = [
             _AuthorityProvider(error=RuntimeError("boom")),
