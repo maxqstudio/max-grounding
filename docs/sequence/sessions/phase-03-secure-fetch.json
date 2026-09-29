@@ -3,7 +3,7 @@
   "session_id": "phase-03-secure-fetch",
   "phase": "PHASE_03_SECURE_FETCH_EXTRACTION",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
   "status": "FROZEN",
   "implementation_base_sha": "e8519742f3f7662b76822be5265fe1076cc62bbf",
