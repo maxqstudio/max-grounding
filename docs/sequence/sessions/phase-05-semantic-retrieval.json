@@ -5,14 +5,14 @@
   "mode": "BEFORE",
   "scope": "CURRENT",
   "critical": true,
-  "status": "PLANNED",
-  "implementation_base_sha": "",
+  "status": "FROZEN",
+  "implementation_base_sha": "c33519539d32e72e09cf507686bd50a1f6cf087c",
   "plan": {
     "required": true,
     "contract": "docs/sequence/plans/phase-05-semantic-retrieval.plan.json",
     "frozen": true,
-    "frozen_commit": "",
-    "sha256": "",
+    "frozen_commit": "c33519539d32e72e09cf507686bd50a1f6cf087c",
+    "sha256": "9dac5d2f05803611bdd05a83244d91b807ba777734927e4a3ed78cc746d842bf",
     "diagram": "docs/sequence/generated/phase-05-semantic-retrieval.plan.mmd"
   },
   "actual": {
