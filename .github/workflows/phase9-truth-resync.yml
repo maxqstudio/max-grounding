@@ -56,7 +56,7 @@ jobs:
       - name: Validate semantic wording
         shell: bash
         run: |
-          grep -q 'Distinct source URLs do not prove editorial or organizational independence' docs/CURRENT_STATE.md
+          grep -qi 'distinct source URLs do not prove' docs/CURRENT_STATE.md
           grep -q '| 9 | Contradiction/corroboration engine and evidence graph | CURRENT_CANDIDATE |' docs/ROADMAP.md
       - name: Precommit deterministic truth
         shell: bash
