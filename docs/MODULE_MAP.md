@@ -3,7 +3,7 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
+Source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
@@ -11,11 +11,11 @@ Generated/refreshed: current compiler run
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
 | src/max_grounding/budget.py | Python | 30 | src/max_grounding | NO |
 | src/max_grounding/engine.py | Python | 57 | src/max_grounding | NO |
-| src/max_grounding/errors.py | Python | 41 | src/max_grounding | NO |
+| src/max_grounding/errors.py | Python | 49 | src/max_grounding | NO |
 | src/max_grounding/evidence.py | Python | 97 | src/max_grounding | NO |
 | src/max_grounding/fetcher.py | Python | 298 | src/max_grounding | NO |
 | src/max_grounding/hybrid.py | Python | 149 | src/max_grounding | NO |
-| src/max_grounding/models.py | Python | 149 | src/max_grounding | NO |
+| src/max_grounding/models.py | Python | 194 | src/max_grounding | NO |
 | src/max_grounding/network_policy.py | Python | 93 | src/max_grounding | NO |
 | src/max_grounding/policy.py | Python | 51 | src/max_grounding | NO |
 | src/max_grounding/providers/__init__.py | Python | 6 | src/max_grounding/providers | NO |
@@ -24,6 +24,7 @@ Generated/refreshed: current compiler run
 | src/max_grounding/reranking.py | Python | 295 | src/max_grounding | NO |
 | src/max_grounding/retrieval.py | Python | 219 | src/max_grounding | NO |
 | src/max_grounding/semantic.py | Python | 285 | src/max_grounding | NO |
+| src/max_grounding/temporal.py | Python | 360 | src/max_grounding | NO |
 | tests/test_bootstrap.py | Python | 24 | tests | YES |
 | tests/test_budget.py | Python | 25 | tests | YES |
 | tests/test_engine.py | Python | 118 | tests | YES |
@@ -36,5 +37,6 @@ Generated/refreshed: current compiler run
 | tests/test_searxng_provider.py | Python | 206 | tests | YES |
 | tests/test_secure_fetcher.py | Python | 216 | tests | YES |
 | tests/test_semantic_retrieval.py | Python | 292 | tests | YES |
+| tests/test_temporal_scoring.py | Python | 346 | tests | YES |
 
 Machine-derived facts do not invent semantic ownership.

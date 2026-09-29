@@ -17,33 +17,33 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
+      "evidence": "tests/test_temporal_scoring.py; adversarial RED run 36581829818; final GREEN run 36581966102",
       "id": "P8-METADATA",
       "requirement": "At most 8 EvidenceExcerpt values bind one-to-one to matching EvidenceMetadata; arbitrary iterable inputs, duplicate identity, invalid prior rerank rank, naive/non-UTC/future timestamps, and inverted validity windows fail closed.",
-      "evidence": "tests/test_temporal_scoring.py; adversarial RED run 36581829818; final GREEN run 36581966102",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_temporal_scoring.py; final GREEN run 36581966102",
       "id": "P8-AUTHORITY",
       "requirement": "One injected AuthorityProvider call returns exactly one finite numeric non-boolean [0,1] score per bounded source subject; no universal authority hierarchy is hardcoded in the core.",
-      "evidence": "tests/test_temporal_scoring.py; final GREEN run 36581966102",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_temporal_scoring.py; final GREEN run 36581966102",
       "id": "P8-TEMPORAL",
       "requirement": "Freshness is derived deterministically from published_at or retrieved_at against explicit now and a bounded horizon; validity is inclusive and becomes zero outside valid_from/valid_until.",
-      "evidence": "tests/test_temporal_scoring.py; final GREEN run 36581966102",
       "status": "PASS"
     },
     {
+      "evidence": "Phase 8 Candidate Verify run 36582080120",
       "id": "P8-SEQUENCE",
       "requirement": "score_evidence_quality invokes score_authority and score_temporal_components in conformance with the frozen Phase 8 BEFORE plan.",
-      "evidence": "Phase 8 Candidate Verify run 36582080120",
       "status": "PASS"
     },
     {
+      "evidence": "Phase 8 Candidate Verify run 36582080120: sequence plus 12/12 runtime matrix jobs PASS",
       "id": "P8-CROSS-OS",
       "requirement": "The Phase 8 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS.",
-      "evidence": "Phase 8 Candidate Verify run 36582080120: sequence plus 12/12 runtime matrix jobs PASS",
       "status": "PASS"
     }
   ],

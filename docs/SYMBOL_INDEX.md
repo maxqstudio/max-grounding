@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
+Source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
@@ -26,6 +26,8 @@ Status: CURRENT
 | src/max_grounding/errors.py | EmbeddingProviderError | class | 32-33 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | RerankingError | class | 36-37 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | RerankProviderError | class | 40-41 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | TemporalScoringError | class | 44-45 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | AuthorityProviderError | class | 48-49 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
@@ -49,19 +51,23 @@ Status: CURRENT
 | src/max_grounding/hybrid.py | _validate_ranked_hits | function | 22-41 | Observed Python symbol | | | |
 | src/max_grounding/hybrid.py | fuse_hybrid | function | 44-109 | Observed Python symbol | | | |
 | src/max_grounding/hybrid.py | retrieve_hybrid | function | 112-149 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceStatus | class | 9-14 | Observed Python symbol | | | |
-| src/max_grounding/models.py | GroundingRequest | class | 18-27 | Observed Python symbol | | | |
-| src/max_grounding/models.py | SearchQuery | class | 31-39 | Observed Python symbol | | | |
-| src/max_grounding/models.py | SourceCandidate | class | 43-50 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceSource | class | 54-62 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidencePack | class | 66-73 | Observed Python symbol | | | |
-| src/max_grounding/models.py | FetchedDocument | class | 77-85 | Observed Python symbol | | | |
-| src/max_grounding/models.py | TextChunk | class | 89-96 | Observed Python symbol | | | |
-| src/max_grounding/models.py | LexicalHit | class | 100-105 | Observed Python symbol | | | |
-| src/max_grounding/models.py | SemanticHit | class | 109-114 | Observed Python symbol | | | |
-| src/max_grounding/models.py | HybridHit | class | 118-125 | Observed Python symbol | | | |
-| src/max_grounding/models.py | RerankedHit | class | 129-137 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceExcerpt | class | 141-149 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceStatus | class | 10-15 | Observed Python symbol | | | |
+| src/max_grounding/models.py | GroundingRequest | class | 19-28 | Observed Python symbol | | | |
+| src/max_grounding/models.py | SearchQuery | class | 32-40 | Observed Python symbol | | | |
+| src/max_grounding/models.py | SourceCandidate | class | 44-51 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceSource | class | 55-63 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidencePack | class | 67-74 | Observed Python symbol | | | |
+| src/max_grounding/models.py | FetchedDocument | class | 78-86 | Observed Python symbol | | | |
+| src/max_grounding/models.py | TextChunk | class | 90-97 | Observed Python symbol | | | |
+| src/max_grounding/models.py | LexicalHit | class | 101-106 | Observed Python symbol | | | |
+| src/max_grounding/models.py | SemanticHit | class | 110-115 | Observed Python symbol | | | |
+| src/max_grounding/models.py | HybridHit | class | 119-126 | Observed Python symbol | | | |
+| src/max_grounding/models.py | RerankedHit | class | 130-138 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceExcerpt | class | 142-150 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceMetadata | class | 154-164 | Observed Python symbol | | | |
+| src/max_grounding/models.py | AuthoritySubject | class | 168-173 | Observed Python symbol | | | |
+| src/max_grounding/models.py | TemporalComponents | class | 177-181 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceQualityScore | class | 185-194 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | is_admissible_result_url | function | 18-50 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | resolve_public_addresses | function | 53-93 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
@@ -108,6 +114,19 @@ Status: CURRENT
 | src/max_grounding/semantic.py | cosine_similarity | function | 188-204 | Observed Python symbol | | | |
 | src/max_grounding/semantic.py | rank_semantic | function | 207-245 | Observed Python symbol | | | |
 | src/max_grounding/semantic.py | retrieve_semantic | function | 248-285 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | AuthorityProvider | class | 26-33 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | AuthorityProvider.score | method | 29-33 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | _validate_utc | function | 36-41 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | _validate_horizon | function | 44-51 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | _bounded_sequence | function | 54-70 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | _bounded_metadata_sequence | function | 73-81 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | _bounded_excerpt_sequence | function | 84-92 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | _validate_basic_metadata | function | 95-120 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | _validate_temporal_inputs | function | 123-163 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | score_authority | function | 166-222 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | score_temporal_components | function | 225-255 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | _validate_excerpt_metadata_pairs | function | 258-294 | Observed Python symbol | | | |
+| src/max_grounding/temporal.py | score_evidence_quality | function | 297-360 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests | class | 10-20 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_project_identity_is_stable_and_cross_platform | method | 11-16 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_runtime_uses_supported_python | method | 18-20 | Observed Python symbol | | | |
@@ -258,6 +277,27 @@ Status: CURRENT
 | tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_build_semantic_chunks_rejects_total_chunk_overflow | method | 238-252 | Observed Python symbol | | | |
 | tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_invalid_request_bounds_fail_before_provider | method | 254-269 | Observed Python symbol | | | |
 | tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_repeated_retrieval_is_deterministic_for_deterministic_provider | method | 271-288 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | excerpt | function | 26-41 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | metadata | function | 44-63 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | _AuthorityProvider | class | 66-76 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | _AuthorityProvider.__init__ | method | 67-70 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | _AuthorityProvider.score | method | 72-76 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | _GeneratorAuthorityProvider | class | 79-81 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | _GeneratorAuthorityProvider.score | method | 80-81 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests | class | 84-342 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.setUp | method | 85-97 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_authority_provider_is_called_once_with_source_context | method | 99-114 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_combined_score_multiplies_authority_freshness_and_validity | method | 116-138 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_published_at_missing_falls_back_to_retrieved_at | method | 140-152 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_not_yet_valid_and_expired_evidence_score_zero_temporally | method | 154-171 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_exact_validity_boundaries_are_inclusive | method | 173-184 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_equal_combined_scores_preserve_prior_rerank_order | method | 186-195 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_empty_input_does_not_call_authority_provider | method | 197-209 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_rejects_unbounded_iterable_inputs | method | 211-229 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_invalid_prior_rerank_rank_fails_closed | method | 231-247 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_provider_failures_and_invalid_scores_fail_closed | method | 249-265 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_invalid_identity_timestamp_and_horizon_fail_closed | method | 267-307 | Observed Python symbol | | | |
+| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_more_than_eight_items_and_duplicate_identity_fail_closed | method | 309-342 | Observed Python symbol | | | |
 
 ## Coverage
 

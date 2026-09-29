@@ -18,7 +18,7 @@ Planned core phases: 13
 | 5 | Bounded dense semantic retrieval | ACCEPTED |
 | 6 | Deterministic lexical-semantic hybrid fusion | ACCEPTED |
 | 7 | Reranking and evidence/context compression | ACCEPTED |
-| 8 | Freshness, source authority, and temporal scoring | NEXT_PLANNED |
+| 8 | Freshness, source authority, and temporal scoring | CURRENT_CANDIDATE |
 | 9 | Contradiction/corroboration engine and evidence graph | PLANNED |
 | 10 | Claim-level verification, citations, confidence, and fail-closed synthesis | PLANNED |
 | 11 | Concrete embedding runtime plus Qdrant/persistent index and production adapters | PLANNED |

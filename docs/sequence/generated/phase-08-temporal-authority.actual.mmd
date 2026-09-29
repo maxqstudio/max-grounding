@@ -1,0 +1,48 @@
+%% GENERATED FILE - DO NOT EDIT
+%% SOURCE_DIGEST: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
+%% OBSERVED_HEAD: 9dcfa1ac48a34d99ed74761cb77d488890aee204
+%% GENERATED_BY: generate_sequence_actual.py
+sequenceDiagram
+    participant src_max_grounding_errors_py__AuthorityProviderError_0 as src/max_grounding/errors.py::AuthorityProviderError
+    participant src_max_grounding_errors_py__TemporalScoringError_1 as src/max_grounding/errors.py::TemporalScoringError
+    participant src_max_grounding_models_py__AuthoritySubject_2 as src/max_grounding/models.py::AuthoritySubject
+    participant src_max_grounding_models_py__EvidenceQualityScore_3 as src/max_grounding/models.py::EvidenceQualityScore
+    participant src_max_grounding_models_py__TemporalComponents_4 as src/max_grounding/models.py::TemporalComponents
+    participant src_max_grounding_temporal_py__AuthorityProvider_score_5 as src/max_grounding/temporal.py::AuthorityProvider.score
+    participant src_max_grounding_temporal_py___bounded_excerpt_sequence_6 as src/max_grounding/temporal.py::_bounded_excerpt_sequence
+    participant src_max_grounding_temporal_py___bounded_metadata_sequence_7 as src/max_grounding/temporal.py::_bounded_metadata_sequence
+    participant src_max_grounding_temporal_py___bounded_sequence_8 as src/max_grounding/temporal.py::_bounded_sequence
+    participant src_max_grounding_temporal_py___validate_basic_metadata_9 as src/max_grounding/temporal.py::_validate_basic_metadata
+    participant src_max_grounding_temporal_py___validate_excerpt_metadata_pairs_10 as src/max_grounding/temporal.py::_validate_excerpt_metadata_pairs
+    participant src_max_grounding_temporal_py___validate_horizon_11 as src/max_grounding/temporal.py::_validate_horizon
+    participant src_max_grounding_temporal_py___validate_temporal_inputs_12 as src/max_grounding/temporal.py::_validate_temporal_inputs
+    participant src_max_grounding_temporal_py___validate_utc_13 as src/max_grounding/temporal.py::_validate_utc
+    participant src_max_grounding_temporal_py__score_authority_14 as src/max_grounding/temporal.py::score_authority
+    participant src_max_grounding_temporal_py__score_evidence_quality_15 as src/max_grounding/temporal.py::score_evidence_quality
+    participant src_max_grounding_temporal_py__score_temporal_components_16 as src/max_grounding/temporal.py::score_temporal_components
+    src_max_grounding_temporal_py___bounded_excerpt_sequence_6->>src_max_grounding_temporal_py___bounded_sequence_8: _bounded_sequence [STATIC]
+    src_max_grounding_temporal_py___bounded_metadata_sequence_7->>src_max_grounding_temporal_py___bounded_sequence_8: _bounded_sequence [STATIC]
+    src_max_grounding_temporal_py___bounded_sequence_8->>src_max_grounding_errors_py__TemporalScoringError_1: TemporalScoringError [STATIC]
+    src_max_grounding_temporal_py___validate_basic_metadata_9->>src_max_grounding_errors_py__TemporalScoringError_1: TemporalScoringError [STATIC]
+    src_max_grounding_temporal_py___validate_excerpt_metadata_pairs_10->>src_max_grounding_errors_py__TemporalScoringError_1: TemporalScoringError [STATIC]
+    src_max_grounding_temporal_py___validate_horizon_11->>src_max_grounding_errors_py__TemporalScoringError_1: TemporalScoringError [STATIC]
+    src_max_grounding_temporal_py___validate_temporal_inputs_12->>src_max_grounding_errors_py__TemporalScoringError_1: TemporalScoringError [STATIC]
+    src_max_grounding_temporal_py___validate_temporal_inputs_12->>src_max_grounding_temporal_py___validate_basic_metadata_9: _validate_basic_metadata [STATIC]
+    src_max_grounding_temporal_py___validate_temporal_inputs_12->>src_max_grounding_temporal_py___validate_horizon_11: _validate_horizon [STATIC]
+    src_max_grounding_temporal_py___validate_temporal_inputs_12->>src_max_grounding_temporal_py___validate_utc_13: _validate_utc [STATIC]
+    src_max_grounding_temporal_py___validate_utc_13->>src_max_grounding_errors_py__TemporalScoringError_1: TemporalScoringError [STATIC]
+    src_max_grounding_temporal_py__score_authority_14->>src_max_grounding_errors_py__AuthorityProviderError_0: AuthorityProviderError [STATIC]
+    src_max_grounding_temporal_py__score_authority_14->>src_max_grounding_models_py__AuthoritySubject_2: AuthoritySubject [STATIC]
+    src_max_grounding_temporal_py__score_authority_14->>src_max_grounding_temporal_py__AuthorityProvider_score_5: provider.score [STATIC]
+    src_max_grounding_temporal_py__score_authority_14->>src_max_grounding_temporal_py___bounded_metadata_sequence_7: _bounded_metadata_sequence [STATIC]
+    src_max_grounding_temporal_py__score_authority_14->>src_max_grounding_temporal_py___validate_basic_metadata_9: _validate_basic_metadata [STATIC]
+    src_max_grounding_temporal_py__score_evidence_quality_15->>src_max_grounding_models_py__EvidenceQualityScore_3: EvidenceQualityScore [STATIC]
+    src_max_grounding_temporal_py__score_evidence_quality_15->>src_max_grounding_temporal_py___bounded_excerpt_sequence_6: _bounded_excerpt_sequence [STATIC]
+    src_max_grounding_temporal_py__score_evidence_quality_15->>src_max_grounding_temporal_py___bounded_metadata_sequence_7: _bounded_metadata_sequence [STATIC]
+    src_max_grounding_temporal_py__score_evidence_quality_15->>src_max_grounding_temporal_py___validate_excerpt_metadata_pairs_10: _validate_excerpt_metadata_pairs [STATIC]
+    src_max_grounding_temporal_py__score_evidence_quality_15->>src_max_grounding_temporal_py___validate_temporal_inputs_12: _validate_temporal_inputs [STATIC]
+    src_max_grounding_temporal_py__score_evidence_quality_15->>src_max_grounding_temporal_py__score_authority_14: score_authority [STATIC]
+    src_max_grounding_temporal_py__score_evidence_quality_15->>src_max_grounding_temporal_py__score_temporal_components_16: score_temporal_components [STATIC]
+    src_max_grounding_temporal_py__score_temporal_components_16->>src_max_grounding_models_py__TemporalComponents_4: TemporalComponents [STATIC]
+    src_max_grounding_temporal_py__score_temporal_components_16->>src_max_grounding_temporal_py___bounded_metadata_sequence_7: _bounded_metadata_sequence [STATIC]
+    src_max_grounding_temporal_py__score_temporal_components_16->>src_max_grounding_temporal_py___validate_temporal_inputs_12: _validate_temporal_inputs [STATIC]

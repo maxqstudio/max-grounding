@@ -4,18 +4,18 @@
 
 ## Evidence boundary
 
-Phase 7 proves bounded provider-agnostic reranking over at most 20 accepted HybridHit candidates plus deterministic extractive context compression: one bounded provider score sequence, fail-closed score validation, stable rerank ordering, immutable provenance, at most 8 excerpts, 1200 characters per excerpt, and 6000 total excerpt characters, with frozen-plan conformance and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove a concrete reranker model/runtime, generative compression, quality superiority, freshness/authority scoring, contradiction handling, claim verification, persistent vector storage, REST, MCP, or production deployment.
+Phase 8 proves bounded explicit-UTC temporal/source metadata scoring over at most 8 accepted EvidenceExcerpt values: one-to-one provenance binding, explicit evaluation time, bounded linear freshness decay, inclusive validity windows, one injected bounded AuthorityProvider score sequence, multiplicative authority*freshness*validity ranking, stable tie ordering, frozen-plan conformance, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove a universal authority hierarchy, automatic metadata extraction, contradiction handling, claim verification, persistent vector storage, REST, MCP, or production deployment.
 
 Final tested source: external final acceptance evidence.
-Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
+Current source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P7-RERANK | Reranking accepts at most 20 unique contiguous HybridHit candidates, performs exactly one provider score call, and deterministically preserves prior rank provenance. | tests/test_reranking.py; final GREEN run 36577271817 | PASS |
-| P7-PROVIDER | Provider exceptions, unbounded iterable output, wrong score counts, booleans, non-numeric values, and non-finite scores fail closed without partial output. | adversarial RED run 36577161655; final GREEN run 36577271817 | PASS |
-| P7-COMPRESS | Context compression is extractive only and enforces hard excerpt count, per-excerpt character, and total-character budgets while retaining provenance. | tests/test_reranking.py; final GREEN run 36577271817 | PASS |
-| P7-SEQUENCE | build_grounded_context invokes rerank_hybrid then compress_context in conformance with the frozen Phase 7 BEFORE plan. | Phase 7 Candidate Verify run 36577449523 | PASS |
-| P7-CROSS-OS | The Phase 7 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 7 Candidate Verify run 36577449523: sequence plus 12/12 runtime matrix jobs PASS | PASS |
+| P8-METADATA | At most 8 EvidenceExcerpt values bind one-to-one to matching EvidenceMetadata; arbitrary iterable inputs, duplicate identity, invalid prior rerank rank, naive/non-UTC/future timestamps, and inverted validity windows fail closed. | tests/test_temporal_scoring.py; adversarial RED run 36581829818; final GREEN run 36581966102 | PASS |
+| P8-AUTHORITY | One injected AuthorityProvider call returns exactly one finite numeric non-boolean [0,1] score per bounded source subject; no universal authority hierarchy is hardcoded in the core. | tests/test_temporal_scoring.py; final GREEN run 36581966102 | PASS |
+| P8-TEMPORAL | Freshness is derived deterministically from published_at or retrieved_at against explicit now and a bounded horizon; validity is inclusive and becomes zero outside valid_from/valid_until. | tests/test_temporal_scoring.py; final GREEN run 36581966102 | PASS |
+| P8-SEQUENCE | score_evidence_quality invokes score_authority and score_temporal_components in conformance with the frozen Phase 8 BEFORE plan. | Phase 8 Candidate Verify run 36582080120 | PASS |
+| P8-CROSS-OS | The Phase 8 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 8 Candidate Verify run 36582080120: sequence plus 12/12 runtime matrix jobs PASS | PASS |
 
 ## Test commands
 
@@ -26,18 +26,17 @@ Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e
 
 ## Runtime checks
 
-- TDD RED run 36576719998 proved the Phase 7 reranking contract absent before implementation.
-- Initial GREEN run 36577036647 passed the full unit suite and compile checks.
-- Adversarial regression run 36577161655 reproduced acceptance of arbitrary iterable provider output before repair.
-- Final GREEN run 36577271817 passed the full unit suite and compile checks after the provider-output boundary repair.
-- Candidate verification run 36577449523 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
-- Phase 7 pull-request Acceptance run 36578247993 passed on exact head ea616e47d3a9504f9717a67094d0b5d58f551c4d.
-- Phase 7 post-merge main Acceptance run 36579234527 passed 13/13 required jobs on main SHA 499a14608f2458adb675302d38109af1f2776800.
+- TDD RED run 36581283756 proved the Phase 8 temporal/authority contract absent before implementation.
+- Initial GREEN run 36581662845 passed the full unit suite and compile checks.
+- Adversarial regression run 36581829818 reproduced acceptance of arbitrary iterable inputs and an invalid prior rerank rank before repair.
+- Final GREEN run 36581966102 passed the full unit suite and compile checks after bounded-input and prior-rank repair.
+- Candidate verification run 36582080120 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
+- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 8 closure.
 
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-07-rerank-compress.json
+Sequence session contract: docs/sequence/sessions/phase-08-temporal-authority.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

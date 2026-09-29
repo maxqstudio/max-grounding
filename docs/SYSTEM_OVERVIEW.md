@@ -26,7 +26,7 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 28 files, 1 language categories.
+Observed source inventory: 30 files, 1 language categories.
 
 ## Major components
 
@@ -45,6 +45,7 @@ Observed source inventory: 28 files, 1 language categories.
 | Semantic Retrieval | Build bounded deterministic chunks, obtain role-separated dense embeddings through an injected provider, validate vectors fail-closed, and rank positive semantic matches by cosine similarity. | EmbeddingProvider protocol, retrieve_semantic, build_semantic_chunks, embed_bounded, rank_semantic, cosine_similarity, embedding batch/call/dimension bounds, semantic provenance ordering | models, lexical-retrieval |
 | Hybrid Fusion | Combine bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion while preserving immutable chunk provenance. | retrieve_hybrid, fuse_hybrid, fixed RRF k=60, hybrid rank validation, hybrid provenance conflict rejection | models, lexical-retrieval, semantic-retrieval |
 | Reranking and Context Compression | Rerank bounded HybridHit candidates through an injected provider, validate scores fail-closed, and emit bounded extractive evidence excerpts without generative rewriting. | RerankProvider protocol, rerank_hybrid, compress_context, build_grounded_context, rerank score validation, extractive context budgets, rerank and source provenance | models, hybrid-fusion, lexical-retrieval |
+| Temporal and Source Authority Scoring | Bind explicit UTC temporal/source metadata to bounded evidence, obtain authority scores through an injected policy, and deterministically score freshness and point-in-time validity. | AuthorityProvider protocol, score_authority, score_temporal_components, score_evidence_quality, explicit evaluation-time policy, freshness horizon bounds, temporal validity checks, stable quality ranking | models, rerank-compress |
 
 ## Main data flow
 
@@ -75,6 +76,10 @@ Observed source inventory: 28 files, 1 language categories.
 - RerankProvider -> Reranking and Context Compression: exact bounded finite score sequence is accepted; malformed or unbounded provider output fails closed
 - Reranking and Context Compression -> RerankedHit: immutable reranked hits preserve hybrid, lexical, semantic, chunk, and source provenance
 - RerankedHit -> EvidenceExcerpt: deterministic query-relevant source substrings are selected under hard excerpt and total-character budgets
+- EvidenceExcerpt -> Temporal and Source Authority Scoring: at most 8 extractive excerpts retain source/chunk/rerank provenance and receive one-to-one EvidenceMetadata
+- EvidenceMetadata -> Temporal and Source Authority Scoring: explicit timezone-aware UTC retrieval/publication/validity context is validated against caller-supplied evaluation time
+- AuthorityProvider -> Temporal and Source Authority Scoring: one bounded finite [0,1] score sequence supplies domain-specific authority without hardcoded core opinions
+- Temporal and Source Authority Scoring -> EvidenceQualityScore: authority, freshness, and temporal validity combine multiplicatively and rank deterministically
 
 ## Main user workflows
 
@@ -182,9 +187,9 @@ Authority: Temporal metadata validation, deterministic freshness/validity formul
 
 ## Lifecycle and state
 
-Current phase: PHASE_07_RERANK_COMPRESS
+Current phase: PHASE_08_TEMPORAL_AUTHORITY
 
-Current status: ACCEPTED
+Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -240,12 +245,15 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Start Phase 8 planning from accepted main SHA 499a14608f2458adb675302d38109af1f2776800.
-- Freeze the Phase 8 BEFORE sequence plan before implementing freshness, source authority, and temporal scoring.
+- Synchronize the Phase 8 ACTUAL sequence and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 8 candidate head.
+- Merge Phase 8 only if every required job passes, then revalidate merged main.
 
 Blocked actions:
-- Do not claim a concrete reranker model, learned ranking superiority, or generative compression from accepted Phase 7.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
+- Do not hardcode a universal source-authority ranking into the Phase 8 core.
+- Do not claim source timestamps or validity windows are automatically extracted or independently verified by Phase 8.
+- Do not merge Phase 8 while any required GitHub Actions job is failing or missing.
+- Do not bypass post-merge main revalidation.
 
 Known blockers:
 - None declared.
@@ -254,21 +262,22 @@ Known blockers:
 
 ### Proven
 
-- Phase 6 closure is merged to main at b2e524997947dd357a577eb4d17edd27f0d62f28 and closure-main Acceptance run 36575665763 passed all 13 required jobs.
-- The Phase 7 BEFORE plan was frozen before implementation at 93a36ccf107251f434d77b0bf42b9df97bbf1a01 with SHA-256 717c3f8e3ad4148474298847b470cd98fc243202b76b8d838445e8bf435b498a.
-- TDD RED run 36576719998 failed because the Phase 7 reranking contract did not yet exist.
-- Initial GREEN run 36577036647 passed the full unit suite and compile checks after the minimum reranking and extractive compression implementation.
-- Adversarial regression run 36577161655 proved that arbitrary iterable provider output could bypass the bounded-sequence contract before repair.
-- Final GREEN run 36577271817 passed the full unit suite and compile checks after rejecting unbounded provider iterables.
-- Candidate verification run 36577449523 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
-- Phase 7 reranking admits at most 20 candidates, calls the injected rerank provider once, requires an exact bounded score sequence, and rejects provider exceptions, wrong counts, booleans, non-numeric values, and non-finite scores.
-- Phase 7 compression is extractive only and caps output at 8 excerpts, 1200 characters per excerpt, and 6000 total excerpt characters while preserving source and rerank provenance.
-- Phase 7 exact pull-request head ea616e47d3a9504f9717a67094d0b5d58f551c4d passed Acceptance run 36578247993.
-- Phase 7 merged main SHA 499a14608f2458adb675302d38109af1f2776800 passed post-merge Acceptance run 36579234527 with 13/13 jobs PASS.
+- Phase 7 closure is merged to main at b5a7271b5bb52c3760889b8f533a3b19710f2db3 and closure-main Acceptance run 36580565442 passed all 13 required jobs.
+- The Phase 8 BEFORE plan was frozen before implementation at 0810115190890db456b4a90634e1dd10fb29da08 with SHA-256 13f5323fe69c40d0907060f951633eb9adca44c89fe46b6d5d76aa179fa3cdc8.
+- TDD RED run 36581283756 failed because the Phase 8 temporal/authority contract did not yet exist.
+- Initial GREEN run 36581662845 passed the full unit suite and compile checks after the minimum Phase 8 implementation.
+- Adversarial regression run 36581829818 proved generator inputs and an invalid prior rerank rank could bypass the bounded input contract before repair.
+- Final GREEN run 36581966102 passed the full unit suite and compile checks after bounded-sequence and prior-rank validation repair.
+- Candidate verification run 36582080120 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
+- Phase 8 accepts at most 8 evidence excerpts, binds each excerpt one-to-one to explicit EvidenceMetadata, and rejects malformed or duplicate provenance.
+- Phase 8 requires timezone-aware UTC temporal metadata and an explicit evaluation time; scoring performs no implicit wall-clock read.
+- Source authority is supplied by one injected bounded AuthorityProvider score sequence; the core contains no hardcoded source authority hierarchy.
+- Combined evidence quality is authority_score * freshness_score * temporal_validity with stable prior-rerank/provenance ordering for ties.
 
 ### Not proven
 
-- No concrete cross-encoder or learned reranker model, generative/LLM compression, reranking-quality benchmark, freshness/authority scoring, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment is proven by accepted Phase 7.
+- Final Phase 8 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- Phase 8 does not prove any universal source-authority hierarchy, source metadata extractor, learned authority model, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment.
 
 ## Important limitations
 
