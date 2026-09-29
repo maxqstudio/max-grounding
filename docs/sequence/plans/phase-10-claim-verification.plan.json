@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-CLAIM-VERIFICATION",
+  "title": "Phase 10 claim-level verification and fail-closed synthesis",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "packet",
+      "label": "build_synthesis_packet",
+      "locator": "src/max_grounding/verification.py::build_synthesis_packet",
+      "kind": "source"
+    },
+    {
+      "id": "verify",
+      "label": "verify_claims",
+      "locator": "src/max_grounding/verification.py::verify_claims",
+      "kind": "source"
+    },
+    {
+      "id": "citations",
+      "label": "build_claim_citations",
+      "locator": "src/max_grounding/verification.py::build_claim_citations",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "packet",
+      "to": "verify",
+      "action": "classify each bounded answer claim against exact structured evidence",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "packet",
+      "to": "citations",
+      "action": "bind exact supporting evidence provenance for verified claims",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}
