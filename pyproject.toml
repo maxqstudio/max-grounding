@@ -15,6 +15,16 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 
+[project.optional-dependencies]
+service = [
+  "fastapi==0.141.1",
+  "uvicorn==0.54.0",
+  "mcp==2.2.0",
+]
+test = [
+  "httpx==0.28.1",
+]
+
 [project.urls]
 Repository = "https://github.com/maxqstudio/max-grounding"
 Saweria = "https://saweria.co/maxq"
