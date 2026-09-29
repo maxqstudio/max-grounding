@@ -112,3 +112,14 @@ class SemanticHit:
     chunk: TextChunk
     score: float
     rank: int
+
+
+@dataclass(frozen=True, slots=True)
+class HybridHit:
+    """One immutable reciprocal-rank-fused retrieval result."""
+
+    chunk: TextChunk
+    score: float
+    rank: int
+    lexical_rank: int | None
+    semantic_rank: int | None
