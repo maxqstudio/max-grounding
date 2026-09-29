@@ -127,7 +127,7 @@ Authority: Secure fetch network policy and pinned connection target
 
 Current phase: PHASE_04_LEXICAL_RETRIEVAL
 
-Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Current status: ACCEPTED
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -174,14 +174,12 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Generate and commit the current Phase 4 ACTUAL sequence graph and deterministic Project Truth documentation.
-- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 4 candidate head.
-- Merge Phase 4 only if every required job passes, then revalidate merged main.
+- Start Phase 5 planning from accepted main SHA 432400785849be4425a118d5adee5eef1e77e693.
+- Freeze the Phase 5 BEFORE sequence plan and acceptance boundary before implementation.
 
 Blocked actions:
-- Do not merge Phase 4 while any required GitHub Actions job is failing or missing.
-- Do not claim semantic, vector, hybrid, or reranked retrieval from the Phase 4 lexical scorer.
-- Do not bypass post-merge main revalidation.
+- Do not claim semantic, vector, hybrid, or reranked retrieval from accepted Phase 4.
+- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
 
 Known blockers:
 - None declared.
@@ -199,12 +197,13 @@ Known blockers:
 - Phase 4 deterministically tokenizes Unicode text, chunks immutable FetchedDocument values with bounded overlap, and derives stable chunk IDs with source provenance.
 - Phase 4 performs bounded in-memory BM25 lexical ranking, returns only positive-score hits, and uses stable provenance ordering for score ties.
 - Phase 4 enforces hard caps of 20 documents, 4096 query characters, 512 words per chunk, 128 chunks per document, and 20 returned hits.
+- Pull request #10 Acceptance run 36555770714 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs on exact PR head 7f47bc0fdeec478bab9dac3ddb538daa65e5b693.
+- Post-merge main Acceptance run 36555890270 passed all 13 required jobs on merged main SHA 432400785849be4425a118d5adee5eef1e77e693.
 
 ### Not proven
 
-- Final Phase 4 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
 - Real-world retrieval quality on large or domain-specific corpora is not proven by deterministic unit fixtures.
-- Semantic embeddings, vector retrieval, hybrid fusion, reranking, persistent indexes, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 4.
+- Semantic embeddings, vector retrieval, hybrid fusion, reranking, persistent indexes, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside accepted Phase 4.
 
 ## Important limitations
 

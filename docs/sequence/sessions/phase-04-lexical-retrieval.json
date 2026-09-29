@@ -3,7 +3,7 @@
   "session_id": "phase-04-lexical-retrieval",
   "phase": "PHASE_04_LEXICAL_RETRIEVAL",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
   "status": "FROZEN",
   "implementation_base_sha": "fbe5b9ad01c4e52bb629399ae688d93d4bc08013",
