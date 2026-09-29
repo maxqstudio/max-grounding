@@ -64,14 +64,17 @@ class _Store:
         self.upserts = []
         self.queries = []
         self.matches: tuple[PersistentVectorHit, ...] = ()
+        self.ensure_collection = self._ensure_collection
+        self.upsert_chunks = self._upsert_chunks
+        self.query_chunks = self._query_chunks
 
-    def ensure_collection(self) -> None:
+    def _ensure_collection(self) -> None:
         self.ensure_calls += 1
 
-    def upsert_chunks(self, chunks, vectors) -> None:
+    def _upsert_chunks(self, chunks, vectors) -> None:
         self.upserts.append((tuple(chunks), tuple(vectors)))
 
-    def query_chunks(self, query_vector, *, limit):
+    def _query_chunks(self, query_vector, *, limit):
         self.queries.append((tuple(query_vector), limit))
         return self.matches
 
