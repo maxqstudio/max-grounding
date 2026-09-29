@@ -1,0 +1,47 @@
+name: Bind Phase 6 Frozen Plan
+
+on:
+  push:
+    branches:
+      - work/phase-06-hybrid-fusion
+
+permissions:
+  contents: write
+
+jobs:
+  bind:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-06-hybrid-fusion
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Bind exact plan authority
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          plan_path=Path("docs/sequence/plans/phase-06-hybrid-fusion.plan.json")
+          session_path=Path("docs/sequence/sessions/phase-06-hybrid-fusion.json")
+          s=json.loads(session_path.read_text(encoding="utf-8"))
+          s["status"]="FROZEN"
+          s["implementation_base_sha"]="a5e30b00c777e66b3aafdea6002970d28a181982"
+          s["plan"]["frozen_commit"]="a5e30b00c777e66b3aafdea6002970d28a181982"
+          s["plan"]["sha256"]=hashlib.sha256(plan_path.read_bytes()).hexdigest()
+          session_path.write_text(json.dumps(s, indent=2)+"\n", encoding="utf-8")
+          PY
+      - name: Commit frozen authority
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/sequence/sessions/phase-06-hybrid-fusion.json
+          git commit -m "plan: bind phase 6 frozen authority"
+          git push origin HEAD:work/phase-06-hybrid-fusion
