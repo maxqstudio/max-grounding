@@ -12,6 +12,10 @@
     {
       "date": "2026-09-27",
       "change": "Phase 2 candidate adds the stdlib-only SearXNG live-search provider, bounded non-redirecting JSON HTTP handling, conservative result-URL admission, and 12-job cross-platform runtime evidence."
+    },
+    {
+      "date": "2026-09-29",
+      "change": "Phase 2 accepted on main after exact-PR Acceptance and post-merge main revalidation both passed STRICT governance and the full 12-job cross-platform runtime matrix."
     }
   ]
 }
