@@ -5,7 +5,7 @@
   "purpose": "Convert bounded structured assertions backed by accepted Phase 8 evidence-quality scores into a deterministic graph of corroborating and contradicting relations without selecting a truth winner.",
   "critical": true,
   "entry_condition": "At most 8 structured EvidenceAssertion values each retain one accepted EvidenceQualityScore.",
-  "authority": "Structured assertion normalization, relation semantics, source independence accounting, and graph construction",
+  "authority": "Structured assertion normalization, relation semantics, distinct source-URL accounting, and graph construction",
   "states": [
     "ASSERTIONS_RECEIVED",
     "ASSERTIONS_NORMALIZED",
@@ -39,7 +39,7 @@
     "Same normalized exclusive claim_key plus different normalized values yields a CONTRADICTS relation.",
     "Non-exclusive different values do not contradict and produce no relation.",
     "Relations use canonical assertion-id ordering and are emitted once per assertion pair.",
-    "Clusters count distinct source URLs so repeated chunks from one source do not inflate source independence.",
+    "Clusters count distinct source URLs so repeated chunks from one source do not inflate editorial/distinct source-URL contribution.",
     "Cluster quality_weight_sum is the sum of each distinct source's maximum accepted Phase 8 quality score; it is descriptive evidence weight and never a probability or truth verdict.",
     "The graph never majority-votes, selects a winning value, or labels any assertion true/false."
   ],
