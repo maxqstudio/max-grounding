@@ -1,0 +1,13 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 0760581b40a1906da335d5b07cfc2a6d28e51539bc453b314aa783a5c2a879c9
+%% FLOW_ID: FLOW-SECURE-FETCH
+sequenceDiagram
+    participant fetch_0 as fetch_document
+    participant resolve_1 as resolve_public_addresses
+    participant connect_2 as open_pinned_connection
+    participant read_3 as read_bounded_response
+    participant extract_4 as extract_text
+    fetch_0->>resolve_1: resolve and validate public connection targets [MUST]
+    fetch_0->>connect_2: connect to validated pinned IP [MUST]
+    fetch_0->>read_3: read bounded approved response [MUST]
+    fetch_0->>extract_4: extract untrusted visible text [MUST]

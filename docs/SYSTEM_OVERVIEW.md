@@ -92,6 +92,18 @@ Authority: SearxngProvider transport policy and result URL admission policy
 - REQUEST_BUILT -> PROVIDER_ERROR : transport or HTTP policy failure
 - RESPONSE_RECEIVED -> PROVIDER_ERROR : response size, media type, JSON, or schema failure
 
+### FLOW-SECURE-FETCH — Secure result-page fetch and extraction
+
+Fetch one admitted HTTP(S) result page through a connection-time validated public-IP boundary, bound response bytes and media type, and return extracted untrusted text without treating page content as instructions.
+
+Authority: Secure fetch network policy and pinned connection target
+
+- URL_RECEIVED -> TARGET_RESOLVED : parse URL and resolve host addresses
+- TARGET_RESOLVED -> TARGET_VALIDATED : reject any non-public, multicast, ambiguous, or otherwise unsafe resolved address
+- TARGET_VALIDATED -> CONNECTED : connect only to an already-validated pinned IP while preserving original HTTP host and TLS server name
+- CONNECTED -> RESPONSE_RECEIVED : read one bounded identity-encoded text response without redirect following
+- RESPONSE_RECEIVED -> TEXT_EXTRACTED : extract bounded visible text and discard executable or styling content
+
 ## Lifecycle and state
 
 Current phase: PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER
@@ -135,6 +147,8 @@ compiler does not infer them from implementation names.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.
 - FLOW-SEARXNG-SEARCH: Transport, redirect, HTTP, media-type, size, JSON, and schema failures raise a controlled provider error.
 - FLOW-SEARXNG-SEARCH: GroundingEngine converts provider failure before evidence sufficiency into fail-closed PROVIDER_ERROR status.
+- FLOW-SECURE-FETCH: Invalid URLs, unsafe DNS answers, transport failures, redirects, disallowed media/encoding, oversized responses, or decoding failures produce a controlled FetchError.
+- FLOW-SECURE-FETCH: No partial page content is returned after a policy failure.
 
 ## Current project state
 

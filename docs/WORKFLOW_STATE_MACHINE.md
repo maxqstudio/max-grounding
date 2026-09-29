@@ -136,3 +136,52 @@ Authority: SearxngProvider transport policy and result URL admission policy
 ### Rollback behavior
 
 - Phase 2 has no persistent state mutation.
+
+## FLOW-SECURE-FETCH — Secure result-page fetch and extraction
+
+Purpose: Fetch one admitted HTTP(S) result page through a connection-time validated public-IP boundary, bound response bytes and media type, and return extracted untrusted text without treating page content as instructions.
+Critical: TRUE
+Entry condition: A previously admitted SourceCandidate URL is selected for page retrieval.
+Authority: Secure fetch network policy and pinned connection target
+
+### States
+
+- URL_RECEIVED
+- TARGET_RESOLVED
+- TARGET_VALIDATED
+- CONNECTED
+- RESPONSE_RECEIVED
+- TEXT_EXTRACTED
+- FETCH_REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| URL_RECEIVED | TARGET_RESOLVED | parse URL and resolve host addresses | Secure fetch network policy and pinned connection target |  |
+| TARGET_RESOLVED | TARGET_VALIDATED | reject any non-public, multicast, ambiguous, or otherwise unsafe resolved address | Secure fetch network policy and pinned connection target |  |
+| TARGET_VALIDATED | CONNECTED | connect only to an already-validated pinned IP while preserving original HTTP host and TLS server name | Secure fetch network policy and pinned connection target |  |
+| CONNECTED | RESPONSE_RECEIVED | read one bounded identity-encoded text response without redirect following | Secure fetch network policy and pinned connection target |  |
+| RESPONSE_RECEIVED | TEXT_EXTRACTED | extract bounded visible text and discard executable or styling content | Secure fetch network policy and pinned connection target |  |
+
+### Invariants
+
+- Only http and https URLs without credentials are fetchable.
+- Connection targets are selected only from addresses returned by the explicit resolver and validated as globally routable non-multicast IPs.
+- The socket connection is pinned to the validated IP so the transport does not perform a second authority-changing DNS lookup.
+- Redirects are rejected in Phase 3 rather than followed implicitly.
+- Response bytes are bounded before decoding and only identity content encoding plus approved text media types are accepted.
+- Extracted page text is untrusted evidence data and never an instruction authority.
+
+### Failure behavior
+
+- Invalid URLs, unsafe DNS answers, transport failures, redirects, disallowed media/encoding, oversized responses, or decoding failures produce a controlled FetchError.
+- No partial page content is returned after a policy failure.
+
+### Restart behavior
+
+- A retry is a fresh fetch attempt and must repeat DNS resolution and target validation.
+
+### Rollback behavior
+
+- Phase 3 performs no persistent state mutation.
