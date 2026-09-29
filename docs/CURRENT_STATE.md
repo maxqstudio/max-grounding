@@ -7,16 +7,16 @@ Authority verified at SHA: af3bd6bb578861de802a972d11e8a2a2c2368955
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_08_TEMPORAL_AUTHORITY
-Status: ACCEPTED
+Phase: PHASE_09_EVIDENCE_GRAPH
+Status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-09-evidence-graph
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: af3bd6bb578861de802a972d11e8a2a2c2368955
 Current candidate SHA: external final acceptance evidence
-Current source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
+Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -33,26 +33,23 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-08-temporal-authority.json
+Current sequence session: docs/sequence/sessions/phase-09-evidence-graph.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 7 closure is merged to main at b5a7271b5bb52c3760889b8f533a3b19710f2db3 and closure-main Acceptance run 36580565442 passed all 13 required jobs.
-- The Phase 8 BEFORE plan was frozen before implementation at 0810115190890db456b4a90634e1dd10fb29da08 with SHA-256 13f5323fe69c40d0907060f951633eb9adca44c89fe46b6d5d76aa179fa3cdc8.
-- TDD RED run 36581283756 failed because the Phase 8 temporal/authority contract did not yet exist.
-- Initial GREEN run 36581662845 passed the full unit suite and compile checks after the minimum Phase 8 implementation.
-- Adversarial regression run 36581829818 proved generator inputs and an invalid prior rerank rank could bypass the bounded input contract before repair.
-- Final GREEN run 36581966102 passed the full unit suite and compile checks after bounded-sequence and prior-rank validation repair.
-- Candidate verification run 36582080120 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
-- Phase 8 accepts at most 8 evidence excerpts, binds each excerpt one-to-one to explicit EvidenceMetadata, and rejects malformed or duplicate provenance.
-- Phase 8 requires timezone-aware UTC temporal metadata and an explicit evaluation time; scoring performs no implicit wall-clock read.
-- Source authority is supplied by one injected bounded AuthorityProvider score sequence; the core contains no hardcoded source authority hierarchy.
-- Combined evidence quality is authority_score * freshness_score * temporal_validity with stable prior-rerank/provenance ordering for ties.
-- Phase 8 exact pull-request head 3e956bc2b913240789ebab89c9753396d9c0f096 passed Acceptance run 36582881472 with 13/13 required jobs.
-- Phase 8 merged main SHA af3bd6bb578861de802a972d11e8a2a2c2368955 passed post-merge Acceptance run 36583373688 with 13/13 required jobs.
+- Phase 8 closure is merged to main at 8766a2d3f06c5d800c1a09c204acf2fc83817336 and closure-main Acceptance run 36584346207 passed all 13 required jobs.
+- The Phase 9 BEFORE plan was frozen before implementation at 63654b4f8430ab4a6859686e26b4946d82c1e99d with SHA-256 205bf17abf45a4661fd1561b35162e2e6c2672c3171d85c528e8169606b80804.
+- TDD RED run 36585530409 failed because the Phase 9 evidence-graph contract did not yet exist.
+- GREEN run 36585895878 passed the full unit suite and compile checks after the minimum deterministic evidence-graph implementation.
+- Candidate verification run 36586034657 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
+- Phase 9 accepts at most 8 bounded structured assertions backed by valid Phase 8 EvidenceQualityScore provenance.
+- Equivalent normalized claim/value assertions corroborate; differing values contradict only when that claim key is explicitly exclusive/single-valued.
+- Clusters count distinct source URLs and sum only each source's maximum Phase 8 quality score so repeated chunks from one source do not inflate independent-source evidence weight.
+- Phase 9 emits no winner, truth label, or majority-vote verdict.
 
 ## Not proven
-- Accepted Phase 8 does not prove a universal source-authority hierarchy, automatic timestamp/source metadata extraction or verification, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment.
+- Final Phase 9 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- Phase 9 does not automatically extract structured assertions, infer natural-language contradiction, select which conflicting value is true, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.
 
 ## Known blockers
 - None declared.
@@ -61,10 +58,12 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Start Phase 9 planning from accepted main SHA af3bd6bb578861de802a972d11e8a2a2c2368955.
-- Freeze the Phase 9 BEFORE sequence plan before implementing contradiction/corroboration handling and an evidence graph.
+- Synchronize the Phase 9 ACTUAL sequence and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 9 candidate head.
+- Merge Phase 9 only if every required job passes, then revalidate merged main.
 
 ## Explicitly blocked
-- Do not treat injected Phase 8 authority scores as universal truth or silently hardcode a global source hierarchy.
-- Do not claim contradiction resolution or claim verification from Phase 8 scoring.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
+- Do not treat descriptive cluster quality_weight_sum as a probability, confidence score, or truth verdict.
+- Do not claim natural-language contradiction inference or claim verification from the structured Phase 9 graph.
+- Do not merge Phase 9 while any required GitHub Actions job is failing or missing.
+- Do not bypass post-merge main revalidation.

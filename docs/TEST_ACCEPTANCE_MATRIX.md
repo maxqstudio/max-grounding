@@ -4,18 +4,18 @@
 
 ## Evidence boundary
 
-Phase 8 proves bounded explicit-UTC temporal/source metadata scoring over at most 8 accepted EvidenceExcerpt values: one-to-one provenance binding, explicit evaluation time, bounded linear freshness decay, inclusive validity windows, one injected bounded AuthorityProvider score sequence, multiplicative authority*freshness*validity ranking, stable tie ordering, frozen-plan conformance, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove a universal authority hierarchy, automatic metadata extraction, contradiction handling, claim verification, persistent vector storage, REST, MCP, or production deployment.
+Phase 9 proves bounded deterministic structured corroboration/contradiction graph construction over at most 8 assertions backed by accepted Phase 8 quality provenance. It normalizes claim/value text, applies explicit exclusive-claim semantics, counts distinct sources, prevents duplicate-source quality-weight inflation, conforms to the frozen plan, and passes Python 3.11-3.14 across Ubuntu, Windows, and macOS. It does not automatically extract assertions, infer arbitrary natural-language contradiction, choose a truth winner, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.
 
 Final tested source: external final acceptance evidence.
-Current source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
+Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P8-METADATA | At most 8 EvidenceExcerpt values bind one-to-one to matching EvidenceMetadata; arbitrary iterable inputs, duplicate identity, invalid prior rerank rank, naive/non-UTC/future timestamps, and inverted validity windows fail closed. | tests/test_temporal_scoring.py; adversarial RED run 36581829818; final GREEN run 36581966102 | PASS |
-| P8-AUTHORITY | One injected AuthorityProvider call returns exactly one finite numeric non-boolean [0,1] score per bounded source subject; no universal authority hierarchy is hardcoded in the core. | tests/test_temporal_scoring.py; final GREEN run 36581966102 | PASS |
-| P8-TEMPORAL | Freshness is derived deterministically from published_at or retrieved_at against explicit now and a bounded horizon; validity is inclusive and becomes zero outside valid_from/valid_until. | tests/test_temporal_scoring.py; final GREEN run 36581966102 | PASS |
-| P8-SEQUENCE | score_evidence_quality invokes score_authority and score_temporal_components in conformance with the frozen Phase 8 BEFORE plan. | Phase 8 Candidate Verify run 36582080120 | PASS |
-| P8-CROSS-OS | The Phase 8 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 8 Candidate Verify run 36582080120: sequence plus 12/12 runtime matrix jobs PASS | PASS |
+| P9-STRUCTURE | At most 8 bounded structured assertions are normalized and validated fail-closed with unique assertion/evidence identity and valid Phase 8 quality provenance. | tests/test_evidence_graph.py; GREEN run 36585895878 | PASS |
+| P9-RELATIONS | Equivalent normalized values corroborate; different values contradict only for explicitly exclusive claim keys; no truth winner is emitted. | tests/test_evidence_graph.py; GREEN run 36585895878 | PASS |
+| P9-CLUSTERS | Equivalent assertion clusters count distinct source URLs and use one maximum accepted quality score per source for descriptive weight. | tests/test_evidence_graph.py; GREEN run 36585895878 | PASS |
+| P9-SEQUENCE | build_evidence_graph invokes build_relations and build_clusters in conformance with the frozen Phase 9 BEFORE plan. | Phase 9 Candidate Verify run 36586034657 | PASS |
+| P9-CROSS-OS | The Phase 9 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 9 Candidate Verify run 36586034657: sequence plus 12/12 runtime matrix jobs PASS | PASS |
 
 ## Test commands
 
@@ -26,18 +26,15 @@ Current source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8
 
 ## Runtime checks
 
-- TDD RED run 36581283756 proved the Phase 8 temporal/authority contract absent before implementation.
-- Initial GREEN run 36581662845 passed the full unit suite and compile checks.
-- Adversarial regression run 36581829818 reproduced acceptance of arbitrary iterable inputs and an invalid prior rerank rank before repair.
-- Final GREEN run 36581966102 passed the full unit suite and compile checks after bounded-input and prior-rank repair.
-- Candidate verification run 36582080120 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
-- Phase 8 pull-request Acceptance run 36582881472 passed 13/13 required jobs on exact head 3e956bc2b913240789ebab89c9753396d9c0f096.
-- Phase 8 post-merge main Acceptance run 36583373688 passed 13/13 required jobs on main SHA af3bd6bb578861de802a972d11e8a2a2c2368955.
+- TDD RED run 36585530409 proved the Phase 9 graph contract absent before implementation.
+- GREEN run 36585895878 passed the full unit suite and compile checks.
+- Candidate verification run 36586034657 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
+- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 9 closure.
 
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-08-temporal-authority.json
+Sequence session contract: docs/sequence/sessions/phase-09-evidence-graph.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

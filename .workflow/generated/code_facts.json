@@ -38,7 +38,7 @@
       "file": "src/max_grounding/errors.py",
       "is_test": false,
       "language": "Python",
-      "lines": 49
+      "lines": 53
     },
     {
       "directory": "src/max_grounding",
@@ -46,6 +46,13 @@
       "is_test": false,
       "language": "Python",
       "lines": 97
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/evidence_graph.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 223
     },
     {
       "directory": "src/max_grounding",
@@ -66,7 +73,7 @@
       "file": "src/max_grounding/models.py",
       "is_test": false,
       "language": "Python",
-      "lines": 194
+      "lines": 241
     },
     {
       "directory": "src/max_grounding",
@@ -158,6 +165,13 @@
       "is_test": true,
       "language": "Python",
       "lines": 54
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_evidence_graph.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 381
     },
     {
       "directory": "tests",
@@ -335,6 +349,346 @@
     {
       "caller": "src/max_grounding/evidence.py::build_evidence_pack",
       "target_token": "EvidencePack"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_bounded_assertions",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_bounded_assertions",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_bounded_assertions",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_bounded_assertions",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_bounded_assertions",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_bounded_assertions",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_bounded_assertions",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_bounded_assertions",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_bounded_assertions",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_text",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_text",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_text",
+      "target_token": "casefold"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_text",
+      "target_token": "join"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_text",
+      "target_token": "split"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_text",
+      "target_token": "unicodedata.normalize"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_text",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_text",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_text",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validated_number",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validated_number",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validated_number",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validated_number",
+      "target_token": "float"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validated_number",
+      "target_token": "math.isfinite"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validated_number",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "_validated_number"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "_validated_number"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "_validated_number"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "_validated_number"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "math.isclose"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "_bounded_assertions"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "_normalize_text"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "_normalize_text"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "_normalize_text"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "_validate_quality"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "assertion_ids.add"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "evidence_ids.add"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "quality_ranks.add"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "claim_exclusivity.get"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "EvidenceGraphError"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "normalized.append"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "EvidenceAssertion"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "normalized.sort"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_relations",
+      "target_token": "_normalize_and_validate"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_relations",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_relations",
+      "target_token": "relations.append"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_relations",
+      "target_token": "EvidenceRelation"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_relations",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "_normalize_and_validate"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "append"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "grouped.setdefault"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "sorted"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "grouped.items"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "max"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "source_max.get"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "clusters.append"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "EvidenceCluster"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "sorted"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "sum"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "source_max.values"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_clusters",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_evidence_graph",
+      "target_token": "_normalize_and_validate"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_evidence_graph",
+      "target_token": "EvidenceGraph"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_evidence_graph",
+      "target_token": "build_clusters"
+    },
+    {
+      "caller": "src/max_grounding/evidence_graph.py::build_evidence_graph",
+      "target_token": "build_relations"
     },
     {
       "caller": "src/max_grounding/fetcher.py::_PinnedHTTPConnection.__init__",
@@ -2991,6 +3345,330 @@
     {
       "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded",
       "target_token": "set"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::quality",
+      "target_token": "EvidenceExcerpt"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::quality",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::quality",
+      "target_token": "EvidenceMetadata"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::quality",
+      "target_token": "EvidenceQualityScore"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::assertion",
+      "target_token": "EvidenceAssertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::assertion",
+      "target_token": "quality"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_exclusive_different_values_contradict",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_exclusive_different_values_contradict",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_exclusive_different_values_contradict",
+      "target_token": "build_relations"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_exclusive_different_values_contradict",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_exclusive_different_values_contradict",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_exclusive_different_values_contradict",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_nonexclusive_different_values_do_not_contradict",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_nonexclusive_different_values_do_not_contradict",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_nonexclusive_different_values_do_not_contradict",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_nonexclusive_different_values_do_not_contradict",
+      "target_token": "build_relations"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality",
+      "target_token": "build_clusters"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality",
+      "target_token": "self.assertAlmostEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_inconsistent_exclusivity_for_same_claim_fails_closed",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_inconsistent_exclusivity_for_same_claim_fails_closed",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_inconsistent_exclusivity_for_same_claim_fails_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_inconsistent_exclusivity_for_same_claim_fails_closed",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed",
+      "target_token": "str"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed",
+      "target_token": "range"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed",
+      "target_token": "quality"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed",
+      "target_token": "EvidenceMetadata"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed",
+      "target_token": "EvidenceQualityScore"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed",
+      "target_token": "EvidenceQualityScore"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed",
+      "target_token": "float"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed",
+      "target_token": "EvidenceAssertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "hasattr"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "target_token": "hasattr"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_empty_input_returns_empty_graph",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_empty_input_returns_empty_graph",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_empty_input_returns_empty_graph",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_empty_input_returns_empty_graph",
+      "target_token": "self.assertEqual"
     },
     {
       "caller": "tests/test_hybrid.py::chunk",
@@ -6056,6 +6734,14 @@
       "symbol": "AuthorityProviderError"
     },
     {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 53,
+      "line_start": 52,
+      "locator": "src/max_grounding/errors.py::EvidenceGraphError",
+      "symbol": "EvidenceGraphError"
+    },
+    {
       "file": "src/max_grounding/evidence.py",
       "kind": "function",
       "line_end": 46,
@@ -6078,6 +6764,70 @@
       "line_start": 73,
       "locator": "src/max_grounding/evidence.py::build_evidence_pack",
       "symbol": "build_evidence_pack"
+    },
+    {
+      "file": "src/max_grounding/evidence_graph.py",
+      "kind": "function",
+      "line_end": 39,
+      "line_start": 25,
+      "locator": "src/max_grounding/evidence_graph.py::_bounded_assertions",
+      "symbol": "_bounded_assertions"
+    },
+    {
+      "file": "src/max_grounding/evidence_graph.py",
+      "kind": "function",
+      "line_end": 50,
+      "line_start": 42,
+      "locator": "src/max_grounding/evidence_graph.py::_normalize_text",
+      "symbol": "_normalize_text"
+    },
+    {
+      "file": "src/max_grounding/evidence_graph.py",
+      "kind": "function",
+      "line_end": 59,
+      "line_start": 53,
+      "locator": "src/max_grounding/evidence_graph.py::_validated_number",
+      "symbol": "_validated_number"
+    },
+    {
+      "file": "src/max_grounding/evidence_graph.py",
+      "kind": "function",
+      "line_end": 87,
+      "line_start": 62,
+      "locator": "src/max_grounding/evidence_graph.py::_validate_quality",
+      "symbol": "_validate_quality"
+    },
+    {
+      "file": "src/max_grounding/evidence_graph.py",
+      "kind": "function",
+      "line_end": 156,
+      "line_start": 90,
+      "locator": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
+      "symbol": "_normalize_and_validate"
+    },
+    {
+      "file": "src/max_grounding/evidence_graph.py",
+      "kind": "function",
+      "line_end": 182,
+      "line_start": 159,
+      "locator": "src/max_grounding/evidence_graph.py::build_relations",
+      "symbol": "build_relations"
+    },
+    {
+      "file": "src/max_grounding/evidence_graph.py",
+      "kind": "function",
+      "line_end": 211,
+      "line_start": 185,
+      "locator": "src/max_grounding/evidence_graph.py::build_clusters",
+      "symbol": "build_clusters"
+    },
+    {
+      "file": "src/max_grounding/evidence_graph.py",
+      "kind": "function",
+      "line_end": 223,
+      "line_start": 214,
+      "locator": "src/max_grounding/evidence_graph.py::build_evidence_graph",
+      "symbol": "build_evidence_graph"
     },
     {
       "file": "src/max_grounding/fetcher.py",
@@ -6250,130 +7000,170 @@
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 28,
-      "line_start": 19,
+      "line_end": 22,
+      "line_start": 18,
+      "locator": "src/max_grounding/models.py::EvidenceRelationType",
+      "symbol": "EvidenceRelationType"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 35,
+      "line_start": 26,
       "locator": "src/max_grounding/models.py::GroundingRequest",
       "symbol": "GroundingRequest"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 40,
-      "line_start": 32,
+      "line_end": 47,
+      "line_start": 39,
       "locator": "src/max_grounding/models.py::SearchQuery",
       "symbol": "SearchQuery"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 51,
-      "line_start": 44,
+      "line_end": 58,
+      "line_start": 51,
       "locator": "src/max_grounding/models.py::SourceCandidate",
       "symbol": "SourceCandidate"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 63,
-      "line_start": 55,
+      "line_end": 70,
+      "line_start": 62,
       "locator": "src/max_grounding/models.py::EvidenceSource",
       "symbol": "EvidenceSource"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 74,
-      "line_start": 67,
+      "line_end": 81,
+      "line_start": 74,
       "locator": "src/max_grounding/models.py::EvidencePack",
       "symbol": "EvidencePack"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 86,
-      "line_start": 78,
+      "line_end": 93,
+      "line_start": 85,
       "locator": "src/max_grounding/models.py::FetchedDocument",
       "symbol": "FetchedDocument"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 97,
-      "line_start": 90,
+      "line_end": 104,
+      "line_start": 97,
       "locator": "src/max_grounding/models.py::TextChunk",
       "symbol": "TextChunk"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 106,
-      "line_start": 101,
+      "line_end": 113,
+      "line_start": 108,
       "locator": "src/max_grounding/models.py::LexicalHit",
       "symbol": "LexicalHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 115,
-      "line_start": 110,
+      "line_end": 122,
+      "line_start": 117,
       "locator": "src/max_grounding/models.py::SemanticHit",
       "symbol": "SemanticHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 126,
-      "line_start": 119,
+      "line_end": 133,
+      "line_start": 126,
       "locator": "src/max_grounding/models.py::HybridHit",
       "symbol": "HybridHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 138,
-      "line_start": 130,
+      "line_end": 145,
+      "line_start": 137,
       "locator": "src/max_grounding/models.py::RerankedHit",
       "symbol": "RerankedHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 150,
-      "line_start": 142,
+      "line_end": 157,
+      "line_start": 149,
       "locator": "src/max_grounding/models.py::EvidenceExcerpt",
       "symbol": "EvidenceExcerpt"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 164,
-      "line_start": 154,
+      "line_end": 171,
+      "line_start": 161,
       "locator": "src/max_grounding/models.py::EvidenceMetadata",
       "symbol": "EvidenceMetadata"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 173,
-      "line_start": 168,
+      "line_end": 180,
+      "line_start": 175,
       "locator": "src/max_grounding/models.py::AuthoritySubject",
       "symbol": "AuthoritySubject"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 181,
-      "line_start": 177,
+      "line_end": 188,
+      "line_start": 184,
       "locator": "src/max_grounding/models.py::TemporalComponents",
       "symbol": "TemporalComponents"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 194,
-      "line_start": 185,
+      "line_end": 201,
+      "line_start": 192,
       "locator": "src/max_grounding/models.py::EvidenceQualityScore",
       "symbol": "EvidenceQualityScore"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 212,
+      "line_start": 205,
+      "locator": "src/max_grounding/models.py::EvidenceAssertion",
+      "symbol": "EvidenceAssertion"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 221,
+      "line_start": 216,
+      "locator": "src/max_grounding/models.py::EvidenceRelation",
+      "symbol": "EvidenceRelation"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 232,
+      "line_start": 225,
+      "locator": "src/max_grounding/models.py::EvidenceCluster",
+      "symbol": "EvidenceCluster"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 241,
+      "line_start": 236,
+      "locator": "src/max_grounding/models.py::EvidenceGraph",
+      "symbol": "EvidenceGraph"
     },
     {
       "file": "src/max_grounding/network_policy.py",
@@ -7030,6 +7820,110 @@
       "line_start": 33,
       "locator": "tests/test_evidence.py::EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded",
       "symbol": "EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "function",
+      "line_end": 57,
+      "line_start": 25,
+      "locator": "tests/test_evidence_graph.py::quality",
+      "symbol": "quality"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "function",
+      "line_end": 82,
+      "line_start": 60,
+      "locator": "tests/test_evidence_graph.py::assertion",
+      "symbol": "assertion"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "class",
+      "line_end": 377,
+      "line_start": 85,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests",
+      "symbol": "Phase9EvidenceGraphTests"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "method",
+      "line_end": 117,
+      "line_start": 86,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate",
+      "symbol": "Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "method",
+      "line_end": 143,
+      "line_start": 119,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_exclusive_different_values_contradict",
+      "symbol": "Phase9EvidenceGraphTests.test_exclusive_different_values_contradict"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "method",
+      "line_end": 167,
+      "line_start": 145,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_nonexclusive_different_values_do_not_contradict",
+      "symbol": "Phase9EvidenceGraphTests.test_nonexclusive_different_values_do_not_contradict"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "method",
+      "line_end": 208,
+      "line_start": 169,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality",
+      "symbol": "Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "method",
+      "line_end": 232,
+      "line_start": 210,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_inconsistent_exclusivity_for_same_claim_fails_closed",
+      "symbol": "Phase9EvidenceGraphTests.test_inconsistent_exclusivity_for_same_claim_fails_closed"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "method",
+      "line_end": 262,
+      "line_start": 234,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed",
+      "symbol": "Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "method",
+      "line_end": 298,
+      "line_start": 264,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed",
+      "symbol": "Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "method",
+      "line_end": 342,
+      "line_start": 300,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed",
+      "symbol": "Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "method",
+      "line_end": 371,
+      "line_start": 344,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner",
+      "symbol": "Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner"
+    },
+    {
+      "file": "tests/test_evidence_graph.py",
+      "kind": "method",
+      "line_end": 377,
+      "line_start": 373,
+      "locator": "tests/test_evidence_graph.py::Phase9EvidenceGraphTests.test_empty_input_returns_empty_graph",
+      "symbol": "Phase9EvidenceGraphTests.test_empty_input_returns_empty_graph"
     },
     {
       "file": "tests/test_hybrid.py",
@@ -8217,20 +9111,21 @@
     }
   ],
   "schema_version": 1,
-  "source_digest": "e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047",
+  "source_digest": "54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982",
   "source_summary": {
-    "files": 30,
+    "files": 32,
     "languages": {
-      "Python": 30
+      "Python": 32
     },
-    "lines": 4520,
-    "test_files": 13
+    "lines": 5175,
+    "test_files": 14
   },
   "tests": [
     "tests/test_bootstrap.py",
     "tests/test_budget.py",
     "tests/test_engine.py",
     "tests/test_evidence.py",
+    "tests/test_evidence_graph.py",
     "tests/test_hybrid.py",
     "tests/test_network_policy.py",
     "tests/test_policy.py",

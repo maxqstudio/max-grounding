@@ -18,7 +18,7 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-09-evidence-graph.actual.json",
     "diagram": "docs/sequence/generated/phase-09-evidence-graph.actual.mmd",
-    "source_digest": "",
+    "source_digest": "54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982",
     "entries": [
       "src/max_grounding/evidence_graph.py::build_evidence_graph"
     ]

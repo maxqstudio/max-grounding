@@ -17,33 +17,33 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
+      "evidence": "tests/test_evidence_graph.py; GREEN run 36585895878",
       "id": "P9-STRUCTURE",
       "requirement": "At most 8 bounded structured assertions are normalized and validated fail-closed with unique assertion/evidence identity and valid Phase 8 quality provenance.",
-      "evidence": "tests/test_evidence_graph.py; GREEN run 36585895878",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_evidence_graph.py; GREEN run 36585895878",
       "id": "P9-RELATIONS",
       "requirement": "Equivalent normalized values corroborate; different values contradict only for explicitly exclusive claim keys; no truth winner is emitted.",
-      "evidence": "tests/test_evidence_graph.py; GREEN run 36585895878",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_evidence_graph.py; GREEN run 36585895878",
       "id": "P9-CLUSTERS",
       "requirement": "Equivalent assertion clusters count distinct source URLs and use one maximum accepted quality score per source for descriptive weight.",
-      "evidence": "tests/test_evidence_graph.py; GREEN run 36585895878",
       "status": "PASS"
     },
     {
+      "evidence": "Phase 9 Candidate Verify run 36586034657",
       "id": "P9-SEQUENCE",
       "requirement": "build_evidence_graph invokes build_relations and build_clusters in conformance with the frozen Phase 9 BEFORE plan.",
-      "evidence": "Phase 9 Candidate Verify run 36586034657",
       "status": "PASS"
     },
     {
+      "evidence": "Phase 9 Candidate Verify run 36586034657: sequence plus 12/12 runtime matrix jobs PASS",
       "id": "P9-CROSS-OS",
       "requirement": "The Phase 9 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS.",
-      "evidence": "Phase 9 Candidate Verify run 36586034657: sequence plus 12/12 runtime matrix jobs PASS",
       "status": "PASS"
     }
   ],
