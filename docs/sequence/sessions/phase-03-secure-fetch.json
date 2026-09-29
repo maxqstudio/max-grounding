@@ -18,7 +18,7 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-03-secure-fetch.actual.json",
     "diagram": "docs/sequence/generated/phase-03-secure-fetch.actual.mmd",
-    "source_digest": "",
+    "source_digest": "5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216",
     "entries": [
       "src/max_grounding/fetcher.py::fetch_document"
     ]

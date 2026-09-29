@@ -2,20 +2,21 @@
 
 # ARCHITECTURE
 
-Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
+Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
 
 ## Components
 
 | ID | Component | Purpose | Owns | Depends On |
 |---|---|---|---|---|
-| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus |  |
+| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument |  |
 | policy | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | budget | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | provider-boundary | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
 | evidence | Evidence Normalization | Canonicalize HTTP(S) URLs, deduplicate sources, and classify evidence fail-closed. | canonical URLs, evidence sufficiency classification | models |
 | engine | Grounding Engine | Orchestrate validation, bounded search calls, evidence normalization, and fail-closed output. | grounding flow | policy, budget, provider-boundary, evidence |
 | searxng-provider | SearXNG Provider | Build a fixed-authority JSON search request, perform bounded non-redirecting HTTP, validate response shape, and emit SourceCandidate values. | SearxngProvider, SearXNG request construction, bounded JSON response handling | models, network-policy |
-| network-policy | Result URL Admission Policy | Reject obviously unsafe untrusted search-result URLs before evidence admission without claiming DNS-rebinding protection. | scheme/userinfo validation, localhost rejection, literal non-public IP rejection |  |
+| network-policy | Network Target Policy | Reject unsafe result URLs, resolve result-page hosts at fetch time, reject the entire DNS answer set if any address is non-public, and return only validated public IP targets. | scheme/userinfo/control-character validation, localhost and ambiguous numeric host rejection, literal non-public IP rejection, all-answer DNS public-IP validation |  |
+| secure-fetch | Secure Result Fetcher | Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, bound response handling, and extract untrusted visible text. | fetch_document, public-IP-pinned HTTP(S) connection, bounded response policy, visible text extraction | models, network-policy |
 
 ## Data flow
 
@@ -29,17 +30,21 @@ Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79
 - GroundingEngine -> SearXNG Provider: already-budgeted SearchQuery
 - SearXNG Provider -> operator-configured SearXNG instance: bounded GET /search request for JSON output
 - SearXNG Provider -> Result URL Admission Policy: untrusted result URL before SourceCandidate construction
+- SourceCandidate -> Network Target Policy: admitted untrusted result URL is independently revalidated at fetch time
+- Network Target Policy -> Secure Result Fetcher: validated public connection targets
+- Secure Result Fetcher -> FetchedDocument: bounded immutable text and fetch metadata
 
 ## External boundaries
 
-- SearXNG service: Operator config chooses the trusted provider endpoint. Search-result URLs and returned content remain untrusted; Phase 2 does not fetch result pages or resolve their DNS.
+- SearXNG service: Operator config chooses the trusted provider endpoint. Search-result URLs and page content remain untrusted and are independently validated by the Phase 3 fetch boundary.
 - GitHub-hosted runners: Cross-platform acceptance authority for Python 3.11-3.14 on Linux, Windows, and macOS.
+- Result-page web servers: Untrusted network/content boundary. Phase 3 permits only standard-port HTTP(S), validates all DNS answers as public, pins transport to a validated IP, rejects redirects and compression, bounds bytes, and accepts only approved text media/charset combinations.
 
 ## Observed implementation inventory
 
-Source files: 18
-Source lines: 1156
-Languages: Python=18
+Source files: 20
+Source lines: 1813
+Languages: Python=20
 
 Structural facts come from the code extractor. Component meaning comes from
 .workflow/architecture.json.

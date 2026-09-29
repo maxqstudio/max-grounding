@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
+Source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
@@ -21,16 +21,36 @@ Status: CURRENT
 | src/max_grounding/errors.py | SearchBudgetExceeded | class | 12-13 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | SearchProviderError | class | 16-17 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | InvalidProviderConfiguration | class | 20-21 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | FetchError | class | 24-25 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _PinnedHTTPConnection | class | 30-45 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _PinnedHTTPConnection.__init__ | method | 31-39 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _PinnedHTTPConnection.connect | method | 41-45 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _PinnedHTTPSConnection | class | 48-72 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _PinnedHTTPSConnection.__init__ | method | 49-58 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _PinnedHTTPSConnection.connect | method | 60-72 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _TextExtractor | class | 75-97 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _TextExtractor.__init__ | method | 78-81 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _TextExtractor.handle_starttag | method | 83-89 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _TextExtractor.handle_endtag | method | 91-93 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _TextExtractor.handle_data | method | 95-97 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _require_public_ip | function | 100-107 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | open_pinned_connection | function | 110-134 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | read_bounded_response | function | 137-182 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | extract_text | function | 185-209 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | _normalized_fetch_target | function | 212-230 | Observed Python symbol | | | |
+| src/max_grounding/fetcher.py | fetch_document | function | 233-298 | Observed Python symbol | | | |
 | src/max_grounding/models.py | EvidenceStatus | class | 9-14 | Observed Python symbol | | | |
 | src/max_grounding/models.py | GroundingRequest | class | 18-27 | Observed Python symbol | | | |
 | src/max_grounding/models.py | SearchQuery | class | 31-39 | Observed Python symbol | | | |
 | src/max_grounding/models.py | SourceCandidate | class | 43-50 | Observed Python symbol | | | |
 | src/max_grounding/models.py | EvidenceSource | class | 54-62 | Observed Python symbol | | | |
 | src/max_grounding/models.py | EvidencePack | class | 66-73 | Observed Python symbol | | | |
-| src/max_grounding/network_policy.py | is_admissible_result_url | function | 14-43 | Observed Python symbol | | | |
+| src/max_grounding/models.py | FetchedDocument | class | 77-85 | Observed Python symbol | | | |
+| src/max_grounding/network_policy.py | is_admissible_result_url | function | 18-50 | Observed Python symbol | | | |
+| src/max_grounding/network_policy.py | resolve_public_addresses | function | 53-93 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy.validate_request | method | 18-51 | Observed Python symbol | | | |
 | src/max_grounding/providers/base.py | SearchProvider | class | 10-15 | Observed Python symbol | | | |
@@ -68,12 +88,19 @@ Status: CURRENT
 | tests/test_evidence.py | EvidenceNormalizationTests | class | 9-50 | Observed Python symbol | | | |
 | tests/test_evidence.py | EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash | method | 10-31 | Observed Python symbol | | | |
 | tests/test_evidence.py | EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded | method | 33-50 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests | class | 8-42 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets | method | 9-11 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes | method | 13-16 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_localhost_names | method | 18-20 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets | method | 22-39 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_malformed_ports | method | 41-42 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests | class | 13-57 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets | method | 14-16 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes | method | 18-21 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_localhost_names | method | 23-25 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets | method | 27-44 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_malformed_ports | method | 46-47 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_ascii_control_characters_anywhere_in_url | method | 49-57 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ConnectionTargetResolutionTests | class | 60-119 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ConnectionTargetResolutionTests._resolver | method | 62-79 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ConnectionTargetResolutionTests._resolver.resolve | method | 63-77 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ConnectionTargetResolutionTests.test_accepts_and_deduplicates_only_public_dns_answers | method | 81-92 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ConnectionTargetResolutionTests.test_rejects_mixed_public_and_private_dns_answers | method | 94-100 | Observed Python symbol | | | |
+| tests/test_network_policy.py | ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers | method | 102-119 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests | class | 10-43 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.setUp | method | 11-12 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_blank_query | method | 14-16 | Observed Python symbol | | | |
@@ -97,6 +124,24 @@ Status: CURRENT
 | tests/test_searxng_provider.py | SearxngProviderTests.test_fetch_rejects_oversized_response_before_json_decode | method | 163-170 | Observed Python symbol | | | |
 | tests/test_searxng_provider.py | SearxngProviderTests.test_fetch_rejects_non_json_and_invalid_json | method | 172-185 | Observed Python symbol | | | |
 | tests/test_searxng_provider.py | SearxngProviderTests.test_provider_rejects_invalid_results_schema | method | 187-202 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | _Response | class | 17-37 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | _Response.__init__ | method | 18-34 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | _Response.read | method | 36-37 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | _Connection | class | 40-59 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | _Connection.__init__ | method | 41-44 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | _Connection.request | method | 46-53 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | _Connection.getresponse | method | 55-56 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | _Connection.close | method | 58-59 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | public_resolver | function | 62-71 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | SecureFetcherTests | class | 74-212 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority | method | 75-122 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority.opener | method | 82-97 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_rejects_nonstandard_ports_before_dns | method | 124-128 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | SecureFetcherTests.test_read_rejects_missing_content_type | method | 130-134 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize | method | 136-147 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | SecureFetcherTests.test_extract_html_discards_executable_and_style_content | method | 149-164 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname | method | 166-180 | Observed Python symbol | | | |
+| tests/test_secure_fetcher.py | SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name | method | 182-212 | Observed Python symbol | | | |
 
 ## Coverage
 
