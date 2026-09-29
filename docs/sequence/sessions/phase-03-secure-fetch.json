@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-03-secure-fetch",
+  "phase": "PHASE_03_SECURE_FETCH_EXTRACTION",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "PLANNED",
+  "implementation_base_sha": "",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-03-secure-fetch.plan.json",
+    "frozen": true,
+    "frozen_commit": "",
+    "sha256": "",
+    "diagram": "docs/sequence/generated/phase-03-secure-fetch.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-03-secure-fetch.actual.json",
+    "diagram": "docs/sequence/generated/phase-03-secure-fetch.actual.mmd",
+    "source_digest": "",
+    "entries": [
+      "src/max_grounding/fetcher.py::fetch_document"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_secure_fetcher.py",
+    "tests/test_network_policy.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}
