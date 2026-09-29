@@ -5,14 +5,14 @@
   "mode": "BEFORE",
   "scope": "CURRENT",
   "critical": true,
-  "status": "PLANNED",
-  "implementation_base_sha": "",
+  "status": "FROZEN",
+  "implementation_base_sha": "fbe5b9ad01c4e52bb629399ae688d93d4bc08013",
   "plan": {
     "required": true,
     "contract": "docs/sequence/plans/phase-04-lexical-retrieval.plan.json",
     "frozen": true,
-    "frozen_commit": "",
-    "sha256": "",
+    "frozen_commit": "fbe5b9ad01c4e52bb629399ae688d93d4bc08013",
+    "sha256": "9e967d5afddbf5e86f77dd54a489267ca8fd314bdeb563793122cc066168de90",
     "diagram": "docs/sequence/generated/phase-04-lexical-retrieval.plan.mmd"
   },
   "actual": {
