@@ -134,10 +134,18 @@ def rerank_hybrid(
 
     documents = tuple(hit.chunk.text for hit in candidates)
     try:
-        returned = tuple(provider.score(normalized_query, documents))
+        raw_returned = provider.score(normalized_query, documents)
     except Exception as exc:
         raise RerankProviderError("rerank provider call failed") from exc
 
+    if isinstance(raw_returned, (str, bytes)) or not isinstance(
+        raw_returned,
+        Sequence,
+    ):
+        raise RerankProviderError(
+            "rerank provider output must be a bounded score sequence"
+        )
+    returned = tuple(raw_returned)
     if len(returned) != len(candidates):
         raise RerankProviderError(
             "rerank provider returned the wrong score count"
