@@ -3,7 +3,7 @@
   "session_id": "phase-08-temporal-authority",
   "phase": "PHASE_08_TEMPORAL_AUTHORITY",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
   "status": "FROZEN",
   "implementation_base_sha": "0810115190890db456b4a90634e1dd10fb29da08",
