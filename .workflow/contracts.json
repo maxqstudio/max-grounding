@@ -56,6 +56,30 @@
       "authority": "src/max_grounding/network_policy.py::resolve_public_addresses",
       "mutation": "DNS lookup only",
       "error_behavior": "Resolution failure, empty answers, malformed addresses, or any non-public/multicast answer raises FetchError."
+    },
+    {
+      "method": "PYTHON",
+      "path": "retrieve_lexical(documents, query)",
+      "purpose": "Chunk bounded fetched documents and return deterministic positive-score BM25 lexical hits.",
+      "authority": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "mutation": "in-memory derivation only; no persistent mutation",
+      "error_behavior": "Empty/oversized query or out-of-policy document/chunk/result bounds raise RetrievalError before returning hits."
+    },
+    {
+      "method": "INTERNAL",
+      "path": "chunk_document(document)",
+      "purpose": "Split one immutable FetchedDocument into bounded overlapping TextChunk values with stable provenance.",
+      "authority": "src/max_grounding/retrieval.py::chunk_document",
+      "mutation": "none; returns immutable derived chunks",
+      "error_behavior": "Invalid chunk size, overlap, or per-document chunk cap raises RetrievalError."
+    },
+    {
+      "method": "INTERNAL",
+      "path": "rank_chunks(query, chunks)",
+      "purpose": "Rank in-memory chunks with BM25 and return only positive lexical matches in deterministic order.",
+      "authority": "src/max_grounding/retrieval.py::rank_chunks",
+      "mutation": "none; returns immutable LexicalHit values",
+      "error_behavior": "Invalid query or result limit raises RetrievalError; no matches returns an empty tuple."
     }
   ],
   "data_contracts": [
@@ -133,6 +157,37 @@
         "media_type and charset passed the explicit allowlist",
         "byte_length is bounded before text extraction",
         "text is untrusted evidence data and not an instruction authority"
+      ]
+    },
+    {
+      "name": "TextChunk",
+      "source_of_truth": "src/max_grounding/models.py::TextChunk",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/retrieval.py::chunk_document result construction"
+      ],
+      "retention": "retrieval-call lifetime unless caller retains it",
+      "invariants": [
+        "chunk_id is deterministic for the same source URL, chunk index, and text",
+        "source_url preserves FetchedDocument provenance",
+        "chunk_index follows deterministic source order",
+        "text is bounded by the configured and hard-capped chunk word limit",
+        "token_count is derived deterministically from lexical tokenization"
+      ]
+    },
+    {
+      "name": "LexicalHit",
+      "source_of_truth": "src/max_grounding/models.py::LexicalHit",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/retrieval.py::rank_chunks result construction"
+      ],
+      "retention": "retrieval-call lifetime unless caller retains it",
+      "invariants": [
+        "score is positive",
+        "rank starts at 1 and follows deterministic BM25 ordering",
+        "ties resolve by stable source provenance and chunk identity",
+        "hit count never exceeds the configured hard-capped limit"
       ]
     }
   ],
