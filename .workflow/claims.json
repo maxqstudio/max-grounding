@@ -567,6 +567,78 @@
         "GitHub Actions Candidate Verify run 36582080120"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P9-STRUCTURE-001",
+      "claim": "Phase 9 accepts at most eight bounded structured assertions, rejects arbitrary iterables and duplicate identities, normalizes claim keys/values deterministically, and requires valid Phase 8 quality provenance.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/evidence_graph.py::build_evidence_graph",
+        "src/max_grounding/models.py::EvidenceAssertion"
+      ],
+      "tests": [
+        "tests/test_evidence_graph.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions GREEN run 36585895878"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P9-RELATION-001",
+      "claim": "Phase 9 emits deterministic CORROBORATES edges for equal normalized claim/value pairs and CONTRADICTS edges only for differing values of explicitly exclusive claim keys; it emits no truth winner.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/evidence_graph.py::build_relations",
+        "src/max_grounding/models.py::EvidenceRelation"
+      ],
+      "tests": [
+        "tests/test_evidence_graph.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions GREEN run 36585895878"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P9-CLUSTER-001",
+      "claim": "Phase 9 value clusters count distinct source URLs and compute descriptive quality_weight_sum using only each source's maximum accepted Phase 8 quality score, preventing repeated chunks from one source from inflating source independence.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/evidence_graph.py::build_clusters",
+        "src/max_grounding/models.py::EvidenceCluster"
+      ],
+      "tests": [
+        "tests/test_evidence_graph.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions GREEN run 36585895878"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P9-CROSS-OS-001",
+      "claim": "Phase 9 evidence-graph construction conforms to the frozen BEFORE plan and passes the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/evidence_graph.py::build_evidence_graph",
+        ".github/workflows/ci.yml"
+      ],
+      "tests": [
+        "tests/test_evidence_graph.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions Candidate Verify run 36586034657"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []
