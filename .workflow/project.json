@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through Phase 2"
+      "none through Phase 4 candidate"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -40,6 +40,11 @@
       "name": "SearXNG provider",
       "path": "src/max_grounding/providers/searxng.py",
       "purpose": "bounded live HTTP search against a trusted self-hosted SearXNG endpoint"
+    },
+    {
+      "name": "Lexical retrieval",
+      "path": "src/max_grounding/retrieval.py",
+      "purpose": "deterministic bounded chunking and in-memory BM25 lexical retrieval over fetched text"
     }
   ],
   "constraints": [
