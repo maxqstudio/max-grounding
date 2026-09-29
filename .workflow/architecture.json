@@ -23,7 +23,12 @@
         "EvidenceRelationType",
         "EvidenceRelation",
         "EvidenceCluster",
-        "EvidenceGraph"
+        "EvidenceGraph",
+        "AnswerClaim",
+        "ClaimVerificationStatus",
+        "ClaimCitation",
+        "ClaimVerification",
+        "SynthesisPacket"
       ],
       "depends_on": []
     },
@@ -237,6 +242,24 @@
         "models",
         "temporal-authority"
       ]
+    },
+    {
+      "id": "claim-verification",
+      "name": "Claim Verification and Synthesis Gate",
+      "purpose": "Verify bounded exact structured answer claims against the accepted evidence graph, bind exact citations, derive a transparent evidence-sufficiency index, and expose only fully supported claims to synthesis.",
+      "owns": [
+        "verify_claims",
+        "build_claim_citations",
+        "build_synthesis_packet",
+        "four-state claim verification",
+        "claim-level citation provenance",
+        "evidence-sufficiency confidence index",
+        "fail-closed synthesis eligibility"
+      ],
+      "depends_on": [
+        "models",
+        "evidence-graph"
+      ]
     }
   ],
   "data_flows": [
@@ -409,6 +432,26 @@
       "from": "Evidence Graph",
       "to": "EvidenceGraph",
       "meaning": "immutable normalized assertions, corroboration/contradiction edges, and distinct-URL value clusters are returned without a truth winner"
+    },
+    {
+      "from": "EvidenceGraph",
+      "to": "Claim Verification and Synthesis Gate",
+      "meaning": "validated structured clusters and contradiction edges are revalidated before exact claim verification"
+    },
+    {
+      "from": "AnswerClaim",
+      "to": "Claim Verification and Synthesis Gate",
+      "meaning": "at most 16 explicit claim IDs/text/key/value tuples are normalized and matched exactly; no fuzzy semantic inference occurs"
+    },
+    {
+      "from": "Claim Verification and Synthesis Gate",
+      "to": "ClaimCitation",
+      "meaning": "exact supporting assertion excerpts retain source URL, chunk identity, and assertion identity per answer claim"
+    },
+    {
+      "from": "Claim Verification and Synthesis Gate",
+      "to": "SynthesisPacket",
+      "meaning": "only SUPPORTED claims become synthesis-safe; partial, conflicted, and unsupported claims remain blocked"
     }
   ],
   "external_boundaries": [
