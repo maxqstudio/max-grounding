@@ -38,7 +38,7 @@
       "file": "src/max_grounding/errors.py",
       "is_test": false,
       "language": "Python",
-      "lines": 25
+      "lines": 29
     },
     {
       "directory": "src/max_grounding",
@@ -59,7 +59,7 @@
       "file": "src/max_grounding/models.py",
       "is_test": false,
       "language": "Python",
-      "lines": 85
+      "lines": 105
     },
     {
       "directory": "src/max_grounding",
@@ -95,6 +95,13 @@
       "is_test": false,
       "language": "Python",
       "lines": 220
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/retrieval.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 219
     },
     {
       "directory": "tests",
@@ -137,6 +144,13 @@
       "is_test": true,
       "language": "Python",
       "lines": 47
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_retrieval.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 181
     },
     {
       "directory": "tests",
@@ -1031,6 +1045,254 @@
       "target_token": "parse_searxng_results"
     },
     {
+      "caller": "src/max_grounding/retrieval.py::tokenize_text",
+      "target_token": "casefold"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::tokenize_text",
+      "target_token": "unicodedata.normalize"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::tokenize_text",
+      "target_token": "character.isalnum"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::tokenize_text",
+      "target_token": "current.append"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::tokenize_text",
+      "target_token": "tokens.append"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::tokenize_text",
+      "target_token": "join"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::tokenize_text",
+      "target_token": "current.clear"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::tokenize_text",
+      "target_token": "tokens.append"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::tokenize_text",
+      "target_token": "join"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::tokenize_text",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_chunk_id",
+      "target_token": "encode"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_chunk_id",
+      "target_token": "hexdigest"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_chunk_id",
+      "target_token": "hashlib.sha256"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "_validate_chunk_bounds"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "document.text.split"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "join"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "chunks.append"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "_chunk_id"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "tokenize_text"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::chunk_document",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_query",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_query",
+      "target_token": "query.strip"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_query",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_query",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_query",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_query",
+      "target_token": "tokenize_text"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_query",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_query",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::_validate_query",
+      "target_token": "dict.fromkeys"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "_validate_query"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "tokenize_text"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "sum"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "sum"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "Counter"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "frequencies.get"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "math.log"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "scored.append"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "scored.sort"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "LexicalHit"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::rank_chunks",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "target_token": "_validate_query"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "target_token": "_validate_chunk_bounds"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "target_token": "chunks.extend"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "target_token": "chunk_document"
+    },
+    {
+      "caller": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "target_token": "rank_chunks"
+    },
+    {
       "caller": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
       "target_token": "project_identity"
     },
@@ -1593,6 +1855,306 @@
     {
       "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
       "target_token": "self.policy.validate_request"
+    },
+    {
+      "caller": "tests/test_retrieval.py::document",
+      "target_token": "FetchedDocument"
+    },
+    {
+      "caller": "tests/test_retrieval.py::document",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_retrieval.py::document",
+      "target_token": "text.encode"
+    },
+    {
+      "caller": "tests/test_retrieval.py::chunk",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_retrieval.py::chunk",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_retrieval.py::chunk",
+      "target_token": "tokenize_text"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_tokenizer_is_unicode_casefolded_and_punctuation_stable",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_tokenizer_is_unicode_casefolded_and_punctuation_stable",
+      "target_token": "tokenize_text"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "chunk_document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "chunk_document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "all"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "target_token": "all"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunk_limit_stops_work_deterministically",
+      "target_token": "document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunk_limit_stops_work_deterministically",
+      "target_token": "chunk_document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunk_limit_stops_work_deterministically",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunk_limit_stops_work_deterministically",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "rank_chunks"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "self.assertGreater"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "target_token": "self.assertNotIn"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_equal_scores_use_stable_provenance_order",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_equal_scores_use_stable_provenance_order",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_equal_scores_use_stable_provenance_order",
+      "target_token": "rank_chunks"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_equal_scores_use_stable_provenance_order",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_equal_scores_use_stable_provenance_order",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_no_lexical_match_returns_empty_result",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_no_lexical_match_returns_empty_result",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_no_lexical_match_returns_empty_result",
+      "target_token": "rank_chunks"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance",
+      "target_token": "document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance",
+      "target_token": "document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance",
+      "target_token": "retrieve_lexical"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance",
+      "target_token": "self.assertIs"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance",
+      "target_token": "self.assertLessEqual"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "retrieve_lexical"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "retrieve_lexical"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "retrieve_lexical"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "retrieve_lexical"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "retrieve_lexical"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "rank_chunks"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "chunk_document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "target_token": "invoke"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "range"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "retrieve_lexical"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "retrieve_lexical"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "chunk_document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "chunk_document"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "target_token": "rank_chunks"
     },
     {
       "caller": "tests/test_searxng_provider.py::_ResponseHandler.do_GET",
@@ -2214,6 +2776,14 @@
       "symbol": "FetchError"
     },
     {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 29,
+      "line_start": 28,
+      "locator": "src/max_grounding/errors.py::RetrievalError",
+      "symbol": "RetrievalError"
+    },
+    {
       "file": "src/max_grounding/evidence.py",
       "kind": "function",
       "line_end": 46,
@@ -2430,6 +3000,22 @@
       "symbol": "FetchedDocument"
     },
     {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 96,
+      "line_start": 89,
+      "locator": "src/max_grounding/models.py::TextChunk",
+      "symbol": "TextChunk"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 105,
+      "line_start": 100,
+      "locator": "src/max_grounding/models.py::LexicalHit",
+      "symbol": "LexicalHit"
+    },
+    {
       "file": "src/max_grounding/network_policy.py",
       "kind": "function",
       "line_end": 50,
@@ -2556,6 +3142,62 @@
       "line_start": 208,
       "locator": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
       "symbol": "SearxngProvider.search"
+    },
+    {
+      "file": "src/max_grounding/retrieval.py",
+      "kind": "function",
+      "line_end": 42,
+      "line_start": 29,
+      "locator": "src/max_grounding/retrieval.py::tokenize_text",
+      "symbol": "tokenize_text"
+    },
+    {
+      "file": "src/max_grounding/retrieval.py",
+      "kind": "function",
+      "line_end": 60,
+      "line_start": 45,
+      "locator": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "symbol": "_validate_chunk_bounds"
+    },
+    {
+      "file": "src/max_grounding/retrieval.py",
+      "kind": "function",
+      "line_end": 65,
+      "line_start": 63,
+      "locator": "src/max_grounding/retrieval.py::_chunk_id",
+      "symbol": "_chunk_id"
+    },
+    {
+      "file": "src/max_grounding/retrieval.py",
+      "kind": "function",
+      "line_end": 105,
+      "line_start": 68,
+      "locator": "src/max_grounding/retrieval.py::chunk_document",
+      "symbol": "chunk_document"
+    },
+    {
+      "file": "src/max_grounding/retrieval.py",
+      "kind": "function",
+      "line_end": 118,
+      "line_start": 108,
+      "locator": "src/max_grounding/retrieval.py::_validate_query",
+      "symbol": "_validate_query"
+    },
+    {
+      "file": "src/max_grounding/retrieval.py",
+      "kind": "function",
+      "line_end": 181,
+      "line_start": 121,
+      "locator": "src/max_grounding/retrieval.py::rank_chunks",
+      "symbol": "rank_chunks"
+    },
+    {
+      "file": "src/max_grounding/retrieval.py",
+      "kind": "function",
+      "line_end": 219,
+      "line_start": 184,
+      "locator": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "symbol": "retrieve_lexical"
     },
     {
       "file": "tests/test_bootstrap.py",
@@ -2894,6 +3536,102 @@
       "symbol": "GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits"
     },
     {
+      "file": "tests/test_retrieval.py",
+      "kind": "function",
+      "line_end": 23,
+      "line_start": 15,
+      "locator": "tests/test_retrieval.py::document",
+      "symbol": "document"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "function",
+      "line_end": 33,
+      "line_start": 26,
+      "locator": "tests/test_retrieval.py::chunk",
+      "symbol": "chunk"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "class",
+      "line_end": 177,
+      "line_start": 36,
+      "locator": "tests/test_retrieval.py::LexicalRetrievalTests",
+      "symbol": "LexicalRetrievalTests"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "method",
+      "line_end": 41,
+      "line_start": 37,
+      "locator": "tests/test_retrieval.py::LexicalRetrievalTests.test_tokenizer_is_unicode_casefolded_and_punctuation_stable",
+      "symbol": "LexicalRetrievalTests.test_tokenizer_is_unicode_casefolded_and_punctuation_stable"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "method",
+      "line_end": 73,
+      "line_start": 43,
+      "locator": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic",
+      "symbol": "LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "method",
+      "line_end": 89,
+      "line_start": 75,
+      "locator": "tests/test_retrieval.py::LexicalRetrievalTests.test_chunk_limit_stops_work_deterministically",
+      "symbol": "LexicalRetrievalTests.test_chunk_limit_stops_work_deterministically"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "method",
+      "line_end": 106,
+      "line_start": 91,
+      "locator": "tests/test_retrieval.py::LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches",
+      "symbol": "LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "method",
+      "line_end": 117,
+      "line_start": 108,
+      "locator": "tests/test_retrieval.py::LexicalRetrievalTests.test_equal_scores_use_stable_provenance_order",
+      "symbol": "LexicalRetrievalTests.test_equal_scores_use_stable_provenance_order"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "method",
+      "line_end": 121,
+      "line_start": 119,
+      "locator": "tests/test_retrieval.py::LexicalRetrievalTests.test_no_lexical_match_returns_empty_result",
+      "symbol": "LexicalRetrievalTests.test_no_lexical_match_returns_empty_result"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "method",
+      "line_end": 147,
+      "line_start": 123,
+      "locator": "tests/test_retrieval.py::LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance",
+      "symbol": "LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "method",
+      "line_end": 163,
+      "line_start": 149,
+      "locator": "tests/test_retrieval.py::LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval",
+      "symbol": "LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval"
+    },
+    {
+      "file": "tests/test_retrieval.py",
+      "kind": "method",
+      "line_end": 177,
+      "line_start": 165,
+      "locator": "tests/test_retrieval.py::LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests",
+      "symbol": "LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests"
+    },
+    {
       "file": "tests/test_searxng_provider.py",
       "kind": "class",
       "line_end": 34,
@@ -3175,14 +3913,14 @@
     }
   ],
   "schema_version": 1,
-  "source_digest": "5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216",
+  "source_digest": "d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74",
   "source_summary": {
-    "files": 20,
+    "files": 22,
     "languages": {
-      "Python": 20
+      "Python": 22
     },
-    "lines": 1813,
-    "test_files": 8
+    "lines": 2237,
+    "test_files": 9
   },
   "tests": [
     "tests/test_bootstrap.py",
@@ -3191,6 +3929,7 @@
     "tests/test_evidence.py",
     "tests/test_network_policy.py",
     "tests/test_policy.py",
+    "tests/test_retrieval.py",
     "tests/test_searxng_provider.py",
     "tests/test_secure_fetcher.py"
   ]

@@ -4,18 +4,18 @@
 
 ## Evidence boundary
 
-Phase 3 proves a deterministic secure result-page fetch boundary: HTTP(S) admission, all-answer DNS public-IP validation, connection pinning to a validated IP, original HTTPS server-name preservation, standard-port restriction, non-redirecting bounded response handling, explicit text media/charset policy, visible-text extraction, fail-closed errors, frozen-plan conformance, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. Evidence uses deterministic CI fixtures and mocks; it does not prove arbitrary external websites, JavaScript rendering, crawling, embeddings, vector databases, reranking, REST, MCP, or production deployment.
+Phase 4 proves deterministic bounded lexical retrieval over immutable FetchedDocument values: Unicode lexical tokenization, overlapping bounded text chunking with stable source provenance and chunk IDs, in-memory BM25 scoring, positive-match filtering, deterministic tie ordering, hard request caps, frozen-plan conformance, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove semantic embeddings, vector retrieval, hybrid fusion, reranking, persistent indexes, real-world relevance quality, REST, MCP, or production deployment.
 
 Final tested source: external final acceptance evidence.
-Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
+Current source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P3-DNS-PIN | Every fetch resolves the target once, rejects the complete DNS answer set if any address is non-public or multicast, and connects only to a validated pinned IP while preserving the original TLS server name. | tests/test_network_policy.py; tests/test_secure_fetcher.py; sequence verification run 36548516860 | PASS |
-| P3-FAIL-CLOSED-FETCH | Result-page fetching rejects nonstandard ports, redirects/non-200 responses, non-identity encoding, missing/disallowed media type, disallowed charset, and declared or observed byte overflow. | tests/test_secure_fetcher.py; security RED run 36548079506; security GREEN run 36548150250 | PASS |
-| P3-EXTRACTION | Approved text responses are decoded strictly; HTML extraction omits executable/styling fallback elements and returns bounded untrusted text plus immutable fetch metadata. | tests/test_secure_fetcher.py | PASS |
-| P3-URL-ADMISSION | Result URLs reject credentials, unsupported schemes, localhost, ambiguous numeric hosts, literal non-public IPs, malformed ports, and ASCII control characters before DNS or transport. | tests/test_network_policy.py; security RED run 36548079506; security GREEN run 36548150250 | PASS |
-| P3-CROSS-OS | The final simplified Phase 3 source passes the complete test suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 3 Final Cross Platform run 36548604321: 12/12 jobs PASS | PASS |
+| P4-CHUNKING | FetchedDocument text is split into deterministic bounded overlapping TextChunk values with immutable source URL, chunk index, stable chunk ID, text, and token count. | tests/test_retrieval.py; GREEN run 36553060757 | PASS |
+| P4-BM25 | Lexical retrieval applies deterministic in-memory BM25 scoring, returns only positive-score hits up to the requested limit, and resolves equal scores with stable provenance ordering. | tests/test_retrieval.py; GREEN run 36553060757 | PASS |
+| P4-HARD-BOUNDS | Lexical retrieval rejects empty/oversized queries and out-of-policy document, chunk, overlap, per-document chunk, and result limits before unbounded retrieval work. | tests/test_retrieval.py | PASS |
+| P4-SEQUENCE | The implemented retrieve-to-chunk/rank/tokenize call graph conforms to the frozen Phase 4 BEFORE plan. | Phase 4 Sequence Verify run 36553168076 | PASS |
+| P4-CROSS-OS | The Phase 4 lexical retrieval source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 4 Cross Platform run 36553245646: 12/12 jobs PASS | PASS |
 
 ## Test commands
 
@@ -26,18 +26,16 @@ Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a8
 
 ## Runtime checks
 
-- TDD RED run 36547347512 proved the Phase 3 contract absent before implementation.
-- Security regression run 36548079506 proved the two security gaps before repair.
-- Security GREEN run 36548150250 passed full unit and compile checks after repair.
-- Sequence verification run 36548516860 passed generated PLAN-to-ACTUAL validation.
-- Final cross-platform run 36548604321 passed 12/12 Python/OS jobs after the final simplification.
-- Pull request #7 Acceptance run 36551148939 passed 13/13 required jobs on exact PR head ca3f3f3e7972d355ca2279b1df9883fb48daad2f.
-- Post-merge main Acceptance run 36551315900 passed 13/13 required jobs on merged main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6.
+- TDD RED run 36552850622 proved the Phase 4 retrieval contract absent before implementation.
+- GREEN run 36553060757 passed the full unit suite and compile checks after implementation.
+- Sequence verification run 36553168076 passed generated PLAN-to-ACTUAL validation.
+- Cross-platform run 36553245646 passed 12/12 Python/OS jobs.
+- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 4 closure.
 
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-03-secure-fetch.json
+Sequence session contract: docs/sequence/sessions/phase-04-lexical-retrieval.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

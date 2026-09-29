@@ -48,6 +48,52 @@ Authority: GroundingPolicy and SearchBudget
 
 - The core flow has no persistent mutation in Phase 1.
 
+## FLOW-LEXICAL-RETRIEVAL — Bounded lexical retrieval
+
+Purpose: Turn already-fetched immutable documents into deterministic bounded text chunks and return the top BM25 lexical hits without persistence, semantic embeddings, vector search, or reranking.
+Critical: TRUE
+Entry condition: One or more FetchedDocument values and a non-empty lexical query are supplied within configured bounds.
+Authority: Deterministic chunking policy and in-memory BM25 scorer
+
+### States
+
+- DOCUMENTS_RECEIVED
+- CHUNKS_READY
+- SCORED
+- HITS_READY
+- INVALID_REQUEST
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| DOCUMENTS_RECEIVED | CHUNKS_READY | split fetched document text into bounded deterministic overlapping chunks | Deterministic chunking policy and in-memory BM25 scorer |  |
+| CHUNKS_READY | SCORED | tokenize query and chunks and calculate BM25 lexical scores | Deterministic chunking policy and in-memory BM25 scorer |  |
+| SCORED | HITS_READY | retain positive-score hits up to the configured result limit with deterministic tie ordering | Deterministic chunking policy and in-memory BM25 scorer |  |
+| DOCUMENTS_RECEIVED | INVALID_REQUEST | reject invalid query or chunk/retrieval bounds before retrieval work | Deterministic chunking policy and in-memory BM25 scorer |  |
+
+### Invariants
+
+- FetchedDocument input values are never mutated.
+- Chunk count, chunk size, overlap, and returned hit count are explicitly bounded.
+- Chunk IDs and ordering are deterministic for identical input.
+- Only positive lexical matches are returned.
+- Equal scores use stable provenance ordering rather than runtime or hash-map order.
+- Phase 4 is lexical-only and performs no embeddings, vector search, hybrid fusion, reranking, or persistent indexing.
+
+### Failure behavior
+
+- Empty queries or invalid bounds raise a controlled retrieval error before producing hits.
+- Empty documents or documents with no lexical matches return an empty immutable result rather than fabricated relevance.
+
+### Restart behavior
+
+- Retrieval is stateless; repeating the same input and configuration produces the same chunk and ranking order.
+
+### Rollback behavior
+
+- Phase 4 has no persistent mutation.
+
 ## FLOW-PHASE-DELIVERY — Governed phase delivery
 
 Purpose: Move each implementation phase from isolated branch to accepted main without bypassing executable evidence.

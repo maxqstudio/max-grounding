@@ -224,6 +224,80 @@
         "GitHub Actions final cross-platform run 36548604321"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P4-CHUNK-001",
+      "claim": "Phase 4 deterministically tokenizes Unicode text and converts immutable FetchedDocument text into bounded overlapping TextChunk values with stable source provenance and chunk identity.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/retrieval.py::tokenize_text",
+        "src/max_grounding/retrieval.py::chunk_document",
+        "src/max_grounding/models.py::TextChunk"
+      ],
+      "tests": [
+        "tests/test_retrieval.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions GREEN run 36553060757"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P4-BM25-001",
+      "claim": "Phase 4 ranks chunks with deterministic in-memory BM25, returns only positive lexical matches, and breaks equal scores by stable provenance ordering.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/retrieval.py::rank_chunks",
+        "src/max_grounding/models.py::LexicalHit"
+      ],
+      "tests": [
+        "tests/test_retrieval.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions GREEN run 36553060757"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P4-BOUNDS-001",
+      "claim": "Phase 4 lexical retrieval enforces hard caps for document count, query size, chunk size, chunks per document, and returned result count before unbounded retrieval work.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/retrieval.py::retrieve_lexical",
+        "src/max_grounding/retrieval.py::chunk_document",
+        "src/max_grounding/retrieval.py::rank_chunks"
+      ],
+      "tests": [
+        "tests/test_retrieval.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions GREEN run 36553060757"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P4-CROSS-OS-001",
+      "claim": "Phase 4 lexical retrieval passes the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/retrieval.py::retrieve_lexical",
+        ".github/workflows/ci.yml"
+      ],
+      "tests": [
+        "tests/test_retrieval.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions cross-platform run 36553245646"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []

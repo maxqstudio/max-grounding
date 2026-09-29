@@ -26,13 +26,13 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 20 files, 1 language categories.
+Observed source inventory: 22 files, 1 language categories.
 
 ## Major components
 
 | Component | Purpose | Owns / Decides | Depends On |
 |---|---|---|---|
-| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument |  |
+| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit |  |
 | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -41,6 +41,7 @@ Observed source inventory: 20 files, 1 language categories.
 | SearXNG Provider | Build a fixed-authority JSON search request, perform bounded non-redirecting HTTP, validate response shape, and emit SourceCandidate values. | SearxngProvider, SearXNG request construction, bounded JSON response handling | models, network-policy |
 | Network Target Policy | Reject unsafe result URLs, resolve result-page hosts at fetch time, reject the entire DNS answer set if any address is non-public, and return only validated public IP targets. | scheme/userinfo/control-character validation, localhost and ambiguous numeric host rejection, literal non-public IP rejection, all-answer DNS public-IP validation |  |
 | Secure Result Fetcher | Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, bound response handling, and extract untrusted visible text. | fetch_document, public-IP-pinned HTTP(S) connection, bounded response policy, visible text extraction | models, network-policy |
+| Lexical Retrieval | Turn immutable fetched text into bounded deterministic chunks and rank positive lexical matches with in-memory BM25. | retrieve_lexical, chunk_document, rank_chunks, Unicode lexical tokenization, BM25 lexical scoring, stable chunk provenance | models |
 
 ## Main data flow
 
@@ -57,6 +58,9 @@ Observed source inventory: 20 files, 1 language categories.
 - SourceCandidate -> Network Target Policy: admitted untrusted result URL is independently revalidated at fetch time
 - Network Target Policy -> Secure Result Fetcher: validated public connection targets
 - Secure Result Fetcher -> FetchedDocument: bounded immutable text and fetch metadata
+- FetchedDocument -> Lexical Retrieval: bounded untrusted extracted text enters deterministic lexical chunking
+- Lexical Retrieval -> TextChunk: bounded immutable chunks retain source URL and deterministic chunk identity
+- Lexical Retrieval -> LexicalHit: positive BM25 matches are returned with deterministic rank and source provenance
 
 ## Main user workflows
 
@@ -71,6 +75,17 @@ Authority: GroundingPolicy and SearchBudget
 - SEARCHING -> EVIDENCE_READY : normalized unique evidence meets minimum source requirement
 - SEARCHING -> INSUFFICIENT_EVIDENCE : budget exhausted without sufficient unique evidence
 - SEARCHING -> PROVIDER_ERROR : provider raises before sufficient evidence exists
+
+### FLOW-LEXICAL-RETRIEVAL — Bounded lexical retrieval
+
+Turn already-fetched immutable documents into deterministic bounded text chunks and return the top BM25 lexical hits without persistence, semantic embeddings, vector search, or reranking.
+
+Authority: Deterministic chunking policy and in-memory BM25 scorer
+
+- DOCUMENTS_RECEIVED -> CHUNKS_READY : split fetched document text into bounded deterministic overlapping chunks
+- CHUNKS_READY -> SCORED : tokenize query and chunks and calculate BM25 lexical scores
+- SCORED -> HITS_READY : retain positive-score hits up to the configured result limit with deterministic tie ordering
+- DOCUMENTS_RECEIVED -> INVALID_REQUEST : reject invalid query or chunk/retrieval bounds before retrieval work
 
 ### FLOW-PHASE-DELIVERY — Governed phase delivery
 
@@ -110,9 +125,9 @@ Authority: Secure fetch network policy and pinned connection target
 
 ## Lifecycle and state
 
-Current phase: PHASE_03_SECURE_FETCH_EXTRACTION
+Current phase: PHASE_04_LEXICAL_RETRIEVAL
 
-Current status: ACCEPTED
+Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -148,6 +163,8 @@ compiler does not infer them from implementation names.
 
 - FLOW-GROUND-REQUEST: Invalid requests fail before any provider call.
 - FLOW-GROUND-REQUEST: Provider failure returns a fail-closed evidence status and does not fabricate evidence.
+- FLOW-LEXICAL-RETRIEVAL: Empty queries or invalid bounds raise a controlled retrieval error before producing hits.
+- FLOW-LEXICAL-RETRIEVAL: Empty documents or documents with no lexical matches return an empty immutable result rather than fabricated relevance.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.
 - FLOW-SEARXNG-SEARCH: Transport, redirect, HTTP, media-type, size, JSON, and schema failures raise a controlled provider error.
 - FLOW-SEARXNG-SEARCH: GroundingEngine converts provider failure before evidence sufficiency into fail-closed PROVIDER_ERROR status.
@@ -157,13 +174,14 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Start Phase 4 planning from accepted main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6.
-- Freeze the Phase 4 BEFORE sequence plan and acceptance boundary before any Phase 4 product implementation.
+- Generate and commit the current Phase 4 ACTUAL sequence graph and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 4 candidate head.
+- Merge Phase 4 only if every required job passes, then revalidate merged main.
 
 Blocked actions:
-- Do not begin Phase 4 product implementation before its BEFORE plan is frozen.
-- Do not claim browser/JavaScript crawling, hybrid/vector retrieval, reranking, claim verification, REST, MCP, or production deployment until later phase evidence proves them.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation.
+- Do not merge Phase 4 while any required GitHub Actions job is failing or missing.
+- Do not claim semantic, vector, hybrid, or reranked retrieval from the Phase 4 lexical scorer.
+- Do not bypass post-merge main revalidation.
 
 Known blockers:
 - None declared.
@@ -172,24 +190,21 @@ Known blockers:
 
 ### Proven
 
-- Phase 3 started from post-closure main SHA a9124380b74b7ff42097a7434b6bee22b0aed9d6.
-- The Phase 3 BEFORE plan was frozen before implementation at e8519742f3f7662b76822be5265fe1076cc62bbf with SHA-256 0760581b40a1906da335d5b07cfc2a6d28e51539bc453b314aa783a5c2a879c9.
-- TDD RED run 36547347512 failed because the secure-fetch contract did not yet exist; implementation followed the frozen plan.
-- Security regression run 36548079506 reproduced fail-open handling for missing Content-Type and ASCII control characters before the minimum repair.
-- Security GREEN run 36548150250 passed the full unit suite and compile checks after the repair.
-- Sequence verification run 36548516860 passed full tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.
-- Final cross-platform run 36548604321 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs after the final simplification.
-- The fetch boundary resolves all DNS answers, rejects the whole set if any address is non-public, and pins the socket to a validated IP while preserving the original HTTPS server name.
-- Result pages are fail-closed on redirects/non-200 responses, non-identity content encoding, missing/disallowed media type, disallowed charset, or response byte overflow.
-- HTML extraction removes script, style, noscript, template, and svg content; extracted text remains untrusted evidence data.
-- Phase 3 Project Truth sync run 36550916141 generated and validated the current ACTUAL sequence and deterministic documentation before push.
-- Pull request #7 Acceptance run 36551148939 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs on exact PR head ca3f3f3e7972d355ca2279b1df9883fb48daad2f.
-- Post-merge main Acceptance run 36551315900 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs on merged main SHA f1e391ffa0429fdf8be88456b7835347d3453cd6.
+- Phase 3 closure is merged to main at 9ee23d526c6c68bccc0e0000e66e4c2de080b44c and closure-main Acceptance run 36551954260 passed all 13 required jobs.
+- The Phase 4 BEFORE plan was frozen before implementation at fbe5b9ad01c4e52bb629399ae688d93d4bc08013 with SHA-256 9e967d5afddbf5e86f77dd54a489267ca8fd314bdeb563793122cc066168de90.
+- TDD RED run 36552850622 failed because the Phase 4 lexical retrieval contract did not yet exist.
+- GREEN run 36553060757 passed the full unit suite and compile checks after the minimum implementation.
+- Sequence verification run 36553168076 passed full tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.
+- Cross-platform run 36553245646 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs.
+- Phase 4 deterministically tokenizes Unicode text, chunks immutable FetchedDocument values with bounded overlap, and derives stable chunk IDs with source provenance.
+- Phase 4 performs bounded in-memory BM25 lexical ranking, returns only positive-score hits, and uses stable provenance ordering for score ties.
+- Phase 4 enforces hard caps of 20 documents, 4096 query characters, 512 words per chunk, 128 chunks per document, and 20 returned hits.
 
 ### Not proven
 
-- Behavior against arbitrary real-world websites, JavaScript-rendered pages, and hostile TLS/network infrastructure is not proven by deterministic CI fixtures.
-- Crawling, browser rendering, hybrid retrieval, embeddings, vector databases, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 3.
+- Final Phase 4 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- Real-world retrieval quality on large or domain-specific corpora is not proven by deterministic unit fixtures.
+- Semantic embeddings, vector retrieval, hybrid fusion, reranking, persistent indexes, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 4.
 
 ## Important limitations
 

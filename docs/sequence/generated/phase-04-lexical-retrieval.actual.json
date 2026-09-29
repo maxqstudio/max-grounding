@@ -1,0 +1,231 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::_validate_query",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "tokenize_text",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::_validate_query",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::tokenize_text"
+    },
+    {
+      "action": "TextChunk",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::TextChunk"
+    },
+    {
+      "action": "_chunk_id",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_chunk_id"
+    },
+    {
+      "action": "_validate_chunk_bounds",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_validate_chunk_bounds"
+    },
+    {
+      "action": "tokenize_text",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::tokenize_text"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::rank_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "LexicalHit",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::rank_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::LexicalHit"
+    },
+    {
+      "action": "_validate_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::rank_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_validate_query"
+    },
+    {
+      "action": "tokenize_text",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::rank_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::tokenize_text"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "_validate_chunk_bounds",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_validate_chunk_bounds"
+    },
+    {
+      "action": "_validate_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_validate_query"
+    },
+    {
+      "action": "chunk_document",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::chunk_document"
+    },
+    {
+      "action": "rank_chunks",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::rank_chunks"
+    }
+  ],
+  "entries": [
+    "src/max_grounding/retrieval.py::retrieve_lexical"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/errors.py::RetrievalError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::RetrievalError",
+      "language": "Python",
+      "line_end": 29,
+      "line_start": 28,
+      "locator": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "id": "src/max_grounding/models.py::LexicalHit",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::LexicalHit",
+      "language": "Python",
+      "line_end": 105,
+      "line_start": 100,
+      "locator": "src/max_grounding/models.py::LexicalHit"
+    },
+    {
+      "id": "src/max_grounding/models.py::TextChunk",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::TextChunk",
+      "language": "Python",
+      "line_end": 96,
+      "line_start": 89,
+      "locator": "src/max_grounding/models.py::TextChunk"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::_chunk_id",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::_chunk_id",
+      "language": "Python",
+      "line_end": 65,
+      "line_start": 63,
+      "locator": "src/max_grounding/retrieval.py::_chunk_id"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "language": "Python",
+      "line_end": 60,
+      "line_start": 45,
+      "locator": "src/max_grounding/retrieval.py::_validate_chunk_bounds"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::_validate_query",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::_validate_query",
+      "language": "Python",
+      "line_end": 118,
+      "line_start": 108,
+      "locator": "src/max_grounding/retrieval.py::_validate_query"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::chunk_document",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::chunk_document",
+      "language": "Python",
+      "line_end": 105,
+      "line_start": 68,
+      "locator": "src/max_grounding/retrieval.py::chunk_document"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::rank_chunks",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::rank_chunks",
+      "language": "Python",
+      "line_end": 181,
+      "line_start": 121,
+      "locator": "src/max_grounding/retrieval.py::rank_chunks"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "language": "Python",
+      "line_end": 219,
+      "line_start": 184,
+      "locator": "src/max_grounding/retrieval.py::retrieve_lexical"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::tokenize_text",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::tokenize_text",
+      "language": "Python",
+      "line_end": 42,
+      "line_start": 29,
+      "locator": "src/max_grounding/retrieval.py::tokenize_text"
+    }
+  ],
+  "observed_head": "110f6c2ed77c4c3e3c4c36818eb32d92a95e2bc5",
+  "schema_version": 1,
+  "source_digest": "d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74"
+}

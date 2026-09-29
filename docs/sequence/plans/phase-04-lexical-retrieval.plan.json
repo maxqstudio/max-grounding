@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-LEXICAL-RETRIEVAL",
+  "title": "Phase 4 bounded lexical retrieval",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "retrieve",
+      "label": "retrieve_lexical",
+      "locator": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "kind": "source"
+    },
+    {
+      "id": "chunk",
+      "label": "chunk_document",
+      "locator": "src/max_grounding/retrieval.py::chunk_document",
+      "kind": "source"
+    },
+    {
+      "id": "rank",
+      "label": "rank_chunks",
+      "locator": "src/max_grounding/retrieval.py::rank_chunks",
+      "kind": "source"
+    },
+    {
+      "id": "tokenize",
+      "label": "tokenize_text",
+      "locator": "src/max_grounding/retrieval.py::tokenize_text",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "retrieve",
+      "to": "chunk",
+      "action": "build bounded deterministic chunks",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "retrieve",
+      "to": "rank",
+      "action": "rank collected chunks lexically",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "rank",
+      "to": "tokenize",
+      "action": "tokenize query and chunk text deterministically",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}

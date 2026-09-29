@@ -10,10 +10,10 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase-04-lexical-retrieval
 Current authoritative SHA: external final acceptance evidence
 Last accepted SHA: f1e391ffa0429fdf8be88456b7835347d3453cd6
-Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
+Current source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.
@@ -26,7 +26,7 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 ## Technology
 Languages: Python
 Frameworks: Python standard library
-Persistence: none through Phase 2
+Persistence: none through Phase 4 candidate
 External systems: GitHub Actions, operator-configured SearXNG instance
 
 ## Entry points
@@ -35,6 +35,7 @@ External systems: GitHub Actions, operator-configured SearXNG instance
 |---|---|---|
 | Python package | src/max_grounding/__init__.py | bootstrap runtime identity and package boundary |
 | SearXNG provider | src/max_grounding/providers/searxng.py | bounded live HTTP search against a trusted self-hosted SearXNG endpoint |
+| Lexical retrieval | src/max_grounding/retrieval.py | deterministic bounded chunking and in-memory BM25 lexical retrieval over fetched text |
 
 ## Critical directories
 

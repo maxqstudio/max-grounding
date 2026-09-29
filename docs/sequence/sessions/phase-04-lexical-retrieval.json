@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-04-lexical-retrieval",
+  "phase": "PHASE_04_LEXICAL_RETRIEVAL",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "FROZEN",
+  "implementation_base_sha": "fbe5b9ad01c4e52bb629399ae688d93d4bc08013",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-04-lexical-retrieval.plan.json",
+    "frozen": true,
+    "frozen_commit": "fbe5b9ad01c4e52bb629399ae688d93d4bc08013",
+    "sha256": "9e967d5afddbf5e86f77dd54a489267ca8fd314bdeb563793122cc066168de90",
+    "diagram": "docs/sequence/generated/phase-04-lexical-retrieval.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-04-lexical-retrieval.actual.json",
+    "diagram": "docs/sequence/generated/phase-04-lexical-retrieval.actual.mmd",
+    "source_digest": "d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74",
+    "entries": [
+      "src/max_grounding/retrieval.py::retrieve_lexical"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_retrieval.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}

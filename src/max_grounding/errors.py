@@ -23,3 +23,7 @@ class InvalidProviderConfiguration(SearchProviderError, ValueError):
 
 class FetchError(GroundingError):
     """Raised when an untrusted result page cannot be fetched safely."""
+
+
+class RetrievalError(GroundingError, ValueError):
+    """Raised when lexical retrieval input or bounds are invalid."""
