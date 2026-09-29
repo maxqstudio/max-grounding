@@ -15,7 +15,8 @@
     "Phase 6 uses fixed equal-weight reciprocal-rank fusion with RRF k=60 and no tunable modality weights.",
     "Each modality contributes at most 20 ranked hits and final hybrid output is capped at 20 results.",
     "Duplicate chunk identities are merged only when full immutable chunk provenance matches; conflicting provenance for the same chunk_id fails closed.",
-    "Equal fused scores resolve by stable source URL, chunk index, and chunk identity."
+    "Equal fused scores resolve by stable source URL, chunk index, and chunk identity.",
+    "Production V1 roadmap is governed in .workflow/project.json as Phase 0 through Phase 12, with optional post-V1 expansion Phase 13 through Phase 16."
   ],
   "not_proven": [
     "Final Phase 6 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.",
@@ -23,7 +24,7 @@
   ],
   "blockers": [],
   "next_authorized_actions": [
-    "Generate and commit the current Phase 6 ACTUAL sequence graph and deterministic Project Truth documentation.",
+    "Regenerate and validate deterministic Project Truth documentation including docs/ROADMAP.md.",
     "Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 6 candidate head.",
     "Merge Phase 6 only if every required job passes, then revalidate merged main."
   ],
