@@ -212,7 +212,7 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Generate and commit the current Phase 6 ACTUAL sequence graph and deterministic Project Truth documentation.
+- Regenerate and validate deterministic Project Truth documentation including docs/ROADMAP.md.
 - Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 6 candidate head.
 - Merge Phase 6 only if every required job passes, then revalidate merged main.
 
@@ -238,6 +238,7 @@ Known blockers:
 - Each modality contributes at most 20 ranked hits and final hybrid output is capped at 20 results.
 - Duplicate chunk identities are merged only when full immutable chunk provenance matches; conflicting provenance for the same chunk_id fails closed.
 - Equal fused scores resolve by stable source URL, chunk index, and chunk identity.
+- Production V1 roadmap is governed in .workflow/project.json as Phase 0 through Phase 12, with optional post-V1 expansion Phase 13 through Phase 16.
 
 ### Not proven
 
