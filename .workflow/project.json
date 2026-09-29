@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through Phase 7 candidate"
+      "none through accepted Phase 7"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -111,12 +111,12 @@
       {
         "phase": 7,
         "name": "Reranking and evidence/context compression",
-        "status": "CURRENT_CANDIDATE"
+        "status": "ACCEPTED"
       },
       {
         "phase": 8,
         "name": "Freshness, source authority, and temporal scoring",
-        "status": "PLANNED"
+        "status": "NEXT_PLANNED"
       },
       {
         "phase": 9,
