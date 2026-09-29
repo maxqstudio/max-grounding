@@ -40,6 +40,22 @@
       "authority": "src/max_grounding/providers/searxng.py::fetch_searxng_json",
       "mutation": "network read only",
       "error_behavior": "Fails closed with SearchProviderError on invalid or oversized response."
+    },
+    {
+      "method": "PYTHON",
+      "path": "fetch_document(url)",
+      "purpose": "Fetch and extract one untrusted result page through a validated public-IP-pinned connection.",
+      "authority": "src/max_grounding/fetcher.py::fetch_document",
+      "mutation": "network read only; returns immutable FetchedDocument",
+      "error_behavior": "Invalid URL/port/DNS target, transport/TLS failure, redirect/non-200 response, disallowed content metadata, overflow, or decode failure raises FetchError without returning partial content."
+    },
+    {
+      "method": "INTERNAL",
+      "path": "resolve_public_addresses(host, port)",
+      "purpose": "Resolve one result-page host and return deduplicated public addresses only when every DNS answer is public.",
+      "authority": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "mutation": "DNS lookup only",
+      "error_behavior": "Resolution failure, empty answers, malformed addresses, or any non-public/multicast answer raises FetchError."
     }
   ],
   "data_contracts": [
@@ -98,8 +114,25 @@
         "scheme is http or https",
         "userinfo credentials are forbidden",
         "localhost names are forbidden",
+        "ASCII control characters are forbidden",
         "literal IP targets must be globally routable and non-multicast",
-        "DNS resolution and rebinding validation are explicitly deferred to the page-fetch boundary"
+        "named hosts are resolved again at fetch time and every answer must be globally routable and non-multicast"
+      ]
+    },
+    {
+      "name": "FetchedDocument",
+      "source_of_truth": "src/max_grounding/models.py::FetchedDocument",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/fetcher.py::fetch_document result construction"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "url has no fragment and uses standard-port HTTP(S)",
+        "fetched_from_ip is a validated public IP selected from the fetch-time DNS answer set",
+        "media_type and charset passed the explicit allowlist",
+        "byte_length is bounded before text extraction",
+        "text is untrusted evidence data and not an instruction authority"
       ]
     }
   ],

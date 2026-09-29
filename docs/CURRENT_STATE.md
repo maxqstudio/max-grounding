@@ -7,16 +7,16 @@ Authority verified at SHA: f0f64637895465b98a227d299db42a7704d3d894
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER
-Status: ACCEPTED
+Phase: PHASE_03_SECURE_FETCH_EXTRACTION
+Status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-03-secure-fetch
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: f0f64637895465b98a227d299db42a7704d3d894
 Current candidate SHA: external final acceptance evidence
-Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
+Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -33,19 +33,26 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-02-searxng-provider.json
+Current sequence session: docs/sequence/sessions/phase-03-secure-fetch.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 2 bounded SearXNG live-search provider is merged to main at f0f64637895465b98a227d299db42a7704d3d894.
-- GitHub Actions Acceptance run 20 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 runtime jobs on the exact Phase 2 PR head 9b33220c1061783c8547c73bedceda7fae56e3b5.
-- GitHub Actions Acceptance run 21 revalidated STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 runtime jobs on merged main SHA f0f64637895465b98a227d299db42a7704d3d894.
-- Phase 2 BEFORE plan was frozen before implementation and sequence acceptance passed.
-- SearxngProvider performs bounded JSON HTTP search to an operator-configured trusted endpoint, rejects redirects and malformed/oversized responses, and filters obvious unsafe result URLs before candidate admission.
+- Phase 3 started from post-closure main SHA a9124380b74b7ff42097a7434b6bee22b0aed9d6.
+- The Phase 3 BEFORE plan was frozen before implementation at e8519742f3f7662b76822be5265fe1076cc62bbf with SHA-256 0760581b40a1906da335d5b07cfc2a6d28e51539bc453b314aa783a5c2a879c9.
+- TDD RED run 36547347512 failed because the secure-fetch contract did not yet exist; implementation followed the frozen plan.
+- Security regression run 36548079506 reproduced fail-open handling for missing Content-Type and ASCII control characters before the minimum repair.
+- Security GREEN run 36548150250 passed the full unit suite and compile checks after the repair.
+- Sequence verification run 36548516860 passed full tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.
+- Final cross-platform run 36548604321 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs after the final simplification.
+- The fetch boundary resolves all DNS answers, rejects the whole set if any address is non-public, and pins the socket to a validated IP while preserving the original HTTPS server name.
+- Result pages are fail-closed on redirects/non-200 responses, non-identity content encoding, missing/disallowed media type, disallowed charset, or response byte overflow.
+- HTML extraction removes script, style, noscript, template, and svg content; extracted text remains untrusted evidence data.
+- Phase 3 Project Truth sync run 36550916141 generated and validated the current ACTUAL sequence and deterministic documentation before push.
 
 ## Not proven
-- A specific external SearXNG deployment and its upstream engine availability/ranking quality are not proven by deterministic CI fixtures.
-- Result-page fetching, DNS-rebinding protection at connection time, crawling, content extraction, embeddings, vector retrieval, reranking, REST, MCP, and production deployment remain outside Phase 2.
+- Final Phase 3 acceptance is not proven until the exact PR head passes the full Acceptance workflow and merged main is revalidated.
+- Behavior against arbitrary real-world websites, JavaScript-rendered pages, and hostile TLS/network infrastructure is not proven by deterministic CI fixtures.
+- Crawling, browser rendering, hybrid retrieval, embeddings, vector databases, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 3.
 
 ## Known blockers
 - None declared.
@@ -54,9 +61,10 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Start Phase 3 from accepted main.
-- Freeze the Phase 3 BEFORE sequence plan before implementing secure result-page fetching and extraction.
+- Open the Phase 3 pull request and run the full STRICT GitHub Actions Acceptance workflow on the exact candidate head.
+- Merge Phase 3 only if every required pull-request job passes, then revalidate merged main.
 
 ## Explicitly blocked
-- Do not claim result-page SSRF/DNS-rebinding protection until Phase 3 acceptance proves the fetch boundary.
-- Do not bypass GitHub Actions acceptance or post-merge main revalidation for later phases.
+- Do not merge Phase 3 while any required GitHub Actions job is failing or missing.
+- Do not claim browser/JavaScript crawling or downstream retrieval/reranking from the Phase 3 secure fetcher.
+- Do not bypass post-merge main revalidation.

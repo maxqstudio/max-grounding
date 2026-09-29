@@ -4,17 +4,18 @@
 
 ## Evidence boundary
 
-Phase 2 proves the SearXNG provider protocol against deterministic local HTTP fixtures: fixed configured authority, JSON query construction, bounded non-redirecting HTTP response handling, schema validation, conservative result-URL admission, integration with the fail-closed core, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove availability or ranking quality of any specific external SearXNG deployment/upstream engine, page fetching, DNS-rebinding protection, crawling, embeddings, vector databases, reranking, REST, MCP, or production deployment.
+Phase 3 proves a deterministic secure result-page fetch boundary: HTTP(S) admission, all-answer DNS public-IP validation, connection pinning to a validated IP, original HTTPS server-name preservation, standard-port restriction, non-redirecting bounded response handling, explicit text media/charset policy, visible-text extraction, fail-closed errors, frozen-plan conformance, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. Evidence uses deterministic CI fixtures and mocks; it does not prove arbitrary external websites, JavaScript rendering, crawling, embeddings, vector databases, reranking, REST, MCP, or production deployment.
 
 Final tested source: external final acceptance evidence.
-Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
+Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P2-SEARXNG | SearxngProvider sends a bounded JSON search request only to the configured operator-trusted SearXNG endpoint and maps valid results into SourceCandidate values. | tests/test_searxng_provider.py; Phase 2 GREEN run 36327403347 | PASS |
-| P2-RESULT-URL-SAFETY | Search results with unsupported schemes, credentials, localhost names, ambiguous numeric hosts, or literal non-public/multicast IP targets are rejected before SourceCandidate admission. | tests/test_network_policy.py; tests/test_searxng_provider.py | PASS |
-| P2-FAIL-CLOSED-HTTP | Redirects, invalid JSON/schema, oversized responses, HTTP failures, and transport failures cannot fabricate evidence and surface as controlled provider failure. | tests/test_searxng_provider.py; tests/test_engine.py | PASS |
-| P2-CROSS-OS | Phase 2 provider behavior passes on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 2 Cross Platform run 36327480973: 12/12 jobs PASS | PASS |
+| P3-DNS-PIN | Every fetch resolves the target once, rejects the complete DNS answer set if any address is non-public or multicast, and connects only to a validated pinned IP while preserving the original TLS server name. | tests/test_network_policy.py; tests/test_secure_fetcher.py; sequence verification run 36548516860 | PASS |
+| P3-FAIL-CLOSED-FETCH | Result-page fetching rejects nonstandard ports, redirects/non-200 responses, non-identity encoding, missing/disallowed media type, disallowed charset, and declared or observed byte overflow. | tests/test_secure_fetcher.py; security RED run 36548079506; security GREEN run 36548150250 | PASS |
+| P3-EXTRACTION | Approved text responses are decoded strictly; HTML extraction omits executable/styling fallback elements and returns bounded untrusted text plus immutable fetch metadata. | tests/test_secure_fetcher.py | PASS |
+| P3-URL-ADMISSION | Result URLs reject credentials, unsupported schemes, localhost, ambiguous numeric hosts, literal non-public IPs, malformed ports, and ASCII control characters before DNS or transport. | tests/test_network_policy.py; security RED run 36548079506; security GREEN run 36548150250 | PASS |
+| P3-CROSS-OS | The final simplified Phase 3 source passes the complete test suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 3 Final Cross Platform run 36548604321: 12/12 jobs PASS | PASS |
 
 ## Test commands
 
@@ -25,13 +26,17 @@ Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79
 
 ## Runtime checks
 
-- Phase 2 Cross Platform run 36327480973 executed the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS using deterministic local HTTP fixtures.
-- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before phase closure.
+- TDD RED run 36547347512 proved the Phase 3 contract absent before implementation.
+- Security regression run 36548079506 proved the two security gaps before repair.
+- Security GREEN run 36548150250 passed full unit and compile checks after repair.
+- Sequence verification run 36548516860 passed generated PLAN-to-ACTUAL validation.
+- Final cross-platform run 36548604321 passed 12/12 Python/OS jobs after the final simplification.
+- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 3 closure.
 
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-02-searxng-provider.json
+Sequence session contract: docs/sequence/sessions/phase-03-secure-fetch.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

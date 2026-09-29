@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-SECURE-FETCH",
+  "title": "Phase 3 secure result-page fetch and extraction",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "fetch",
+      "label": "fetch_document",
+      "locator": "src/max_grounding/fetcher.py::fetch_document",
+      "kind": "source"
+    },
+    {
+      "id": "resolve",
+      "label": "resolve_public_addresses",
+      "locator": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "kind": "source"
+    },
+    {
+      "id": "connect",
+      "label": "open_pinned_connection",
+      "locator": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "kind": "source"
+    },
+    {
+      "id": "read",
+      "label": "read_bounded_response",
+      "locator": "src/max_grounding/fetcher.py::read_bounded_response",
+      "kind": "source"
+    },
+    {
+      "id": "extract",
+      "label": "extract_text",
+      "locator": "src/max_grounding/fetcher.py::extract_text",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "fetch",
+      "to": "resolve",
+      "action": "resolve and validate public connection targets",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "fetch",
+      "to": "connect",
+      "action": "connect to validated pinned IP",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "fetch",
+      "to": "read",
+      "action": "read bounded approved response",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "fetch",
+      "to": "extract",
+      "action": "extract untrusted visible text",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}

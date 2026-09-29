@@ -38,7 +38,7 @@
       "file": "src/max_grounding/errors.py",
       "is_test": false,
       "language": "Python",
-      "lines": 21
+      "lines": 25
     },
     {
       "directory": "src/max_grounding",
@@ -49,17 +49,24 @@
     },
     {
       "directory": "src/max_grounding",
+      "file": "src/max_grounding/fetcher.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 298
+    },
+    {
+      "directory": "src/max_grounding",
       "file": "src/max_grounding/models.py",
       "is_test": false,
       "language": "Python",
-      "lines": 73
+      "lines": 85
     },
     {
       "directory": "src/max_grounding",
       "file": "src/max_grounding/network_policy.py",
       "is_test": false,
       "language": "Python",
-      "lines": 43
+      "lines": 93
     },
     {
       "directory": "src/max_grounding",
@@ -122,7 +129,7 @@
       "file": "tests/test_network_policy.py",
       "is_test": true,
       "language": "Python",
-      "lines": 46
+      "lines": 123
     },
     {
       "directory": "tests",
@@ -137,6 +144,13 @@
       "is_test": true,
       "language": "Python",
       "lines": 206
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_secure_fetcher.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 216
     }
   ],
   "python_calls": [
@@ -253,12 +267,356 @@
       "target_token": "EvidencePack"
     },
     {
-      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "caller": "src/max_grounding/fetcher.py::_PinnedHTTPConnection.__init__",
+      "target_token": "__init__"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_PinnedHTTPConnection.__init__",
+      "target_token": "super"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_PinnedHTTPConnection.connect",
+      "target_token": "socket.create_connection"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection.__init__",
+      "target_token": "__init__"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection.__init__",
+      "target_token": "super"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection.connect",
+      "target_token": "socket.create_connection"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection.connect",
+      "target_token": "self._context.wrap_socket"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection.connect",
+      "target_token": "raw_socket.close"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_TextExtractor.__init__",
+      "target_token": "__init__"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_TextExtractor.__init__",
+      "target_token": "super"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_TextExtractor.handle_starttag",
+      "target_token": "tag.lower"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_TextExtractor.handle_endtag",
+      "target_token": "tag.lower"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_TextExtractor.handle_data",
+      "target_token": "self.parts.append"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_require_public_ip",
+      "target_token": "ip_address"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_require_public_ip",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_require_public_ip",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_require_public_ip",
+      "target_token": "str"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "target_token": "_require_public_ip"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "target_token": "_PinnedHTTPConnection"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "target_token": "ssl.create_default_context"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "target_token": "_PinnedHTTPSConnection"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "int"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "lower"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "strip"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "response.headers.get"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "response.headers.get"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "lower"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "response.headers.get_content_type"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "response.headers.get"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "int"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "response.read"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "response.headers.get_content_charset"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "replace"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "lower"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "charset.strip"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::read_bounded_response",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "body.decode"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "join"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "decoded.split"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "_TextExtractor"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "parser.feed"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "parser.close"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "join"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "split"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::extract_text",
+      "target_token": "join"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_normalized_fetch_target",
       "target_token": "urlsplit"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "target_token": "url.strip"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "target_token": "parsed.scheme.lower"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "target_token": "lower"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "target_token": "rstrip"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "target_token": "urlunsplit"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "_normalized_fetch_target"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "resolve_public_addresses"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "open_pinned_connection"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "connection.request"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "connection.getresponse"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "read_bounded_response"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "extract_text"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "connection.close"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "FetchedDocument"
+    },
+    {
+      "caller": "src/max_grounding/fetcher.py::fetch_document",
+      "target_token": "len"
     },
     {
       "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
       "target_token": "url.strip"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "any"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "ord"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "ord"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "target_token": "urlsplit"
     },
     {
       "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
@@ -287,6 +645,62 @@
     {
       "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
       "target_token": "host.replace"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "resolver"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "split"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "str"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "ip_address"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "str"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "seen.add"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "addresses.append"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "FetchError"
+    },
+    {
+      "caller": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "target_token": "tuple"
     },
     {
       "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
@@ -1049,6 +1463,66 @@
       "target_token": "is_admissible_result_url"
     },
     {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_ascii_control_characters_anywhere_in_url",
+      "target_token": "chr"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_ascii_control_characters_anywhere_in_url",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_ascii_control_characters_anywhere_in_url",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_ascii_control_characters_anywhere_in_url",
+      "target_token": "is_admissible_result_url"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests._resolver.resolve",
+      "target_token": "rows.append"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_accepts_and_deduplicates_only_public_dns_answers",
+      "target_token": "resolve_public_addresses"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_accepts_and_deduplicates_only_public_dns_answers",
+      "target_token": "self._resolver"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_accepts_and_deduplicates_only_public_dns_answers",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_rejects_mixed_public_and_private_dns_answers",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_rejects_mixed_public_and_private_dns_answers",
+      "target_token": "resolve_public_addresses"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_rejects_mixed_public_and_private_dns_answers",
+      "target_token": "self._resolver"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers",
+      "target_token": "resolve_public_addresses"
+    },
+    {
+      "caller": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers",
+      "target_token": "self._resolver"
+    },
+    {
       "caller": "tests/test_policy.py::GroundingPolicyTests.setUp",
       "target_token": "GroundingPolicy"
     },
@@ -1391,6 +1865,238 @@
     {
       "caller": "tests/test_searxng_provider.py::SearxngProviderTests.test_provider_rejects_invalid_results_schema",
       "target_token": "query"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::_Response.__init__",
+      "target_token": "Message"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::_Response.__init__",
+      "target_token": "str"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::_Connection.request",
+      "target_token": "self.requests.append"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::_Connection.request",
+      "target_token": "dict"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "_Response"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "_Connection"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority.opener",
+      "target_token": "captured.update"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "fetch_document"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_rejects_nonstandard_ports_before_dns",
+      "target_token": "Mock"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_rejects_nonstandard_ports_before_dns",
+      "target_token": "AssertionError"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_rejects_nonstandard_ports_before_dns",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_rejects_nonstandard_ports_before_dns",
+      "target_token": "fetch_document"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_rejects_nonstandard_ports_before_dns",
+      "target_token": "resolver.assert_not_called"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_missing_content_type",
+      "target_token": "_Response"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_missing_content_type",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_missing_content_type",
+      "target_token": "read_bounded_response"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize",
+      "target_token": "_Response"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize",
+      "target_token": "_Response"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize",
+      "target_token": "_Response"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize",
+      "target_token": "_Response"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize",
+      "target_token": "_Response"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize",
+      "target_token": "dict"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize",
+      "target_token": "read_bounded_response"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_extract_html_discards_executable_and_style_content",
+      "target_token": "extract_text"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_extract_html_discards_executable_and_style_content",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_extract_html_discards_executable_and_style_content",
+      "target_token": "self.assertNotIn"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_extract_html_discards_executable_and_style_content",
+      "target_token": "self.assertNotIn"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname",
+      "target_token": "Mock"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname",
+      "target_token": "open_pinned_connection"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname",
+      "target_token": "connection.connect"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname",
+      "target_token": "dial.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "target_token": "Mock"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "target_token": "Mock"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "target_token": "Mock"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "target_token": "open_pinned_connection"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "target_token": "connection.connect"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "target_token": "dial.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "target_token": "context.wrap_socket.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "target_token": "self.assertIs"
     }
   ],
   "python_routes": [],
@@ -1500,6 +2206,14 @@
       "symbol": "InvalidProviderConfiguration"
     },
     {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 25,
+      "line_start": 24,
+      "locator": "src/max_grounding/errors.py::FetchError",
+      "symbol": "FetchError"
+    },
+    {
       "file": "src/max_grounding/evidence.py",
       "kind": "function",
       "line_end": 46,
@@ -1522,6 +2236,142 @@
       "line_start": 73,
       "locator": "src/max_grounding/evidence.py::build_evidence_pack",
       "symbol": "build_evidence_pack"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "class",
+      "line_end": 45,
+      "line_start": 30,
+      "locator": "src/max_grounding/fetcher.py::_PinnedHTTPConnection",
+      "symbol": "_PinnedHTTPConnection"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "method",
+      "line_end": 39,
+      "line_start": 31,
+      "locator": "src/max_grounding/fetcher.py::_PinnedHTTPConnection.__init__",
+      "symbol": "_PinnedHTTPConnection.__init__"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "method",
+      "line_end": 45,
+      "line_start": 41,
+      "locator": "src/max_grounding/fetcher.py::_PinnedHTTPConnection.connect",
+      "symbol": "_PinnedHTTPConnection.connect"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "class",
+      "line_end": 72,
+      "line_start": 48,
+      "locator": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection",
+      "symbol": "_PinnedHTTPSConnection"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "method",
+      "line_end": 58,
+      "line_start": 49,
+      "locator": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection.__init__",
+      "symbol": "_PinnedHTTPSConnection.__init__"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "method",
+      "line_end": 72,
+      "line_start": 60,
+      "locator": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection.connect",
+      "symbol": "_PinnedHTTPSConnection.connect"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "class",
+      "line_end": 97,
+      "line_start": 75,
+      "locator": "src/max_grounding/fetcher.py::_TextExtractor",
+      "symbol": "_TextExtractor"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "method",
+      "line_end": 81,
+      "line_start": 78,
+      "locator": "src/max_grounding/fetcher.py::_TextExtractor.__init__",
+      "symbol": "_TextExtractor.__init__"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "method",
+      "line_end": 89,
+      "line_start": 83,
+      "locator": "src/max_grounding/fetcher.py::_TextExtractor.handle_starttag",
+      "symbol": "_TextExtractor.handle_starttag"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "method",
+      "line_end": 93,
+      "line_start": 91,
+      "locator": "src/max_grounding/fetcher.py::_TextExtractor.handle_endtag",
+      "symbol": "_TextExtractor.handle_endtag"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "method",
+      "line_end": 97,
+      "line_start": 95,
+      "locator": "src/max_grounding/fetcher.py::_TextExtractor.handle_data",
+      "symbol": "_TextExtractor.handle_data"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "function",
+      "line_end": 107,
+      "line_start": 100,
+      "locator": "src/max_grounding/fetcher.py::_require_public_ip",
+      "symbol": "_require_public_ip"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "function",
+      "line_end": 134,
+      "line_start": 110,
+      "locator": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "symbol": "open_pinned_connection"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "function",
+      "line_end": 182,
+      "line_start": 137,
+      "locator": "src/max_grounding/fetcher.py::read_bounded_response",
+      "symbol": "read_bounded_response"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "function",
+      "line_end": 209,
+      "line_start": 185,
+      "locator": "src/max_grounding/fetcher.py::extract_text",
+      "symbol": "extract_text"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "function",
+      "line_end": 230,
+      "line_start": 212,
+      "locator": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "symbol": "_normalized_fetch_target"
+    },
+    {
+      "file": "src/max_grounding/fetcher.py",
+      "kind": "function",
+      "line_end": 298,
+      "line_start": 233,
+      "locator": "src/max_grounding/fetcher.py::fetch_document",
+      "symbol": "fetch_document"
     },
     {
       "file": "src/max_grounding/models.py",
@@ -1572,12 +2422,28 @@
       "symbol": "EvidencePack"
     },
     {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 85,
+      "line_start": 77,
+      "locator": "src/max_grounding/models.py::FetchedDocument",
+      "symbol": "FetchedDocument"
+    },
+    {
       "file": "src/max_grounding/network_policy.py",
       "kind": "function",
-      "line_end": 43,
-      "line_start": 14,
+      "line_end": 50,
+      "line_start": 18,
       "locator": "src/max_grounding/network_policy.py::is_admissible_result_url",
       "symbol": "is_admissible_result_url"
+    },
+    {
+      "file": "src/max_grounding/network_policy.py",
+      "kind": "function",
+      "line_end": 93,
+      "line_start": 53,
+      "locator": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "symbol": "resolve_public_addresses"
     },
     {
       "file": "src/max_grounding/policy.py",
@@ -1878,50 +2744,106 @@
     {
       "file": "tests/test_network_policy.py",
       "kind": "class",
-      "line_end": 42,
-      "line_start": 8,
+      "line_end": 57,
+      "line_start": 13,
       "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests",
       "symbol": "ResultUrlAdmissionTests"
     },
     {
       "file": "tests/test_network_policy.py",
       "kind": "method",
-      "line_end": 11,
-      "line_start": 9,
+      "line_end": 16,
+      "line_start": 14,
       "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets",
       "symbol": "ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets"
     },
     {
       "file": "tests/test_network_policy.py",
       "kind": "method",
-      "line_end": 16,
-      "line_start": 13,
+      "line_end": 21,
+      "line_start": 18,
       "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes",
       "symbol": "ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes"
     },
     {
       "file": "tests/test_network_policy.py",
       "kind": "method",
-      "line_end": 20,
-      "line_start": 18,
+      "line_end": 25,
+      "line_start": 23,
       "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_localhost_names",
       "symbol": "ResultUrlAdmissionTests.test_rejects_localhost_names"
     },
     {
       "file": "tests/test_network_policy.py",
       "kind": "method",
-      "line_end": 39,
-      "line_start": 22,
+      "line_end": 44,
+      "line_start": 27,
       "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets",
       "symbol": "ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets"
     },
     {
       "file": "tests/test_network_policy.py",
       "kind": "method",
-      "line_end": 42,
-      "line_start": 41,
+      "line_end": 47,
+      "line_start": 46,
       "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_malformed_ports",
       "symbol": "ResultUrlAdmissionTests.test_rejects_malformed_ports"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 57,
+      "line_start": 49,
+      "locator": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_rejects_ascii_control_characters_anywhere_in_url",
+      "symbol": "ResultUrlAdmissionTests.test_rejects_ascii_control_characters_anywhere_in_url"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "class",
+      "line_end": 119,
+      "line_start": 60,
+      "locator": "tests/test_network_policy.py::ConnectionTargetResolutionTests",
+      "symbol": "ConnectionTargetResolutionTests"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 79,
+      "line_start": 62,
+      "locator": "tests/test_network_policy.py::ConnectionTargetResolutionTests._resolver",
+      "symbol": "ConnectionTargetResolutionTests._resolver"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 77,
+      "line_start": 63,
+      "locator": "tests/test_network_policy.py::ConnectionTargetResolutionTests._resolver.resolve",
+      "symbol": "ConnectionTargetResolutionTests._resolver.resolve"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 92,
+      "line_start": 81,
+      "locator": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_accepts_and_deduplicates_only_public_dns_answers",
+      "symbol": "ConnectionTargetResolutionTests.test_accepts_and_deduplicates_only_public_dns_answers"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 100,
+      "line_start": 94,
+      "locator": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_rejects_mixed_public_and_private_dns_answers",
+      "symbol": "ConnectionTargetResolutionTests.test_rejects_mixed_public_and_private_dns_answers"
+    },
+    {
+      "file": "tests/test_network_policy.py",
+      "kind": "method",
+      "line_end": 119,
+      "line_start": 102,
+      "locator": "tests/test_network_policy.py::ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers",
+      "symbol": "ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers"
     },
     {
       "file": "tests/test_policy.py",
@@ -2106,17 +3028,161 @@
       "line_start": 187,
       "locator": "tests/test_searxng_provider.py::SearxngProviderTests.test_provider_rejects_invalid_results_schema",
       "symbol": "SearxngProviderTests.test_provider_rejects_invalid_results_schema"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "class",
+      "line_end": 37,
+      "line_start": 17,
+      "locator": "tests/test_secure_fetcher.py::_Response",
+      "symbol": "_Response"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 34,
+      "line_start": 18,
+      "locator": "tests/test_secure_fetcher.py::_Response.__init__",
+      "symbol": "_Response.__init__"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 37,
+      "line_start": 36,
+      "locator": "tests/test_secure_fetcher.py::_Response.read",
+      "symbol": "_Response.read"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "class",
+      "line_end": 59,
+      "line_start": 40,
+      "locator": "tests/test_secure_fetcher.py::_Connection",
+      "symbol": "_Connection"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 44,
+      "line_start": 41,
+      "locator": "tests/test_secure_fetcher.py::_Connection.__init__",
+      "symbol": "_Connection.__init__"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 53,
+      "line_start": 46,
+      "locator": "tests/test_secure_fetcher.py::_Connection.request",
+      "symbol": "_Connection.request"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 56,
+      "line_start": 55,
+      "locator": "tests/test_secure_fetcher.py::_Connection.getresponse",
+      "symbol": "_Connection.getresponse"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 59,
+      "line_start": 58,
+      "locator": "tests/test_secure_fetcher.py::_Connection.close",
+      "symbol": "_Connection.close"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "function",
+      "line_end": 71,
+      "line_start": 62,
+      "locator": "tests/test_secure_fetcher.py::public_resolver",
+      "symbol": "public_resolver"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "class",
+      "line_end": 212,
+      "line_start": 74,
+      "locator": "tests/test_secure_fetcher.py::SecureFetcherTests",
+      "symbol": "SecureFetcherTests"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 122,
+      "line_start": 75,
+      "locator": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority",
+      "symbol": "SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 97,
+      "line_start": 82,
+      "locator": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority.opener",
+      "symbol": "SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority.opener"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 128,
+      "line_start": 124,
+      "locator": "tests/test_secure_fetcher.py::SecureFetcherTests.test_fetch_rejects_nonstandard_ports_before_dns",
+      "symbol": "SecureFetcherTests.test_fetch_rejects_nonstandard_ports_before_dns"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 134,
+      "line_start": 130,
+      "locator": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_missing_content_type",
+      "symbol": "SecureFetcherTests.test_read_rejects_missing_content_type"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 147,
+      "line_start": 136,
+      "locator": "tests/test_secure_fetcher.py::SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize",
+      "symbol": "SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 164,
+      "line_start": 149,
+      "locator": "tests/test_secure_fetcher.py::SecureFetcherTests.test_extract_html_discards_executable_and_style_content",
+      "symbol": "SecureFetcherTests.test_extract_html_discards_executable_and_style_content"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 180,
+      "line_start": 166,
+      "locator": "tests/test_secure_fetcher.py::SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname",
+      "symbol": "SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname"
+    },
+    {
+      "file": "tests/test_secure_fetcher.py",
+      "kind": "method",
+      "line_end": 212,
+      "line_start": 182,
+      "locator": "tests/test_secure_fetcher.py::SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name",
+      "symbol": "SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name"
     }
   ],
   "schema_version": 1,
-  "source_digest": "5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d",
+  "source_digest": "5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216",
   "source_summary": {
-    "files": 18,
+    "files": 20,
     "languages": {
-      "Python": 18
+      "Python": 20
     },
-    "lines": 1156,
-    "test_files": 7
+    "lines": 1813,
+    "test_files": 8
   },
   "tests": [
     "tests/test_bootstrap.py",
@@ -2125,6 +3191,7 @@
     "tests/test_evidence.py",
     "tests/test_network_policy.py",
     "tests/test_policy.py",
-    "tests/test_searxng_provider.py"
+    "tests/test_searxng_provider.py",
+    "tests/test_secure_fetcher.py"
   ]
 }

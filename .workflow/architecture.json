@@ -11,7 +11,8 @@
         "SourceCandidate",
         "EvidenceSource",
         "EvidencePack",
-        "EvidenceStatus"
+        "EvidenceStatus",
+        "FetchedDocument"
       ],
       "depends_on": []
     },
@@ -93,14 +94,30 @@
     },
     {
       "id": "network-policy",
-      "name": "Result URL Admission Policy",
-      "purpose": "Reject obviously unsafe untrusted search-result URLs before evidence admission without claiming DNS-rebinding protection.",
+      "name": "Network Target Policy",
+      "purpose": "Reject unsafe result URLs, resolve result-page hosts at fetch time, reject the entire DNS answer set if any address is non-public, and return only validated public IP targets.",
       "owns": [
-        "scheme/userinfo validation",
-        "localhost rejection",
-        "literal non-public IP rejection"
+        "scheme/userinfo/control-character validation",
+        "localhost and ambiguous numeric host rejection",
+        "literal non-public IP rejection",
+        "all-answer DNS public-IP validation"
       ],
       "depends_on": []
+    },
+    {
+      "id": "secure-fetch",
+      "name": "Secure Result Fetcher",
+      "purpose": "Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, bound response handling, and extract untrusted visible text.",
+      "owns": [
+        "fetch_document",
+        "public-IP-pinned HTTP(S) connection",
+        "bounded response policy",
+        "visible text extraction"
+      ],
+      "depends_on": [
+        "models",
+        "network-policy"
+      ]
     }
   ],
   "data_flows": [
@@ -153,16 +170,35 @@
       "from": "SearXNG Provider",
       "to": "Result URL Admission Policy",
       "meaning": "untrusted result URL before SourceCandidate construction"
+    },
+    {
+      "from": "SourceCandidate",
+      "to": "Network Target Policy",
+      "meaning": "admitted untrusted result URL is independently revalidated at fetch time"
+    },
+    {
+      "from": "Network Target Policy",
+      "to": "Secure Result Fetcher",
+      "meaning": "validated public connection targets"
+    },
+    {
+      "from": "Secure Result Fetcher",
+      "to": "FetchedDocument",
+      "meaning": "bounded immutable text and fetch metadata"
     }
   ],
   "external_boundaries": [
     {
       "name": "SearXNG service",
-      "contract": "Operator config chooses the trusted provider endpoint. Search-result URLs and returned content remain untrusted; Phase 2 does not fetch result pages or resolve their DNS."
+      "contract": "Operator config chooses the trusted provider endpoint. Search-result URLs and page content remain untrusted and are independently validated by the Phase 3 fetch boundary."
     },
     {
       "name": "GitHub-hosted runners",
       "contract": "Cross-platform acceptance authority for Python 3.11-3.14 on Linux, Windows, and macOS."
+    },
+    {
+      "name": "Result-page web servers",
+      "contract": "Untrusted network/content boundary. Phase 3 permits only standard-port HTTP(S), validates all DNS answers as public, pins transport to a validated IP, rejects redirects and compression, bounds bytes, and accepts only approved text media/charset combinations."
     }
   ]
 }

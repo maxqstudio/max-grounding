@@ -1,0 +1,343 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "is_admissible_result_url",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/network_policy.py::is_admissible_result_url"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::_require_public_ip",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::extract_text",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "_TextExtractor",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::extract_text",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::_TextExtractor"
+    },
+    {
+      "action": "parser.close",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::extract_text",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Connection.close"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "_normalized_fetch_target",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::_normalized_fetch_target"
+    },
+    {
+      "action": "extract_text",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::extract_text"
+    },
+    {
+      "action": "open_pinned_connection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::open_pinned_connection"
+    },
+    {
+      "action": "read_bounded_response",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::read_bounded_response"
+    },
+    {
+      "action": "FetchedDocument",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::FetchedDocument"
+    },
+    {
+      "action": "resolve_public_addresses",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/network_policy.py::resolve_public_addresses"
+    },
+    {
+      "action": "connection.close",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Connection.close"
+    },
+    {
+      "action": "connection.getresponse",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Connection.getresponse"
+    },
+    {
+      "action": "connection.request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Connection.request"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "_PinnedHTTPConnection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::_PinnedHTTPConnection"
+    },
+    {
+      "action": "_PinnedHTTPSConnection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection"
+    },
+    {
+      "action": "_require_public_ip",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::_require_public_ip"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::read_bounded_response",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "response.read",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::read_bounded_response",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Response.read"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    }
+  ],
+  "entries": [
+    "src/max_grounding/fetcher.py::fetch_document"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/errors.py::FetchError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::FetchError",
+      "language": "Python",
+      "line_end": 25,
+      "line_start": 24,
+      "locator": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::_PinnedHTTPConnection",
+      "kind": "class",
+      "label": "src/max_grounding/fetcher.py::_PinnedHTTPConnection",
+      "language": "Python",
+      "line_end": 45,
+      "line_start": 30,
+      "locator": "src/max_grounding/fetcher.py::_PinnedHTTPConnection"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection",
+      "kind": "class",
+      "label": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection",
+      "language": "Python",
+      "line_end": 72,
+      "line_start": 48,
+      "locator": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::_TextExtractor",
+      "kind": "class",
+      "label": "src/max_grounding/fetcher.py::_TextExtractor",
+      "language": "Python",
+      "line_end": 97,
+      "line_start": 75,
+      "locator": "src/max_grounding/fetcher.py::_TextExtractor"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "language": "Python",
+      "line_end": 230,
+      "line_start": 212,
+      "locator": "src/max_grounding/fetcher.py::_normalized_fetch_target"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::_require_public_ip",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::_require_public_ip",
+      "language": "Python",
+      "line_end": 107,
+      "line_start": 100,
+      "locator": "src/max_grounding/fetcher.py::_require_public_ip"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::extract_text",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::extract_text",
+      "language": "Python",
+      "line_end": 209,
+      "line_start": 185,
+      "locator": "src/max_grounding/fetcher.py::extract_text"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::fetch_document",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::fetch_document",
+      "language": "Python",
+      "line_end": 298,
+      "line_start": 233,
+      "locator": "src/max_grounding/fetcher.py::fetch_document"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "language": "Python",
+      "line_end": 134,
+      "line_start": 110,
+      "locator": "src/max_grounding/fetcher.py::open_pinned_connection"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::read_bounded_response",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::read_bounded_response",
+      "language": "Python",
+      "line_end": 182,
+      "line_start": 137,
+      "locator": "src/max_grounding/fetcher.py::read_bounded_response"
+    },
+    {
+      "id": "src/max_grounding/models.py::FetchedDocument",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::FetchedDocument",
+      "language": "Python",
+      "line_end": 85,
+      "line_start": 77,
+      "locator": "src/max_grounding/models.py::FetchedDocument"
+    },
+    {
+      "id": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "kind": "function",
+      "label": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "language": "Python",
+      "line_end": 50,
+      "line_start": 18,
+      "locator": "src/max_grounding/network_policy.py::is_admissible_result_url"
+    },
+    {
+      "id": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "kind": "function",
+      "label": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "language": "Python",
+      "line_end": 93,
+      "line_start": 53,
+      "locator": "src/max_grounding/network_policy.py::resolve_public_addresses"
+    },
+    {
+      "id": "tests/test_secure_fetcher.py::_Connection.close",
+      "kind": "method",
+      "label": "tests/test_secure_fetcher.py::_Connection.close",
+      "language": "Python",
+      "line_end": 59,
+      "line_start": 58,
+      "locator": "tests/test_secure_fetcher.py::_Connection.close"
+    },
+    {
+      "id": "tests/test_secure_fetcher.py::_Connection.getresponse",
+      "kind": "method",
+      "label": "tests/test_secure_fetcher.py::_Connection.getresponse",
+      "language": "Python",
+      "line_end": 56,
+      "line_start": 55,
+      "locator": "tests/test_secure_fetcher.py::_Connection.getresponse"
+    },
+    {
+      "id": "tests/test_secure_fetcher.py::_Connection.request",
+      "kind": "method",
+      "label": "tests/test_secure_fetcher.py::_Connection.request",
+      "language": "Python",
+      "line_end": 53,
+      "line_start": 46,
+      "locator": "tests/test_secure_fetcher.py::_Connection.request"
+    },
+    {
+      "id": "tests/test_secure_fetcher.py::_Response.read",
+      "kind": "method",
+      "label": "tests/test_secure_fetcher.py::_Response.read",
+      "language": "Python",
+      "line_end": 37,
+      "line_start": 36,
+      "locator": "tests/test_secure_fetcher.py::_Response.read"
+    }
+  ],
+  "observed_head": "01ecc568502c99d13551068a7731588d576e455f",
+  "schema_version": 1,
+  "source_digest": "5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216"
+}

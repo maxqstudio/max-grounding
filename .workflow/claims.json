@@ -148,6 +148,82 @@
         "NOT_APPLICABLE"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P3-DNS-PIN-001",
+      "claim": "Phase 3 result-page fetching rejects the whole DNS answer set if any address is non-public and opens the transport socket only to a validated pinned IP while HTTPS keeps the original server name.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/network_policy.py::resolve_public_addresses",
+        "src/max_grounding/fetcher.py::open_pinned_connection",
+        "src/max_grounding/fetcher.py::fetch_document"
+      ],
+      "tests": [
+        "tests/test_network_policy.py",
+        "tests/test_secure_fetcher.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions sequence verification run 36548516860"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P3-FETCH-BOUNDS-001",
+      "claim": "Phase 3 fetches only standard-port HTTP(S) and fails closed on redirects/non-200 status, compression, missing or disallowed media type, disallowed charset, and declared or observed response overflow.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/fetcher.py::fetch_document",
+        "src/max_grounding/fetcher.py::read_bounded_response"
+      ],
+      "tests": [
+        "tests/test_secure_fetcher.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions security GREEN run 36548150250"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P3-EXTRACTION-001",
+      "claim": "Phase 3 strictly decodes approved text and HTML extraction omits script, style, noscript, template, and svg content while treating the resulting visible text as untrusted evidence.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/fetcher.py::extract_text",
+        "src/max_grounding/models.py::FetchedDocument"
+      ],
+      "tests": [
+        "tests/test_secure_fetcher.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions security GREEN run 36548150250"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P3-CROSS-OS-001",
+      "claim": "The final simplified Phase 3 secure-fetch source passes the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/fetcher.py::fetch_document",
+        "src/max_grounding/network_policy.py::resolve_public_addresses",
+        ".github/workflows/ci.yml"
+      ],
+      "tests": [
+        "tests/test_secure_fetcher.py",
+        "tests/test_network_policy.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions final cross-platform run 36548604321"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []

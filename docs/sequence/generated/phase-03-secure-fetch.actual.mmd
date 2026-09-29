@@ -1,0 +1,45 @@
+%% GENERATED FILE - DO NOT EDIT
+%% SOURCE_DIGEST: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
+%% OBSERVED_HEAD: 01ecc568502c99d13551068a7731588d576e455f
+%% GENERATED_BY: generate_sequence_actual.py
+sequenceDiagram
+    participant src_max_grounding_errors_py__FetchError_0 as src/max_grounding/errors.py::FetchError
+    participant src_max_grounding_fetcher_py___PinnedHTTPConnection_1 as src/max_grounding/fetcher.py::_PinnedHTTPConnection
+    participant src_max_grounding_fetcher_py___PinnedHTTPSConnection_2 as src/max_grounding/fetcher.py::_PinnedHTTPSConnection
+    participant src_max_grounding_fetcher_py___TextExtractor_3 as src/max_grounding/fetcher.py::_TextExtractor
+    participant src_max_grounding_fetcher_py___normalized_fetch_target_4 as src/max_grounding/fetcher.py::_normalized_fetch_target
+    participant src_max_grounding_fetcher_py___require_public_ip_5 as src/max_grounding/fetcher.py::_require_public_ip
+    participant src_max_grounding_fetcher_py__extract_text_6 as src/max_grounding/fetcher.py::extract_text
+    participant src_max_grounding_fetcher_py__fetch_document_7 as src/max_grounding/fetcher.py::fetch_document
+    participant src_max_grounding_fetcher_py__open_pinned_connection_8 as src/max_grounding/fetcher.py::open_pinned_connection
+    participant src_max_grounding_fetcher_py__read_bounded_response_9 as src/max_grounding/fetcher.py::read_bounded_response
+    participant src_max_grounding_models_py__FetchedDocument_10 as src/max_grounding/models.py::FetchedDocument
+    participant src_max_grounding_network_policy_py__is_admissible_result_url_11 as src/max_grounding/network_policy.py::is_admissible_result_url
+    participant src_max_grounding_network_policy_py__resolve_public_addresses_12 as src/max_grounding/network_policy.py::resolve_public_addresses
+    participant tests_test_secure_fetcher_py___Connection_close_13 as tests/test_secure_fetcher.py::_Connection.close
+    participant tests_test_secure_fetcher_py___Connection_getresponse_14 as tests/test_secure_fetcher.py::_Connection.getresponse
+    participant tests_test_secure_fetcher_py___Connection_request_15 as tests/test_secure_fetcher.py::_Connection.request
+    participant tests_test_secure_fetcher_py___Response_read_16 as tests/test_secure_fetcher.py::_Response.read
+    src_max_grounding_fetcher_py___normalized_fetch_target_4->>src_max_grounding_errors_py__FetchError_0: FetchError [STATIC]
+    src_max_grounding_fetcher_py___normalized_fetch_target_4->>src_max_grounding_network_policy_py__is_admissible_result_url_11: is_admissible_result_url [STATIC]
+    src_max_grounding_fetcher_py___require_public_ip_5->>src_max_grounding_errors_py__FetchError_0: FetchError [STATIC]
+    src_max_grounding_fetcher_py__extract_text_6->>src_max_grounding_errors_py__FetchError_0: FetchError [STATIC]
+    src_max_grounding_fetcher_py__extract_text_6->>src_max_grounding_fetcher_py___TextExtractor_3: _TextExtractor [STATIC]
+    src_max_grounding_fetcher_py__extract_text_6->>tests_test_secure_fetcher_py___Connection_close_13: parser.close [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_7->>src_max_grounding_errors_py__FetchError_0: FetchError [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_7->>src_max_grounding_fetcher_py___normalized_fetch_target_4: _normalized_fetch_target [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_7->>src_max_grounding_fetcher_py__extract_text_6: extract_text [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_7->>src_max_grounding_fetcher_py__open_pinned_connection_8: open_pinned_connection [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_7->>src_max_grounding_fetcher_py__read_bounded_response_9: read_bounded_response [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_7->>src_max_grounding_models_py__FetchedDocument_10: FetchedDocument [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_7->>src_max_grounding_network_policy_py__resolve_public_addresses_12: resolve_public_addresses [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_7->>tests_test_secure_fetcher_py___Connection_close_13: connection.close [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_7->>tests_test_secure_fetcher_py___Connection_getresponse_14: connection.getresponse [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_7->>tests_test_secure_fetcher_py___Connection_request_15: connection.request [STATIC]
+    src_max_grounding_fetcher_py__open_pinned_connection_8->>src_max_grounding_errors_py__FetchError_0: FetchError [STATIC]
+    src_max_grounding_fetcher_py__open_pinned_connection_8->>src_max_grounding_fetcher_py___PinnedHTTPConnection_1: _PinnedHTTPConnection [STATIC]
+    src_max_grounding_fetcher_py__open_pinned_connection_8->>src_max_grounding_fetcher_py___PinnedHTTPSConnection_2: _PinnedHTTPSConnection [STATIC]
+    src_max_grounding_fetcher_py__open_pinned_connection_8->>src_max_grounding_fetcher_py___require_public_ip_5: _require_public_ip [STATIC]
+    src_max_grounding_fetcher_py__read_bounded_response_9->>src_max_grounding_errors_py__FetchError_0: FetchError [STATIC]
+    src_max_grounding_fetcher_py__read_bounded_response_9->>tests_test_secure_fetcher_py___Response_read_16: response.read [STATIC]
+    src_max_grounding_network_policy_py__resolve_public_addresses_12->>src_max_grounding_errors_py__FetchError_0: FetchError [STATIC]

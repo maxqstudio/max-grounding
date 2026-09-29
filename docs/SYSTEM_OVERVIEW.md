@@ -26,20 +26,21 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 18 files, 1 language categories.
+Observed source inventory: 20 files, 1 language categories.
 
 ## Major components
 
 | Component | Purpose | Owns / Decides | Depends On |
 |---|---|---|---|
-| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus |  |
+| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument |  |
 | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
 | Evidence Normalization | Canonicalize HTTP(S) URLs, deduplicate sources, and classify evidence fail-closed. | canonical URLs, evidence sufficiency classification | models |
 | Grounding Engine | Orchestrate validation, bounded search calls, evidence normalization, and fail-closed output. | grounding flow | policy, budget, provider-boundary, evidence |
 | SearXNG Provider | Build a fixed-authority JSON search request, perform bounded non-redirecting HTTP, validate response shape, and emit SourceCandidate values. | SearxngProvider, SearXNG request construction, bounded JSON response handling | models, network-policy |
-| Result URL Admission Policy | Reject obviously unsafe untrusted search-result URLs before evidence admission without claiming DNS-rebinding protection. | scheme/userinfo validation, localhost rejection, literal non-public IP rejection |  |
+| Network Target Policy | Reject unsafe result URLs, resolve result-page hosts at fetch time, reject the entire DNS answer set if any address is non-public, and return only validated public IP targets. | scheme/userinfo/control-character validation, localhost and ambiguous numeric host rejection, literal non-public IP rejection, all-answer DNS public-IP validation |  |
+| Secure Result Fetcher | Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, bound response handling, and extract untrusted visible text. | fetch_document, public-IP-pinned HTTP(S) connection, bounded response policy, visible text extraction | models, network-policy |
 
 ## Main data flow
 
@@ -53,6 +54,9 @@ Observed source inventory: 18 files, 1 language categories.
 - GroundingEngine -> SearXNG Provider: already-budgeted SearchQuery
 - SearXNG Provider -> operator-configured SearXNG instance: bounded GET /search request for JSON output
 - SearXNG Provider -> Result URL Admission Policy: untrusted result URL before SourceCandidate construction
+- SourceCandidate -> Network Target Policy: admitted untrusted result URL is independently revalidated at fetch time
+- Network Target Policy -> Secure Result Fetcher: validated public connection targets
+- Secure Result Fetcher -> FetchedDocument: bounded immutable text and fetch metadata
 
 ## Main user workflows
 
@@ -92,11 +96,23 @@ Authority: SearxngProvider transport policy and result URL admission policy
 - REQUEST_BUILT -> PROVIDER_ERROR : transport or HTTP policy failure
 - RESPONSE_RECEIVED -> PROVIDER_ERROR : response size, media type, JSON, or schema failure
 
+### FLOW-SECURE-FETCH — Secure result-page fetch and extraction
+
+Fetch one admitted HTTP(S) result page through a connection-time validated public-IP boundary, bound response bytes and media type, and return extracted untrusted text without treating page content as instructions.
+
+Authority: Secure fetch network policy and pinned connection target
+
+- URL_RECEIVED -> TARGET_RESOLVED : parse URL and resolve host addresses
+- TARGET_RESOLVED -> TARGET_VALIDATED : reject any non-public, multicast, ambiguous, or otherwise unsafe resolved address
+- TARGET_VALIDATED -> CONNECTED : connect only to an already-validated pinned IP while preserving original HTTP host and TLS server name
+- CONNECTED -> RESPONSE_RECEIVED : read one bounded identity-encoded text response without redirect following
+- RESPONSE_RECEIVED -> TEXT_EXTRACTED : extract bounded visible text and discard executable or styling content
+
 ## Lifecycle and state
 
-Current phase: PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER
+Current phase: PHASE_03_SECURE_FETCH_EXTRACTION
 
-Current status: ACCEPTED
+Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -135,16 +151,19 @@ compiler does not infer them from implementation names.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.
 - FLOW-SEARXNG-SEARCH: Transport, redirect, HTTP, media-type, size, JSON, and schema failures raise a controlled provider error.
 - FLOW-SEARXNG-SEARCH: GroundingEngine converts provider failure before evidence sufficiency into fail-closed PROVIDER_ERROR status.
+- FLOW-SECURE-FETCH: Invalid URLs, unsafe DNS answers, transport failures, redirects, disallowed media/encoding, oversized responses, or decoding failures produce a controlled FetchError.
+- FLOW-SECURE-FETCH: No partial page content is returned after a policy failure.
 
 ## Current project state
 
 Next authorized actions:
-- Start Phase 3 from accepted main.
-- Freeze the Phase 3 BEFORE sequence plan before implementing secure result-page fetching and extraction.
+- Open the Phase 3 pull request and run the full STRICT GitHub Actions Acceptance workflow on the exact candidate head.
+- Merge Phase 3 only if every required pull-request job passes, then revalidate merged main.
 
 Blocked actions:
-- Do not claim result-page SSRF/DNS-rebinding protection until Phase 3 acceptance proves the fetch boundary.
-- Do not bypass GitHub Actions acceptance or post-merge main revalidation for later phases.
+- Do not merge Phase 3 while any required GitHub Actions job is failing or missing.
+- Do not claim browser/JavaScript crawling or downstream retrieval/reranking from the Phase 3 secure fetcher.
+- Do not bypass post-merge main revalidation.
 
 Known blockers:
 - None declared.
@@ -153,16 +172,23 @@ Known blockers:
 
 ### Proven
 
-- Phase 2 bounded SearXNG live-search provider is merged to main at f0f64637895465b98a227d299db42a7704d3d894.
-- GitHub Actions Acceptance run 20 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 runtime jobs on the exact Phase 2 PR head 9b33220c1061783c8547c73bedceda7fae56e3b5.
-- GitHub Actions Acceptance run 21 revalidated STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 runtime jobs on merged main SHA f0f64637895465b98a227d299db42a7704d3d894.
-- Phase 2 BEFORE plan was frozen before implementation and sequence acceptance passed.
-- SearxngProvider performs bounded JSON HTTP search to an operator-configured trusted endpoint, rejects redirects and malformed/oversized responses, and filters obvious unsafe result URLs before candidate admission.
+- Phase 3 started from post-closure main SHA a9124380b74b7ff42097a7434b6bee22b0aed9d6.
+- The Phase 3 BEFORE plan was frozen before implementation at e8519742f3f7662b76822be5265fe1076cc62bbf with SHA-256 0760581b40a1906da335d5b07cfc2a6d28e51539bc453b314aa783a5c2a879c9.
+- TDD RED run 36547347512 failed because the secure-fetch contract did not yet exist; implementation followed the frozen plan.
+- Security regression run 36548079506 reproduced fail-open handling for missing Content-Type and ASCII control characters before the minimum repair.
+- Security GREEN run 36548150250 passed the full unit suite and compile checks after the repair.
+- Sequence verification run 36548516860 passed full tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.
+- Final cross-platform run 36548604321 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs after the final simplification.
+- The fetch boundary resolves all DNS answers, rejects the whole set if any address is non-public, and pins the socket to a validated IP while preserving the original HTTPS server name.
+- Result pages are fail-closed on redirects/non-200 responses, non-identity content encoding, missing/disallowed media type, disallowed charset, or response byte overflow.
+- HTML extraction removes script, style, noscript, template, and svg content; extracted text remains untrusted evidence data.
+- Phase 3 Project Truth sync run 36550916141 generated and validated the current ACTUAL sequence and deterministic documentation before push.
 
 ### Not proven
 
-- A specific external SearXNG deployment and its upstream engine availability/ranking quality are not proven by deterministic CI fixtures.
-- Result-page fetching, DNS-rebinding protection at connection time, crawling, content extraction, embeddings, vector retrieval, reranking, REST, MCP, and production deployment remain outside Phase 2.
+- Final Phase 3 acceptance is not proven until the exact PR head passes the full Acceptance workflow and merged main is revalidated.
+- Behavior against arbitrary real-world websites, JavaScript-rendered pages, and hostile TLS/network infrastructure is not proven by deterministic CI fixtures.
+- Crawling, browser rendering, hybrid retrieval, embeddings, vector databases, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 3.
 
 ## Important limitations
 

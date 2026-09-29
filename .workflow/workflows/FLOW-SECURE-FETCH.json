@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-SECURE-FETCH",
+  "title": "Secure result-page fetch and extraction",
+  "purpose": "Fetch one admitted HTTP(S) result page through a connection-time validated public-IP boundary, bound response bytes and media type, and return extracted untrusted text without treating page content as instructions.",
+  "critical": true,
+  "entry_condition": "A previously admitted SourceCandidate URL is selected for page retrieval.",
+  "authority": "Secure fetch network policy and pinned connection target",
+  "states": [
+    "URL_RECEIVED",
+    "TARGET_RESOLVED",
+    "TARGET_VALIDATED",
+    "CONNECTED",
+    "RESPONSE_RECEIVED",
+    "TEXT_EXTRACTED",
+    "FETCH_REJECTED"
+  ],
+  "transitions": [
+    {
+      "from": "URL_RECEIVED",
+      "to": "TARGET_RESOLVED",
+      "action": "parse URL and resolve host addresses"
+    },
+    {
+      "from": "TARGET_RESOLVED",
+      "to": "TARGET_VALIDATED",
+      "action": "reject any non-public, multicast, ambiguous, or otherwise unsafe resolved address"
+    },
+    {
+      "from": "TARGET_VALIDATED",
+      "to": "CONNECTED",
+      "action": "connect only to an already-validated pinned IP while preserving original HTTP host and TLS server name"
+    },
+    {
+      "from": "CONNECTED",
+      "to": "RESPONSE_RECEIVED",
+      "action": "read one bounded identity-encoded text response without redirect following"
+    },
+    {
+      "from": "RESPONSE_RECEIVED",
+      "to": "TEXT_EXTRACTED",
+      "action": "extract bounded visible text and discard executable or styling content"
+    }
+  ],
+  "invariants": [
+    "Only http and https URLs without credentials are fetchable.",
+    "Connection targets are selected only from addresses returned by the explicit resolver and validated as globally routable non-multicast IPs.",
+    "The socket connection is pinned to the validated IP so the transport does not perform a second authority-changing DNS lookup.",
+    "Redirects are rejected in Phase 3 rather than followed implicitly.",
+    "Response bytes are bounded before decoding and only identity content encoding plus approved text media types are accepted.",
+    "Extracted page text is untrusted evidence data and never an instruction authority."
+  ],
+  "failure_behavior": [
+    "Invalid URLs, unsafe DNS answers, transport failures, redirects, disallowed media/encoding, oversized responses, or decoding failures produce a controlled FetchError.",
+    "No partial page content is returned after a policy failure."
+  ],
+  "restart_behavior": [
+    "A retry is a fresh fetch attempt and must repeat DNS resolution and target validation."
+  ],
+  "rollback_behavior": [
+    "Phase 3 performs no persistent state mutation."
+  ],
+  "source_owners": [
+    "src/max_grounding/fetcher.py::fetch_document",
+    "src/max_grounding/fetcher.py::open_pinned_connection",
+    "src/max_grounding/fetcher.py::read_bounded_response",
+    "src/max_grounding/fetcher.py::extract_text",
+    "src/max_grounding/network_policy.py::resolve_public_addresses"
+  ],
+  "tests": [
+    "tests/test_secure_fetcher.py",
+    "tests/test_network_policy.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-03-secure-fetch.json"
+}
