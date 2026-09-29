@@ -96,6 +96,10 @@
     {
       "date": "2026-09-30",
       "change": "Phase 11 candidate adds pinned Ollama 0.34.0 + qwen3-embedding:0.6b concrete embeddings, Qdrant 1.19.1 persistent vector storage, provenance-preserving persistent semantic indexing/query, real restart-persistence evidence, frozen-plan conformance, and full cross-platform core evidence."
+    },
+    {
+      "date": "2026-09-30",
+      "change": "Phase 11 accepted on main after exact-head PR Acceptance and post-merge main revalidation both passed 13/13 jobs; real Ollama/Qwen3 embedding and Qdrant restart-persistence evidence is now accepted, and Phase 12 becomes the sole CURRENT roadmap phase."
     }
   ]
 }
