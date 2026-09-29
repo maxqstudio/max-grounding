@@ -21,6 +21,7 @@ Status: CURRENT
 | FLOW-PHASE-DELIVERY | BEFORE | YES | docs/sequence/sessions/phase-00-bootstrap.json | PASS |
 | FLOW-SEARXNG-SEARCH | BEFORE | YES | docs/sequence/sessions/phase-02-searxng-provider.json | PASS |
 | FLOW-SECURE-FETCH | BEFORE | YES | docs/sequence/sessions/phase-03-secure-fetch.json | PASS |
+| FLOW-SEMANTIC-RETRIEVAL | BEFORE | YES | docs/sequence/sessions/phase-05-semantic-retrieval.json | PASS |
 
 ## Mismatch handling
 

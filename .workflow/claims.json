@@ -298,6 +298,79 @@
         "GitHub Actions cross-platform run 36553245646"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P5-ROLE-001",
+      "claim": "Phase 5 preserves separate query and document embedding roles and caps semantic chunks, embedding batch size, and total provider calls before provider work.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/semantic.py::EmbeddingProvider",
+        "src/max_grounding/semantic.py::embed_bounded",
+        "src/max_grounding/semantic.py::retrieve_semantic"
+      ],
+      "tests": [
+        "tests/test_semantic_retrieval.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions final GREEN run 36557612077"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P5-VECTORS-001",
+      "claim": "Phase 5 fails closed on embedding provider exceptions, wrong vector count, inconsistent dimensions, non-finite or boolean values, dimensions outside the hard cap, and zero-norm vectors.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/semantic.py::embed_bounded"
+      ],
+      "tests": [
+        "tests/test_semantic_retrieval.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions final GREEN run 36557612077"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P5-COSINE-001",
+      "claim": "Phase 5 ranks deterministic TextChunk provenance by positive cosine similarity and resolves equal scores with stable source ordering.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/semantic.py::rank_semantic",
+        "src/max_grounding/semantic.py::cosine_similarity",
+        "src/max_grounding/models.py::SemanticHit"
+      ],
+      "tests": [
+        "tests/test_semantic_retrieval.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions sequence verification run 36557689216"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P5-CROSS-OS-001",
+      "claim": "Phase 5 semantic retrieval passes the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/semantic.py::retrieve_semantic",
+        ".github/workflows/ci.yml"
+      ],
+      "tests": [
+        "tests/test_semantic_retrieval.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions cross-platform run 36557753677"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []

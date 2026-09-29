@@ -231,3 +231,56 @@ Authority: Secure fetch network policy and pinned connection target
 ### Rollback behavior
 
 - Phase 3 performs no persistent state mutation.
+
+## FLOW-SEMANTIC-RETRIEVAL — Bounded semantic retrieval
+
+Purpose: Turn fetched documents into bounded deterministic chunks, obtain embeddings through an injected provider under strict batch and shape limits, and return cosine-ranked semantic hits without persistence, hybrid fusion, reranking, or model-specific assumptions.
+Critical: TRUE
+Entry condition: FetchedDocument values, a non-empty semantic query, and an EmbeddingProvider are supplied within configured bounds.
+Authority: Semantic retrieval bounds, embedding validation, and deterministic cosine scorer
+
+### States
+
+- DOCUMENTS_RECEIVED
+- CHUNKS_READY
+- EMBEDDINGS_READY
+- SCORED
+- HITS_READY
+- INVALID_REQUEST
+- PROVIDER_ERROR
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| DOCUMENTS_RECEIVED | CHUNKS_READY | build bounded deterministic chunks using the accepted Phase 4 chunking contract | Semantic retrieval bounds, embedding validation, and deterministic cosine scorer |  |
+| CHUNKS_READY | EMBEDDINGS_READY | embed the query and chunk text through bounded provider batches and validate vector shape and values | Semantic retrieval bounds, embedding validation, and deterministic cosine scorer |  |
+| EMBEDDINGS_READY | SCORED | calculate cosine similarity between query and chunk vectors | Semantic retrieval bounds, embedding validation, and deterministic cosine scorer |  |
+| SCORED | HITS_READY | retain positive semantic matches up to the result limit with deterministic provenance tie ordering | Semantic retrieval bounds, embedding validation, and deterministic cosine scorer |  |
+| DOCUMENTS_RECEIVED | INVALID_REQUEST | reject invalid query, chunk, batch, or result bounds before provider work | Semantic retrieval bounds, embedding validation, and deterministic cosine scorer |  |
+| CHUNKS_READY | PROVIDER_ERROR | fail closed on provider exception, wrong vector count, invalid dimension, non-finite value, inconsistent shape, or zero vector | Semantic retrieval bounds, embedding validation, and deterministic cosine scorer |  |
+
+### Invariants
+
+- FetchedDocument and TextChunk input values are never mutated.
+- At most 256 chunks may enter one semantic retrieval operation.
+- Embedding batches contain at most 64 texts and the total provider-call count is capped.
+- Every embedding vector has one stable common dimension between 1 and 4096.
+- NaN, infinity, boolean values, malformed dimensions, and zero-norm vectors are rejected.
+- Only positive cosine-similarity hits are returned.
+- Equal scores use stable source URL, chunk index, and chunk ID ordering.
+- Phase 5 does not claim a concrete embedding model, vector database, hybrid fusion, or reranker.
+
+### Failure behavior
+
+- Invalid caller bounds raise RetrievalError before provider work.
+- Embedding provider or vector-validation failures raise EmbeddingProviderError without returning partial semantic hits.
+- No positive semantic match returns an empty immutable result rather than fabricated relevance.
+
+### Restart behavior
+
+- The retrieval core is stateless; deterministic provider output produces deterministic ranking for identical input.
+
+### Rollback behavior
+
+- Phase 5 has no persistent mutation.

@@ -1,0 +1,13 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 9dac5d2f05803611bdd05a83244d91b807ba777734927e4a3ed78cc746d842bf
+%% FLOW_ID: FLOW-SEMANTIC-RETRIEVAL
+sequenceDiagram
+    participant retrieve_0 as retrieve_semantic
+    participant chunks_1 as build_semantic_chunks
+    participant embed_2 as embed_bounded
+    participant rank_3 as rank_semantic
+    participant cosine_4 as cosine_similarity
+    retrieve_0->>chunks_1: build bounded provenance-preserving chunks [MUST]
+    retrieve_0->>embed_2: obtain bounded validated embeddings [MUST]
+    retrieve_0->>rank_3: rank chunks semantically [MUST]
+    rank_3->>cosine_4: calculate cosine similarity [MUST]

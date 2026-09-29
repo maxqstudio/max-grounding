@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-SEMANTIC-RETRIEVAL",
+  "title": "Phase 5 bounded semantic retrieval",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "retrieve",
+      "label": "retrieve_semantic",
+      "locator": "src/max_grounding/semantic.py::retrieve_semantic",
+      "kind": "source"
+    },
+    {
+      "id": "chunks",
+      "label": "build_semantic_chunks",
+      "locator": "src/max_grounding/semantic.py::build_semantic_chunks",
+      "kind": "source"
+    },
+    {
+      "id": "embed",
+      "label": "embed_bounded",
+      "locator": "src/max_grounding/semantic.py::embed_bounded",
+      "kind": "source"
+    },
+    {
+      "id": "rank",
+      "label": "rank_semantic",
+      "locator": "src/max_grounding/semantic.py::rank_semantic",
+      "kind": "source"
+    },
+    {
+      "id": "cosine",
+      "label": "cosine_similarity",
+      "locator": "src/max_grounding/semantic.py::cosine_similarity",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "retrieve",
+      "to": "chunks",
+      "action": "build bounded provenance-preserving chunks",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "retrieve",
+      "to": "embed",
+      "action": "obtain bounded validated embeddings",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "retrieve",
+      "to": "rank",
+      "action": "rank chunks semantically",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "rank",
+      "to": "cosine",
+      "action": "calculate cosine similarity",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}

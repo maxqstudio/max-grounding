@@ -14,7 +14,8 @@
         "EvidenceStatus",
         "FetchedDocument",
         "TextChunk",
-        "LexicalHit"
+        "LexicalHit",
+        "SemanticHit"
       ],
       "depends_on": []
     },
@@ -136,6 +137,25 @@
       "depends_on": [
         "models"
       ]
+    },
+    {
+      "id": "semantic-retrieval",
+      "name": "Semantic Retrieval",
+      "purpose": "Build bounded deterministic chunks, obtain role-separated dense embeddings through an injected provider, validate vectors fail-closed, and rank positive semantic matches by cosine similarity.",
+      "owns": [
+        "EmbeddingProvider protocol",
+        "retrieve_semantic",
+        "build_semantic_chunks",
+        "embed_bounded",
+        "rank_semantic",
+        "cosine_similarity",
+        "embedding batch/call/dimension bounds",
+        "semantic provenance ordering"
+      ],
+      "depends_on": [
+        "models",
+        "lexical-retrieval"
+      ]
     }
   ],
   "data_flows": [
@@ -218,6 +238,26 @@
       "from": "Lexical Retrieval",
       "to": "LexicalHit",
       "meaning": "positive BM25 matches are returned with deterministic rank and source provenance"
+    },
+    {
+      "from": "FetchedDocument",
+      "to": "Semantic Retrieval",
+      "meaning": "bounded untrusted extracted text enters deterministic Phase 4 chunking before semantic embedding"
+    },
+    {
+      "from": "Semantic Retrieval",
+      "to": "EmbeddingProvider",
+      "meaning": "one query role and bounded document-role batches are embedded through an injected provider"
+    },
+    {
+      "from": "EmbeddingProvider",
+      "to": "Semantic Retrieval",
+      "meaning": "dense vectors are accepted only after strict count, shape, finite-value, dimension, and norm validation"
+    },
+    {
+      "from": "Semantic Retrieval",
+      "to": "SemanticHit",
+      "meaning": "positive cosine matches return immutable source-provenance chunks with deterministic rank"
     }
   ],
   "external_boundaries": [
@@ -232,6 +272,10 @@
     {
       "name": "Result-page web servers",
       "contract": "Untrusted network/content boundary. Phase 3 permits only standard-port HTTP(S), validates all DNS answers as public, pins transport to a validated IP, rejects redirects and compression, bounds bytes, and accepts only approved text media/charset combinations."
+    },
+    {
+      "name": "Embedding provider",
+      "contract": "Injected Phase 5 boundary with distinct query/document roles. Core code bounds provider calls and validates every returned vector; no concrete model or inference runtime is accepted in Phase 5."
     }
   ]
 }

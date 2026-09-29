@@ -1,34 +1,36 @@
 {
   "schema_version": 1,
-  "phase": "PHASE_04_LEXICAL_RETRIEVAL",
-  "status": "ACCEPTED",
-  "working_branch": "main",
+  "phase": "PHASE_05_SEMANTIC_RETRIEVAL",
+  "status": "CANDIDATE_PENDING_GITHUB_ACTIONS",
+  "working_branch": "work/phase-05-semantic-retrieval",
   "last_accepted_sha": "432400785849be4425a118d5adee5eef1e77e693",
   "last_accepted_branch": "main",
   "proven": [
-    "Phase 3 closure is merged to main at 9ee23d526c6c68bccc0e0000e66e4c2de080b44c and closure-main Acceptance run 36551954260 passed all 13 required jobs.",
-    "The Phase 4 BEFORE plan was frozen before implementation at fbe5b9ad01c4e52bb629399ae688d93d4bc08013 with SHA-256 9e967d5afddbf5e86f77dd54a489267ca8fd314bdeb563793122cc066168de90.",
-    "TDD RED run 36552850622 failed because the Phase 4 lexical retrieval contract did not yet exist.",
-    "GREEN run 36553060757 passed the full unit suite and compile checks after the minimum implementation.",
-    "Sequence verification run 36553168076 passed full tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.",
-    "Cross-platform run 36553245646 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs.",
-    "Phase 4 deterministically tokenizes Unicode text, chunks immutable FetchedDocument values with bounded overlap, and derives stable chunk IDs with source provenance.",
-    "Phase 4 performs bounded in-memory BM25 lexical ranking, returns only positive-score hits, and uses stable provenance ordering for score ties.",
-    "Phase 4 enforces hard caps of 20 documents, 4096 query characters, 512 words per chunk, 128 chunks per document, and 20 returned hits.",
-    "Pull request #10 Acceptance run 36555770714 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs on exact PR head 7f47bc0fdeec478bab9dac3ddb538daa65e5b693.",
-    "Post-merge main Acceptance run 36555890270 passed all 13 required jobs on merged main SHA 432400785849be4425a118d5adee5eef1e77e693."
+    "Phase 4 closure is merged to main at 3583ed326c7a82e2cf5de0065309150aac83f124 and closure-main Acceptance run 36556415066 passed all 13 required jobs.",
+    "The Phase 5 BEFORE plan was frozen before implementation at c33519539d32e72e09cf507686bd50a1f6cf087c with SHA-256 9dac5d2f05803611bdd05a83244d91b807ba777734927e4a3ed78cc746d842bf.",
+    "TDD RED run 36557027666 failed because the Phase 5 semantic retrieval contract did not yet exist.",
+    "Initial GREEN run 36557303486 passed the full unit suite and compile checks after the first minimum implementation.",
+    "Role-separation regression run 36557498333 reproduced the single-role embedding boundary defect before repair.",
+    "Final GREEN run 36557612077 passed the full unit suite and compile checks after separating query and document embedding roles.",
+    "Sequence verification run 36557689216 passed tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.",
+    "Cross-platform run 36557753677 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs.",
+    "Phase 5 preserves distinct query and document embedding roles so future asymmetric retrieval models can apply role-specific encoding.",
+    "Phase 5 rejects provider exceptions, wrong vector counts, inconsistent dimensions, dimensions outside 1..4096, non-finite or boolean values, and zero-norm vectors.",
+    "Phase 5 caps semantic work at 256 chunks, embedding batches at 64 texts, total embedding provider calls at 9, query length at 4096 characters, and returned hits at 20.",
+    "Phase 5 returns only positive cosine-similarity hits and resolves equal scores by stable source provenance ordering."
   ],
   "not_proven": [
-    "Real-world retrieval quality on large or domain-specific corpora is not proven by deterministic unit fixtures.",
-    "Semantic embeddings, vector retrieval, hybrid fusion, reranking, persistent indexes, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside accepted Phase 4."
+    "Retrieval quality from any concrete embedding model is not proven because Phase 5 uses deterministic provider fixtures rather than a production model.",
+    "Qwen3 Embedding, BGE-M3, ONNX, local GPU/CPU inference, Qdrant, persistent vector indexes, hybrid fusion, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 5."
   ],
   "blockers": [],
   "next_authorized_actions": [
-    "Start Phase 5 planning from accepted main SHA 432400785849be4425a118d5adee5eef1e77e693.",
-    "Freeze the Phase 5 BEFORE sequence plan and acceptance boundary before implementation."
+    "Generate and commit the current Phase 5 ACTUAL sequence graph and deterministic Project Truth documentation.",
+    "Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 5 candidate head.",
+    "Merge Phase 5 only if every required job passes, then revalidate main."
   ],
   "blocked_actions": [
-    "Do not claim semantic, vector, hybrid, or reranked retrieval from accepted Phase 4.",
-    "Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases."
+    "Do not claim a concrete embedding model, vector database, hybrid fusion, or reranker from Phase 5.",
+    "Do not bypass GitHub Actions acceptance or post-merge main revalidation."
   ]
 }

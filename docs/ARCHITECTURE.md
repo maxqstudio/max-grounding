@@ -2,13 +2,13 @@
 
 # ARCHITECTURE
 
-Current source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74
+Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
 
 ## Components
 
 | ID | Component | Purpose | Owns | Depends On |
 |---|---|---|---|---|
-| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit |  |
+| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit |  |
 | policy | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | budget | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | provider-boundary | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -18,6 +18,7 @@ Current source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381b
 | network-policy | Network Target Policy | Reject unsafe result URLs, resolve result-page hosts at fetch time, reject the entire DNS answer set if any address is non-public, and return only validated public IP targets. | scheme/userinfo/control-character validation, localhost and ambiguous numeric host rejection, literal non-public IP rejection, all-answer DNS public-IP validation |  |
 | secure-fetch | Secure Result Fetcher | Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, bound response handling, and extract untrusted visible text. | fetch_document, public-IP-pinned HTTP(S) connection, bounded response policy, visible text extraction | models, network-policy |
 | lexical-retrieval | Lexical Retrieval | Turn immutable fetched text into bounded deterministic chunks and rank positive lexical matches with in-memory BM25. | retrieve_lexical, chunk_document, rank_chunks, Unicode lexical tokenization, BM25 lexical scoring, stable chunk provenance | models |
+| semantic-retrieval | Semantic Retrieval | Build bounded deterministic chunks, obtain role-separated dense embeddings through an injected provider, validate vectors fail-closed, and rank positive semantic matches by cosine similarity. | EmbeddingProvider protocol, retrieve_semantic, build_semantic_chunks, embed_bounded, rank_semantic, cosine_similarity, embedding batch/call/dimension bounds, semantic provenance ordering | models, lexical-retrieval |
 
 ## Data flow
 
@@ -37,18 +38,23 @@ Current source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381b
 - FetchedDocument -> Lexical Retrieval: bounded untrusted extracted text enters deterministic lexical chunking
 - Lexical Retrieval -> TextChunk: bounded immutable chunks retain source URL and deterministic chunk identity
 - Lexical Retrieval -> LexicalHit: positive BM25 matches are returned with deterministic rank and source provenance
+- FetchedDocument -> Semantic Retrieval: bounded untrusted extracted text enters deterministic Phase 4 chunking before semantic embedding
+- Semantic Retrieval -> EmbeddingProvider: one query role and bounded document-role batches are embedded through an injected provider
+- EmbeddingProvider -> Semantic Retrieval: dense vectors are accepted only after strict count, shape, finite-value, dimension, and norm validation
+- Semantic Retrieval -> SemanticHit: positive cosine matches return immutable source-provenance chunks with deterministic rank
 
 ## External boundaries
 
 - SearXNG service: Operator config chooses the trusted provider endpoint. Search-result URLs and page content remain untrusted and are independently validated by the Phase 3 fetch boundary.
 - GitHub-hosted runners: Cross-platform acceptance authority for Python 3.11-3.14 on Linux, Windows, and macOS.
 - Result-page web servers: Untrusted network/content boundary. Phase 3 permits only standard-port HTTP(S), validates all DNS answers as public, pins transport to a validated IP, rejects redirects and compression, bounds bytes, and accepts only approved text media/charset combinations.
+- Embedding provider: Injected Phase 5 boundary with distinct query/document roles. Core code bounds provider calls and validates every returned vector; no concrete model or inference runtime is accepted in Phase 5.
 
 ## Observed implementation inventory
 
-Source files: 22
-Source lines: 2237
-Languages: Python=22
+Source files: 24
+Source lines: 2827
+Languages: Python=24
 
 Structural facts come from the code extractor. Component meaning comes from
 .workflow/architecture.json.

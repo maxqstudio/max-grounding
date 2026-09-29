@@ -80,6 +80,30 @@
       "authority": "src/max_grounding/retrieval.py::rank_chunks",
       "mutation": "none; returns immutable LexicalHit values",
       "error_behavior": "Invalid query or result limit raises RetrievalError; no matches returns an empty tuple."
+    },
+    {
+      "method": "PROTOCOL",
+      "path": "EmbeddingProvider.embed_query(text) / embed_documents(texts)",
+      "purpose": "Provide role-separated dense query and document embeddings without coupling the core to a model vendor or runtime.",
+      "authority": "src/max_grounding/semantic.py::EmbeddingProvider",
+      "mutation": "provider-defined compute only; semantic core performs no persistent mutation",
+      "error_behavior": "Provider exceptions are contained as EmbeddingProviderError and malformed vectors fail closed."
+    },
+    {
+      "method": "PYTHON",
+      "path": "retrieve_semantic(documents, query, provider)",
+      "purpose": "Chunk bounded fetched documents, obtain validated role-separated embeddings, and return deterministic positive cosine semantic hits.",
+      "authority": "src/max_grounding/semantic.py::retrieve_semantic",
+      "mutation": "in-memory derivation only; no persistent mutation",
+      "error_behavior": "Invalid request bounds raise RetrievalError; provider/vector defects raise EmbeddingProviderError without partial hits."
+    },
+    {
+      "method": "INTERNAL",
+      "path": "embed_bounded(provider, query, document_texts)",
+      "purpose": "Enforce query/document embedding roles, provider call and batch caps, and strict vector validation.",
+      "authority": "src/max_grounding/semantic.py::embed_bounded",
+      "mutation": "bounded provider compute only",
+      "error_behavior": "Too much requested work raises RetrievalError before provider calls; provider/vector defects raise EmbeddingProviderError."
     }
   ],
   "data_contracts": [
@@ -188,6 +212,22 @@
         "rank starts at 1 and follows deterministic BM25 ordering",
         "ties resolve by stable source provenance and chunk identity",
         "hit count never exceeds the configured hard-capped limit"
+      ]
+    },
+    {
+      "name": "SemanticHit",
+      "source_of_truth": "src/max_grounding/models.py::SemanticHit",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/semantic.py::rank_semantic result construction"
+      ],
+      "retention": "retrieval-call lifetime unless caller retains it",
+      "invariants": [
+        "score is positive cosine similarity",
+        "rank starts at 1 and follows deterministic descending semantic score order",
+        "equal scores resolve by stable source URL, chunk index, and chunk identity",
+        "hit count never exceeds the configured hard-capped result limit",
+        "chunk retains the accepted Phase 4 source provenance contract"
       ]
     }
   ],

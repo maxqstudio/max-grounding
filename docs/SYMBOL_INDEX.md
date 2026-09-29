@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74
+Source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
@@ -23,6 +23,7 @@ Status: CURRENT
 | src/max_grounding/errors.py | InvalidProviderConfiguration | class | 20-21 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | FetchError | class | 24-25 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | RetrievalError | class | 28-29 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | EmbeddingProviderError | class | 32-33 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
@@ -52,6 +53,7 @@ Status: CURRENT
 | src/max_grounding/models.py | FetchedDocument | class | 77-85 | Observed Python symbol | | | |
 | src/max_grounding/models.py | TextChunk | class | 89-96 | Observed Python symbol | | | |
 | src/max_grounding/models.py | LexicalHit | class | 100-105 | Observed Python symbol | | | |
+| src/max_grounding/models.py | SemanticHit | class | 109-114 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | is_admissible_result_url | function | 18-50 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | resolve_public_addresses | function | 53-93 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
@@ -75,6 +77,17 @@ Status: CURRENT
 | src/max_grounding/retrieval.py | _validate_query | function | 108-118 | Observed Python symbol | | | |
 | src/max_grounding/retrieval.py | rank_chunks | function | 121-181 | Observed Python symbol | | | |
 | src/max_grounding/retrieval.py | retrieve_lexical | function | 184-219 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | EmbeddingProvider | class | 31-41 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | EmbeddingProvider.embed_query | method | 34-35 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | EmbeddingProvider.embed_documents | method | 37-41 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | _validate_query | function | 44-51 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | _validate_batch_size | function | 54-58 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | _validated_vector | function | 61-99 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | embed_bounded | function | 102-155 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | build_semantic_chunks | function | 158-185 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | cosine_similarity | function | 188-204 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | rank_semantic | function | 207-245 | Observed Python symbol | | | |
+| src/max_grounding/semantic.py | retrieve_semantic | function | 248-285 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests | class | 10-20 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_project_identity_is_stable_and_cross_platform | method | 11-16 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_runtime_uses_supported_python | method | 18-20 | Observed Python symbol | | | |
@@ -164,6 +177,32 @@ Status: CURRENT
 | tests/test_secure_fetcher.py | SecureFetcherTests.test_extract_html_discards_executable_and_style_content | method | 149-164 | Observed Python symbol | | | |
 | tests/test_secure_fetcher.py | SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname | method | 166-180 | Observed Python symbol | | | |
 | tests/test_secure_fetcher.py | SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name | method | 182-212 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | document | function | 18-26 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | chunk | function | 29-36 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | keyword_vector | function | 39-45 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | KeywordEmbeddingProvider | class | 48-62 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | KeywordEmbeddingProvider.__init__ | method | 49-51 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | KeywordEmbeddingProvider.embed_query | method | 53-55 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | KeywordEmbeddingProvider.embed_documents | method | 57-62 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | FixedProvider | class | 65-83 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | FixedProvider.__init__ | method | 66-70 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | FixedProvider.embed_query | method | 72-76 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | FixedProvider.embed_documents | method | 78-83 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests | class | 86-288 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_cosine_similarity_is_deterministic | method | 87-93 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_query_and_documents_use_distinct_embedding_roles | method | 95-109 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_retrieve_semantic_preserves_provenance_and_ranks_meaning | method | 111-139 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_embedding_calls_are_batched_and_bounded | method | 141-160 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_embedding_call_cap_rejects_before_provider_work | method | 162-168 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_query_provider_exception_is_wrapped_fail_closed | method | 170-173 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_document_provider_exception_is_wrapped_fail_closed | method | 175-178 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_rejects_wrong_vector_count | method | 180-183 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_rejects_inconsistent_dimensions_across_batches | method | 185-199 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_rejects_non_finite_boolean_zero_and_oversized_vectors | method | 201-213 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_rank_semantic_returns_positive_hits_with_stable_ties | method | 215-236 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_build_semantic_chunks_rejects_total_chunk_overflow | method | 238-252 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_invalid_request_bounds_fail_before_provider | method | 254-269 | Observed Python symbol | | | |
+| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_repeated_retrieval_is_deterministic_for_deterministic_provider | method | 271-288 | Observed Python symbol | | | |
 
 ## Coverage
 

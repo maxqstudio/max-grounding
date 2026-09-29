@@ -26,13 +26,13 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 22 files, 1 language categories.
+Observed source inventory: 24 files, 1 language categories.
 
 ## Major components
 
 | Component | Purpose | Owns / Decides | Depends On |
 |---|---|---|---|
-| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit |  |
+| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit |  |
 | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -42,6 +42,7 @@ Observed source inventory: 22 files, 1 language categories.
 | Network Target Policy | Reject unsafe result URLs, resolve result-page hosts at fetch time, reject the entire DNS answer set if any address is non-public, and return only validated public IP targets. | scheme/userinfo/control-character validation, localhost and ambiguous numeric host rejection, literal non-public IP rejection, all-answer DNS public-IP validation |  |
 | Secure Result Fetcher | Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, bound response handling, and extract untrusted visible text. | fetch_document, public-IP-pinned HTTP(S) connection, bounded response policy, visible text extraction | models, network-policy |
 | Lexical Retrieval | Turn immutable fetched text into bounded deterministic chunks and rank positive lexical matches with in-memory BM25. | retrieve_lexical, chunk_document, rank_chunks, Unicode lexical tokenization, BM25 lexical scoring, stable chunk provenance | models |
+| Semantic Retrieval | Build bounded deterministic chunks, obtain role-separated dense embeddings through an injected provider, validate vectors fail-closed, and rank positive semantic matches by cosine similarity. | EmbeddingProvider protocol, retrieve_semantic, build_semantic_chunks, embed_bounded, rank_semantic, cosine_similarity, embedding batch/call/dimension bounds, semantic provenance ordering | models, lexical-retrieval |
 
 ## Main data flow
 
@@ -61,6 +62,10 @@ Observed source inventory: 22 files, 1 language categories.
 - FetchedDocument -> Lexical Retrieval: bounded untrusted extracted text enters deterministic lexical chunking
 - Lexical Retrieval -> TextChunk: bounded immutable chunks retain source URL and deterministic chunk identity
 - Lexical Retrieval -> LexicalHit: positive BM25 matches are returned with deterministic rank and source provenance
+- FetchedDocument -> Semantic Retrieval: bounded untrusted extracted text enters deterministic Phase 4 chunking before semantic embedding
+- Semantic Retrieval -> EmbeddingProvider: one query role and bounded document-role batches are embedded through an injected provider
+- EmbeddingProvider -> Semantic Retrieval: dense vectors are accepted only after strict count, shape, finite-value, dimension, and norm validation
+- Semantic Retrieval -> SemanticHit: positive cosine matches return immutable source-provenance chunks with deterministic rank
 
 ## Main user workflows
 
@@ -123,11 +128,24 @@ Authority: Secure fetch network policy and pinned connection target
 - CONNECTED -> RESPONSE_RECEIVED : read one bounded identity-encoded text response without redirect following
 - RESPONSE_RECEIVED -> TEXT_EXTRACTED : extract bounded visible text and discard executable or styling content
 
+### FLOW-SEMANTIC-RETRIEVAL — Bounded semantic retrieval
+
+Turn fetched documents into bounded deterministic chunks, obtain embeddings through an injected provider under strict batch and shape limits, and return cosine-ranked semantic hits without persistence, hybrid fusion, reranking, or model-specific assumptions.
+
+Authority: Semantic retrieval bounds, embedding validation, and deterministic cosine scorer
+
+- DOCUMENTS_RECEIVED -> CHUNKS_READY : build bounded deterministic chunks using the accepted Phase 4 chunking contract
+- CHUNKS_READY -> EMBEDDINGS_READY : embed the query and chunk text through bounded provider batches and validate vector shape and values
+- EMBEDDINGS_READY -> SCORED : calculate cosine similarity between query and chunk vectors
+- SCORED -> HITS_READY : retain positive semantic matches up to the result limit with deterministic provenance tie ordering
+- DOCUMENTS_RECEIVED -> INVALID_REQUEST : reject invalid query, chunk, batch, or result bounds before provider work
+- CHUNKS_READY -> PROVIDER_ERROR : fail closed on provider exception, wrong vector count, invalid dimension, non-finite value, inconsistent shape, or zero vector
+
 ## Lifecycle and state
 
-Current phase: PHASE_04_LEXICAL_RETRIEVAL
+Current phase: PHASE_05_SEMANTIC_RETRIEVAL
 
-Current status: ACCEPTED
+Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -170,16 +188,20 @@ compiler does not infer them from implementation names.
 - FLOW-SEARXNG-SEARCH: GroundingEngine converts provider failure before evidence sufficiency into fail-closed PROVIDER_ERROR status.
 - FLOW-SECURE-FETCH: Invalid URLs, unsafe DNS answers, transport failures, redirects, disallowed media/encoding, oversized responses, or decoding failures produce a controlled FetchError.
 - FLOW-SECURE-FETCH: No partial page content is returned after a policy failure.
+- FLOW-SEMANTIC-RETRIEVAL: Invalid caller bounds raise RetrievalError before provider work.
+- FLOW-SEMANTIC-RETRIEVAL: Embedding provider or vector-validation failures raise EmbeddingProviderError without returning partial semantic hits.
+- FLOW-SEMANTIC-RETRIEVAL: No positive semantic match returns an empty immutable result rather than fabricated relevance.
 
 ## Current project state
 
 Next authorized actions:
-- Start Phase 5 planning from accepted main SHA 432400785849be4425a118d5adee5eef1e77e693.
-- Freeze the Phase 5 BEFORE sequence plan and acceptance boundary before implementation.
+- Generate and commit the current Phase 5 ACTUAL sequence graph and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 5 candidate head.
+- Merge Phase 5 only if every required job passes, then revalidate main.
 
 Blocked actions:
-- Do not claim semantic, vector, hybrid, or reranked retrieval from accepted Phase 4.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
+- Do not claim a concrete embedding model, vector database, hybrid fusion, or reranker from Phase 5.
+- Do not bypass GitHub Actions acceptance or post-merge main revalidation.
 
 Known blockers:
 - None declared.
@@ -188,22 +210,23 @@ Known blockers:
 
 ### Proven
 
-- Phase 3 closure is merged to main at 9ee23d526c6c68bccc0e0000e66e4c2de080b44c and closure-main Acceptance run 36551954260 passed all 13 required jobs.
-- The Phase 4 BEFORE plan was frozen before implementation at fbe5b9ad01c4e52bb629399ae688d93d4bc08013 with SHA-256 9e967d5afddbf5e86f77dd54a489267ca8fd314bdeb563793122cc066168de90.
-- TDD RED run 36552850622 failed because the Phase 4 lexical retrieval contract did not yet exist.
-- GREEN run 36553060757 passed the full unit suite and compile checks after the minimum implementation.
-- Sequence verification run 36553168076 passed full tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.
-- Cross-platform run 36553245646 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs.
-- Phase 4 deterministically tokenizes Unicode text, chunks immutable FetchedDocument values with bounded overlap, and derives stable chunk IDs with source provenance.
-- Phase 4 performs bounded in-memory BM25 lexical ranking, returns only positive-score hits, and uses stable provenance ordering for score ties.
-- Phase 4 enforces hard caps of 20 documents, 4096 query characters, 512 words per chunk, 128 chunks per document, and 20 returned hits.
-- Pull request #10 Acceptance run 36555770714 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs on exact PR head 7f47bc0fdeec478bab9dac3ddb538daa65e5b693.
-- Post-merge main Acceptance run 36555890270 passed all 13 required jobs on merged main SHA 432400785849be4425a118d5adee5eef1e77e693.
+- Phase 4 closure is merged to main at 3583ed326c7a82e2cf5de0065309150aac83f124 and closure-main Acceptance run 36556415066 passed all 13 required jobs.
+- The Phase 5 BEFORE plan was frozen before implementation at c33519539d32e72e09cf507686bd50a1f6cf087c with SHA-256 9dac5d2f05803611bdd05a83244d91b807ba777734927e4a3ed78cc746d842bf.
+- TDD RED run 36557027666 failed because the Phase 5 semantic retrieval contract did not yet exist.
+- Initial GREEN run 36557303486 passed the full unit suite and compile checks after the first minimum implementation.
+- Role-separation regression run 36557498333 reproduced the single-role embedding boundary defect before repair.
+- Final GREEN run 36557612077 passed the full unit suite and compile checks after separating query and document embedding roles.
+- Sequence verification run 36557689216 passed tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.
+- Cross-platform run 36557753677 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs.
+- Phase 5 preserves distinct query and document embedding roles so future asymmetric retrieval models can apply role-specific encoding.
+- Phase 5 rejects provider exceptions, wrong vector counts, inconsistent dimensions, dimensions outside 1..4096, non-finite or boolean values, and zero-norm vectors.
+- Phase 5 caps semantic work at 256 chunks, embedding batches at 64 texts, total embedding provider calls at 9, query length at 4096 characters, and returned hits at 20.
+- Phase 5 returns only positive cosine-similarity hits and resolves equal scores by stable source provenance ordering.
 
 ### Not proven
 
-- Real-world retrieval quality on large or domain-specific corpora is not proven by deterministic unit fixtures.
-- Semantic embeddings, vector retrieval, hybrid fusion, reranking, persistent indexes, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside accepted Phase 4.
+- Retrieval quality from any concrete embedding model is not proven because Phase 5 uses deterministic provider fixtures rather than a production model.
+- Qwen3 Embedding, BGE-M3, ONNX, local GPU/CPU inference, Qdrant, persistent vector indexes, hybrid fusion, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 5.
 
 ## Important limitations
 

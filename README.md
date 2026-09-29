@@ -20,6 +20,7 @@ No Owner-PC execution is part of the project acceptance authority.
 - bounded live-web search orchestration;
 - secure fetching and extraction of untrusted web content;
 - deterministic lexical retrieval over fetched evidence;
+- bounded dense semantic retrieval with role-separated embedding contracts;
 - hybrid lexical + semantic retrieval;
 - reranking and evidence compression;
 - freshness and source-authority scoring;
@@ -31,16 +32,16 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 4 is accepted on main at `432400785849be4425a118d5adee5eef1e77e693`.
+Phase 5 is a candidate for bounded dense semantic retrieval.
 
-Accepted Phase 4 adds deterministic Unicode tokenization, bounded overlapping text chunks with stable provenance IDs, and bounded in-memory BM25 lexical retrieval with deterministic tie ordering.
+The candidate preserves distinct query and document embedding roles, caps semantic chunks, batches and provider calls, rejects malformed or unsafe vectors fail-closed, and ranks positive cosine matches with deterministic source-provenance ordering.
 
-Phase 5 is authorized for planning only until its BEFORE sequence plan is frozen. Semantic embeddings, vector/hybrid retrieval, reranking, persistent indexes, claim verification, REST, MCP, and production deployment are not yet accepted capabilities.
+The candidate is provider-agnostic by design. It does **not** yet claim Qwen3 Embedding, BGE-M3, ONNX/local inference, Qdrant, persistent vector indexes, hybrid fusion, reranking, claim verification, REST, MCP, or production deployment.
 
 ## Platform policy
 
 Native core-runtime acceptance runs on GitHub-hosted Linux, Windows, and macOS runners.
-Service-heavy dependencies such as search engines, vector databases, and caches are isolated behind network/service contracts and validated on Linux containers.
+Service-heavy dependencies such as search engines, vector databases, model runtimes, and caches are isolated behind contracts and validated separately before they can become accepted capabilities.
 
 ## Governance
 

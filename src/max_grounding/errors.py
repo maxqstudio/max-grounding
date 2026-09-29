@@ -26,4 +26,8 @@ class FetchError(GroundingError):
 
 
 class RetrievalError(GroundingError, ValueError):
-    """Raised when lexical retrieval input or bounds are invalid."""
+    """Raised when retrieval input or bounds are invalid."""
+
+
+class EmbeddingProviderError(GroundingError):
+    """Raised when an embedding provider returns invalid or unusable vectors."""
