@@ -312,9 +312,9 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Synchronize the two Phase 11 ACTUAL sequence graphs and deterministic Project Truth documentation.
-- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 11 candidate head.
-- Merge Phase 11 only if every required job passes, then revalidate merged main before closure.
+- Open the Phase 11 pull request from the exact validated candidate head.
+- Merge Phase 11 only after the full required Acceptance workflow passes on that exact head.
+- Revalidate merged main before marking Phase 11 accepted and closing the phase.
 
 Blocked actions:
 - Do not claim REST/MCP or production deployment from Phase 11.
@@ -336,6 +336,7 @@ Known blockers:
 - Real-service integration indexed two evidence documents, ranked the gold-reserve evidence first, restarted Qdrant with the same persistent volume, and ranked the same evidence first after restart.
 - Phase 11 candidate verification run 36631528126 passed both frozen PLAN-to-ACTUAL sequence contracts and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
 - The initial Phase 11 sequence mismatch was static symbol ambiguity from type/test fixtures; the frozen plans were preserved and fixtures were repaired without changing runtime behavior.
+- Phase 11 Project Truth sync run 36632318429 passed source regression, both frozen sequence contracts, ROADMAP_SYNC, STRICT governance, clean-tree validation, and source-unchanged verification.
 
 ### Not proven
 
