@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import math
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from typing import Protocol
 
 from .errors import (
@@ -63,15 +63,9 @@ class PersistentVectorStore(Protocol):
     embedding_dimension: int
     schema_version: int
     collection_name: str
-
-    def ensure_collection(self) -> None:
-        ...
-
-    def upsert_chunks(self, chunks, vectors) -> None:
-        ...
-
-    def query_chunks(self, query_vector, *, limit: int):
-        ...
+    ensure_collection: Callable[[], None]
+    upsert_chunks: Callable[[object, object], None]
+    query_chunks: Callable[..., object]
 
 
 def _provider_contract(provider: object) -> None:
