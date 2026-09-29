@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through Phase 9 candidate"
+      "none through accepted Phase 9"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -131,12 +131,12 @@
       {
         "phase": 9,
         "name": "Contradiction/corroboration engine and evidence graph",
-        "status": "CURRENT_CANDIDATE"
+        "status": "ACCEPTED"
       },
       {
         "phase": 10,
         "name": "Claim-level verification, citations, confidence, and fail-closed synthesis",
-        "status": "PLANNED"
+        "status": "NEXT_PLANNED"
       },
       {
         "phase": 11,
