@@ -12,7 +12,9 @@
         "EvidenceSource",
         "EvidencePack",
         "EvidenceStatus",
-        "FetchedDocument"
+        "FetchedDocument",
+        "TextChunk",
+        "LexicalHit"
       ],
       "depends_on": []
     },
@@ -118,6 +120,22 @@
         "models",
         "network-policy"
       ]
+    },
+    {
+      "id": "lexical-retrieval",
+      "name": "Lexical Retrieval",
+      "purpose": "Turn immutable fetched text into bounded deterministic chunks and rank positive lexical matches with in-memory BM25.",
+      "owns": [
+        "retrieve_lexical",
+        "chunk_document",
+        "rank_chunks",
+        "Unicode lexical tokenization",
+        "BM25 lexical scoring",
+        "stable chunk provenance"
+      ],
+      "depends_on": [
+        "models"
+      ]
     }
   ],
   "data_flows": [
@@ -185,6 +203,21 @@
       "from": "Secure Result Fetcher",
       "to": "FetchedDocument",
       "meaning": "bounded immutable text and fetch metadata"
+    },
+    {
+      "from": "FetchedDocument",
+      "to": "Lexical Retrieval",
+      "meaning": "bounded untrusted extracted text enters deterministic lexical chunking"
+    },
+    {
+      "from": "Lexical Retrieval",
+      "to": "TextChunk",
+      "meaning": "bounded immutable chunks retain source URL and deterministic chunk identity"
+    },
+    {
+      "from": "Lexical Retrieval",
+      "to": "LexicalHit",
+      "meaning": "positive BM25 matches are returned with deterministic rank and source provenance"
     }
   ],
   "external_boundaries": [
