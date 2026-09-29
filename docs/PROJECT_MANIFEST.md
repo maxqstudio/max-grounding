@@ -10,10 +10,10 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase-07-rerank-compress
 Current authoritative SHA: external final acceptance evidence
 Last accepted SHA: b4142fb22ee80837b98617d3c29a276fbe924294
-Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
+Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.
@@ -26,7 +26,7 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 ## Technology
 Languages: Python
 Frameworks: Python standard library
-Persistence: none through accepted Phase 6
+Persistence: none through Phase 7 candidate
 External systems: GitHub Actions, operator-configured SearXNG instance
 
 ## Entry points
@@ -38,6 +38,7 @@ External systems: GitHub Actions, operator-configured SearXNG instance
 | Lexical retrieval | src/max_grounding/retrieval.py | deterministic bounded chunking and in-memory BM25 lexical retrieval over fetched text |
 | Semantic retrieval | src/max_grounding/semantic.py | bounded provider-agnostic dense semantic retrieval with role-separated embedding contracts |
 | Hybrid fusion | src/max_grounding/hybrid.py | fixed equal-weight reciprocal-rank fusion of bounded lexical and semantic results |
+| Reranking and context compression | src/max_grounding/reranking.py | bounded provider-agnostic reranking plus deterministic extractive evidence compression |
 
 ## Critical directories
 

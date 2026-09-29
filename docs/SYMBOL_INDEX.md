@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
+Source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
@@ -24,6 +24,8 @@ Status: CURRENT
 | src/max_grounding/errors.py | FetchError | class | 24-25 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | RetrievalError | class | 28-29 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | EmbeddingProviderError | class | 32-33 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | RerankingError | class | 36-37 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | RerankProviderError | class | 40-41 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
@@ -58,6 +60,8 @@ Status: CURRENT
 | src/max_grounding/models.py | LexicalHit | class | 100-105 | Observed Python symbol | | | |
 | src/max_grounding/models.py | SemanticHit | class | 109-114 | Observed Python symbol | | | |
 | src/max_grounding/models.py | HybridHit | class | 118-125 | Observed Python symbol | | | |
+| src/max_grounding/models.py | RerankedHit | class | 129-137 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceExcerpt | class | 141-149 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | is_admissible_result_url | function | 18-50 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | resolve_public_addresses | function | 53-93 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
@@ -74,6 +78,18 @@ Status: CURRENT
 | src/max_grounding/providers/searxng.py | SearxngProvider | class | 181-220 | Observed Python symbol | | | |
 | src/max_grounding/providers/searxng.py | SearxngProvider.__init__ | method | 184-206 | Observed Python symbol | | | |
 | src/max_grounding/providers/searxng.py | SearxngProvider.search | method | 208-220 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | RerankProvider | class | 27-35 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | RerankProvider.score | method | 30-35 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | _validated_query | function | 38-45 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | _validated_finite_number | function | 48-54 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | _validate_optional_rank | function | 57-63 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | _validate_hybrid_hits | function | 66-88 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | _validate_reranked_hits | function | 91-113 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | rerank_hybrid | function | 116-187 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | _sentences | function | 190-199 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | _best_extractive_sentence | function | 202-215 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | compress_context | function | 218-269 | Observed Python symbol | | | |
+| src/max_grounding/reranking.py | build_grounded_context | function | 272-295 | Observed Python symbol | | | |
 | src/max_grounding/retrieval.py | tokenize_text | function | 29-42 | Observed Python symbol | | | |
 | src/max_grounding/retrieval.py | _validate_chunk_bounds | function | 45-60 | Observed Python symbol | | | |
 | src/max_grounding/retrieval.py | _chunk_id | function | 63-65 | Observed Python symbol | | | |
@@ -149,6 +165,26 @@ Status: CURRENT
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_more_than_two_search_rounds | method | 18-22 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_normalizes_query_and_locale | method | 24-33 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits | method | 35-43 | Observed Python symbol | | | |
+| tests/test_reranking.py | chunk | function | 19-26 | Observed Python symbol | | | |
+| tests/test_reranking.py | hybrid | function | 29-43 | Observed Python symbol | | | |
+| tests/test_reranking.py | _Provider | class | 46-56 | Observed Python symbol | | | |
+| tests/test_reranking.py | _Provider.__init__ | method | 47-50 | Observed Python symbol | | | |
+| tests/test_reranking.py | _Provider.score | method | 52-56 | Observed Python symbol | | | |
+| tests/test_reranking.py | _GeneratorProvider | class | 59-61 | Observed Python symbol | | | |
+| tests/test_reranking.py | _GeneratorProvider.score | method | 60-61 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests | class | 64-275 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.setUp | method | 65-77 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance | method | 79-98 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank | method | 100-109 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_empty_candidates_do_not_call_provider | method | 111-114 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed | method | 116-128 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_rejects_unbounded_iterable_provider_output | method | 130-136 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed | method | 138-172 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence | method | 174-193 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive | method | 195-209 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_compression_hard_budgets_and_determinism | method | 211-239 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_compression_rejects_invalid_budgets | method | 241-258 | Observed Python symbol | | | |
+| tests/test_reranking.py | Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression | method | 260-275 | Observed Python symbol | | | |
 | tests/test_retrieval.py | document | function | 15-23 | Observed Python symbol | | | |
 | tests/test_retrieval.py | chunk | function | 26-33 | Observed Python symbol | | | |
 | tests/test_retrieval.py | LexicalRetrievalTests | class | 36-177 | Observed Python symbol | | | |

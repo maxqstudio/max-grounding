@@ -180,6 +180,49 @@ Authority: GitHub Actions required checks
 
 - A defective merged phase must be reverted through a new governed change and revalidated.
 
+## FLOW-RERANK-COMPRESS — Bounded reranking and extractive context compression
+
+Purpose: Rerank already-bounded hybrid hits through an injected provider, validate scores fail-closed, then extract a bounded provenance-preserving context without generative rewriting.
+Critical: TRUE
+Entry condition: A non-empty query, bounded HybridHit values, and a rerank provider are available.
+Authority: Rerank score validation and deterministic extractive compression policy
+
+### States
+
+- HITS_RECEIVED
+- RERANKED
+- COMPRESSED
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| HITS_RECEIVED | RERANKED | validate hybrid ranks and obtain one bounded provider score vector | Rerank score validation and deterministic extractive compression policy |  |
+| RERANKED | COMPRESSED | select extractive evidence excerpts under hard excerpt and total-character budgets | Rerank score validation and deterministic extractive compression policy |  |
+
+### Invariants
+
+- At most 20 hybrid candidates enter reranking and provider scoring occurs in one bounded call.
+- Provider output count must exactly match candidate count and every score must be finite numeric non-boolean.
+- Rerank ties preserve prior hybrid rank before source provenance ordering.
+- Compression is extractive only: emitted excerpt text must be copied from its source chunk rather than generated or paraphrased.
+- Compressed output is bounded to at most 8 excerpts, at most 1200 characters per excerpt, and at most 6000 characters total.
+- Every excerpt retains source URL, chunk identity, chunk index, and rerank rank.
+
+### Failure behavior
+
+- Invalid ranks, duplicate chunks, invalid bounds, provider exceptions, wrong score counts, or invalid scores fail closed with a controlled reranking error.
+- No partial reranked or compressed result is returned after validation failure.
+
+### Restart behavior
+
+- Reranking and compression are stateless and deterministic for identical provider scores and inputs.
+
+### Rollback behavior
+
+- Phase 7 performs no persistent state mutation.
+
 ## FLOW-SEARXNG-SEARCH — SearXNG live search provider
 
 Purpose: Execute one budgeted search against an operator-configured SearXNG JSON endpoint, bound response handling, reject obviously unsafe result URLs, and return untrusted SourceCandidate values without fetching result pages.

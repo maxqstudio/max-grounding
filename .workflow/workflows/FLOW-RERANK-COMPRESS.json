@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-RERANK-COMPRESS",
+  "title": "Bounded reranking and extractive context compression",
+  "purpose": "Rerank already-bounded hybrid hits through an injected provider, validate scores fail-closed, then extract a bounded provenance-preserving context without generative rewriting.",
+  "critical": true,
+  "entry_condition": "A non-empty query, bounded HybridHit values, and a rerank provider are available.",
+  "authority": "Rerank score validation and deterministic extractive compression policy",
+  "states": [
+    "HITS_RECEIVED",
+    "RERANKED",
+    "COMPRESSED",
+    "REJECTED"
+  ],
+  "transitions": [
+    {
+      "from": "HITS_RECEIVED",
+      "to": "RERANKED",
+      "action": "validate hybrid ranks and obtain one bounded provider score vector"
+    },
+    {
+      "from": "RERANKED",
+      "to": "COMPRESSED",
+      "action": "select extractive evidence excerpts under hard excerpt and total-character budgets"
+    }
+  ],
+  "invariants": [
+    "At most 20 hybrid candidates enter reranking and provider scoring occurs in one bounded call.",
+    "Provider output count must exactly match candidate count and every score must be finite numeric non-boolean.",
+    "Rerank ties preserve prior hybrid rank before source provenance ordering.",
+    "Compression is extractive only: emitted excerpt text must be copied from its source chunk rather than generated or paraphrased.",
+    "Compressed output is bounded to at most 8 excerpts, at most 1200 characters per excerpt, and at most 6000 characters total.",
+    "Every excerpt retains source URL, chunk identity, chunk index, and rerank rank."
+  ],
+  "failure_behavior": [
+    "Invalid ranks, duplicate chunks, invalid bounds, provider exceptions, wrong score counts, or invalid scores fail closed with a controlled reranking error.",
+    "No partial reranked or compressed result is returned after validation failure."
+  ],
+  "restart_behavior": [
+    "Reranking and compression are stateless and deterministic for identical provider scores and inputs."
+  ],
+  "rollback_behavior": [
+    "Phase 7 performs no persistent state mutation."
+  ],
+  "source_owners": [
+    "src/max_grounding/reranking.py::build_grounded_context",
+    "src/max_grounding/reranking.py::rerank_hybrid",
+    "src/max_grounding/reranking.py::compress_context"
+  ],
+  "tests": [
+    "tests/test_reranking.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-07-rerank-compress.json"
+}

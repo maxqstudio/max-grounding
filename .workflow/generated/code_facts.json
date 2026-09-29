@@ -38,7 +38,7 @@
       "file": "src/max_grounding/errors.py",
       "is_test": false,
       "language": "Python",
-      "lines": 33
+      "lines": 41
     },
     {
       "directory": "src/max_grounding",
@@ -66,7 +66,7 @@
       "file": "src/max_grounding/models.py",
       "is_test": false,
       "language": "Python",
-      "lines": 125
+      "lines": 149
     },
     {
       "directory": "src/max_grounding",
@@ -102,6 +102,13 @@
       "is_test": false,
       "language": "Python",
       "lines": 220
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/reranking.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 295
     },
     {
       "directory": "src/max_grounding",
@@ -165,6 +172,13 @@
       "is_test": true,
       "language": "Python",
       "lines": 47
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_reranking.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 279
     },
     {
       "directory": "tests",
@@ -1183,6 +1197,410 @@
     {
       "caller": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
       "target_token": "parse_searxng_results"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_query",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_query",
+      "target_token": "query.strip"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_query",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_query",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_query",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_query",
+      "target_token": "query.strip"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_finite_number",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_finite_number",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_finite_number",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_finite_number",
+      "target_token": "float"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_finite_number",
+      "target_token": "math.isfinite"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validated_finite_number",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_optional_rank",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_optional_rank",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_optional_rank",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_optional_rank",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "seen.add"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "_validated_finite_number"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "_validate_optional_rank"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "target_token": "_validate_optional_rank"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "seen.add"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "_validated_finite_number"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "_validate_optional_rank"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "target_token": "_validate_optional_rank"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "_validated_query"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "_validate_hybrid_hits"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "provider.score"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "RerankProviderError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "RerankProviderError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "RerankProviderError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "zip"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "RerankProviderError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "float"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "math.isfinite"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "RerankProviderError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "scored.append"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "scored.sort"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "RerankedHit"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::rerank_hybrid",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_sentences",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_sentences",
+      "target_token": "strip"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_sentences",
+      "target_token": "match.group"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_sentences",
+      "target_token": "_SENTENCE_RE.finditer"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_sentences",
+      "target_token": "strip"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_sentences",
+      "target_token": "match.group"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_sentences",
+      "target_token": "text.strip"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "target_token": "_sentences"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "target_token": "tokenize_text"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "target_token": "tokenize_text"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "target_token": "query_tokens.intersection"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "_validated_query"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "RerankingError"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "_validate_reranked_hits"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "_best_extractive_sentence"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "min"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "rstrip"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "excerpts.append"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "EvidenceExcerpt"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::compress_context",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::build_grounded_context",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "src/max_grounding/reranking.py::build_grounded_context",
+      "target_token": "compress_context"
     },
     {
       "caller": "src/max_grounding/retrieval.py::tokenize_text",
@@ -2637,6 +3055,562 @@
       "target_token": "self.policy.validate_request"
     },
     {
+      "caller": "tests/test_reranking.py::chunk",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_reranking.py::chunk",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_reranking.py::chunk",
+      "target_token": "text.split"
+    },
+    {
+      "caller": "tests/test_reranking.py::hybrid",
+      "target_token": "HybridHit"
+    },
+    {
+      "caller": "tests/test_reranking.py::_Provider.score",
+      "target_token": "self.calls.append"
+    },
+    {
+      "caller": "tests/test_reranking.py::_GeneratorProvider.score",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.setUp",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.setUp",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "self.assertIsNone"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_empty_candidates_do_not_call_provider",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_empty_candidates_do_not_call_provider",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_empty_candidates_do_not_call_provider",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_empty_candidates_do_not_call_provider",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "RuntimeError"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "float"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "float"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_rejects_unbounded_iterable_provider_output",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_rejects_unbounded_iterable_provider_output",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_rejects_unbounded_iterable_provider_output",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_rejects_unbounded_iterable_provider_output",
+      "target_token": "_GeneratorProvider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "range"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "float"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "range"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "target_token": "invoke"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "compress_context"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive",
+      "target_token": "compress_context"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "compress_context"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "compress_context"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "self.assertLessEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "self.assertLessEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "sum"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "all"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "rerank_hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "dict"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "dict"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "dict"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "dict"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "dict"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "dict"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "target_token": "compress_context"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression",
+      "target_token": "build_grounded_context"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression",
+      "target_token": "hybrid"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_reranking.py::Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression",
+      "target_token": "self.assertEqual"
+    },
+    {
       "caller": "tests/test_retrieval.py::document",
       "target_token": "FetchedDocument"
     },
@@ -4088,6 +5062,22 @@
       "symbol": "EmbeddingProviderError"
     },
     {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 37,
+      "line_start": 36,
+      "locator": "src/max_grounding/errors.py::RerankingError",
+      "symbol": "RerankingError"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 41,
+      "line_start": 40,
+      "locator": "src/max_grounding/errors.py::RerankProviderError",
+      "symbol": "RerankProviderError"
+    },
+    {
       "file": "src/max_grounding/evidence.py",
       "kind": "function",
       "line_end": 46,
@@ -4360,6 +5350,22 @@
       "symbol": "HybridHit"
     },
     {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 137,
+      "line_start": 129,
+      "locator": "src/max_grounding/models.py::RerankedHit",
+      "symbol": "RerankedHit"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 149,
+      "line_start": 141,
+      "locator": "src/max_grounding/models.py::EvidenceExcerpt",
+      "symbol": "EvidenceExcerpt"
+    },
+    {
       "file": "src/max_grounding/network_policy.py",
       "kind": "function",
       "line_end": 50,
@@ -4486,6 +5492,102 @@
       "line_start": 208,
       "locator": "src/max_grounding/providers/searxng.py::SearxngProvider.search",
       "symbol": "SearxngProvider.search"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "class",
+      "line_end": 35,
+      "line_start": 27,
+      "locator": "src/max_grounding/reranking.py::RerankProvider",
+      "symbol": "RerankProvider"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "method",
+      "line_end": 35,
+      "line_start": 30,
+      "locator": "src/max_grounding/reranking.py::RerankProvider.score",
+      "symbol": "RerankProvider.score"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "function",
+      "line_end": 45,
+      "line_start": 38,
+      "locator": "src/max_grounding/reranking.py::_validated_query",
+      "symbol": "_validated_query"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "function",
+      "line_end": 54,
+      "line_start": 48,
+      "locator": "src/max_grounding/reranking.py::_validated_finite_number",
+      "symbol": "_validated_finite_number"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "function",
+      "line_end": 63,
+      "line_start": 57,
+      "locator": "src/max_grounding/reranking.py::_validate_optional_rank",
+      "symbol": "_validate_optional_rank"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "function",
+      "line_end": 88,
+      "line_start": 66,
+      "locator": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "symbol": "_validate_hybrid_hits"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "function",
+      "line_end": 113,
+      "line_start": 91,
+      "locator": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "symbol": "_validate_reranked_hits"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "function",
+      "line_end": 187,
+      "line_start": 116,
+      "locator": "src/max_grounding/reranking.py::rerank_hybrid",
+      "symbol": "rerank_hybrid"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "function",
+      "line_end": 199,
+      "line_start": 190,
+      "locator": "src/max_grounding/reranking.py::_sentences",
+      "symbol": "_sentences"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "function",
+      "line_end": 215,
+      "line_start": 202,
+      "locator": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "symbol": "_best_extractive_sentence"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "function",
+      "line_end": 269,
+      "line_start": 218,
+      "locator": "src/max_grounding/reranking.py::compress_context",
+      "symbol": "compress_context"
+    },
+    {
+      "file": "src/max_grounding/reranking.py",
+      "kind": "function",
+      "line_end": 295,
+      "line_start": 272,
+      "locator": "src/max_grounding/reranking.py::build_grounded_context",
+      "symbol": "build_grounded_context"
     },
     {
       "file": "src/max_grounding/retrieval.py",
@@ -5088,6 +6190,166 @@
       "symbol": "GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits"
     },
     {
+      "file": "tests/test_reranking.py",
+      "kind": "function",
+      "line_end": 26,
+      "line_start": 19,
+      "locator": "tests/test_reranking.py::chunk",
+      "symbol": "chunk"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "function",
+      "line_end": 43,
+      "line_start": 29,
+      "locator": "tests/test_reranking.py::hybrid",
+      "symbol": "hybrid"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "class",
+      "line_end": 56,
+      "line_start": 46,
+      "locator": "tests/test_reranking.py::_Provider",
+      "symbol": "_Provider"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 50,
+      "line_start": 47,
+      "locator": "tests/test_reranking.py::_Provider.__init__",
+      "symbol": "_Provider.__init__"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 56,
+      "line_start": 52,
+      "locator": "tests/test_reranking.py::_Provider.score",
+      "symbol": "_Provider.score"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "class",
+      "line_end": 61,
+      "line_start": 59,
+      "locator": "tests/test_reranking.py::_GeneratorProvider",
+      "symbol": "_GeneratorProvider"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 61,
+      "line_start": 60,
+      "locator": "tests/test_reranking.py::_GeneratorProvider.score",
+      "symbol": "_GeneratorProvider.score"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "class",
+      "line_end": 275,
+      "line_start": 64,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests",
+      "symbol": "Phase7RerankingTests"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 77,
+      "line_start": 65,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.setUp",
+      "symbol": "Phase7RerankingTests.setUp"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 98,
+      "line_start": 79,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance",
+      "symbol": "Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 109,
+      "line_start": 100,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank",
+      "symbol": "Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 114,
+      "line_start": 111,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_empty_candidates_do_not_call_provider",
+      "symbol": "Phase7RerankingTests.test_empty_candidates_do_not_call_provider"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 128,
+      "line_start": 116,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed",
+      "symbol": "Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 136,
+      "line_start": 130,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_rejects_unbounded_iterable_provider_output",
+      "symbol": "Phase7RerankingTests.test_rejects_unbounded_iterable_provider_output"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 172,
+      "line_start": 138,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed",
+      "symbol": "Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 193,
+      "line_start": 174,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence",
+      "symbol": "Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 209,
+      "line_start": 195,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive",
+      "symbol": "Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 239,
+      "line_start": 211,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_compression_hard_budgets_and_determinism",
+      "symbol": "Phase7RerankingTests.test_compression_hard_budgets_and_determinism"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 258,
+      "line_start": 241,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_compression_rejects_invalid_budgets",
+      "symbol": "Phase7RerankingTests.test_compression_rejects_invalid_budgets"
+    },
+    {
+      "file": "tests/test_reranking.py",
+      "kind": "method",
+      "line_end": 275,
+      "line_start": 260,
+      "locator": "tests/test_reranking.py::Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression",
+      "symbol": "Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression"
+    },
+    {
       "file": "tests/test_retrieval.py",
       "kind": "function",
       "line_end": 23,
@@ -5673,14 +6935,14 @@
     }
   ],
   "schema_version": 1,
-  "source_digest": "794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70",
+  "source_digest": "780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e",
   "source_summary": {
-    "files": 26,
+    "files": 28,
     "languages": {
-      "Python": 26
+      "Python": 28
     },
-    "lines": 3155,
-    "test_files": 11
+    "lines": 3761,
+    "test_files": 12
   },
   "tests": [
     "tests/test_bootstrap.py",
@@ -5690,6 +6952,7 @@
     "tests/test_hybrid.py",
     "tests/test_network_policy.py",
     "tests/test_policy.py",
+    "tests/test_reranking.py",
     "tests/test_retrieval.py",
     "tests/test_searxng_provider.py",
     "tests/test_secure_fetcher.py",

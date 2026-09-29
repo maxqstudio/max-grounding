@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-07-rerank-compress",
+  "phase": "PHASE_07_RERANK_COMPRESS",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "FROZEN",
+  "implementation_base_sha": "93a36ccf107251f434d77b0bf42b9df97bbf1a01",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-07-rerank-compress.plan.json",
+    "frozen": true,
+    "frozen_commit": "93a36ccf107251f434d77b0bf42b9df97bbf1a01",
+    "sha256": "717c3f8e3ad4148474298847b470cd98fc243202b76b8d838445e8bf435b498a",
+    "diagram": "docs/sequence/generated/phase-07-rerank-compress.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-07-rerank-compress.actual.json",
+    "diagram": "docs/sequence/generated/phase-07-rerank-compress.actual.mmd",
+    "source_digest": "780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e",
+    "entries": [
+      "src/max_grounding/reranking.py::build_grounded_context"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_reranking.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}

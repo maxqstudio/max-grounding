@@ -2,13 +2,13 @@
 
 # ARCHITECTURE
 
-Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
+Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
 
 ## Components
 
 | ID | Component | Purpose | Owns | Depends On |
 |---|---|---|---|---|
-| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit |  |
+| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt |  |
 | policy | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | budget | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | provider-boundary | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -20,6 +20,7 @@ Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924
 | lexical-retrieval | Lexical Retrieval | Turn immutable fetched text into bounded deterministic chunks and rank positive lexical matches with in-memory BM25. | retrieve_lexical, chunk_document, rank_chunks, Unicode lexical tokenization, BM25 lexical scoring, stable chunk provenance | models |
 | semantic-retrieval | Semantic Retrieval | Build bounded deterministic chunks, obtain role-separated dense embeddings through an injected provider, validate vectors fail-closed, and rank positive semantic matches by cosine similarity. | EmbeddingProvider protocol, retrieve_semantic, build_semantic_chunks, embed_bounded, rank_semantic, cosine_similarity, embedding batch/call/dimension bounds, semantic provenance ordering | models, lexical-retrieval |
 | hybrid-fusion | Hybrid Fusion | Combine bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion while preserving immutable chunk provenance. | retrieve_hybrid, fuse_hybrid, fixed RRF k=60, hybrid rank validation, hybrid provenance conflict rejection | models, lexical-retrieval, semantic-retrieval |
+| rerank-compress | Reranking and Context Compression | Rerank bounded HybridHit candidates through an injected provider, validate scores fail-closed, and emit bounded extractive evidence excerpts without generative rewriting. | RerankProvider protocol, rerank_hybrid, compress_context, build_grounded_context, rerank score validation, extractive context budgets, rerank and source provenance | models, hybrid-fusion, lexical-retrieval |
 
 ## Data flow
 
@@ -46,6 +47,10 @@ Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924
 - LexicalHit -> Hybrid Fusion: bounded lexical ranks contribute one fixed reciprocal-rank term per unique chunk
 - SemanticHit -> Hybrid Fusion: bounded semantic ranks contribute one fixed reciprocal-rank term per unique chunk
 - Hybrid Fusion -> HybridHit: deduplicated immutable chunks return fused score plus lexical and semantic rank provenance
+- HybridHit -> Reranking and Context Compression: at most 20 validated hybrid candidates enter one bounded provider scoring call
+- RerankProvider -> Reranking and Context Compression: exact bounded finite score sequence is accepted; malformed or unbounded provider output fails closed
+- Reranking and Context Compression -> RerankedHit: immutable reranked hits preserve hybrid, lexical, semantic, chunk, and source provenance
+- RerankedHit -> EvidenceExcerpt: deterministic query-relevant source substrings are selected under hard excerpt and total-character budgets
 
 ## External boundaries
 
@@ -53,12 +58,13 @@ Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924
 - GitHub-hosted runners: Cross-platform acceptance authority for Python 3.11-3.14 on Linux, Windows, and macOS.
 - Result-page web servers: Untrusted network/content boundary. Phase 3 permits only standard-port HTTP(S), validates all DNS answers as public, pins transport to a validated IP, rejects redirects and compression, bounds bytes, and accepts only approved text media/charset combinations.
 - Embedding provider: Injected Phase 5 boundary with distinct query/document roles. Core code bounds provider calls and validates every returned vector; no concrete model or inference runtime is accepted in Phase 5.
+- Rerank provider: Injected Phase 7 scoring boundary. Core accepts one bounded Sequence of exactly one finite numeric score per candidate; arbitrary iterables, wrong counts, booleans, non-numeric values, non-finite values, or provider exceptions fail closed. No concrete model/runtime is accepted in Phase 7.
 
 ## Observed implementation inventory
 
-Source files: 26
-Source lines: 3155
-Languages: Python=26
+Source files: 28
+Source lines: 3761
+Languages: Python=28
 
 Structural facts come from the code extractor. Component meaning comes from
 .workflow/architecture.json.

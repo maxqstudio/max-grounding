@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-RERANK-COMPRESS",
+  "title": "Phase 7 bounded reranking and extractive context compression",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "build",
+      "label": "build_grounded_context",
+      "locator": "src/max_grounding/reranking.py::build_grounded_context",
+      "kind": "source"
+    },
+    {
+      "id": "rerank",
+      "label": "rerank_hybrid",
+      "locator": "src/max_grounding/reranking.py::rerank_hybrid",
+      "kind": "source"
+    },
+    {
+      "id": "compress",
+      "label": "compress_context",
+      "locator": "src/max_grounding/reranking.py::compress_context",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "build",
+      "to": "rerank",
+      "action": "rerank bounded hybrid candidates through the validated provider boundary",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "build",
+      "to": "compress",
+      "action": "compress reranked evidence extractively under hard budgets",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}

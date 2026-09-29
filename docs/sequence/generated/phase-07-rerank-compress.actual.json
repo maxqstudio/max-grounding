@@ -1,0 +1,341 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [
+    {
+      "action": "_sentences",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::_sentences"
+    },
+    {
+      "action": "tokenize_text",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::tokenize_text"
+    },
+    {
+      "action": "RerankingError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RerankingError"
+    },
+    {
+      "action": "_validate_optional_rank",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::_validate_optional_rank"
+    },
+    {
+      "action": "_validated_finite_number",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::_validated_finite_number"
+    },
+    {
+      "action": "RerankingError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_validate_optional_rank",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RerankingError"
+    },
+    {
+      "action": "RerankingError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RerankingError"
+    },
+    {
+      "action": "_validate_optional_rank",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::_validate_optional_rank"
+    },
+    {
+      "action": "_validated_finite_number",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::_validated_finite_number"
+    },
+    {
+      "action": "RerankingError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_validated_finite_number",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RerankingError"
+    },
+    {
+      "action": "RerankingError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::_validated_query",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RerankingError"
+    },
+    {
+      "action": "compress_context",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::build_grounded_context",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::compress_context"
+    },
+    {
+      "action": "rerank_hybrid",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::build_grounded_context",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::rerank_hybrid"
+    },
+    {
+      "action": "RerankingError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::compress_context",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RerankingError"
+    },
+    {
+      "action": "EvidenceExcerpt",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::compress_context",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::EvidenceExcerpt"
+    },
+    {
+      "action": "_best_extractive_sentence",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::compress_context",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::_best_extractive_sentence"
+    },
+    {
+      "action": "_validate_reranked_hits",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::compress_context",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::_validate_reranked_hits"
+    },
+    {
+      "action": "_validated_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::compress_context",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::_validated_query"
+    },
+    {
+      "action": "RerankProviderError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::rerank_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RerankProviderError"
+    },
+    {
+      "action": "RerankingError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::rerank_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RerankingError"
+    },
+    {
+      "action": "RerankedHit",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::rerank_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::RerankedHit"
+    },
+    {
+      "action": "provider.score",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::rerank_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::RerankProvider.score"
+    },
+    {
+      "action": "_validate_hybrid_hits",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::rerank_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::_validate_hybrid_hits"
+    },
+    {
+      "action": "_validated_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/reranking.py::rerank_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/reranking.py::_validated_query"
+    }
+  ],
+  "entries": [
+    "src/max_grounding/reranking.py::build_grounded_context"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/errors.py::RerankProviderError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::RerankProviderError",
+      "language": "Python",
+      "line_end": 41,
+      "line_start": 40,
+      "locator": "src/max_grounding/errors.py::RerankProviderError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::RerankingError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::RerankingError",
+      "language": "Python",
+      "line_end": 37,
+      "line_start": 36,
+      "locator": "src/max_grounding/errors.py::RerankingError"
+    },
+    {
+      "id": "src/max_grounding/models.py::EvidenceExcerpt",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::EvidenceExcerpt",
+      "language": "Python",
+      "line_end": 149,
+      "line_start": 141,
+      "locator": "src/max_grounding/models.py::EvidenceExcerpt"
+    },
+    {
+      "id": "src/max_grounding/models.py::RerankedHit",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::RerankedHit",
+      "language": "Python",
+      "line_end": 137,
+      "line_start": 129,
+      "locator": "src/max_grounding/models.py::RerankedHit"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::RerankProvider.score",
+      "kind": "method",
+      "label": "src/max_grounding/reranking.py::RerankProvider.score",
+      "language": "Python",
+      "line_end": 35,
+      "line_start": 30,
+      "locator": "src/max_grounding/reranking.py::RerankProvider.score"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "kind": "function",
+      "label": "src/max_grounding/reranking.py::_best_extractive_sentence",
+      "language": "Python",
+      "line_end": 215,
+      "line_start": 202,
+      "locator": "src/max_grounding/reranking.py::_best_extractive_sentence"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::_sentences",
+      "kind": "function",
+      "label": "src/max_grounding/reranking.py::_sentences",
+      "language": "Python",
+      "line_end": 199,
+      "line_start": 190,
+      "locator": "src/max_grounding/reranking.py::_sentences"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "kind": "function",
+      "label": "src/max_grounding/reranking.py::_validate_hybrid_hits",
+      "language": "Python",
+      "line_end": 88,
+      "line_start": 66,
+      "locator": "src/max_grounding/reranking.py::_validate_hybrid_hits"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::_validate_optional_rank",
+      "kind": "function",
+      "label": "src/max_grounding/reranking.py::_validate_optional_rank",
+      "language": "Python",
+      "line_end": 63,
+      "line_start": 57,
+      "locator": "src/max_grounding/reranking.py::_validate_optional_rank"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "kind": "function",
+      "label": "src/max_grounding/reranking.py::_validate_reranked_hits",
+      "language": "Python",
+      "line_end": 113,
+      "line_start": 91,
+      "locator": "src/max_grounding/reranking.py::_validate_reranked_hits"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::_validated_finite_number",
+      "kind": "function",
+      "label": "src/max_grounding/reranking.py::_validated_finite_number",
+      "language": "Python",
+      "line_end": 54,
+      "line_start": 48,
+      "locator": "src/max_grounding/reranking.py::_validated_finite_number"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::_validated_query",
+      "kind": "function",
+      "label": "src/max_grounding/reranking.py::_validated_query",
+      "language": "Python",
+      "line_end": 45,
+      "line_start": 38,
+      "locator": "src/max_grounding/reranking.py::_validated_query"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::build_grounded_context",
+      "kind": "function",
+      "label": "src/max_grounding/reranking.py::build_grounded_context",
+      "language": "Python",
+      "line_end": 295,
+      "line_start": 272,
+      "locator": "src/max_grounding/reranking.py::build_grounded_context"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::compress_context",
+      "kind": "function",
+      "label": "src/max_grounding/reranking.py::compress_context",
+      "language": "Python",
+      "line_end": 269,
+      "line_start": 218,
+      "locator": "src/max_grounding/reranking.py::compress_context"
+    },
+    {
+      "id": "src/max_grounding/reranking.py::rerank_hybrid",
+      "kind": "function",
+      "label": "src/max_grounding/reranking.py::rerank_hybrid",
+      "language": "Python",
+      "line_end": 187,
+      "line_start": 116,
+      "locator": "src/max_grounding/reranking.py::rerank_hybrid"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::tokenize_text",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::tokenize_text",
+      "language": "Python",
+      "line_end": 42,
+      "line_start": 29,
+      "locator": "src/max_grounding/retrieval.py::tokenize_text"
+    }
+  ],
+  "observed_head": "1e5f2a2761cbc87b814fd21cff2c6ecc98ea1625",
+  "schema_version": 1,
+  "source_digest": "780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e"
+}

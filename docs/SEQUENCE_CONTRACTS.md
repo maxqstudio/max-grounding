@@ -20,6 +20,7 @@ Status: CURRENT
 | FLOW-HYBRID-FUSION | BEFORE | YES | docs/sequence/sessions/phase-06-hybrid-fusion.json | PASS |
 | FLOW-LEXICAL-RETRIEVAL | BEFORE | YES | docs/sequence/sessions/phase-04-lexical-retrieval.json | PASS |
 | FLOW-PHASE-DELIVERY | BEFORE | YES | docs/sequence/sessions/phase-00-bootstrap.json | PASS |
+| FLOW-RERANK-COMPRESS | BEFORE | YES | docs/sequence/sessions/phase-07-rerank-compress.json | PASS |
 | FLOW-SEARXNG-SEARCH | BEFORE | YES | docs/sequence/sessions/phase-02-searxng-provider.json | PASS |
 | FLOW-SECURE-FETCH | BEFORE | YES | docs/sequence/sessions/phase-03-secure-fetch.json | PASS |
 | FLOW-SEMANTIC-RETRIEVAL | BEFORE | YES | docs/sequence/sessions/phase-05-semantic-retrieval.json | PASS |

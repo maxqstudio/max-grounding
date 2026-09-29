@@ -26,13 +26,13 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 26 files, 1 language categories.
+Observed source inventory: 28 files, 1 language categories.
 
 ## Major components
 
 | Component | Purpose | Owns / Decides | Depends On |
 |---|---|---|---|
-| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit |  |
+| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt |  |
 | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -44,6 +44,7 @@ Observed source inventory: 26 files, 1 language categories.
 | Lexical Retrieval | Turn immutable fetched text into bounded deterministic chunks and rank positive lexical matches with in-memory BM25. | retrieve_lexical, chunk_document, rank_chunks, Unicode lexical tokenization, BM25 lexical scoring, stable chunk provenance | models |
 | Semantic Retrieval | Build bounded deterministic chunks, obtain role-separated dense embeddings through an injected provider, validate vectors fail-closed, and rank positive semantic matches by cosine similarity. | EmbeddingProvider protocol, retrieve_semantic, build_semantic_chunks, embed_bounded, rank_semantic, cosine_similarity, embedding batch/call/dimension bounds, semantic provenance ordering | models, lexical-retrieval |
 | Hybrid Fusion | Combine bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion while preserving immutable chunk provenance. | retrieve_hybrid, fuse_hybrid, fixed RRF k=60, hybrid rank validation, hybrid provenance conflict rejection | models, lexical-retrieval, semantic-retrieval |
+| Reranking and Context Compression | Rerank bounded HybridHit candidates through an injected provider, validate scores fail-closed, and emit bounded extractive evidence excerpts without generative rewriting. | RerankProvider protocol, rerank_hybrid, compress_context, build_grounded_context, rerank score validation, extractive context budgets, rerank and source provenance | models, hybrid-fusion, lexical-retrieval |
 
 ## Main data flow
 
@@ -70,6 +71,10 @@ Observed source inventory: 26 files, 1 language categories.
 - LexicalHit -> Hybrid Fusion: bounded lexical ranks contribute one fixed reciprocal-rank term per unique chunk
 - SemanticHit -> Hybrid Fusion: bounded semantic ranks contribute one fixed reciprocal-rank term per unique chunk
 - Hybrid Fusion -> HybridHit: deduplicated immutable chunks return fused score plus lexical and semantic rank provenance
+- HybridHit -> Reranking and Context Compression: at most 20 validated hybrid candidates enter one bounded provider scoring call
+- RerankProvider -> Reranking and Context Compression: exact bounded finite score sequence is accepted; malformed or unbounded provider output fails closed
+- Reranking and Context Compression -> RerankedHit: immutable reranked hits preserve hybrid, lexical, semantic, chunk, and source provenance
+- RerankedHit -> EvidenceExcerpt: deterministic query-relevant source substrings are selected under hard excerpt and total-character budgets
 
 ## Main user workflows
 
@@ -118,6 +123,15 @@ Authority: GitHub Actions required checks
 - ACTIONS_PASS -> MERGED_MAIN : merge pull request
 - MERGED_MAIN -> MAIN_REVALIDATED : GitHub Actions revalidate merged main
 
+### FLOW-RERANK-COMPRESS — Bounded reranking and extractive context compression
+
+Rerank already-bounded hybrid hits through an injected provider, validate scores fail-closed, then extract a bounded provenance-preserving context without generative rewriting.
+
+Authority: Rerank score validation and deterministic extractive compression policy
+
+- HITS_RECEIVED -> RERANKED : validate hybrid ranks and obtain one bounded provider score vector
+- RERANKED -> COMPRESSED : select extractive evidence excerpts under hard excerpt and total-character budgets
+
 ### FLOW-SEARXNG-SEARCH — SearXNG live search provider
 
 Execute one budgeted search against an operator-configured SearXNG JSON endpoint, bound response handling, reject obviously unsafe result URLs, and return untrusted SourceCandidate values without fetching result pages.
@@ -158,9 +172,9 @@ Authority: Semantic retrieval bounds, embedding validation, and deterministic co
 
 ## Lifecycle and state
 
-Current phase: PHASE_06_HYBRID_FUSION
+Current phase: PHASE_07_RERANK_COMPRESS
 
-Current status: ACCEPTED
+Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -201,6 +215,8 @@ compiler does not infer them from implementation names.
 - FLOW-LEXICAL-RETRIEVAL: Empty queries or invalid bounds raise a controlled retrieval error before producing hits.
 - FLOW-LEXICAL-RETRIEVAL: Empty documents or documents with no lexical matches return an empty immutable result rather than fabricated relevance.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.
+- FLOW-RERANK-COMPRESS: Invalid ranks, duplicate chunks, invalid bounds, provider exceptions, wrong score counts, or invalid scores fail closed with a controlled reranking error.
+- FLOW-RERANK-COMPRESS: No partial reranked or compressed result is returned after validation failure.
 - FLOW-SEARXNG-SEARCH: Transport, redirect, HTTP, media-type, size, JSON, and schema failures raise a controlled provider error.
 - FLOW-SEARXNG-SEARCH: GroundingEngine converts provider failure before evidence sufficiency into fail-closed PROVIDER_ERROR status.
 - FLOW-SECURE-FETCH: Invalid URLs, unsafe DNS answers, transport failures, redirects, disallowed media/encoding, oversized responses, or decoding failures produce a controlled FetchError.
@@ -212,12 +228,14 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Start Phase 7 planning from accepted main SHA b4142fb22ee80837b98617d3c29a276fbe924294.
-- Freeze the Phase 7 BEFORE sequence plan before implementing reranking and evidence/context compression.
+- Synchronize the Phase 7 ACTUAL sequence and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 7 candidate head.
+- Merge Phase 7 only if every required job passes, then revalidate merged main.
 
 Blocked actions:
-- Do not claim reranking, a concrete embedding model, or a persistent vector database from accepted Phase 6 fixed RRF fusion.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
+- Do not claim a concrete reranker model, generative compression, or retrieval-quality superiority from the provider-agnostic Phase 7 core.
+- Do not merge Phase 7 while any required GitHub Actions job is failing or missing.
+- Do not bypass post-merge main revalidation.
 
 Known blockers:
 - None declared.
@@ -226,23 +244,20 @@ Known blockers:
 
 ### Proven
 
-- Phase 5 closure is merged to main at 45c18dc09a314e106881cb68b641109a373e1369 and closure-main Acceptance run 36564262272 passed all 13 required jobs.
-- The Phase 6 BEFORE plan was frozen before implementation at a5e30b00c777e66b3aafdea6002970d28a181982 with SHA-256 a9465785aba1386a466e658aab89bc23ff1cbfffb8608bb9ff70434305948a04.
-- TDD RED run 36564783433 failed because the Phase 6 hybrid fusion module did not yet exist.
-- Initial GREEN run 36564936847 exposed a test-fixture rank that violated the already-frozen contiguous-rank contract; only the fixture was corrected and product source was unchanged.
-- Final GREEN run 36565015354 passed the full unit suite and compile checks.
-- Candidate verification run 36565138383 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
-- Phase 6 uses fixed equal-weight reciprocal-rank fusion with RRF k=60 and no tunable modality weights.
-- Each modality contributes at most 20 ranked hits and final hybrid output is capped at 20 results.
-- Duplicate chunk identities are merged only when full immutable chunk provenance matches; conflicting provenance for the same chunk_id fails closed.
-- Equal fused scores resolve by stable source URL, chunk index, and chunk identity.
-- Production V1 roadmap is governed in .workflow/project.json as Phase 0 through Phase 12, with optional post-V1 expansion Phase 13 through Phase 16.
-- Phase 6 exact pull-request head de6548e2e8c56159b9de33331800cc403dfd9bc9 passed Acceptance run 36574618437 with STRICT governance plus all 12 Linux/Windows/macOS Python 3.11-3.14 jobs.
-- Phase 6 merged main SHA b4142fb22ee80837b98617d3c29a276fbe924294 passed post-merge Acceptance run 36575022736 with 13/13 jobs PASS.
+- Phase 6 closure is merged to main at b2e524997947dd357a577eb4d17edd27f0d62f28 and closure-main Acceptance run 36575665763 passed all 13 required jobs.
+- The Phase 7 BEFORE plan was frozen before implementation at 93a36ccf107251f434d77b0bf42b9df97bbf1a01 with SHA-256 717c3f8e3ad4148474298847b470cd98fc243202b76b8d838445e8bf435b498a.
+- TDD RED run 36576719998 failed because the Phase 7 reranking contract did not yet exist.
+- Initial GREEN run 36577036647 passed the full unit suite and compile checks after the minimum reranking and extractive compression implementation.
+- Adversarial regression run 36577161655 proved that arbitrary iterable provider output could bypass the bounded-sequence contract before repair.
+- Final GREEN run 36577271817 passed the full unit suite and compile checks after rejecting unbounded provider iterables.
+- Candidate verification run 36577449523 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
+- Phase 7 reranking admits at most 20 candidates, calls the injected rerank provider once, requires an exact bounded score sequence, and rejects provider exceptions, wrong counts, booleans, non-numeric values, and non-finite scores.
+- Phase 7 compression is extractive only and caps output at 8 excerpts, 1200 characters per excerpt, and 6000 total excerpt characters while preserving source and rerank provenance.
 
 ### Not proven
 
-- Concrete embedding runtimes/models, persistent vector databases such as Qdrant, learned or cross-encoder reranking, retrieval-quality benchmarks, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside accepted Phase 6.
+- Final Phase 7 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- No concrete cross-encoder or learned reranker model, generative/LLM compression, reranking-quality benchmark, freshness/authority scoring, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment is proven by Phase 7.
 
 ## Important limitations
 

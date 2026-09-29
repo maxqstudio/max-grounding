@@ -16,7 +16,9 @@
         "TextChunk",
         "LexicalHit",
         "SemanticHit",
-        "HybridHit"
+        "HybridHit",
+        "RerankedHit",
+        "EvidenceExcerpt"
       ],
       "depends_on": []
     },
@@ -174,6 +176,25 @@
         "lexical-retrieval",
         "semantic-retrieval"
       ]
+    },
+    {
+      "id": "rerank-compress",
+      "name": "Reranking and Context Compression",
+      "purpose": "Rerank bounded HybridHit candidates through an injected provider, validate scores fail-closed, and emit bounded extractive evidence excerpts without generative rewriting.",
+      "owns": [
+        "RerankProvider protocol",
+        "rerank_hybrid",
+        "compress_context",
+        "build_grounded_context",
+        "rerank score validation",
+        "extractive context budgets",
+        "rerank and source provenance"
+      ],
+      "depends_on": [
+        "models",
+        "hybrid-fusion",
+        "lexical-retrieval"
+      ]
     }
   ],
   "data_flows": [
@@ -291,6 +312,26 @@
       "from": "Hybrid Fusion",
       "to": "HybridHit",
       "meaning": "deduplicated immutable chunks return fused score plus lexical and semantic rank provenance"
+    },
+    {
+      "from": "HybridHit",
+      "to": "Reranking and Context Compression",
+      "meaning": "at most 20 validated hybrid candidates enter one bounded provider scoring call"
+    },
+    {
+      "from": "RerankProvider",
+      "to": "Reranking and Context Compression",
+      "meaning": "exact bounded finite score sequence is accepted; malformed or unbounded provider output fails closed"
+    },
+    {
+      "from": "Reranking and Context Compression",
+      "to": "RerankedHit",
+      "meaning": "immutable reranked hits preserve hybrid, lexical, semantic, chunk, and source provenance"
+    },
+    {
+      "from": "RerankedHit",
+      "to": "EvidenceExcerpt",
+      "meaning": "deterministic query-relevant source substrings are selected under hard excerpt and total-character budgets"
     }
   ],
   "external_boundaries": [
@@ -309,6 +350,10 @@
     {
       "name": "Embedding provider",
       "contract": "Injected Phase 5 boundary with distinct query/document roles. Core code bounds provider calls and validates every returned vector; no concrete model or inference runtime is accepted in Phase 5."
+    },
+    {
+      "name": "Rerank provider",
+      "contract": "Injected Phase 7 scoring boundary. Core accepts one bounded Sequence of exactly one finite numeric score per candidate; arbitrary iterables, wrong counts, booleans, non-numeric values, non-finite values, or provider exceptions fail closed. No concrete model/runtime is accepted in Phase 7."
     }
   ]
 }

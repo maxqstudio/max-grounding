@@ -31,3 +31,11 @@ class RetrievalError(GroundingError, ValueError):
 
 class EmbeddingProviderError(GroundingError):
     """Raised when an embedding provider returns invalid or unusable vectors."""
+
+
+class RerankingError(GroundingError, ValueError):
+    """Raised when reranking or compression input violates policy bounds."""
+
+
+class RerankProviderError(GroundingError):
+    """Raised when a reranking provider fails or returns invalid scores."""

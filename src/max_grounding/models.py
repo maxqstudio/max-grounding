@@ -123,3 +123,27 @@ class HybridHit:
     rank: int
     lexical_rank: int | None
     semantic_rank: int | None
+
+
+@dataclass(frozen=True, slots=True)
+class RerankedHit:
+    """One immutable provider-reranked hybrid result."""
+
+    chunk: TextChunk
+    score: float
+    rank: int
+    hybrid_rank: int
+    lexical_rank: int | None
+    semantic_rank: int | None
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceExcerpt:
+    """One exact extractive excerpt retaining source and rerank provenance."""
+
+    source_url: str
+    chunk_id: str
+    chunk_index: int
+    rerank_rank: int
+    text: str
+    char_count: int
