@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-TEMPORAL-AUTHORITY",
+  "title": "Phase 8 freshness, source authority, and temporal scoring",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "score",
+      "label": "score_evidence_quality",
+      "locator": "src/max_grounding/temporal.py::score_evidence_quality",
+      "kind": "source"
+    },
+    {
+      "id": "authority",
+      "label": "score_authority",
+      "locator": "src/max_grounding/temporal.py::score_authority",
+      "kind": "source"
+    },
+    {
+      "id": "temporal",
+      "label": "score_temporal_components",
+      "locator": "src/max_grounding/temporal.py::score_temporal_components",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "score",
+      "to": "authority",
+      "action": "obtain one bounded injected authority score sequence",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "score",
+      "to": "temporal",
+      "action": "compute freshness and temporal validity from explicit UTC metadata and evaluation time",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}
