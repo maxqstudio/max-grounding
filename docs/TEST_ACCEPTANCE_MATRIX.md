@@ -4,20 +4,19 @@
 
 ## Evidence boundary
 
-Phase 10 proves bounded exact structured answer-claim verification against the accepted Phase 9 evidence graph. It emits four fail-closed verification states, exact claim-level citations, a deterministic evidence-sufficiency confidence index, and a structured synthesis packet that exposes only SUPPORTED claims. It does not extract claims from free-form LLM text, perform fuzzy semantic verification, generate final prose, calibrate truth probabilities, provide concrete model/vector runtimes, persist Qdrant indexes, expose REST/MCP, or prove production deployment.
+Phase 11 candidate proves a concrete self-hosted embedding/runtime and persistent semantic index boundary: Ollama 0.34.0 + qwen3-embedding:0.6b produces validated 1024-dimensional vectors, Qdrant 1.19.1 persists provenance-bound vectors, and retrieval remains valid after a real Qdrant restart. The portable stdlib core passes Linux/Windows/macOS. This does not prove REST/MCP public service exposure, production container/load/security acceptance, general retrieval-quality superiority, browser rendering, multimodal grounding, GraphRAG, or learned ranking.
 
 Final tested source: external final acceptance evidence.
-Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f
+Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P10-STRUCTURE | At most 16 bounded AnswerClaim values are normalized and validated fail-closed with unique normalized IDs, exact structured key/value matching, canonical graph validation, and required_sources bounded to 1..3. | tests/test_verification.py; GREEN run 36592414508 | PASS |
-| P10-STATUS | Exact claim/value evidence produces SUPPORTED or PARTIALLY_SUPPORTED by source threshold; an exact conflicting exclusive value produces CONFLICTED regardless of evidence weight; absent exact support produces UNSUPPORTED. | tests/test_verification.py; GREEN run 36592414508 | PASS |
-| P10-CITATIONS | Claim citations preserve exact supporting assertion/source/chunk/excerpt provenance and unsupported claims receive no citation. | tests/test_verification.py; GREEN run 36592414508 | PASS |
-| P10-CONFIDENCE | Confidence is a deterministic evidence-sufficiency index, not a truth probability; conflicted and unsupported claims receive zero. | tests/test_verification.py; GREEN run 36592414508 | PASS |
-| P10-SYNTHESIS | Only SUPPORTED claims enter synthesis_claims; all other verification states are retained in blocked_claims and no free-form prose is generated. | tests/test_verification.py; GREEN run 36592414508 | PASS |
-| P10-SEQUENCE | build_synthesis_packet invokes verify_claims and build_claim_citations in conformance with the frozen Phase 10 BEFORE plan. | Phase 10 Candidate Verify run 36592538343 | PASS |
-| P10-CROSS-OS | Phase 10 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 10 Candidate Verify run 36592538343: sequence plus 12/12 runtime matrix jobs PASS | PASS |
+| P11-PLAN | Both Phase 11 BEFORE sequence plans are frozen before implementation and generated ACTUAL flows conform to them. | Frozen ancestor 7aca8f3886f0698260d2f572782ea30a956be83b; Candidate Verify run 36631528126 | PASS |
+| P11-OLLAMA | Pinned Ollama 0.34.0 with qwen3-embedding:0.6b returns validated 1024-dimensional embeddings through the concrete stdlib adapter. | tests/test_ollama_embedding.py; Real Services run 36631528065 | PASS |
+| P11-QDRANT | Pinned Qdrant 1.19.1 accepts the versioned named-vector schema and provenance-bound upsert/query contract. | tests/test_qdrant_store.py; Real Services run 36631528065 | PASS |
+| P11-PERSISTENCE | A real persistent Qdrant volume retains indexed evidence across service restart and returns the expected top evidence after restart. | integration/phase11_services.py; Real Services run 36631528065 | PASS |
+| P11-SEMANTIC | Persistent semantic orchestration preserves bounded concrete embedding roles, deterministic chunk provenance, store compatibility, and accepted SemanticHit reconstruction. | tests/test_persistent_semantic.py; Candidate Verify run 36631528126; Real Services run 36631528065 | PASS |
+| P11-CROSS-OS | Portable Phase 11 core/adapters pass Python 3.11-3.14 on Linux, Windows, and macOS. | Candidate Verify run 36631528126: sequence plus 12/12 runtime matrix jobs PASS | PASS |
 
 ## Test commands
 
@@ -28,11 +27,11 @@ Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e505
 
 ## Runtime checks
 
-- TDD RED run 36591980379 proved the Phase 10 verification contract absent before implementation.
-- GREEN run 36592414508 passed the full unit suite and compile checks.
-- Candidate verification run 36592538343 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
-- Phase 10 pull-request Acceptance run 36593330960 passed 13/13 required jobs on exact head e5fd57f65216b58163b447df8011293185105f5f.
-- Phase 10 post-merge main Acceptance run 36594071609 passed 13/13 required jobs on main SHA dab1961e04f7610a4bf7a9de55a8a649a6fe8990.
+- TDD RED run 36611863446 proved the Phase 11 concrete runtime/index contract absent before implementation.
+- GREEN run 36612347152 passed full unit and compile regression.
+- Real Services run 36631528065 passed exact Ollama/Qwen3/Qdrant version, embedding dimension, index/query, and restart-persistence assertions on candidate b20322e074755960b29a4504c95e08a35946c6e2.
+- Candidate Verify run 36631528126 passed both frozen sequence contracts and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs.
+- Final pull-request Acceptance and post-merge main revalidation remain mandatory before Phase 11 closure.
 
 ## Roadmap synchronization evidence
 
@@ -42,7 +41,7 @@ ROADMAP_SYNC: PASS
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-10-claim-verification.json
+Sequence session contract: docs/sequence/sessions/phase-11-persistent-index.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

@@ -1,0 +1,541 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::_provider_contract",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::_store_contract",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "_validated_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validated_vector"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::build_semantic_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "SemanticHit",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::build_semantic_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::SemanticHit"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_query_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "provider.embed_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_query_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_query"
+    },
+    {
+      "action": "_provider_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_query_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_provider_contract"
+    },
+    {
+      "action": "_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_query_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_vector"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "_provider_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_provider_contract"
+    },
+    {
+      "action": "_store_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_store_contract"
+    },
+    {
+      "action": "build_semantic_hits",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::build_semantic_hits"
+    },
+    {
+      "action": "embed_query_concrete",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::embed_query_concrete"
+    },
+    {
+      "action": "store.ensure_collection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection"
+    },
+    {
+      "action": "store.query_chunks",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "PersistentVectorHit",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::PersistentVectorHit"
+    },
+    {
+      "action": "TextChunk",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::TextChunk"
+    },
+    {
+      "action": "point_id_for_chunk",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::point_id_for_chunk"
+    },
+    {
+      "action": "request_qdrant_json",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::request_qdrant_json"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "self._request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request"
+    },
+    {
+      "action": "self._validate_collection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection"
+    },
+    {
+      "action": "self.verify_runtime",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "self._parse_point",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point"
+    },
+    {
+      "action": "self._request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request"
+    },
+    {
+      "action": "self.ensure_collection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection"
+    },
+    {
+      "action": "_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::_vector"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "self._request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "_validated_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validated_vector"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "_NoRedirect",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::_NoRedirect"
+    },
+    {
+      "action": "response.read",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Response.read"
+    },
+    {
+      "action": "EmbeddingProviderError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::_validated_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::EmbeddingProviderError"
+    }
+  ],
+  "entries": [
+    "src/max_grounding/persistent.py::retrieve_persistent_semantic"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/errors.py::EmbeddingProviderError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::EmbeddingProviderError",
+      "language": "Python",
+      "line_end": 33,
+      "line_start": 32,
+      "locator": "src/max_grounding/errors.py::EmbeddingProviderError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::PersistentIndexError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::PersistentIndexError",
+      "language": "Python",
+      "line_end": 69,
+      "line_start": 68,
+      "locator": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::VectorStoreError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::VectorStoreError",
+      "language": "Python",
+      "line_end": 65,
+      "line_start": 64,
+      "locator": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "id": "src/max_grounding/models.py::PersistentVectorHit",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::PersistentVectorHit",
+      "language": "Python",
+      "line_end": 304,
+      "line_start": 296,
+      "locator": "src/max_grounding/models.py::PersistentVectorHit"
+    },
+    {
+      "id": "src/max_grounding/models.py::SemanticHit",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::SemanticHit",
+      "language": "Python",
+      "line_end": 131,
+      "line_start": 126,
+      "locator": "src/max_grounding/models.py::SemanticHit"
+    },
+    {
+      "id": "src/max_grounding/models.py::TextChunk",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::TextChunk",
+      "language": "Python",
+      "line_end": 113,
+      "line_start": 106,
+      "locator": "src/max_grounding/models.py::TextChunk"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_query",
+      "kind": "method",
+      "label": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_query",
+      "language": "Python",
+      "line_end": 55,
+      "line_start": 54,
+      "locator": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_query"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::_provider_contract",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::_provider_contract",
+      "language": "Python",
+      "line_end": 75,
+      "line_start": 71,
+      "locator": "src/max_grounding/persistent.py::_provider_contract"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::_store_contract",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::_store_contract",
+      "language": "Python",
+      "line_end": 87,
+      "line_start": 78,
+      "locator": "src/max_grounding/persistent.py::_store_contract"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::_vector",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::_vector",
+      "language": "Python",
+      "line_end": 99,
+      "line_start": 90,
+      "locator": "src/max_grounding/persistent.py::_vector"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::build_semantic_hits",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::build_semantic_hits",
+      "language": "Python",
+      "line_end": 292,
+      "line_start": 236,
+      "locator": "src/max_grounding/persistent.py::build_semantic_hits"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::embed_query_concrete",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::embed_query_concrete",
+      "language": "Python",
+      "line_end": 168,
+      "line_start": 150,
+      "locator": "src/max_grounding/persistent.py::embed_query_concrete"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "language": "Python",
+      "line_end": 317,
+      "line_start": 295,
+      "locator": "src/max_grounding/persistent.py::retrieve_persistent_semantic"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "language": "Python",
+      "line_end": 421,
+      "line_start": 353,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request",
+      "language": "Python",
+      "line_end": 212,
+      "line_start": 195,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "language": "Python",
+      "line_end": 263,
+      "line_start": 228,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "language": "Python",
+      "line_end": 300,
+      "line_start": 265,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "language": "Python",
+      "line_end": 453,
+      "line_start": 423,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "language": "Python",
+      "line_end": 222,
+      "line_start": 214,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::_NoRedirect",
+      "kind": "class",
+      "label": "src/max_grounding/providers/qdrant.py::_NoRedirect",
+      "language": "Python",
+      "line_end": 34,
+      "line_start": 32,
+      "locator": "src/max_grounding/providers/qdrant.py::_NoRedirect"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::_vector",
+      "kind": "function",
+      "label": "src/max_grounding/providers/qdrant.py::_vector",
+      "language": "Python",
+      "line_end": 161,
+      "line_start": 154,
+      "locator": "src/max_grounding/providers/qdrant.py::_vector"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "kind": "function",
+      "label": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "language": "Python",
+      "line_end": 151,
+      "line_start": 148,
+      "locator": "src/max_grounding/providers/qdrant.py::point_id_for_chunk"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "kind": "function",
+      "label": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "language": "Python",
+      "line_end": 145,
+      "line_start": 70,
+      "locator": "src/max_grounding/providers/qdrant.py::request_qdrant_json"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::_validated_vector",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::_validated_vector",
+      "language": "Python",
+      "line_end": 99,
+      "line_start": 61,
+      "locator": "src/max_grounding/semantic.py::_validated_vector"
+    },
+    {
+      "id": "tests/test_secure_fetcher.py::_Response.read",
+      "kind": "method",
+      "label": "tests/test_secure_fetcher.py::_Response.read",
+      "language": "Python",
+      "line_end": 37,
+      "line_start": 36,
+      "locator": "tests/test_secure_fetcher.py::_Response.read"
+    }
+  ],
+  "observed_head": "dfaf6e873336300cba75fb06828956009f7d77cb",
+  "schema_version": 1,
+  "source_digest": "f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2"
+}

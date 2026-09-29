@@ -3,24 +3,28 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f
+Source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
 |---|---|---:|---|---|
+| integration/phase11_services.py | Python | 146 | integration | NO |
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
 | src/max_grounding/budget.py | Python | 30 | src/max_grounding | NO |
 | src/max_grounding/engine.py | Python | 57 | src/max_grounding | NO |
-| src/max_grounding/errors.py | Python | 57 | src/max_grounding | NO |
+| src/max_grounding/errors.py | Python | 69 | src/max_grounding | NO |
 | src/max_grounding/evidence.py | Python | 97 | src/max_grounding | NO |
 | src/max_grounding/evidence_graph.py | Python | 223 | src/max_grounding | NO |
 | src/max_grounding/fetcher.py | Python | 298 | src/max_grounding | NO |
 | src/max_grounding/hybrid.py | Python | 149 | src/max_grounding | NO |
-| src/max_grounding/models.py | Python | 292 | src/max_grounding | NO |
+| src/max_grounding/models.py | Python | 316 | src/max_grounding | NO |
 | src/max_grounding/network_policy.py | Python | 93 | src/max_grounding | NO |
+| src/max_grounding/persistent.py | Python | 317 | src/max_grounding | NO |
 | src/max_grounding/policy.py | Python | 51 | src/max_grounding | NO |
 | src/max_grounding/providers/__init__.py | Python | 6 | src/max_grounding/providers | NO |
 | src/max_grounding/providers/base.py | Python | 23 | src/max_grounding/providers | NO |
+| src/max_grounding/providers/ollama_embedding.py | Python | 246 | src/max_grounding/providers | NO |
+| src/max_grounding/providers/qdrant.py | Python | 453 | src/max_grounding/providers | NO |
 | src/max_grounding/providers/searxng.py | Python | 220 | src/max_grounding/providers | NO |
 | src/max_grounding/reranking.py | Python | 295 | src/max_grounding | NO |
 | src/max_grounding/retrieval.py | Python | 219 | src/max_grounding | NO |
@@ -34,7 +38,10 @@ Generated/refreshed: current compiler run
 | tests/test_evidence_graph.py | Python | 381 | tests | YES |
 | tests/test_hybrid.py | Python | 168 | tests | YES |
 | tests/test_network_policy.py | Python | 123 | tests | YES |
+| tests/test_ollama_embedding.py | Python | 118 | tests | YES |
+| tests/test_persistent_semantic.py | Python | 284 | tests | YES |
 | tests/test_policy.py | Python | 47 | tests | YES |
+| tests/test_qdrant_store.py | Python | 284 | tests | YES |
 | tests/test_reranking.py | Python | 279 | tests | YES |
 | tests/test_retrieval.py | Python | 181 | tests | YES |
 | tests/test_searxng_provider.py | Python | 206 | tests | YES |

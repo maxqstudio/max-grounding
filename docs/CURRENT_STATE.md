@@ -8,7 +8,7 @@ Governance profile: strict
 
 ## Current phase
 Phase: PHASE_11_CONCRETE_RUNTIME_INDEX
-Status: PLANNING
+Status: CANDIDATE_PENDING_GITHUB_ACTIONS
 Roadmap phase: PHASE_11_CONCRETE_RUNTIME_INDEX
 ROADMAP_SYNC: PASS
 
@@ -18,7 +18,7 @@ Branch: work/phase-11-concrete-runtime-index
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: 15bff377b920e6cf7e9198af554b8f7dc31f2119
 Current candidate SHA: external final acceptance evidence
-Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f
+Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -35,17 +35,23 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-10-claim-verification.json
+Current sequence session: docs/sequence/sessions/phase-11-persistent-index.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 10 product and closure are accepted; closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.
+- Phase 10 closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.
 - Skill Workflow authority is maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259 with ROADMAP_SYNC enforced.
-- Phase 11 planning selects service boundaries rather than adding heavy ML/vector Python dependencies to the portable core.
+- Both Phase 11 BEFORE sequence plans were frozen before implementation at ancestor 7aca8f3886f0698260d2f572782ea30a956be83b.
+- Phase 11 TDD RED run 36611863446 failed before the concrete persistent runtime contract existed; GREEN run 36612347152 passed after implementation.
+- Phase 11 real-service run 36631528065 passed on exact source candidate b20322e074755960b29a4504c95e08a35946c6e2 using Ollama 0.34.0, qwen3-embedding:0.6b, validated 1024-dimensional embeddings, and Qdrant 1.19.1.
+- Real-service integration indexed two evidence documents, ranked the gold-reserve evidence first, restarted Qdrant with the same persistent volume, and ranked the same evidence first after restart.
+- Phase 11 candidate verification run 36631528126 passed both frozen PLAN-to-ACTUAL sequence contracts and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
+- The initial Phase 11 sequence mismatch was static symbol ambiguity from type/test fixtures; the frozen plans were preserved and fixtures were repaired without changing runtime behavior.
 
 ## Not proven
-- No Phase 11 source implementation, Ollama runtime call, Qwen3 embedding output, Qdrant persistence, persistent semantic retrieval, or service restart recovery is proven before the frozen BEFORE plans are accepted and implementation tests execute.
-- REST/MCP public service exposure remains Phase 12.
+- Final Phase 11 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- Phase 11 does not expose public REST or MCP endpoints, multi-arch production containers, production load/security acceptance, browser rendering, multimodal grounding, GraphRAG, or learned-ranking optimization.
+- The real-service retrieval probe proves one deterministic integration case, not general retrieval-quality superiority or calibrated semantic relevance.
 
 ## Known blockers
 - None declared.
@@ -54,12 +60,11 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Freeze both Phase 11 BEFORE sequence plans and bind their exact Git ancestry before source implementation.
-- Then implement the minimum stdlib Ollama embedding adapter, Qdrant REST store, and persistent indexing/query orchestration under the frozen contracts.
-- Require cross-platform core regression plus real Ubuntu integration evidence for Ollama qwen3-embedding:0.6b and Qdrant v1.19.1 before Phase 11 acceptance.
+- Synchronize the two Phase 11 ACTUAL sequence graphs and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 11 candidate head.
+- Merge Phase 11 only if every required job passes, then revalidate merged main before closure.
 
 ## Explicitly blocked
-- Do not implement Phase 11 source before both BEFORE plans are frozen and committed.
-- Do not claim concrete model/runtime acceptance from HTTP mocks alone.
-- Do not expose public REST or MCP server endpoints in Phase 11.
-- Do not weaken the existing provider-agnostic semantic contracts or accepted fail-closed provenance rules.
+- Do not claim REST/MCP or production deployment from Phase 11.
+- Do not replace the pinned model/runtime/store schema without a new governed contract and acceptance evidence.
+- Do not bypass exact-head pull-request Acceptance or post-merge main revalidation.

@@ -26,13 +26,13 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 34 files, 1 language categories.
+Observed source inventory: 41 files, 1 language categories.
 
 ## Major components
 
 | Component | Purpose | Owns / Decides | Depends On |
 |---|---|---|---|
-| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt, EvidenceAssertion, EvidenceRelationType, EvidenceRelation, EvidenceCluster, EvidenceGraph, AnswerClaim, ClaimVerificationStatus, ClaimCitation, ClaimVerification, SynthesisPacket |  |
+| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt, EvidenceAssertion, EvidenceRelationType, EvidenceRelation, EvidenceCluster, EvidenceGraph, AnswerClaim, ClaimVerificationStatus, ClaimCitation, ClaimVerification, SynthesisPacket, PersistentVectorHit, PersistentIndexResult |  |
 | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -48,6 +48,9 @@ Observed source inventory: 34 files, 1 language categories.
 | Temporal and Source Authority Scoring | Bind explicit UTC temporal/source metadata to bounded evidence, obtain authority scores through an injected policy, and deterministically score freshness and point-in-time validity. | AuthorityProvider protocol, score_authority, score_temporal_components, score_evidence_quality, explicit evaluation-time policy, freshness horizon bounds, temporal validity checks, stable quality ranking | models, rerank-compress |
 | Evidence Graph | Normalize bounded structured assertions backed by Phase 8 quality evidence, derive deterministic corroboration/contradiction edges, and cluster equivalent values with distinct source-URL accounting without declaring truth. | build_evidence_graph, build_relations, build_clusters, structured assertion normalization, explicit exclusivity semantics, distinct-URL quality-weight accounting, no-winner graph contract | models, temporal-authority |
 | Claim Verification and Synthesis Gate | Verify bounded exact structured answer claims against the accepted evidence graph, bind exact citations, derive a transparent evidence-sufficiency index, and expose only fully supported claims to synthesis. | verify_claims, build_claim_citations, build_synthesis_packet, four-state claim verification, claim-level citation provenance, evidence-sufficiency confidence index, fail-closed synthesis eligibility | models, evidence-graph |
+| Concrete Ollama Embedding Runtime | Call pinned Ollama 0.34.0 through bounded stdlib HTTP and validate qwen3-embedding:0.6b output as exactly 1024-dimensional finite vectors. | OllamaEmbeddingProvider, runtime version check, pinned model identity, query instruction, bounded /api/embed transport | models, semantic-retrieval |
+| Persistent Qdrant Vector Store | Create or validate a versioned named-vector schema, persist deterministic chunk provenance, and return bounded validated vector matches. | QdrantVectorStore, Qdrant 1.19.1 runtime check, named-vector collection schema, deterministic point identity, provenance payload validation | models, ollama-embedding-runtime |
+| Persistent Semantic Index and Retrieval | Connect accepted deterministic chunks to the concrete embedding runtime and Qdrant store without weakening semantic-hit validation. | index_documents, retrieve_persistent_semantic, embed_documents_concrete, embed_query_concrete, build_semantic_hits | models, semantic-retrieval, ollama-embedding-runtime, qdrant-vector-store |
 
 ## Main data flow
 
@@ -89,6 +92,11 @@ Observed source inventory: 34 files, 1 language categories.
 - AnswerClaim -> Claim Verification and Synthesis Gate: at most 16 explicit claim IDs/text/key/value tuples are normalized and matched exactly; no fuzzy semantic inference occurs
 - Claim Verification and Synthesis Gate -> ClaimCitation: exact supporting assertion excerpts retain source URL, chunk identity, and assertion identity per answer claim
 - Claim Verification and Synthesis Gate -> SynthesisPacket: only SUPPORTED claims become synthesis-safe; partial, conflicted, and unsupported claims remain blocked
+- FetchedDocument -> Persistent Semantic Index and Retrieval: bounded fetched evidence is deterministically chunked before concrete document embedding
+- Persistent Semantic Index and Retrieval -> Concrete Ollama Embedding Runtime: bounded document batches and one query role are embedded with the pinned model/runtime contract
+- Concrete Ollama Embedding Runtime -> Persistent Qdrant Vector Store: validated 1024-dimensional vectors are stored with immutable chunk provenance
+- Persistent Qdrant Vector Store -> Persistent Semantic Index and Retrieval: bounded query matches are revalidated for point identity, model, dimension, schema, payload provenance, and finite score
+- Persistent Semantic Index and Retrieval -> SemanticHit: positive persistent matches are returned through the existing immutable SemanticHit contract
 
 ## Main user workflows
 
@@ -240,7 +248,7 @@ Authority: Temporal metadata validation, deterministic freshness/validity formul
 
 Current phase: PHASE_11_CONCRETE_RUNTIME_INDEX
 
-Current status: PLANNING
+Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -304,15 +312,14 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Freeze both Phase 11 BEFORE sequence plans and bind their exact Git ancestry before source implementation.
-- Then implement the minimum stdlib Ollama embedding adapter, Qdrant REST store, and persistent indexing/query orchestration under the frozen contracts.
-- Require cross-platform core regression plus real Ubuntu integration evidence for Ollama qwen3-embedding:0.6b and Qdrant v1.19.1 before Phase 11 acceptance.
+- Synchronize the two Phase 11 ACTUAL sequence graphs and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 11 candidate head.
+- Merge Phase 11 only if every required job passes, then revalidate merged main before closure.
 
 Blocked actions:
-- Do not implement Phase 11 source before both BEFORE plans are frozen and committed.
-- Do not claim concrete model/runtime acceptance from HTTP mocks alone.
-- Do not expose public REST or MCP server endpoints in Phase 11.
-- Do not weaken the existing provider-agnostic semantic contracts or accepted fail-closed provenance rules.
+- Do not claim REST/MCP or production deployment from Phase 11.
+- Do not replace the pinned model/runtime/store schema without a new governed contract and acceptance evidence.
+- Do not bypass exact-head pull-request Acceptance or post-merge main revalidation.
 
 Known blockers:
 - None declared.
@@ -321,14 +328,20 @@ Known blockers:
 
 ### Proven
 
-- Phase 10 product and closure are accepted; closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.
+- Phase 10 closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.
 - Skill Workflow authority is maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259 with ROADMAP_SYNC enforced.
-- Phase 11 planning selects service boundaries rather than adding heavy ML/vector Python dependencies to the portable core.
+- Both Phase 11 BEFORE sequence plans were frozen before implementation at ancestor 7aca8f3886f0698260d2f572782ea30a956be83b.
+- Phase 11 TDD RED run 36611863446 failed before the concrete persistent runtime contract existed; GREEN run 36612347152 passed after implementation.
+- Phase 11 real-service run 36631528065 passed on exact source candidate b20322e074755960b29a4504c95e08a35946c6e2 using Ollama 0.34.0, qwen3-embedding:0.6b, validated 1024-dimensional embeddings, and Qdrant 1.19.1.
+- Real-service integration indexed two evidence documents, ranked the gold-reserve evidence first, restarted Qdrant with the same persistent volume, and ranked the same evidence first after restart.
+- Phase 11 candidate verification run 36631528126 passed both frozen PLAN-to-ACTUAL sequence contracts and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
+- The initial Phase 11 sequence mismatch was static symbol ambiguity from type/test fixtures; the frozen plans were preserved and fixtures were repaired without changing runtime behavior.
 
 ### Not proven
 
-- No Phase 11 source implementation, Ollama runtime call, Qwen3 embedding output, Qdrant persistence, persistent semantic retrieval, or service restart recovery is proven before the frozen BEFORE plans are accepted and implementation tests execute.
-- REST/MCP public service exposure remains Phase 12.
+- Final Phase 11 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- Phase 11 does not expose public REST or MCP endpoints, multi-arch production containers, production load/security acceptance, browser rendering, multimodal grounding, GraphRAG, or learned-ranking optimization.
+- The real-service retrieval probe proves one deterministic integration case, not general retrieval-quality superiority or calibrated semantic relevance.
 
 ## Important limitations
 

@@ -13,6 +13,13 @@
   },
   "modules": [
     {
+      "directory": "integration",
+      "file": "integration/phase11_services.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 146
+    },
+    {
       "directory": "src/max_grounding",
       "file": "src/max_grounding/__init__.py",
       "is_test": false,
@@ -38,7 +45,7 @@
       "file": "src/max_grounding/errors.py",
       "is_test": false,
       "language": "Python",
-      "lines": 57
+      "lines": 69
     },
     {
       "directory": "src/max_grounding",
@@ -73,7 +80,7 @@
       "file": "src/max_grounding/models.py",
       "is_test": false,
       "language": "Python",
-      "lines": 292
+      "lines": 316
     },
     {
       "directory": "src/max_grounding",
@@ -81,6 +88,13 @@
       "is_test": false,
       "language": "Python",
       "lines": 93
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/persistent.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 317
     },
     {
       "directory": "src/max_grounding",
@@ -102,6 +116,20 @@
       "is_test": false,
       "language": "Python",
       "lines": 23
+    },
+    {
+      "directory": "src/max_grounding/providers",
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 246
+    },
+    {
+      "directory": "src/max_grounding/providers",
+      "file": "src/max_grounding/providers/qdrant.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 453
     },
     {
       "directory": "src/max_grounding/providers",
@@ -196,10 +224,31 @@
     },
     {
       "directory": "tests",
+      "file": "tests/test_ollama_embedding.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 118
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_persistent_semantic.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 284
+    },
+    {
+      "directory": "tests",
       "file": "tests/test_policy.py",
       "is_test": true,
       "language": "Python",
       "lines": 47
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_qdrant_store.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 284
     },
     {
       "directory": "tests",
@@ -252,6 +301,138 @@
     }
   ],
   "python_calls": [
+    {
+      "caller": "integration/phase11_services.py::document",
+      "target_token": "FetchedDocument"
+    },
+    {
+      "caller": "integration/phase11_services.py::document",
+      "target_token": "len"
+    },
+    {
+      "caller": "integration/phase11_services.py::document",
+      "target_token": "text.encode"
+    },
+    {
+      "caller": "integration/phase11_services.py::services",
+      "target_token": "os.environ.get"
+    },
+    {
+      "caller": "integration/phase11_services.py::services",
+      "target_token": "os.environ.get"
+    },
+    {
+      "caller": "integration/phase11_services.py::services",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "integration/phase11_services.py::services",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "integration/phase11_services.py::services",
+      "target_token": "provider.verify_runtime"
+    },
+    {
+      "caller": "integration/phase11_services.py::services",
+      "target_token": "store.verify_runtime"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "services"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "provider.embed_query"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "len"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "AssertionError"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "document"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "document"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "index_documents"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "AssertionError"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "retrieve_persistent_semantic"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "AssertionError"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "AssertionError"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "print"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_index",
+      "target_token": "json.dumps"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_query",
+      "target_token": "services"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_query",
+      "target_token": "retrieve_persistent_semantic"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_query",
+      "target_token": "AssertionError"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_query",
+      "target_token": "AssertionError"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_query",
+      "target_token": "print"
+    },
+    {
+      "caller": "integration/phase11_services.py::run_query",
+      "target_token": "json.dumps"
+    },
+    {
+      "caller": "integration/phase11_services.py::main",
+      "target_token": "argparse.ArgumentParser"
+    },
+    {
+      "caller": "integration/phase11_services.py::main",
+      "target_token": "parser.add_argument"
+    },
+    {
+      "caller": "integration/phase11_services.py::main",
+      "target_token": "parser.parse_args"
+    },
+    {
+      "caller": "integration/phase11_services.py::main",
+      "target_token": "run_index"
+    },
+    {
+      "caller": "integration/phase11_services.py::main",
+      "target_token": "run_query"
+    },
     {
       "caller": "src/max_grounding/budget.py::SearchBudget.__post_init__",
       "target_token": "ValueError"
@@ -1253,6 +1434,430 @@
       "target_token": "tuple"
     },
     {
+      "caller": "src/max_grounding/persistent.py::_provider_contract",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_provider_contract",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_provider_contract",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_provider_contract",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_store_contract",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_store_contract",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_store_contract",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_store_contract",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_store_contract",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_store_contract",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_store_contract",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_store_contract",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_store_contract",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_vector",
+      "target_token": "_validated_vector"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::_vector",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "_provider_contract"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "text.strip"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "range"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "provider.embed_documents"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "vectors.extend"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "_vector"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_query_concrete",
+      "target_token": "_provider_contract"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_query_concrete",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_query_concrete",
+      "target_token": "query.strip"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_query_concrete",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_query_concrete",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_query_concrete",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_query_concrete",
+      "target_token": "provider.embed_query"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_query_concrete",
+      "target_token": "query.strip"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_query_concrete",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::embed_query_concrete",
+      "target_token": "_vector"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "_provider_contract"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "_store_contract"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "build_semantic_chunks"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "PersistentIndexResult"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "embed_documents_concrete"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "store.ensure_collection"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "range"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "store.upsert_chunks"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "PersistentIndexResult"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::index_documents",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "float"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "math.isfinite"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "seen.add"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "scored.append"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "scored.sort"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "SemanticHit"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::build_semantic_hits",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "_provider_contract"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "_store_contract"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "embed_query_concrete"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "store.ensure_collection"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "store.query_chunks"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "PersistentIndexError"
+    },
+    {
+      "caller": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "target_token": "build_semantic_hits"
+    },
+    {
       "caller": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
       "target_token": "join"
     },
@@ -1323,6 +1928,890 @@
     {
       "caller": "src/max_grounding/providers/base.py::invoke_search",
       "target_token": "provider.search"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
+      "target_token": "urlsplit"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
+      "target_token": "base_url.strip"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
+      "target_token": "parsed.scheme.lower"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
+      "target_token": "urlunsplit"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
+      "target_token": "parsed.path.rstrip"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "encode"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "json.dumps"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "Request"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "base_url.rstrip"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "build_opener"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "_NoRedirect"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "opener.open"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "response.headers.get_content_type"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "response.headers.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "int"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "response.read"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "json.loads"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "raw.decode"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.__init__",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.__init__",
+      "target_token": "_normalize_base_url"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.__init__",
+      "target_token": "float"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.__init__",
+      "target_token": "int"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.verify_runtime",
+      "target_token": "request_ollama_json"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.verify_runtime",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.verify_runtime",
+      "target_token": "RuntimeProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "self.verify_runtime"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "request_ollama_json"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "EmbeddingProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "EmbeddingProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "_validated_vector"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "math.isfinite"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "math.fsum"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "EmbeddingProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "vectors.append"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_query",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_query",
+      "target_token": "text.strip"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_query",
+      "target_token": "EmbeddingProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_query",
+      "target_token": "self._embed"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_query",
+      "target_token": "text.strip"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "target_token": "EmbeddingProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "target_token": "EmbeddingProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "target_token": "text.strip"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "target_token": "EmbeddingProviderError"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "target_token": "self._embed"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "target_token": "list"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_normalize_base_url",
+      "target_token": "urlsplit"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_normalize_base_url",
+      "target_token": "base_url.strip"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_normalize_base_url",
+      "target_token": "parsed.scheme.lower"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_normalize_base_url",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_normalize_base_url",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_normalize_base_url",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_normalize_base_url",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_normalize_base_url",
+      "target_token": "urlunsplit"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_normalize_base_url",
+      "target_token": "parsed.path.rstrip"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "encode"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "json.dumps"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "Request"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "base_url.rstrip"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "build_opener"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "_NoRedirect"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "opener.open"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "response.headers.get_content_type"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "response.headers.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "int"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "response.read"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "json.loads"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "raw.decode"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "target_token": "str"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "target_token": "uuid.uuid5"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_vector",
+      "target_token": "_validated_vector"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::_vector",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.__init__",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.__init__",
+      "target_token": "_COLLECTION_RE.fullmatch"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.__init__",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.__init__",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.__init__",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.__init__",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.__init__",
+      "target_token": "_normalize_base_url"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.__init__",
+      "target_token": "float"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.__init__",
+      "target_token": "int"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request",
+      "target_token": "request_qdrant_json"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "target_token": "self._request"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._collection_path",
+      "target_token": "quote"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "distance.casefold"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "metadata.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "metadata.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "metadata.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "target_token": "self.verify_runtime"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "target_token": "self._request"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "target_token": "self._request"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "target_token": "created.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "target_token": "self._validate_collection"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "self.ensure_collection"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "zip"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "_vector"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "points.append"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "point_id_for_chunk"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "list"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "self._request"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "result.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "value.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "value.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "value.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "float"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "math.isfinite"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "point_id_for_chunk"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "PersistentVectorHit"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "self.ensure_collection"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "_vector"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "self._request"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "list"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "result.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "VectorStoreError"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "target_token": "self._parse_point"
     },
     {
       "caller": "src/max_grounding/providers/searxng.py::_normalize_base_url",
@@ -4449,6 +5938,582 @@
       "target_token": "self._resolver"
     },
     {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_pinned_runtime_and_model_constants",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_pinned_runtime_and_model_constants",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_pinned_runtime_and_model_constants",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "provider.embed_query"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
+      "target_token": "provider.embed_documents"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
+      "target_token": "list"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed",
+      "target_token": "provider.embed_query"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed",
+      "target_token": "provider.embed_documents"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed",
+      "target_token": "range"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport",
+      "target_token": "provider.embed_documents"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport",
+      "target_token": "request.assert_not_called"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::vector",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::document",
+      "target_token": "FetchedDocument"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::document",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::document",
+      "target_token": "text.encode"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Provider.embed_query",
+      "target_token": "self.query_calls.append"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Provider.embed_query",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Provider.embed_documents",
+      "target_token": "self.document_calls.append"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Provider.embed_documents",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Provider.embed_documents",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Provider.embed_documents",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Store._upsert_chunks",
+      "target_token": "self.upserts.append"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Store._upsert_chunks",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Store._upsert_chunks",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Store._query_chunks",
+      "target_token": "self.queries.append"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::_Store._query_chunks",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding",
+      "target_token": "embed_documents_concrete"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding",
+      "target_token": "embed_query_concrete"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "_Store"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "document"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "index_documents"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "self.assertGreater"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "target_token": "all"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls",
+      "target_token": "_Store"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls",
+      "target_token": "index_documents"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "_Store"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "PersistentVectorHit"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "retrieve_persistent_semantic"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "target_token": "self.assertAlmostEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "target_token": "PersistentVectorHit"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "target_token": "PersistentVectorHit"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "target_token": "PersistentVectorHit"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "target_token": "build_semantic_hits"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed",
+      "target_token": "_Store"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed",
+      "target_token": "document"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed",
+      "target_token": "_Store"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed",
+      "target_token": "setattr"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed",
+      "target_token": "index_documents"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "embed_query_concrete"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "BadProvider"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "_Provider"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "_Store"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "PersistentVectorHit"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "float"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "retrieve_persistent_semantic"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "retrieve_persistent_semantic"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "_Store"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "retrieve_persistent_semantic"
+    },
+    {
+      "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "target_token": "_Store"
+    },
+    {
       "caller": "tests/test_policy.py::GroundingPolicyTests.setUp",
       "target_token": "GroundingPolicy"
     },
@@ -4519,6 +6584,354 @@
     {
       "caller": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
       "target_token": "self.policy.validate_request"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::chunk",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_pinned_runtime_and_schema_constants",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_pinned_runtime_and_schema_constants",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_pinned_runtime_and_schema_constants",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_pinned_runtime_and_schema_constants",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity",
+      "target_token": "point_id_for_chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity",
+      "target_token": "point_id_for_chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity",
+      "target_token": "point_id_for_chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity",
+      "target_token": "self.assertNotEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity",
+      "target_token": "uuid.UUID"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing",
+      "target_token": "store.ensure_collection"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema",
+      "target_token": "collection_payload"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema",
+      "target_token": "collection_payload"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema",
+      "target_token": "store.ensure_collection"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "store.upsert_chunks"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "point_id_for_chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "list"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "point_id_for_chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "store.query_chunks"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "self.assertAlmostEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "str"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "uuid.uuid4"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "point_id_for_chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "point_id_for_chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "point_id_for_chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "float"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "store.query_chunks"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "store.query_chunks"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "store.query_chunks"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "store.upsert_chunks"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "float"
+    },
+    {
+      "caller": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "target_token": "range"
     },
     {
       "caller": "tests/test_reranking.py::chunk",
@@ -7324,6 +9737,46 @@
   "python_routes": [],
   "python_symbols": [
     {
+      "file": "integration/phase11_services.py",
+      "kind": "function",
+      "line_end": 30,
+      "line_start": 22,
+      "locator": "integration/phase11_services.py::document",
+      "symbol": "document"
+    },
+    {
+      "file": "integration/phase11_services.py",
+      "kind": "function",
+      "line_end": 40,
+      "line_start": 33,
+      "locator": "integration/phase11_services.py::services",
+      "symbol": "services"
+    },
+    {
+      "file": "integration/phase11_services.py",
+      "kind": "function",
+      "line_end": 105,
+      "line_start": 43,
+      "locator": "integration/phase11_services.py::run_index",
+      "symbol": "run_index"
+    },
+    {
+      "file": "integration/phase11_services.py",
+      "kind": "function",
+      "line_end": 131,
+      "line_start": 108,
+      "locator": "integration/phase11_services.py::run_query",
+      "symbol": "run_query"
+    },
+    {
+      "file": "integration/phase11_services.py",
+      "kind": "function",
+      "line_end": 142,
+      "line_start": 134,
+      "locator": "integration/phase11_services.py::main",
+      "symbol": "main"
+    },
+    {
       "file": "src/max_grounding/__init__.py",
       "kind": "function",
       "line_end": 15,
@@ -7498,6 +9951,30 @@
       "line_start": 56,
       "locator": "src/max_grounding/errors.py::ClaimVerificationError",
       "symbol": "ClaimVerificationError"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 61,
+      "line_start": 60,
+      "locator": "src/max_grounding/errors.py::RuntimeProviderError",
+      "symbol": "RuntimeProviderError"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 65,
+      "line_start": 64,
+      "locator": "src/max_grounding/errors.py::VectorStoreError",
+      "symbol": "VectorStoreError"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 69,
+      "line_start": 68,
+      "locator": "src/max_grounding/errors.py::PersistentIndexError",
+      "symbol": "PersistentIndexError"
     },
     {
       "file": "src/max_grounding/evidence.py",
@@ -7964,6 +10441,22 @@
       "symbol": "SynthesisPacket"
     },
     {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 304,
+      "line_start": 296,
+      "locator": "src/max_grounding/models.py::PersistentVectorHit",
+      "symbol": "PersistentVectorHit"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 316,
+      "line_start": 308,
+      "locator": "src/max_grounding/models.py::PersistentIndexResult",
+      "symbol": "PersistentIndexResult"
+    },
+    {
       "file": "src/max_grounding/network_policy.py",
       "kind": "function",
       "line_end": 50,
@@ -7978,6 +10471,102 @@
       "line_start": 53,
       "locator": "src/max_grounding/network_policy.py::resolve_public_addresses",
       "symbol": "resolve_public_addresses"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "class",
+      "line_end": 58,
+      "line_start": 50,
+      "locator": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider",
+      "symbol": "ConcreteEmbeddingProvider"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "method",
+      "line_end": 55,
+      "line_start": 54,
+      "locator": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_query",
+      "symbol": "ConcreteEmbeddingProvider.embed_query"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "method",
+      "line_end": 58,
+      "line_start": 57,
+      "locator": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_documents",
+      "symbol": "ConcreteEmbeddingProvider.embed_documents"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "class",
+      "line_end": 68,
+      "line_start": 61,
+      "locator": "src/max_grounding/persistent.py::PersistentVectorStore",
+      "symbol": "PersistentVectorStore"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "function",
+      "line_end": 75,
+      "line_start": 71,
+      "locator": "src/max_grounding/persistent.py::_provider_contract",
+      "symbol": "_provider_contract"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "function",
+      "line_end": 87,
+      "line_start": 78,
+      "locator": "src/max_grounding/persistent.py::_store_contract",
+      "symbol": "_store_contract"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "function",
+      "line_end": 99,
+      "line_start": 90,
+      "locator": "src/max_grounding/persistent.py::_vector",
+      "symbol": "_vector"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "function",
+      "line_end": 147,
+      "line_start": 102,
+      "locator": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "symbol": "embed_documents_concrete"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "function",
+      "line_end": 168,
+      "line_start": 150,
+      "locator": "src/max_grounding/persistent.py::embed_query_concrete",
+      "symbol": "embed_query_concrete"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "function",
+      "line_end": 233,
+      "line_start": 171,
+      "locator": "src/max_grounding/persistent.py::index_documents",
+      "symbol": "index_documents"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "function",
+      "line_end": 292,
+      "line_start": 236,
+      "locator": "src/max_grounding/persistent.py::build_semantic_hits",
+      "symbol": "build_semantic_hits"
+    },
+    {
+      "file": "src/max_grounding/persistent.py",
+      "kind": "function",
+      "line_end": 317,
+      "line_start": 295,
+      "locator": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "symbol": "retrieve_persistent_semantic"
     },
     {
       "file": "src/max_grounding/policy.py",
@@ -8018,6 +10607,214 @@
       "line_start": 18,
       "locator": "src/max_grounding/providers/base.py::invoke_search",
       "symbol": "invoke_search"
+    },
+    {
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "kind": "class",
+      "line_end": 28,
+      "line_start": 26,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::_NoRedirect",
+      "symbol": "_NoRedirect"
+    },
+    {
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "kind": "method",
+      "line_end": 28,
+      "line_start": 27,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::_NoRedirect.redirect_request",
+      "symbol": "_NoRedirect.redirect_request"
+    },
+    {
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "kind": "function",
+      "line_end": 61,
+      "line_start": 31,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
+      "symbol": "_normalize_base_url"
+    },
+    {
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "kind": "function",
+      "line_end": 130,
+      "line_start": 64,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
+      "symbol": "request_ollama_json"
+    },
+    {
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "kind": "class",
+      "line_end": 246,
+      "line_start": 133,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider",
+      "symbol": "OllamaEmbeddingProvider"
+    },
+    {
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "kind": "method",
+      "line_end": 154,
+      "line_start": 140,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.__init__",
+      "symbol": "OllamaEmbeddingProvider.__init__"
+    },
+    {
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "kind": "method",
+      "line_end": 170,
+      "line_start": 156,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.verify_runtime",
+      "symbol": "OllamaEmbeddingProvider.verify_runtime"
+    },
+    {
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "kind": "method",
+      "line_end": 216,
+      "line_start": 172,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
+      "symbol": "OllamaEmbeddingProvider._embed"
+    },
+    {
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "kind": "method",
+      "line_end": 225,
+      "line_start": 218,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_query",
+      "symbol": "OllamaEmbeddingProvider.embed_query"
+    },
+    {
+      "file": "src/max_grounding/providers/ollama_embedding.py",
+      "kind": "method",
+      "line_end": 246,
+      "line_start": 227,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
+      "symbol": "OllamaEmbeddingProvider.embed_documents"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "class",
+      "line_end": 34,
+      "line_start": 32,
+      "locator": "src/max_grounding/providers/qdrant.py::_NoRedirect",
+      "symbol": "_NoRedirect"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "method",
+      "line_end": 34,
+      "line_start": 33,
+      "locator": "src/max_grounding/providers/qdrant.py::_NoRedirect.redirect_request",
+      "symbol": "_NoRedirect.redirect_request"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "function",
+      "line_end": 67,
+      "line_start": 37,
+      "locator": "src/max_grounding/providers/qdrant.py::_normalize_base_url",
+      "symbol": "_normalize_base_url"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "function",
+      "line_end": 145,
+      "line_start": 70,
+      "locator": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "symbol": "request_qdrant_json"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "function",
+      "line_end": 151,
+      "line_start": 148,
+      "locator": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "symbol": "point_id_for_chunk"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "function",
+      "line_end": 161,
+      "line_start": 154,
+      "locator": "src/max_grounding/providers/qdrant.py::_vector",
+      "symbol": "_vector"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "class",
+      "line_end": 453,
+      "line_start": 164,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore",
+      "symbol": "QdrantVectorStore"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "method",
+      "line_end": 193,
+      "line_start": 171,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.__init__",
+      "symbol": "QdrantVectorStore.__init__"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "method",
+      "line_end": 212,
+      "line_start": 195,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request",
+      "symbol": "QdrantVectorStore._request"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "method",
+      "line_end": 222,
+      "line_start": 214,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "symbol": "QdrantVectorStore.verify_runtime"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "method",
+      "line_end": 226,
+      "line_start": 225,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._collection_path",
+      "symbol": "QdrantVectorStore._collection_path"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "method",
+      "line_end": 263,
+      "line_start": 228,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "symbol": "QdrantVectorStore._validate_collection"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "method",
+      "line_end": 300,
+      "line_start": 265,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "symbol": "QdrantVectorStore.ensure_collection"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "method",
+      "line_end": 351,
+      "line_start": 302,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "symbol": "QdrantVectorStore.upsert_chunks"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "method",
+      "line_end": 421,
+      "line_start": 353,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "symbol": "QdrantVectorStore._parse_point"
+    },
+    {
+      "file": "src/max_grounding/providers/qdrant.py",
+      "kind": "method",
+      "line_end": 453,
+      "line_start": 423,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "symbol": "QdrantVectorStore.query_chunks"
     },
     {
       "file": "src/max_grounding/providers/searxng.py",
@@ -9036,6 +11833,246 @@
       "symbol": "ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers"
     },
     {
+      "file": "tests/test_ollama_embedding.py",
+      "kind": "function",
+      "line_end": 19,
+      "line_start": 16,
+      "locator": "tests/test_ollama_embedding.py::vector",
+      "symbol": "vector"
+    },
+    {
+      "file": "tests/test_ollama_embedding.py",
+      "kind": "class",
+      "line_end": 114,
+      "line_start": 22,
+      "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests",
+      "symbol": "OllamaEmbeddingProviderTests"
+    },
+    {
+      "file": "tests/test_ollama_embedding.py",
+      "kind": "method",
+      "line_end": 26,
+      "line_start": 23,
+      "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_pinned_runtime_and_model_constants",
+      "symbol": "OllamaEmbeddingProviderTests.test_pinned_runtime_and_model_constants"
+    },
+    {
+      "file": "tests/test_ollama_embedding.py",
+      "kind": "method",
+      "line_end": 48,
+      "line_start": 28,
+      "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
+      "symbol": "OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension"
+    },
+    {
+      "file": "tests/test_ollama_embedding.py",
+      "kind": "method",
+      "line_end": 64,
+      "line_start": 50,
+      "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
+      "symbol": "OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts"
+    },
+    {
+      "file": "tests/test_ollama_embedding.py",
+      "kind": "method",
+      "line_end": 90,
+      "line_start": 66,
+      "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed",
+      "symbol": "OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed"
+    },
+    {
+      "file": "tests/test_ollama_embedding.py",
+      "kind": "method",
+      "line_end": 106,
+      "line_start": 92,
+      "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed",
+      "symbol": "OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed"
+    },
+    {
+      "file": "tests/test_ollama_embedding.py",
+      "kind": "method",
+      "line_end": 114,
+      "line_start": 108,
+      "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport",
+      "symbol": "OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "function",
+      "line_end": 25,
+      "line_start": 22,
+      "locator": "tests/test_persistent_semantic.py::vector",
+      "symbol": "vector"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "function",
+      "line_end": 36,
+      "line_start": 28,
+      "locator": "tests/test_persistent_semantic.py::document",
+      "symbol": "document"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "class",
+      "line_end": 53,
+      "line_start": 39,
+      "locator": "tests/test_persistent_semantic.py::_Provider",
+      "symbol": "_Provider"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 45,
+      "line_start": 43,
+      "locator": "tests/test_persistent_semantic.py::_Provider.__init__",
+      "symbol": "_Provider.__init__"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 49,
+      "line_start": 47,
+      "locator": "tests/test_persistent_semantic.py::_Provider.embed_query",
+      "symbol": "_Provider.embed_query"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 53,
+      "line_start": 51,
+      "locator": "tests/test_persistent_semantic.py::_Provider.embed_documents",
+      "symbol": "_Provider.embed_documents"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "class",
+      "line_end": 79,
+      "line_start": 56,
+      "locator": "tests/test_persistent_semantic.py::_Store",
+      "symbol": "_Store"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 69,
+      "line_start": 62,
+      "locator": "tests/test_persistent_semantic.py::_Store.__init__",
+      "symbol": "_Store.__init__"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 72,
+      "line_start": 71,
+      "locator": "tests/test_persistent_semantic.py::_Store._ensure_collection",
+      "symbol": "_Store._ensure_collection"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 75,
+      "line_start": 74,
+      "locator": "tests/test_persistent_semantic.py::_Store._upsert_chunks",
+      "symbol": "_Store._upsert_chunks"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 79,
+      "line_start": 77,
+      "locator": "tests/test_persistent_semantic.py::_Store._query_chunks",
+      "symbol": "_Store._query_chunks"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "class",
+      "line_end": 280,
+      "line_start": 82,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests",
+      "symbol": "PersistentSemanticTests"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 93,
+      "line_start": 83,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding",
+      "symbol": "PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 101,
+      "line_start": 95,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding",
+      "symbol": "PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 133,
+      "line_start": 103,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance",
+      "symbol": "PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 143,
+      "line_start": 135,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls",
+      "symbol": "PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 180,
+      "line_start": 145,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store",
+      "symbol": "PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 230,
+      "line_start": 182,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties",
+      "symbol": "PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 246,
+      "line_start": 232,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed",
+      "symbol": "PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 280,
+      "line_start": 248,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
+      "symbol": "PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "class",
+      "line_end": 251,
+      "line_start": 249,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider",
+      "symbol": "PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider"
+    },
+    {
+      "file": "tests/test_persistent_semantic.py",
+      "kind": "method",
+      "line_end": 251,
+      "line_start": 250,
+      "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider.embed_query",
+      "symbol": "PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider.embed_query"
+    },
+    {
       "file": "tests/test_policy.py",
       "kind": "class",
       "line_end": 43,
@@ -9082,6 +12119,102 @@
       "line_start": 35,
       "locator": "tests/test_policy.py::GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits",
       "symbol": "GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "function",
+      "line_end": 31,
+      "line_start": 24,
+      "locator": "tests/test_qdrant_store.py::chunk",
+      "symbol": "chunk"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "function",
+      "line_end": 35,
+      "line_start": 34,
+      "locator": "tests/test_qdrant_store.py::vector",
+      "symbol": "vector"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "function",
+      "line_end": 60,
+      "line_start": 38,
+      "locator": "tests/test_qdrant_store.py::collection_payload",
+      "symbol": "collection_payload"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "class",
+      "line_end": 280,
+      "line_start": 63,
+      "locator": "tests/test_qdrant_store.py::QdrantVectorStoreTests",
+      "symbol": "QdrantVectorStoreTests"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "method",
+      "line_end": 68,
+      "line_start": 64,
+      "locator": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_pinned_runtime_and_schema_constants",
+      "symbol": "QdrantVectorStoreTests.test_pinned_runtime_and_schema_constants"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "method",
+      "line_end": 77,
+      "line_start": 70,
+      "locator": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity",
+      "symbol": "QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "method",
+      "line_end": 105,
+      "line_start": 79,
+      "locator": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing",
+      "symbol": "QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "method",
+      "line_end": 132,
+      "line_start": 107,
+      "locator": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema",
+      "symbol": "QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "method",
+      "line_end": 166,
+      "line_start": 134,
+      "locator": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload",
+      "symbol": "QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "method",
+      "line_end": 208,
+      "line_start": 168,
+      "locator": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance",
+      "symbol": "QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "method",
+      "line_end": 257,
+      "line_start": 210,
+      "locator": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score",
+      "symbol": "QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score"
+    },
+    {
+      "file": "tests/test_qdrant_store.py",
+      "kind": "method",
+      "line_end": 280,
+      "line_start": 259,
+      "locator": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
+      "symbol": "QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed"
     },
     {
       "file": "tests/test_reranking.py",
@@ -10109,14 +13242,14 @@
     }
   ],
   "schema_version": 1,
-  "source_digest": "4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f",
+  "source_digest": "f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2",
   "source_summary": {
-    "files": 34,
+    "files": 41,
     "languages": {
-      "Python": 34
+      "Python": 41
     },
-    "lines": 5980,
-    "test_files": 15
+    "lines": 7864,
+    "test_files": 18
   },
   "tests": [
     "tests/test_bootstrap.py",
@@ -10126,7 +13259,10 @@
     "tests/test_evidence_graph.py",
     "tests/test_hybrid.py",
     "tests/test_network_policy.py",
+    "tests/test_ollama_embedding.py",
+    "tests/test_persistent_semantic.py",
     "tests/test_policy.py",
+    "tests/test_qdrant_store.py",
     "tests/test_reranking.py",
     "tests/test_retrieval.py",
     "tests/test_searxng_provider.py",

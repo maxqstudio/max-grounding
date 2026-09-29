@@ -28,7 +28,9 @@
         "ClaimVerificationStatus",
         "ClaimCitation",
         "ClaimVerification",
-        "SynthesisPacket"
+        "SynthesisPacket",
+        "PersistentVectorHit",
+        "PersistentIndexResult"
       ],
       "depends_on": []
     },
@@ -260,6 +262,56 @@
         "models",
         "evidence-graph"
       ]
+    },
+    {
+      "id": "ollama-embedding-runtime",
+      "name": "Concrete Ollama Embedding Runtime",
+      "purpose": "Call pinned Ollama 0.34.0 through bounded stdlib HTTP and validate qwen3-embedding:0.6b output as exactly 1024-dimensional finite vectors.",
+      "owns": [
+        "OllamaEmbeddingProvider",
+        "runtime version check",
+        "pinned model identity",
+        "query instruction",
+        "bounded /api/embed transport"
+      ],
+      "depends_on": [
+        "models",
+        "semantic-retrieval"
+      ]
+    },
+    {
+      "id": "qdrant-vector-store",
+      "name": "Persistent Qdrant Vector Store",
+      "purpose": "Create or validate a versioned named-vector schema, persist deterministic chunk provenance, and return bounded validated vector matches.",
+      "owns": [
+        "QdrantVectorStore",
+        "Qdrant 1.19.1 runtime check",
+        "named-vector collection schema",
+        "deterministic point identity",
+        "provenance payload validation"
+      ],
+      "depends_on": [
+        "models",
+        "ollama-embedding-runtime"
+      ]
+    },
+    {
+      "id": "persistent-semantic",
+      "name": "Persistent Semantic Index and Retrieval",
+      "purpose": "Connect accepted deterministic chunks to the concrete embedding runtime and Qdrant store without weakening semantic-hit validation.",
+      "owns": [
+        "index_documents",
+        "retrieve_persistent_semantic",
+        "embed_documents_concrete",
+        "embed_query_concrete",
+        "build_semantic_hits"
+      ],
+      "depends_on": [
+        "models",
+        "semantic-retrieval",
+        "ollama-embedding-runtime",
+        "qdrant-vector-store"
+      ]
     }
   ],
   "data_flows": [
@@ -452,6 +504,31 @@
       "from": "Claim Verification and Synthesis Gate",
       "to": "SynthesisPacket",
       "meaning": "only SUPPORTED claims become synthesis-safe; partial, conflicted, and unsupported claims remain blocked"
+    },
+    {
+      "from": "FetchedDocument",
+      "to": "Persistent Semantic Index and Retrieval",
+      "meaning": "bounded fetched evidence is deterministically chunked before concrete document embedding"
+    },
+    {
+      "from": "Persistent Semantic Index and Retrieval",
+      "to": "Concrete Ollama Embedding Runtime",
+      "meaning": "bounded document batches and one query role are embedded with the pinned model/runtime contract"
+    },
+    {
+      "from": "Concrete Ollama Embedding Runtime",
+      "to": "Persistent Qdrant Vector Store",
+      "meaning": "validated 1024-dimensional vectors are stored with immutable chunk provenance"
+    },
+    {
+      "from": "Persistent Qdrant Vector Store",
+      "to": "Persistent Semantic Index and Retrieval",
+      "meaning": "bounded query matches are revalidated for point identity, model, dimension, schema, payload provenance, and finite score"
+    },
+    {
+      "from": "Persistent Semantic Index and Retrieval",
+      "to": "SemanticHit",
+      "meaning": "positive persistent matches are returned through the existing immutable SemanticHit contract"
     }
   ],
   "external_boundaries": [
@@ -474,6 +551,14 @@
     {
       "name": "Rerank provider",
       "contract": "Injected Phase 7 scoring boundary. Core accepts one bounded Sequence of exactly one finite numeric score per candidate; arbitrary iterables, wrong counts, booleans, non-numeric values, non-finite values, or provider exceptions fail closed. No concrete model/runtime is accepted in Phase 7."
+    },
+    {
+      "name": "Ollama service",
+      "contract": "Phase 11 accepts exactly Ollama 0.34.0 with qwen3-embedding:0.6b through bounded non-redirecting stdlib HTTP. Query/document output must be exactly 1024 finite dimensions; model/runtime mismatch fails closed."
+    },
+    {
+      "name": "Qdrant service",
+      "contract": "Phase 11 accepts Qdrant 1.19.1 through bounded stdlib REST. Collection vector name/model/dimension/schema and returned provenance payload are revalidated; persistent-volume restart recovery is proven by real-service integration."
     }
   ]
 }

@@ -18,7 +18,7 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-11-persistent-index.actual.json",
     "diagram": "docs/sequence/generated/phase-11-persistent-index.actual.mmd",
-    "source_digest": "",
+    "source_digest": "f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2",
     "entries": [
       "src/max_grounding/persistent.py::index_documents"
     ]

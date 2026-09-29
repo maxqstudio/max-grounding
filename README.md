@@ -32,13 +32,13 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 10 is accepted on main at `dab1961e04f7610a4bf7a9de55a8a649a6fe8990`.
+Phase 11 is a candidate for the concrete self-hosted embedding runtime and persistent semantic index.
 
-Accepted Phase 10 verifies at most 16 explicit structured answer claims by exact normalized claim key/value matching against the accepted evidence graph, emits `SUPPORTED`, `PARTIALLY_SUPPORTED`, `CONFLICTED`, or `UNSUPPORTED`, binds exact assertion/source/chunk/excerpt citations, and exposes only `SUPPORTED` claims to the structured synthesis-safe set.
+The candidate uses pinned Ollama 0.34.0 with qwen3-embedding:0.6b and validates exactly 1024 embedding dimensions. It uses a stdlib Qdrant REST adapter pinned to Qdrant 1.19.1 with a versioned named-vector collection schema, deterministic chunk point IDs, and provenance payload validation.
 
-Its confidence value is a deterministic evidence-sufficiency index, not a calibrated probability that a claim is true. Phase 10 does not extract free-form claims, perform fuzzy semantic/NLI verification, or generate final prose.
+GitHub Actions real-service evidence proves indexing and semantic query against the pinned services and proves the same expected evidence remains queryable after a Qdrant service restart using the persistent volume. The portable Python core/adapters also pass Python 3.11-3.14 on Linux, Windows, and macOS.
 
-Phase 11 is next: concrete embedding runtime, Qdrant/persistent indexing, and production adapters. REST/MCP and final production acceptance remain Phase 12.
+Phase 11 does not expose public REST/MCP endpoints or claim production deployment; those remain Phase 12.
 
 ## Platform policy
 
@@ -49,7 +49,7 @@ Service-heavy dependencies such as search engines, vector databases, model runti
 
 Project governance follows `maxqstudio/Skill_Workflow` pinned at:
 
-`9e22feddb8f94e8c0f1af6a33e14b64de5068f8f`
+`c1d7e58a0fcadc606c8cf75c6283a17278f99259`
 
 Canonical human-facing governance documentation is generated under `docs/` from structured specs under `.workflow/`.
 

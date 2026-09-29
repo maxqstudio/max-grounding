@@ -3,11 +3,16 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f
+Source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
 |---|---|---|---|---|---|---|---|
+| integration/phase11_services.py | document | function | 22-30 | Observed Python symbol | | | |
+| integration/phase11_services.py | services | function | 33-40 | Observed Python symbol | | | |
+| integration/phase11_services.py | run_index | function | 43-105 | Observed Python symbol | | | |
+| integration/phase11_services.py | run_query | function | 108-131 | Observed Python symbol | | | |
+| integration/phase11_services.py | main | function | 134-142 | Observed Python symbol | | | |
 | src/max_grounding/__init__.py | project_identity | function | 8-15 | Observed Python symbol | | | |
 | src/max_grounding/budget.py | SearchBudget | class | 13-30 | Observed Python symbol | | | |
 | src/max_grounding/budget.py | SearchBudget.__post_init__ | method | 19-21 | Observed Python symbol | | | |
@@ -30,6 +35,9 @@ Status: CURRENT
 | src/max_grounding/errors.py | AuthorityProviderError | class | 48-49 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | EvidenceGraphError | class | 52-53 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | ClaimVerificationError | class | 56-57 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | RuntimeProviderError | class | 60-61 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | VectorStoreError | class | 64-65 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | PersistentIndexError | class | 68-69 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
@@ -88,13 +96,53 @@ Status: CURRENT
 | src/max_grounding/models.py | ClaimCitation | class | 264-271 | Observed Python symbol | | | |
 | src/max_grounding/models.py | ClaimVerification | class | 275-283 | Observed Python symbol | | | |
 | src/max_grounding/models.py | SynthesisPacket | class | 287-292 | Observed Python symbol | | | |
+| src/max_grounding/models.py | PersistentVectorHit | class | 296-304 | Observed Python symbol | | | |
+| src/max_grounding/models.py | PersistentIndexResult | class | 308-316 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | is_admissible_result_url | function | 18-50 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | resolve_public_addresses | function | 53-93 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | ConcreteEmbeddingProvider | class | 50-58 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | ConcreteEmbeddingProvider.embed_query | method | 54-55 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | ConcreteEmbeddingProvider.embed_documents | method | 57-58 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | PersistentVectorStore | class | 61-68 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | _provider_contract | function | 71-75 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | _store_contract | function | 78-87 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | _vector | function | 90-99 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | embed_documents_concrete | function | 102-147 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | embed_query_concrete | function | 150-168 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | index_documents | function | 171-233 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | build_semantic_hits | function | 236-292 | Observed Python symbol | | | |
+| src/max_grounding/persistent.py | retrieve_persistent_semantic | function | 295-317 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy.validate_request | method | 18-51 | Observed Python symbol | | | |
 | src/max_grounding/providers/base.py | SearchProvider | class | 10-15 | Observed Python symbol | | | |
 | src/max_grounding/providers/base.py | SearchProvider.search | method | 13-15 | Observed Python symbol | | | |
 | src/max_grounding/providers/base.py | invoke_search | function | 18-23 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | _NoRedirect | class | 26-28 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | _NoRedirect.redirect_request | method | 27-28 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | _normalize_base_url | function | 31-61 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | request_ollama_json | function | 64-130 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider | class | 133-246 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.__init__ | method | 140-154 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.verify_runtime | method | 156-170 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider._embed | method | 172-216 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.embed_query | method | 218-225 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.embed_documents | method | 227-246 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | _NoRedirect | class | 32-34 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | _NoRedirect.redirect_request | method | 33-34 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | _normalize_base_url | function | 37-67 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | request_qdrant_json | function | 70-145 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | point_id_for_chunk | function | 148-151 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | _vector | function | 154-161 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | QdrantVectorStore | class | 164-453 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | QdrantVectorStore.__init__ | method | 171-193 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | QdrantVectorStore._request | method | 195-212 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | QdrantVectorStore.verify_runtime | method | 214-222 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | QdrantVectorStore._collection_path | method | 225-226 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | QdrantVectorStore._validate_collection | method | 228-263 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | QdrantVectorStore.ensure_collection | method | 265-300 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | QdrantVectorStore.upsert_chunks | method | 302-351 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | QdrantVectorStore._parse_point | method | 353-421 | Observed Python symbol | | | |
+| src/max_grounding/providers/qdrant.py | QdrantVectorStore.query_chunks | method | 423-453 | Observed Python symbol | | | |
 | src/max_grounding/providers/searxng.py | _NoRedirect | class | 24-28 | Observed Python symbol | | | |
 | src/max_grounding/providers/searxng.py | _NoRedirect.redirect_request | method | 27-28 | Observed Python symbol | | | |
 | src/max_grounding/providers/searxng.py | _normalize_base_url | function | 31-54 | Observed Python symbol | | | |
@@ -222,12 +270,54 @@ Status: CURRENT
 | tests/test_network_policy.py | ConnectionTargetResolutionTests.test_accepts_and_deduplicates_only_public_dns_answers | method | 81-92 | Observed Python symbol | | | |
 | tests/test_network_policy.py | ConnectionTargetResolutionTests.test_rejects_mixed_public_and_private_dns_answers | method | 94-100 | Observed Python symbol | | | |
 | tests/test_network_policy.py | ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers | method | 102-119 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | vector | function | 16-19 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests | class | 22-114 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_pinned_runtime_and_model_constants | method | 23-26 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension | method | 28-48 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts | method | 50-64 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed | method | 66-90 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed | method | 92-106 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport | method | 108-114 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | vector | function | 22-25 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | document | function | 28-36 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | _Provider | class | 39-53 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | _Provider.__init__ | method | 43-45 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | _Provider.embed_query | method | 47-49 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | _Provider.embed_documents | method | 51-53 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | _Store | class | 56-79 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | _Store.__init__ | method | 62-69 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | _Store._ensure_collection | method | 71-72 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | _Store._upsert_chunks | method | 74-75 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | _Store._query_chunks | method | 77-79 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests | class | 82-280 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding | method | 83-93 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding | method | 95-101 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance | method | 103-133 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls | method | 135-143 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store | method | 145-180 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties | method | 182-230 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed | method | 232-246 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed | method | 248-280 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider | class | 249-251 | Observed Python symbol | | | |
+| tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider.embed_query | method | 250-251 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests | class | 10-43 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.setUp | method | 11-12 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_blank_query | method | 14-16 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_more_than_two_search_rounds | method | 18-22 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_normalizes_query_and_locale | method | 24-33 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits | method | 35-43 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | chunk | function | 24-31 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | vector | function | 34-35 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | collection_payload | function | 38-60 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | QdrantVectorStoreTests | class | 63-280 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_pinned_runtime_and_schema_constants | method | 64-68 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity | method | 70-77 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing | method | 79-105 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema | method | 107-132 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload | method | 134-166 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance | method | 168-208 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score | method | 210-257 | Observed Python symbol | | | |
+| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed | method | 259-280 | Observed Python symbol | | | |
 | tests/test_reranking.py | chunk | function | 19-26 | Observed Python symbol | | | |
 | tests/test_reranking.py | hybrid | function | 29-43 | Observed Python symbol | | | |
 | tests/test_reranking.py | _Provider | class | 46-56 | Observed Python symbol | | | |

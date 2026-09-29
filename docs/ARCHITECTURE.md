@@ -2,13 +2,13 @@
 
 # ARCHITECTURE
 
-Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f
+Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
 
 ## Components
 
 | ID | Component | Purpose | Owns | Depends On |
 |---|---|---|---|---|
-| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt, EvidenceAssertion, EvidenceRelationType, EvidenceRelation, EvidenceCluster, EvidenceGraph, AnswerClaim, ClaimVerificationStatus, ClaimCitation, ClaimVerification, SynthesisPacket |  |
+| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt, EvidenceAssertion, EvidenceRelationType, EvidenceRelation, EvidenceCluster, EvidenceGraph, AnswerClaim, ClaimVerificationStatus, ClaimCitation, ClaimVerification, SynthesisPacket, PersistentVectorHit, PersistentIndexResult |  |
 | policy | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | budget | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | provider-boundary | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -24,6 +24,9 @@ Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e505
 | temporal-authority | Temporal and Source Authority Scoring | Bind explicit UTC temporal/source metadata to bounded evidence, obtain authority scores through an injected policy, and deterministically score freshness and point-in-time validity. | AuthorityProvider protocol, score_authority, score_temporal_components, score_evidence_quality, explicit evaluation-time policy, freshness horizon bounds, temporal validity checks, stable quality ranking | models, rerank-compress |
 | evidence-graph | Evidence Graph | Normalize bounded structured assertions backed by Phase 8 quality evidence, derive deterministic corroboration/contradiction edges, and cluster equivalent values with distinct source-URL accounting without declaring truth. | build_evidence_graph, build_relations, build_clusters, structured assertion normalization, explicit exclusivity semantics, distinct-URL quality-weight accounting, no-winner graph contract | models, temporal-authority |
 | claim-verification | Claim Verification and Synthesis Gate | Verify bounded exact structured answer claims against the accepted evidence graph, bind exact citations, derive a transparent evidence-sufficiency index, and expose only fully supported claims to synthesis. | verify_claims, build_claim_citations, build_synthesis_packet, four-state claim verification, claim-level citation provenance, evidence-sufficiency confidence index, fail-closed synthesis eligibility | models, evidence-graph |
+| ollama-embedding-runtime | Concrete Ollama Embedding Runtime | Call pinned Ollama 0.34.0 through bounded stdlib HTTP and validate qwen3-embedding:0.6b output as exactly 1024-dimensional finite vectors. | OllamaEmbeddingProvider, runtime version check, pinned model identity, query instruction, bounded /api/embed transport | models, semantic-retrieval |
+| qdrant-vector-store | Persistent Qdrant Vector Store | Create or validate a versioned named-vector schema, persist deterministic chunk provenance, and return bounded validated vector matches. | QdrantVectorStore, Qdrant 1.19.1 runtime check, named-vector collection schema, deterministic point identity, provenance payload validation | models, ollama-embedding-runtime |
+| persistent-semantic | Persistent Semantic Index and Retrieval | Connect accepted deterministic chunks to the concrete embedding runtime and Qdrant store without weakening semantic-hit validation. | index_documents, retrieve_persistent_semantic, embed_documents_concrete, embed_query_concrete, build_semantic_hits | models, semantic-retrieval, ollama-embedding-runtime, qdrant-vector-store |
 
 ## Data flow
 
@@ -65,6 +68,11 @@ Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e505
 - AnswerClaim -> Claim Verification and Synthesis Gate: at most 16 explicit claim IDs/text/key/value tuples are normalized and matched exactly; no fuzzy semantic inference occurs
 - Claim Verification and Synthesis Gate -> ClaimCitation: exact supporting assertion excerpts retain source URL, chunk identity, and assertion identity per answer claim
 - Claim Verification and Synthesis Gate -> SynthesisPacket: only SUPPORTED claims become synthesis-safe; partial, conflicted, and unsupported claims remain blocked
+- FetchedDocument -> Persistent Semantic Index and Retrieval: bounded fetched evidence is deterministically chunked before concrete document embedding
+- Persistent Semantic Index and Retrieval -> Concrete Ollama Embedding Runtime: bounded document batches and one query role are embedded with the pinned model/runtime contract
+- Concrete Ollama Embedding Runtime -> Persistent Qdrant Vector Store: validated 1024-dimensional vectors are stored with immutable chunk provenance
+- Persistent Qdrant Vector Store -> Persistent Semantic Index and Retrieval: bounded query matches are revalidated for point identity, model, dimension, schema, payload provenance, and finite score
+- Persistent Semantic Index and Retrieval -> SemanticHit: positive persistent matches are returned through the existing immutable SemanticHit contract
 
 ## External boundaries
 
@@ -73,12 +81,14 @@ Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e505
 - Result-page web servers: Untrusted network/content boundary. Phase 3 permits only standard-port HTTP(S), validates all DNS answers as public, pins transport to a validated IP, rejects redirects and compression, bounds bytes, and accepts only approved text media/charset combinations.
 - Embedding provider: Injected Phase 5 boundary with distinct query/document roles. Core code bounds provider calls and validates every returned vector; no concrete model or inference runtime is accepted in Phase 5.
 - Rerank provider: Injected Phase 7 scoring boundary. Core accepts one bounded Sequence of exactly one finite numeric score per candidate; arbitrary iterables, wrong counts, booleans, non-numeric values, non-finite values, or provider exceptions fail closed. No concrete model/runtime is accepted in Phase 7.
+- Ollama service: Phase 11 accepts exactly Ollama 0.34.0 with qwen3-embedding:0.6b through bounded non-redirecting stdlib HTTP. Query/document output must be exactly 1024 finite dimensions; model/runtime mismatch fails closed.
+- Qdrant service: Phase 11 accepts Qdrant 1.19.1 through bounded stdlib REST. Collection vector name/model/dimension/schema and returned provenance payload are revalidated; persistent-volume restart recovery is proven by real-service integration.
 
 ## Observed implementation inventory
 
-Source files: 34
-Source lines: 5980
-Languages: Python=34
+Source files: 41
+Source lines: 7864
+Languages: Python=41
 
 Structural facts come from the code extractor. Component meaning comes from
 .workflow/architecture.json.
