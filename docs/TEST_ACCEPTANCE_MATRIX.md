@@ -31,7 +31,8 @@ Current source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8
 - Adversarial regression run 36581829818 reproduced acceptance of arbitrary iterable inputs and an invalid prior rerank rank before repair.
 - Final GREEN run 36581966102 passed the full unit suite and compile checks after bounded-input and prior-rank repair.
 - Candidate verification run 36582080120 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
-- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 8 closure.
+- Phase 8 pull-request Acceptance run 36582881472 passed 13/13 required jobs on exact head 3e956bc2b913240789ebab89c9753396d9c0f096.
+- Phase 8 post-merge main Acceptance run 36583373688 passed 13/13 required jobs on main SHA af3bd6bb578861de802a972d11e8a2a2c2368955.
 
 ## Sequence contract evidence
 
