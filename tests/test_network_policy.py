@@ -46,6 +46,15 @@ class ResultUrlAdmissionTests(unittest.TestCase):
     def test_rejects_malformed_ports(self) -> None:
         self.assertFalse(is_admissible_result_url("https://example.com:99999/x"))
 
+    def test_rejects_ascii_control_characters_anywhere_in_url(self) -> None:
+        for character in ("\\x00", "\\x1f", "\\x7f"):
+            with self.subTest(codepoint=ord(character)):
+                self.assertFalse(
+                    is_admissible_result_url(
+                        "https://example.com/path" + character + "suffix"
+                    )
+                )
+
 
 class ConnectionTargetResolutionTests(unittest.TestCase):
     @staticmethod
