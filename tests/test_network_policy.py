@@ -1,8 +1,13 @@
 from __future__ import annotations
 
+import socket
 import unittest
 
-from max_grounding.network_policy import is_admissible_result_url
+from max_grounding.errors import FetchError
+from max_grounding.network_policy import (
+    is_admissible_result_url,
+    resolve_public_addresses,
+)
 
 
 class ResultUrlAdmissionTests(unittest.TestCase):
@@ -40,6 +45,68 @@ class ResultUrlAdmissionTests(unittest.TestCase):
 
     def test_rejects_malformed_ports(self) -> None:
         self.assertFalse(is_admissible_result_url("https://example.com:99999/x"))
+
+
+class ConnectionTargetResolutionTests(unittest.TestCase):
+    @staticmethod
+    def _resolver(addresses: list[str]):
+        def resolve(host: str, port: int, *args: object, **kwargs: object):
+            rows = []
+            for address in addresses:
+                family = socket.AF_INET6 if ":" in address else socket.AF_INET
+                sockaddr = (address, port, 0, 0) if family == socket.AF_INET6 else (address, port)
+                rows.append(
+                    (
+                        family,
+                        socket.SOCK_STREAM,
+                        socket.IPPROTO_TCP,
+                        "",
+                        sockaddr,
+                    )
+                )
+            return rows
+
+        return resolve
+
+    def test_accepts_and_deduplicates_only_public_dns_answers(self) -> None:
+        addresses = resolve_public_addresses(
+            "example.com",
+            443,
+            resolver=self._resolver(
+                ["93.184.216.34", "93.184.216.34", "2606:2800:220:1:248:1893:25c8:1946"]
+            ),
+        )
+        self.assertEqual(
+            addresses,
+            ("93.184.216.34", "2606:2800:220:1:248:1893:25c8:1946"),
+        )
+
+    def test_rejects_mixed_public_and_private_dns_answers(self) -> None:
+        with self.assertRaises(FetchError):
+            resolve_public_addresses(
+                "rebind.example",
+                443,
+                resolver=self._resolver(["93.184.216.34", "127.0.0.1"]),
+            )
+
+    def test_rejects_private_link_local_reserved_multicast_and_empty_answers(self) -> None:
+        blocked_sets = [
+            ["10.0.0.1"],
+            ["169.254.169.254"],
+            ["192.0.2.1"],
+            ["224.0.0.1"],
+            ["::1"],
+            ["fe80::1"],
+            [],
+        ]
+        for addresses in blocked_sets:
+            with self.subTest(addresses=addresses):
+                with self.assertRaises(FetchError):
+                    resolve_public_addresses(
+                        "unsafe.example",
+                        443,
+                        resolver=self._resolver(addresses),
+                    )
 
 
 if __name__ == "__main__":
