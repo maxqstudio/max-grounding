@@ -1,0 +1,68 @@
+name: Phase 11 Final Truth Polish
+
+on:
+  push:
+    branches:
+      - work/phase-11-concrete-runtime-index
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-11-concrete-runtime-index
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Update final candidate handoff
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          state_path = Path(".workflow/state.json")
+          state = json.loads(state_path.read_text(encoding="utf-8"))
+          proof = "Phase 11 Project Truth sync run 36632318429 passed source regression, both frozen sequence contracts, ROADMAP_SYNC, STRICT governance, clean-tree validation, and source-unchanged verification."
+          if proof not in state["proven"]:
+              state["proven"].append(proof)
+          state["next_authorized_actions"] = [
+              "Open the Phase 11 pull request from the exact validated candidate head.",
+              "Merge Phase 11 only after the full required Acceptance workflow passes on that exact head.",
+              "Revalidate merged main before marking Phase 11 accepted and closing the phase."
+          ]
+          state_path.write_text(json.dumps(state, indent=2) + "\n", encoding="utf-8")
+          acceptance_path = Path(".workflow/acceptance.json")
+          acceptance = json.loads(acceptance_path.read_text(encoding="utf-8"))
+          check = "Project Truth sync run 36632318429 passed source regression, both sequence contracts, deterministic docs, STRICT clean-tree validation, and product-source unchanged verification."
+          if check not in acceptance["runtime_checks"]:
+              acceptance["runtime_checks"].append(check)
+          acceptance_path.write_text(json.dumps(acceptance, indent=2) + "\n", encoding="utf-8")
+          PY
+      - name: Remove temporary workflow
+        run: rm -f .github/workflows/phase11-final-truth-polish.yml
+      - name: Regenerate final truth
+        run: python .workflow/tools/sync_project_truth.py
+      - name: Commit final truth
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .workflow docs .github/workflows
+          git commit -m 'docs: finalize phase 11 candidate handoff'
+      - name: Validate clean final snapshot
+        run: |
+          python .workflow/tools/validate_project_docs.py
+          python .workflow/tools/validate_doc_quality.py
+          python .workflow/tools/validate_handoff.py
+          python .workflow/tools/validate_human_comprehension.py --require-pass
+          python .workflow/tools/validate_sequence_sessions.py
+          python .workflow/tools/validate_cross_document_consistency.py --base 15bff377b920e6cf7e9198af554b8f7dc31f2119 --require-base
+          python .workflow/tools/validate_project_truth.py
+          git diff --exit-code b20322e074755960b29a4504c95e08a35946c6e2..HEAD -- src tests integration
+          test -z "$(git status --porcelain)"
+      - name: Push
+        run: git push origin HEAD:work/phase-11-concrete-runtime-index
