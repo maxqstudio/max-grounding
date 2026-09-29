@@ -23,19 +23,22 @@ MAX_SEMANTIC_CHUNKS = 256
 MAX_EMBEDDING_BATCH = 64
 MAX_EMBEDDING_DIMENSION = 4096
 MAX_EMBEDDING_CALLS = 9
-MAX_EMBEDDING_TEXTS = MAX_SEMANTIC_CHUNKS + 1
+MAX_EMBEDDING_DOCUMENTS = MAX_SEMANTIC_CHUNKS
 
 DEFAULT_EMBEDDING_BATCH = 32
 
 
 class EmbeddingProvider(Protocol):
-    """Provider boundary for model-specific embedding implementations."""
+    """Provider boundary preserving asymmetric query/document encoding roles."""
 
-    def embed(
+    def embed_query(self, text: str) -> Sequence[float]:
+        """Return one dense query vector."""
+
+    def embed_documents(
         self,
         texts: tuple[str, ...],
     ) -> Sequence[Sequence[float]]:
-        """Return one dense vector per input text in the same order."""
+        """Return one dense document vector per input text in the same order."""
 
 
 def _validate_query(query: str) -> str:
@@ -98,35 +101,43 @@ def _validated_vector(
 
 def embed_bounded(
     provider: EmbeddingProvider,
-    texts: Sequence[str],
+    query: str,
+    document_texts: Sequence[str],
     *,
     batch_size: int = DEFAULT_EMBEDDING_BATCH,
-) -> tuple[tuple[float, ...], ...]:
-    """Embed bounded text batches and fail closed on malformed provider output."""
+) -> tuple[tuple[float, ...], tuple[tuple[float, ...], ...]]:
+    """Embed one query and bounded document batches using distinct provider roles."""
+    normalized_query = _validate_query(query)
     _validate_batch_size(batch_size)
-    values = tuple(texts)
-    if len(values) > MAX_EMBEDDING_TEXTS:
+    documents = tuple(document_texts)
+    if len(documents) > MAX_EMBEDDING_DOCUMENTS:
         raise RetrievalError(
-            f"embedding texts must not exceed {MAX_EMBEDDING_TEXTS} items"
+            f"embedding documents must not exceed {MAX_EMBEDDING_DOCUMENTS} items"
         )
-    if not values:
-        return ()
 
-    calls_required = math.ceil(len(values) / batch_size)
+    document_calls = math.ceil(len(documents) / batch_size) if documents else 0
+    calls_required = 1 + document_calls
     if calls_required > MAX_EMBEDDING_CALLS:
         raise RetrievalError(
             f"embedding calls must not exceed {MAX_EMBEDDING_CALLS}"
         )
 
+    try:
+        raw_query = provider.embed_query(normalized_query)
+    except Exception as exc:
+        raise EmbeddingProviderError("embedding query provider call failed") from exc
+    query_vector = _validated_vector(raw_query)
+    dimension = len(query_vector)
+
     vectors: list[tuple[float, ...]] = []
-    dimension: int | None = None
-    for start in range(0, len(values), batch_size):
-        batch = values[start : start + batch_size]
+    for start in range(0, len(documents), batch_size):
+        batch = documents[start : start + batch_size]
         try:
-            raw_batch = provider.embed(batch)
-            returned = tuple(raw_batch)
+            returned = tuple(provider.embed_documents(batch))
         except Exception as exc:
-            raise EmbeddingProviderError("embedding provider call failed") from exc
+            raise EmbeddingProviderError(
+                "embedding document provider call failed"
+            ) from exc
 
         if len(returned) != len(batch):
             raise EmbeddingProviderError(
@@ -134,15 +145,14 @@ def embed_bounded(
             )
 
         for raw_vector in returned:
-            vector = _validated_vector(
-                raw_vector,
-                expected_dimension=dimension,
+            vectors.append(
+                _validated_vector(
+                    raw_vector,
+                    expected_dimension=dimension,
+                )
             )
-            if dimension is None:
-                dimension = len(vector)
-            vectors.append(vector)
 
-    return tuple(vectors)
+    return query_vector, tuple(vectors)
 
 
 def build_semantic_chunks(
@@ -261,15 +271,15 @@ def retrieve_semantic(
     if not chunks:
         return ()
 
-    texts = (normalized_query,) + tuple(chunk.text for chunk in chunks)
-    vectors = embed_bounded(
+    query_vector, chunk_vectors = embed_bounded(
         provider,
-        texts,
+        normalized_query,
+        tuple(chunk.text for chunk in chunks),
         batch_size=batch_size,
     )
     return rank_semantic(
-        vectors[0],
+        query_vector,
         chunks,
-        vectors[1:],
+        chunk_vectors,
         limit=limit,
     )
