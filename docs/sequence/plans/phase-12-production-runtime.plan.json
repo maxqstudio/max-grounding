@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PRODUCTION-RUNTIME",
+  "title": "Phase 12 production runtime facade",
+  "status": "FROZEN",
+  "nodes": [
+    {"id":"build","label":"build_production_runtime","locator":"src/max_grounding/service.py::build_production_runtime","kind":"source"},
+    {"id":"searxng","label":"SearxngProvider","locator":"src/max_grounding/providers/searxng.py::SearxngProvider","kind":"source"},
+    {"id":"ollama","label":"OllamaEmbeddingProvider","locator":"src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider","kind":"source"},
+    {"id":"qdrant","label":"QdrantVectorStore","locator":"src/max_grounding/providers/qdrant.py::QdrantVectorStore","kind":"source"},
+    {"id":"service","label":"GroundingService","locator":"src/max_grounding/service.py::GroundingService","kind":"source"},
+    {"id":"search","label":"GroundingService.search_web","locator":"src/max_grounding/service.py::GroundingService.search_web","kind":"source"},
+    {"id":"ground","label":"GroundingEngine.ground","locator":"src/max_grounding/engine.py::GroundingEngine.ground","kind":"source"},
+    {"id":"fetchop","label":"GroundingService.fetch_evidence","locator":"src/max_grounding/service.py::GroundingService.fetch_evidence","kind":"source"},
+    {"id":"fetch","label":"fetch_document","locator":"src/max_grounding/fetcher.py::fetch_document","kind":"source"},
+    {"id":"indexop","label":"GroundingService.index_evidence","locator":"src/max_grounding/service.py::GroundingService.index_evidence","kind":"source"},
+    {"id":"index","label":"index_documents","locator":"src/max_grounding/persistent.py::index_documents","kind":"source"},
+    {"id":"queryop","label":"GroundingService.query_evidence","locator":"src/max_grounding/service.py::GroundingService.query_evidence","kind":"source"},
+    {"id":"query","label":"retrieve_persistent_semantic","locator":"src/max_grounding/persistent.py::retrieve_persistent_semantic","kind":"source"}
+  ],
+  "edges": [
+    {"from":"build","to":"searxng","action":"construct bounded live-search provider","requirement":"MUST","verification":"SOURCE"},
+    {"from":"build","to":"ollama","action":"construct pinned embedding runtime","requirement":"MUST","verification":"SOURCE"},
+    {"from":"build","to":"qdrant","action":"construct pinned persistent vector store","requirement":"MUST","verification":"SOURCE"},
+    {"from":"build","to":"service","action":"compose production service facade","requirement":"MUST","verification":"SOURCE"},
+    {"from":"search","to":"ground","action":"reuse bounded grounding search orchestration","requirement":"MUST","verification":"SOURCE"},
+    {"from":"fetchop","to":"fetch","action":"reuse secure result-page fetch","requirement":"MUST","verification":"SOURCE"},
+    {"from":"indexop","to":"fetch","action":"securely fetch each requested evidence URL","requirement":"MUST","verification":"SOURCE"},
+    {"from":"indexop","to":"index","action":"persist accepted fetched evidence","requirement":"MUST","verification":"SOURCE"},
+    {"from":"queryop","to":"query","action":"query accepted persistent semantic index","requirement":"MUST","verification":"SOURCE"}
+  ]
+}

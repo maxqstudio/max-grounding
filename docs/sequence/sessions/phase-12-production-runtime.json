@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-12-production-runtime",
+  "phase": "PHASE_12_PRODUCTION_API_MCP",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "PLANNED",
+  "implementation_base_sha": "",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-12-production-runtime.plan.json",
+    "frozen": true,
+    "frozen_commit": "",
+    "sha256": "",
+    "diagram": "docs/sequence/generated/phase-12-production-runtime.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-12-production-runtime.actual.json",
+    "diagram": "docs/sequence/generated/phase-12-production-runtime.actual.mmd",
+    "source_digest": "",
+    "entries": [
+      "src/max_grounding/service.py::build_production_runtime",
+      "src/max_grounding/service.py::GroundingService.search_web",
+      "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "src/max_grounding/service.py::GroundingService.index_evidence",
+      "src/max_grounding/service.py::GroundingService.query_evidence"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_service.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}

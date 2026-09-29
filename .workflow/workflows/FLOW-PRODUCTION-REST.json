@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PRODUCTION-REST",
+  "title": "Phase 12 production REST API",
+  "purpose": "Expose bounded authenticated JSON REST operations for accepted grounding capabilities plus minimal health/readiness probes.",
+  "critical": true,
+  "entry_condition": "A validated GroundingService runtime and API authentication policy are available.",
+  "authority": "REST routes, request/response bounds, authentication, and safe error mapping",
+  "states": ["REQUEST_RECEIVED","AUTHENTICATED","VALIDATED","SERVICE_CALLED","RESPONSE_RETURNED","REJECTED"],
+  "transitions": [
+    {"from":"REQUEST_RECEIVED","to":"AUTHENTICATED","action":"authenticate non-health requests with configured bearer/API token"},
+    {"from":"AUTHENTICATED","to":"VALIDATED","action":"validate bounded typed request body"},
+    {"from":"VALIDATED","to":"SERVICE_CALLED","action":"call exactly one explicit GroundingService capability"},
+    {"from":"SERVICE_CALLED","to":"RESPONSE_RETURNED","action":"serialize bounded provenance-preserving JSON response"}
+  ],
+  "invariants": [
+    "GET /healthz reveals only liveness and requires no secret.",
+    "GET /readyz reports readiness without returning credentials or provider secrets.",
+    "POST /v1/search, /v1/fetch, /v1/index, and /v1/query require authentication.",
+    "Request bodies are bounded before JSON parsing and typed validation.",
+    "REST routes expose no arbitrary URL fetch bypass beyond accepted fetch_evidence validation.",
+    "Error responses do not include raw exception tracebacks, secrets, or untrusted executable content.",
+    "REST response fields preserve exact URLs/chunk identities/provenance returned by accepted core types."
+  ],
+  "failure_behavior": [
+    "Missing/invalid authentication returns controlled 401/403-style failure.",
+    "Oversized/malformed requests fail before service execution.",
+    "Domain/service failures map to bounded JSON errors and never become fabricated 2xx success."
+  ],
+  "restart_behavior": ["REST is stateless apart from underlying accepted runtime services."],
+  "rollback_behavior": ["REST exposure performs no destructive persistent migration."],
+  "source_owners": [
+    "src/max_grounding/api.py::create_rest_app",
+    "src/max_grounding/api.py::healthz",
+    "src/max_grounding/api.py::readyz",
+    "src/max_grounding/api.py::search_endpoint",
+    "src/max_grounding/api.py::fetch_endpoint",
+    "src/max_grounding/api.py::index_endpoint",
+    "src/max_grounding/api.py::query_endpoint"
+  ],
+  "tests": ["tests/test_api.py","tests/test_service_security.py"],
+  "sequence_session": "docs/sequence/sessions/phase-12-rest-api.json"
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PRODUCTION-MCP",
+  "title": "Phase 12 production MCP server",
+  "status": "FROZEN",
+  "nodes": [
+    {"id":"create","label":"create_mcp_server","locator":"src/max_grounding/mcp_server.py::create_mcp_server","kind":"source"},
+    {"id":"register","label":"register_mcp_tools","locator":"src/max_grounding/mcp_server.py::register_mcp_tools","kind":"source"},
+    {"id":"search","label":"mcp_search_web","locator":"src/max_grounding/mcp_server.py::mcp_search_web","kind":"source"},
+    {"id":"service-search","label":"GroundingService.search_web","locator":"src/max_grounding/service.py::GroundingService.search_web","kind":"source"},
+    {"id":"fetch","label":"mcp_fetch_evidence","locator":"src/max_grounding/mcp_server.py::mcp_fetch_evidence","kind":"source"},
+    {"id":"service-fetch","label":"GroundingService.fetch_evidence","locator":"src/max_grounding/service.py::GroundingService.fetch_evidence","kind":"source"},
+    {"id":"index","label":"mcp_index_evidence","locator":"src/max_grounding/mcp_server.py::mcp_index_evidence","kind":"source"},
+    {"id":"service-index","label":"GroundingService.index_evidence","locator":"src/max_grounding/service.py::GroundingService.index_evidence","kind":"source"},
+    {"id":"query","label":"mcp_query_evidence","locator":"src/max_grounding/mcp_server.py::mcp_query_evidence","kind":"source"},
+    {"id":"service-query","label":"GroundingService.query_evidence","locator":"src/max_grounding/service.py::GroundingService.query_evidence","kind":"source"}
+  ],
+  "edges": [
+    {"from":"create","to":"register","action":"register bounded production MCP tool set","requirement":"MUST","verification":"SOURCE"},
+    {"from":"register","to":"search","action":"register search_web tool callback","requirement":"MUST","verification":"DOCUMENT"},
+    {"from":"register","to":"fetch","action":"register fetch_evidence tool callback","requirement":"MUST","verification":"DOCUMENT"},
+    {"from":"register","to":"index","action":"register index_evidence tool callback","requirement":"MUST","verification":"DOCUMENT"},
+    {"from":"register","to":"query","action":"register query_evidence tool callback","requirement":"MUST","verification":"DOCUMENT"},
+    {"from":"search","to":"service-search","action":"execute bounded web search capability","requirement":"MUST","verification":"SOURCE"},
+    {"from":"fetch","to":"service-fetch","action":"execute secure fetch capability","requirement":"MUST","verification":"SOURCE"},
+    {"from":"index","to":"service-index","action":"execute persistent indexing capability","requirement":"MUST","verification":"SOURCE"},
+    {"from":"query","to":"service-query","action":"execute persistent semantic query capability","requirement":"MUST","verification":"SOURCE"}
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-12-mcp-server",
+  "phase": "PHASE_12_PRODUCTION_API_MCP",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "PLANNED",
+  "implementation_base_sha": "",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-12-mcp-server.plan.json",
+    "frozen": true,
+    "frozen_commit": "",
+    "sha256": "",
+    "diagram": "docs/sequence/generated/phase-12-mcp-server.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-12-mcp-server.actual.json",
+    "diagram": "docs/sequence/generated/phase-12-mcp-server.actual.mmd",
+    "source_digest": "",
+    "entries": [
+      "src/max_grounding/mcp_server.py::create_mcp_server",
+      "src/max_grounding/mcp_server.py::mcp_search_web",
+      "src/max_grounding/mcp_server.py::mcp_fetch_evidence",
+      "src/max_grounding/mcp_server.py::mcp_index_evidence",
+      "src/max_grounding/mcp_server.py::mcp_query_evidence"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_mcp_server.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}

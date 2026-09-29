@@ -1,0 +1,64 @@
+name: Freeze Phase 12 Plans
+
+on:
+  push:
+    branches:
+      - work/phase-12-production-api-mcp
+
+permissions:
+  contents: write
+
+jobs:
+  freeze:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-12-production-api-mcp
+          fetch-depth: 0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Render frozen plans
+        shell: bash
+        run: |
+          for id in phase-12-production-runtime phase-12-rest-api phase-12-mcp-server; do
+            python .workflow/tools/generate_sequence_plan.py \
+              --plan "docs/sequence/plans/${id}.plan.json" \
+              --output "docs/sequence/generated/${id}.plan.mmd"
+          done
+      - name: Generate planning docs
+        run: python .workflow/tools/generate_project_docs.py
+      - name: Commit frozen plan artifacts
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .workflow/generated docs
+          if git diff --cached --quiet; then
+            echo 'No generated plan changes.'
+          else
+            git commit -m 'docs: freeze phase 12 plan snapshots'
+          fi
+      - name: Bind exact frozen authorities
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, subprocess
+          from pathlib import Path
+          frozen = subprocess.check_output(["git","rev-parse","HEAD"], text=True).strip()
+          for sid in ("phase-12-production-runtime","phase-12-rest-api","phase-12-mcp-server"):
+              plan_path=Path(f"docs/sequence/plans/{sid}.plan.json")
+              session_path=Path(f"docs/sequence/sessions/{sid}.json")
+              session=json.loads(session_path.read_text(encoding="utf-8"))
+              session["status"]="FROZEN"
+              session["implementation_base_sha"]=frozen
+              session["plan"]["frozen_commit"]=frozen
+              session["plan"]["sha256"]=hashlib.sha256(plan_path.read_bytes()).hexdigest()
+              session_path.write_text(json.dumps(session,indent=2)+"\n",encoding="utf-8")
+          PY
+          git add docs/sequence/sessions
+          git commit -m 'plan: bind phase 12 frozen authorities'
+      - name: Push frozen planning lineage
+        run: git push origin HEAD:work/phase-12-production-api-mcp

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PRODUCTION-REST",
+  "title": "Phase 12 production REST API",
+  "status": "FROZEN",
+  "nodes": [
+    {"id":"health-http","label":"HTTP /healthz","locator":"HTTP /healthz","kind":"external"},
+    {"id":"health","label":"healthz","locator":"src/max_grounding/api.py::healthz","kind":"source"},
+    {"id":"ready-http","label":"HTTP /readyz","locator":"HTTP /readyz","kind":"external"},
+    {"id":"ready","label":"readyz","locator":"src/max_grounding/api.py::readyz","kind":"source"},
+    {"id":"search-http","label":"HTTP /v1/search","locator":"HTTP /v1/search","kind":"external"},
+    {"id":"search","label":"search_endpoint","locator":"src/max_grounding/api.py::search_endpoint","kind":"source"},
+    {"id":"service-search","label":"GroundingService.search_web","locator":"src/max_grounding/service.py::GroundingService.search_web","kind":"source"},
+    {"id":"fetch-http","label":"HTTP /v1/fetch","locator":"HTTP /v1/fetch","kind":"external"},
+    {"id":"fetch","label":"fetch_endpoint","locator":"src/max_grounding/api.py::fetch_endpoint","kind":"source"},
+    {"id":"service-fetch","label":"GroundingService.fetch_evidence","locator":"src/max_grounding/service.py::GroundingService.fetch_evidence","kind":"source"},
+    {"id":"index-http","label":"HTTP /v1/index","locator":"HTTP /v1/index","kind":"external"},
+    {"id":"index","label":"index_endpoint","locator":"src/max_grounding/api.py::index_endpoint","kind":"source"},
+    {"id":"service-index","label":"GroundingService.index_evidence","locator":"src/max_grounding/service.py::GroundingService.index_evidence","kind":"source"},
+    {"id":"query-http","label":"HTTP /v1/query","locator":"HTTP /v1/query","kind":"external"},
+    {"id":"query","label":"query_endpoint","locator":"src/max_grounding/api.py::query_endpoint","kind":"source"},
+    {"id":"service-query","label":"GroundingService.query_evidence","locator":"src/max_grounding/service.py::GroundingService.query_evidence","kind":"source"}
+  ],
+  "edges": [
+    {"from":"health-http","to":"health","action":"GET liveness route","requirement":"MUST","verification":"SOURCE"},
+    {"from":"ready-http","to":"ready","action":"GET readiness route","requirement":"MUST","verification":"SOURCE"},
+    {"from":"search-http","to":"search","action":"POST bounded search route","requirement":"MUST","verification":"SOURCE"},
+    {"from":"search","to":"service-search","action":"execute bounded web search capability","requirement":"MUST","verification":"SOURCE"},
+    {"from":"fetch-http","to":"fetch","action":"POST bounded fetch route","requirement":"MUST","verification":"SOURCE"},
+    {"from":"fetch","to":"service-fetch","action":"execute secure fetch capability","requirement":"MUST","verification":"SOURCE"},
+    {"from":"index-http","to":"index","action":"POST bounded persistent-index route","requirement":"MUST","verification":"SOURCE"},
+    {"from":"index","to":"service-index","action":"execute persistent indexing capability","requirement":"MUST","verification":"SOURCE"},
+    {"from":"query-http","to":"query","action":"POST bounded persistent-query route","requirement":"MUST","verification":"SOURCE"},
+    {"from":"query","to":"service-query","action":"execute persistent semantic query capability","requirement":"MUST","verification":"SOURCE"}
+  ]
+}
