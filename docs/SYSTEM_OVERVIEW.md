@@ -81,6 +81,17 @@ Authority: GroundingPolicy and SearchBudget
 - SEARCHING -> INSUFFICIENT_EVIDENCE : budget exhausted without sufficient unique evidence
 - SEARCHING -> PROVIDER_ERROR : provider raises before sufficient evidence exists
 
+### FLOW-HYBRID-FUSION — Bounded lexical-semantic hybrid fusion
+
+Run bounded lexical and semantic retrieval over the same fetched-document corpus, fuse their ranked results with deterministic reciprocal-rank fusion, and return immutable hybrid hits.
+
+Authority: Hybrid retrieval policy and deterministic RRF fusion
+
+- INPUT_RECEIVED -> LEXICAL_RANKED : retrieve bounded lexical top candidates
+- INPUT_RECEIVED -> SEMANTIC_RANKED : retrieve bounded semantic top candidates
+- LEXICAL_RANKED -> FUSED : combine lexical and semantic ranks by fixed RRF
+- SEMANTIC_RANKED -> FUSED : combine lexical and semantic ranks by fixed RRF
+
 ### FLOW-LEXICAL-RETRIEVAL — Bounded lexical retrieval
 
 Turn already-fetched immutable documents into deterministic bounded text chunks and return the top BM25 lexical hits without persistence, semantic embeddings, vector search, or reranking.
@@ -181,6 +192,8 @@ compiler does not infer them from implementation names.
 
 - FLOW-GROUND-REQUEST: Invalid requests fail before any provider call.
 - FLOW-GROUND-REQUEST: Provider failure returns a fail-closed evidence status and does not fabricate evidence.
+- FLOW-HYBRID-FUSION: Invalid ranks, over-limit hit lists, conflicting chunk identity/provenance, or invalid result limits raise RetrievalError.
+- FLOW-HYBRID-FUSION: No partially fused output is returned after validation failure.
 - FLOW-LEXICAL-RETRIEVAL: Empty queries or invalid bounds raise a controlled retrieval error before producing hits.
 - FLOW-LEXICAL-RETRIEVAL: Empty documents or documents with no lexical matches return an empty immutable result rather than fabricated relevance.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.

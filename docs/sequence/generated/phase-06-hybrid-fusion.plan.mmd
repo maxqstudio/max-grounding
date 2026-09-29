@@ -1,0 +1,11 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: a9465785aba1386a466e658aab89bc23ff1cbfffb8608bb9ff70434305948a04
+%% FLOW_ID: FLOW-HYBRID-FUSION
+sequenceDiagram
+    participant hybrid_0 as retrieve_hybrid
+    participant lexical_1 as retrieve_lexical
+    participant semantic_2 as retrieve_semantic
+    participant fuse_3 as fuse_hybrid
+    hybrid_0->>lexical_1: produce bounded lexical candidates [MUST]
+    hybrid_0->>semantic_2: produce bounded semantic candidates [MUST]
+    hybrid_0->>fuse_3: fuse both ranked candidate sets [MUST]
