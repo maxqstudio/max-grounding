@@ -4,7 +4,7 @@
 
 ## Evidence boundary
 
-Phase 11 candidate proves a concrete self-hosted embedding/runtime and persistent semantic index boundary: Ollama 0.34.0 + qwen3-embedding:0.6b produces validated 1024-dimensional vectors, Qdrant 1.19.1 persists provenance-bound vectors, and retrieval remains valid after a real Qdrant restart. The portable stdlib core passes Linux/Windows/macOS. This does not prove REST/MCP public service exposure, production container/load/security acceptance, general retrieval-quality superiority, browser rendering, multimodal grounding, GraphRAG, or learned ranking.
+Phase 11 is accepted: pinned Ollama 0.34.0 + qwen3-embedding:0.6b produces validated 1024-dimensional embeddings, Qdrant 1.19.1 persists provenance-bound vectors, real retrieval survives Qdrant restart, and the portable core/adapters pass Linux/Windows/macOS. Phase 12 REST/MCP exposure, production container/load/security acceptance, and deployment readiness remain unproven.
 
 Final tested source: external final acceptance evidence.
 Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
@@ -31,8 +31,9 @@ Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a337
 - GREEN run 36612347152 passed full unit and compile regression.
 - Real Services run 36631528065 passed exact Ollama/Qwen3/Qdrant version, embedding dimension, index/query, and restart-persistence assertions on candidate b20322e074755960b29a4504c95e08a35946c6e2.
 - Candidate Verify run 36631528126 passed both frozen sequence contracts and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs.
-- Final pull-request Acceptance and post-merge main revalidation remain mandatory before Phase 11 closure.
 - Project Truth sync run 36632318429 passed source regression, both sequence contracts, deterministic docs, STRICT clean-tree validation, and product-source unchanged verification.
+- Phase 11 exact PR head 9ec4814be35641a6f2e643d4216fecd09cf008b0 passed Acceptance run 36632963021 with 13/13 required jobs.
+- Phase 11 merged main SHA 1b193080922fc95a7955123e0d4c6c950f83c081 passed post-merge Acceptance run 36633188935 with 13/13 required jobs.
 
 ## Roadmap synchronization evidence
 

@@ -246,9 +246,9 @@ Authority: Temporal metadata validation, deterministic freshness/validity formul
 
 ## Lifecycle and state
 
-Current phase: PHASE_11_CONCRETE_RUNTIME_INDEX
+Current phase: PHASE_12_PRODUCTION_API_MCP
 
-Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Current status: PLANNING
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -312,14 +312,14 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Open the Phase 11 pull request from the exact validated candidate head.
-- Merge Phase 11 only after the full required Acceptance workflow passes on that exact head.
-- Revalidate merged main before marking Phase 11 accepted and closing the phase.
+- Freeze a Phase 12 BEFORE sequence plan before implementing REST, MCP, production container, or public service behavior.
+- Define bounded public API/MCP contracts that reuse accepted Phase 0-11 fail-closed grounding and provenance boundaries.
+- Keep Linux/Windows/macOS portable-core regression while validating Linux service/container boundaries separately.
 
 Blocked actions:
-- Do not claim REST/MCP or production deployment from Phase 11.
-- Do not replace the pinned model/runtime/store schema without a new governed contract and acceptance evidence.
-- Do not bypass exact-head pull-request Acceptance or post-merge main revalidation.
+- Do not implement Phase 12 public service source before its BEFORE plan is frozen.
+- Do not claim production readiness, load capacity, or security hardening before explicit Phase 12 acceptance evidence.
+- Do not weaken pinned Phase 11 Ollama/Qdrant schema/runtime contracts without a governed change.
 
 Known blockers:
 - None declared.
@@ -337,12 +337,13 @@ Known blockers:
 - Phase 11 candidate verification run 36631528126 passed both frozen PLAN-to-ACTUAL sequence contracts and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
 - The initial Phase 11 sequence mismatch was static symbol ambiguity from type/test fixtures; the frozen plans were preserved and fixtures were repaired without changing runtime behavior.
 - Phase 11 Project Truth sync run 36632318429 passed source regression, both frozen sequence contracts, ROADMAP_SYNC, STRICT governance, clean-tree validation, and source-unchanged verification.
+- Phase 11 exact PR head 9ec4814be35641a6f2e643d4216fecd09cf008b0 passed Acceptance run 36632963021 with 13/13 required jobs.
+- Phase 11 merged main SHA 1b193080922fc95a7955123e0d4c6c950f83c081 passed post-merge Acceptance run 36633188935 with 13/13 required jobs.
 
 ### Not proven
 
-- Final Phase 11 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
-- Phase 11 does not expose public REST or MCP endpoints, multi-arch production containers, production load/security acceptance, browser rendering, multimodal grounding, GraphRAG, or learned-ranking optimization.
-- The real-service retrieval probe proves one deterministic integration case, not general retrieval-quality superiority or calibrated semantic relevance.
+- Phase 12 REST and MCP public service contracts, multi-arch production containers, end-to-end API behavior, production security/load acceptance, and deployment readiness are not yet proven.
+- Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional later roadmap work.
 
 ## Important limitations
 
