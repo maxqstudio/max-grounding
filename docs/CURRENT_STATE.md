@@ -3,18 +3,18 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: b4142fb22ee80837b98617d3c29a276fbe924294
+Authority verified at SHA: 499a14608f2458adb675302d38109af1f2776800
 Governance profile: strict
 
 ## Current phase
 Phase: PHASE_07_RERANK_COMPRESS
-Status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Status: ACCEPTED
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: work/phase-07-rerank-compress
+Branch: main
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: b4142fb22ee80837b98617d3c29a276fbe924294
+Last accepted SHA: 499a14608f2458adb675302d38109af1f2776800
 Current candidate SHA: external final acceptance evidence
 Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
 
@@ -46,10 +46,11 @@ SEQUENCE_SYNC: PASS
 - Candidate verification run 36577449523 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
 - Phase 7 reranking admits at most 20 candidates, calls the injected rerank provider once, requires an exact bounded score sequence, and rejects provider exceptions, wrong counts, booleans, non-numeric values, and non-finite scores.
 - Phase 7 compression is extractive only and caps output at 8 excerpts, 1200 characters per excerpt, and 6000 total excerpt characters while preserving source and rerank provenance.
+- Phase 7 exact pull-request head ea616e47d3a9504f9717a67094d0b5d58f551c4d passed Acceptance run 36578247993.
+- Phase 7 merged main SHA 499a14608f2458adb675302d38109af1f2776800 passed post-merge Acceptance run 36579234527 with 13/13 jobs PASS.
 
 ## Not proven
-- Final Phase 7 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
-- No concrete cross-encoder or learned reranker model, generative/LLM compression, reranking-quality benchmark, freshness/authority scoring, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment is proven by Phase 7.
+- No concrete cross-encoder or learned reranker model, generative/LLM compression, reranking-quality benchmark, freshness/authority scoring, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment is proven by accepted Phase 7.
 
 ## Known blockers
 - None declared.
@@ -58,11 +59,9 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Synchronize the Phase 7 ACTUAL sequence and deterministic Project Truth documentation.
-- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 7 candidate head.
-- Merge Phase 7 only if every required job passes, then revalidate merged main.
+- Start Phase 8 planning from accepted main SHA 499a14608f2458adb675302d38109af1f2776800.
+- Freeze the Phase 8 BEFORE sequence plan before implementing freshness, source authority, and temporal scoring.
 
 ## Explicitly blocked
-- Do not claim a concrete reranker model, generative compression, or retrieval-quality superiority from the provider-agnostic Phase 7 core.
-- Do not merge Phase 7 while any required GitHub Actions job is failing or missing.
-- Do not bypass post-merge main revalidation.
+- Do not claim a concrete reranker model, learned ranking superiority, or generative compression from accepted Phase 7.
+- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.

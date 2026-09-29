@@ -3,7 +3,7 @@
   "session_id": "phase-07-rerank-compress",
   "phase": "PHASE_07_RERANK_COMPRESS",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
   "status": "FROZEN",
   "implementation_base_sha": "93a36ccf107251f434d77b0bf42b9df97bbf1a01",

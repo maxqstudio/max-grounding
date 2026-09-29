@@ -10,9 +10,9 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: work/phase-07-rerank-compress
+Active branch: main
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: b4142fb22ee80837b98617d3c29a276fbe924294
+Last accepted SHA: 499a14608f2458adb675302d38109af1f2776800
 Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e82baa7e
 
 ## Authorities
@@ -26,7 +26,7 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 ## Technology
 Languages: Python
 Frameworks: Python standard library
-Persistence: none through Phase 7 candidate
+Persistence: none through accepted Phase 7
 External systems: GitHub Actions, operator-configured SearXNG instance
 
 ## Entry points
