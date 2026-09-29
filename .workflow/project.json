@@ -23,11 +23,14 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through accepted Phase 10"
+      "Qdrant v1.19.1 persistent vector index in Phase 11 candidate"
     ],
     "external_systems": [
       "GitHub Actions",
-      "operator-configured SearXNG instance"
+      "operator-configured SearXNG instance",
+      "Ollama v0.34.0",
+      "qwen3-embedding:0.6b",
+      "Qdrant v1.19.1"
     ]
   },
   "entry_points": [
@@ -75,6 +78,21 @@
       "name": "Claim verification",
       "path": "src/max_grounding/verification.py",
       "purpose": "verify exact structured answer claims against the evidence graph, bind claim-level citations, compute a deterministic evidence-sufficiency index, and expose only supported claims for synthesis"
+    },
+    {
+      "name": "Ollama embedding adapter",
+      "path": "src/max_grounding/providers/ollama_embedding.py",
+      "purpose": "pinned stdlib HTTP adapter for Ollama 0.34.0 and qwen3-embedding:0.6b with validated 1024-dimensional query/document embeddings"
+    },
+    {
+      "name": "Qdrant vector store",
+      "path": "src/max_grounding/providers/qdrant.py",
+      "purpose": "pinned stdlib REST adapter for Qdrant 1.19.1 collection validation, provenance-bound upsert, and bounded vector query"
+    },
+    {
+      "name": "Persistent semantic retrieval",
+      "path": "src/max_grounding/persistent.py",
+      "purpose": "orchestrate deterministic chunking, concrete embedding, persistent indexing, and validated Qdrant semantic retrieval"
     }
   ],
   "constraints": [

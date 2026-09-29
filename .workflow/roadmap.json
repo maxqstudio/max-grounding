@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "current_phase": "PHASE_10_CLAIM_VERIFICATION",
+  "current_phase": "PHASE_11_CONCRETE_RUNTIME_INDEX",
   "phases": [
     {
       "id": "PHASE_00_GOVERNANCE_BASELINE",
@@ -95,21 +95,23 @@
     {
       "id": "PHASE_10_CLAIM_VERIFICATION",
       "title": "Claim-level verification, citations, confidence, and fail-closed synthesis",
-      "status": "CURRENT",
+      "status": "ACCEPTED",
       "objective": "Deliver Claim-level verification, citations, confidence, and fail-closed synthesis without weakening accepted fail-closed and provenance contracts.",
       "exit_criteria": [
-        "Phase 10 product acceptance merged to main and post-merge main revalidation passed.",
-        "Phase 10 closure passes Skill Workflow c1d7e58a0fcadc606c8cf75c6283a17278f99259 and merged main is revalidated."
+        "Phase 10 closure main 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed 13/13 Acceptance with latest Skill Workflow governance."
       ]
     },
     {
       "id": "PHASE_11_CONCRETE_RUNTIME_INDEX",
       "title": "Concrete embedding runtime plus Qdrant/persistent index and production adapters",
-      "status": "PLANNED",
-      "objective": "Deliver Concrete embedding runtime plus Qdrant/persistent index and production adapters without weakening accepted fail-closed and provenance contracts.",
+      "status": "CURRENT",
+      "objective": "Integrate a concrete self-hosted embedding runtime and persistent Qdrant semantic index while preserving portable stdlib core boundaries and provenance.",
       "exit_criteria": [
-        "Freeze a BEFORE sequence plan before implementation.",
-        "Pass exact-head pull-request Acceptance and post-merge main revalidation."
+        "Both BEFORE sequence plans are frozen before source implementation.",
+        "Portable core and adapter tests pass on Python 3.11-3.14 across Linux, Windows, and macOS.",
+        "A real Ubuntu Ollama v0.34.0 integration proves qwen3-embedding:0.6b returns validated 1024-dimensional embeddings.",
+        "A real Qdrant v1.19.1 integration proves collection schema, upsert/query provenance, and persistence across service restart.",
+        "Exact-head PR Acceptance and merged-main revalidation pass before Phase 11 closure."
       ]
     },
     {

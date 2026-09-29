@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PERSISTENT-QUERY",
+  "title": "Phase 11 concrete persistent semantic query",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "retrieve",
+      "label": "retrieve_persistent_semantic",
+      "locator": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "kind": "source"
+    },
+    {
+      "id": "embed",
+      "label": "embed_query_concrete",
+      "locator": "src/max_grounding/persistent.py::embed_query_concrete",
+      "kind": "source"
+    },
+    {
+      "id": "query",
+      "label": "query_chunks",
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "kind": "source"
+    },
+    {
+      "id": "parse",
+      "label": "build_semantic_hits",
+      "locator": "src/max_grounding/persistent.py::build_semantic_hits",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "retrieve",
+      "to": "embed",
+      "action": "obtain one validated concrete query embedding",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "retrieve",
+      "to": "query",
+      "action": "query compatible Qdrant collection with bounded result limit",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "retrieve",
+      "to": "parse",
+      "action": "validate provenance and construct SemanticHit values",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}

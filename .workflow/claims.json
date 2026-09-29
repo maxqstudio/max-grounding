@@ -728,6 +728,83 @@
         "GitHub Actions Candidate Verify run 36592538343"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P11-OLLAMA-001",
+      "claim": "Phase 11 provides a concrete stdlib Ollama embedding adapter pinned to runtime 0.34.0 and qwen3-embedding:0.6b; real-service acceptance proves validated 1024-dimensional embeddings.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider"
+      ],
+      "tests": [
+        "tests/test_ollama_embedding.py",
+        "integration/phase11_services.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions Phase 11 Real Services run 36631528065"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P11-QDRANT-001",
+      "claim": "Phase 11 provides a Qdrant 1.19.1 REST store with pinned named-vector schema, deterministic point identity, provenance payload validation, and persistence proven across a real service restart.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/providers/qdrant.py::QdrantVectorStore"
+      ],
+      "tests": [
+        "tests/test_qdrant_store.py",
+        "integration/phase11_services.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions Phase 11 Real Services run 36631528065"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P11-PERSISTENT-001",
+      "claim": "Phase 11 indexes deterministic fetched-document chunks into the concrete vector store and reconstructs positive validated persistent matches as the existing SemanticHit contract without bypassing provenance checks.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/persistent.py::index_documents",
+        "src/max_grounding/persistent.py::retrieve_persistent_semantic"
+      ],
+      "tests": [
+        "tests/test_persistent_semantic.py",
+        "integration/phase11_services.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions Phase 11 Real Services run 36631528065",
+        "GitHub Actions Candidate Verify run 36631528126"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P11-CROSS-OS-001",
+      "claim": "Phase 11 portable Python core and stdlib adapters pass the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS; service-heavy Ollama/Qdrant runtime acceptance is isolated to a real Ubuntu container lane.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/persistent.py",
+        ".github/workflows/ci.yml"
+      ],
+      "tests": [
+        "tests/test_ollama_embedding.py",
+        "tests/test_qdrant_store.py",
+        "tests/test_persistent_semantic.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions Candidate Verify run 36631528126",
+        "GitHub Actions Phase 11 Real Services run 36631528065"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []

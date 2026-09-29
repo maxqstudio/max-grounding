@@ -232,6 +232,38 @@
       "authority": "src/max_grounding/verification.py::build_synthesis_packet",
       "mutation": "none",
       "error_behavior": "Verification/citation defects propagate fail-closed; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims remain in blocked_claims instead of synthesis_claims."
+    },
+    {
+      "method": "PYTHON",
+      "path": "OllamaEmbeddingProvider.embed_query(text) / embed_documents(texts)",
+      "purpose": "Produce pinned concrete query/document embeddings through Ollama 0.34.0 and qwen3-embedding:0.6b.",
+      "authority": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider",
+      "mutation": "bounded network compute to trusted operator-configured Ollama service; no project persistence",
+      "error_behavior": "Runtime-version/model/count/vector/dimension/transport defects fail closed with RuntimeProviderError or EmbeddingProviderError."
+    },
+    {
+      "method": "PYTHON",
+      "path": "QdrantVectorStore.ensure_collection() / upsert_chunks() / query_chunks()",
+      "purpose": "Validate/create the pinned Qdrant collection schema, persist provenance-bound chunk vectors, and retrieve bounded vector matches.",
+      "authority": "src/max_grounding/providers/qdrant.py::QdrantVectorStore",
+      "mutation": "persistent Qdrant collection/point mutation for ensure/upsert; query is read-only",
+      "error_behavior": "Version/schema/vector/payload/transport/response defects fail closed with VectorStoreError."
+    },
+    {
+      "method": "PYTHON",
+      "path": "index_documents(documents, provider, store)",
+      "purpose": "Deterministically chunk fetched evidence, embed through the concrete provider, and persist compatible vectors with provenance.",
+      "authority": "src/max_grounding/persistent.py::index_documents",
+      "mutation": "persistent vector upsert through PersistentVectorStore",
+      "error_behavior": "Provider/store/schema/vector defects fail closed with PersistentIndexError without claiming partial indexing success."
+    },
+    {
+      "method": "PYTHON",
+      "path": "retrieve_persistent_semantic(query, provider, store)",
+      "purpose": "Embed one bounded query, query the persistent compatible vector collection, revalidate provenance, and emit SemanticHit values.",
+      "authority": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "mutation": "read-only query plus collection compatibility check",
+      "error_behavior": "Invalid query/store/provider/match provenance fails closed with PersistentIndexError."
     }
   ],
   "data_contracts": [
@@ -571,6 +603,52 @@
         "synthesis_claims contains only SUPPORTED claims",
         "blocked_claims contains every PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claim",
         "Phase 10 packet is structured evidence handoff and does not generate free-form prose"
+      ]
+    },
+    {
+      "name": "PersistentVectorHit",
+      "source_of_truth": "src/max_grounding/models.py::PersistentVectorHit",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/providers/qdrant.py query result construction"
+      ],
+      "retention": "caller-defined after return; persisted source is Qdrant point payload/vector",
+      "invariants": [
+        "point_id deterministically binds chunk identity",
+        "embedding model is qwen3-embedding:0.6b",
+        "embedding dimension is 1024",
+        "schema version is 1",
+        "chunk/source/text/token provenance is validated before construction"
+      ]
+    },
+    {
+      "name": "PersistentIndexResult",
+      "source_of_truth": "src/max_grounding/models.py::PersistentIndexResult",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/persistent.py::index_documents result construction"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "reports deterministic chunk/vector counts for the completed call",
+        "retains concrete model/dimension/schema/collection identity",
+        "does not imply transactional rollback beyond Qdrant request semantics"
+      ]
+    },
+    {
+      "name": "Qdrant Phase 11 point payload",
+      "source_of_truth": "src/max_grounding/providers/qdrant.py",
+      "mutability": "idempotently replaceable by deterministic point ID",
+      "legal_writes": [
+        "QdrantVectorStore.upsert_chunks"
+      ],
+      "retention": "persistent Qdrant storage until operator deletion/reset",
+      "invariants": [
+        "chunk_id/source_url/chunk_index/text/token_count retained",
+        "embedding_model is qwen3-embedding:0.6b",
+        "embedding_dimension is 1024",
+        "schema_version is 1",
+        "point ID is deterministically derived from chunk identity"
       ]
     }
   ],

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PERSISTENT-INDEX",
+  "title": "Concrete persistent semantic indexing",
+  "purpose": "Chunk fetched documents deterministically, embed document text through the pinned Ollama Qwen3 service, validate model/dimension identity, and persist provenance-bound vectors into the pinned Qdrant collection.",
+  "critical": true,
+  "entry_condition": "Bounded FetchedDocument values, trusted Ollama/Qdrant service configuration, and an explicitly selected collection are available.",
+  "authority": "Persistent indexing orchestration, concrete embedding identity, Qdrant schema compatibility, and chunk payload provenance",
+  "states": [
+    "DOCUMENTS_RECEIVED",
+    "CHUNKS_BUILT",
+    "DOCUMENTS_EMBEDDED",
+    "COLLECTION_VALIDATED",
+    "POINTS_PERSISTED",
+    "REJECTED"
+  ],
+  "transitions": [
+    {
+      "from": "DOCUMENTS_RECEIVED",
+      "to": "CHUNKS_BUILT",
+      "action": "build deterministic Phase 4/5 semantic chunks"
+    },
+    {
+      "from": "CHUNKS_BUILT",
+      "to": "DOCUMENTS_EMBEDDED",
+      "action": "embed bounded document batches with Ollama qwen3-embedding:0.6b"
+    },
+    {
+      "from": "DOCUMENTS_EMBEDDED",
+      "to": "COLLECTION_VALIDATED",
+      "action": "require Qdrant collection schema size 1024 cosine and matching embedding identity"
+    },
+    {
+      "from": "COLLECTION_VALIDATED",
+      "to": "POINTS_PERSISTED",
+      "action": "upsert deterministic point IDs with vector and full chunk provenance payload"
+    }
+  ],
+  "invariants": [
+    "Ollama runtime contract is pinned to v0.34.0 and model qwen3-embedding:0.6b; returned embeddings must be finite non-zero 1024-dimensional vectors.",
+    "Document embedding uses a dedicated bounded document path and never fabricates a dummy query.",
+    "Qdrant server contract is pinned to v1.19.1 REST semantics; collection vector size must be 1024 and distance Cosine.",
+    "Collection/model schema mismatch fails closed; vectors from a different embedding model or schema version may not be silently mixed.",
+    "Qdrant point identity is deterministic from full chunk identity and payload retains full chunk_id, source_url, chunk_index, text, token_count, embedding_model, embedding_dimension, and schema_version.",
+    "Indexing input inherits accepted document/chunk bounds and Qdrant upsert batches are hard bounded.",
+    "No persistent write occurs after model/vector/provenance validation failure."
+  ],
+  "failure_behavior": [
+    "Transport/HTTP/JSON/model/schema/vector/payload failures raise controlled provider/index errors and return no false success.",
+    "Partial remote writes may be retried idempotently because point IDs are deterministic; caller receives failure if the complete requested batch is not acknowledged."
+  ],
+  "restart_behavior": [
+    "Qdrant persistence is expected to survive service restart when its storage volume is preserved; integration acceptance must prove this."
+  ],
+  "rollback_behavior": [
+    "Re-upsert of identical deterministic point IDs is idempotent; destructive collection deletion is not part of Phase 11 core APIs."
+  ],
+  "source_owners": [
+    "src/max_grounding/persistent.py::index_documents",
+    "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider",
+    "src/max_grounding/providers/qdrant.py::QdrantVectorStore"
+  ],
+  "tests": [
+    "tests/test_ollama_embedding.py",
+    "tests/test_qdrant_store.py",
+    "tests/test_persistent_semantic.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-11-persistent-index.json"
+}

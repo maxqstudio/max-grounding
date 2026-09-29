@@ -290,3 +290,27 @@ class SynthesisPacket:
     verifications: tuple[ClaimVerification, ...]
     synthesis_claims: tuple[ClaimVerification, ...]
     blocked_claims: tuple[ClaimVerification, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class PersistentVectorHit:
+    """One validated persistent vector-store match retaining chunk provenance."""
+
+    point_id: str
+    chunk: TextChunk
+    score: float
+    embedding_model: str
+    embedding_dimension: int
+    schema_version: int
+
+
+@dataclass(frozen=True, slots=True)
+class PersistentIndexResult:
+    """Summary of one completed persistent indexing request."""
+
+    chunks_indexed: int
+    vectors_indexed: int
+    embedding_model: str
+    embedding_dimension: int
+    schema_version: int
+    collection_name: str

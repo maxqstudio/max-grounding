@@ -1,0 +1,13 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 6a34b9a27b36a0af90186ee3a9cecaccfc0328e578c0efb4ef0e4647d7085706
+%% FLOW_ID: FLOW-PERSISTENT-INDEX
+sequenceDiagram
+    participant index_0 as index_documents
+    participant chunk_1 as build_semantic_chunks
+    participant embed_2 as embed_documents_concrete
+    participant ensure_3 as ensure_collection
+    participant upsert_4 as upsert_chunks
+    index_0->>chunk_1: build bounded deterministic chunks [MUST]
+    index_0->>embed_2: obtain validated concrete document embeddings [MUST]
+    index_0->>ensure_3: validate or create compatible persistent collection [MUST]
+    index_0->>upsert_4: persist provenance-bound chunk vectors [MUST]

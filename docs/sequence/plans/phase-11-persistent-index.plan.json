@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PERSISTENT-INDEX",
+  "title": "Phase 11 concrete persistent indexing",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "index",
+      "label": "index_documents",
+      "locator": "src/max_grounding/persistent.py::index_documents",
+      "kind": "source"
+    },
+    {
+      "id": "chunk",
+      "label": "build_semantic_chunks",
+      "locator": "src/max_grounding/semantic.py::build_semantic_chunks",
+      "kind": "source"
+    },
+    {
+      "id": "embed",
+      "label": "embed_documents_concrete",
+      "locator": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "kind": "source"
+    },
+    {
+      "id": "ensure",
+      "label": "ensure_collection",
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "kind": "source"
+    },
+    {
+      "id": "upsert",
+      "label": "upsert_chunks",
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "index",
+      "to": "chunk",
+      "action": "build bounded deterministic chunks",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "index",
+      "to": "embed",
+      "action": "obtain validated concrete document embeddings",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "index",
+      "to": "ensure",
+      "action": "validate or create compatible persistent collection",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "index",
+      "to": "upsert",
+      "action": "persist provenance-bound chunk vectors",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}

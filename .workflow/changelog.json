@@ -88,6 +88,14 @@
     {
       "date": "2026-09-30",
       "change": "Phase 10 closure governance upgraded to Skill Workflow c1d7e58a0fcadc606c8cf75c6283a17278f99259; roadmap authority migrated from project.json to .workflow/roadmap.json and the current project-local compiler/validator tool pack was vendored."
+    },
+    {
+      "date": "2026-09-30",
+      "change": "Phase 11 planning selects Ollama v0.34.0 plus qwen3-embedding:0.6b and Qdrant v1.19.1 behind stdlib HTTP adapters; real-service integration evidence is required before acceptance."
+    },
+    {
+      "date": "2026-09-30",
+      "change": "Phase 11 candidate adds pinned Ollama 0.34.0 + qwen3-embedding:0.6b concrete embeddings, Qdrant 1.19.1 persistent vector storage, provenance-preserving persistent semantic indexing/query, real restart-persistence evidence, frozen-plan conformance, and full cross-platform core evidence."
     }
   ]
 }

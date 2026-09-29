@@ -1,0 +1,11 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: b5403df756dafac05b50c0680af98622101ef7f81b6ed0c277cf83b29968e0f4
+%% FLOW_ID: FLOW-PERSISTENT-QUERY
+sequenceDiagram
+    participant retrieve_0 as retrieve_persistent_semantic
+    participant embed_1 as embed_query_concrete
+    participant query_2 as query_chunks
+    participant parse_3 as build_semantic_hits
+    retrieve_0->>embed_1: obtain one validated concrete query embedding [MUST]
+    retrieve_0->>query_2: query compatible Qdrant collection with bounded result limit [MUST]
+    retrieve_0->>parse_3: validate provenance and construct SemanticHit values [MUST]

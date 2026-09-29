@@ -10,10 +10,10 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: work/phase-10-closure
+Active branch: work/phase-11-concrete-runtime-index
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: dab1961e04f7610a4bf7a9de55a8a649a6fe8990
-Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f
+Last accepted SHA: 15bff377b920e6cf7e9198af554b8f7dc31f2119
+Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.
@@ -26,8 +26,8 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 ## Technology
 Languages: Python
 Frameworks: Python standard library
-Persistence: none through accepted Phase 10
-External systems: GitHub Actions, operator-configured SearXNG instance
+Persistence: Qdrant v1.19.1 persistent vector index in Phase 11 candidate
+External systems: GitHub Actions, operator-configured SearXNG instance, Ollama v0.34.0, qwen3-embedding:0.6b, Qdrant v1.19.1
 
 ## Entry points
 
@@ -42,6 +42,9 @@ External systems: GitHub Actions, operator-configured SearXNG instance
 | Temporal authority scoring | src/max_grounding/temporal.py | validate explicit temporal/source metadata, obtain injected authority scores, and rank bounded evidence by deterministic freshness and point-in-time validity |
 | Evidence graph | src/max_grounding/evidence_graph.py | build bounded structured corroboration/contradiction relations and distinct-source evidence clusters without selecting truth |
 | Claim verification | src/max_grounding/verification.py | verify exact structured answer claims against the evidence graph, bind claim-level citations, compute a deterministic evidence-sufficiency index, and expose only supported claims for synthesis |
+| Ollama embedding adapter | src/max_grounding/providers/ollama_embedding.py | pinned stdlib HTTP adapter for Ollama 0.34.0 and qwen3-embedding:0.6b with validated 1024-dimensional query/document embeddings |
+| Qdrant vector store | src/max_grounding/providers/qdrant.py | pinned stdlib REST adapter for Qdrant 1.19.1 collection validation, provenance-bound upsert, and bounded vector query |
+| Persistent semantic retrieval | src/max_grounding/persistent.py | orchestrate deterministic chunking, concrete embedding, persistent indexing, and validated Qdrant semantic retrieval |
 
 ## Critical directories
 

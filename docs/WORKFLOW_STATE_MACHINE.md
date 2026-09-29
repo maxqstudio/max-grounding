@@ -241,6 +241,100 @@ Authority: Deterministic chunking policy and in-memory BM25 scorer
 
 - Phase 4 has no persistent mutation.
 
+## FLOW-PERSISTENT-INDEX — Concrete persistent semantic indexing
+
+Purpose: Chunk fetched documents deterministically, embed document text through the pinned Ollama Qwen3 service, validate model/dimension identity, and persist provenance-bound vectors into the pinned Qdrant collection.
+Critical: TRUE
+Entry condition: Bounded FetchedDocument values, trusted Ollama/Qdrant service configuration, and an explicitly selected collection are available.
+Authority: Persistent indexing orchestration, concrete embedding identity, Qdrant schema compatibility, and chunk payload provenance
+
+### States
+
+- DOCUMENTS_RECEIVED
+- CHUNKS_BUILT
+- DOCUMENTS_EMBEDDED
+- COLLECTION_VALIDATED
+- POINTS_PERSISTED
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| DOCUMENTS_RECEIVED | CHUNKS_BUILT | build deterministic Phase 4/5 semantic chunks | Persistent indexing orchestration, concrete embedding identity, Qdrant schema compatibility, and chunk payload provenance |  |
+| CHUNKS_BUILT | DOCUMENTS_EMBEDDED | embed bounded document batches with Ollama qwen3-embedding:0.6b | Persistent indexing orchestration, concrete embedding identity, Qdrant schema compatibility, and chunk payload provenance |  |
+| DOCUMENTS_EMBEDDED | COLLECTION_VALIDATED | require Qdrant collection schema size 1024 cosine and matching embedding identity | Persistent indexing orchestration, concrete embedding identity, Qdrant schema compatibility, and chunk payload provenance |  |
+| COLLECTION_VALIDATED | POINTS_PERSISTED | upsert deterministic point IDs with vector and full chunk provenance payload | Persistent indexing orchestration, concrete embedding identity, Qdrant schema compatibility, and chunk payload provenance |  |
+
+### Invariants
+
+- Ollama runtime contract is pinned to v0.34.0 and model qwen3-embedding:0.6b; returned embeddings must be finite non-zero 1024-dimensional vectors.
+- Document embedding uses a dedicated bounded document path and never fabricates a dummy query.
+- Qdrant server contract is pinned to v1.19.1 REST semantics; collection vector size must be 1024 and distance Cosine.
+- Collection/model schema mismatch fails closed; vectors from a different embedding model or schema version may not be silently mixed.
+- Qdrant point identity is deterministic from full chunk identity and payload retains full chunk_id, source_url, chunk_index, text, token_count, embedding_model, embedding_dimension, and schema_version.
+- Indexing input inherits accepted document/chunk bounds and Qdrant upsert batches are hard bounded.
+- No persistent write occurs after model/vector/provenance validation failure.
+
+### Failure behavior
+
+- Transport/HTTP/JSON/model/schema/vector/payload failures raise controlled provider/index errors and return no false success.
+- Partial remote writes may be retried idempotently because point IDs are deterministic; caller receives failure if the complete requested batch is not acknowledged.
+
+### Restart behavior
+
+- Qdrant persistence is expected to survive service restart when its storage volume is preserved; integration acceptance must prove this.
+
+### Rollback behavior
+
+- Re-upsert of identical deterministic point IDs is idempotent; destructive collection deletion is not part of Phase 11 core APIs.
+
+## FLOW-PERSISTENT-QUERY — Concrete persistent semantic query
+
+Purpose: Embed one bounded query through the pinned Ollama Qwen3 service, query the compatible persistent Qdrant collection, validate stored provenance, and return deterministic SemanticHit values.
+Critical: TRUE
+Entry condition: A non-empty bounded query and compatible trusted Ollama/Qdrant services are available.
+Authority: Concrete query embedding, Qdrant query contract, stored payload validation, and deterministic SemanticHit reconstruction
+
+### States
+
+- QUERY_RECEIVED
+- QUERY_EMBEDDED
+- VECTOR_RESULTS_RECEIVED
+- PROVENANCE_VALIDATED
+- SEMANTIC_HITS_RETURNED
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| QUERY_RECEIVED | QUERY_EMBEDDED | embed query with Ollama qwen3-embedding:0.6b and require 1024 dimensions | Concrete query embedding, Qdrant query contract, stored payload validation, and deterministic SemanticHit reconstruction |  |
+| QUERY_EMBEDDED | VECTOR_RESULTS_RECEIVED | query Qdrant collection through the query-points REST endpoint with hard result cap | Concrete query embedding, Qdrant query contract, stored payload validation, and deterministic SemanticHit reconstruction |  |
+| VECTOR_RESULTS_RECEIVED | PROVENANCE_VALIDATED | validate score, model identity, full chunk payload, deterministic point identity, and collection schema | Concrete query embedding, Qdrant query contract, stored payload validation, and deterministic SemanticHit reconstruction |  |
+| PROVENANCE_VALIDATED | SEMANTIC_HITS_RETURNED | reconstruct immutable SemanticHit values in returned score order with deterministic tie handling | Concrete query embedding, Qdrant query contract, stored payload validation, and deterministic SemanticHit reconstruction |  |
+
+### Invariants
+
+- Query embeddings and indexed vectors use the same pinned model identity and 1024-dimensional schema.
+- Qdrant result limit is bounded to the accepted MAX_RESULTS=20.
+- Only finite positive similarity scores and complete provenance payloads may become SemanticHit values.
+- A returned point whose deterministic ID, chunk payload, model identity, or schema version does not match expected values fails closed.
+- No Qdrant server ranking is reinterpreted as truth; it is semantic candidate retrieval only.
+
+### Failure behavior
+
+- Transport/HTTP/JSON/vector/schema/payload failures raise controlled errors and return no partial trusted result.
+- Missing or incompatible collection is an explicit provider/index failure.
+
+### Restart behavior
+
+- Identical persistent state and query/model inputs yield equivalent ordered semantic candidates subject to Qdrant deterministic score ordering and explicit tie stabilization.
+
+### Rollback behavior
+
+- Query path is read-only.
+
 ## FLOW-PHASE-DELIVERY — Governed phase delivery
 
 Purpose: Move each implementation phase from isolated branch to accepted main without bypassing executable evidence.
