@@ -223,14 +223,14 @@
     {
       "id": "evidence-graph",
       "name": "Evidence Graph",
-      "purpose": "Normalize bounded structured assertions backed by Phase 8 quality evidence, derive deterministic corroboration/contradiction edges, and cluster equivalent values with distinct-source accounting without declaring truth.",
+      "purpose": "Normalize bounded structured assertions backed by Phase 8 quality evidence, derive deterministic corroboration/contradiction edges, and cluster equivalent values with distinct source-URL accounting without declaring truth.",
       "owns": [
         "build_evidence_graph",
         "build_relations",
         "build_clusters",
         "structured assertion normalization",
         "explicit exclusivity semantics",
-        "distinct-source quality-weight accounting",
+        "distinct-URL quality-weight accounting",
         "no-winner graph contract"
       ],
       "depends_on": [
@@ -408,7 +408,7 @@
     {
       "from": "Evidence Graph",
       "to": "EvidenceGraph",
-      "meaning": "immutable normalized assertions, corroboration/contradiction edges, and distinct-source value clusters are returned without a truth winner"
+      "meaning": "immutable normalized assertions, corroboration/contradiction edges, and distinct-URL value clusters are returned without a truth winner"
     }
   ],
   "external_boundaries": [
