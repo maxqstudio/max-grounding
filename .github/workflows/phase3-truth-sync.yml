@@ -34,12 +34,12 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          actual_path = Path("docs/sequence/generated/phase-03-secure-fetch.actual.json")
-          session_path = Path("docs/sequence/sessions/phase-03-secure-fetch.json")
-          actual = json.loads(actual_path.read_text(encoding="utf-8"))
-          session = json.loads(session_path.read_text(encoding="utf-8"))
-          session["actual"]["source_digest"] = actual["source_digest"]
-          session_path.write_text(json.dumps(session, indent=2) + "\n", encoding="utf-8")
+          actual_path = Path('docs/sequence/generated/phase-03-secure-fetch.actual.json')
+          session_path = Path('docs/sequence/sessions/phase-03-secure-fetch.json')
+          actual = json.loads(actual_path.read_text(encoding='utf-8'))
+          session = json.loads(session_path.read_text(encoding='utf-8'))
+          session['actual']['source_digest'] = actual['source_digest']
+          session_path.write_text(json.dumps(session, indent=2) + '\n', encoding='utf-8')
           PY
       - name: Validate Phase 3 sequence
         run: >
@@ -47,7 +47,18 @@ jobs:
           --session docs/sequence/sessions/phase-03-secure-fetch.json
       - name: Synchronize Project Truth
         run: python .workflow/tools/sync_project_truth.py
-      - name: Validate strict project truth
+      - name: Precommit deterministic truth
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .workflow/acceptance.json .workflow/generated docs
+          if git diff --cached --quiet; then
+            echo 'No truth-sync changes.'
+          else
+            git commit -m 'docs: sync phase 3 project truth'
+          fi
+      - name: Validate strict project truth on clean tree
         shell: bash
         run: |
           python .workflow/tools/validate_project_docs.py
@@ -58,15 +69,12 @@ jobs:
           BASE=$(python -c "import json; print(json.load(open('.workflow/state.json', encoding='utf-8'))['last_accepted_sha'])")
           python .workflow/tools/validate_cross_document_consistency.py --base "$BASE" --require-base
           python .workflow/tools/validate_project_truth.py
-      - name: Commit generated Phase 3 truth
+          test -z "$(git status --porcelain)"
+      - name: Push validated truth
         shell: bash
         run: |
-          if git diff --quiet && [ -z "$(git status --porcelain)" ]; then
-            echo "No truth-sync changes."
-            exit 0
+          if [ "$(git rev-parse HEAD)" = "${{ github.sha }}" ]; then
+            echo 'Nothing to push.'
+          else
+            git push origin HEAD:work/phase-03-secure-fetch
           fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .workflow/acceptance.json .workflow/generated docs
-          git commit -m "docs: sync phase 3 project truth"
-          git push origin HEAD:work/phase-03-secure-fetch
