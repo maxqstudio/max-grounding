@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import datetime
 from enum import Enum
 
 
@@ -147,3 +148,47 @@ class EvidenceExcerpt:
     rerank_rank: int
     text: str
     char_count: int
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceMetadata:
+    """Explicit temporal and source context bound to one evidence excerpt."""
+
+    source_url: str
+    chunk_id: str
+    retrieved_at: datetime
+    published_at: datetime | None = None
+    valid_from: datetime | None = None
+    valid_until: datetime | None = None
+    source_type: str | None = None
+    geography: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
+class AuthoritySubject:
+    """Source context exposed to an injected authority policy."""
+
+    source_url: str
+    source_type: str | None
+    geography: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class TemporalComponents:
+    """Deterministic freshness and validity components for one evidence item."""
+
+    freshness_score: float
+    temporal_validity: float
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceQualityScore:
+    """One temporally scored evidence excerpt retaining complete provenance."""
+
+    excerpt: EvidenceExcerpt
+    metadata: EvidenceMetadata
+    authority_score: float
+    freshness_score: float
+    temporal_validity: float
+    score: float
+    rank: int
