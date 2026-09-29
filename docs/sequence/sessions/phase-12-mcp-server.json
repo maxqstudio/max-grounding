@@ -5,14 +5,14 @@
   "mode": "BEFORE",
   "scope": "CURRENT",
   "critical": true,
-  "status": "PLANNED",
-  "implementation_base_sha": "",
+  "status": "FROZEN",
+  "implementation_base_sha": "ec4948e299993f53dfce7b0b7a4affea326d1689",
   "plan": {
     "required": true,
     "contract": "docs/sequence/plans/phase-12-mcp-server.plan.json",
     "frozen": true,
-    "frozen_commit": "",
-    "sha256": "",
+    "frozen_commit": "ec4948e299993f53dfce7b0b7a4affea326d1689",
+    "sha256": "0c1a48ed15b2e00c66e4703e6c4dc7451f6abb9ed2a992aac608546d0f932022",
     "diagram": "docs/sequence/generated/phase-12-mcp-server.plan.mmd"
   },
   "actual": {
