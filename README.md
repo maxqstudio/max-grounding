@@ -32,11 +32,11 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 7 is a candidate for bounded provider-agnostic reranking and deterministic extractive evidence/context compression.
+Phase 7 is accepted on main at `499a14608f2458adb675302d38109af1f2776800`.
 
-The candidate reranks at most 20 accepted hybrid hits through one injected bounded score sequence, rejects malformed or unbounded provider output fail-closed, preserves hybrid/lexical/semantic/source provenance, and compresses context without generation to at most 8 excerpts, 1200 characters per excerpt, and 6000 total excerpt characters.
+Accepted Phase 7 reranks at most 20 hybrid hits through one injected bounded score sequence, validates provider output fail-closed, preserves prior rank/source provenance, and compresses context extractively to at most 8 excerpts, 1200 characters per excerpt, and 6000 total characters.
 
-The exact candidate still requires full pull-request Acceptance and post-merge main revalidation before Phase 7 is accepted. No concrete cross-encoder model/runtime, generative compression, quality benchmark, freshness/authority scoring, contradiction engine, claim verification, persistent vector database, REST, MCP, or production deployment is accepted yet.
+Phase 8 is the next planned phase: freshness, source authority, and temporal scoring. A concrete cross-encoder runtime, learned ranking-quality superiority, generative compression, contradiction handling, claim verification, persistent vector database, REST, MCP, and production deployment are not yet accepted capabilities.
 
 ## Platform policy
 
