@@ -34,6 +34,11 @@ Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e505
 - Phase 10 pull-request Acceptance run 36593330960 passed 13/13 required jobs on exact head e5fd57f65216b58163b447df8011293185105f5f.
 - Phase 10 post-merge main Acceptance run 36594071609 passed 13/13 required jobs on main SHA dab1961e04f7610a4bf7a9de55a8a649a6fe8990.
 
+## Roadmap synchronization evidence
+
+Roadmap authority: .workflow/roadmap.json
+ROADMAP_SYNC: PASS
+
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE

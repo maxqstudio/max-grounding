@@ -10,13 +10,14 @@ Canonical authority is declared in .workflow/authority.json.
 | runtime | GitHub Actions runner matrix | Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority. | NO |
 | acceptance | GitHub Actions required workflows | A phase is accepted only when its required workflow checks pass on the exact candidate commit. | NO |
 | documentation | .workflow/*.json plus deterministic Project Truth Compiler | Structured specs are semantic authority; docs/ is generated projection. | YES |
-| skill_workflow | maxqstudio/Skill_Workflow@9e22feddb8f94e8c0f1af6a33e14b64de5068f8f | Pinned governance tooling and rules used by Phase 0. | NO |
+| skill_workflow | maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259 | Pinned latest governance tooling and rules adopted during Phase 10 closure. | NO |
 
 ## Invariants
 
 - Do not merge a phase while any required GitHub Actions check is failing or unproven.
 - After a phase merge, revalidate main before starting the next accepted baseline.
 - Generated docs must match the exact tracked source/spec snapshot.
+- .workflow/state.json::phase must equal .workflow/roadmap.json::current_phase and exactly one roadmap phase must be CURRENT.
 
 ## Conflict rule
 

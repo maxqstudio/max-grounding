@@ -84,6 +84,10 @@
     {
       "date": "2026-09-29",
       "change": "Phase 10 accepted on main after exact-PR Acceptance and post-merge main revalidation both passed STRICT governance and the full Linux/Windows/macOS Python 3.11-3.14 matrix."
+    },
+    {
+      "date": "2026-09-30",
+      "change": "Phase 10 closure governance upgraded to Skill Workflow c1d7e58a0fcadc606c8cf75c6283a17278f99259; roadmap authority migrated from project.json to .workflow/roadmap.json and the current project-local compiler/validator tool pack was vendored."
     }
   ]
 }

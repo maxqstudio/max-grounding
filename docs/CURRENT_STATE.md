@@ -8,11 +8,13 @@ Governance profile: strict
 
 ## Current phase
 Phase: PHASE_10_CLAIM_VERIFICATION
-Status: ACCEPTED
+Status: ACCEPTED_PENDING_LATEST_WORKFLOW_CLOSURE
+Roadmap phase: PHASE_10_CLAIM_VERIFICATION
+ROADMAP_SYNC: PASS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase-10-closure
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: dab1961e04f7610a4bf7a9de55a8a649a6fe8990
 Current candidate SHA: external final acceptance evidence
@@ -60,10 +62,12 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Start Phase 11 planning from accepted main SHA dab1961e04f7610a4bf7a9de55a8a649a6fe8990.
-- Freeze the Phase 11 BEFORE sequence plan before implementing concrete embedding runtime, persistent Qdrant indexing, and production adapters.
+- Validate Phase 10 closure under Skill Workflow c1d7e58a0fcadc606c8cf75c6283a17278f99259.
+- Merge closure only after exact-head full Acceptance passes and revalidate merged main.
+- Then advance state.phase and roadmap.current_phase together to PHASE_11_CONCRETE_RUNTIME_INDEX before Phase 11 implementation.
 
 ## Explicitly blocked
 - Do not describe the accepted Phase 10 confidence index as a probability that a claim is true.
 - Do not claim fuzzy semantic verification or final prose generation from accepted Phase 10.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
+- Do not start Phase 11 source implementation before Phase 10 closure-main revalidation.
+- Do not change state.phase without changing roadmap.current_phase in the same transaction.

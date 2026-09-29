@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "current_phase": "PHASE_10_CLAIM_VERIFICATION",
+  "phases": [
+    {
+      "id": "PHASE_00_GOVERNANCE_BASELINE",
+      "title": "Governance and cross-platform baseline",
+      "status": "ACCEPTED",
+      "objective": "Deliver Governance and cross-platform baseline without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase acceptance merged to main and post-merge main revalidation passed."
+      ]
+    },
+    {
+      "id": "PHASE_01_GROUNDING_ORCHESTRATION",
+      "title": "Grounding contracts and bounded search orchestration",
+      "status": "ACCEPTED",
+      "objective": "Deliver Grounding contracts and bounded search orchestration without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase acceptance merged to main and post-merge main revalidation passed."
+      ]
+    },
+    {
+      "id": "PHASE_02_SEARXNG_SEARCH",
+      "title": "SearXNG live web search provider",
+      "status": "ACCEPTED",
+      "objective": "Deliver SearXNG live web search provider without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase acceptance merged to main and post-merge main revalidation passed."
+      ]
+    },
+    {
+      "id": "PHASE_03_SECURE_FETCH_EXTRACTION",
+      "title": "Secure result-page fetch and extraction",
+      "status": "ACCEPTED",
+      "objective": "Deliver Secure result-page fetch and extraction without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase acceptance merged to main and post-merge main revalidation passed."
+      ]
+    },
+    {
+      "id": "PHASE_04_LEXICAL_BM25",
+      "title": "Deterministic lexical BM25 retrieval",
+      "status": "ACCEPTED",
+      "objective": "Deliver Deterministic lexical BM25 retrieval without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase acceptance merged to main and post-merge main revalidation passed."
+      ]
+    },
+    {
+      "id": "PHASE_05_DENSE_SEMANTIC",
+      "title": "Bounded dense semantic retrieval",
+      "status": "ACCEPTED",
+      "objective": "Deliver Bounded dense semantic retrieval without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase acceptance merged to main and post-merge main revalidation passed."
+      ]
+    },
+    {
+      "id": "PHASE_06_HYBRID_FUSION",
+      "title": "Deterministic lexical-semantic hybrid fusion",
+      "status": "ACCEPTED",
+      "objective": "Deliver Deterministic lexical-semantic hybrid fusion without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase acceptance merged to main and post-merge main revalidation passed."
+      ]
+    },
+    {
+      "id": "PHASE_07_RERANK_COMPRESS",
+      "title": "Reranking and evidence/context compression",
+      "status": "ACCEPTED",
+      "objective": "Deliver Reranking and evidence/context compression without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase acceptance merged to main and post-merge main revalidation passed."
+      ]
+    },
+    {
+      "id": "PHASE_08_TEMPORAL_AUTHORITY",
+      "title": "Freshness, source authority, and temporal scoring",
+      "status": "ACCEPTED",
+      "objective": "Deliver Freshness, source authority, and temporal scoring without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase acceptance merged to main and post-merge main revalidation passed."
+      ]
+    },
+    {
+      "id": "PHASE_09_EVIDENCE_GRAPH",
+      "title": "Contradiction/corroboration engine and evidence graph",
+      "status": "ACCEPTED",
+      "objective": "Deliver Contradiction/corroboration engine and evidence graph without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase acceptance merged to main and post-merge main revalidation passed."
+      ]
+    },
+    {
+      "id": "PHASE_10_CLAIM_VERIFICATION",
+      "title": "Claim-level verification, citations, confidence, and fail-closed synthesis",
+      "status": "CURRENT",
+      "objective": "Deliver Claim-level verification, citations, confidence, and fail-closed synthesis without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Phase 10 product acceptance merged to main and post-merge main revalidation passed.",
+        "Phase 10 closure passes Skill Workflow c1d7e58a0fcadc606c8cf75c6283a17278f99259 and merged main is revalidated."
+      ]
+    },
+    {
+      "id": "PHASE_11_CONCRETE_RUNTIME_INDEX",
+      "title": "Concrete embedding runtime plus Qdrant/persistent index and production adapters",
+      "status": "PLANNED",
+      "objective": "Deliver Concrete embedding runtime plus Qdrant/persistent index and production adapters without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Freeze a BEFORE sequence plan before implementation.",
+        "Pass exact-head pull-request Acceptance and post-merge main revalidation."
+      ]
+    },
+    {
+      "id": "PHASE_12_PRODUCTION_API_MCP",
+      "title": "REST, MCP, multi-arch containers, E2E/security/load, and production acceptance",
+      "status": "PLANNED",
+      "objective": "Deliver REST, MCP, multi-arch containers, E2E/security/load, and production acceptance without weakening accepted fail-closed and provenance contracts.",
+      "exit_criteria": [
+        "Freeze a BEFORE sequence plan before implementation.",
+        "Pass exact-head pull-request Acceptance and post-merge main revalidation."
+      ]
+    },
+    {
+      "id": "PHASE_13_BROWSER_JS",
+      "title": "Browser and JavaScript rendering/crawling",
+      "status": "OPTIONAL",
+      "objective": "Optional post-V1 expansion: Browser and JavaScript rendering/crawling.",
+      "exit_criteria": [
+        "Explicit Owner/roadmap promotion from OPTIONAL.",
+        "Dedicated acceptance evidence passes before merge."
+      ]
+    },
+    {
+      "id": "PHASE_14_MULTIMODAL",
+      "title": "Multimodal PDF/image/table grounding",
+      "status": "OPTIONAL",
+      "objective": "Optional post-V1 expansion: Multimodal PDF/image/table grounding.",
+      "exit_criteria": [
+        "Explicit Owner/roadmap promotion from OPTIONAL.",
+        "Dedicated acceptance evidence passes before merge."
+      ]
+    },
+    {
+      "id": "PHASE_15_GRAPHRAG",
+      "title": "Knowledge graph / GraphRAG",
+      "status": "OPTIONAL",
+      "objective": "Optional post-V1 expansion: Knowledge graph / GraphRAG.",
+      "exit_criteria": [
+        "Explicit Owner/roadmap promotion from OPTIONAL.",
+        "Dedicated acceptance evidence passes before merge."
+      ]
+    },
+    {
+      "id": "PHASE_16_LEARNED_RANKING",
+      "title": "Learned ranking and evaluation optimization",
+      "status": "OPTIONAL",
+      "objective": "Optional post-V1 expansion: Learned ranking and evaluation optimization.",
+      "exit_criteria": [
+        "Explicit Owner/roadmap promotion from OPTIONAL.",
+        "Dedicated acceptance evidence passes before merge."
+      ]
+    }
+  ]
+}

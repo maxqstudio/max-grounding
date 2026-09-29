@@ -2,41 +2,46 @@
 
 # ROADMAP
 
-Target: Production V1 after Phase 12
+Current project phase: PHASE_10_CLAIM_VERIFICATION
+Current roadmap phase: PHASE_10_CLAIM_VERIFICATION
+ROADMAP_SYNC: PASS
 
-Planned core phases: 13
+## Phase plan
 
-## Production V1 roadmap
+| Order | Phase | Title | Roadmap status | Objective | Exit criteria |
+|---:|---|---|---|---|---|
+| 1 | PHASE_00_GOVERNANCE_BASELINE | Governance and cross-platform baseline | ACCEPTED | Deliver Governance and cross-platform baseline without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
+| 2 | PHASE_01_GROUNDING_ORCHESTRATION | Grounding contracts and bounded search orchestration | ACCEPTED | Deliver Grounding contracts and bounded search orchestration without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
+| 3 | PHASE_02_SEARXNG_SEARCH | SearXNG live web search provider | ACCEPTED | Deliver SearXNG live web search provider without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
+| 4 | PHASE_03_SECURE_FETCH_EXTRACTION | Secure result-page fetch and extraction | ACCEPTED | Deliver Secure result-page fetch and extraction without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
+| 5 | PHASE_04_LEXICAL_BM25 | Deterministic lexical BM25 retrieval | ACCEPTED | Deliver Deterministic lexical BM25 retrieval without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
+| 6 | PHASE_05_DENSE_SEMANTIC | Bounded dense semantic retrieval | ACCEPTED | Deliver Bounded dense semantic retrieval without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
+| 7 | PHASE_06_HYBRID_FUSION | Deterministic lexical-semantic hybrid fusion | ACCEPTED | Deliver Deterministic lexical-semantic hybrid fusion without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
+| 8 | PHASE_07_RERANK_COMPRESS | Reranking and evidence/context compression | ACCEPTED | Deliver Reranking and evidence/context compression without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
+| 9 | PHASE_08_TEMPORAL_AUTHORITY | Freshness, source authority, and temporal scoring | ACCEPTED | Deliver Freshness, source authority, and temporal scoring without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
+| 10 | PHASE_09_EVIDENCE_GRAPH | Contradiction/corroboration engine and evidence graph | ACCEPTED | Deliver Contradiction/corroboration engine and evidence graph without weakening accepted fail-closed and provenance contracts. | Phase acceptance merged to main and post-merge main revalidation passed. |
+| 11 | PHASE_10_CLAIM_VERIFICATION | Claim-level verification, citations, confidence, and fail-closed synthesis | CURRENT | Deliver Claim-level verification, citations, confidence, and fail-closed synthesis without weakening accepted fail-closed and provenance contracts. | Phase 10 product acceptance merged to main and post-merge main revalidation passed.<br>Phase 10 closure passes Skill Workflow c1d7e58a0fcadc606c8cf75c6283a17278f99259 and merged main is revalidated. |
+| 12 | PHASE_11_CONCRETE_RUNTIME_INDEX | Concrete embedding runtime plus Qdrant/persistent index and production adapters | PLANNED | Deliver Concrete embedding runtime plus Qdrant/persistent index and production adapters without weakening accepted fail-closed and provenance contracts. | Freeze a BEFORE sequence plan before implementation.<br>Pass exact-head pull-request Acceptance and post-merge main revalidation. |
+| 13 | PHASE_12_PRODUCTION_API_MCP | REST, MCP, multi-arch containers, E2E/security/load, and production acceptance | PLANNED | Deliver REST, MCP, multi-arch containers, E2E/security/load, and production acceptance without weakening accepted fail-closed and provenance contracts. | Freeze a BEFORE sequence plan before implementation.<br>Pass exact-head pull-request Acceptance and post-merge main revalidation. |
+| 14 | PHASE_13_BROWSER_JS | Browser and JavaScript rendering/crawling | OPTIONAL | Optional post-V1 expansion: Browser and JavaScript rendering/crawling. | Explicit Owner/roadmap promotion from OPTIONAL.<br>Dedicated acceptance evidence passes before merge. |
+| 15 | PHASE_14_MULTIMODAL | Multimodal PDF/image/table grounding | OPTIONAL | Optional post-V1 expansion: Multimodal PDF/image/table grounding. | Explicit Owner/roadmap promotion from OPTIONAL.<br>Dedicated acceptance evidence passes before merge. |
+| 16 | PHASE_15_GRAPHRAG | Knowledge graph / GraphRAG | OPTIONAL | Optional post-V1 expansion: Knowledge graph / GraphRAG. | Explicit Owner/roadmap promotion from OPTIONAL.<br>Dedicated acceptance evidence passes before merge. |
+| 17 | PHASE_16_LEARNED_RANKING | Learned ranking and evaluation optimization | OPTIONAL | Optional post-V1 expansion: Learned ranking and evaluation optimization. | Explicit Owner/roadmap promotion from OPTIONAL.<br>Dedicated acceptance evidence passes before merge. |
 
-| Phase | Scope | Status |
-|---:|---|---|
-| 0 | Governance and cross-platform baseline | ACCEPTED |
-| 1 | Grounding contracts and bounded search orchestration | ACCEPTED |
-| 2 | SearXNG live web search provider | ACCEPTED |
-| 3 | Secure result-page fetch and extraction | ACCEPTED |
-| 4 | Deterministic lexical BM25 retrieval | ACCEPTED |
-| 5 | Bounded dense semantic retrieval | ACCEPTED |
-| 6 | Deterministic lexical-semantic hybrid fusion | ACCEPTED |
-| 7 | Reranking and evidence/context compression | ACCEPTED |
-| 8 | Freshness, source authority, and temporal scoring | ACCEPTED |
-| 9 | Contradiction/corroboration engine and evidence graph | ACCEPTED |
-| 10 | Claim-level verification, citations, confidence, and fail-closed synthesis | ACCEPTED |
-| 11 | Concrete embedding runtime plus Qdrant/persistent index and production adapters | NEXT_PLANNED |
-| 12 | REST, MCP, multi-arch containers, E2E/security/load, and production acceptance | PLANNED |
+## Synchronization contract
 
-## Optional post-V1 expansion
+`.workflow/roadmap.json` is the roadmap authority. This Markdown is generated.
 
-- Phase 13 — Browser and JavaScript rendering/crawling
-- Phase 14 — Multimodal PDF/image/table grounding
-- Phase 15 — Knowledge graph / GraphRAG
-- Phase 16 — Learned ranking and evaluation optimization
+The roadmap is valid only when:
 
-## Roadmap rules
+- `.workflow/state.json::phase` equals `.workflow/roadmap.json::current_phase`;
+- exactly one roadmap phase is marked `CURRENT`;
+- that `CURRENT` phase id equals `current_phase`;
+- every phase id is unique.
 
-- Phase count is a planning target, not permission to bypass evidence gates.
-- Every phase must pass GitHub Actions before merge and merged main must be revalidated.
-- Optional expansion phases do not block Production V1 unless a later accepted decision explicitly promotes them.
+When the project advances phase, update `.workflow/state.json` and
+`.workflow/roadmap.json` in the same project-state transaction, then run:
 
-This document is generated from `.workflow/project.json`; it is planning
-authority only. Acceptance truth remains in `.workflow/state.json` and
-`.workflow/acceptance.json`.
+`python .workflow/tools/sync_project_truth.py`
+
+Missing roadmap authority or phase drift is a blocking validation failure.

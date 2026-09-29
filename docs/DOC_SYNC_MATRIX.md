@@ -19,7 +19,8 @@ Generated Markdown lives under repository-root docs/ and is not manually edited.
 |---|---|
 | Project identity/purpose/users/outcomes | .workflow/project.json |
 | Authority/mutability/invariants | .workflow/authority.json |
-| Current phase/blockers/next action | .workflow/state.json |
+| Current phase/status/blockers/next action | .workflow/state.json; when phase changes update .workflow/roadmap.json in the same transaction |
+| Roadmap phase plan/current phase | .workflow/roadmap.json |
 | Architecture/component/data-flow | .workflow/architecture.json |
 | Workflow/lifecycle semantics | .workflow/workflows/*.json |
 | API/data/UI/runbook | .workflow/contracts.json |
