@@ -424,6 +424,77 @@
         "GitHub Actions Candidate Verify run 36565138383"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P7-RERANK-001",
+      "claim": "Phase 7 reranks at most 20 contiguous unique HybridHit candidates using exactly one injected provider call and returns immutable RerankedHit values that preserve prior hybrid and modality provenance.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/reranking.py::rerank_hybrid",
+        "src/max_grounding/models.py::RerankedHit"
+      ],
+      "tests": [
+        "tests/test_reranking.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions final GREEN run 36577271817"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P7-PROVIDER-001",
+      "claim": "Phase 7 fails closed on rerank provider exceptions, arbitrary iterable output, wrong score counts, booleans, non-numeric values, and non-finite scores.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/reranking.py::rerank_hybrid"
+      ],
+      "tests": [
+        "tests/test_reranking.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions adversarial RED run 36577161655; final GREEN run 36577271817"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P7-COMPRESS-001",
+      "claim": "Phase 7 context compression is deterministic and extractive only, selecting exact source text under hard limits of 8 excerpts, 1200 characters per excerpt, and 6000 total excerpt characters while retaining source and rerank provenance.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/reranking.py::compress_context",
+        "src/max_grounding/models.py::EvidenceExcerpt"
+      ],
+      "tests": [
+        "tests/test_reranking.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions final GREEN run 36577271817"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P7-CROSS-OS-001",
+      "claim": "Phase 7 reranking and extractive context compression conform to the frozen BEFORE plan and pass the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/reranking.py::build_grounded_context",
+        ".github/workflows/ci.yml"
+      ],
+      "tests": [
+        "tests/test_reranking.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions Candidate Verify run 36577449523"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []
