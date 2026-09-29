@@ -1,37 +1,35 @@
 {
   "schema_version": 1,
-  "phase": "PHASE_05_SEMANTIC_RETRIEVAL",
-  "status": "ACCEPTED",
-  "working_branch": "main",
+  "phase": "PHASE_06_HYBRID_FUSION",
+  "status": "CANDIDATE_PENDING_GITHUB_ACTIONS",
+  "working_branch": "work/phase-06-hybrid-fusion",
   "last_accepted_sha": "f29bb162ea49f24a78091231706e829f286bf8e4",
   "last_accepted_branch": "main",
   "proven": [
-    "Phase 4 closure is merged to main at 3583ed326c7a82e2cf5de0065309150aac83f124 and closure-main Acceptance run 36556415066 passed all 13 required jobs.",
-    "The Phase 5 BEFORE plan was frozen before implementation at c33519539d32e72e09cf507686bd50a1f6cf087c with SHA-256 9dac5d2f05803611bdd05a83244d91b807ba777734927e4a3ed78cc746d842bf.",
-    "TDD RED run 36557027666 failed because the Phase 5 semantic retrieval contract did not yet exist.",
-    "Initial GREEN run 36557303486 passed the full unit suite and compile checks after the first minimum implementation.",
-    "Role-separation regression run 36557498333 reproduced the single-role embedding boundary defect before repair.",
-    "Final GREEN run 36557612077 passed the full unit suite and compile checks after separating query and document embedding roles.",
-    "Sequence verification run 36557689216 passed tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.",
-    "Cross-platform run 36557753677 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs.",
-    "Phase 5 preserves distinct query and document embedding roles so future asymmetric retrieval models can apply role-specific encoding.",
-    "Phase 5 rejects provider exceptions, wrong vector counts, inconsistent dimensions, dimensions outside 1..4096, non-finite or boolean values, and zero-norm vectors.",
-    "Phase 5 caps semantic work at 256 chunks, embedding batches at 64 texts, total embedding provider calls at 9, query length at 4096 characters, and returned hits at 20.",
-    "Phase 5 returns only positive cosine-similarity hits and resolves equal scores by stable source provenance ordering.",
-    "Phase 5 exact pull-request head 54d4ec9752fb9cd4d50a3e9a4c0c3c500568b941 passed Acceptance run 36558360516 with STRICT governance plus all 12 Linux/Windows/macOS Python 3.11-3.14 jobs.",
-    "Phase 5 merged main SHA f29bb162ea49f24a78091231706e829f286bf8e4 passed post-merge Acceptance run 36563782579 with 13/13 jobs PASS."
+    "Phase 5 closure is merged to main at 45c18dc09a314e106881cb68b641109a373e1369 and closure-main Acceptance run 36564262272 passed all 13 required jobs.",
+    "The Phase 6 BEFORE plan was frozen before implementation at a5e30b00c777e66b3aafdea6002970d28a181982 with SHA-256 a9465785aba1386a466e658aab89bc23ff1cbfffb8608bb9ff70434305948a04.",
+    "TDD RED run 36564783433 failed because the Phase 6 hybrid fusion module did not yet exist.",
+    "Initial GREEN run 36564936847 exposed a test-fixture rank that violated the already-frozen contiguous-rank contract; only the fixture was corrected and product source was unchanged.",
+    "Final GREEN run 36565015354 passed the full unit suite and compile checks.",
+    "Candidate verification run 36565138383 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.",
+    "Phase 6 uses fixed equal-weight reciprocal-rank fusion with RRF k=60 and no tunable modality weights.",
+    "Each modality contributes at most 20 ranked hits and final hybrid output is capped at 20 results.",
+    "Duplicate chunk identities are merged only when full immutable chunk provenance matches; conflicting provenance for the same chunk_id fails closed.",
+    "Equal fused scores resolve by stable source URL, chunk index, and chunk identity."
   ],
   "not_proven": [
-    "Retrieval quality from any concrete embedding model is not proven because accepted Phase 5 uses provider fixtures rather than a production model.",
-    "Qwen3 Embedding, BGE-M3, ONNX, local GPU/CPU inference, Qdrant, persistent vector indexes, hybrid fusion, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside accepted Phase 5."
+    "Final Phase 6 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.",
+    "Concrete embedding runtimes/models, persistent vector databases such as Qdrant, learned or cross-encoder reranking, retrieval-quality benchmarks, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 6."
   ],
   "blockers": [],
   "next_authorized_actions": [
-    "Start Phase 6 planning from accepted main SHA f29bb162ea49f24a78091231706e829f286bf8e4.",
-    "Freeze the Phase 6 BEFORE sequence plan before product implementation."
+    "Generate and commit the current Phase 6 ACTUAL sequence graph and deterministic Project Truth documentation.",
+    "Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 6 candidate head.",
+    "Merge Phase 6 only if every required job passes, then revalidate merged main."
   ],
   "blocked_actions": [
-    "Do not claim a concrete embedding model, vector database, hybrid fusion, or reranker from accepted Phase 5.",
-    "Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation."
+    "Do not merge Phase 6 while any required GitHub Actions job is failing or missing.",
+    "Do not claim reranking, a concrete embedding model, or a persistent vector database from Phase 6 fixed RRF fusion.",
+    "Do not bypass post-merge main revalidation."
   ]
 }
