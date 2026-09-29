@@ -10,9 +10,9 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: work/phase-03-secure-fetch
+Active branch: main
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: f0f64637895465b98a227d299db42a7704d3d894
+Last accepted SHA: f1e391ffa0429fdf8be88456b7835347d3453cd6
 Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
 
 ## Authorities
