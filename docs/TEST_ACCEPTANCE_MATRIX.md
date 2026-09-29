@@ -31,7 +31,8 @@ Current source digest: 780e92caef87e251ada0c42cdc0593829c65db1552a458dc48547c84e
 - Adversarial regression run 36577161655 reproduced acceptance of arbitrary iterable provider output before repair.
 - Final GREEN run 36577271817 passed the full unit suite and compile checks after the provider-output boundary repair.
 - Candidate verification run 36577449523 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
-- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 7 closure.
+- Phase 7 pull-request Acceptance run 36578247993 passed on exact head ea616e47d3a9504f9717a67094d0b5d58f551c4d.
+- Phase 7 post-merge main Acceptance run 36579234527 passed 13/13 required jobs on main SHA 499a14608f2458adb675302d38109af1f2776800.
 
 ## Sequence contract evidence
 
