@@ -118,6 +118,15 @@ Authority: GitHub Actions required checks
 - ACTIONS_PASS -> MERGED_MAIN : merge pull request
 - MERGED_MAIN -> MAIN_REVALIDATED : GitHub Actions revalidate merged main
 
+### FLOW-RERANK-COMPRESS — Bounded reranking and extractive context compression
+
+Rerank already-bounded hybrid hits through an injected provider, validate scores fail-closed, then extract a bounded provenance-preserving context without generative rewriting.
+
+Authority: Rerank score validation and deterministic extractive compression policy
+
+- HITS_RECEIVED -> RERANKED : validate hybrid ranks and obtain one bounded provider score vector
+- RERANKED -> COMPRESSED : select extractive evidence excerpts under hard excerpt and total-character budgets
+
 ### FLOW-SEARXNG-SEARCH — SearXNG live search provider
 
 Execute one budgeted search against an operator-configured SearXNG JSON endpoint, bound response handling, reject obviously unsafe result URLs, and return untrusted SourceCandidate values without fetching result pages.
@@ -201,6 +210,8 @@ compiler does not infer them from implementation names.
 - FLOW-LEXICAL-RETRIEVAL: Empty queries or invalid bounds raise a controlled retrieval error before producing hits.
 - FLOW-LEXICAL-RETRIEVAL: Empty documents or documents with no lexical matches return an empty immutable result rather than fabricated relevance.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.
+- FLOW-RERANK-COMPRESS: Invalid ranks, duplicate chunks, invalid bounds, provider exceptions, wrong score counts, or invalid scores fail closed with a controlled reranking error.
+- FLOW-RERANK-COMPRESS: No partial reranked or compressed result is returned after validation failure.
 - FLOW-SEARXNG-SEARCH: Transport, redirect, HTTP, media-type, size, JSON, and schema failures raise a controlled provider error.
 - FLOW-SEARXNG-SEARCH: GroundingEngine converts provider failure before evidence sufficiency into fail-closed PROVIDER_ERROR status.
 - FLOW-SECURE-FETCH: Invalid URLs, unsafe DNS answers, transport failures, redirects, disallowed media/encoding, oversized responses, or decoding failures produce a controlled FetchError.

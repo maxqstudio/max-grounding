@@ -1,0 +1,9 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 717c3f8e3ad4148474298847b470cd98fc243202b76b8d838445e8bf435b498a
+%% FLOW_ID: FLOW-RERANK-COMPRESS
+sequenceDiagram
+    participant build_0 as build_grounded_context
+    participant rerank_1 as rerank_hybrid
+    participant compress_2 as compress_context
+    build_0->>rerank_1: rerank bounded hybrid candidates through the validated provider boundary [MUST]
+    build_0->>compress_2: compress reranked evidence extractively under hard budgets [MUST]
