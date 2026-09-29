@@ -1568,7 +1568,7 @@ def render_roadmap(specs: dict[str, dict]) -> str:
     for item in roadmap.get("phases", []):
         rows.append(
             "| "
-            + cell(item.get("phase"))
+            + cell(str(item.get("phase", "")))
             + " | "
             + cell(item.get("name"))
             + " | "
@@ -1581,8 +1581,8 @@ def render_roadmap(specs: dict[str, dict]) -> str:
     expansion = []
     for item in roadmap.get("optional_expansion", []):
         expansion.append(
-            "- Phase "
-            + clean(item.get("phase"))
+            "Phase "
+            + str(item.get("phase", ""))
             + " — "
             + clean(item.get("name"))
         )
