@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 from mcp.server import MCPServer
 
 from .service import GroundingService
@@ -18,7 +20,7 @@ def mcp_search_web(
     max_search_rounds: int = 2,
     results_per_call: int = 5,
     min_evidence_sources: int = 1,
-) -> dict:
+) -> dict[str, Any]:
     return to_wire(
         service.search_web(
             query,
@@ -36,7 +38,7 @@ def mcp_fetch_evidence(
     service: GroundingService,
     *,
     url: str,
-) -> dict:
+) -> dict[str, Any]:
     return to_wire(service.fetch_evidence(url))
 
 
@@ -44,7 +46,7 @@ def mcp_index_evidence(
     service: GroundingService,
     *,
     urls: tuple[str, ...] | list[str],
-) -> dict:
+) -> dict[str, Any]:
     if not isinstance(urls, (tuple, list)):
         raise ValueError("urls must be a bounded list or tuple")
     return to_wire(service.index_evidence(tuple(urls)))
@@ -55,7 +57,7 @@ def mcp_query_evidence(
     *,
     query: str,
     limit: int = 5,
-) -> list[dict]:
+) -> list[dict[str, Any]]:
     return to_wire(service.query_evidence(query, limit=limit))
 
 
@@ -70,7 +72,7 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
         max_search_rounds: int = 2,
         results_per_call: int = 5,
         min_evidence_sources: int = 1,
-    ) -> dict:
+    ) -> dict[str, Any]:
         """Search the configured web provider and return bounded source evidence."""
         return mcp_search_web(
             service,
@@ -83,22 +85,22 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
             min_evidence_sources=min_evidence_sources,
         )
 
-    def fetch_evidence(url: str) -> dict:
+    def fetch_evidence(url: str) -> dict[str, Any]:
         """Securely fetch one public evidence URL and return extracted text provenance."""
         return mcp_fetch_evidence(service, url=url)
 
-    def index_evidence(urls: list[str]) -> dict:
+    def index_evidence(urls: list[str]) -> dict[str, Any]:
         """Securely fetch and persist a bounded list of evidence URLs."""
         return mcp_index_evidence(service, urls=urls)
 
-    def query_evidence(query: str, limit: int = 5) -> list[dict]:
+    def query_evidence(query: str, limit: int = 5) -> list[dict[str, Any]]:
         """Query the accepted persistent semantic evidence index."""
         return mcp_query_evidence(service, query=query, limit=limit)
 
-    server.tool(name="search_web")(search_web)
-    server.tool(name="fetch_evidence")(fetch_evidence)
-    server.tool(name="index_evidence")(index_evidence)
-    server.tool(name="query_evidence")(query_evidence)
+    server.tool(name="search_web", structured_output=True)(search_web)
+    server.tool(name="fetch_evidence", structured_output=True)(fetch_evidence)
+    server.tool(name="index_evidence", structured_output=True)(index_evidence)
+    server.tool(name="query_evidence", structured_output=True)(query_evidence)
 
 
 def create_mcp_server(service: GroundingService) -> MCPServer:
