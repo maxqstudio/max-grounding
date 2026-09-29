@@ -1,0 +1,43 @@
+name: Freeze Phase 3 Plan
+
+on:
+  push:
+    branches:
+      - work/phase-03-secure-fetch
+
+permissions:
+  contents: write
+
+jobs:
+  freeze-plan:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout phase branch
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-03-secure-fetch
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Render frozen plan
+        run: >
+          python .workflow/tools/generate_sequence_plan.py
+          --plan docs/sequence/plans/phase-03-secure-fetch.plan.json
+          --output docs/sequence/generated/phase-03-secure-fetch.plan.mmd
+      - name: Generate planning documentation
+        run: python .workflow/tools/generate_project_docs.py
+      - name: Commit generated plan artifacts
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "Plan artifacts already synchronized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs .workflow/generated
+          git commit -m "docs: freeze phase 3 plan artifacts"
+          git push origin HEAD:work/phase-03-secure-fetch
