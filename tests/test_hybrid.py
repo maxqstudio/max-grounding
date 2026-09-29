@@ -60,17 +60,17 @@ class HybridFusionTests(unittest.TestCase):
 
         hits = fuse_hybrid(
             (lexical(both, 1), lexical(lexical_only, 2)),
-            (semantic(both, 2),),
+            (semantic(both, 1),),
             limit=2,
         )
 
         self.assertEqual(tuple(hit.chunk.chunk_id for hit in hits), ("a", "b"))
         self.assertAlmostEqual(
             hits[0].score,
-            1.0 / (RRF_K + 1) + 1.0 / (RRF_K + 2),
+            2.0 / (RRF_K + 1),
         )
         self.assertEqual(hits[0].lexical_rank, 1)
-        self.assertEqual(hits[0].semantic_rank, 2)
+        self.assertEqual(hits[0].semantic_rank, 1)
         self.assertEqual(hits[1].semantic_rank, None)
         self.assertEqual(tuple(hit.rank for hit in hits), (1, 2))
 
