@@ -18,7 +18,7 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-10-claim-verification.actual.json",
     "diagram": "docs/sequence/generated/phase-10-claim-verification.actual.mmd",
-    "source_digest": "",
+    "source_digest": "4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f",
     "entries": [
       "src/max_grounding/verification.py::build_synthesis_packet"
     ]

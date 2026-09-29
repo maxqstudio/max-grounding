@@ -17,45 +17,45 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
+      "evidence": "tests/test_verification.py; GREEN run 36592414508",
       "id": "P10-STRUCTURE",
       "requirement": "At most 16 bounded AnswerClaim values are normalized and validated fail-closed with unique normalized IDs, exact structured key/value matching, canonical graph validation, and required_sources bounded to 1..3.",
-      "evidence": "tests/test_verification.py; GREEN run 36592414508",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_verification.py; GREEN run 36592414508",
       "id": "P10-STATUS",
       "requirement": "Exact claim/value evidence produces SUPPORTED or PARTIALLY_SUPPORTED by source threshold; an exact conflicting exclusive value produces CONFLICTED regardless of evidence weight; absent exact support produces UNSUPPORTED.",
-      "evidence": "tests/test_verification.py; GREEN run 36592414508",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_verification.py; GREEN run 36592414508",
       "id": "P10-CITATIONS",
       "requirement": "Claim citations preserve exact supporting assertion/source/chunk/excerpt provenance and unsupported claims receive no citation.",
-      "evidence": "tests/test_verification.py; GREEN run 36592414508",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_verification.py; GREEN run 36592414508",
       "id": "P10-CONFIDENCE",
       "requirement": "Confidence is a deterministic evidence-sufficiency index, not a truth probability; conflicted and unsupported claims receive zero.",
-      "evidence": "tests/test_verification.py; GREEN run 36592414508",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_verification.py; GREEN run 36592414508",
       "id": "P10-SYNTHESIS",
       "requirement": "Only SUPPORTED claims enter synthesis_claims; all other verification states are retained in blocked_claims and no free-form prose is generated.",
-      "evidence": "tests/test_verification.py; GREEN run 36592414508",
       "status": "PASS"
     },
     {
+      "evidence": "Phase 10 Candidate Verify run 36592538343",
       "id": "P10-SEQUENCE",
       "requirement": "build_synthesis_packet invokes verify_claims and build_claim_citations in conformance with the frozen Phase 10 BEFORE plan.",
-      "evidence": "Phase 10 Candidate Verify run 36592538343",
       "status": "PASS"
     },
     {
+      "evidence": "Phase 10 Candidate Verify run 36592538343: sequence plus 12/12 runtime matrix jobs PASS",
       "id": "P10-CROSS-OS",
       "requirement": "Phase 10 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS.",
-      "evidence": "Phase 10 Candidate Verify run 36592538343: sequence plus 12/12 runtime matrix jobs PASS",
       "status": "PASS"
     }
   ],

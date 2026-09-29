@@ -2,13 +2,13 @@
 
 # ARCHITECTURE
 
-Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
+Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f
 
 ## Components
 
 | ID | Component | Purpose | Owns | Depends On |
 |---|---|---|---|---|
-| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt, EvidenceAssertion, EvidenceRelationType, EvidenceRelation, EvidenceCluster, EvidenceGraph |  |
+| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt, EvidenceAssertion, EvidenceRelationType, EvidenceRelation, EvidenceCluster, EvidenceGraph, AnswerClaim, ClaimVerificationStatus, ClaimCitation, ClaimVerification, SynthesisPacket |  |
 | policy | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | budget | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | provider-boundary | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -23,6 +23,7 @@ Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d3045025669
 | rerank-compress | Reranking and Context Compression | Rerank bounded HybridHit candidates through an injected provider, validate scores fail-closed, and emit bounded extractive evidence excerpts without generative rewriting. | RerankProvider protocol, rerank_hybrid, compress_context, build_grounded_context, rerank score validation, extractive context budgets, rerank and source provenance | models, hybrid-fusion, lexical-retrieval |
 | temporal-authority | Temporal and Source Authority Scoring | Bind explicit UTC temporal/source metadata to bounded evidence, obtain authority scores through an injected policy, and deterministically score freshness and point-in-time validity. | AuthorityProvider protocol, score_authority, score_temporal_components, score_evidence_quality, explicit evaluation-time policy, freshness horizon bounds, temporal validity checks, stable quality ranking | models, rerank-compress |
 | evidence-graph | Evidence Graph | Normalize bounded structured assertions backed by Phase 8 quality evidence, derive deterministic corroboration/contradiction edges, and cluster equivalent values with distinct source-URL accounting without declaring truth. | build_evidence_graph, build_relations, build_clusters, structured assertion normalization, explicit exclusivity semantics, distinct-URL quality-weight accounting, no-winner graph contract | models, temporal-authority |
+| claim-verification | Claim Verification and Synthesis Gate | Verify bounded exact structured answer claims against the accepted evidence graph, bind exact citations, derive a transparent evidence-sufficiency index, and expose only fully supported claims to synthesis. | verify_claims, build_claim_citations, build_synthesis_packet, four-state claim verification, claim-level citation provenance, evidence-sufficiency confidence index, fail-closed synthesis eligibility | models, evidence-graph |
 
 ## Data flow
 
@@ -60,6 +61,10 @@ Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d3045025669
 - EvidenceQualityScore -> Evidence Graph: validated Phase 8 quality provenance supplies bounded descriptive evidence weight
 - EvidenceAssertion -> Evidence Graph: caller-supplied structured claim key/value/exclusivity semantics are normalized and validated
 - Evidence Graph -> EvidenceGraph: immutable normalized assertions, corroboration/contradiction edges, and distinct-URL value clusters are returned without a truth winner
+- EvidenceGraph -> Claim Verification and Synthesis Gate: validated structured clusters and contradiction edges are revalidated before exact claim verification
+- AnswerClaim -> Claim Verification and Synthesis Gate: at most 16 explicit claim IDs/text/key/value tuples are normalized and matched exactly; no fuzzy semantic inference occurs
+- Claim Verification and Synthesis Gate -> ClaimCitation: exact supporting assertion excerpts retain source URL, chunk identity, and assertion identity per answer claim
+- Claim Verification and Synthesis Gate -> SynthesisPacket: only SUPPORTED claims become synthesis-safe; partial, conflicted, and unsupported claims remain blocked
 
 ## External boundaries
 
@@ -71,9 +76,9 @@ Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d3045025669
 
 ## Observed implementation inventory
 
-Source files: 32
-Source lines: 5175
-Languages: Python=32
+Source files: 34
+Source lines: 5980
+Languages: Python=34
 
 Structural facts come from the code extractor. Component meaning comes from
 .workflow/architecture.json.

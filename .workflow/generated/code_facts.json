@@ -38,7 +38,7 @@
       "file": "src/max_grounding/errors.py",
       "is_test": false,
       "language": "Python",
-      "lines": 53
+      "lines": 57
     },
     {
       "directory": "src/max_grounding",
@@ -73,7 +73,7 @@
       "file": "src/max_grounding/models.py",
       "is_test": false,
       "language": "Python",
-      "lines": 241
+      "lines": 292
     },
     {
       "directory": "src/max_grounding",
@@ -137,6 +137,13 @@
       "is_test": false,
       "language": "Python",
       "lines": 360
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/verification.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 308
     },
     {
       "directory": "tests",
@@ -235,6 +242,13 @@
       "is_test": true,
       "language": "Python",
       "lines": 346
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_verification.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 442
     }
   ],
   "python_calls": [
@@ -2989,6 +3003,342 @@
     {
       "caller": "src/max_grounding/temporal.py::score_evidence_quality",
       "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_bounded_claims",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_bounded_claims",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_bounded_claims",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_bounded_claims",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_bounded_claims",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_bounded_claims",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_bounded_claims",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_bounded_claims",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_bounded_claims",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_text",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_text",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_text",
+      "target_token": "join"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_text",
+      "target_token": "split"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_text",
+      "target_token": "unicodedata.normalize"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_text",
+      "target_token": "normalized.casefold"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_text",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_text",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_text",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "_bounded_claims"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "_normalize_text"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "seen.add"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "normalized.append"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "AnswerClaim"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "_normalize_text"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "_normalize_text"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "_normalize_text"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_normalize_claims",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_validate_required_sources",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_validate_required_sources",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_validate_required_sources",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_validate_required_sources",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_validated_graph",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_validated_graph",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_validated_graph",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_validated_graph",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_validated_graph",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_has_conflict",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_confidence_index",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_confidence_index",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_confidence_index",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_confidence_index",
+      "target_token": "math.isfinite"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_confidence_index",
+      "target_token": "float"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_confidence_index",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_confidence_index",
+      "target_token": "float"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_confidence_index",
+      "target_token": "min"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::_confidence_index",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::verify_claims",
+      "target_token": "_normalize_claims"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::verify_claims",
+      "target_token": "_validated_graph"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::verify_claims",
+      "target_token": "_validate_required_sources"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::verify_claims",
+      "target_token": "_cluster_map"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::verify_claims",
+      "target_token": "clusters.get"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::verify_claims",
+      "target_token": "_has_conflict"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::verify_claims",
+      "target_token": "_confidence_index"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::verify_claims",
+      "target_token": "results.append"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::verify_claims",
+      "target_token": "ClaimVerification"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::verify_claims",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "_normalize_claims"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "_validated_graph"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "_cluster_map"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "clusters.get"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "sorted"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "assertions.get"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "citations.append"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "ClaimCitation"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_claim_citations",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "verify_claims"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "build_claim_citations"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "by_claim.get"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "ClaimVerificationError"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "bucket.append"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "replace"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/verification.py::build_synthesis_packet",
+      "target_token": "SynthesisPacket"
     },
     {
       "caller": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
@@ -6569,6 +6919,406 @@
     {
       "caller": "tests/test_temporal_scoring.py::Phase8TemporalScoringTests.test_more_than_eight_items_and_duplicate_identity_fail_closed",
       "target_token": "_AuthorityProvider"
+    },
+    {
+      "caller": "tests/test_verification.py::quality",
+      "target_token": "EvidenceExcerpt"
+    },
+    {
+      "caller": "tests/test_verification.py::quality",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_verification.py::quality",
+      "target_token": "EvidenceMetadata"
+    },
+    {
+      "caller": "tests/test_verification.py::quality",
+      "target_token": "EvidenceQualityScore"
+    },
+    {
+      "caller": "tests/test_verification.py::assertion",
+      "target_token": "EvidenceAssertion"
+    },
+    {
+      "caller": "tests/test_verification.py::assertion",
+      "target_token": "quality"
+    },
+    {
+      "caller": "tests/test_verification.py::claim",
+      "target_token": "AnswerClaim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "build_synthesis_packet"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "self.assertAlmostEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met",
+      "target_token": "build_synthesis_packet"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met",
+      "target_token": "self.assertAlmostEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_conflict_has_precedence_over_strong_support",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_conflict_has_precedence_over_strong_support",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_conflict_has_precedence_over_strong_support",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_conflict_has_precedence_over_strong_support",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_conflict_has_precedence_over_strong_support",
+      "target_token": "verify_claims"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_conflict_has_precedence_over_strong_support",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_conflict_has_precedence_over_strong_support",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_conflict_has_precedence_over_strong_support",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_conflict_has_precedence_over_strong_support",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations",
+      "target_token": "build_synthesis_packet"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict",
+      "target_token": "verify_claims"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict",
+      "target_token": "self.assertGreater"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "build_claim_citations"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed",
+      "target_token": "verify_claims"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed",
+      "target_token": "verify_claims"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed",
+      "target_token": "verify_claims"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_more_than_max_claims_fail_closed",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_more_than_max_claims_fail_closed",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_more_than_max_claims_fail_closed",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_more_than_max_claims_fail_closed",
+      "target_token": "str"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_more_than_max_claims_fail_closed",
+      "target_token": "range"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_more_than_max_claims_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_more_than_max_claims_fail_closed",
+      "target_token": "build_synthesis_packet"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_malformed_graph_fails_closed",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_malformed_graph_fails_closed",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_malformed_graph_fails_closed",
+      "target_token": "type"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_malformed_graph_fails_closed",
+      "target_token": "type"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_malformed_graph_fails_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_malformed_graph_fails_closed",
+      "target_token": "verify_claims"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_malformed_graph_fails_closed",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe",
+      "target_token": "build_evidence_graph"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe",
+      "target_token": "assertion"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe",
+      "target_token": "claim"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe",
+      "target_token": "build_synthesis_packet"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verification.py::Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe",
+      "target_token": "tuple"
     }
   ],
   "python_routes": [],
@@ -6740,6 +7490,14 @@
       "line_start": 52,
       "locator": "src/max_grounding/errors.py::EvidenceGraphError",
       "symbol": "EvidenceGraphError"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 57,
+      "line_start": 56,
+      "locator": "src/max_grounding/errors.py::ClaimVerificationError",
+      "symbol": "ClaimVerificationError"
     },
     {
       "file": "src/max_grounding/evidence.py",
@@ -7008,162 +7766,202 @@
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 35,
-      "line_start": 26,
+      "line_end": 31,
+      "line_start": 25,
+      "locator": "src/max_grounding/models.py::ClaimVerificationStatus",
+      "symbol": "ClaimVerificationStatus"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 44,
+      "line_start": 35,
       "locator": "src/max_grounding/models.py::GroundingRequest",
       "symbol": "GroundingRequest"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 47,
-      "line_start": 39,
+      "line_end": 56,
+      "line_start": 48,
       "locator": "src/max_grounding/models.py::SearchQuery",
       "symbol": "SearchQuery"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 58,
-      "line_start": 51,
+      "line_end": 67,
+      "line_start": 60,
       "locator": "src/max_grounding/models.py::SourceCandidate",
       "symbol": "SourceCandidate"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 70,
-      "line_start": 62,
+      "line_end": 79,
+      "line_start": 71,
       "locator": "src/max_grounding/models.py::EvidenceSource",
       "symbol": "EvidenceSource"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 81,
-      "line_start": 74,
+      "line_end": 90,
+      "line_start": 83,
       "locator": "src/max_grounding/models.py::EvidencePack",
       "symbol": "EvidencePack"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 93,
-      "line_start": 85,
+      "line_end": 102,
+      "line_start": 94,
       "locator": "src/max_grounding/models.py::FetchedDocument",
       "symbol": "FetchedDocument"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 104,
-      "line_start": 97,
+      "line_end": 113,
+      "line_start": 106,
       "locator": "src/max_grounding/models.py::TextChunk",
       "symbol": "TextChunk"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 113,
-      "line_start": 108,
+      "line_end": 122,
+      "line_start": 117,
       "locator": "src/max_grounding/models.py::LexicalHit",
       "symbol": "LexicalHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 122,
-      "line_start": 117,
+      "line_end": 131,
+      "line_start": 126,
       "locator": "src/max_grounding/models.py::SemanticHit",
       "symbol": "SemanticHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 133,
-      "line_start": 126,
+      "line_end": 142,
+      "line_start": 135,
       "locator": "src/max_grounding/models.py::HybridHit",
       "symbol": "HybridHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 145,
-      "line_start": 137,
+      "line_end": 154,
+      "line_start": 146,
       "locator": "src/max_grounding/models.py::RerankedHit",
       "symbol": "RerankedHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 157,
-      "line_start": 149,
+      "line_end": 166,
+      "line_start": 158,
       "locator": "src/max_grounding/models.py::EvidenceExcerpt",
       "symbol": "EvidenceExcerpt"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 171,
-      "line_start": 161,
+      "line_end": 180,
+      "line_start": 170,
       "locator": "src/max_grounding/models.py::EvidenceMetadata",
       "symbol": "EvidenceMetadata"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 180,
-      "line_start": 175,
+      "line_end": 189,
+      "line_start": 184,
       "locator": "src/max_grounding/models.py::AuthoritySubject",
       "symbol": "AuthoritySubject"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 188,
-      "line_start": 184,
+      "line_end": 197,
+      "line_start": 193,
       "locator": "src/max_grounding/models.py::TemporalComponents",
       "symbol": "TemporalComponents"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 201,
-      "line_start": 192,
+      "line_end": 210,
+      "line_start": 201,
       "locator": "src/max_grounding/models.py::EvidenceQualityScore",
       "symbol": "EvidenceQualityScore"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 212,
-      "line_start": 205,
+      "line_end": 221,
+      "line_start": 214,
       "locator": "src/max_grounding/models.py::EvidenceAssertion",
       "symbol": "EvidenceAssertion"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 221,
-      "line_start": 216,
+      "line_end": 230,
+      "line_start": 225,
       "locator": "src/max_grounding/models.py::EvidenceRelation",
       "symbol": "EvidenceRelation"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 232,
-      "line_start": 225,
+      "line_end": 241,
+      "line_start": 234,
       "locator": "src/max_grounding/models.py::EvidenceCluster",
       "symbol": "EvidenceCluster"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 241,
-      "line_start": 236,
+      "line_end": 250,
+      "line_start": 245,
       "locator": "src/max_grounding/models.py::EvidenceGraph",
       "symbol": "EvidenceGraph"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 260,
+      "line_start": 254,
+      "locator": "src/max_grounding/models.py::AnswerClaim",
+      "symbol": "AnswerClaim"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 271,
+      "line_start": 264,
+      "locator": "src/max_grounding/models.py::ClaimCitation",
+      "symbol": "ClaimCitation"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 283,
+      "line_start": 275,
+      "locator": "src/max_grounding/models.py::ClaimVerification",
+      "symbol": "ClaimVerification"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 292,
+      "line_start": 287,
+      "locator": "src/max_grounding/models.py::SynthesisPacket",
+      "symbol": "SynthesisPacket"
     },
     {
       "file": "src/max_grounding/network_policy.py",
@@ -7636,6 +8434,94 @@
       "line_start": 297,
       "locator": "src/max_grounding/temporal.py::score_evidence_quality",
       "symbol": "score_evidence_quality"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 46,
+      "line_start": 32,
+      "locator": "src/max_grounding/verification.py::_bounded_claims",
+      "symbol": "_bounded_claims"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 65,
+      "line_start": 49,
+      "locator": "src/max_grounding/verification.py::_normalize_text",
+      "symbol": "_normalize_text"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 107,
+      "line_start": 68,
+      "locator": "src/max_grounding/verification.py::_normalize_claims",
+      "symbol": "_normalize_claims"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 117,
+      "line_start": 110,
+      "locator": "src/max_grounding/verification.py::_validate_required_sources",
+      "symbol": "_validate_required_sources"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 131,
+      "line_start": 120,
+      "locator": "src/max_grounding/verification.py::_validated_graph",
+      "symbol": "_validated_graph"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 138,
+      "line_start": 134,
+      "locator": "src/max_grounding/verification.py::_cluster_map",
+      "symbol": "_cluster_map"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 151,
+      "line_start": 141,
+      "locator": "src/max_grounding/verification.py::_has_conflict",
+      "symbol": "_has_conflict"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 172,
+      "line_start": 154,
+      "locator": "src/max_grounding/verification.py::_confidence_index",
+      "symbol": "_confidence_index"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 218,
+      "line_start": 175,
+      "locator": "src/max_grounding/verification.py::verify_claims",
+      "symbol": "verify_claims"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 257,
+      "line_start": 221,
+      "locator": "src/max_grounding/verification.py::build_claim_citations",
+      "symbol": "build_claim_citations"
+    },
+    {
+      "file": "src/max_grounding/verification.py",
+      "kind": "function",
+      "line_end": 308,
+      "line_start": 260,
+      "locator": "src/max_grounding/verification.py::build_synthesis_packet",
+      "symbol": "build_synthesis_packet"
     },
     {
       "file": "tests/test_bootstrap.py",
@@ -9108,17 +9994,129 @@
       "line_start": 309,
       "locator": "tests/test_temporal_scoring.py::Phase8TemporalScoringTests.test_more_than_eight_items_and_duplicate_identity_fail_closed",
       "symbol": "Phase8TemporalScoringTests.test_more_than_eight_items_and_duplicate_identity_fail_closed"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "function",
+      "line_end": 60,
+      "line_start": 28,
+      "locator": "tests/test_verification.py::quality",
+      "symbol": "quality"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "function",
+      "line_end": 87,
+      "line_start": 63,
+      "locator": "tests/test_verification.py::assertion",
+      "symbol": "assertion"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "function",
+      "line_end": 101,
+      "line_start": 90,
+      "locator": "tests/test_verification.py::claim",
+      "symbol": "claim"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "class",
+      "line_end": 438,
+      "line_start": 104,
+      "locator": "tests/test_verification.py::Phase10VerificationTests",
+      "symbol": "Phase10VerificationTests"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "method",
+      "line_end": 159,
+      "line_start": 105,
+      "locator": "tests/test_verification.py::Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index",
+      "symbol": "Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "method",
+      "line_end": 190,
+      "line_start": 161,
+      "locator": "tests/test_verification.py::Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met",
+      "symbol": "Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "method",
+      "line_end": 239,
+      "line_start": 192,
+      "locator": "tests/test_verification.py::Phase10VerificationTests.test_conflict_has_precedence_over_strong_support",
+      "symbol": "Phase10VerificationTests.test_conflict_has_precedence_over_strong_support"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "method",
+      "line_end": 270,
+      "line_start": 241,
+      "locator": "tests/test_verification.py::Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations",
+      "symbol": "Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "method",
+      "line_end": 307,
+      "line_start": 272,
+      "locator": "tests/test_verification.py::Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict",
+      "symbol": "Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "method",
+      "line_end": 335,
+      "line_start": 309,
+      "locator": "tests/test_verification.py::Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance",
+      "symbol": "Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "method",
+      "line_end": 354,
+      "line_start": 337,
+      "locator": "tests/test_verification.py::Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed",
+      "symbol": "Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "method",
+      "line_end": 368,
+      "line_start": 356,
+      "locator": "tests/test_verification.py::Phase10VerificationTests.test_more_than_max_claims_fail_closed",
+      "symbol": "Phase10VerificationTests.test_more_than_max_claims_fail_closed"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "method",
+      "line_end": 404,
+      "line_start": 370,
+      "locator": "tests/test_verification.py::Phase10VerificationTests.test_malformed_graph_fails_closed",
+      "symbol": "Phase10VerificationTests.test_malformed_graph_fails_closed"
+    },
+    {
+      "file": "tests/test_verification.py",
+      "kind": "method",
+      "line_end": 438,
+      "line_start": 406,
+      "locator": "tests/test_verification.py::Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe",
+      "symbol": "Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe"
     }
   ],
   "schema_version": 1,
-  "source_digest": "54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982",
+  "source_digest": "4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f",
   "source_summary": {
-    "files": 32,
+    "files": 34,
     "languages": {
-      "Python": 32
+      "Python": 34
     },
-    "lines": 5175,
-    "test_files": 14
+    "lines": 5980,
+    "test_files": 15
   },
   "tests": [
     "tests/test_bootstrap.py",
@@ -9134,6 +10132,7 @@
     "tests/test_searxng_provider.py",
     "tests/test_secure_fetcher.py",
     "tests/test_semantic_retrieval.py",
-    "tests/test_temporal_scoring.py"
+    "tests/test_temporal_scoring.py",
+    "tests/test_verification.py"
   ]
 }
