@@ -103,3 +103,12 @@ class LexicalHit:
     chunk: TextChunk
     score: float
     rank: int
+
+
+@dataclass(frozen=True, slots=True)
+class SemanticHit:
+    """One immutable positive-score semantic retrieval result."""
+
+    chunk: TextChunk
+    score: float
+    rank: int
