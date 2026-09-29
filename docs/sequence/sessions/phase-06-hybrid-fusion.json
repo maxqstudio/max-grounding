@@ -5,24 +5,31 @@
   "mode": "BEFORE",
   "scope": "CURRENT",
   "critical": true,
-  "status": "PLANNED",
-  "implementation_base_sha": "",
+  "status": "FROZEN",
+  "implementation_base_sha": "a5e30b00c777e66b3aafdea6002970d28a181982",
   "plan": {
     "required": true,
     "contract": "docs/sequence/plans/phase-06-hybrid-fusion.plan.json",
     "frozen": true,
-    "frozen_commit": "",
-    "sha256": "",
+    "frozen_commit": "a5e30b00c777e66b3aafdea6002970d28a181982",
+    "sha256": "a9465785aba1386a466e658aab89bc23ff1cbfffb8608bb9ff70434305948a04",
     "diagram": "docs/sequence/generated/phase-06-hybrid-fusion.plan.mmd"
   },
   "actual": {
     "graph": "docs/sequence/generated/phase-06-hybrid-fusion.actual.json",
     "diagram": "docs/sequence/generated/phase-06-hybrid-fusion.actual.mmd",
     "source_digest": "",
-    "entries": ["src/max_grounding/hybrid.py::retrieve_hybrid"]
+    "entries": [
+      "src/max_grounding/hybrid.py::retrieve_hybrid"
+    ]
   },
   "test_traceability_required": true,
-  "tests": ["tests/test_hybrid.py"],
-  "runtime_trace": {"required": false, "graph": ""},
+  "tests": [
+    "tests/test_hybrid.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
   "acceptance_report": ""
 }
