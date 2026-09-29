@@ -47,6 +47,7 @@ SEQUENCE_SYNC: PASS
 - The fetch boundary resolves all DNS answers, rejects the whole set if any address is non-public, and pins the socket to a validated IP while preserving the original HTTPS server name.
 - Result pages are fail-closed on redirects/non-200 responses, non-identity content encoding, missing/disallowed media type, disallowed charset, or response byte overflow.
 - HTML extraction removes script, style, noscript, template, and svg content; extracted text remains untrusted evidence data.
+- Phase 3 Project Truth sync run 36550916141 generated and validated the current ACTUAL sequence and deterministic documentation before push.
 
 ## Not proven
 - Final Phase 3 acceptance is not proven until the exact PR head passes the full Acceptance workflow and merged main is revalidated.
@@ -60,9 +61,8 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Generate and commit the current Phase 3 ACTUAL sequence graph and deterministic Project Truth documentation.
-- Run full STRICT GitHub Actions pull-request acceptance on the exact candidate head.
-- Merge Phase 3 only if every required job passes, then revalidate main.
+- Open the Phase 3 pull request and run the full STRICT GitHub Actions Acceptance workflow on the exact candidate head.
+- Merge Phase 3 only if every required pull-request job passes, then revalidate merged main.
 
 ## Explicitly blocked
 - Do not merge Phase 3 while any required GitHub Actions job is failing or missing.
