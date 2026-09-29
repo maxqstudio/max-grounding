@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-HYBRID-FUSION",
+  "title": "Phase 6 bounded hybrid fusion",
+  "status": "FROZEN",
+  "nodes": [
+    {"id":"hybrid","label":"retrieve_hybrid","locator":"src/max_grounding/hybrid.py::retrieve_hybrid","kind":"source"},
+    {"id":"lexical","label":"retrieve_lexical","locator":"src/max_grounding/retrieval.py::retrieve_lexical","kind":"source"},
+    {"id":"semantic","label":"retrieve_semantic","locator":"src/max_grounding/semantic.py::retrieve_semantic","kind":"source"},
+    {"id":"fuse","label":"fuse_hybrid","locator":"src/max_grounding/hybrid.py::fuse_hybrid","kind":"source"}
+  ],
+  "edges": [
+    {"from":"hybrid","to":"lexical","action":"produce bounded lexical candidates","requirement":"MUST","verification":"SOURCE"},
+    {"from":"hybrid","to":"semantic","action":"produce bounded semantic candidates","requirement":"MUST","verification":"SOURCE"},
+    {"from":"hybrid","to":"fuse","action":"fuse both ranked candidate sets","requirement":"MUST","verification":"SOURCE"}
+  ]
+}
