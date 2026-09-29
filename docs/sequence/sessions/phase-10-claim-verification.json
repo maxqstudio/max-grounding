@@ -3,7 +3,7 @@
   "session_id": "phase-10-claim-verification",
   "phase": "PHASE_10_CLAIM_VERIFICATION",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
   "status": "FROZEN",
   "implementation_base_sha": "a1cfc956e004330bf27dcda56fd1987d0d4ac53b",

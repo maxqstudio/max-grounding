@@ -44,6 +44,7 @@ REQUIRED_GATES = [
     "DOC_TEST_TRACEABILITY",
     "TEST_RUNTIME_TRACEABILITY",
     "PROJECT_STATE_SYNC",
+    "ROADMAP_SYNC",
 ]
 
 ALLOWED = {"PASS", "FAIL", "NOT_APPLICABLE", "NOT_PROVEN"}
@@ -305,6 +306,11 @@ def main() -> int:
             )
 
     if documentation_policy.get("generated", False):
+        roadmap_gate = gates.get("ROADMAP_SYNC")
+        if roadmap_gate not in {"PASS", None}:
+            failures.append(
+                f"ROADMAP_SYNC_REQUIRED_BUT_NOT_PASS:{roadmap_gate}"
+            )
         docs_gate = gates.get("PROJECT_DOCS_SYNC")
         if docs_gate not in {"PASS", None}:
             failures.append(

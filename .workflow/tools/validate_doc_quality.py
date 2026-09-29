@@ -26,6 +26,7 @@ CANONICAL_DOCS = {
     "SYSTEM_OVERVIEW.md",
     "PROJECT_MANIFEST.md",
     "CURRENT_STATE.md",
+    "ROADMAP.md",
     "SOURCE_AUTHORITY_MAP.md",
     "ARCHITECTURE.md",
     "WORKFLOW_STATE_MACHINE.md",
@@ -174,6 +175,7 @@ def main() -> int:
             "SYSTEM_OVERVIEW.md",
             "PROJECT_MANIFEST.md",
             "CURRENT_STATE.md",
+            "ROADMAP.md",
             "MODULE_MAP.md",
             "TEST_ACCEPTANCE_MATRIX.md",
             "DECISIONS.md",
@@ -221,6 +223,7 @@ def main() -> int:
         for ref in (
             "docs/SYSTEM_OVERVIEW.md",
             "docs/CURRENT_STATE.md",
+            "docs/ROADMAP.md",
             "docs/PROJECT_MANIFEST.md",
         ):
             if ref not in readme:

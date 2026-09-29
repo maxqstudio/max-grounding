@@ -41,3 +41,11 @@ Status: ACCEPTED
 Phase 6 combines lexical and semantic ranks with fixed equal-weight reciprocal-rank fusion using k=60 and does not expose modality-weight tuning.
 
 Rationale: A fixed deterministic fusion is the smallest correct hybrid layer, avoids premature ranking optimization, and preserves clear provenance until retrieval-quality benchmarking and reranking are explicitly proven.
+
+## DEC-0006 — Adopt latest Skill Workflow roadmap authority
+
+Status: ACCEPTED
+
+Pin governance to maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259, vendor its current project-local runtime tool pack, and make .workflow/roadmap.json the sole roadmap semantic authority instead of embedding roadmap state inside project.json.
+
+Rationale: The latest Skill Workflow makes roadmap/state synchronization a blocking truth gate. A separate roadmap authority removes duplicate phase state and prevents generated ROADMAP.md from drifting from CURRENT_STATE.

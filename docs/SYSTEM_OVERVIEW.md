@@ -218,7 +218,7 @@ Authority: Temporal metadata validation, deterministic freshness/validity formul
 
 Current phase: PHASE_10_CLAIM_VERIFICATION
 
-Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Current status: ACCEPTED_PENDING_LATEST_WORKFLOW_CLOSURE
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -230,7 +230,7 @@ See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 | runtime | GitHub Actions runner matrix | Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority. |
 | acceptance | GitHub Actions required workflows | A phase is accepted only when its required workflow checks pass on the exact candidate commit. |
 | documentation | .workflow/*.json plus deterministic Project Truth Compiler | Structured specs are semantic authority; docs/ is generated projection. |
-| skill_workflow | maxqstudio/Skill_Workflow@9e22feddb8f94e8c0f1af6a33e14b64de5068f8f | Pinned governance tooling and rules used by Phase 0. |
+| skill_workflow | maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259 | Pinned latest governance tooling and rules adopted during Phase 10 closure. |
 
 ## Mutable vs immutable
 
@@ -243,7 +243,7 @@ See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
 - runtime: Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority.
 - acceptance: A phase is accepted only when its required workflow checks pass on the exact candidate commit.
-- skill_workflow: Pinned governance tooling and rules used by Phase 0.
+- skill_workflow: Pinned latest governance tooling and rules adopted during Phase 10 closure.
 
 ### Configuration vs execution snapshot
 
@@ -278,15 +278,15 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Synchronize the Phase 10 ACTUAL sequence and deterministic Project Truth documentation.
-- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 10 candidate head.
-- Merge Phase 10 only if every required job passes, then revalidate merged main.
+- Validate Phase 10 closure under Skill Workflow c1d7e58a0fcadc606c8cf75c6283a17278f99259.
+- Merge closure only after exact-head full Acceptance passes and revalidate merged main.
+- Then advance state.phase and roadmap.current_phase together to PHASE_11_CONCRETE_RUNTIME_INDEX before Phase 11 implementation.
 
 Blocked actions:
-- Do not describe the Phase 10 confidence index as a probability that a claim is true.
-- Do not expose PARTIALLY_SUPPORTED, CONFLICTED, or UNSUPPORTED claims as synthesis-safe facts.
-- Do not claim fuzzy or natural-language claim verification from exact structured Phase 10 matching.
-- Do not merge Phase 10 while any required GitHub Actions job is failing or missing.
+- Do not describe the accepted Phase 10 confidence index as a probability that a claim is true.
+- Do not claim fuzzy semantic verification or final prose generation from accepted Phase 10.
+- Do not start Phase 11 source implementation before Phase 10 closure-main revalidation.
+- Do not change state.phase without changing roadmap.current_phase in the same transaction.
 
 Known blockers:
 - None declared.
@@ -305,11 +305,12 @@ Known blockers:
 - Claim citations preserve exact supporting assertion, source URL, chunk identity, and excerpt text from the accepted evidence graph.
 - Phase 10 confidence is a deterministic evidence-sufficiency index derived from mean distinct-source Phase 8 quality and bounded source coverage; it is not a probability of truth.
 - Only SUPPORTED claims are exposed in synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims are fail-closed into blocked_claims.
+- Phase 10 exact pull-request head e5fd57f65216b58163b447df8011293185105f5f passed Acceptance run 36593330960 with 13/13 required jobs.
+- Phase 10 merged main SHA dab1961e04f7610a4bf7a9de55a8a649a6fe8990 passed post-merge Acceptance run 36594071609 with 13/13 required jobs.
 
 ### Not proven
 
-- Final Phase 10 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
-- Phase 10 does not extract answer claims from free-form LLM text, perform fuzzy semantic claim matching, generate free-form final prose, prove truth probability calibration, provide a concrete embedding/rerank model, persist Qdrant indexes, expose REST/MCP, or prove production deployment.
+- Accepted Phase 10 does not extract answer claims from free-form LLM text, perform fuzzy semantic/NLI verification, generate free-form final prose, calibrate truth probabilities, provide a concrete embedding/rerank model, persist Qdrant indexes, expose REST/MCP, or prove production deployment.
 
 ## Important limitations
 
@@ -326,6 +327,7 @@ See GLOSSARY.md.
 | Need | Document |
 |---|---|
 | Current state | CURRENT_STATE.md |
+| Roadmap | ROADMAP.md |
 | Project identity | PROJECT_MANIFEST.md |
 | Architecture | ARCHITECTURE.md |
 | Lifecycle | WORKFLOW_STATE_MACHINE.md |

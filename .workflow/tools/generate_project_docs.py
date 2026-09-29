@@ -38,6 +38,7 @@ SPEC_FILES = [
     "project.json",
     "authority.json",
     "state.json",
+    "roadmap.json",
     "architecture.json",
     "contracts.json",
     "claims.json",
@@ -173,6 +174,60 @@ def validate_inputs(
         value = clean(state.get(key))
         if not value or value == "replace-me":
             failures.append("STATE_SPEC_MISSING:" + key)
+
+    roadmap = specs["roadmap.json"]
+    roadmap_current = clean(roadmap.get("current_phase"))
+    if not roadmap_current or roadmap_current == "replace-me":
+        failures.append("ROADMAP_CURRENT_PHASE_MISSING")
+
+    phases = roadmap.get("phases")
+    if not isinstance(phases, list) or not phases:
+        failures.append("ROADMAP_PHASES_EMPTY")
+    else:
+        seen_phase_ids: set[str] = set()
+        current_markers: list[str] = []
+        for index, item in enumerate(phases, start=1):
+            if not isinstance(item, dict):
+                failures.append(f"ROADMAP_PHASE_INVALID:{index}")
+                continue
+            phase_id = clean(item.get("id"))
+            title = clean(item.get("title"))
+            roadmap_status = clean(item.get("status")).upper()
+            if not phase_id or phase_id == "replace-me":
+                failures.append(f"ROADMAP_PHASE_ID_MISSING:{index}")
+                continue
+            if phase_id in seen_phase_ids:
+                failures.append("ROADMAP_PHASE_ID_DUPLICATE:" + phase_id)
+            seen_phase_ids.add(phase_id)
+            if not title or title == "replace-me":
+                failures.append("ROADMAP_PHASE_TITLE_MISSING:" + phase_id)
+            if not roadmap_status or roadmap_status == "REPLACE-ME":
+                failures.append("ROADMAP_PHASE_STATUS_MISSING:" + phase_id)
+            if roadmap_status == "CURRENT":
+                current_markers.append(phase_id)
+
+        if roadmap_current and roadmap_current not in seen_phase_ids:
+            failures.append("ROADMAP_CURRENT_PHASE_NOT_FOUND:" + roadmap_current)
+        if len(current_markers) != 1:
+            failures.append(
+                "ROADMAP_CURRENT_MARKER_COUNT:" + str(len(current_markers))
+            )
+        elif roadmap_current and current_markers[0] != roadmap_current:
+            failures.append(
+                "ROADMAP_CURRENT_MARKER_MISMATCH:"
+                + current_markers[0]
+                + "!="
+                + roadmap_current
+            )
+
+    state_phase = clean(state.get("phase"))
+    if roadmap_current and state_phase and roadmap_current != state_phase:
+        failures.append(
+            "ROADMAP_STATE_PHASE_MISMATCH:"
+            + roadmap_current
+            + "!="
+            + state_phase
+        )
 
     if not specs["authority.json"].get("authorities"):
         failures.append("AUTHORITY_SPEC_EMPTY")
@@ -471,6 +526,7 @@ See GLOSSARY.md.
 | Need | Document |
 |---|---|
 | Current state | CURRENT_STATE.md |
+| Roadmap | ROADMAP.md |
 | Project identity | PROJECT_MANIFEST.md |
 | Architecture | ARCHITECTURE.md |
 | Lifecycle | WORKFLOW_STATE_MACHINE.md |
@@ -584,15 +640,16 @@ Generated from code inventory. See MODULE_MAP.md.
 1. ../PROJECT_PROFILE.yaml
 2. SYSTEM_OVERVIEW.md
 3. CURRENT_STATE.md
-4. PROJECT_MANIFEST.md
-5. profile-required authority / architecture / workflow docs
-6. SEQUENCE_CONTRACTS.md when enabled
-7. MODULE_MAP.md
-8. FLOW_INDEX.md
-9. SYMBOL_INDEX.md
-10. TEST_ACCEPTANCE_MATRIX.md
-11. DOC_SYNC_MATRIX.md
-12. PROJECT_TRUTH_SYNC.md when applicable
+4. ROADMAP.md
+5. PROJECT_MANIFEST.md
+6. profile-required authority / architecture / workflow docs
+7. SEQUENCE_CONTRACTS.md when enabled
+8. MODULE_MAP.md
+9. FLOW_INDEX.md
+10. SYMBOL_INDEX.md
+11. TEST_ACCEPTANCE_MATRIX.md
+12. DOC_SYNC_MATRIX.md
+13. PROJECT_TRUTH_SYNC.md when applicable
 
 ## Profile-specific applicability
 
@@ -629,6 +686,7 @@ def render_current_state(
     sequence_required: bool,
 ) -> str:
     state = specs["state.json"]
+    roadmap = specs["roadmap.json"]
     acceptance = specs["acceptance.json"]
     project = specs["project.json"]["project"]
     return """# CURRENT STATE
@@ -640,6 +698,8 @@ Governance profile: {profile}
 ## Current phase
 Phase: {phase}
 Status: {status}
+Roadmap phase: {roadmap_phase}
+ROADMAP_SYNC: {roadmap_sync}
 
 ## Source
 Repository: {repository}
@@ -690,6 +750,10 @@ See KNOWN_DEFECTS.md.
         repository=clean(project.get("repository")),
         phase=clean(state.get("phase")),
         status=clean(state.get("status")),
+        roadmap_phase=clean(roadmap.get("current_phase")),
+        roadmap_sync=clean(
+            acceptance.get("truth_gates", {}).get("ROADMAP_SYNC", "NOT_PROVEN")
+        ),
         branch=clean(state.get("working_branch")) or "NOT_DECLARED",
         digest=facts["source_digest"],
         runtime=clean(acceptance.get("runtime_status", "NOT_PROVEN")),
@@ -716,6 +780,69 @@ See KNOWN_DEFECTS.md.
         blockers=bullets(state.get("blockers", [])),
         next_actions=bullets(state.get("next_authorized_actions", [])),
         blocked=bullets(state.get("blocked_actions", [])),
+    )
+
+
+def render_roadmap(specs: dict[str, dict]) -> str:
+    roadmap = specs["roadmap.json"]
+    state = specs["state.json"]
+    acceptance = specs["acceptance.json"]
+    rows = []
+    for index, item in enumerate(roadmap.get("phases", []), start=1):
+        rows.append(
+            "| "
+            + str(index)
+            + " | "
+            + cell(item.get("id"))
+            + " | "
+            + cell(item.get("title"))
+            + " | "
+            + cell(item.get("status"))
+            + " | "
+            + cell(item.get("objective"))
+            + " | "
+            + cell("<br>".join(clean(x) for x in item.get("exit_criteria", []) if clean(x)))
+            + " |"
+        )
+    if not rows:
+        rows.append("| | | | | | |")
+
+    return """# ROADMAP
+
+Current project phase: {state_phase}
+Current roadmap phase: {roadmap_phase}
+ROADMAP_SYNC: {roadmap_sync}
+
+## Phase plan
+
+| Order | Phase | Title | Roadmap status | Objective | Exit criteria |
+|---:|---|---|---|---|---|
+{rows}
+
+## Synchronization contract
+
+`.workflow/roadmap.json` is the roadmap authority. This Markdown is generated.
+
+The roadmap is valid only when:
+
+- `.workflow/state.json::phase` equals `.workflow/roadmap.json::current_phase`;
+- exactly one roadmap phase is marked `CURRENT`;
+- that `CURRENT` phase id equals `current_phase`;
+- every phase id is unique.
+
+When the project advances phase, update `.workflow/state.json` and
+`.workflow/roadmap.json` in the same project-state transaction, then run:
+
+`python .workflow/tools/sync_project_truth.py`
+
+Missing roadmap authority or phase drift is a blocking validation failure.
+""".format(
+        state_phase=clean(state.get("phase")),
+        roadmap_phase=clean(roadmap.get("current_phase")),
+        roadmap_sync=clean(
+            acceptance.get("truth_gates", {}).get("ROADMAP_SYNC", "NOT_PROVEN")
+        ),
+        rows="\n".join(rows),
     )
 
 
@@ -1138,6 +1265,11 @@ Current source digest: {digest}
 
 {runtime}
 
+## Roadmap synchronization evidence
+
+Roadmap authority: .workflow/roadmap.json
+ROADMAP_SYNC: {roadmap_sync}
+
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: {sequence_mode}
@@ -1165,6 +1297,9 @@ Generated documentation never upgrades NOT_RUN or NOT_PROVEN to PASS.
         rows="\n".join(rows),
         tests=bullets(acceptance.get("test_commands", [])),
         runtime=bullets(acceptance.get("runtime_checks", [])),
+        roadmap_sync=clean(
+            acceptance.get("truth_gates", {}).get("ROADMAP_SYNC", "NOT_PROVEN")
+        ),
         sequence_mode=clean(acceptance.get("sequence_mode", "NOT_APPLICABLE")),
         sequence_session=clean(acceptance.get("sequence_session")) or "NOT_APPLICABLE",
         sequence_sync=clean(acceptance.get("sequence_sync_status", "NOT_PROVEN")),
@@ -1206,7 +1341,8 @@ Generated Markdown lives under repository-root docs/ and is not manually edited.
 |---|---|
 | Project identity/purpose/users/outcomes | .workflow/project.json |
 | Authority/mutability/invariants | .workflow/authority.json |
-| Current phase/blockers/next action | .workflow/state.json |
+| Current phase/status/blockers/next action | .workflow/state.json; when phase changes update .workflow/roadmap.json in the same transaction |
+| Roadmap phase plan/current phase | .workflow/roadmap.json |
 | Architecture/component/data-flow | .workflow/architecture.json |
 | Workflow/lifecycle semantics | .workflow/workflows/*.json |
 | API/data/UI/runbook | .workflow/contracts.json |
@@ -1259,6 +1395,7 @@ def render_truth(specs: dict[str, dict], sequence_required: bool) -> str:
         "CROSS_DOCUMENT_CONSISTENCY",
         "HUMAN_COMPREHENSION",
         "SEQUENCE_SYNC",
+        "ROADMAP_SYNC",
         "DOC_LAYOUT",
         "PROJECT_DOCS_NORMALIZED",
         "DOC_READABILITY",
@@ -1561,63 +1698,6 @@ def render_glossary(specs: dict[str, dict]) -> str:
     return "# GLOSSARY\n\n| Term | Definition |\n|---|---|\n" + "\n".join(rows) + "\n"
 
 
-
-def render_roadmap(specs: dict[str, dict]) -> str:
-    roadmap = specs["project.json"].get("roadmap", {})
-    rows = []
-    for item in roadmap.get("phases", []):
-        rows.append(
-            "| "
-            + cell(str(item.get("phase", "")))
-            + " | "
-            + cell(item.get("name"))
-            + " | "
-            + cell(item.get("status"))
-            + " |"
-        )
-    if not rows:
-        rows.append("| | | |")
-
-    expansion = []
-    for item in roadmap.get("optional_expansion", []):
-        expansion.append(
-            "Phase "
-            + str(item.get("phase", ""))
-            + " — "
-            + clean(item.get("name"))
-        )
-
-    return """# ROADMAP
-
-Target: {target}
-
-Planned core phases: {count}
-
-## Production V1 roadmap
-
-| Phase | Scope | Status |
-|---:|---|---|
-{rows}
-
-## Optional post-V1 expansion
-
-{expansion}
-
-## Roadmap rules
-
-{rules}
-
-This document is generated from `.workflow/project.json`; it is planning
-authority only. Acceptance truth remains in `.workflow/state.json` and
-`.workflow/acceptance.json`.
-""".format(
-        target=clean(roadmap.get("target", "NOT_PROVEN")),
-        count=clean(roadmap.get("phase_count", "NOT_PROVEN")),
-        rows="\n".join(rows),
-        expansion=bullets(expansion) if expansion else "- None declared.",
-        rules=bullets(roadmap.get("rules", [])),
-    )
-
 def render_all(
     profile: str,
     specs: dict[str, dict],
@@ -1631,10 +1711,10 @@ def render_all(
     renderers = {
         "SYSTEM_OVERVIEW.md": lambda: render_system_overview(specs, workflows, facts),
         "PROJECT_MANIFEST.md": lambda: render_project_manifest(profile, specs, facts),
-        "ROADMAP.md": lambda: render_roadmap(specs),
         "CURRENT_STATE.md": lambda: render_current_state(
             profile, specs, facts, sequence.get("required", False)
         ),
+        "ROADMAP.md": lambda: render_roadmap(specs),
         "SOURCE_AUTHORITY_MAP.md": lambda: render_authority(specs),
         "ARCHITECTURE.md": lambda: render_architecture(specs, facts),
         "WORKFLOW_STATE_MACHINE.md": lambda: render_workflows(workflows),
@@ -1664,8 +1744,8 @@ def render_all(
         {
             "SYSTEM_OVERVIEW.md",
             "PROJECT_MANIFEST.md",
-            "ROADMAP.md",
             "CURRENT_STATE.md",
+            "ROADMAP.md",
             "MODULE_MAP.md",
             "TEST_ACCEPTANCE_MATRIX.md",
             "DECISIONS.md",

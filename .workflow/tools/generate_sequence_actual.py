@@ -380,7 +380,7 @@ def main() -> int:
         + render_graph_mermaid(graph)
     )
     output_mermaid.parent.mkdir(parents=True, exist_ok=True)
-    output_mermaid.write_text(mermaid, encoding="utf-8")
+    output_mermaid.write_text(mermaid, encoding="utf-8", newline="\n")
 
     print(f"OBSERVED_HEAD={head}")
     print(f"SOURCE_DIGEST={source_digest}")

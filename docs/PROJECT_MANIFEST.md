@@ -10,9 +10,9 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: work/phase-10-claim-verification
+Active branch: work/phase-10-closure
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: f5b48f55fcae1617a4c5f0a1c86c3877b361c71f
+Last accepted SHA: dab1961e04f7610a4bf7a9de55a8a649a6fe8990
 Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e5052602d4f
 
 ## Authorities
@@ -26,7 +26,7 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 ## Technology
 Languages: Python
 Frameworks: Python standard library
-Persistence: none through Phase 10 candidate
+Persistence: none through accepted Phase 10
 External systems: GitHub Actions, operator-configured SearXNG instance
 
 ## Entry points
@@ -51,15 +51,16 @@ Generated from code inventory. See MODULE_MAP.md.
 1. ../PROJECT_PROFILE.yaml
 2. SYSTEM_OVERVIEW.md
 3. CURRENT_STATE.md
-4. PROJECT_MANIFEST.md
-5. profile-required authority / architecture / workflow docs
-6. SEQUENCE_CONTRACTS.md when enabled
-7. MODULE_MAP.md
-8. FLOW_INDEX.md
-9. SYMBOL_INDEX.md
-10. TEST_ACCEPTANCE_MATRIX.md
-11. DOC_SYNC_MATRIX.md
-12. PROJECT_TRUTH_SYNC.md when applicable
+4. ROADMAP.md
+5. PROJECT_MANIFEST.md
+6. profile-required authority / architecture / workflow docs
+7. SEQUENCE_CONTRACTS.md when enabled
+8. MODULE_MAP.md
+9. FLOW_INDEX.md
+10. SYMBOL_INDEX.md
+11. TEST_ACCEPTANCE_MATRIX.md
+12. DOC_SYNC_MATRIX.md
+13. PROJECT_TRUTH_SYNC.md when applicable
 
 ## Profile-specific applicability
 
