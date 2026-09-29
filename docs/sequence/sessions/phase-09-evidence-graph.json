@@ -5,14 +5,14 @@
   "mode": "BEFORE",
   "scope": "CURRENT",
   "critical": true,
-  "status": "PLANNED",
-  "implementation_base_sha": "",
+  "status": "FROZEN",
+  "implementation_base_sha": "63654b4f8430ab4a6859686e26b4946d82c1e99d",
   "plan": {
     "required": true,
     "contract": "docs/sequence/plans/phase-09-evidence-graph.plan.json",
     "frozen": true,
-    "frozen_commit": "",
-    "sha256": "",
+    "frozen_commit": "63654b4f8430ab4a6859686e26b4946d82c1e99d",
+    "sha256": "205bf17abf45a4661fd1561b35162e2e6c2672c3171d85c528e8169606b80804",
     "diagram": "docs/sequence/generated/phase-09-evidence-graph.plan.mmd"
   },
   "actual": {
