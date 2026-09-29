@@ -15,6 +15,13 @@ class EvidenceStatus(str, Enum):
     PROVIDER_ERROR = "provider_error"
 
 
+class EvidenceRelationType(str, Enum):
+    """Deterministic relationship between two structured evidence assertions."""
+
+    CORROBORATES = "corroborates"
+    CONTRADICTS = "contradicts"
+
+
 @dataclass(frozen=True, slots=True)
 class GroundingRequest:
     """Caller intent and bounded retrieval policy for one grounding attempt."""
@@ -192,3 +199,43 @@ class EvidenceQualityScore:
     temporal_validity: float
     score: float
     rank: int
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceAssertion:
+    """One explicit structured assertion backed by scored evidence."""
+
+    assertion_id: str
+    claim_key: str
+    value: str
+    exclusive: bool
+    evidence: EvidenceQualityScore
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceRelation:
+    """One deterministic corroboration or contradiction edge."""
+
+    left_assertion_id: str
+    right_assertion_id: str
+    relation: EvidenceRelationType
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceCluster:
+    """Equivalent normalized assertions grouped without declaring truth."""
+
+    claim_key: str
+    value: str
+    assertion_ids: tuple[str, ...]
+    distinct_source_count: int
+    quality_weight_sum: float
+
+
+@dataclass(frozen=True, slots=True)
+class EvidenceGraph:
+    """Bounded structured evidence graph with no truth-winner field."""
+
+    assertions: tuple[EvidenceAssertion, ...]
+    clusters: tuple[EvidenceCluster, ...]
+    relations: tuple[EvidenceRelation, ...]

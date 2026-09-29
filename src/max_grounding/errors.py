@@ -47,3 +47,7 @@ class TemporalScoringError(GroundingError, ValueError):
 
 class AuthorityProviderError(GroundingError):
     """Raised when an authority policy provider fails or returns invalid scores."""
+
+
+class EvidenceGraphError(GroundingError, ValueError):
+    """Raised when structured evidence cannot form a valid bounded graph."""
