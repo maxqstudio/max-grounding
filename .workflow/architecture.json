@@ -15,7 +15,8 @@
         "FetchedDocument",
         "TextChunk",
         "LexicalHit",
-        "SemanticHit"
+        "SemanticHit",
+        "HybridHit"
       ],
       "depends_on": []
     },
@@ -156,6 +157,23 @@
         "models",
         "lexical-retrieval"
       ]
+    },
+    {
+      "id": "hybrid-fusion",
+      "name": "Hybrid Fusion",
+      "purpose": "Combine bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion while preserving immutable chunk provenance.",
+      "owns": [
+        "retrieve_hybrid",
+        "fuse_hybrid",
+        "fixed RRF k=60",
+        "hybrid rank validation",
+        "hybrid provenance conflict rejection"
+      ],
+      "depends_on": [
+        "models",
+        "lexical-retrieval",
+        "semantic-retrieval"
+      ]
     }
   ],
   "data_flows": [
@@ -258,6 +276,21 @@
       "from": "Semantic Retrieval",
       "to": "SemanticHit",
       "meaning": "positive cosine matches return immutable source-provenance chunks with deterministic rank"
+    },
+    {
+      "from": "LexicalHit",
+      "to": "Hybrid Fusion",
+      "meaning": "bounded lexical ranks contribute one fixed reciprocal-rank term per unique chunk"
+    },
+    {
+      "from": "SemanticHit",
+      "to": "Hybrid Fusion",
+      "meaning": "bounded semantic ranks contribute one fixed reciprocal-rank term per unique chunk"
+    },
+    {
+      "from": "Hybrid Fusion",
+      "to": "HybridHit",
+      "meaning": "deduplicated immutable chunks return fused score plus lexical and semantic rank provenance"
     }
   ],
   "external_boundaries": [
