@@ -19,7 +19,7 @@ def is_admissible_result_url(url: str) -> bool:
     """Return whether an untrusted result URL is admissible for later fetching."""
     try:
         raw = url.strip()
-        if any(character in raw for character in ("\r", "\n", "\t")):
+        if any(ord(character) < 0x20 or ord(character) == 0x7F for character in raw):
             return False
         parsed = urlsplit(raw)
         if parsed.scheme.lower() not in {"http", "https"}:
