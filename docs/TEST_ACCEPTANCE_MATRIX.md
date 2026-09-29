@@ -31,7 +31,8 @@ Current source digest: 4163093c0e04c7f1b27f806d2d37088000a85711e3974d3b992a5e505
 - TDD RED run 36591980379 proved the Phase 10 verification contract absent before implementation.
 - GREEN run 36592414508 passed the full unit suite and compile checks.
 - Candidate verification run 36592538343 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
-- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 10 closure.
+- Phase 10 pull-request Acceptance run 36593330960 passed 13/13 required jobs on exact head e5fd57f65216b58163b447df8011293185105f5f.
+- Phase 10 post-merge main Acceptance run 36594071609 passed 13/13 required jobs on main SHA dab1961e04f7610a4bf7a9de55a8a649a6fe8990.
 
 ## Sequence contract evidence
 

@@ -20,8 +20,8 @@ Planned core phases: 13
 | 7 | Reranking and evidence/context compression | ACCEPTED |
 | 8 | Freshness, source authority, and temporal scoring | ACCEPTED |
 | 9 | Contradiction/corroboration engine and evidence graph | ACCEPTED |
-| 10 | Claim-level verification, citations, confidence, and fail-closed synthesis | CURRENT_CANDIDATE |
-| 11 | Concrete embedding runtime plus Qdrant/persistent index and production adapters | PLANNED |
+| 10 | Claim-level verification, citations, confidence, and fail-closed synthesis | ACCEPTED |
+| 11 | Concrete embedding runtime plus Qdrant/persistent index and production adapters | NEXT_PLANNED |
 | 12 | REST, MCP, multi-arch containers, E2E/security/load, and production acceptance | PLANNED |
 
 ## Optional post-V1 expansion

@@ -218,7 +218,7 @@ Authority: Temporal metadata validation, deterministic freshness/validity formul
 
 Current phase: PHASE_10_CLAIM_VERIFICATION
 
-Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Current status: ACCEPTED
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -278,15 +278,13 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Synchronize the Phase 10 ACTUAL sequence and deterministic Project Truth documentation.
-- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 10 candidate head.
-- Merge Phase 10 only if every required job passes, then revalidate merged main.
+- Start Phase 11 planning from accepted main SHA dab1961e04f7610a4bf7a9de55a8a649a6fe8990.
+- Freeze the Phase 11 BEFORE sequence plan before implementing concrete embedding runtime, persistent Qdrant indexing, and production adapters.
 
 Blocked actions:
-- Do not describe the Phase 10 confidence index as a probability that a claim is true.
-- Do not expose PARTIALLY_SUPPORTED, CONFLICTED, or UNSUPPORTED claims as synthesis-safe facts.
-- Do not claim fuzzy or natural-language claim verification from exact structured Phase 10 matching.
-- Do not merge Phase 10 while any required GitHub Actions job is failing or missing.
+- Do not describe the accepted Phase 10 confidence index as a probability that a claim is true.
+- Do not claim fuzzy semantic verification or final prose generation from accepted Phase 10.
+- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
 
 Known blockers:
 - None declared.
@@ -305,11 +303,12 @@ Known blockers:
 - Claim citations preserve exact supporting assertion, source URL, chunk identity, and excerpt text from the accepted evidence graph.
 - Phase 10 confidence is a deterministic evidence-sufficiency index derived from mean distinct-source Phase 8 quality and bounded source coverage; it is not a probability of truth.
 - Only SUPPORTED claims are exposed in synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims are fail-closed into blocked_claims.
+- Phase 10 exact pull-request head e5fd57f65216b58163b447df8011293185105f5f passed Acceptance run 36593330960 with 13/13 required jobs.
+- Phase 10 merged main SHA dab1961e04f7610a4bf7a9de55a8a649a6fe8990 passed post-merge Acceptance run 36594071609 with 13/13 required jobs.
 
 ### Not proven
 
-- Final Phase 10 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
-- Phase 10 does not extract answer claims from free-form LLM text, perform fuzzy semantic claim matching, generate free-form final prose, prove truth probability calibration, provide a concrete embedding/rerank model, persist Qdrant indexes, expose REST/MCP, or prove production deployment.
+- Accepted Phase 10 does not extract answer claims from free-form LLM text, perform fuzzy semantic/NLI verification, generate free-form final prose, calibrate truth probabilities, provide a concrete embedding/rerank model, persist Qdrant indexes, expose REST/MCP, or prove production deployment.
 
 ## Important limitations
 
