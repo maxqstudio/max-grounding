@@ -96,13 +96,16 @@ class SecureFetcherTests(unittest.TestCase):
             )
             return connection
 
-        document = fetch_document(
-            "https://example.com/article?q=1#ignored",
-            timeout_seconds=3.0,
-            max_response_bytes=4096,
-            resolver=public_resolver,
-            connection_opener=opener,
-        )
+        with patch(
+            "max_grounding.fetcher.open_pinned_connection",
+            side_effect=opener,
+        ):
+            document = fetch_document(
+                "https://example.com/article?q=1#ignored",
+                timeout_seconds=3.0,
+                max_response_bytes=4096,
+                resolver=public_resolver,
+            )
 
         self.assertEqual(captured["ip"], "93.184.216.34")
         self.assertEqual(captured["host"], "example.com")
