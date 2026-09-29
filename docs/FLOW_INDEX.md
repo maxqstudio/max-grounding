@@ -3,7 +3,7 @@
 # FLOW INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74
+Source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
 
 ## Flow inventory
 
@@ -14,6 +14,7 @@ Source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74
 | FLOW-PHASE-DELIVERY | A phase branch exists from the current accepted main baseline. | .github/workflows/ci.yml, .workflow/state.json | CANDIDATE, ACTIONS_PASS, MERGED_MAIN, MAIN_REVALIDATED | tests/test_bootstrap.py | docs/sequence/sessions/phase-00-bootstrap.json | DECLARED |
 | FLOW-SEARXNG-SEARCH | GroundingEngine invokes SearxngProvider with a validated SearchQuery and operator-trusted SearXNG base URL. | src/max_grounding/providers/searxng.py::search, src/max_grounding/providers/searxng.py::build_searxng_search_url, src/max_grounding/providers/searxng.py::fetch_searxng_json, src/max_grounding/providers/searxng.py::parse_searxng_results, src/max_grounding/network_policy.py::is_admissible_result_url | REQUEST_BUILT, RESPONSE_RECEIVED, RESULTS_VALIDATED, CANDIDATES_READY, PROVIDER_ERROR, PROVIDER_ERROR | tests/test_searxng_provider.py, tests/test_network_policy.py, tests/test_engine.py | docs/sequence/sessions/phase-02-searxng-provider.json | DECLARED |
 | FLOW-SECURE-FETCH | A previously admitted SourceCandidate URL is selected for page retrieval. | src/max_grounding/fetcher.py::fetch_document, src/max_grounding/fetcher.py::open_pinned_connection, src/max_grounding/fetcher.py::read_bounded_response, src/max_grounding/fetcher.py::extract_text, src/max_grounding/network_policy.py::resolve_public_addresses | TARGET_RESOLVED, TARGET_VALIDATED, CONNECTED, RESPONSE_RECEIVED, TEXT_EXTRACTED | tests/test_secure_fetcher.py, tests/test_network_policy.py | docs/sequence/sessions/phase-03-secure-fetch.json | DECLARED |
+| FLOW-SEMANTIC-RETRIEVAL | FetchedDocument values, a non-empty semantic query, and an EmbeddingProvider are supplied within configured bounds. | src/max_grounding/semantic.py::retrieve_semantic, src/max_grounding/semantic.py::build_semantic_chunks, src/max_grounding/semantic.py::embed_bounded, src/max_grounding/semantic.py::rank_semantic, src/max_grounding/semantic.py::cosine_similarity | CHUNKS_READY, EMBEDDINGS_READY, SCORED, HITS_READY, INVALID_REQUEST, PROVIDER_ERROR | tests/test_semantic_retrieval.py | docs/sequence/sessions/phase-05-semantic-retrieval.json | DECLARED |
 
 ## Observed Python HTTP routes
 

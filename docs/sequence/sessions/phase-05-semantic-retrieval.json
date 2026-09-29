@@ -18,7 +18,7 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-05-semantic-retrieval.actual.json",
     "diagram": "docs/sequence/generated/phase-05-semantic-retrieval.actual.mmd",
-    "source_digest": "",
+    "source_digest": "086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db",
     "entries": [
       "src/max_grounding/semantic.py::retrieve_semantic"
     ]

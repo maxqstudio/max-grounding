@@ -4,18 +4,19 @@
 
 ## Evidence boundary
 
-Phase 4 proves deterministic bounded lexical retrieval over immutable FetchedDocument values: Unicode lexical tokenization, overlapping bounded text chunking with stable source provenance and chunk IDs, in-memory BM25 scoring, positive-match filtering, deterministic tie ordering, hard request caps, frozen-plan conformance, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove semantic embeddings, vector retrieval, hybrid fusion, reranking, persistent indexes, real-world relevance quality, REST, MCP, or production deployment.
+Phase 5 proves a bounded provider-agnostic dense semantic retrieval core over deterministic TextChunk values: distinct query/document embedding roles, bounded provider calls and batches, strict vector count/dimension/value/norm validation, positive cosine ranking, deterministic provenance tie ordering, frozen-plan conformance, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove any concrete embedding model, production model quality, vector database, persistent index, hybrid fusion, reranking, REST, MCP, or production deployment.
 
 Final tested source: external final acceptance evidence.
-Current source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74
+Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P4-CHUNKING | FetchedDocument text is split into deterministic bounded overlapping TextChunk values with immutable source URL, chunk index, stable chunk ID, text, and token count. | tests/test_retrieval.py; GREEN run 36553060757 | PASS |
-| P4-BM25 | Lexical retrieval applies deterministic in-memory BM25 scoring, returns only positive-score hits up to the requested limit, and resolves equal scores with stable provenance ordering. | tests/test_retrieval.py; GREEN run 36553060757 | PASS |
-| P4-HARD-BOUNDS | Lexical retrieval rejects empty/oversized queries and out-of-policy document, chunk, overlap, per-document chunk, and result limits before unbounded retrieval work. | tests/test_retrieval.py | PASS |
-| P4-SEQUENCE | The implemented retrieve-to-chunk/rank/tokenize call graph conforms to the frozen Phase 4 BEFORE plan. | Phase 4 Sequence Verify run 36553168076 | PASS |
-| P4-CROSS-OS | The Phase 4 lexical retrieval source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 4 Cross Platform run 36553245646: 12/12 jobs PASS | PASS |
+| P5-ROLE-SEPARATION | Semantic retrieval preserves distinct query and document embedding roles so provider implementations can apply asymmetric retrieval encoding. | tests/test_semantic_retrieval.py; role-separation regression run 36557498333; final GREEN run 36557612077 | PASS |
+| P5-EMBEDDING-BOUNDS | Semantic retrieval caps total chunks, embedding batch size, total embedding provider calls, query size, embedding dimension, and returned hits before unbounded provider work. | tests/test_semantic_retrieval.py; final GREEN run 36557612077 | PASS |
+| P5-VECTOR-VALIDATION | Embedding failures, wrong vector counts, inconsistent dimensions, non-finite or boolean values, oversized dimensions, and zero-norm vectors fail closed with EmbeddingProviderError. | tests/test_semantic_retrieval.py; final GREEN run 36557612077 | PASS |
+| P5-COSINE | Semantic ranking returns only positive cosine-similarity hits and resolves equal scores with deterministic source provenance ordering. | tests/test_semantic_retrieval.py; final GREEN run 36557612077 | PASS |
+| P5-SEQUENCE | The implemented retrieve-to-chunk/embed/rank/cosine call graph conforms to the frozen Phase 5 BEFORE plan. | Phase 5 Sequence Verify run 36557689216 | PASS |
+| P5-CROSS-OS | The final Phase 5 semantic retrieval source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 5 Cross Platform run 36557753677: 12/12 jobs PASS | PASS |
 
 ## Test commands
 
@@ -26,17 +27,18 @@ Current source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381b
 
 ## Runtime checks
 
-- TDD RED run 36552850622 proved the Phase 4 retrieval contract absent before implementation.
-- GREEN run 36553060757 passed the full unit suite and compile checks after implementation.
-- Sequence verification run 36553168076 passed generated PLAN-to-ACTUAL validation.
-- Cross-platform run 36553245646 passed 12/12 Python/OS jobs.
-- Phase 4 pull-request Acceptance run 36555770714 passed 13/13 required jobs on exact head 7f47bc0fdeec478bab9dac3ddb538daa65e5b693.
-- Phase 4 post-merge main Acceptance run 36555890270 passed 13/13 required jobs on main SHA 432400785849be4425a118d5adee5eef1e77e693.
+- TDD RED run 36557027666 proved the Phase 5 semantic retrieval contract absent before implementation.
+- Initial GREEN run 36557303486 passed the first implementation.
+- Role-separation regression run 36557498333 reproduced the single-role embedding boundary defect before repair.
+- Final GREEN run 36557612077 passed full unit and compile checks after the role-separated provider repair.
+- Sequence verification run 36557689216 passed generated PLAN-to-ACTUAL validation.
+- Cross-platform run 36557753677 passed 12/12 Python/OS jobs.
+- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 5 closure.
 
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-04-lexical-retrieval.json
+Sequence session contract: docs/sequence/sessions/phase-05-semantic-retrieval.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

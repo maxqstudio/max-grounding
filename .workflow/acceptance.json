@@ -17,39 +17,39 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
+      "evidence": "tests/test_semantic_retrieval.py; role-separation regression run 36557498333; final GREEN run 36557612077",
       "id": "P5-ROLE-SEPARATION",
       "requirement": "Semantic retrieval preserves distinct query and document embedding roles so provider implementations can apply asymmetric retrieval encoding.",
-      "evidence": "tests/test_semantic_retrieval.py; role-separation regression run 36557498333; final GREEN run 36557612077",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_semantic_retrieval.py; final GREEN run 36557612077",
       "id": "P5-EMBEDDING-BOUNDS",
       "requirement": "Semantic retrieval caps total chunks, embedding batch size, total embedding provider calls, query size, embedding dimension, and returned hits before unbounded provider work.",
-      "evidence": "tests/test_semantic_retrieval.py; final GREEN run 36557612077",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_semantic_retrieval.py; final GREEN run 36557612077",
       "id": "P5-VECTOR-VALIDATION",
       "requirement": "Embedding failures, wrong vector counts, inconsistent dimensions, non-finite or boolean values, oversized dimensions, and zero-norm vectors fail closed with EmbeddingProviderError.",
-      "evidence": "tests/test_semantic_retrieval.py; final GREEN run 36557612077",
       "status": "PASS"
     },
     {
+      "evidence": "tests/test_semantic_retrieval.py; final GREEN run 36557612077",
       "id": "P5-COSINE",
       "requirement": "Semantic ranking returns only positive cosine-similarity hits and resolves equal scores with deterministic source provenance ordering.",
-      "evidence": "tests/test_semantic_retrieval.py; final GREEN run 36557612077",
       "status": "PASS"
     },
     {
+      "evidence": "Phase 5 Sequence Verify run 36557689216",
       "id": "P5-SEQUENCE",
       "requirement": "The implemented retrieve-to-chunk/embed/rank/cosine call graph conforms to the frozen Phase 5 BEFORE plan.",
-      "evidence": "Phase 5 Sequence Verify run 36557689216",
       "status": "PASS"
     },
     {
+      "evidence": "Phase 5 Cross Platform run 36557753677: 12/12 jobs PASS",
       "id": "P5-CROSS-OS",
       "requirement": "The final Phase 5 semantic retrieval source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS.",
-      "evidence": "Phase 5 Cross Platform run 36557753677: 12/12 jobs PASS",
       "status": "PASS"
     }
   ],
@@ -74,23 +74,23 @@
     "python .workflow/tools/validate_project_truth.py"
   ],
   "truth_gates": {
-    "SOURCE_TESTS": "PASS",
-    "RUNTIME_E2E": "PASS",
-    "PROVENANCE_SYNC": "PASS",
-    "REFERENCE_SYNC": "PASS",
-    "STRUCTURAL_SYNC": "PASS",
-    "SEMANTIC_SYNC": "PASS",
     "BEHAVIORAL_SYNC": "PASS",
     "CROSS_DOCUMENT_CONSISTENCY": "PASS",
+    "DOC_LAYOUT": "PASS",
+    "DOC_READABILITY": "PASS",
     "DOC_SOURCE_TRACEABILITY": "PASS",
     "DOC_TEST_TRACEABILITY": "PASS",
-    "TEST_RUNTIME_TRACEABILITY": "PASS",
-    "PROJECT_STATE_SYNC": "PASS",
-    "PROJECT_DOCS_SYNC": "NOT_PROVEN",
-    "DOC_LAYOUT": "NOT_PROVEN",
-    "PROJECT_DOCS_NORMALIZED": "NOT_PROVEN",
-    "DOC_READABILITY": "NOT_PROVEN",
     "HUMAN_COMPREHENSION": "PASS",
-    "SEQUENCE_SYNC": "PASS"
+    "PROJECT_DOCS_NORMALIZED": "PASS",
+    "PROJECT_DOCS_SYNC": "PASS",
+    "PROJECT_STATE_SYNC": "PASS",
+    "PROVENANCE_SYNC": "PASS",
+    "REFERENCE_SYNC": "PASS",
+    "RUNTIME_E2E": "PASS",
+    "SEMANTIC_SYNC": "PASS",
+    "SEQUENCE_SYNC": "PASS",
+    "SOURCE_TESTS": "PASS",
+    "STRUCTURAL_SYNC": "PASS",
+    "TEST_RUNTIME_TRACEABILITY": "PASS"
   }
 }
