@@ -18,7 +18,7 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-04-lexical-retrieval.actual.json",
     "diagram": "docs/sequence/generated/phase-04-lexical-retrieval.actual.mmd",
-    "source_digest": "",
+    "source_digest": "d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74",
     "entries": [
       "src/max_grounding/retrieval.py::retrieve_lexical"
     ]

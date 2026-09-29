@@ -1,0 +1,31 @@
+%% GENERATED FILE - DO NOT EDIT
+%% SOURCE_DIGEST: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74
+%% OBSERVED_HEAD: 110f6c2ed77c4c3e3c4c36818eb32d92a95e2bc5
+%% GENERATED_BY: generate_sequence_actual.py
+sequenceDiagram
+    participant src_max_grounding_errors_py__RetrievalError_0 as src/max_grounding/errors.py::RetrievalError
+    participant src_max_grounding_models_py__LexicalHit_1 as src/max_grounding/models.py::LexicalHit
+    participant src_max_grounding_models_py__TextChunk_2 as src/max_grounding/models.py::TextChunk
+    participant src_max_grounding_retrieval_py___chunk_id_3 as src/max_grounding/retrieval.py::_chunk_id
+    participant src_max_grounding_retrieval_py___validate_chunk_bounds_4 as src/max_grounding/retrieval.py::_validate_chunk_bounds
+    participant src_max_grounding_retrieval_py___validate_query_5 as src/max_grounding/retrieval.py::_validate_query
+    participant src_max_grounding_retrieval_py__chunk_document_6 as src/max_grounding/retrieval.py::chunk_document
+    participant src_max_grounding_retrieval_py__rank_chunks_7 as src/max_grounding/retrieval.py::rank_chunks
+    participant src_max_grounding_retrieval_py__retrieve_lexical_8 as src/max_grounding/retrieval.py::retrieve_lexical
+    participant src_max_grounding_retrieval_py__tokenize_text_9 as src/max_grounding/retrieval.py::tokenize_text
+    src_max_grounding_retrieval_py___validate_chunk_bounds_4->>src_max_grounding_errors_py__RetrievalError_0: RetrievalError [STATIC]
+    src_max_grounding_retrieval_py___validate_query_5->>src_max_grounding_errors_py__RetrievalError_0: RetrievalError [STATIC]
+    src_max_grounding_retrieval_py___validate_query_5->>src_max_grounding_retrieval_py__tokenize_text_9: tokenize_text [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_6->>src_max_grounding_models_py__TextChunk_2: TextChunk [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_6->>src_max_grounding_retrieval_py___chunk_id_3: _chunk_id [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_6->>src_max_grounding_retrieval_py___validate_chunk_bounds_4: _validate_chunk_bounds [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_6->>src_max_grounding_retrieval_py__tokenize_text_9: tokenize_text [STATIC]
+    src_max_grounding_retrieval_py__rank_chunks_7->>src_max_grounding_errors_py__RetrievalError_0: RetrievalError [STATIC]
+    src_max_grounding_retrieval_py__rank_chunks_7->>src_max_grounding_models_py__LexicalHit_1: LexicalHit [STATIC]
+    src_max_grounding_retrieval_py__rank_chunks_7->>src_max_grounding_retrieval_py___validate_query_5: _validate_query [STATIC]
+    src_max_grounding_retrieval_py__rank_chunks_7->>src_max_grounding_retrieval_py__tokenize_text_9: tokenize_text [STATIC]
+    src_max_grounding_retrieval_py__retrieve_lexical_8->>src_max_grounding_errors_py__RetrievalError_0: RetrievalError [STATIC]
+    src_max_grounding_retrieval_py__retrieve_lexical_8->>src_max_grounding_retrieval_py___validate_chunk_bounds_4: _validate_chunk_bounds [STATIC]
+    src_max_grounding_retrieval_py__retrieve_lexical_8->>src_max_grounding_retrieval_py___validate_query_5: _validate_query [STATIC]
+    src_max_grounding_retrieval_py__retrieve_lexical_8->>src_max_grounding_retrieval_py__chunk_document_6: chunk_document [STATIC]
+    src_max_grounding_retrieval_py__retrieve_lexical_8->>src_max_grounding_retrieval_py__rank_chunks_7: rank_chunks [STATIC]

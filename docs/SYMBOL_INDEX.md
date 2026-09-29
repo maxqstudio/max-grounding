@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
+Source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
@@ -22,6 +22,7 @@ Status: CURRENT
 | src/max_grounding/errors.py | SearchProviderError | class | 16-17 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | InvalidProviderConfiguration | class | 20-21 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | FetchError | class | 24-25 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | RetrievalError | class | 28-29 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
@@ -49,6 +50,8 @@ Status: CURRENT
 | src/max_grounding/models.py | EvidenceSource | class | 54-62 | Observed Python symbol | | | |
 | src/max_grounding/models.py | EvidencePack | class | 66-73 | Observed Python symbol | | | |
 | src/max_grounding/models.py | FetchedDocument | class | 77-85 | Observed Python symbol | | | |
+| src/max_grounding/models.py | TextChunk | class | 89-96 | Observed Python symbol | | | |
+| src/max_grounding/models.py | LexicalHit | class | 100-105 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | is_admissible_result_url | function | 18-50 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | resolve_public_addresses | function | 53-93 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
@@ -65,6 +68,13 @@ Status: CURRENT
 | src/max_grounding/providers/searxng.py | SearxngProvider | class | 181-220 | Observed Python symbol | | | |
 | src/max_grounding/providers/searxng.py | SearxngProvider.__init__ | method | 184-206 | Observed Python symbol | | | |
 | src/max_grounding/providers/searxng.py | SearxngProvider.search | method | 208-220 | Observed Python symbol | | | |
+| src/max_grounding/retrieval.py | tokenize_text | function | 29-42 | Observed Python symbol | | | |
+| src/max_grounding/retrieval.py | _validate_chunk_bounds | function | 45-60 | Observed Python symbol | | | |
+| src/max_grounding/retrieval.py | _chunk_id | function | 63-65 | Observed Python symbol | | | |
+| src/max_grounding/retrieval.py | chunk_document | function | 68-105 | Observed Python symbol | | | |
+| src/max_grounding/retrieval.py | _validate_query | function | 108-118 | Observed Python symbol | | | |
+| src/max_grounding/retrieval.py | rank_chunks | function | 121-181 | Observed Python symbol | | | |
+| src/max_grounding/retrieval.py | retrieve_lexical | function | 184-219 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests | class | 10-20 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_project_identity_is_stable_and_cross_platform | method | 11-16 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_runtime_uses_supported_python | method | 18-20 | Observed Python symbol | | | |
@@ -107,6 +117,18 @@ Status: CURRENT
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_more_than_two_search_rounds | method | 18-22 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_normalizes_query_and_locale | method | 24-33 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits | method | 35-43 | Observed Python symbol | | | |
+| tests/test_retrieval.py | document | function | 15-23 | Observed Python symbol | | | |
+| tests/test_retrieval.py | chunk | function | 26-33 | Observed Python symbol | | | |
+| tests/test_retrieval.py | LexicalRetrievalTests | class | 36-177 | Observed Python symbol | | | |
+| tests/test_retrieval.py | LexicalRetrievalTests.test_tokenizer_is_unicode_casefolded_and_punctuation_stable | method | 37-41 | Observed Python symbol | | | |
+| tests/test_retrieval.py | LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic | method | 43-73 | Observed Python symbol | | | |
+| tests/test_retrieval.py | LexicalRetrievalTests.test_chunk_limit_stops_work_deterministically | method | 75-89 | Observed Python symbol | | | |
+| tests/test_retrieval.py | LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches | method | 91-106 | Observed Python symbol | | | |
+| tests/test_retrieval.py | LexicalRetrievalTests.test_equal_scores_use_stable_provenance_order | method | 108-117 | Observed Python symbol | | | |
+| tests/test_retrieval.py | LexicalRetrievalTests.test_no_lexical_match_returns_empty_result | method | 119-121 | Observed Python symbol | | | |
+| tests/test_retrieval.py | LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance | method | 123-147 | Observed Python symbol | | | |
+| tests/test_retrieval.py | LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval | method | 149-163 | Observed Python symbol | | | |
+| tests/test_retrieval.py | LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests | method | 165-177 | Observed Python symbol | | | |
 | tests/test_searxng_provider.py | _ResponseHandler | class | 18-34 | Observed Python symbol | | | |
 | tests/test_searxng_provider.py | _ResponseHandler.do_GET | method | 24-31 | Observed Python symbol | | | |
 | tests/test_searxng_provider.py | _ResponseHandler.log_message | method | 33-34 | Observed Python symbol | | | |

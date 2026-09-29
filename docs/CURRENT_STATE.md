@@ -8,7 +8,7 @@ Governance profile: strict
 
 ## Current phase
 Phase: PHASE_04_LEXICAL_RETRIEVAL
-Status: PLAN_FREEZE_IN_PROGRESS
+Status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 ## Source
 Repository: maxqstudio/max-grounding
@@ -16,7 +16,7 @@ Branch: work/phase-04-lexical-retrieval
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: f1e391ffa0429fdf8be88456b7835347d3453cd6
 Current candidate SHA: external final acceptance evidence
-Current source digest: 5ef7390e914ae2c3ff4a6cc1a2e95b0aee61b77eac84335aa993df3a85845216
+Current source digest: d6f391caf5ece1f7bdb05d6d69987ca6a67323dde525284ed80c5381bf527a74
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -33,19 +33,24 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-03-secure-fetch.json
+Current sequence session: docs/sequence/sessions/phase-04-lexical-retrieval.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 3 secure result-page fetching is accepted on main at f1e391ffa0429fdf8be88456b7835347d3453cd6.
 - Phase 3 closure is merged to main at 9ee23d526c6c68bccc0e0000e66e4c2de080b44c and closure-main Acceptance run 36551954260 passed all 13 required jobs.
-- GitHub Actions remains the sole acceptance authority.
-- Phase 4 product implementation is blocked until the BEFORE sequence plan is frozen.
+- The Phase 4 BEFORE plan was frozen before implementation at fbe5b9ad01c4e52bb629399ae688d93d4bc08013 with SHA-256 9e967d5afddbf5e86f77dd54a489267ca8fd314bdeb563793122cc066168de90.
+- TDD RED run 36552850622 failed because the Phase 4 lexical retrieval contract did not yet exist.
+- GREEN run 36553060757 passed the full unit suite and compile checks after the minimum implementation.
+- Sequence verification run 36553168076 passed full tests, compile, generated ACTUAL extraction, and frozen PLAN-to-ACTUAL validation.
+- Cross-platform run 36553245646 passed all 12 Ubuntu/Windows/macOS Python 3.11-3.14 jobs.
+- Phase 4 deterministically tokenizes Unicode text, chunks immutable FetchedDocument values with bounded overlap, and derives stable chunk IDs with source provenance.
+- Phase 4 performs bounded in-memory BM25 lexical ranking, returns only positive-score hits, and uses stable provenance ordering for score ties.
+- Phase 4 enforces hard caps of 20 documents, 4096 query characters, 512 words per chunk, 128 chunks per document, and 20 returned hits.
 
 ## Not proven
-- Deterministic bounded text chunking is not implemented yet.
-- BM25 lexical retrieval over fetched documents is not implemented yet.
-- Semantic embeddings, vector retrieval, hybrid fusion, reranking, persistent indexes, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment are not proven by Phase 4 planning.
+- Final Phase 4 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- Real-world retrieval quality on large or domain-specific corpora is not proven by deterministic unit fixtures.
+- Semantic embeddings, vector retrieval, hybrid fusion, reranking, persistent indexes, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 4.
 
 ## Known blockers
 - None declared.
@@ -54,10 +59,11 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Freeze the Phase 4 BEFORE sequence plan and generated plan Mermaid.
-- After plan freeze, add failing lexical-retrieval tests and obtain TDD RED evidence before implementation.
+- Generate and commit the current Phase 4 ACTUAL sequence graph and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 4 candidate head.
+- Merge Phase 4 only if every required job passes, then revalidate merged main.
 
 ## Explicitly blocked
-- Do not implement Phase 4 product source before the BEFORE plan is frozen.
-- Do not add embeddings, vector databases, semantic retrieval, hybrid fusion, or reranking in Phase 4.
-- Do not bypass GitHub Actions acceptance or post-merge main revalidation.
+- Do not merge Phase 4 while any required GitHub Actions job is failing or missing.
+- Do not claim semantic, vector, hybrid, or reranked retrieval from the Phase 4 lexical scorer.
+- Do not bypass post-merge main revalidation.
