@@ -1561,6 +1561,63 @@ def render_glossary(specs: dict[str, dict]) -> str:
     return "# GLOSSARY\n\n| Term | Definition |\n|---|---|\n" + "\n".join(rows) + "\n"
 
 
+
+def render_roadmap(specs: dict[str, dict]) -> str:
+    roadmap = specs["project.json"].get("roadmap", {})
+    rows = []
+    for item in roadmap.get("phases", []):
+        rows.append(
+            "| "
+            + cell(str(item.get("phase", "")))
+            + " | "
+            + cell(item.get("name"))
+            + " | "
+            + cell(item.get("status"))
+            + " |"
+        )
+    if not rows:
+        rows.append("| | | |")
+
+    expansion = []
+    for item in roadmap.get("optional_expansion", []):
+        expansion.append(
+            "Phase "
+            + str(item.get("phase", ""))
+            + " — "
+            + clean(item.get("name"))
+        )
+
+    return """# ROADMAP
+
+Target: {target}
+
+Planned core phases: {count}
+
+## Production V1 roadmap
+
+| Phase | Scope | Status |
+|---:|---|---|
+{rows}
+
+## Optional post-V1 expansion
+
+{expansion}
+
+## Roadmap rules
+
+{rules}
+
+This document is generated from `.workflow/project.json`; it is planning
+authority only. Acceptance truth remains in `.workflow/state.json` and
+`.workflow/acceptance.json`.
+""".format(
+        target=clean(roadmap.get("target", "NOT_PROVEN")),
+        count=clean(roadmap.get("phase_count", "NOT_PROVEN")),
+        rows="\n".join(rows),
+        expansion=bullets(expansion) if expansion else "- None declared.",
+        rules=bullets(roadmap.get("rules", [])),
+    )
+
 def render_all(
     profile: str,
     specs: dict[str, dict],
@@ -1574,6 +1631,7 @@ def render_all(
     renderers = {
         "SYSTEM_OVERVIEW.md": lambda: render_system_overview(specs, workflows, facts),
         "PROJECT_MANIFEST.md": lambda: render_project_manifest(profile, specs, facts),
+        "ROADMAP.md": lambda: render_roadmap(specs),
         "CURRENT_STATE.md": lambda: render_current_state(
             profile, specs, facts, sequence.get("required", False)
         ),
@@ -1606,6 +1664,7 @@ def render_all(
         {
             "SYSTEM_OVERVIEW.md",
             "PROJECT_MANIFEST.md",
+            "ROADMAP.md",
             "CURRENT_STATE.md",
             "MODULE_MAP.md",
             "TEST_ACCEPTANCE_MATRIX.md",

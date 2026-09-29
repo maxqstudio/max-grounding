@@ -33,3 +33,11 @@ Status: ACCEPTED
 Treat the operator-configured SearXNG base URL as trusted deployment configuration, while treating every returned result URL as untrusted data. Reject obvious unsafe result targets before evidence admission; defer DNS resolution and rebinding protection to the later page-fetch boundary.
 
 Rationale: Self-hosted SearXNG commonly runs on localhost or private networks, so blocking private provider endpoints would break the intended deployment. Result URLs are a different trust boundary and must never inherit that trust.
+
+## DEC-0005 — Use fixed equal-weight RRF for first hybrid retrieval
+
+Status: ACCEPTED
+
+Phase 6 combines lexical and semantic ranks with fixed equal-weight reciprocal-rank fusion using k=60 and does not expose modality-weight tuning.
+
+Rationale: A fixed deterministic fusion is the smallest correct hybrid layer, avoids premature ranking optimization, and preserves clear provenance until retrieval-quality benchmarking and reranking are explicitly proven.

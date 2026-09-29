@@ -1,0 +1,606 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "_validate_ranked_hits",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/hybrid.py::_validate_ranked_hits"
+    },
+    {
+      "action": "HybridHit",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::HybridHit"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "fuse_hybrid",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/hybrid.py::fuse_hybrid"
+    },
+    {
+      "action": "retrieve_lexical",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::retrieve_lexical"
+    },
+    {
+      "action": "retrieve_semantic",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::retrieve_semantic"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::_validate_query",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "tokenize_text",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::_validate_query",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::tokenize_text"
+    },
+    {
+      "action": "TextChunk",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::TextChunk"
+    },
+    {
+      "action": "_chunk_id",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_chunk_id"
+    },
+    {
+      "action": "_validate_chunk_bounds",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_validate_chunk_bounds"
+    },
+    {
+      "action": "tokenize_text",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::tokenize_text"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::rank_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "LexicalHit",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::rank_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::LexicalHit"
+    },
+    {
+      "action": "_validate_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::rank_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_validate_query"
+    },
+    {
+      "action": "tokenize_text",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::rank_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::tokenize_text"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "_validate_chunk_bounds",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_validate_chunk_bounds"
+    },
+    {
+      "action": "_validate_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_validate_query"
+    },
+    {
+      "action": "chunk_document",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::chunk_document"
+    },
+    {
+      "action": "rank_chunks",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::rank_chunks"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::_validate_batch_size",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::_validate_query",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "EmbeddingProviderError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::_validated_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::EmbeddingProviderError"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::build_semantic_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "chunk_document",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::build_semantic_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::chunk_document"
+    },
+    {
+      "action": "EmbeddingProviderError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::cosine_similarity",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::EmbeddingProviderError"
+    },
+    {
+      "action": "_validated_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::cosine_similarity",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validated_vector"
+    },
+    {
+      "action": "EmbeddingProviderError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::embed_bounded",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::EmbeddingProviderError"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::embed_bounded",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "provider.embed_documents",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::embed_bounded",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::EmbeddingProvider.embed_documents"
+    },
+    {
+      "action": "provider.embed_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::embed_bounded",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::EmbeddingProvider.embed_query"
+    },
+    {
+      "action": "_validate_batch_size",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::embed_bounded",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validate_batch_size"
+    },
+    {
+      "action": "_validate_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::embed_bounded",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validate_query"
+    },
+    {
+      "action": "_validated_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::embed_bounded",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validated_vector"
+    },
+    {
+      "action": "EmbeddingProviderError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::rank_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::EmbeddingProviderError"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::rank_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "SemanticHit",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::rank_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::SemanticHit"
+    },
+    {
+      "action": "_validated_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::rank_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validated_vector"
+    },
+    {
+      "action": "cosine_similarity",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::rank_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::cosine_similarity"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::retrieve_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "_validate_batch_size",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::retrieve_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validate_batch_size"
+    },
+    {
+      "action": "_validate_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::retrieve_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validate_query"
+    },
+    {
+      "action": "build_semantic_chunks",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::retrieve_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::build_semantic_chunks"
+    },
+    {
+      "action": "embed_bounded",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::retrieve_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::embed_bounded"
+    },
+    {
+      "action": "rank_semantic",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::retrieve_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::rank_semantic"
+    }
+  ],
+  "entries": [
+    "src/max_grounding/hybrid.py::retrieve_hybrid"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/errors.py::EmbeddingProviderError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::EmbeddingProviderError",
+      "language": "Python",
+      "line_end": 33,
+      "line_start": 32,
+      "locator": "src/max_grounding/errors.py::EmbeddingProviderError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::RetrievalError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::RetrievalError",
+      "language": "Python",
+      "line_end": 29,
+      "line_start": 28,
+      "locator": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "id": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "kind": "function",
+      "label": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "language": "Python",
+      "line_end": 41,
+      "line_start": 22,
+      "locator": "src/max_grounding/hybrid.py::_validate_ranked_hits"
+    },
+    {
+      "id": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "kind": "function",
+      "label": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "language": "Python",
+      "line_end": 109,
+      "line_start": 44,
+      "locator": "src/max_grounding/hybrid.py::fuse_hybrid"
+    },
+    {
+      "id": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "kind": "function",
+      "label": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "language": "Python",
+      "line_end": 149,
+      "line_start": 112,
+      "locator": "src/max_grounding/hybrid.py::retrieve_hybrid"
+    },
+    {
+      "id": "src/max_grounding/models.py::HybridHit",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::HybridHit",
+      "language": "Python",
+      "line_end": 125,
+      "line_start": 118,
+      "locator": "src/max_grounding/models.py::HybridHit"
+    },
+    {
+      "id": "src/max_grounding/models.py::LexicalHit",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::LexicalHit",
+      "language": "Python",
+      "line_end": 105,
+      "line_start": 100,
+      "locator": "src/max_grounding/models.py::LexicalHit"
+    },
+    {
+      "id": "src/max_grounding/models.py::SemanticHit",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::SemanticHit",
+      "language": "Python",
+      "line_end": 114,
+      "line_start": 109,
+      "locator": "src/max_grounding/models.py::SemanticHit"
+    },
+    {
+      "id": "src/max_grounding/models.py::TextChunk",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::TextChunk",
+      "language": "Python",
+      "line_end": 96,
+      "line_start": 89,
+      "locator": "src/max_grounding/models.py::TextChunk"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::_chunk_id",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::_chunk_id",
+      "language": "Python",
+      "line_end": 65,
+      "line_start": 63,
+      "locator": "src/max_grounding/retrieval.py::_chunk_id"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "language": "Python",
+      "line_end": 60,
+      "line_start": 45,
+      "locator": "src/max_grounding/retrieval.py::_validate_chunk_bounds"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::_validate_query",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::_validate_query",
+      "language": "Python",
+      "line_end": 118,
+      "line_start": 108,
+      "locator": "src/max_grounding/retrieval.py::_validate_query"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::chunk_document",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::chunk_document",
+      "language": "Python",
+      "line_end": 105,
+      "line_start": 68,
+      "locator": "src/max_grounding/retrieval.py::chunk_document"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::rank_chunks",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::rank_chunks",
+      "language": "Python",
+      "line_end": 181,
+      "line_start": 121,
+      "locator": "src/max_grounding/retrieval.py::rank_chunks"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::retrieve_lexical",
+      "language": "Python",
+      "line_end": 219,
+      "line_start": 184,
+      "locator": "src/max_grounding/retrieval.py::retrieve_lexical"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::tokenize_text",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::tokenize_text",
+      "language": "Python",
+      "line_end": 42,
+      "line_start": 29,
+      "locator": "src/max_grounding/retrieval.py::tokenize_text"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::EmbeddingProvider.embed_documents",
+      "kind": "method",
+      "label": "src/max_grounding/semantic.py::EmbeddingProvider.embed_documents",
+      "language": "Python",
+      "line_end": 41,
+      "line_start": 37,
+      "locator": "src/max_grounding/semantic.py::EmbeddingProvider.embed_documents"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::EmbeddingProvider.embed_query",
+      "kind": "method",
+      "label": "src/max_grounding/semantic.py::EmbeddingProvider.embed_query",
+      "language": "Python",
+      "line_end": 35,
+      "line_start": 34,
+      "locator": "src/max_grounding/semantic.py::EmbeddingProvider.embed_query"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::_validate_batch_size",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::_validate_batch_size",
+      "language": "Python",
+      "line_end": 58,
+      "line_start": 54,
+      "locator": "src/max_grounding/semantic.py::_validate_batch_size"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::_validate_query",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::_validate_query",
+      "language": "Python",
+      "line_end": 51,
+      "line_start": 44,
+      "locator": "src/max_grounding/semantic.py::_validate_query"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::_validated_vector",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::_validated_vector",
+      "language": "Python",
+      "line_end": 99,
+      "line_start": 61,
+      "locator": "src/max_grounding/semantic.py::_validated_vector"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::build_semantic_chunks",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::build_semantic_chunks",
+      "language": "Python",
+      "line_end": 185,
+      "line_start": 158,
+      "locator": "src/max_grounding/semantic.py::build_semantic_chunks"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::cosine_similarity",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::cosine_similarity",
+      "language": "Python",
+      "line_end": 204,
+      "line_start": 188,
+      "locator": "src/max_grounding/semantic.py::cosine_similarity"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::embed_bounded",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::embed_bounded",
+      "language": "Python",
+      "line_end": 155,
+      "line_start": 102,
+      "locator": "src/max_grounding/semantic.py::embed_bounded"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::rank_semantic",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::rank_semantic",
+      "language": "Python",
+      "line_end": 245,
+      "line_start": 207,
+      "locator": "src/max_grounding/semantic.py::rank_semantic"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::retrieve_semantic",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::retrieve_semantic",
+      "language": "Python",
+      "line_end": 285,
+      "line_start": 248,
+      "locator": "src/max_grounding/semantic.py::retrieve_semantic"
+    }
+  ],
+  "observed_head": "efd8ae835206a5daf0536f9abbb076e4cc606ec9",
+  "schema_version": 1,
+  "source_digest": "794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70"
+}

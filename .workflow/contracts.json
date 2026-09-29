@@ -104,6 +104,22 @@
       "authority": "src/max_grounding/semantic.py::embed_bounded",
       "mutation": "bounded provider compute only",
       "error_behavior": "Too much requested work raises RetrievalError before provider calls; provider/vector defects raise EmbeddingProviderError."
+    },
+    {
+      "method": "PYTHON",
+      "path": "retrieve_hybrid(documents, query, provider)",
+      "purpose": "Run the accepted bounded lexical and semantic retrievers over the same fetched-document corpus and fuse their ranked candidates.",
+      "authority": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "mutation": "none; returns immutable HybridHit values",
+      "error_behavior": "Underlying retrieval/provider errors propagate fail-closed; invalid hybrid result bounds raise RetrievalError."
+    },
+    {
+      "method": "PYTHON",
+      "path": "fuse_hybrid(lexical_hits, semantic_hits)",
+      "purpose": "Fuse two bounded ranked hit lists with fixed equal-weight reciprocal-rank fusion.",
+      "authority": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "mutation": "none",
+      "error_behavior": "Invalid/non-contiguous ranks, over-limit hit lists, duplicate modality chunk identities, conflicting cross-modality provenance, or invalid output limits raise RetrievalError."
     }
   ],
   "data_contracts": [
@@ -228,6 +244,22 @@
         "equal scores resolve by stable source URL, chunk index, and chunk identity",
         "hit count never exceeds the configured hard-capped result limit",
         "chunk retains the accepted Phase 4 source provenance contract"
+      ]
+    },
+    {
+      "name": "HybridHit",
+      "source_of_truth": "src/max_grounding/models.py::HybridHit",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/hybrid.py::fuse_hybrid result construction"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "score is the sum of fixed reciprocal-rank contributions for modalities containing the chunk",
+        "rank is contiguous from 1 in final fused order",
+        "lexical_rank and semantic_rank preserve source modality rank when present",
+        "chunk identity/provenance is identical anywhere the same chunk_id appears",
+        "final hit count never exceeds the hard-capped result limit"
       ]
     }
   ],

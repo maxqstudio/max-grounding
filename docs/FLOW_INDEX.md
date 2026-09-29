@@ -3,13 +3,14 @@
 # FLOW INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
+Source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
 
 ## Flow inventory
 
 | Flow | Entry | Authority symbol | State mutation | Tests | Sequence session | Sequence status |
 |---|---|---|---|---|---|---|
 | FLOW-GROUND-REQUEST | A caller supplies a GroundingRequest and a SearchProvider implementation. | src/max_grounding/engine.py::ground, src/max_grounding/policy.py::validate_request, src/max_grounding/budget.py::consume_search_call, src/max_grounding/providers/base.py::invoke_search, src/max_grounding/evidence.py::normalize_candidates, src/max_grounding/evidence.py::build_evidence_pack | VALIDATED, SEARCHING, EVIDENCE_READY, INSUFFICIENT_EVIDENCE, PROVIDER_ERROR | tests/test_engine.py, tests/test_policy.py, tests/test_evidence.py | docs/sequence/sessions/phase-01-core-contracts.json | DECLARED |
+| FLOW-HYBRID-FUSION | FetchedDocument values, a non-empty query, and an embedding provider are available. | src/max_grounding/hybrid.py::retrieve_hybrid, src/max_grounding/hybrid.py::fuse_hybrid | LEXICAL_RANKED, SEMANTIC_RANKED, FUSED, FUSED | tests/test_hybrid.py | docs/sequence/sessions/phase-06-hybrid-fusion.json | DECLARED |
 | FLOW-LEXICAL-RETRIEVAL | One or more FetchedDocument values and a non-empty lexical query are supplied within configured bounds. | src/max_grounding/retrieval.py::retrieve_lexical, src/max_grounding/retrieval.py::chunk_document, src/max_grounding/retrieval.py::rank_chunks, src/max_grounding/retrieval.py::tokenize_text | CHUNKS_READY, SCORED, HITS_READY, INVALID_REQUEST | tests/test_retrieval.py | docs/sequence/sessions/phase-04-lexical-retrieval.json | DECLARED |
 | FLOW-PHASE-DELIVERY | A phase branch exists from the current accepted main baseline. | .github/workflows/ci.yml, .workflow/state.json | CANDIDATE, ACTIONS_PASS, MERGED_MAIN, MAIN_REVALIDATED | tests/test_bootstrap.py | docs/sequence/sessions/phase-00-bootstrap.json | DECLARED |
 | FLOW-SEARXNG-SEARCH | GroundingEngine invokes SearxngProvider with a validated SearchQuery and operator-trusted SearXNG base URL. | src/max_grounding/providers/searxng.py::search, src/max_grounding/providers/searxng.py::build_searxng_search_url, src/max_grounding/providers/searxng.py::fetch_searxng_json, src/max_grounding/providers/searxng.py::parse_searxng_results, src/max_grounding/network_policy.py::is_admissible_result_url | REQUEST_BUILT, RESPONSE_RECEIVED, RESULTS_VALIDATED, CANDIDATES_READY, PROVIDER_ERROR, PROVIDER_ERROR | tests/test_searxng_provider.py, tests/test_network_policy.py, tests/test_engine.py | docs/sequence/sessions/phase-02-searxng-provider.json | DECLARED |

@@ -371,6 +371,59 @@
         "GitHub Actions cross-platform run 36557753677"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P6-RRF-001",
+      "claim": "Phase 6 fuses bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion at k=60 and preserves both modality ranks in immutable HybridHit values.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/hybrid.py::fuse_hybrid",
+        "src/max_grounding/models.py::HybridHit"
+      ],
+      "tests": [
+        "tests/test_hybrid.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions final GREEN run 36565015354"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P6-VALIDATION-001",
+      "claim": "Phase 6 rejects non-contiguous or duplicate modality ranks, over-limit ranked lists, duplicate chunk identities within a modality, and conflicting provenance for the same chunk identity across modalities.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/hybrid.py::fuse_hybrid"
+      ],
+      "tests": [
+        "tests/test_hybrid.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions final GREEN run 36565015354"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P6-CROSS-OS-001",
+      "claim": "Phase 6 hybrid fusion conforms to its frozen BEFORE plan and passes the complete suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/hybrid.py::retrieve_hybrid",
+        ".github/workflows/ci.yml"
+      ],
+      "tests": [
+        "tests/test_hybrid.py"
+      ],
+      "runtime_evidence": [
+        "GitHub Actions Candidate Verify run 36565138383"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []

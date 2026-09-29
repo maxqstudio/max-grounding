@@ -10,10 +10,10 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase-06-hybrid-fusion
 Current authoritative SHA: external final acceptance evidence
 Last accepted SHA: f29bb162ea49f24a78091231706e829f286bf8e4
-Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
+Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.
@@ -26,7 +26,7 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 ## Technology
 Languages: Python
 Frameworks: Python standard library
-Persistence: none through Phase 4 candidate
+Persistence: none through Phase 6 candidate
 External systems: GitHub Actions, operator-configured SearXNG instance
 
 ## Entry points
@@ -36,6 +36,8 @@ External systems: GitHub Actions, operator-configured SearXNG instance
 | Python package | src/max_grounding/__init__.py | bootstrap runtime identity and package boundary |
 | SearXNG provider | src/max_grounding/providers/searxng.py | bounded live HTTP search against a trusted self-hosted SearXNG endpoint |
 | Lexical retrieval | src/max_grounding/retrieval.py | deterministic bounded chunking and in-memory BM25 lexical retrieval over fetched text |
+| Semantic retrieval | src/max_grounding/semantic.py | bounded provider-agnostic dense semantic retrieval with role-separated embedding contracts |
+| Hybrid fusion | src/max_grounding/hybrid.py | fixed equal-weight reciprocal-rank fusion of bounded lexical and semantic results |
 
 ## Critical directories
 

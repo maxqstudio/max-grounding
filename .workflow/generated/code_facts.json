@@ -56,10 +56,17 @@
     },
     {
       "directory": "src/max_grounding",
+      "file": "src/max_grounding/hybrid.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 149
+    },
+    {
+      "directory": "src/max_grounding",
       "file": "src/max_grounding/models.py",
       "is_test": false,
       "language": "Python",
-      "lines": 114
+      "lines": 125
     },
     {
       "directory": "src/max_grounding",
@@ -137,6 +144,13 @@
       "is_test": true,
       "language": "Python",
       "lines": 54
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_hybrid.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 168
     },
     {
       "directory": "tests",
@@ -625,6 +639,118 @@
     {
       "caller": "src/max_grounding/fetcher.py::fetch_document",
       "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "target_token": "seen_chunks.add"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "_validate_ranked_hits"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "_validate_ranked_hits"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "chunks.get"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "chunks.items"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "lexical_ranks.get"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "semantic_ranks.get"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "fused.append"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "fused.sort"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "HybridHit"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "target_token": "enumerate"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "target_token": "RetrievalError"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "target_token": "retrieve_lexical"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "target_token": "retrieve_semantic"
+    },
+    {
+      "caller": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "target_token": "fuse_hybrid"
     },
     {
       "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
@@ -2009,6 +2135,298 @@
     {
       "caller": "tests/test_evidence.py::EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded",
       "target_token": "set"
+    },
+    {
+      "caller": "tests/test_hybrid.py::chunk",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_hybrid.py::chunk",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_hybrid.py::chunk",
+      "target_token": "text.split"
+    },
+    {
+      "caller": "tests/test_hybrid.py::lexical",
+      "target_token": "LexicalHit"
+    },
+    {
+      "caller": "tests/test_hybrid.py::semantic",
+      "target_token": "SemanticHit"
+    },
+    {
+      "caller": "tests/test_hybrid.py::document",
+      "target_token": "FetchedDocument"
+    },
+    {
+      "caller": "tests/test_hybrid.py::document",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_hybrid.py::document",
+      "target_token": "text.encode"
+    },
+    {
+      "caller": "tests/test_hybrid.py::_EmbeddingProvider.embed_documents",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_hybrid.py::_EmbeddingProvider.embed_documents",
+      "target_token": "text.casefold"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "lexical"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "lexical"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "semantic"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "self.assertAlmostEqual"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order",
+      "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order",
+      "target_token": "lexical"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order",
+      "target_token": "semantic"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "lexical"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "lexical"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "lexical"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "lexical"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "range"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "target_token": "invoke"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_duplicate_chunk_within_one_modality",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_duplicate_chunk_within_one_modality",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_duplicate_chunk_within_one_modality",
+      "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_duplicate_chunk_within_one_modality",
+      "target_token": "lexical"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_duplicate_chunk_within_one_modality",
+      "target_token": "lexical"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict",
+      "target_token": "chunk"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict",
+      "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict",
+      "target_token": "lexical"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict",
+      "target_token": "semantic"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_empty_modalities_return_empty_tuple",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_empty_modalities_return_empty_tuple",
+      "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "document"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "document"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "retrieve_hybrid"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "_EmbeddingProvider"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "self.assertIsNotNone"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "self.assertIsNotNone"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "self.assertLessEqual"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "all"
+    },
+    {
+      "caller": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "target_token": "math.isfinite"
     },
     {
       "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets",
@@ -3830,6 +4248,30 @@
       "symbol": "fetch_document"
     },
     {
+      "file": "src/max_grounding/hybrid.py",
+      "kind": "function",
+      "line_end": 41,
+      "line_start": 22,
+      "locator": "src/max_grounding/hybrid.py::_validate_ranked_hits",
+      "symbol": "_validate_ranked_hits"
+    },
+    {
+      "file": "src/max_grounding/hybrid.py",
+      "kind": "function",
+      "line_end": 109,
+      "line_start": 44,
+      "locator": "src/max_grounding/hybrid.py::fuse_hybrid",
+      "symbol": "fuse_hybrid"
+    },
+    {
+      "file": "src/max_grounding/hybrid.py",
+      "kind": "function",
+      "line_end": 149,
+      "line_start": 112,
+      "locator": "src/max_grounding/hybrid.py::retrieve_hybrid",
+      "symbol": "retrieve_hybrid"
+    },
+    {
       "file": "src/max_grounding/models.py",
       "kind": "class",
       "line_end": 14,
@@ -3908,6 +4350,14 @@
       "line_start": 109,
       "locator": "src/max_grounding/models.py::SemanticHit",
       "symbol": "SemanticHit"
+    },
+    {
+      "file": "src/max_grounding/models.py",
+      "kind": "class",
+      "line_end": 125,
+      "line_start": 118,
+      "locator": "src/max_grounding/models.py::HybridHit",
+      "symbol": "HybridHit"
     },
     {
       "file": "src/max_grounding/network_policy.py",
@@ -4364,6 +4814,126 @@
       "line_start": 33,
       "locator": "tests/test_evidence.py::EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded",
       "symbol": "EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "function",
+      "line_end": 23,
+      "line_start": 16,
+      "locator": "tests/test_hybrid.py::chunk",
+      "symbol": "chunk"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "function",
+      "line_end": 27,
+      "line_start": 26,
+      "locator": "tests/test_hybrid.py::lexical",
+      "symbol": "lexical"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "function",
+      "line_end": 31,
+      "line_start": 30,
+      "locator": "tests/test_hybrid.py::semantic",
+      "symbol": "semantic"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "function",
+      "line_end": 42,
+      "line_start": 34,
+      "locator": "tests/test_hybrid.py::document",
+      "symbol": "document"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "class",
+      "line_end": 53,
+      "line_start": 45,
+      "locator": "tests/test_hybrid.py::_EmbeddingProvider",
+      "symbol": "_EmbeddingProvider"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "method",
+      "line_end": 47,
+      "line_start": 46,
+      "locator": "tests/test_hybrid.py::_EmbeddingProvider.embed_query",
+      "symbol": "_EmbeddingProvider.embed_query"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "method",
+      "line_end": 53,
+      "line_start": 49,
+      "locator": "tests/test_hybrid.py::_EmbeddingProvider.embed_documents",
+      "symbol": "_EmbeddingProvider.embed_documents"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "class",
+      "line_end": 164,
+      "line_start": 56,
+      "locator": "tests/test_hybrid.py::HybridFusionTests",
+      "symbol": "HybridFusionTests"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "method",
+      "line_end": 75,
+      "line_start": 57,
+      "locator": "tests/test_hybrid.py::HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score",
+      "symbol": "HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "method",
+      "line_end": 88,
+      "line_start": 77,
+      "locator": "tests/test_hybrid.py::HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order",
+      "symbol": "HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "method",
+      "line_end": 103,
+      "line_start": 90,
+      "locator": "tests/test_hybrid.py::HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks",
+      "symbol": "HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "method",
+      "line_end": 112,
+      "line_start": 105,
+      "locator": "tests/test_hybrid.py::HybridFusionTests.test_rejects_duplicate_chunk_within_one_modality",
+      "symbol": "HybridFusionTests.test_rejects_duplicate_chunk_within_one_modality"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "method",
+      "line_end": 132,
+      "line_start": 114,
+      "locator": "tests/test_hybrid.py::HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict",
+      "symbol": "HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "method",
+      "line_end": 135,
+      "line_start": 134,
+      "locator": "tests/test_hybrid.py::HybridFusionTests.test_empty_modalities_return_empty_tuple",
+      "symbol": "HybridFusionTests.test_empty_modalities_return_empty_tuple"
+    },
+    {
+      "file": "tests/test_hybrid.py",
+      "kind": "method",
+      "line_end": 164,
+      "line_start": 137,
+      "locator": "tests/test_hybrid.py::HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers",
+      "symbol": "HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers"
     },
     {
       "file": "tests/test_network_policy.py",
@@ -5103,20 +5673,21 @@
     }
   ],
   "schema_version": 1,
-  "source_digest": "086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db",
+  "source_digest": "794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70",
   "source_summary": {
-    "files": 24,
+    "files": 26,
     "languages": {
-      "Python": 24
+      "Python": 26
     },
-    "lines": 2827,
-    "test_files": 10
+    "lines": 3155,
+    "test_files": 11
   },
   "tests": [
     "tests/test_bootstrap.py",
     "tests/test_budget.py",
     "tests/test_engine.py",
     "tests/test_evidence.py",
+    "tests/test_hybrid.py",
     "tests/test_network_policy.py",
     "tests/test_policy.py",
     "tests/test_retrieval.py",

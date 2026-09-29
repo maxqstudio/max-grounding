@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
+Source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
@@ -44,6 +44,9 @@ Status: CURRENT
 | src/max_grounding/fetcher.py | extract_text | function | 185-209 | Observed Python symbol | | | |
 | src/max_grounding/fetcher.py | _normalized_fetch_target | function | 212-230 | Observed Python symbol | | | |
 | src/max_grounding/fetcher.py | fetch_document | function | 233-298 | Observed Python symbol | | | |
+| src/max_grounding/hybrid.py | _validate_ranked_hits | function | 22-41 | Observed Python symbol | | | |
+| src/max_grounding/hybrid.py | fuse_hybrid | function | 44-109 | Observed Python symbol | | | |
+| src/max_grounding/hybrid.py | retrieve_hybrid | function | 112-149 | Observed Python symbol | | | |
 | src/max_grounding/models.py | EvidenceStatus | class | 9-14 | Observed Python symbol | | | |
 | src/max_grounding/models.py | GroundingRequest | class | 18-27 | Observed Python symbol | | | |
 | src/max_grounding/models.py | SearchQuery | class | 31-39 | Observed Python symbol | | | |
@@ -54,6 +57,7 @@ Status: CURRENT
 | src/max_grounding/models.py | TextChunk | class | 89-96 | Observed Python symbol | | | |
 | src/max_grounding/models.py | LexicalHit | class | 100-105 | Observed Python symbol | | | |
 | src/max_grounding/models.py | SemanticHit | class | 109-114 | Observed Python symbol | | | |
+| src/max_grounding/models.py | HybridHit | class | 118-125 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | is_admissible_result_url | function | 18-50 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | resolve_public_addresses | function | 53-93 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
@@ -111,6 +115,21 @@ Status: CURRENT
 | tests/test_evidence.py | EvidenceNormalizationTests | class | 9-50 | Observed Python symbol | | | |
 | tests/test_evidence.py | EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash | method | 10-31 | Observed Python symbol | | | |
 | tests/test_evidence.py | EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded | method | 33-50 | Observed Python symbol | | | |
+| tests/test_hybrid.py | chunk | function | 16-23 | Observed Python symbol | | | |
+| tests/test_hybrid.py | lexical | function | 26-27 | Observed Python symbol | | | |
+| tests/test_hybrid.py | semantic | function | 30-31 | Observed Python symbol | | | |
+| tests/test_hybrid.py | document | function | 34-42 | Observed Python symbol | | | |
+| tests/test_hybrid.py | _EmbeddingProvider | class | 45-53 | Observed Python symbol | | | |
+| tests/test_hybrid.py | _EmbeddingProvider.embed_query | method | 46-47 | Observed Python symbol | | | |
+| tests/test_hybrid.py | _EmbeddingProvider.embed_documents | method | 49-53 | Observed Python symbol | | | |
+| tests/test_hybrid.py | HybridFusionTests | class | 56-164 | Observed Python symbol | | | |
+| tests/test_hybrid.py | HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score | method | 57-75 | Observed Python symbol | | | |
+| tests/test_hybrid.py | HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order | method | 77-88 | Observed Python symbol | | | |
+| tests/test_hybrid.py | HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks | method | 90-103 | Observed Python symbol | | | |
+| tests/test_hybrid.py | HybridFusionTests.test_rejects_duplicate_chunk_within_one_modality | method | 105-112 | Observed Python symbol | | | |
+| tests/test_hybrid.py | HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict | method | 114-132 | Observed Python symbol | | | |
+| tests/test_hybrid.py | HybridFusionTests.test_empty_modalities_return_empty_tuple | method | 134-135 | Observed Python symbol | | | |
+| tests/test_hybrid.py | HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers | method | 137-164 | Observed Python symbol | | | |
 | tests/test_network_policy.py | ResultUrlAdmissionTests | class | 13-57 | Observed Python symbol | | | |
 | tests/test_network_policy.py | ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets | method | 14-16 | Observed Python symbol | | | |
 | tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes | method | 18-21 | Observed Python symbol | | | |

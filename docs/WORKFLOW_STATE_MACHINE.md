@@ -48,6 +48,51 @@ Authority: GroundingPolicy and SearchBudget
 
 - The core flow has no persistent mutation in Phase 1.
 
+## FLOW-HYBRID-FUSION — Bounded lexical-semantic hybrid fusion
+
+Purpose: Run bounded lexical and semantic retrieval over the same fetched-document corpus, fuse their ranked results with deterministic reciprocal-rank fusion, and return immutable hybrid hits.
+Critical: TRUE
+Entry condition: FetchedDocument values, a non-empty query, and an embedding provider are available.
+Authority: Hybrid retrieval policy and deterministic RRF fusion
+
+### States
+
+- INPUT_RECEIVED
+- LEXICAL_RANKED
+- SEMANTIC_RANKED
+- FUSED
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| INPUT_RECEIVED | LEXICAL_RANKED | retrieve bounded lexical top candidates | Hybrid retrieval policy and deterministic RRF fusion |  |
+| INPUT_RECEIVED | SEMANTIC_RANKED | retrieve bounded semantic top candidates | Hybrid retrieval policy and deterministic RRF fusion |  |
+| LEXICAL_RANKED | FUSED | combine lexical and semantic ranks by fixed RRF | Hybrid retrieval policy and deterministic RRF fusion |  |
+| SEMANTIC_RANKED | FUSED | combine lexical and semantic ranks by fixed RRF | Hybrid retrieval policy and deterministic RRF fusion |  |
+
+### Invariants
+
+- Each modality contributes at most 20 ranked hits.
+- RRF uses fixed k=60 and equal modality contribution; Phase 6 does not introduce tuning weights.
+- Input hit ranks must be unique and contiguous from 1 within each modality.
+- The same chunk_id may merge only when chunk provenance and text are identical across modalities.
+- Final results are bounded to at most 20 hits and ties use stable source provenance ordering.
+
+### Failure behavior
+
+- Invalid ranks, over-limit hit lists, conflicting chunk identity/provenance, or invalid result limits raise RetrievalError.
+- No partially fused output is returned after validation failure.
+
+### Restart behavior
+
+- Hybrid retrieval is stateless and deterministic for identical inputs.
+
+### Rollback behavior
+
+- Phase 6 performs no persistent state mutation.
+
 ## FLOW-LEXICAL-RETRIEVAL — Bounded lexical retrieval
 
 Purpose: Turn already-fetched immutable documents into deterministic bounded text chunks and return the top BM25 lexical hits without persistence, semantic embeddings, vector search, or reranking.

@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through Phase 4 candidate"
+      "none through Phase 6 candidate"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -45,6 +45,16 @@
       "name": "Lexical retrieval",
       "path": "src/max_grounding/retrieval.py",
       "purpose": "deterministic bounded chunking and in-memory BM25 lexical retrieval over fetched text"
+    },
+    {
+      "name": "Semantic retrieval",
+      "path": "src/max_grounding/semantic.py",
+      "purpose": "bounded provider-agnostic dense semantic retrieval with role-separated embedding contracts"
+    },
+    {
+      "name": "Hybrid fusion",
+      "path": "src/max_grounding/hybrid.py",
+      "purpose": "fixed equal-weight reciprocal-rank fusion of bounded lexical and semantic results"
     }
   ],
   "constraints": [
@@ -53,5 +63,99 @@
     "Core runtime must remain portable across Linux, Windows, and macOS.",
     "Untrusted network content must never be treated as executable instructions.",
     "No secrets may be committed to the repository."
-  ]
+  ],
+  "roadmap": {
+    "target": "Production V1 after Phase 12",
+    "phase_count": 13,
+    "phases": [
+      {
+        "phase": 0,
+        "name": "Governance and cross-platform baseline",
+        "status": "ACCEPTED"
+      },
+      {
+        "phase": 1,
+        "name": "Grounding contracts and bounded search orchestration",
+        "status": "ACCEPTED"
+      },
+      {
+        "phase": 2,
+        "name": "SearXNG live web search provider",
+        "status": "ACCEPTED"
+      },
+      {
+        "phase": 3,
+        "name": "Secure result-page fetch and extraction",
+        "status": "ACCEPTED"
+      },
+      {
+        "phase": 4,
+        "name": "Deterministic lexical BM25 retrieval",
+        "status": "ACCEPTED"
+      },
+      {
+        "phase": 5,
+        "name": "Bounded dense semantic retrieval",
+        "status": "ACCEPTED"
+      },
+      {
+        "phase": 6,
+        "name": "Deterministic lexical-semantic hybrid fusion",
+        "status": "CURRENT_CANDIDATE"
+      },
+      {
+        "phase": 7,
+        "name": "Reranking and evidence/context compression",
+        "status": "PLANNED"
+      },
+      {
+        "phase": 8,
+        "name": "Freshness, source authority, and temporal scoring",
+        "status": "PLANNED"
+      },
+      {
+        "phase": 9,
+        "name": "Contradiction/corroboration engine and evidence graph",
+        "status": "PLANNED"
+      },
+      {
+        "phase": 10,
+        "name": "Claim-level verification, citations, confidence, and fail-closed synthesis",
+        "status": "PLANNED"
+      },
+      {
+        "phase": 11,
+        "name": "Concrete embedding runtime plus Qdrant/persistent index and production adapters",
+        "status": "PLANNED"
+      },
+      {
+        "phase": 12,
+        "name": "REST, MCP, multi-arch containers, E2E/security/load, and production acceptance",
+        "status": "PLANNED"
+      }
+    ],
+    "optional_expansion": [
+      {
+        "phase": 13,
+        "name": "Browser and JavaScript rendering/crawling"
+      },
+      {
+        "phase": 14,
+        "name": "Multimodal PDF/image/table grounding"
+      },
+      {
+        "phase": 15,
+        "name": "Knowledge graph / GraphRAG"
+      },
+      {
+        "phase": 16,
+        "name": "Learned ranking and evaluation optimization"
+      }
+    ],
+    "rules": [
+      "Phase count is a planning target, not permission to bypass evidence gates.",
+      "Every phase must pass GitHub Actions before merge and merged main must be revalidated.",
+      "Optional expansion phases do not block Production V1 unless a later accepted decision explicitly promotes them."
+    ]
+  }
 }

@@ -1,0 +1,80 @@
+%% GENERATED FILE - DO NOT EDIT
+%% SOURCE_DIGEST: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
+%% OBSERVED_HEAD: efd8ae835206a5daf0536f9abbb076e4cc606ec9
+%% GENERATED_BY: generate_sequence_actual.py
+sequenceDiagram
+    participant src_max_grounding_errors_py__EmbeddingProviderError_0 as src/max_grounding/errors.py::EmbeddingProviderError
+    participant src_max_grounding_errors_py__RetrievalError_1 as src/max_grounding/errors.py::RetrievalError
+    participant src_max_grounding_hybrid_py___validate_ranked_hits_2 as src/max_grounding/hybrid.py::_validate_ranked_hits
+    participant src_max_grounding_hybrid_py__fuse_hybrid_3 as src/max_grounding/hybrid.py::fuse_hybrid
+    participant src_max_grounding_hybrid_py__retrieve_hybrid_4 as src/max_grounding/hybrid.py::retrieve_hybrid
+    participant src_max_grounding_models_py__HybridHit_5 as src/max_grounding/models.py::HybridHit
+    participant src_max_grounding_models_py__LexicalHit_6 as src/max_grounding/models.py::LexicalHit
+    participant src_max_grounding_models_py__SemanticHit_7 as src/max_grounding/models.py::SemanticHit
+    participant src_max_grounding_models_py__TextChunk_8 as src/max_grounding/models.py::TextChunk
+    participant src_max_grounding_retrieval_py___chunk_id_9 as src/max_grounding/retrieval.py::_chunk_id
+    participant src_max_grounding_retrieval_py___validate_chunk_bounds_10 as src/max_grounding/retrieval.py::_validate_chunk_bounds
+    participant src_max_grounding_retrieval_py___validate_query_11 as src/max_grounding/retrieval.py::_validate_query
+    participant src_max_grounding_retrieval_py__chunk_document_12 as src/max_grounding/retrieval.py::chunk_document
+    participant src_max_grounding_retrieval_py__rank_chunks_13 as src/max_grounding/retrieval.py::rank_chunks
+    participant src_max_grounding_retrieval_py__retrieve_lexical_14 as src/max_grounding/retrieval.py::retrieve_lexical
+    participant src_max_grounding_retrieval_py__tokenize_text_15 as src/max_grounding/retrieval.py::tokenize_text
+    participant src_max_grounding_semantic_py__EmbeddingProvider_embed_documents_16 as src/max_grounding/semantic.py::EmbeddingProvider.embed_documents
+    participant src_max_grounding_semantic_py__EmbeddingProvider_embed_query_17 as src/max_grounding/semantic.py::EmbeddingProvider.embed_query
+    participant src_max_grounding_semantic_py___validate_batch_size_18 as src/max_grounding/semantic.py::_validate_batch_size
+    participant src_max_grounding_semantic_py___validate_query_19 as src/max_grounding/semantic.py::_validate_query
+    participant src_max_grounding_semantic_py___validated_vector_20 as src/max_grounding/semantic.py::_validated_vector
+    participant src_max_grounding_semantic_py__build_semantic_chunks_21 as src/max_grounding/semantic.py::build_semantic_chunks
+    participant src_max_grounding_semantic_py__cosine_similarity_22 as src/max_grounding/semantic.py::cosine_similarity
+    participant src_max_grounding_semantic_py__embed_bounded_23 as src/max_grounding/semantic.py::embed_bounded
+    participant src_max_grounding_semantic_py__rank_semantic_24 as src/max_grounding/semantic.py::rank_semantic
+    participant src_max_grounding_semantic_py__retrieve_semantic_25 as src/max_grounding/semantic.py::retrieve_semantic
+    src_max_grounding_hybrid_py___validate_ranked_hits_2->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_hybrid_py__fuse_hybrid_3->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_hybrid_py__fuse_hybrid_3->>src_max_grounding_hybrid_py___validate_ranked_hits_2: _validate_ranked_hits [STATIC]
+    src_max_grounding_hybrid_py__fuse_hybrid_3->>src_max_grounding_models_py__HybridHit_5: HybridHit [STATIC]
+    src_max_grounding_hybrid_py__retrieve_hybrid_4->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_hybrid_py__retrieve_hybrid_4->>src_max_grounding_hybrid_py__fuse_hybrid_3: fuse_hybrid [STATIC]
+    src_max_grounding_hybrid_py__retrieve_hybrid_4->>src_max_grounding_retrieval_py__retrieve_lexical_14: retrieve_lexical [STATIC]
+    src_max_grounding_hybrid_py__retrieve_hybrid_4->>src_max_grounding_semantic_py__retrieve_semantic_25: retrieve_semantic [STATIC]
+    src_max_grounding_retrieval_py___validate_chunk_bounds_10->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_retrieval_py___validate_query_11->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_retrieval_py___validate_query_11->>src_max_grounding_retrieval_py__tokenize_text_15: tokenize_text [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_12->>src_max_grounding_models_py__TextChunk_8: TextChunk [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_12->>src_max_grounding_retrieval_py___chunk_id_9: _chunk_id [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_12->>src_max_grounding_retrieval_py___validate_chunk_bounds_10: _validate_chunk_bounds [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_12->>src_max_grounding_retrieval_py__tokenize_text_15: tokenize_text [STATIC]
+    src_max_grounding_retrieval_py__rank_chunks_13->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_retrieval_py__rank_chunks_13->>src_max_grounding_models_py__LexicalHit_6: LexicalHit [STATIC]
+    src_max_grounding_retrieval_py__rank_chunks_13->>src_max_grounding_retrieval_py___validate_query_11: _validate_query [STATIC]
+    src_max_grounding_retrieval_py__rank_chunks_13->>src_max_grounding_retrieval_py__tokenize_text_15: tokenize_text [STATIC]
+    src_max_grounding_retrieval_py__retrieve_lexical_14->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_retrieval_py__retrieve_lexical_14->>src_max_grounding_retrieval_py___validate_chunk_bounds_10: _validate_chunk_bounds [STATIC]
+    src_max_grounding_retrieval_py__retrieve_lexical_14->>src_max_grounding_retrieval_py___validate_query_11: _validate_query [STATIC]
+    src_max_grounding_retrieval_py__retrieve_lexical_14->>src_max_grounding_retrieval_py__chunk_document_12: chunk_document [STATIC]
+    src_max_grounding_retrieval_py__retrieve_lexical_14->>src_max_grounding_retrieval_py__rank_chunks_13: rank_chunks [STATIC]
+    src_max_grounding_semantic_py___validate_batch_size_18->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_semantic_py___validate_query_19->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_semantic_py___validated_vector_20->>src_max_grounding_errors_py__EmbeddingProviderError_0: EmbeddingProviderError [STATIC]
+    src_max_grounding_semantic_py__build_semantic_chunks_21->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_semantic_py__build_semantic_chunks_21->>src_max_grounding_retrieval_py__chunk_document_12: chunk_document [STATIC]
+    src_max_grounding_semantic_py__cosine_similarity_22->>src_max_grounding_errors_py__EmbeddingProviderError_0: EmbeddingProviderError [STATIC]
+    src_max_grounding_semantic_py__cosine_similarity_22->>src_max_grounding_semantic_py___validated_vector_20: _validated_vector [STATIC]
+    src_max_grounding_semantic_py__embed_bounded_23->>src_max_grounding_errors_py__EmbeddingProviderError_0: EmbeddingProviderError [STATIC]
+    src_max_grounding_semantic_py__embed_bounded_23->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_semantic_py__embed_bounded_23->>src_max_grounding_semantic_py__EmbeddingProvider_embed_documents_16: provider.embed_documents [STATIC]
+    src_max_grounding_semantic_py__embed_bounded_23->>src_max_grounding_semantic_py__EmbeddingProvider_embed_query_17: provider.embed_query [STATIC]
+    src_max_grounding_semantic_py__embed_bounded_23->>src_max_grounding_semantic_py___validate_batch_size_18: _validate_batch_size [STATIC]
+    src_max_grounding_semantic_py__embed_bounded_23->>src_max_grounding_semantic_py___validate_query_19: _validate_query [STATIC]
+    src_max_grounding_semantic_py__embed_bounded_23->>src_max_grounding_semantic_py___validated_vector_20: _validated_vector [STATIC]
+    src_max_grounding_semantic_py__rank_semantic_24->>src_max_grounding_errors_py__EmbeddingProviderError_0: EmbeddingProviderError [STATIC]
+    src_max_grounding_semantic_py__rank_semantic_24->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_semantic_py__rank_semantic_24->>src_max_grounding_models_py__SemanticHit_7: SemanticHit [STATIC]
+    src_max_grounding_semantic_py__rank_semantic_24->>src_max_grounding_semantic_py___validated_vector_20: _validated_vector [STATIC]
+    src_max_grounding_semantic_py__rank_semantic_24->>src_max_grounding_semantic_py__cosine_similarity_22: cosine_similarity [STATIC]
+    src_max_grounding_semantic_py__retrieve_semantic_25->>src_max_grounding_errors_py__RetrievalError_1: RetrievalError [STATIC]
+    src_max_grounding_semantic_py__retrieve_semantic_25->>src_max_grounding_semantic_py___validate_batch_size_18: _validate_batch_size [STATIC]
+    src_max_grounding_semantic_py__retrieve_semantic_25->>src_max_grounding_semantic_py___validate_query_19: _validate_query [STATIC]
+    src_max_grounding_semantic_py__retrieve_semantic_25->>src_max_grounding_semantic_py__build_semantic_chunks_21: build_semantic_chunks [STATIC]
+    src_max_grounding_semantic_py__retrieve_semantic_25->>src_max_grounding_semantic_py__embed_bounded_23: embed_bounded [STATIC]
+    src_max_grounding_semantic_py__retrieve_semantic_25->>src_max_grounding_semantic_py__rank_semantic_24: rank_semantic [STATIC]
