@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through Phase 10 candidate"
+      "none through accepted Phase 10"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -141,12 +141,12 @@
       {
         "phase": 10,
         "name": "Claim-level verification, citations, confidence, and fail-closed synthesis",
-        "status": "CURRENT_CANDIDATE"
+        "status": "ACCEPTED"
       },
       {
         "phase": 11,
         "name": "Concrete embedding runtime plus Qdrant/persistent index and production adapters",
-        "status": "PLANNED"
+        "status": "NEXT_PLANNED"
       },
       {
         "phase": 12,
