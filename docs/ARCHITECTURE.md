@@ -2,13 +2,13 @@
 
 # ARCHITECTURE
 
-Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
+Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
 
 ## Components
 
 | ID | Component | Purpose | Owns | Depends On |
 |---|---|---|---|---|
-| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit |  |
+| models | Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit |  |
 | policy | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | budget | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | provider-boundary | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -19,6 +19,7 @@ Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910
 | secure-fetch | Secure Result Fetcher | Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, bound response handling, and extract untrusted visible text. | fetch_document, public-IP-pinned HTTP(S) connection, bounded response policy, visible text extraction | models, network-policy |
 | lexical-retrieval | Lexical Retrieval | Turn immutable fetched text into bounded deterministic chunks and rank positive lexical matches with in-memory BM25. | retrieve_lexical, chunk_document, rank_chunks, Unicode lexical tokenization, BM25 lexical scoring, stable chunk provenance | models |
 | semantic-retrieval | Semantic Retrieval | Build bounded deterministic chunks, obtain role-separated dense embeddings through an injected provider, validate vectors fail-closed, and rank positive semantic matches by cosine similarity. | EmbeddingProvider protocol, retrieve_semantic, build_semantic_chunks, embed_bounded, rank_semantic, cosine_similarity, embedding batch/call/dimension bounds, semantic provenance ordering | models, lexical-retrieval |
+| hybrid-fusion | Hybrid Fusion | Combine bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion while preserving immutable chunk provenance. | retrieve_hybrid, fuse_hybrid, fixed RRF k=60, hybrid rank validation, hybrid provenance conflict rejection | models, lexical-retrieval, semantic-retrieval |
 
 ## Data flow
 
@@ -42,6 +43,9 @@ Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910
 - Semantic Retrieval -> EmbeddingProvider: one query role and bounded document-role batches are embedded through an injected provider
 - EmbeddingProvider -> Semantic Retrieval: dense vectors are accepted only after strict count, shape, finite-value, dimension, and norm validation
 - Semantic Retrieval -> SemanticHit: positive cosine matches return immutable source-provenance chunks with deterministic rank
+- LexicalHit -> Hybrid Fusion: bounded lexical ranks contribute one fixed reciprocal-rank term per unique chunk
+- SemanticHit -> Hybrid Fusion: bounded semantic ranks contribute one fixed reciprocal-rank term per unique chunk
+- Hybrid Fusion -> HybridHit: deduplicated immutable chunks return fused score plus lexical and semantic rank provenance
 
 ## External boundaries
 
@@ -52,9 +56,9 @@ Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910
 
 ## Observed implementation inventory
 
-Source files: 24
-Source lines: 2827
-Languages: Python=24
+Source files: 26
+Source lines: 3155
+Languages: Python=26
 
 Structural facts come from the code extractor. Component meaning comes from
 .workflow/architecture.json.

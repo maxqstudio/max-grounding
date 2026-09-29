@@ -18,7 +18,7 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-06-hybrid-fusion.actual.json",
     "diagram": "docs/sequence/generated/phase-06-hybrid-fusion.actual.mmd",
-    "source_digest": "",
+    "source_digest": "794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70",
     "entries": [
       "src/max_grounding/hybrid.py::retrieve_hybrid"
     ]

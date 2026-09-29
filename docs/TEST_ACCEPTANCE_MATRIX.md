@@ -4,19 +4,18 @@
 
 ## Evidence boundary
 
-Phase 5 proves a bounded provider-agnostic dense semantic retrieval core over deterministic TextChunk values: distinct query/document embedding roles, bounded provider calls and batches, strict vector count/dimension/value/norm validation, positive cosine ranking, deterministic provenance tie ordering, frozen-plan conformance, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove any concrete embedding model, production model quality, vector database, persistent index, hybrid fusion, reranking, REST, MCP, or production deployment.
+Phase 6 proves deterministic bounded fixed-RRF fusion over already-bounded Phase 4 lexical and Phase 5 semantic ranked hits: contiguous rank validation, per-modality and final result caps, identical-provenance deduplication, conflicting chunk-identity rejection, stable tie ordering, frozen-plan conformance, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove a concrete embedding model/runtime, persistent vector database, learned reranker, retrieval-quality benchmark, REST, MCP, or production deployment.
 
 Final tested source: external final acceptance evidence.
-Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
+Current source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P5-ROLE-SEPARATION | Semantic retrieval preserves distinct query and document embedding roles so provider implementations can apply asymmetric retrieval encoding. | tests/test_semantic_retrieval.py; role-separation regression run 36557498333; final GREEN run 36557612077 | PASS |
-| P5-EMBEDDING-BOUNDS | Semantic retrieval caps total chunks, embedding batch size, total embedding provider calls, query size, embedding dimension, and returned hits before unbounded provider work. | tests/test_semantic_retrieval.py; final GREEN run 36557612077 | PASS |
-| P5-VECTOR-VALIDATION | Embedding failures, wrong vector counts, inconsistent dimensions, non-finite or boolean values, oversized dimensions, and zero-norm vectors fail closed with EmbeddingProviderError. | tests/test_semantic_retrieval.py; final GREEN run 36557612077 | PASS |
-| P5-COSINE | Semantic ranking returns only positive cosine-similarity hits and resolves equal scores with deterministic source provenance ordering. | tests/test_semantic_retrieval.py; final GREEN run 36557612077 | PASS |
-| P5-SEQUENCE | The implemented retrieve-to-chunk/embed/rank/cosine call graph conforms to the frozen Phase 5 BEFORE plan. | Phase 5 Sequence Verify run 36557689216 | PASS |
-| P5-CROSS-OS | The final Phase 5 semantic retrieval source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 5 Cross Platform run 36557753677: 12/12 jobs PASS | PASS |
+| P6-RRF | Hybrid fusion uses fixed equal-weight reciprocal-rank fusion with k=60; a chunk present in both modalities accumulates both rank contributions. | tests/test_hybrid.py; final GREEN run 36565015354 | PASS |
+| P6-VALIDATION | Each modality is capped at 20 hits with unique contiguous ranks from 1, final output is capped at 20, duplicate chunk identity within a modality is rejected, and cross-modality identity conflicts fail closed. | tests/test_hybrid.py; final GREEN run 36565015354 | PASS |
+| P6-DETERMINISM | Equal hybrid scores resolve by stable source URL, chunk index, and chunk identity while preserving immutable lexical and semantic rank provenance. | tests/test_hybrid.py; final GREEN run 36565015354 | PASS |
+| P6-SEQUENCE | retrieve_hybrid invokes bounded lexical retrieval, bounded semantic retrieval, then fuse_hybrid in conformance with the frozen Phase 6 BEFORE plan. | Phase 6 Candidate Verify run 36565138383 | PASS |
+| P6-CROSS-OS | The Phase 6 hybrid fusion source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS. | Phase 6 Candidate Verify run 36565138383: sequence plus 12/12 runtime matrix jobs PASS | PASS |
 
 ## Test commands
 
@@ -27,19 +26,16 @@ Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910
 
 ## Runtime checks
 
-- TDD RED run 36557027666 proved the Phase 5 semantic retrieval contract absent before implementation.
-- Initial GREEN run 36557303486 passed the first implementation.
-- Role-separation regression run 36557498333 reproduced the single-role embedding boundary defect before repair.
-- Final GREEN run 36557612077 passed full unit and compile checks after the role-separated provider repair.
-- Sequence verification run 36557689216 passed generated PLAN-to-ACTUAL validation.
-- Cross-platform run 36557753677 passed 12/12 Python/OS jobs.
-- Phase 5 pull-request Acceptance run 36558360516 passed 13/13 required jobs on exact head 54d4ec9752fb9cd4d50a3e9a4c0c3c500568b941.
-- Phase 5 post-merge main Acceptance run 36563782579 passed 13/13 required jobs on main SHA f29bb162ea49f24a78091231706e829f286bf8e4.
+- TDD RED run 36564783433 proved the Phase 6 hybrid module absent before implementation.
+- Initial GREEN run 36564936847 exposed an invalid test fixture rank; the fixture alone was repaired to match the frozen contiguous-rank contract.
+- Final GREEN run 36565015354 passed the full unit suite and compile checks.
+- Candidate verification run 36565138383 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
+- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 6 closure.
 
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-05-semantic-retrieval.json
+Sequence session contract: docs/sequence/sessions/phase-06-hybrid-fusion.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

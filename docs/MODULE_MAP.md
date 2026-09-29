@@ -3,7 +3,7 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
+Source digest: 794053d4768e1dd075e29577b23c35f1a5914e2a10a2881e4a823b924ded9e70
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
@@ -14,7 +14,8 @@ Generated/refreshed: current compiler run
 | src/max_grounding/errors.py | Python | 33 | src/max_grounding | NO |
 | src/max_grounding/evidence.py | Python | 97 | src/max_grounding | NO |
 | src/max_grounding/fetcher.py | Python | 298 | src/max_grounding | NO |
-| src/max_grounding/models.py | Python | 114 | src/max_grounding | NO |
+| src/max_grounding/hybrid.py | Python | 149 | src/max_grounding | NO |
+| src/max_grounding/models.py | Python | 125 | src/max_grounding | NO |
 | src/max_grounding/network_policy.py | Python | 93 | src/max_grounding | NO |
 | src/max_grounding/policy.py | Python | 51 | src/max_grounding | NO |
 | src/max_grounding/providers/__init__.py | Python | 6 | src/max_grounding/providers | NO |
@@ -26,6 +27,7 @@ Generated/refreshed: current compiler run
 | tests/test_budget.py | Python | 25 | tests | YES |
 | tests/test_engine.py | Python | 118 | tests | YES |
 | tests/test_evidence.py | Python | 54 | tests | YES |
+| tests/test_hybrid.py | Python | 168 | tests | YES |
 | tests/test_network_policy.py | Python | 123 | tests | YES |
 | tests/test_policy.py | Python | 47 | tests | YES |
 | tests/test_retrieval.py | Python | 181 | tests | YES |

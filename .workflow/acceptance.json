@@ -17,34 +17,34 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
+      "evidence": "tests/test_hybrid.py; final GREEN run 36565015354",
       "id": "P6-RRF",
       "requirement": "Hybrid fusion uses fixed equal-weight reciprocal-rank fusion with k=60; a chunk present in both modalities accumulates both rank contributions.",
-      "status": "PASS",
-      "evidence": "tests/test_hybrid.py; final GREEN run 36565015354"
+      "status": "PASS"
     },
     {
+      "evidence": "tests/test_hybrid.py; final GREEN run 36565015354",
       "id": "P6-VALIDATION",
       "requirement": "Each modality is capped at 20 hits with unique contiguous ranks from 1, final output is capped at 20, duplicate chunk identity within a modality is rejected, and cross-modality identity conflicts fail closed.",
-      "status": "PASS",
-      "evidence": "tests/test_hybrid.py; final GREEN run 36565015354"
+      "status": "PASS"
     },
     {
+      "evidence": "tests/test_hybrid.py; final GREEN run 36565015354",
       "id": "P6-DETERMINISM",
       "requirement": "Equal hybrid scores resolve by stable source URL, chunk index, and chunk identity while preserving immutable lexical and semantic rank provenance.",
-      "status": "PASS",
-      "evidence": "tests/test_hybrid.py; final GREEN run 36565015354"
+      "status": "PASS"
     },
     {
+      "evidence": "Phase 6 Candidate Verify run 36565138383",
       "id": "P6-SEQUENCE",
       "requirement": "retrieve_hybrid invokes bounded lexical retrieval, bounded semantic retrieval, then fuse_hybrid in conformance with the frozen Phase 6 BEFORE plan.",
-      "status": "PASS",
-      "evidence": "Phase 6 Candidate Verify run 36565138383"
+      "status": "PASS"
     },
     {
+      "evidence": "Phase 6 Candidate Verify run 36565138383: sequence plus 12/12 runtime matrix jobs PASS",
       "id": "P6-CROSS-OS",
       "requirement": "The Phase 6 hybrid fusion source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS.",
-      "status": "PASS",
-      "evidence": "Phase 6 Candidate Verify run 36565138383: sequence plus 12/12 runtime matrix jobs PASS"
+      "status": "PASS"
     }
   ],
   "runtime_checks": [
