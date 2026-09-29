@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-SEMANTIC-RETRIEVAL",
+  "title": "Bounded semantic retrieval",
+  "purpose": "Turn fetched documents into bounded deterministic chunks, obtain embeddings through an injected provider under strict batch and shape limits, and return cosine-ranked semantic hits without persistence, hybrid fusion, reranking, or model-specific assumptions.",
+  "critical": true,
+  "entry_condition": "FetchedDocument values, a non-empty semantic query, and an EmbeddingProvider are supplied within configured bounds.",
+  "authority": "Semantic retrieval bounds, embedding validation, and deterministic cosine scorer",
+  "states": [
+    "DOCUMENTS_RECEIVED",
+    "CHUNKS_READY",
+    "EMBEDDINGS_READY",
+    "SCORED",
+    "HITS_READY",
+    "INVALID_REQUEST",
+    "PROVIDER_ERROR"
+  ],
+  "transitions": [
+    {
+      "from": "DOCUMENTS_RECEIVED",
+      "to": "CHUNKS_READY",
+      "action": "build bounded deterministic chunks using the accepted Phase 4 chunking contract"
+    },
+    {
+      "from": "CHUNKS_READY",
+      "to": "EMBEDDINGS_READY",
+      "action": "embed the query and chunk text through bounded provider batches and validate vector shape and values"
+    },
+    {
+      "from": "EMBEDDINGS_READY",
+      "to": "SCORED",
+      "action": "calculate cosine similarity between query and chunk vectors"
+    },
+    {
+      "from": "SCORED",
+      "to": "HITS_READY",
+      "action": "retain positive semantic matches up to the result limit with deterministic provenance tie ordering"
+    },
+    {
+      "from": "DOCUMENTS_RECEIVED",
+      "to": "INVALID_REQUEST",
+      "action": "reject invalid query, chunk, batch, or result bounds before provider work"
+    },
+    {
+      "from": "CHUNKS_READY",
+      "to": "PROVIDER_ERROR",
+      "action": "fail closed on provider exception, wrong vector count, invalid dimension, non-finite value, inconsistent shape, or zero vector"
+    }
+  ],
+  "invariants": [
+    "FetchedDocument and TextChunk input values are never mutated.",
+    "At most 256 chunks may enter one semantic retrieval operation.",
+    "Embedding batches contain at most 64 texts and the total provider-call count is capped.",
+    "Every embedding vector has one stable common dimension between 1 and 4096.",
+    "NaN, infinity, boolean values, malformed dimensions, and zero-norm vectors are rejected.",
+    "Only positive cosine-similarity hits are returned.",
+    "Equal scores use stable source URL, chunk index, and chunk ID ordering.",
+    "Phase 5 does not claim a concrete embedding model, vector database, hybrid fusion, or reranker."
+  ],
+  "failure_behavior": [
+    "Invalid caller bounds raise RetrievalError before provider work.",
+    "Embedding provider or vector-validation failures raise EmbeddingProviderError without returning partial semantic hits.",
+    "No positive semantic match returns an empty immutable result rather than fabricated relevance."
+  ],
+  "restart_behavior": [
+    "The retrieval core is stateless; deterministic provider output produces deterministic ranking for identical input."
+  ],
+  "rollback_behavior": [
+    "Phase 5 has no persistent mutation."
+  ],
+  "source_owners": [
+    "src/max_grounding/semantic.py::retrieve_semantic",
+    "src/max_grounding/semantic.py::build_semantic_chunks",
+    "src/max_grounding/semantic.py::embed_bounded",
+    "src/max_grounding/semantic.py::rank_semantic",
+    "src/max_grounding/semantic.py::cosine_similarity"
+  ],
+  "tests": [
+    "tests/test_semantic_retrieval.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-05-semantic-retrieval.json"
+}
