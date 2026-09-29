@@ -1,5 +1,5 @@
 {
-  "evidence_boundary": "Phase 6 proves deterministic bounded fixed-RRF fusion over already-bounded Phase 4 lexical and Phase 5 semantic ranked hits: contiguous rank validation, per-modality and final result caps, identical-provenance deduplication, conflicting chunk-identity rejection, stable tie ordering, frozen-plan conformance, and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove a concrete embedding model/runtime, persistent vector database, learned reranker, retrieval-quality benchmark, REST, MCP, or production deployment.",
+  "evidence_boundary": "Phase 7 proves bounded provider-agnostic reranking over at most 20 accepted HybridHit candidates plus deterministic extractive context compression: one bounded provider score sequence, fail-closed score validation, stable rerank ordering, immutable provenance, at most 8 excerpts, 1200 characters per excerpt, and 6000 total excerpt characters, with frozen-plan conformance and Python 3.11-3.14 execution across Ubuntu, Windows, and macOS. It does not prove a concrete reranker model/runtime, generative compression, quality superiority, freshness/authority scoring, contradiction handling, claim verification, persistent vector storage, REST, MCP, or production deployment.",
   "human_comprehension_questions": {
     "How does failure/recovery behave?": "PASS",
     "How does important data flow through the system?": "PASS",
@@ -17,48 +17,48 @@
   "human_comprehension_status": "PASS",
   "requirements": [
     {
-      "evidence": "tests/test_hybrid.py; final GREEN run 36565015354",
-      "id": "P6-RRF",
-      "requirement": "Hybrid fusion uses fixed equal-weight reciprocal-rank fusion with k=60; a chunk present in both modalities accumulates both rank contributions.",
-      "status": "PASS"
+      "id": "P7-RERANK",
+      "requirement": "Reranking accepts at most 20 unique contiguous HybridHit candidates, performs exactly one provider score call, and deterministically preserves prior rank provenance.",
+      "status": "PASS",
+      "evidence": "tests/test_reranking.py; final GREEN run 36577271817"
     },
     {
-      "evidence": "tests/test_hybrid.py; final GREEN run 36565015354",
-      "id": "P6-VALIDATION",
-      "requirement": "Each modality is capped at 20 hits with unique contiguous ranks from 1, final output is capped at 20, duplicate chunk identity within a modality is rejected, and cross-modality identity conflicts fail closed.",
-      "status": "PASS"
+      "id": "P7-PROVIDER",
+      "requirement": "Provider exceptions, unbounded iterable output, wrong score counts, booleans, non-numeric values, and non-finite scores fail closed without partial output.",
+      "status": "PASS",
+      "evidence": "adversarial RED run 36577161655; final GREEN run 36577271817"
     },
     {
-      "evidence": "tests/test_hybrid.py; final GREEN run 36565015354",
-      "id": "P6-DETERMINISM",
-      "requirement": "Equal hybrid scores resolve by stable source URL, chunk index, and chunk identity while preserving immutable lexical and semantic rank provenance.",
-      "status": "PASS"
+      "id": "P7-COMPRESS",
+      "requirement": "Context compression is extractive only and enforces hard excerpt count, per-excerpt character, and total-character budgets while retaining provenance.",
+      "status": "PASS",
+      "evidence": "tests/test_reranking.py; final GREEN run 36577271817"
     },
     {
-      "evidence": "Phase 6 Candidate Verify run 36565138383",
-      "id": "P6-SEQUENCE",
-      "requirement": "retrieve_hybrid invokes bounded lexical retrieval, bounded semantic retrieval, then fuse_hybrid in conformance with the frozen Phase 6 BEFORE plan.",
-      "status": "PASS"
+      "id": "P7-SEQUENCE",
+      "requirement": "build_grounded_context invokes rerank_hybrid then compress_context in conformance with the frozen Phase 7 BEFORE plan.",
+      "status": "PASS",
+      "evidence": "Phase 7 Candidate Verify run 36577449523"
     },
     {
-      "evidence": "Phase 6 Candidate Verify run 36565138383: sequence plus 12/12 runtime matrix jobs PASS",
-      "id": "P6-CROSS-OS",
-      "requirement": "The Phase 6 hybrid fusion source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS.",
-      "status": "PASS"
+      "id": "P7-CROSS-OS",
+      "requirement": "The Phase 7 source passes the complete suite on Python 3.11-3.14 across Linux, Windows, and macOS.",
+      "status": "PASS",
+      "evidence": "Phase 7 Candidate Verify run 36577449523: sequence plus 12/12 runtime matrix jobs PASS"
     }
   ],
   "runtime_checks": [
-    "TDD RED run 36564783433 proved the Phase 6 hybrid module absent before implementation.",
-    "Initial GREEN run 36564936847 exposed an invalid test fixture rank; the fixture alone was repaired to match the frozen contiguous-rank contract.",
-    "Final GREEN run 36565015354 passed the full unit suite and compile checks.",
-    "Candidate verification run 36565138383 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.",
-    "Phase 6 pull-request Acceptance run 36574618437 passed 13/13 required jobs on exact head de6548e2e8c56159b9de33331800cc403dfd9bc9.",
-    "Phase 6 post-merge main Acceptance run 36575022736 passed 13/13 required jobs on main SHA b4142fb22ee80837b98617d3c29a276fbe924294."
+    "TDD RED run 36576719998 proved the Phase 7 reranking contract absent before implementation.",
+    "Initial GREEN run 36577036647 passed the full unit suite and compile checks.",
+    "Adversarial regression run 36577161655 reproduced acceptance of arbitrary iterable provider output before repair.",
+    "Final GREEN run 36577271817 passed the full unit suite and compile checks after the provider-output boundary repair.",
+    "Candidate verification run 36577449523 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.",
+    "Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 7 closure."
   ],
   "runtime_status": "PASS",
   "schema_version": 1,
   "sequence_mode": "BEFORE",
-  "sequence_session": "docs/sequence/sessions/phase-06-hybrid-fusion.json",
+  "sequence_session": "docs/sequence/sessions/phase-07-rerank-compress.json",
   "sequence_sync_status": "PASS",
   "test_commands": [
     "python -m unittest discover -s tests -v",
