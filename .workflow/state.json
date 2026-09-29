@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "phase": "PHASE_09_EVIDENCE_GRAPH",
-  "status": "CANDIDATE_PENDING_GITHUB_ACTIONS",
-  "working_branch": "work/phase-09-evidence-graph",
-  "last_accepted_sha": "af3bd6bb578861de802a972d11e8a2a2c2368955",
+  "status": "ACCEPTED",
+  "working_branch": "main",
+  "last_accepted_sha": "263595c161c68001b7785bfa65e3d723f5f21d42",
   "last_accepted_branch": "main",
   "proven": [
     "Phase 8 closure is merged to main at 8766a2d3f06c5d800c1a09c204acf2fc83817336 and closure-main Acceptance run 36584346207 passed all 13 required jobs.",
@@ -14,23 +14,21 @@
     "Phase 9 accepts at most 8 bounded structured assertions backed by valid Phase 8 EvidenceQualityScore provenance.",
     "Equivalent normalized claim/value assertions corroborate; differing values contradict only when that claim key is explicitly exclusive/single-valued.",
     "Clusters count distinct source URLs and sum only each source's maximum Phase 8 quality score so repeated chunks from one source do not inflate distinct-URL evidence weight.",
-    "Phase 9 emits no winner, truth label, or majority-vote verdict."
+    "Phase 9 emits no winner, truth label, or majority-vote verdict.",
+    "Phase 9 exact pull-request head f2e4818ba717a0900b6fe5aa84733b7d4b882760 passed Acceptance run 36587717765.",
+    "Phase 9 merged main SHA 263595c161c68001b7785bfa65e3d723f5f21d42 passed post-merge Acceptance run 36590741523 with 13/13 jobs PASS."
   ],
   "not_proven": [
-    "Final Phase 9 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.",
-    "Phase 9 does not automatically extract structured assertions, infer natural-language contradiction, select which conflicting value is true, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.",
-    "Phase 9 distinct source URLs do not prove editorial or organizational independence between sources; the graph exposes URL-level counts only."
+    "Accepted Phase 9 does not automatically extract structured assertions, infer arbitrary natural-language contradiction, select which conflicting value is true, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.",
+    "Distinct source URLs remain only a URL-level independence proxy and do not prove editorial or organizational independence."
   ],
   "blockers": [],
   "next_authorized_actions": [
-    "Synchronize the Phase 9 ACTUAL sequence and deterministic Project Truth documentation.",
-    "Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 9 candidate head.",
-    "Merge Phase 9 only if every required job passes, then revalidate merged main."
+    "Start Phase 10 planning from accepted main SHA 263595c161c68001b7785bfa65e3d723f5f21d42.",
+    "Freeze the Phase 10 BEFORE sequence plan before implementing claim-level verification, citations, confidence, and fail-closed synthesis."
   ],
   "blocked_actions": [
-    "Do not treat descriptive cluster quality_weight_sum as a probability, confidence score, or truth verdict.",
-    "Do not claim natural-language contradiction inference or claim verification from the structured Phase 9 graph.",
-    "Do not merge Phase 9 while any required GitHub Actions job is failing or missing.",
-    "Do not bypass post-merge main revalidation."
+    "Do not treat Phase 9 graph cluster weights as truth probabilities or verification results.",
+    "Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases."
   ]
 }
