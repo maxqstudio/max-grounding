@@ -3,7 +3,7 @@
   "session_id": "phase-09-evidence-graph",
   "phase": "PHASE_09_EVIDENCE_GRAPH",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
   "status": "FROZEN",
   "implementation_base_sha": "63654b4f8430ab4a6859686e26b4946d82c1e99d",
