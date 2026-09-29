@@ -145,7 +145,7 @@ Authority: Semantic retrieval bounds, embedding validation, and deterministic co
 
 Current phase: PHASE_05_SEMANTIC_RETRIEVAL
 
-Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Current status: ACCEPTED
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -195,13 +195,12 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Generate and commit the current Phase 5 ACTUAL sequence graph and deterministic Project Truth documentation.
-- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 5 candidate head.
-- Merge Phase 5 only if every required job passes, then revalidate main.
+- Start Phase 6 planning from accepted main SHA f29bb162ea49f24a78091231706e829f286bf8e4.
+- Freeze the Phase 6 BEFORE sequence plan before product implementation.
 
 Blocked actions:
-- Do not claim a concrete embedding model, vector database, hybrid fusion, or reranker from Phase 5.
-- Do not bypass GitHub Actions acceptance or post-merge main revalidation.
+- Do not claim a concrete embedding model, vector database, hybrid fusion, or reranker from accepted Phase 5.
+- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation.
 
 Known blockers:
 - None declared.
@@ -222,11 +221,13 @@ Known blockers:
 - Phase 5 rejects provider exceptions, wrong vector counts, inconsistent dimensions, dimensions outside 1..4096, non-finite or boolean values, and zero-norm vectors.
 - Phase 5 caps semantic work at 256 chunks, embedding batches at 64 texts, total embedding provider calls at 9, query length at 4096 characters, and returned hits at 20.
 - Phase 5 returns only positive cosine-similarity hits and resolves equal scores by stable source provenance ordering.
+- Phase 5 exact pull-request head 54d4ec9752fb9cd4d50a3e9a4c0c3c500568b941 passed Acceptance run 36558360516 with STRICT governance plus all 12 Linux/Windows/macOS Python 3.11-3.14 jobs.
+- Phase 5 merged main SHA f29bb162ea49f24a78091231706e829f286bf8e4 passed post-merge Acceptance run 36563782579 with 13/13 jobs PASS.
 
 ### Not proven
 
-- Retrieval quality from any concrete embedding model is not proven because Phase 5 uses deterministic provider fixtures rather than a production model.
-- Qwen3 Embedding, BGE-M3, ONNX, local GPU/CPU inference, Qdrant, persistent vector indexes, hybrid fusion, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside Phase 5.
+- Retrieval quality from any concrete embedding model is not proven because accepted Phase 5 uses provider fixtures rather than a production model.
+- Qwen3 Embedding, BGE-M3, ONNX, local GPU/CPU inference, Qdrant, persistent vector indexes, hybrid fusion, reranking, evidence scoring, contradiction handling, claim verification, REST, MCP, and production deployment remain outside accepted Phase 5.
 
 ## Important limitations
 

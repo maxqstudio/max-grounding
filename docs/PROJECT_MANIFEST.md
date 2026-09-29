@@ -10,9 +10,9 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: work/phase-05-semantic-retrieval
+Active branch: main
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: 432400785849be4425a118d5adee5eef1e77e693
+Last accepted SHA: f29bb162ea49f24a78091231706e829f286bf8e4
 Current source digest: 086d56b8fd3e9ca0d87653a033e870fb5493fd3acd725502cdf480910e5d72db
 
 ## Authorities
