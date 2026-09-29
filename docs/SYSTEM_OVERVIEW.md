@@ -83,6 +83,16 @@ Observed source inventory: 30 files, 1 language categories.
 
 ## Main user workflows
 
+### FLOW-EVIDENCE-GRAPH — Deterministic contradiction, corroboration, and evidence graph
+
+Convert bounded structured assertions backed by accepted Phase 8 evidence-quality scores into a deterministic graph of corroborating and contradicting relations without selecting a truth winner.
+
+Authority: Structured assertion normalization, relation semantics, source independence accounting, and graph construction
+
+- ASSERTIONS_RECEIVED -> ASSERTIONS_NORMALIZED : validate bounded assertion identity, evidence provenance, quality scores, and consistent exclusivity semantics
+- ASSERTIONS_NORMALIZED -> RELATIONS_BUILT : derive corroborates and contradicts edges deterministically from normalized claim/value semantics
+- RELATIONS_BUILT -> GRAPH_BUILT : group equivalent assertions into value clusters with distinct-source counts and bounded quality-weight sums
+
 ### FLOW-GROUND-REQUEST — Bounded grounding request
 
 Turn one validated grounding request into a deterministic evidence pack without exceeding the request search budget or reporting insufficient evidence as grounded.
@@ -223,6 +233,8 @@ compiler does not infer them from implementation names.
 
 ## Failure and recovery
 
+- FLOW-EVIDENCE-GRAPH: Malformed bounds, duplicate identity, inconsistent exclusivity, invalid evidence provenance, invalid quality scores, or unsupported values fail closed with EvidenceGraphError.
+- FLOW-EVIDENCE-GRAPH: No partial graph is returned after validation failure.
 - FLOW-GROUND-REQUEST: Invalid requests fail before any provider call.
 - FLOW-GROUND-REQUEST: Provider failure returns a fail-closed evidence status and does not fabricate evidence.
 - FLOW-HYBRID-FUSION: Invalid ranks, over-limit hit lists, conflicting chunk identity/provenance, or invalid result limits raise RetrievalError.

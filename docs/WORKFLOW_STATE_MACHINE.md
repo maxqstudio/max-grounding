@@ -2,6 +2,56 @@
 
 # WORKFLOW STATE MACHINE
 
+## FLOW-EVIDENCE-GRAPH — Deterministic contradiction, corroboration, and evidence graph
+
+Purpose: Convert bounded structured assertions backed by accepted Phase 8 evidence-quality scores into a deterministic graph of corroborating and contradicting relations without selecting a truth winner.
+Critical: TRUE
+Entry condition: At most 8 structured EvidenceAssertion values each retain one accepted EvidenceQualityScore.
+Authority: Structured assertion normalization, relation semantics, source independence accounting, and graph construction
+
+### States
+
+- ASSERTIONS_RECEIVED
+- ASSERTIONS_NORMALIZED
+- RELATIONS_BUILT
+- GRAPH_BUILT
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| ASSERTIONS_RECEIVED | ASSERTIONS_NORMALIZED | validate bounded assertion identity, evidence provenance, quality scores, and consistent exclusivity semantics | Structured assertion normalization, relation semantics, source independence accounting, and graph construction |  |
+| ASSERTIONS_NORMALIZED | RELATIONS_BUILT | derive corroborates and contradicts edges deterministically from normalized claim/value semantics | Structured assertion normalization, relation semantics, source independence accounting, and graph construction |  |
+| RELATIONS_BUILT | GRAPH_BUILT | group equivalent assertions into value clusters with distinct-source counts and bounded quality-weight sums | Structured assertion normalization, relation semantics, source independence accounting, and graph construction |  |
+
+### Invariants
+
+- At most 8 assertions enter graph construction and arbitrary iterables are rejected.
+- assertion_id is unique and non-empty; claim_key and value are non-empty after Unicode NFKC, whitespace normalization, and casefolding.
+- Each assertion retains an immutable EvidenceQualityScore with finite component scores in [0,1] and matching source/chunk provenance.
+- All assertions sharing one normalized claim_key must agree on whether that claim is exclusive/single-valued.
+- Same normalized claim_key plus same normalized value yields a CORROBORATES relation.
+- Same normalized exclusive claim_key plus different normalized values yields a CONTRADICTS relation.
+- Non-exclusive different values do not contradict and produce no relation.
+- Relations use canonical assertion-id ordering and are emitted once per assertion pair.
+- Clusters count distinct source URLs so repeated chunks from one source do not inflate source independence.
+- Cluster quality_weight_sum is the sum of each distinct source's maximum accepted Phase 8 quality score; it is descriptive evidence weight and never a probability or truth verdict.
+- The graph never majority-votes, selects a winning value, or labels any assertion true/false.
+
+### Failure behavior
+
+- Malformed bounds, duplicate identity, inconsistent exclusivity, invalid evidence provenance, invalid quality scores, or unsupported values fail closed with EvidenceGraphError.
+- No partial graph is returned after validation failure.
+
+### Restart behavior
+
+- Graph construction is stateless and deterministic for identical assertions.
+
+### Rollback behavior
+
+- Phase 9 performs no persistent state mutation.
+
 ## FLOW-GROUND-REQUEST — Bounded grounding request
 
 Purpose: Turn one validated grounding request into a deterministic evidence pack without exceeding the request search budget or reporting insufficient evidence as grounded.
