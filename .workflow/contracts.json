@@ -184,6 +184,30 @@
       "authority": "src/max_grounding/temporal.py::score_evidence_quality",
       "mutation": "none beyond one bounded authority provider call",
       "error_behavior": "Identity/rank/temporal/provider defects fail closed without partial quality-ranked output."
+    },
+    {
+      "method": "PYTHON",
+      "path": "build_relations(assertions)",
+      "purpose": "Normalize bounded structured assertions and derive deterministic corroboration or contradiction edges.",
+      "authority": "src/max_grounding/evidence_graph.py::build_relations",
+      "mutation": "none; pure in-memory derivation",
+      "error_behavior": "Unbounded input, malformed assertion/evidence provenance, duplicate identity, inconsistent exclusivity, or invalid Phase 8 quality data raises EvidenceGraphError."
+    },
+    {
+      "method": "PYTHON",
+      "path": "build_clusters(assertions)",
+      "purpose": "Group equivalent normalized claim/value assertions and account for distinct source URLs without duplicate-source weight inflation.",
+      "authority": "src/max_grounding/evidence_graph.py::build_clusters",
+      "mutation": "none; pure in-memory derivation",
+      "error_behavior": "The same fail-closed assertion validation applies; no partial clusters are returned."
+    },
+    {
+      "method": "PYTHON",
+      "path": "build_evidence_graph(assertions)",
+      "purpose": "Return a bounded immutable evidence graph containing normalized assertions, relations, and descriptive value clusters without selecting truth.",
+      "authority": "src/max_grounding/evidence_graph.py::build_evidence_graph",
+      "mutation": "none",
+      "error_behavior": "Any assertion, provenance, exclusivity, bound, or quality validation defect raises EvidenceGraphError without partial graph output."
     }
   ],
   "data_contracts": [
@@ -401,6 +425,67 @@
         "combined score equals authority_score * freshness_score * temporal_validity",
         "rank is contiguous from 1 after deterministic descending combined-score ordering",
         "ties preserve prior rerank rank before stable source/chunk provenance"
+      ]
+    },
+    {
+      "name": "EvidenceAssertion",
+      "source_of_truth": "src/max_grounding/models.py::EvidenceAssertion",
+      "mutability": "immutable",
+      "legal_writes": [
+        "caller construction before Phase 9 validation",
+        "src/max_grounding/evidence_graph.py normalized graph construction"
+      ],
+      "retention": "graph lifetime",
+      "invariants": [
+        "assertion_id is unique and non-empty",
+        "claim_key and value are Unicode NFKC, whitespace-normalized, and casefolded by graph construction",
+        "exclusive is explicit boolean semantics shared consistently by all assertions for one claim_key",
+        "evidence is a valid Phase 8 EvidenceQualityScore with matching source/chunk provenance"
+      ]
+    },
+    {
+      "name": "EvidenceRelation",
+      "source_of_truth": "src/max_grounding/models.py::EvidenceRelation",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/evidence_graph.py::build_relations"
+      ],
+      "retention": "graph lifetime",
+      "invariants": [
+        "one canonical edge exists at most once per assertion pair",
+        "same normalized claim/value yields CORROBORATES",
+        "different normalized values yield CONTRADICTS only for explicitly exclusive claim keys",
+        "relations do not encode which assertion is true"
+      ]
+    },
+    {
+      "name": "EvidenceCluster",
+      "source_of_truth": "src/max_grounding/models.py::EvidenceCluster",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/evidence_graph.py::build_clusters"
+      ],
+      "retention": "graph lifetime",
+      "invariants": [
+        "cluster groups exactly one normalized claim_key/value pair",
+        "assertion_ids are deterministic and sorted",
+        "distinct_source_count counts unique source URLs",
+        "quality_weight_sum uses only the maximum Phase 8 quality score per distinct source and is not a probability"
+      ]
+    },
+    {
+      "name": "EvidenceGraph",
+      "source_of_truth": "src/max_grounding/models.py::EvidenceGraph",
+      "mutability": "immutable",
+      "legal_writes": [
+        "src/max_grounding/evidence_graph.py::build_evidence_graph"
+      ],
+      "retention": "caller-defined after return",
+      "invariants": [
+        "contains at most 8 normalized assertions",
+        "contains only deterministic clusters and corroborates/contradicts edges",
+        "contains no winner or truth-label field",
+        "graph construction performs no persistence"
       ]
     }
   ],

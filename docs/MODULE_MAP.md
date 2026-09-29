@@ -3,7 +3,7 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
+Source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
@@ -11,11 +11,12 @@ Generated/refreshed: current compiler run
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
 | src/max_grounding/budget.py | Python | 30 | src/max_grounding | NO |
 | src/max_grounding/engine.py | Python | 57 | src/max_grounding | NO |
-| src/max_grounding/errors.py | Python | 49 | src/max_grounding | NO |
+| src/max_grounding/errors.py | Python | 53 | src/max_grounding | NO |
 | src/max_grounding/evidence.py | Python | 97 | src/max_grounding | NO |
+| src/max_grounding/evidence_graph.py | Python | 223 | src/max_grounding | NO |
 | src/max_grounding/fetcher.py | Python | 298 | src/max_grounding | NO |
 | src/max_grounding/hybrid.py | Python | 149 | src/max_grounding | NO |
-| src/max_grounding/models.py | Python | 194 | src/max_grounding | NO |
+| src/max_grounding/models.py | Python | 241 | src/max_grounding | NO |
 | src/max_grounding/network_policy.py | Python | 93 | src/max_grounding | NO |
 | src/max_grounding/policy.py | Python | 51 | src/max_grounding | NO |
 | src/max_grounding/providers/__init__.py | Python | 6 | src/max_grounding/providers | NO |
@@ -29,6 +30,7 @@ Generated/refreshed: current compiler run
 | tests/test_budget.py | Python | 25 | tests | YES |
 | tests/test_engine.py | Python | 118 | tests | YES |
 | tests/test_evidence.py | Python | 54 | tests | YES |
+| tests/test_evidence_graph.py | Python | 381 | tests | YES |
 | tests/test_hybrid.py | Python | 168 | tests | YES |
 | tests/test_network_policy.py | Python | 123 | tests | YES |
 | tests/test_policy.py | Python | 47 | tests | YES |

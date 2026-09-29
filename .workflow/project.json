@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through accepted Phase 8"
+      "none through Phase 9 candidate"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -65,6 +65,11 @@
       "name": "Temporal authority scoring",
       "path": "src/max_grounding/temporal.py",
       "purpose": "validate explicit temporal/source metadata, obtain injected authority scores, and rank bounded evidence by deterministic freshness and point-in-time validity"
+    },
+    {
+      "name": "Evidence graph",
+      "path": "src/max_grounding/evidence_graph.py",
+      "purpose": "build bounded structured corroboration/contradiction relations and distinct-source evidence clusters without selecting truth"
     }
   ],
   "constraints": [
@@ -126,7 +131,7 @@
       {
         "phase": 9,
         "name": "Contradiction/corroboration engine and evidence graph",
-        "status": "NEXT_PLANNED"
+        "status": "CURRENT_CANDIDATE"
       },
       {
         "phase": 10,

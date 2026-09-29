@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-EVIDENCE-GRAPH",
+  "title": "Phase 9 contradiction, corroboration, and evidence graph",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "graph",
+      "label": "build_evidence_graph",
+      "locator": "src/max_grounding/evidence_graph.py::build_evidence_graph",
+      "kind": "source"
+    },
+    {
+      "id": "relations",
+      "label": "build_relations",
+      "locator": "src/max_grounding/evidence_graph.py::build_relations",
+      "kind": "source"
+    },
+    {
+      "id": "clusters",
+      "label": "build_clusters",
+      "locator": "src/max_grounding/evidence_graph.py::build_clusters",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "graph",
+      "to": "relations",
+      "action": "derive bounded corroboration and contradiction edges from validated assertions",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "graph",
+      "to": "clusters",
+      "action": "group equivalent values and account for distinct-source evidence weight",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    }
+  ]
+}

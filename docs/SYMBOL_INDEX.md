@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
+Source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
@@ -28,9 +28,18 @@ Status: CURRENT
 | src/max_grounding/errors.py | RerankProviderError | class | 40-41 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | TemporalScoringError | class | 44-45 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | AuthorityProviderError | class | 48-49 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | EvidenceGraphError | class | 52-53 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
+| src/max_grounding/evidence_graph.py | _bounded_assertions | function | 25-39 | Observed Python symbol | | | |
+| src/max_grounding/evidence_graph.py | _normalize_text | function | 42-50 | Observed Python symbol | | | |
+| src/max_grounding/evidence_graph.py | _validated_number | function | 53-59 | Observed Python symbol | | | |
+| src/max_grounding/evidence_graph.py | _validate_quality | function | 62-87 | Observed Python symbol | | | |
+| src/max_grounding/evidence_graph.py | _normalize_and_validate | function | 90-156 | Observed Python symbol | | | |
+| src/max_grounding/evidence_graph.py | build_relations | function | 159-182 | Observed Python symbol | | | |
+| src/max_grounding/evidence_graph.py | build_clusters | function | 185-211 | Observed Python symbol | | | |
+| src/max_grounding/evidence_graph.py | build_evidence_graph | function | 214-223 | Observed Python symbol | | | |
 | src/max_grounding/fetcher.py | _PinnedHTTPConnection | class | 30-45 | Observed Python symbol | | | |
 | src/max_grounding/fetcher.py | _PinnedHTTPConnection.__init__ | method | 31-39 | Observed Python symbol | | | |
 | src/max_grounding/fetcher.py | _PinnedHTTPConnection.connect | method | 41-45 | Observed Python symbol | | | |
@@ -52,22 +61,27 @@ Status: CURRENT
 | src/max_grounding/hybrid.py | fuse_hybrid | function | 44-109 | Observed Python symbol | | | |
 | src/max_grounding/hybrid.py | retrieve_hybrid | function | 112-149 | Observed Python symbol | | | |
 | src/max_grounding/models.py | EvidenceStatus | class | 10-15 | Observed Python symbol | | | |
-| src/max_grounding/models.py | GroundingRequest | class | 19-28 | Observed Python symbol | | | |
-| src/max_grounding/models.py | SearchQuery | class | 32-40 | Observed Python symbol | | | |
-| src/max_grounding/models.py | SourceCandidate | class | 44-51 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceSource | class | 55-63 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidencePack | class | 67-74 | Observed Python symbol | | | |
-| src/max_grounding/models.py | FetchedDocument | class | 78-86 | Observed Python symbol | | | |
-| src/max_grounding/models.py | TextChunk | class | 90-97 | Observed Python symbol | | | |
-| src/max_grounding/models.py | LexicalHit | class | 101-106 | Observed Python symbol | | | |
-| src/max_grounding/models.py | SemanticHit | class | 110-115 | Observed Python symbol | | | |
-| src/max_grounding/models.py | HybridHit | class | 119-126 | Observed Python symbol | | | |
-| src/max_grounding/models.py | RerankedHit | class | 130-138 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceExcerpt | class | 142-150 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceMetadata | class | 154-164 | Observed Python symbol | | | |
-| src/max_grounding/models.py | AuthoritySubject | class | 168-173 | Observed Python symbol | | | |
-| src/max_grounding/models.py | TemporalComponents | class | 177-181 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceQualityScore | class | 185-194 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceRelationType | class | 18-22 | Observed Python symbol | | | |
+| src/max_grounding/models.py | GroundingRequest | class | 26-35 | Observed Python symbol | | | |
+| src/max_grounding/models.py | SearchQuery | class | 39-47 | Observed Python symbol | | | |
+| src/max_grounding/models.py | SourceCandidate | class | 51-58 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceSource | class | 62-70 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidencePack | class | 74-81 | Observed Python symbol | | | |
+| src/max_grounding/models.py | FetchedDocument | class | 85-93 | Observed Python symbol | | | |
+| src/max_grounding/models.py | TextChunk | class | 97-104 | Observed Python symbol | | | |
+| src/max_grounding/models.py | LexicalHit | class | 108-113 | Observed Python symbol | | | |
+| src/max_grounding/models.py | SemanticHit | class | 117-122 | Observed Python symbol | | | |
+| src/max_grounding/models.py | HybridHit | class | 126-133 | Observed Python symbol | | | |
+| src/max_grounding/models.py | RerankedHit | class | 137-145 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceExcerpt | class | 149-157 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceMetadata | class | 161-171 | Observed Python symbol | | | |
+| src/max_grounding/models.py | AuthoritySubject | class | 175-180 | Observed Python symbol | | | |
+| src/max_grounding/models.py | TemporalComponents | class | 184-188 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceQualityScore | class | 192-201 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceAssertion | class | 205-212 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceRelation | class | 216-221 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceCluster | class | 225-232 | Observed Python symbol | | | |
+| src/max_grounding/models.py | EvidenceGraph | class | 236-241 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | is_admissible_result_url | function | 18-50 | Observed Python symbol | | | |
 | src/max_grounding/network_policy.py | resolve_public_addresses | function | 53-93 | Observed Python symbol | | | |
 | src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
@@ -150,6 +164,19 @@ Status: CURRENT
 | tests/test_evidence.py | EvidenceNormalizationTests | class | 9-50 | Observed Python symbol | | | |
 | tests/test_evidence.py | EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash | method | 10-31 | Observed Python symbol | | | |
 | tests/test_evidence.py | EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded | method | 33-50 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | quality | function | 25-57 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | assertion | function | 60-82 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests | class | 85-377 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate | method | 86-117 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_exclusive_different_values_contradict | method | 119-143 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_nonexclusive_different_values_do_not_contradict | method | 145-167 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality | method | 169-208 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_inconsistent_exclusivity_for_same_claim_fails_closed | method | 210-232 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed | method | 234-262 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed | method | 264-298 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed | method | 300-342 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner | method | 344-371 | Observed Python symbol | | | |
+| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_empty_input_returns_empty_graph | method | 373-377 | Observed Python symbol | | | |
 | tests/test_hybrid.py | chunk | function | 16-23 | Observed Python symbol | | | |
 | tests/test_hybrid.py | lexical | function | 26-27 | Observed Python symbol | | | |
 | tests/test_hybrid.py | semantic | function | 30-31 | Observed Python symbol | | | |

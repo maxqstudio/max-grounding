@@ -32,11 +32,11 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 8 is accepted on main at `af3bd6bb578861de802a972d11e8a2a2c2368955`.
+Phase 9 is a candidate for deterministic contradiction/corroboration handling and an in-memory evidence graph.
 
-Accepted Phase 8 binds at most 8 evidence excerpts to explicit timezone-aware UTC metadata, computes freshness from a caller-supplied evaluation time and bounded horizon, applies inclusive validity windows, obtains source authority through one injected bounded policy, and ranks deterministically by `authority × freshness × temporal validity`. No universal source-authority hierarchy is hardcoded into the core.
+The candidate accepts at most 8 explicit structured assertions backed by accepted Phase 8 quality provenance, normalizes claim/value semantics deterministically, emits corroboration for equal values and contradiction only for explicitly exclusive single-value claims, and builds distinct-URL clusters without allowing repeated chunks from one source to inflate independent evidence weight.
 
-Phase 9 is the next planned phase: contradiction/corroboration handling and an evidence graph. Automatic metadata extraction/verification, claim verification, persistent vector storage, REST, MCP, and production deployment remain later work.
+The graph does not majority-vote or declare a winning truth. Automatic structured-assertion extraction, arbitrary natural-language contradiction inference, answer-claim verification/citations, persistent graph/vector storage, REST, MCP, and production deployment remain later work.
 
 ## Platform policy
 

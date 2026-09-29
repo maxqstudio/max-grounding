@@ -10,10 +10,10 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase-09-evidence-graph
 Current authoritative SHA: external final acceptance evidence
 Last accepted SHA: af3bd6bb578861de802a972d11e8a2a2c2368955
-Current source digest: e4349e61e16087a07cf1daa0067d59aba62d1c98d2efef073542e14f8f783047
+Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.
@@ -26,7 +26,7 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 ## Technology
 Languages: Python
 Frameworks: Python standard library
-Persistence: none through accepted Phase 8
+Persistence: none through Phase 9 candidate
 External systems: GitHub Actions, operator-configured SearXNG instance
 
 ## Entry points
@@ -40,6 +40,7 @@ External systems: GitHub Actions, operator-configured SearXNG instance
 | Hybrid fusion | src/max_grounding/hybrid.py | fixed equal-weight reciprocal-rank fusion of bounded lexical and semantic results |
 | Reranking and context compression | src/max_grounding/reranking.py | bounded provider-agnostic reranking plus deterministic extractive evidence compression |
 | Temporal authority scoring | src/max_grounding/temporal.py | validate explicit temporal/source metadata, obtain injected authority scores, and rank bounded evidence by deterministic freshness and point-in-time validity |
+| Evidence graph | src/max_grounding/evidence_graph.py | build bounded structured corroboration/contradiction relations and distinct-source evidence clusters without selecting truth |
 
 ## Critical directories
 

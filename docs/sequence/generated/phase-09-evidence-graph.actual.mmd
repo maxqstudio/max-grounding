@@ -1,0 +1,36 @@
+%% GENERATED FILE - DO NOT EDIT
+%% SOURCE_DIGEST: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
+%% OBSERVED_HEAD: 4c6c9a076c7e332ec5322f84e7937d063bec05cc
+%% GENERATED_BY: generate_sequence_actual.py
+sequenceDiagram
+    participant src_max_grounding_errors_py__EvidenceGraphError_0 as src/max_grounding/errors.py::EvidenceGraphError
+    participant src_max_grounding_evidence_graph_py___bounded_assertions_1 as src/max_grounding/evidence_graph.py::_bounded_assertions
+    participant src_max_grounding_evidence_graph_py___normalize_and_validate_2 as src/max_grounding/evidence_graph.py::_normalize_and_validate
+    participant src_max_grounding_evidence_graph_py___normalize_text_3 as src/max_grounding/evidence_graph.py::_normalize_text
+    participant src_max_grounding_evidence_graph_py___validate_quality_4 as src/max_grounding/evidence_graph.py::_validate_quality
+    participant src_max_grounding_evidence_graph_py___validated_number_5 as src/max_grounding/evidence_graph.py::_validated_number
+    participant src_max_grounding_evidence_graph_py__build_clusters_6 as src/max_grounding/evidence_graph.py::build_clusters
+    participant src_max_grounding_evidence_graph_py__build_evidence_graph_7 as src/max_grounding/evidence_graph.py::build_evidence_graph
+    participant src_max_grounding_evidence_graph_py__build_relations_8 as src/max_grounding/evidence_graph.py::build_relations
+    participant src_max_grounding_models_py__EvidenceAssertion_9 as src/max_grounding/models.py::EvidenceAssertion
+    participant src_max_grounding_models_py__EvidenceCluster_10 as src/max_grounding/models.py::EvidenceCluster
+    participant src_max_grounding_models_py__EvidenceGraph_11 as src/max_grounding/models.py::EvidenceGraph
+    participant src_max_grounding_models_py__EvidenceRelation_12 as src/max_grounding/models.py::EvidenceRelation
+    src_max_grounding_evidence_graph_py___bounded_assertions_1->>src_max_grounding_errors_py__EvidenceGraphError_0: EvidenceGraphError [STATIC]
+    src_max_grounding_evidence_graph_py___normalize_and_validate_2->>src_max_grounding_errors_py__EvidenceGraphError_0: EvidenceGraphError [STATIC]
+    src_max_grounding_evidence_graph_py___normalize_and_validate_2->>src_max_grounding_evidence_graph_py___bounded_assertions_1: _bounded_assertions [STATIC]
+    src_max_grounding_evidence_graph_py___normalize_and_validate_2->>src_max_grounding_evidence_graph_py___normalize_text_3: _normalize_text [STATIC]
+    src_max_grounding_evidence_graph_py___normalize_and_validate_2->>src_max_grounding_evidence_graph_py___validate_quality_4: _validate_quality [STATIC]
+    src_max_grounding_evidence_graph_py___normalize_and_validate_2->>src_max_grounding_models_py__EvidenceAssertion_9: EvidenceAssertion [STATIC]
+    src_max_grounding_evidence_graph_py___normalize_text_3->>src_max_grounding_errors_py__EvidenceGraphError_0: EvidenceGraphError [STATIC]
+    src_max_grounding_evidence_graph_py___validate_quality_4->>src_max_grounding_errors_py__EvidenceGraphError_0: EvidenceGraphError [STATIC]
+    src_max_grounding_evidence_graph_py___validate_quality_4->>src_max_grounding_evidence_graph_py___validated_number_5: _validated_number [STATIC]
+    src_max_grounding_evidence_graph_py___validated_number_5->>src_max_grounding_errors_py__EvidenceGraphError_0: EvidenceGraphError [STATIC]
+    src_max_grounding_evidence_graph_py__build_clusters_6->>src_max_grounding_evidence_graph_py___normalize_and_validate_2: _normalize_and_validate [STATIC]
+    src_max_grounding_evidence_graph_py__build_clusters_6->>src_max_grounding_models_py__EvidenceCluster_10: EvidenceCluster [STATIC]
+    src_max_grounding_evidence_graph_py__build_evidence_graph_7->>src_max_grounding_evidence_graph_py___normalize_and_validate_2: _normalize_and_validate [STATIC]
+    src_max_grounding_evidence_graph_py__build_evidence_graph_7->>src_max_grounding_evidence_graph_py__build_clusters_6: build_clusters [STATIC]
+    src_max_grounding_evidence_graph_py__build_evidence_graph_7->>src_max_grounding_evidence_graph_py__build_relations_8: build_relations [STATIC]
+    src_max_grounding_evidence_graph_py__build_evidence_graph_7->>src_max_grounding_models_py__EvidenceGraph_11: EvidenceGraph [STATIC]
+    src_max_grounding_evidence_graph_py__build_relations_8->>src_max_grounding_evidence_graph_py___normalize_and_validate_2: _normalize_and_validate [STATIC]
+    src_max_grounding_evidence_graph_py__build_relations_8->>src_max_grounding_models_py__EvidenceRelation_12: EvidenceRelation [STATIC]

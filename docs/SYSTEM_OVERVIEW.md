@@ -26,13 +26,13 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 30 files, 1 language categories.
+Observed source inventory: 32 files, 1 language categories.
 
 ## Major components
 
 | Component | Purpose | Owns / Decides | Depends On |
 |---|---|---|---|
-| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt |  |
+| Grounding Contracts | Immutable request, provider-query, source, and evidence-pack contracts. | GroundingRequest, SearchQuery, SourceCandidate, EvidenceSource, EvidencePack, EvidenceStatus, FetchedDocument, TextChunk, LexicalHit, SemanticHit, HybridHit, RerankedHit, EvidenceExcerpt, EvidenceAssertion, EvidenceRelationType, EvidenceRelation, EvidenceCluster, EvidenceGraph |  |
 | Grounding Policy | Normalize requests and reject invalid or over-budget caller intent before provider access. | request validation, two-call product cap, per-call result bounds | models |
 | Search Budget | Consume request-level search budget before every provider invocation. | search calls used, remaining calls |  |
 | Search Provider Boundary | Expose the SearchProvider contract and dispatch into concrete providers; Phase 2 includes a bounded SearXNG HTTP implementation. | SearchProvider protocol, invoke_search, provider failure boundary | models |
@@ -46,6 +46,7 @@ Observed source inventory: 30 files, 1 language categories.
 | Hybrid Fusion | Combine bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion while preserving immutable chunk provenance. | retrieve_hybrid, fuse_hybrid, fixed RRF k=60, hybrid rank validation, hybrid provenance conflict rejection | models, lexical-retrieval, semantic-retrieval |
 | Reranking and Context Compression | Rerank bounded HybridHit candidates through an injected provider, validate scores fail-closed, and emit bounded extractive evidence excerpts without generative rewriting. | RerankProvider protocol, rerank_hybrid, compress_context, build_grounded_context, rerank score validation, extractive context budgets, rerank and source provenance | models, hybrid-fusion, lexical-retrieval |
 | Temporal and Source Authority Scoring | Bind explicit UTC temporal/source metadata to bounded evidence, obtain authority scores through an injected policy, and deterministically score freshness and point-in-time validity. | AuthorityProvider protocol, score_authority, score_temporal_components, score_evidence_quality, explicit evaluation-time policy, freshness horizon bounds, temporal validity checks, stable quality ranking | models, rerank-compress |
+| Evidence Graph | Normalize bounded structured assertions backed by Phase 8 quality evidence, derive deterministic corroboration/contradiction edges, and cluster equivalent values with distinct source-URL accounting without declaring truth. | build_evidence_graph, build_relations, build_clusters, structured assertion normalization, explicit exclusivity semantics, distinct-URL quality-weight accounting, no-winner graph contract | models, temporal-authority |
 
 ## Main data flow
 
@@ -80,8 +81,21 @@ Observed source inventory: 30 files, 1 language categories.
 - EvidenceMetadata -> Temporal and Source Authority Scoring: explicit timezone-aware UTC retrieval/publication/validity context is validated against caller-supplied evaluation time
 - AuthorityProvider -> Temporal and Source Authority Scoring: one bounded finite [0,1] score sequence supplies domain-specific authority without hardcoded core opinions
 - Temporal and Source Authority Scoring -> EvidenceQualityScore: authority, freshness, and temporal validity combine multiplicatively and rank deterministically
+- EvidenceQualityScore -> Evidence Graph: validated Phase 8 quality provenance supplies bounded descriptive evidence weight
+- EvidenceAssertion -> Evidence Graph: caller-supplied structured claim key/value/exclusivity semantics are normalized and validated
+- Evidence Graph -> EvidenceGraph: immutable normalized assertions, corroboration/contradiction edges, and distinct-URL value clusters are returned without a truth winner
 
 ## Main user workflows
+
+### FLOW-EVIDENCE-GRAPH — Deterministic contradiction, corroboration, and evidence graph
+
+Convert bounded structured assertions backed by accepted Phase 8 evidence-quality scores into a deterministic graph of corroborating and contradicting relations without selecting a truth winner.
+
+Authority: Structured assertion normalization, relation semantics, distinct source-URL accounting, and graph construction
+
+- ASSERTIONS_RECEIVED -> ASSERTIONS_NORMALIZED : validate bounded assertion identity, evidence provenance, quality scores, and consistent exclusivity semantics
+- ASSERTIONS_NORMALIZED -> RELATIONS_BUILT : derive corroborates and contradicts edges deterministically from normalized claim/value semantics
+- RELATIONS_BUILT -> GRAPH_BUILT : group equivalent assertions into value clusters with distinct-source counts and bounded quality-weight sums
 
 ### FLOW-GROUND-REQUEST — Bounded grounding request
 
@@ -187,9 +201,9 @@ Authority: Temporal metadata validation, deterministic freshness/validity formul
 
 ## Lifecycle and state
 
-Current phase: PHASE_08_TEMPORAL_AUTHORITY
+Current phase: PHASE_09_EVIDENCE_GRAPH
 
-Current status: ACCEPTED
+Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -223,6 +237,8 @@ compiler does not infer them from implementation names.
 
 ## Failure and recovery
 
+- FLOW-EVIDENCE-GRAPH: Malformed bounds, duplicate identity, inconsistent exclusivity, invalid evidence provenance, invalid quality scores, or unsupported values fail closed with EvidenceGraphError.
+- FLOW-EVIDENCE-GRAPH: No partial graph is returned after validation failure.
 - FLOW-GROUND-REQUEST: Invalid requests fail before any provider call.
 - FLOW-GROUND-REQUEST: Provider failure returns a fail-closed evidence status and does not fabricate evidence.
 - FLOW-HYBRID-FUSION: Invalid ranks, over-limit hit lists, conflicting chunk identity/provenance, or invalid result limits raise RetrievalError.
@@ -245,13 +261,15 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Start Phase 9 planning from accepted main SHA af3bd6bb578861de802a972d11e8a2a2c2368955.
-- Freeze the Phase 9 BEFORE sequence plan before implementing contradiction/corroboration handling and an evidence graph.
+- Synchronize the Phase 9 ACTUAL sequence and deterministic Project Truth documentation.
+- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 9 candidate head.
+- Merge Phase 9 only if every required job passes, then revalidate merged main.
 
 Blocked actions:
-- Do not treat injected Phase 8 authority scores as universal truth or silently hardcode a global source hierarchy.
-- Do not claim contradiction resolution or claim verification from Phase 8 scoring.
-- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
+- Do not treat descriptive cluster quality_weight_sum as a probability, confidence score, or truth verdict.
+- Do not claim natural-language contradiction inference or claim verification from the structured Phase 9 graph.
+- Do not merge Phase 9 while any required GitHub Actions job is failing or missing.
+- Do not bypass post-merge main revalidation.
 
 Known blockers:
 - None declared.
@@ -260,23 +278,21 @@ Known blockers:
 
 ### Proven
 
-- Phase 7 closure is merged to main at b5a7271b5bb52c3760889b8f533a3b19710f2db3 and closure-main Acceptance run 36580565442 passed all 13 required jobs.
-- The Phase 8 BEFORE plan was frozen before implementation at 0810115190890db456b4a90634e1dd10fb29da08 with SHA-256 13f5323fe69c40d0907060f951633eb9adca44c89fe46b6d5d76aa179fa3cdc8.
-- TDD RED run 36581283756 failed because the Phase 8 temporal/authority contract did not yet exist.
-- Initial GREEN run 36581662845 passed the full unit suite and compile checks after the minimum Phase 8 implementation.
-- Adversarial regression run 36581829818 proved generator inputs and an invalid prior rerank rank could bypass the bounded input contract before repair.
-- Final GREEN run 36581966102 passed the full unit suite and compile checks after bounded-sequence and prior-rank validation repair.
-- Candidate verification run 36582080120 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
-- Phase 8 accepts at most 8 evidence excerpts, binds each excerpt one-to-one to explicit EvidenceMetadata, and rejects malformed or duplicate provenance.
-- Phase 8 requires timezone-aware UTC temporal metadata and an explicit evaluation time; scoring performs no implicit wall-clock read.
-- Source authority is supplied by one injected bounded AuthorityProvider score sequence; the core contains no hardcoded source authority hierarchy.
-- Combined evidence quality is authority_score * freshness_score * temporal_validity with stable prior-rerank/provenance ordering for ties.
-- Phase 8 exact pull-request head 3e956bc2b913240789ebab89c9753396d9c0f096 passed Acceptance run 36582881472 with 13/13 required jobs.
-- Phase 8 merged main SHA af3bd6bb578861de802a972d11e8a2a2c2368955 passed post-merge Acceptance run 36583373688 with 13/13 required jobs.
+- Phase 8 closure is merged to main at 8766a2d3f06c5d800c1a09c204acf2fc83817336 and closure-main Acceptance run 36584346207 passed all 13 required jobs.
+- The Phase 9 BEFORE plan was frozen before implementation at 63654b4f8430ab4a6859686e26b4946d82c1e99d with SHA-256 205bf17abf45a4661fd1561b35162e2e6c2672c3171d85c528e8169606b80804.
+- TDD RED run 36585530409 failed because the Phase 9 evidence-graph contract did not yet exist.
+- GREEN run 36585895878 passed the full unit suite and compile checks after the minimum deterministic evidence-graph implementation.
+- Candidate verification run 36586034657 passed frozen PLAN-to-ACTUAL sequence validation and all 12 Ubuntu/Windows/macOS Python 3.11-3.14 runtime jobs.
+- Phase 9 accepts at most 8 bounded structured assertions backed by valid Phase 8 EvidenceQualityScore provenance.
+- Equivalent normalized claim/value assertions corroborate; differing values contradict only when that claim key is explicitly exclusive/single-valued.
+- Clusters count distinct source URLs and sum only each source's maximum Phase 8 quality score so repeated chunks from one source do not inflate distinct-URL evidence weight.
+- Phase 9 emits no winner, truth label, or majority-vote verdict.
 
 ### Not proven
 
-- Accepted Phase 8 does not prove a universal source-authority hierarchy, automatic timestamp/source metadata extraction or verification, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment.
+- Final Phase 9 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
+- Phase 9 does not automatically extract structured assertions, infer natural-language contradiction, select which conflicting value is true, verify answer claims, persist a graph database, expose REST/MCP, or prove production deployment.
+- Phase 9 distinct source URLs do not prove editorial or organizational independence between sources; the graph exposes URL-level counts only.
 
 ## Important limitations
 
