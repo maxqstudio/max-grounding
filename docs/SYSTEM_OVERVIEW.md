@@ -189,7 +189,7 @@ Authority: Temporal metadata validation, deterministic freshness/validity formul
 
 Current phase: PHASE_08_TEMPORAL_AUTHORITY
 
-Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Current status: ACCEPTED
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -245,15 +245,13 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Synchronize the Phase 8 ACTUAL sequence and deterministic Project Truth documentation.
-- Run full STRICT GitHub Actions pull-request acceptance on the exact Phase 8 candidate head.
-- Merge Phase 8 only if every required job passes, then revalidate merged main.
+- Start Phase 9 planning from accepted main SHA af3bd6bb578861de802a972d11e8a2a2c2368955.
+- Freeze the Phase 9 BEFORE sequence plan before implementing contradiction/corroboration handling and an evidence graph.
 
 Blocked actions:
-- Do not hardcode a universal source-authority ranking into the Phase 8 core.
-- Do not claim source timestamps or validity windows are automatically extracted or independently verified by Phase 8.
-- Do not merge Phase 8 while any required GitHub Actions job is failing or missing.
-- Do not bypass post-merge main revalidation.
+- Do not treat injected Phase 8 authority scores as universal truth or silently hardcode a global source hierarchy.
+- Do not claim contradiction resolution or claim verification from Phase 8 scoring.
+- Do not bypass GitHub Actions pull-request acceptance or post-merge main revalidation for later phases.
 
 Known blockers:
 - None declared.
@@ -273,11 +271,12 @@ Known blockers:
 - Phase 8 requires timezone-aware UTC temporal metadata and an explicit evaluation time; scoring performs no implicit wall-clock read.
 - Source authority is supplied by one injected bounded AuthorityProvider score sequence; the core contains no hardcoded source authority hierarchy.
 - Combined evidence quality is authority_score * freshness_score * temporal_validity with stable prior-rerank/provenance ordering for ties.
+- Phase 8 exact pull-request head 3e956bc2b913240789ebab89c9753396d9c0f096 passed Acceptance run 36582881472 with 13/13 required jobs.
+- Phase 8 merged main SHA af3bd6bb578861de802a972d11e8a2a2c2368955 passed post-merge Acceptance run 36583373688 with 13/13 required jobs.
 
 ### Not proven
 
-- Final Phase 8 acceptance is not proven until the exact pull-request head passes the full Acceptance workflow and merged main is revalidated.
-- Phase 8 does not prove any universal source-authority hierarchy, source metadata extractor, learned authority model, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment.
+- Accepted Phase 8 does not prove a universal source-authority hierarchy, automatic timestamp/source metadata extraction or verification, contradiction handling, claim verification, persistent vector database, REST, MCP, or production deployment.
 
 ## Important limitations
 

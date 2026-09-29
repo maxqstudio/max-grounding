@@ -23,7 +23,7 @@
       "Python standard library"
     ],
     "persistence": [
-      "none through Phase 8 candidate"
+      "none through accepted Phase 8"
     ],
     "external_systems": [
       "GitHub Actions",
@@ -121,12 +121,12 @@
       {
         "phase": 8,
         "name": "Freshness, source authority, and temporal scoring",
-        "status": "CURRENT_CANDIDATE"
+        "status": "ACCEPTED"
       },
       {
         "phase": 9,
         "name": "Contradiction/corroboration engine and evidence graph",
-        "status": "PLANNED"
+        "status": "NEXT_PLANNED"
       },
       {
         "phase": 10,
