@@ -10,9 +10,9 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: work/phase-09-evidence-graph
+Active branch: main
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: af3bd6bb578861de802a972d11e8a2a2c2368955
+Last accepted SHA: 263595c161c68001b7785bfa65e3d723f5f21d42
 Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d30450256695388982
 
 ## Authorities
@@ -26,7 +26,7 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 ## Technology
 Languages: Python
 Frameworks: Python standard library
-Persistence: none through Phase 9 candidate
+Persistence: none through accepted Phase 9
 External systems: GitHub Actions, operator-configured SearXNG instance
 
 ## Entry points

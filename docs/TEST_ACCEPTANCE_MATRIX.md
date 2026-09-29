@@ -29,7 +29,8 @@ Current source digest: 54553b9c9b2a9bfa1e8c528b13d2be8c8393520a492793d3045025669
 - TDD RED run 36585530409 proved the Phase 9 graph contract absent before implementation.
 - GREEN run 36585895878 passed the full unit suite and compile checks.
 - Candidate verification run 36586034657 passed frozen PLAN-to-ACTUAL validation and all 12 Python/OS runtime jobs.
-- Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 9 closure.
+- Phase 9 pull-request Acceptance run 36587717765 passed on exact head f2e4818ba717a0900b6fe5aa84733b7d4b882760.
+- Phase 9 post-merge main Acceptance run 36590741523 passed 13/13 required jobs on main SHA 263595c161c68001b7785bfa65e3d723f5f21d42.
 
 ## Sequence contract evidence
 
