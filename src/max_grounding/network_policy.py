@@ -1,20 +1,27 @@
-"""Admission policy for untrusted search-result URLs.
+"""Network admission and connection-target policy for untrusted web URLs.
 
-Phase 2 performs no DNS resolution and does not fetch result pages. This policy
-blocks obvious unsafe targets early; the later fetch boundary must independently
-resolve and validate every connection target to prevent DNS rebinding.
+Search-result admission blocks obvious unsafe targets before fetch. The Phase 3
+fetch boundary independently resolves every hostname, rejects the entire answer
+set if any target is non-public, and pins the eventual connection to one of the
+validated IP addresses.
 """
 
 from __future__ import annotations
 
+import socket
 from ipaddress import ip_address
 from urllib.parse import urlsplit
 
+from .errors import FetchError
+
 
 def is_admissible_result_url(url: str) -> bool:
-    """Return whether a search-result URL is safe to admit as evidence metadata."""
+    """Return whether an untrusted result URL is admissible for later fetching."""
     try:
-        parsed = urlsplit(url.strip())
+        raw = url.strip()
+        if any(character in raw for character in ("\r", "\n", "\t")):
+            return False
+        parsed = urlsplit(raw)
         if parsed.scheme.lower() not in {"http", "https"}:
             return False
         if not parsed.hostname:
@@ -35,9 +42,52 @@ def is_admissible_result_url(url: str) -> bool:
         address = ip_address(host)
     except ValueError:
         # Ambiguous all-numeric host spellings such as 127.1 are deliberately
-        # rejected. Named hosts are resolved and revalidated only at fetch time.
+        # rejected. Named hosts are resolved and revalidated at fetch time.
         if host.replace(".", "").isdigit():
             return False
         return True
 
     return address.is_global and not address.is_multicast
+
+
+def resolve_public_addresses(
+    host: str,
+    port: int,
+    *,
+    resolver=socket.getaddrinfo,
+) -> tuple[str, ...]:
+    """Resolve a hostname and fail closed unless every answer is a public IP."""
+    try:
+        rows = resolver(
+            host,
+            port,
+            type=socket.SOCK_STREAM,
+            proto=socket.IPPROTO_TCP,
+        )
+    except (socket.gaierror, OSError) as exc:
+        raise FetchError("DNS resolution failed") from exc
+
+    if not rows:
+        raise FetchError("DNS resolution returned no addresses")
+
+    addresses: list[str] = []
+    seen: set[str] = set()
+    for row in rows:
+        try:
+            sockaddr = row[4]
+            raw_address = str(sockaddr[0]).split("%", 1)[0]
+            address = ip_address(raw_address)
+        except (IndexError, TypeError, ValueError) as exc:
+            raise FetchError("DNS resolution returned an invalid address") from exc
+
+        if not address.is_global or address.is_multicast:
+            raise FetchError("DNS resolution returned a non-public address")
+
+        normalized = str(address)
+        if normalized not in seen:
+            seen.add(normalized)
+            addresses.append(normalized)
+
+    if not addresses:
+        raise FetchError("DNS resolution returned no usable addresses")
+    return tuple(addresses)

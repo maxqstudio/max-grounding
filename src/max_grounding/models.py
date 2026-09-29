@@ -64,10 +64,22 @@ class EvidenceSource:
 
 @dataclass(frozen=True, slots=True)
 class EvidencePack:
-    """Fail-closed output of the Phase 1 grounding core."""
+    """Fail-closed output of the grounding core."""
 
     query: str
     status: EvidenceStatus
     sources: tuple[EvidenceSource, ...]
     search_calls_used: int
     reason: str
+
+
+@dataclass(frozen=True, slots=True)
+class FetchedDocument:
+    """Bounded text extracted from one securely fetched result page."""
+
+    url: str
+    fetched_from_ip: str
+    media_type: str
+    charset: str
+    byte_length: int
+    text: str

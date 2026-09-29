@@ -19,3 +19,7 @@ class SearchProviderError(GroundingError):
 
 class InvalidProviderConfiguration(SearchProviderError, ValueError):
     """Raised when trusted provider configuration is malformed or unsafe."""
+
+
+class FetchError(GroundingError):
+    """Raised when an untrusted result page cannot be fetched safely."""
