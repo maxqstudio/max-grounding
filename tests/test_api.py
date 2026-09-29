@@ -103,7 +103,10 @@ class Phase12RestApiTests(unittest.TestCase):
             ("post", "/v1/index", {"urls": ["https://example.com/gold"]}),
             ("post", "/v1/query", {"query": "gold", "limit": 3}),
         ):
-            response = getattr(client, method)(path, json=payload)
+            if method == "get":
+                response = client.get(path)
+            else:
+                response = client.post(path, json=payload)
             with self.subTest(path=path):
                 self.assertEqual(response.status_code, 401)
 
