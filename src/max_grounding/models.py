@@ -22,6 +22,15 @@ class EvidenceRelationType(str, Enum):
     CONTRADICTS = "contradicts"
 
 
+class ClaimVerificationStatus(str, Enum):
+    """Fail-closed verification state for one explicit answer claim."""
+
+    SUPPORTED = "supported"
+    PARTIALLY_SUPPORTED = "partially_supported"
+    CONFLICTED = "conflicted"
+    UNSUPPORTED = "unsupported"
+
+
 @dataclass(frozen=True, slots=True)
 class GroundingRequest:
     """Caller intent and bounded retrieval policy for one grounding attempt."""
@@ -239,3 +248,45 @@ class EvidenceGraph:
     assertions: tuple[EvidenceAssertion, ...]
     clusters: tuple[EvidenceCluster, ...]
     relations: tuple[EvidenceRelation, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class AnswerClaim:
+    """One explicit structured answer claim proposed for verification."""
+
+    claim_id: str
+    text: str
+    claim_key: str
+    value: str
+
+
+@dataclass(frozen=True, slots=True)
+class ClaimCitation:
+    """Exact supporting assertion provenance bound to one answer claim."""
+
+    claim_id: str
+    assertion_id: str
+    source_url: str
+    chunk_id: str
+    text: str
+
+
+@dataclass(frozen=True, slots=True)
+class ClaimVerification:
+    """One deterministic answer-claim verification result."""
+
+    claim: AnswerClaim
+    status: ClaimVerificationStatus
+    confidence: float
+    supporting_source_count: int
+    required_sources: int
+    citations: tuple[ClaimCitation, ...] = ()
+
+
+@dataclass(frozen=True, slots=True)
+class SynthesisPacket:
+    """Structured fail-closed handoff containing only synthesis-safe claims."""
+
+    verifications: tuple[ClaimVerification, ...]
+    synthesis_claims: tuple[ClaimVerification, ...]
+    blocked_claims: tuple[ClaimVerification, ...]
