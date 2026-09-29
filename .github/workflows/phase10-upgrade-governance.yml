@@ -1,0 +1,238 @@
+name: Upgrade Phase 10 Governance
+
+on:
+  push:
+    branches:
+      - work/phase-10-closure
+
+permissions:
+  contents: write
+
+jobs:
+  upgrade:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout closure
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-10-closure
+          fetch-depth: 0
+
+      - name: Checkout Skill Workflow authority
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          repository: maxqstudio/Skill_Workflow
+          ref: c1d7e58a0fcadc606c8cf75c6283a17278f99259
+          path: .skill-workflow
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+
+      - name: Vendor exact latest tool pack
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          source = Path(".skill-workflow/scripts")
+          target = Path(".workflow/tools")
+          excluded = {"initialize_project_truth.py", "selftest_project_truth_compiler.py"}
+          expected = []
+          target.mkdir(parents=True, exist_ok=True)
+          for src in sorted(source.glob("*.py")):
+              if src.name in excluded:
+                  continue
+              shutil.copyfile(src, target / src.name)
+              expected.append(src.name)
+          for dst in sorted(target.glob("*.py")):
+              if dst.name not in expected:
+                  dst.unlink()
+          print("VENDORED_TOOLS=" + str(len(expected)))
+          PY
+          for f in .workflow/tools/*.py; do
+            cmp "$f" ".skill-workflow/scripts/$(basename "$f")"
+          done
+          echo SKILL_TOOLPACK_EXACT=PASS
+
+      - name: Migrate semantic governance
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          SKILL_SHA = "c1d7e58a0fcadc606c8cf75c6283a17278f99259"
+
+          def load(path):
+              return json.loads(Path(path).read_text(encoding="utf-8"))
+
+          def save(path, value):
+              Path(path).write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+
+          authority = load(".workflow/authority.json")
+          skill = next(item for item in authority["authorities"] if item["concern"] == "skill_workflow")
+          skill["authority"] = "maxqstudio/Skill_Workflow@" + SKILL_SHA
+          skill["meaning"] = "Pinned latest governance tooling and rules adopted during Phase 10 closure."
+          invariant = ".workflow/state.json::phase must equal .workflow/roadmap.json::current_phase and exactly one roadmap phase must be CURRENT."
+          if invariant not in authority["invariants"]:
+              authority["invariants"].append(invariant)
+          save(".workflow/authority.json", authority)
+
+          project = load(".workflow/project.json")
+          old = project.pop("roadmap")
+          save(".workflow/project.json", project)
+
+          ids = {
+              0:"PHASE_00_GOVERNANCE_BASELINE",
+              1:"PHASE_01_GROUNDING_ORCHESTRATION",
+              2:"PHASE_02_SEARXNG_SEARCH",
+              3:"PHASE_03_SECURE_FETCH_EXTRACTION",
+              4:"PHASE_04_LEXICAL_BM25",
+              5:"PHASE_05_DENSE_SEMANTIC",
+              6:"PHASE_06_HYBRID_FUSION",
+              7:"PHASE_07_RERANK_COMPRESS",
+              8:"PHASE_08_TEMPORAL_AUTHORITY",
+              9:"PHASE_09_EVIDENCE_GRAPH",
+              10:"PHASE_10_CLAIM_VERIFICATION",
+              11:"PHASE_11_CONCRETE_RUNTIME_INDEX",
+              12:"PHASE_12_PRODUCTION_API_MCP",
+              13:"PHASE_13_BROWSER_JS",
+              14:"PHASE_14_MULTIMODAL",
+              15:"PHASE_15_GRAPHRAG",
+              16:"PHASE_16_LEARNED_RANKING"
+          }
+          phases = []
+          for item in old["phases"]:
+              number = int(item["phase"])
+              status = "CURRENT" if number == 10 else ("ACCEPTED" if number < 10 else "PLANNED")
+              if number < 10:
+                  exits = ["Phase acceptance merged to main and post-merge main revalidation passed."]
+              elif number == 10:
+                  exits = [
+                      "Phase 10 product acceptance merged to main and post-merge main revalidation passed.",
+                      "Phase 10 closure passes Skill Workflow " + SKILL_SHA + " and merged main is revalidated."
+                  ]
+              else:
+                  exits = [
+                      "Freeze a BEFORE sequence plan before implementation.",
+                      "Pass exact-head pull-request Acceptance and post-merge main revalidation."
+                  ]
+              phases.append({
+                  "id": ids[number],
+                  "title": item["name"],
+                  "status": status,
+                  "objective": "Deliver " + item["name"] + " without weakening accepted fail-closed and provenance contracts.",
+                  "exit_criteria": exits
+              })
+          for item in old.get("optional_expansion", []):
+              number = int(item["phase"])
+              phases.append({
+                  "id": ids[number],
+                  "title": item["name"],
+                  "status": "OPTIONAL",
+                  "objective": "Optional post-V1 expansion: " + item["name"] + ".",
+                  "exit_criteria": [
+                      "Explicit Owner/roadmap promotion from OPTIONAL.",
+                      "Dedicated acceptance evidence passes before merge."
+                  ]
+              })
+          save(".workflow/roadmap.json", {
+              "schema_version": 1,
+              "current_phase": "PHASE_10_CLAIM_VERIFICATION",
+              "phases": phases
+          })
+
+          state = load(".workflow/state.json")
+          state["phase"] = "PHASE_10_CLAIM_VERIFICATION"
+          state["status"] = "ACCEPTED_PENDING_LATEST_WORKFLOW_CLOSURE"
+          state["working_branch"] = "work/phase-10-closure"
+          state["next_authorized_actions"] = [
+              "Validate Phase 10 closure under Skill Workflow " + SKILL_SHA + ".",
+              "Merge closure only after exact-head full Acceptance passes and revalidate merged main.",
+              "Then advance state.phase and roadmap.current_phase together to PHASE_11_CONCRETE_RUNTIME_INDEX before Phase 11 implementation."
+          ]
+          state["blocked_actions"] = [
+              "Do not describe the accepted Phase 10 confidence index as a probability that a claim is true.",
+              "Do not claim fuzzy semantic verification or final prose generation from accepted Phase 10.",
+              "Do not start Phase 11 source implementation before Phase 10 closure-main revalidation.",
+              "Do not change state.phase without changing roadmap.current_phase in the same transaction."
+          ]
+          save(".workflow/state.json", state)
+
+          decisions = load(".workflow/decisions.json")
+          if not any(item["id"] == "DEC-0006" for item in decisions["decisions"]):
+              decisions["decisions"].append({
+                  "id":"DEC-0006",
+                  "title":"Adopt latest Skill Workflow roadmap authority",
+                  "status":"ACCEPTED",
+                  "date":"2026-09-30",
+                  "decision":"Pin governance to maxqstudio/Skill_Workflow@" + SKILL_SHA + ", vendor its current project-local runtime tool pack, and make .workflow/roadmap.json the sole roadmap semantic authority instead of embedding roadmap state inside project.json.",
+                  "rationale":"The latest Skill Workflow makes roadmap/state synchronization a blocking truth gate. A separate roadmap authority removes duplicate phase state and prevents generated ROADMAP.md from drifting from CURRENT_STATE."
+              })
+          save(".workflow/decisions.json", decisions)
+
+          changelog = load(".workflow/changelog.json")
+          marker = "Skill Workflow " + SKILL_SHA
+          if not any(marker in item["change"] for item in changelog["entries"]):
+              changelog["entries"].append({
+                  "date":"2026-09-30",
+                  "change":"Phase 10 closure governance upgraded to Skill Workflow " + SKILL_SHA + "; roadmap authority migrated from project.json to .workflow/roadmap.json and the current project-local compiler/validator tool pack was vendored."
+              })
+          save(".workflow/changelog.json", changelog)
+          PY
+
+      - name: Run latest Skill Workflow STRICT self-test
+        run: python .skill-workflow/scripts/selftest_strict_project_workflow.py
+
+      - name: Run MAX Grounding regression
+        shell: bash
+        run: |
+          python -m pip install .
+          python -m unittest discover -s tests -v
+          python -m compileall -q src tests .workflow/tools
+
+      - name: Remove temporary workflow before final truth generation
+        shell: bash
+        run: |
+          rm -rf .skill-workflow
+          rm -f .github/workflows/phase10-upgrade-governance.yml
+
+      - name: Synchronize final snapshot with latest compiler
+        run: python .workflow/tools/sync_project_truth.py
+
+      - name: Verify migration
+        shell: bash
+        run: |
+          test -f .workflow/roadmap.json
+          grep -q '"current_phase": "PHASE_10_CLAIM_VERIFICATION"' .workflow/roadmap.json
+          grep -q 'Current roadmap phase: PHASE_10_CLAIM_VERIFICATION' docs/ROADMAP.md
+          grep -q 'ROADMAP_SYNC: PASS' docs/ROADMAP.md
+          ! grep -q '"roadmap"' .workflow/project.json
+          grep -q 'maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259' .workflow/authority.json
+
+      - name: Commit final migrated snapshot
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .workflow docs .github/workflows
+          git commit -m 'chore: adopt latest Skill Workflow governance'
+
+      - name: Validate final clean STRICT snapshot
+        shell: bash
+        run: |
+          python .workflow/tools/validate_project_docs.py
+          python .workflow/tools/validate_doc_quality.py
+          python .workflow/tools/validate_handoff.py
+          python .workflow/tools/validate_human_comprehension.py --require-pass
+          python .workflow/tools/validate_sequence_sessions.py
+          python .workflow/tools/validate_cross_document_consistency.py --base dab1961e04f7610a4bf7a9de55a8a649a6fe8990 --require-base
+          python .workflow/tools/validate_project_truth.py
+          test -z "$(git status --porcelain)"
+
+      - name: Push validated final snapshot
+        run: git push origin HEAD:work/phase-10-closure
