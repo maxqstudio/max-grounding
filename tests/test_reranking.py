@@ -56,6 +56,11 @@ class _Provider:
         return self.scores
 
 
+class _GeneratorProvider:
+    def score(self, query: str, documents: tuple[str, ...]):
+        return (score for score in (0.9,) * len(documents))
+
+
 class Phase7RerankingTests(unittest.TestCase):
     def setUp(self) -> None:
         self.a = chunk(
@@ -121,6 +126,14 @@ class Phase7RerankingTests(unittest.TestCase):
             with self.subTest(provider=provider.scores, error=provider.error):
                 with self.assertRaises(RerankProviderError):
                     rerank_hybrid("query", (hybrid(self.a, 1),), provider)
+
+    def test_rejects_unbounded_iterable_provider_output(self) -> None:
+        with self.assertRaises(RerankProviderError):
+            rerank_hybrid(
+                "query",
+                (hybrid(self.a, 1),),
+                _GeneratorProvider(),
+            )
 
     def test_invalid_candidate_rank_identity_score_and_bounds_fail_closed(self) -> None:
         twenty_one = tuple(
@@ -221,7 +234,6 @@ class Phase7RerankingTests(unittest.TestCase):
         self.assertLessEqual(len(first), 2)
         self.assertLessEqual(sum(item.char_count for item in first), 25)
         self.assertTrue(all(item.char_count <= 20 for item in first))
-        self.assertTrue(all(item.text in item.source_url or item.text for item in first))
         for item in first:
             source = self.a if item.chunk_id == "a" else self.b
             self.assertIn(item.text, source.text)
