@@ -3,7 +3,7 @@
   "session_id": "phase-06-hybrid-fusion",
   "phase": "PHASE_06_HYBRID_FUSION",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
   "status": "FROZEN",
   "implementation_base_sha": "a5e30b00c777e66b3aafdea6002970d28a181982",
