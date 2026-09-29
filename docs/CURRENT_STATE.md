@@ -3,18 +3,18 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: d99350f5d2222c174d7f5b4d861514bd67fb66b2
+Authority verified at SHA: f0f64637895465b98a227d299db42a7704d3d894
 Governance profile: strict
 
 ## Current phase
 Phase: PHASE_02_SEARXNG_LIVE_SEARCH_PROVIDER
-Status: CANDIDATE
+Status: ACCEPTED
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: work/phase-02-searxng-provider
+Branch: main
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: d99350f5d2222c174d7f5b4d861514bd67fb66b2
+Last accepted SHA: f0f64637895465b98a227d299db42a7704d3d894
 Current candidate SHA: external final acceptance evidence
 Current source digest: 5cff2a5ba645727422dbe8ab7071e3164f1dcb944480b863342cd1f79f45894d
 
@@ -37,15 +37,15 @@ Current sequence session: docs/sequence/sessions/phase-02-searxng-provider.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
-- Phase 2 BEFORE plan is frozen at 68ab9a0307b57d1c8a162dc3c942e65e86149eb0 before product implementation.
-- TDD RED run 36327147032 failed for the intended missing Phase 2 modules/types before implementation.
-- Phase 2 GREEN run 36327403347 passed the full suite and compile after implementation and security repair.
-- Phase 2 Cross Platform run 36327480973 passed 12/12 jobs on Python 3.11-3.14 across Ubuntu, Windows, and macOS.
-- SearxngProvider performs bounded JSON HTTP search to an operator-configured trusted endpoint and filters obvious unsafe result URLs before candidate admission.
+- Phase 2 bounded SearXNG live-search provider is merged to main at f0f64637895465b98a227d299db42a7704d3d894.
+- GitHub Actions Acceptance run 20 passed STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 runtime jobs on the exact Phase 2 PR head 9b33220c1061783c8547c73bedceda7fae56e3b5.
+- GitHub Actions Acceptance run 21 revalidated STRICT governance and all 12 Linux/Windows/macOS Python 3.11-3.14 runtime jobs on merged main SHA f0f64637895465b98a227d299db42a7704d3d894.
+- Phase 2 BEFORE plan was frozen before implementation and sequence acceptance passed.
+- SearxngProvider performs bounded JSON HTTP search to an operator-configured trusted endpoint, rejects redirects and malformed/oversized responses, and filters obvious unsafe result URLs before candidate admission.
 
 ## Not proven
 - A specific external SearXNG deployment and its upstream engine availability/ranking quality are not proven by deterministic CI fixtures.
-- Page fetching, DNS-rebinding protection at connection time, crawling, content extraction, embeddings, vector retrieval, reranking, REST, MCP, and production deployment remain outside Phase 2.
+- Result-page fetching, DNS-rebinding protection at connection time, crawling, content extraction, embeddings, vector retrieval, reranking, REST, MCP, and production deployment remain outside Phase 2.
 
 ## Known blockers
 - None declared.
@@ -54,11 +54,9 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Generate and validate the Phase 2 actual sequence graph from current source.
-- Synchronize deterministic docs and run STRICT governance.
-- Open the Phase 2 pull request only after branch governance passes.
+- Start Phase 3 from accepted main.
+- Freeze the Phase 3 BEFORE sequence plan before implementing secure result-page fetching and extraction.
 
 ## Explicitly blocked
-- Do not claim page-fetch SSRF protection from result-URL admission alone.
-- Do not merge Phase 2 until final pull-request Acceptance passes all required jobs.
-- Do not close Phase 2 until merged main is revalidated.
+- Do not claim result-page SSRF/DNS-rebinding protection until Phase 3 acceptance proves the fetch boundary.
+- Do not bypass GitHub Actions acceptance or post-merge main revalidation for later phases.
