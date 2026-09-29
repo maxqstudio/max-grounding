@@ -1,0 +1,86 @@
+name: Phase 5 Truth Sync
+
+on:
+  push:
+    branches:
+      - work/phase-05-semantic-retrieval
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-05-semantic-retrieval
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+      - name: Source tests
+        shell: bash
+        run: |
+          python -m pip install .
+          python -m unittest discover -s tests -v
+          python -m compileall -q src tests .workflow/tools
+      - name: Generate actual Phase 5 sequence
+        run: >
+          python .workflow/tools/generate_sequence_actual.py
+          --output-json docs/sequence/generated/phase-05-semantic-retrieval.actual.json
+          --output-mermaid docs/sequence/generated/phase-05-semantic-retrieval.actual.mmd
+          --entry src/max_grounding/semantic.py::retrieve_semantic
+      - name: Bind source digest to session
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          actual_path = Path('docs/sequence/generated/phase-05-semantic-retrieval.actual.json')
+          session_path = Path('docs/sequence/sessions/phase-05-semantic-retrieval.json')
+          actual = json.loads(actual_path.read_text(encoding='utf-8'))
+          session = json.loads(session_path.read_text(encoding='utf-8'))
+          session['actual']['source_digest'] = actual['source_digest']
+          session_path.write_text(json.dumps(session, indent=2) + '\n', encoding='utf-8')
+          PY
+      - name: Validate Phase 5 sequence
+        run: >
+          python .workflow/tools/validate_sequence_contract.py
+          --session docs/sequence/sessions/phase-05-semantic-retrieval.json
+      - name: Synchronize Project Truth
+        run: python .workflow/tools/sync_project_truth.py
+      - name: Precommit deterministic truth
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .workflow/acceptance.json .workflow/generated docs
+          if git diff --cached --quiet; then
+            echo 'No truth-sync changes.'
+          else
+            git commit -m 'docs: sync phase 5 project truth'
+          fi
+      - name: Validate strict project truth on clean tree
+        shell: bash
+        run: |
+          python .workflow/tools/validate_project_docs.py
+          python .workflow/tools/validate_doc_quality.py
+          python .workflow/tools/validate_handoff.py
+          python .workflow/tools/validate_human_comprehension.py --require-pass
+          python .workflow/tools/validate_sequence_sessions.py
+          BASE=$(git merge-base HEAD origin/main)
+          python .workflow/tools/validate_cross_document_consistency.py --base "$BASE" --require-base
+          python .workflow/tools/validate_project_truth.py
+          test -z "$(git status --porcelain)"
+      - name: Push validated truth
+        shell: bash
+        run: |
+          if [ "$(git rev-parse HEAD)" = "${{ github.sha }}" ]; then
+            echo 'Nothing to push.'
+          else
+            git push origin HEAD:work/phase-05-semantic-retrieval
+          fi
