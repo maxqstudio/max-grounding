@@ -52,7 +52,8 @@
     "GREEN run 36553060757 passed the full unit suite and compile checks after implementation.",
     "Sequence verification run 36553168076 passed generated PLAN-to-ACTUAL validation.",
     "Cross-platform run 36553245646 passed 12/12 Python/OS jobs.",
-    "Final pull-request Acceptance and post-merge main Acceptance remain mandatory before Phase 4 closure."
+    "Phase 4 pull-request Acceptance run 36555770714 passed 13/13 required jobs on exact head 7f47bc0fdeec478bab9dac3ddb538daa65e5b693.",
+    "Phase 4 post-merge main Acceptance run 36555890270 passed 13/13 required jobs on main SHA 432400785849be4425a118d5adee5eef1e77e693."
   ],
   "runtime_status": "PASS",
   "schema_version": 1,
