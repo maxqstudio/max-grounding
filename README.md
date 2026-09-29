@@ -32,13 +32,13 @@ No Owner-PC execution is part of the project acceptance authority.
 
 ## Current phase
 
-Phase 10 is a candidate for claim-level verification, citations, confidence indexing, and fail-closed synthesis gating.
+Phase 10 is accepted on main at `dab1961e04f7610a4bf7a9de55a8a649a6fe8990`.
 
-The candidate accepts at most 16 explicit structured answer claims and verifies them by exact normalized claim key/value matching against the accepted Phase 9 evidence graph. Claims are classified as `SUPPORTED`, `PARTIALLY_SUPPORTED`, `CONFLICTED`, or `UNSUPPORTED`. Exact conflicts on exclusive claims override evidence weight.
+Accepted Phase 10 verifies at most 16 explicit structured answer claims by exact normalized claim key/value matching against the accepted evidence graph, emits `SUPPORTED`, `PARTIALLY_SUPPORTED`, `CONFLICTED`, or `UNSUPPORTED`, binds exact assertion/source/chunk/excerpt citations, and exposes only `SUPPORTED` claims to the structured synthesis-safe set.
 
-Claim citations retain exact assertion/source/chunk/excerpt provenance. The reported confidence value is a deterministic evidence-sufficiency index based on distinct-source Phase 8 quality and source-threshold coverage; it is not a calibrated probability that a claim is true.
+Its confidence value is a deterministic evidence-sufficiency index, not a calibrated probability that a claim is true. Phase 10 does not extract free-form claims, perform fuzzy semantic/NLI verification, or generate final prose.
 
-Only `SUPPORTED` claims are exposed in the synthesis-safe set. Phase 10 does not extract claims from free-form LLM text, perform fuzzy semantic verification, generate final prose, provide concrete model/vector runtimes, expose REST/MCP, or prove production deployment.
+Phase 11 is next: concrete embedding runtime, Qdrant/persistent indexing, and production adapters. REST/MCP and final production acceptance remain Phase 12.
 
 ## Platform policy
 
