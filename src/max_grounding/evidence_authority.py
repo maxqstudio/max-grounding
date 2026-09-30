@@ -30,7 +30,6 @@ from .models import (
 from .temporal import score_temporal_components
 from .verification import (
     MAX_ANSWER_CLAIMS,
-    MAX_CLAIM_ID_CHARS,
     MAX_CLAIM_KEY_CHARS,
     MAX_CLAIM_VALUE_CHARS,
     MAX_REQUIRED_SOURCES,
@@ -42,21 +41,85 @@ MAX_EVIDENCE_REGISTRY_RECORDS = 128
 DEFAULT_EVIDENCE_REFERENCE_TTL_SECONDS = 15 * 60
 DEFAULT_REQUIRED_SOURCES = 2
 _EVIDENCE_REFERENCE_PATTERN = re.compile(r"^[A-Za-z0-9_-]{43}$")
-_BARCODE_CLAIM_KEYS = frozenset({"barcode", "barcode_binding", "gtin", "ean", "upc"})
+_BARCODE_CLAIM_KEYS = frozenset(
+    {
+        "barcode",
+        "barcode_binding",
+        "gtin",
+        "gtin8",
+        "gtin12",
+        "gtin13",
+        "gtin14",
+        "ean",
+        "ean8",
+        "ean13",
+        "upc",
+        "upca",
+    }
+)
 # Phase 12 has no configured source-authority scorer. Keep the score neutral:
 # provenance is bound, but an unrated source is not assigned full authority.
 UNRATED_SOURCE_AUTHORITY_SCORE = 0.5
 
 _FIELD_LABELS: dict[str, tuple[str, ...]] = {
-    "product_name": ("product name", "name"),
-    "brand": ("brand",),
-    "manufacturer": ("manufacturer",),
+    "product_name": ("product name", "name", "nama"),
+    "brand": ("brand", "merk", "marca"),
+    "manufacturer": ("manufacturer", "produsen"),
     "model": ("model",),
-    "package_size": ("package size", "net content", "package", "size"),
-    "barcode": ("barcode", "gtin", "ean", "upc"),
-    "barcode_binding": ("barcode", "gtin", "ean", "upc"),
+    "package_size": (
+        "package size",
+        "net content",
+        "netto",
+        "isi bersih",
+        "package",
+        "size",
+    ),
+    "product_code": ("product code", "sku", "kode"),
+    "barcode": (
+        "barcode",
+        "gtin8",
+        "gtin12",
+        "gtin-13",
+        "gtin13",
+        "gtin 13",
+        "gtin14",
+        "gtin",
+        "ean8",
+        "ean-13",
+        "ean13",
+        "ean 13",
+        "upca",
+        "ean",
+        "upc-a",
+        "upc",
+        "kode batang",
+        "codigo de barras",
+    ),
+    "barcode_binding": (
+        "barcode",
+        "gtin8",
+        "gtin12",
+        "gtin-13",
+        "gtin13",
+        "gtin 13",
+        "gtin14",
+        "gtin",
+        "ean8",
+        "ean-13",
+        "ean13",
+        "ean 13",
+        "upca",
+        "ean",
+        "upc-a",
+        "upc",
+        "kode batang",
+        "codigo de barras",
+    ),
     "ply": ("ply",),
 }
+_EXACT_EVIDENCE_CLAIM_KEY = "exact_evidence"
+_FIELD_SEPARATOR_PATTERN = r"[:=|,\-\u2010-\u2015\u2212]"
+_FIELD_COPULAS = "is|are|was|were|adalah|ialah|bernama"
 
 
 def _utc_now() -> datetime:
@@ -75,24 +138,22 @@ def _normalized_text(value: object, *, label: str, maximum: int, casefold: bool)
 
 
 def normalize_candidate_claims(value: object) -> tuple[AnswerClaim, ...]:
-    """Accept only bounded structured proposals; never accept prose or evidence metadata."""
+    """Normalize bounded proposals and assign server-owned claim identifiers."""
     if isinstance(value, (str, bytes)) or not isinstance(value, Sequence):
         raise InvalidGroundingRequest("claims must be a bounded sequence")
     if not 1 <= len(value) <= MAX_ANSWER_CLAIMS:
         raise InvalidGroundingRequest("claims count is outside the accepted range")
 
     result: list[AnswerClaim] = []
-    seen_ids: set[str] = set()
-    required_keys = {"claim_id", "claim_key", "value"}
-    for item in value:
-        if not isinstance(item, Mapping) or set(item.keys()) != required_keys:
+    required_keys = {"claim_key", "value"}
+    allowed_keys = required_keys | {"claim_id"}
+    for index, item in enumerate(value, start=1):
+        if (
+            not isinstance(item, Mapping)
+            or not required_keys.issubset(item.keys())
+            or not set(item.keys()).issubset(allowed_keys)
+        ):
             raise InvalidGroundingRequest("claim proposal fields are invalid")
-        claim_id = _normalized_text(
-            item["claim_id"],
-            label="claim_id",
-            maximum=MAX_CLAIM_ID_CHARS,
-            casefold=True,
-        )
         claim_key = _normalized_text(
             item["claim_key"],
             label="claim_key",
@@ -105,11 +166,7 @@ def normalize_candidate_claims(value: object) -> tuple[AnswerClaim, ...]:
             maximum=MAX_CLAIM_VALUE_CHARS,
             casefold=False,
         )
-        if claim_id in seen_ids:
-            raise InvalidGroundingRequest("claim_id values must be unique")
-        seen_ids.add(claim_id)
-        # Phase 10 carries a text field. It is generated from the structured
-        # proposal so callers cannot smuggle unverified prose into synthesis.
+        claim_id = f"claim-{index:04d}"
         result.append(
             AnswerClaim(
                 claim_id=claim_id,
@@ -220,28 +277,88 @@ def _field_labels(claim_key: str) -> tuple[str, ...]:
     return (readable,) if readable else ()
 
 
+def _segments(text: str) -> tuple[tuple[str, int], ...]:
+    return tuple(
+        (segment.strip(), index)
+        for index, segment in enumerate(
+            re.split(r"(?<=[.!?])\s+|[;\r\n]+", text)
+        )
+        if segment.strip()
+    )
+
+
+def _normalize_evidence_span(value: str) -> str:
+    return " ".join(unicodedata.normalize("NFKC", value).split()).casefold()
+
+
+def _is_word_character(value: str) -> bool:
+    return value == "_" or value.isalnum()
+
+
+def _contains_exact_span(source: str, proposal: str) -> bool:
+    start = source.find(proposal)
+    while start >= 0:
+        end = start + len(proposal)
+        left_is_boundary = start == 0 or not _is_word_character(source[start - 1])
+        right_is_boundary = end == len(source) or not _is_word_character(source[end])
+        if left_is_boundary and right_is_boundary:
+            return True
+        start = source.find(proposal, start + 1)
+    return False
+
+
+def _exact_evidence_values(
+    text: str,
+    proposed_values: set[str],
+) -> tuple[tuple[str, str, int], ...]:
+    """Match literal normalized spans and retain the enclosing server source segment."""
+    if not proposed_values:
+        return ()
+    wanted = {_normalize_evidence_span(value) for value in proposed_values}
+    found: list[tuple[str, str, int]] = []
+    for segment, index in _segments(text):
+        normalized_segment = _normalize_evidence_span(segment)
+        for proposal in wanted:
+            if _contains_exact_span(normalized_segment, proposal):
+                found.append((proposal, segment, index))
+    return tuple(found)
+
+
 def _labeled_values(text: str, claim_key: str) -> tuple[tuple[str, str, int], ...]:
     labels = sorted(_field_labels(claim_key), key=len, reverse=True)
     if not labels:
         return ()
     label_pattern = "|".join(re.escape(label) for label in labels)
+    label_prefix = (
+        rf"^\s*(?:\|\s*)?(?:(?:the|this|that)\s+)?"
+        rf"(?:product\s+)?(?:{label_pattern})"
+        rf"(?:\s+of\s+(?:(?:the|this|that)\s+)?product)?"
+    )
     field_pattern = re.compile(
-        rf"^\s*(?:{label_pattern})\s*[:=]\s*(?P<value>.*?)\s*$",
+        label_prefix
+        + rf"\s*(?P<separator>{_FIELD_SEPARATOR_PATTERN})\s*"
+        + r"(?P<value>.*?)(?:\s*\|)?\s*$",
         re.IGNORECASE,
     )
-    # Split only at sentence whitespace or explicit field separators; decimal
-    # quantities such as 1.5 L remain intact.
-    segments = re.split(r"(?<=[.!?])\s+|[;\r\n]+", text)
+    prose_pattern = re.compile(
+        label_prefix
+        + rf"\s+(?:{_FIELD_COPULAS})\s+(?P<value>.*?)\s*$",
+        re.IGNORECASE,
+    )
+    inverted_pattern = re.compile(
+        rf"^\s*(?P<value>.+?)\s+(?:is|was|are|were)\s+"
+        rf"(?:(?:a|an|the)\s+)?(?:product\s+)?(?:{label_pattern})\s*[.!?]?$",
+        re.IGNORECASE,
+    )
     found: list[tuple[str, str, int]] = []
-    for index, segment in enumerate(segments):
-        stripped = segment.strip()
-        if not stripped:
-            continue
-        match = field_pattern.match(stripped)
+    for stripped, index in _segments(text):
+        match = field_pattern.match(stripped) or prose_pattern.match(stripped)
+        if match is None:
+            match = inverted_pattern.match(stripped)
         if match is None:
             continue
         raw_value = match.group("value").strip().strip("\"'“”‘’")
-        raw_value = raw_value.rstrip(" \t.,;:!?")
+        raw_value = raw_value.rstrip(" \t.,;:!?|")
         if not raw_value or len(raw_value) > MAX_CLAIM_VALUE_CHARS:
             continue
         normalized_value = " ".join(
@@ -257,7 +374,7 @@ def build_server_owned_evidence_graph(
     *,
     now: datetime | None = None,
 ) -> EvidenceGraph:
-    """Build Phase 10 assertions only from exact labeled fields in fetched server evidence."""
+    """Build assertions only from structured fields or literal spans in fetched evidence."""
     if not claims or not evidence_records:
         return build_evidence_graph(())
     evaluated_at = now or _utc_now()
@@ -265,6 +382,10 @@ def build_server_owned_evidence_graph(
         raise InvalidGroundingRequest("verification clock must be UTC")
 
     claim_keys = tuple(dict.fromkeys(claim.claim_key.casefold() for claim in claims))
+    proposed_values_by_key: dict[str, set[str]] = {}
+    for claim in claims:
+        key = claim.claim_key.casefold()
+        proposed_values_by_key.setdefault(key, set()).add(claim.value)
     barcode_values = {
         claim.value.casefold()
         for claim in claims
@@ -293,7 +414,14 @@ def build_server_owned_evidence_graph(
                 and not binds_requested_product
             ):
                 continue
-            for value, excerpt_text, segment_index in _labeled_values(record.document.text, claim_key):
+            if claim_key == _EXACT_EVIDENCE_CLAIM_KEY:
+                values = _exact_evidence_values(
+                    record.document.text,
+                    proposed_values_by_key.get(claim_key, set()),
+                )
+            else:
+                values = _labeled_values(record.document.text, claim_key)
+            for value, excerpt_text, segment_index in values:
                 key = (canonical_url, claim_key, value)
                 # Identical canonical source bytes are one independent assertion.
                 candidates.setdefault(key, (record, excerpt_text, segment_index))

@@ -7,7 +7,7 @@
 Phase 12 Production V1 remains accepted on merged main 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f. Run 003 is a valid real-stack black-box campaign with findings, not Phase 12A acceptance. Phase 12A acceptance remains NOT_PROVEN until server-owned claim verification, canonical citation binding, fail-closed consumer behavior, fetch taxonomy, redirect-to-private runtime security, persistence, cross-platform CI, and exact-main revalidation pass.
 
 Final tested source: external final acceptance evidence.
-Current source digest: 2b69fc63105f98415a73db10b5b037c718321e95c40ff44b5bd1cfc334c3609c
+Current source digest: 80457afb710405502225b283ca876e22ac97aca66cf7d6419b6895f92df76a2f
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|

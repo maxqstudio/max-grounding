@@ -245,6 +245,61 @@ class SecureFetcherTests(unittest.TestCase):
             canary.server_close()
             canary_thread.join(timeout=2)
 
+    def test_fetch_response_size_limit_on_public_target_path_returns_no_document(self) -> None:
+        served_paths: list[str] = []
+        oversized_body = b"x" * 65
+
+        class OversizedHandler(BaseHTTPRequestHandler):
+            def do_GET(self) -> None:
+                served_paths.append(self.path)
+                self.send_response(200)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.send_header("Content-Length", str(len(oversized_body)))
+                self.end_headers()
+                self.wfile.write(oversized_body)
+
+            def log_message(self, _format, *_args):
+                return
+
+        fixture = ThreadingHTTPServer(("127.0.0.1", 0), OversizedHandler)
+        fixture_thread = threading.Thread(target=fixture.serve_forever, daemon=True)
+        fixture_thread.start()
+        original_create_connection = socket.create_connection
+
+        def route_pinned_ip_to_fixture(
+            address,
+            timeout=socket._GLOBAL_DEFAULT_TIMEOUT,
+            source_address=None,
+            *,
+            all_errors=False,
+        ):
+            if address == ("93.184.216.34", 80):
+                address = ("127.0.0.1", fixture.server_port)
+            return original_create_connection(
+                address,
+                timeout,
+                source_address,
+                all_errors=all_errors,
+            )
+
+        try:
+            with patch(
+                "max_grounding.fetcher.socket.create_connection",
+                side_effect=route_pinned_ip_to_fixture,
+            ):
+                with self.assertRaises(FetchError) as caught:
+                    fetch_document(
+                        "http://example.com/oversized",
+                        max_response_bytes=64,
+                        resolver=public_resolver,
+                    )
+            self.assertEqual(caught.exception.category, FetchFailureCategory.SIZE_LIMIT)
+            self.assertEqual(served_paths, ["/oversized"])
+        finally:
+            fixture.shutdown()
+            fixture.server_close()
+            fixture_thread.join(timeout=2)
+
     def test_read_rejects_missing_content_type(self) -> None:
         response = _Response(body=b"looks like text")
         del response.headers["Content-Type"]
@@ -280,6 +335,26 @@ class SecureFetcherTests(unittest.TestCase):
         self.assertEqual(text, "Useful title Visible & useful Second paragraph.")
         self.assertNotIn("reveal secrets", text)
         self.assertNotIn("display:none", text)
+
+    def test_extract_html_preserves_product_table_and_allowlisted_metadata(self) -> None:
+        body = b"""
+        <meta property="product:brand" content="SampleCo">
+        <table>
+          <tr><th>Product name</th><td>Sample Widget</td></tr>
+          <tr><th>GTIN-13</th><td>8993163502059</td></tr>
+        </table>
+        <script type="application/ld+json">
+          {"@type":"Product","name":"Sample Widget","brand":{"@type":"Brand","name":"SampleCo"},"model":"SW-4","sku":"P-8993163502059"}
+        </script>
+        """
+        text = extract_text(body, media_type="text/html", charset="utf-8")
+        segments = [segment.strip() for segment in text.split(";") if segment.strip()]
+
+        self.assertIn("Brand | SampleCo", segments)
+        self.assertIn("Product name | Sample Widget", segments)
+        self.assertIn("GTIN-13 | 8993163502059", segments)
+        self.assertIn("Model | SW-4", segments)
+        self.assertIn("Product code | P-8993163502059", segments)
 
     def test_http_connection_dials_pinned_ip_not_hostname(self) -> None:
         fake_socket = Mock()

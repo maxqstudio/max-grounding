@@ -10,7 +10,8 @@ from fastapi.testclient import TestClient
 from max_grounding.api import MAX_REQUEST_BODY_BYTES, create_rest_app
 from max_grounding.evidence_authority import EvidenceAuthority
 from max_grounding.errors import InvalidGroundingRequest, ServiceOperationError
-from max_grounding.models import FetchedDocument
+from max_grounding.fetcher import extract_text
+from max_grounding.models import FetchedDocument, SourceCandidate
 from max_grounding.mcp_server import create_mcp_server, mcp_fetch_evidence
 from max_grounding.service import GroundingService
 
@@ -76,6 +77,272 @@ def fetch_ref(client: TestClient, url: str) -> str:
 
 
 class VerifiedOutputBoundaryTests(unittest.TestCase):
+    def test_realistic_labeled_source_forms_support_structured_fields(self) -> None:
+        url = "https://source.example/realistic-product"
+        text = (
+            "Brand – SampleCo\n"
+            "Nama, Sample Widget\n"
+            "Package size | 330 ml\n"
+            "Model = SW-4\n"
+            "The manufacturer is Example Works.\n"
+            "SampleCo is the brand.\n"
+        )
+        client = rest_client(runtime({url: document(url, text)}))
+        evidence_ref = fetch_ref(client, url)
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    claim("brand-proposal", "brand", "SampleCo"),
+                    claim("name-proposal", "product_name", "Sample Widget"),
+                    claim("package-proposal", "package_size", "330 ml"),
+                    claim("model-proposal", "model", "SW-4"),
+                    claim("manufacturer-proposal", "manufacturer", "Example Works"),
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        packet = response.json()
+        self.assertEqual(
+            [item["status"] for item in packet["verifications"]],
+            ["supported", "supported", "supported", "supported", "supported"],
+        )
+        self.assertEqual(
+            [item["citations"][0]["text"] for item in packet["synthesis_claims"]],
+            [
+                "Brand – SampleCo",
+                "Nama, Sample Widget",
+                "Package size | 330 ml",
+                "Model = SW-4",
+                "The manufacturer is Example Works.",
+            ],
+        )
+
+    def test_inverted_label_statement_is_deterministic_structured_support(self) -> None:
+        url = "https://source.example/inverted-label"
+        client = rest_client(runtime({url: document(url, "SampleCo is the brand.")}))
+        evidence_ref = fetch_ref(client, url)
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [claim("brand-proposal", "brand", "SampleCo")],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        packet = response.json()
+        self.assertEqual(packet["verifications"][0]["status"], "supported")
+        self.assertEqual(
+            packet["synthesis_claims"][0]["citations"][0]["text"],
+            "SampleCo is the brand.",
+        )
+
+    def test_allowlisted_html_product_metadata_can_support_bound_fields(self) -> None:
+        url = "https://source.example/metadata-product"
+        html = b"""
+        <meta property="product:brand" content="SampleCo">
+        <table>
+          <tr><th>Product name</th><td>Sample Widget</td></tr>
+        </table>
+        <script type="application/ld+json">
+          {"@type":"Product","gtin13":"8993163502059"}
+        </script>
+        """
+        text = extract_text(html, media_type="text/html", charset="utf-8")
+        client = rest_client(runtime({url: document(url, text)}))
+        evidence_ref = fetch_ref(client, url)
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    claim("brand-proposal", "brand", "SampleCo"),
+                    claim("name-proposal", "product_name", "Sample Widget"),
+                    claim("barcode-proposal", "barcode_binding", "8993163502059"),
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(
+            [item["status"] for item in response.json()["verifications"]],
+            ["supported", "supported", "supported"],
+        )
+
+    def test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id(self) -> None:
+        url = "https://source.example/docs"
+        source_sentence = (
+            "The fetch boundary validates the public address before connecting."
+        )
+        client = rest_client(runtime({url: document(url, source_sentence)}))
+        evidence_ref = fetch_ref(client, url)
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    {
+                        **claim(
+                            "generic-quote",
+                            "exact_evidence",
+                            "validates the public address before connecting",
+                        )
+                    },
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        packet = response.json()
+        self.assertEqual(packet["verifications"][0]["status"], "supported")
+        self.assertEqual(
+            packet["synthesis_claims"][0]["claim"]["claim_id"],
+            "claim-0001",
+        )
+        self.assertEqual(
+            packet["synthesis_claims"][0]["citations"][0]["text"],
+            source_sentence,
+        )
+
+    def test_generic_paraphrase_is_not_supported_by_semantic_similarity(self) -> None:
+        url = "https://source.example/docs"
+        source_sentence = (
+            "The fetch boundary validates the public address before connecting."
+        )
+        client = rest_client(runtime({url: document(url, source_sentence)}))
+        evidence_ref = fetch_ref(client, url)
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    claim(
+                        "paraphrase",
+                        "exact_evidence",
+                        "The service checks public IPs before making a connection.",
+                    )
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        packet = response.json()
+        self.assertEqual(packet["verifications"][0]["status"], "unsupported")
+        self.assertEqual(packet["synthesis_claims"], [])
+
+    def test_numeric_model_claim_id_is_ignored_and_server_generates_id(self) -> None:
+        url = "https://source.example/product"
+        client = rest_client(runtime({url: document(url, "Brand – SampleCo.")}))
+        evidence_ref = fetch_ref(client, url)
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    {
+                        "claim_id": 17,
+                        "claim_key": "brand",
+                        "value": "SampleCo",
+                    }
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(
+            response.json()["verifications"][0]["claim"]["claim_id"],
+            "claim-0001",
+        )
+
+    def test_barcode_label_does_not_promote_a_prefixed_sku_to_gtin(self) -> None:
+        url = "https://source.example/product"
+        barcode = "8993163502059"
+        text = f"SKU: P-{barcode}. Brand – SampleCo."
+        client = rest_client(runtime({url: document(url, text)}))
+        evidence_ref = fetch_ref(client, url)
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    claim("barcode-proposal", "barcode_binding", barcode),
+                    claim("brand-proposal", "brand", "SampleCo"),
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        packet = response.json()
+        self.assertEqual(packet["verifications"][0]["status"], "unsupported")
+        self.assertEqual(packet["verifications"][1]["status"], "unsupported")
+        self.assertEqual(packet["synthesis_claims"], [])
+
+    def test_search_snippet_is_discovery_only_until_fetched_text_supports_it(self) -> None:
+        url = "https://source.example/discovery"
+        snippet = "Brand: SampleCo."
+        search_provider = MagicMock()
+        search_provider.search.return_value = (
+            SourceCandidate(
+                url=url,
+                title="Search result",
+                snippet=snippet,
+                provider="test",
+                rank=1,
+            ),
+        )
+        service = GroundingService(
+            search_provider=search_provider,
+            embedding_provider=MagicMock(),
+            vector_store=MagicMock(),
+            fetcher=lambda requested: document(
+                requested,
+                "This fetched page contains no brand statement.",
+            ),
+        )
+
+        pack = service.search_web("SampleCo brand", min_evidence_sources=1)
+        self.assertEqual(pack.sources[0].snippet, snippet)
+        self.assertFalse(hasattr(pack.sources[0], "evidence_ref"))
+        fetched = service.fetch_evidence(url)
+        packet = service.verify_candidate_claims(
+            [
+                claim(
+                    "search-snippet-only",
+                    "exact_evidence",
+                    snippet,
+                )
+            ],
+            evidence_refs=[fetched.evidence_ref],
+            required_sources=1,
+        )
+
+        self.assertEqual(packet.verifications[0].status.value, "unsupported")
+        self.assertEqual(packet.synthesis_claims, ())
+
     def test_fetch_then_verify_returns_server_canonical_citation(self) -> None:
         url = "https://source.example/product"
         text = "Product name: Sample Widget. Package size: 330 ml."
@@ -257,8 +524,34 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
         self.assertEqual(verifications[1]["status"], "unsupported")
         self.assertEqual(
             packet["synthesis_claims"][0]["claim"]["claim_id"],
-            "package",
+            "claim-0001",
         )
+
+    def test_nearby_unlabeled_words_do_not_establish_structured_field_meaning(self) -> None:
+        url = "https://source.example/unstructured"
+        text = "SampleCo lists this product alongside a package size of 330 ml."
+        client = rest_client(runtime({url: document(url, text)}))
+        evidence_ref = fetch_ref(client, url)
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    claim("brand-proposal", "brand", "SampleCo"),
+                    claim("package-proposal", "package_size", "330 ml"),
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(
+            [item["status"] for item in response.json()["verifications"]],
+            ["unsupported", "unsupported"],
+        )
+        self.assertEqual(response.json()["synthesis_claims"], [])
 
     def test_barcode_binding_does_not_support_a_brand_claim(self) -> None:
         url = "https://source.example/product"

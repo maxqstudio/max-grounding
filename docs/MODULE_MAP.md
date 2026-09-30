@@ -3,7 +3,7 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: 2b69fc63105f98415a73db10b5b037c718321e95c40ff44b5bd1cfc334c3609c
+Source digest: 80457afb710405502225b283ca876e22ac97aca66cf7d6419b6895f92df76a2f
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
@@ -11,16 +11,16 @@ Generated/refreshed: current compiler run
 | integration/phase11_services.py | Python | 146 | integration | NO |
 | integration/phase12_e2e.py | Python | 283 | integration | NO |
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
-| src/max_grounding/api.py | Python | 416 | src/max_grounding | NO |
+| src/max_grounding/api.py | Python | 436 | src/max_grounding | NO |
 | src/max_grounding/budget.py | Python | 30 | src/max_grounding | NO |
 | src/max_grounding/engine.py | Python | 57 | src/max_grounding | NO |
 | src/max_grounding/errors.py | Python | 110 | src/max_grounding | NO |
 | src/max_grounding/evidence.py | Python | 97 | src/max_grounding | NO |
-| src/max_grounding/evidence_authority.py | Python | 372 | src/max_grounding | NO |
+| src/max_grounding/evidence_authority.py | Python | 500 | src/max_grounding | NO |
 | src/max_grounding/evidence_graph.py | Python | 223 | src/max_grounding | NO |
-| src/max_grounding/fetcher.py | Python | 317 | src/max_grounding | NO |
+| src/max_grounding/fetcher.py | Python | 432 | src/max_grounding | NO |
 | src/max_grounding/hybrid.py | Python | 149 | src/max_grounding | NO |
-| src/max_grounding/mcp_server.py | Python | 149 | src/max_grounding | NO |
+| src/max_grounding/mcp_server.py | Python | 220 | src/max_grounding | NO |
 | src/max_grounding/models.py | Python | 317 | src/max_grounding | NO |
 | src/max_grounding/network_policy.py | Python | 93 | src/max_grounding | NO |
 | src/max_grounding/persistent.py | Python | 317 | src/max_grounding | NO |
@@ -45,7 +45,7 @@ Generated/refreshed: current compiler run
 | tests/test_evidence.py | Python | 54 | tests | YES |
 | tests/test_evidence_graph.py | Python | 381 | tests | YES |
 | tests/test_hybrid.py | Python | 168 | tests | YES |
-| tests/test_mcp_server.py | Python | 123 | tests | YES |
+| tests/test_mcp_server.py | Python | 152 | tests | YES |
 | tests/test_network_policy.py | Python | 123 | tests | YES |
 | tests/test_ollama_embedding.py | Python | 118 | tests | YES |
 | tests/test_persistent_semantic.py | Python | 284 | tests | YES |
@@ -55,12 +55,12 @@ Generated/refreshed: current compiler run
 | tests/test_reranking.py | Python | 279 | tests | YES |
 | tests/test_retrieval.py | Python | 181 | tests | YES |
 | tests/test_searxng_provider.py | Python | 206 | tests | YES |
-| tests/test_secure_fetcher.py | Python | 334 | tests | YES |
+| tests/test_secure_fetcher.py | Python | 409 | tests | YES |
 | tests/test_semantic_retrieval.py | Python | 292 | tests | YES |
 | tests/test_service.py | Python | 245 | tests | YES |
 | tests/test_service_security.py | Python | 50 | tests | YES |
 | tests/test_temporal_scoring.py | Python | 346 | tests | YES |
 | tests/test_verification.py | Python | 442 | tests | YES |
-| tests/test_verified_output.py | Python | 495 | tests | YES |
+| tests/test_verified_output.py | Python | 788 | tests | YES |
 
 Machine-derived facts do not invent semantic ownership.

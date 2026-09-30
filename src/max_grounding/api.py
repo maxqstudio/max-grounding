@@ -34,7 +34,6 @@ from .service import (
 )
 from .verification import (
     MAX_ANSWER_CLAIMS,
-    MAX_CLAIM_ID_CHARS,
     MAX_CLAIM_KEY_CHARS,
     MAX_CLAIM_VALUE_CHARS,
     MAX_REQUIRED_SOURCES,
@@ -78,9 +77,26 @@ class QueryRequest(BaseModel):
 class CandidateClaimRequest(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
-    claim_id: str = Field(min_length=1, max_length=MAX_CLAIM_ID_CHARS)
-    claim_key: str = Field(min_length=1, max_length=MAX_CLAIM_KEY_CHARS)
-    value: str = Field(min_length=1, max_length=MAX_CLAIM_VALUE_CHARS)
+    claim_id: str | int | None = Field(
+        default=None,
+        description="Optional bookkeeping value; MAX Grounding generates the canonical claim ID.",
+    )
+    claim_key: str = Field(
+        min_length=1,
+        max_length=MAX_CLAIM_KEY_CHARS,
+        description=(
+            "Structured fact key, or exact_evidence for a literal source span "
+            "that must appear in fetched evidence."
+        ),
+    )
+    value: str = Field(
+        min_length=1,
+        max_length=MAX_CLAIM_VALUE_CHARS,
+        description=(
+            "Proposed fact value. For exact_evidence, provide source text verbatim; "
+            "semantic paraphrases are not accepted as evidence."
+        ),
+    )
 
 
 EvidenceReference = Annotated[
@@ -89,6 +105,10 @@ EvidenceReference = Annotated[
         min_length=MAX_EVIDENCE_REFERENCE_CHARS,
         max_length=MAX_EVIDENCE_REFERENCE_CHARS,
         pattern=r"^[A-Za-z0-9_-]{43}$",
+        description=(
+            "Use only the opaque evidence_ref returned by this service's /v1/fetch; "
+            "source URLs are not evidence references."
+        ),
     ),
 ]
 

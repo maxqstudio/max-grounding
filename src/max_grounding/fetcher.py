@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import http.client
+import json
 import socket
 import ssl
 from html.parser import HTMLParser
@@ -75,26 +76,140 @@ class _PinnedHTTPSConnection(http.client.HTTPSConnection):
 
 class _TextExtractor(HTMLParser):
     _BLOCKED = {"script", "style", "noscript", "template", "svg"}
+    _STRUCTURED_FIELDS = {
+        "name": "Product name",
+        "product:name": "Product name",
+        "brand": "Brand",
+        "product:brand": "Brand",
+        "manufacturer": "Manufacturer",
+        "model": "Model",
+        "gtin": "Barcode",
+        "gtin8": "Barcode",
+        "gtin12": "Barcode",
+        "gtin13": "Barcode",
+        "gtin14": "Barcode",
+        "ean": "Barcode",
+        "upc": "Barcode",
+        "sku": "Product code",
+    }
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self._blocked_depth = 0
+        self._jsonld_script_depth = 0
+        self._jsonld_parts: list[str] = []
+        self._table_cell_count = 0
         self.parts: list[str] = []
+
+    def _append_structured_field(self, key: str, value: str | None) -> None:
+        label = self._STRUCTURED_FIELDS.get(key.strip().casefold())
+        normalized_value = " ".join((value or "").split())
+        if label and normalized_value:
+            self.parts.append(f"; {label} | {normalized_value}; ")
+
+    @staticmethod
+    def _jsonld_text(value: object) -> str | None:
+        if isinstance(value, str):
+            return value
+        if isinstance(value, dict):
+            name = value.get("name")
+            return name if isinstance(name, str) else None
+        return None
+
+    def _append_jsonld_product_fields(self) -> None:
+        try:
+            payload = json.loads("".join(self._jsonld_parts))
+        except (json.JSONDecodeError, TypeError):
+            return
+
+        def visit(node: object) -> None:
+            if isinstance(node, list):
+                for item in node:
+                    visit(item)
+                return
+            if not isinstance(node, dict):
+                return
+
+            node_type = node.get("@type")
+            types = node_type if isinstance(node_type, list) else [node_type]
+            is_product = any(
+                isinstance(value, str)
+                and value.rsplit("/", 1)[-1].casefold() == "product"
+                for value in types
+            )
+            if is_product:
+                for key, label in (
+                    ("name", "Product name"),
+                    ("brand", "Brand"),
+                    ("manufacturer", "Manufacturer"),
+                    ("model", "Model"),
+                    ("gtin", "Barcode"),
+                    ("gtin8", "Barcode"),
+                    ("gtin12", "Barcode"),
+                    ("gtin13", "Barcode"),
+                    ("gtin14", "Barcode"),
+                    ("sku", "Product code"),
+                ):
+                    value = self._jsonld_text(node.get(key))
+                    if value and value.strip():
+                        self.parts.append(f"; {label} | {' '.join(value.split())}; ")
+
+            for key, value in node.items():
+                if key in {"@graph", "mainEntity", "mainEntityOfPage"}:
+                    visit(value)
+
+        visit(payload)
+        self._jsonld_parts.clear()
 
     def handle_starttag(
         self,
         tag: str,
         attrs: list[tuple[str, str | None]],
     ) -> None:
-        if tag.lower() in self._BLOCKED:
+        lowered_tag = tag.lower()
+        attributes = {key.lower(): value for key, value in attrs}
+        script_type = (attributes.get("type") or "").split(";", 1)[0].strip().casefold()
+        if lowered_tag == "script" and script_type == "application/ld+json":
+            self._jsonld_script_depth += 1
+            self._blocked_depth += 1
+            self._jsonld_parts = []
+            return
+        if lowered_tag == "tr":
+            self._table_cell_count = 0
+        if lowered_tag in self._BLOCKED:
             self._blocked_depth += 1
 
+        if lowered_tag == "meta":
+            key = attributes.get("itemprop") or attributes.get("property") or attributes.get("name")
+            if key:
+                self._append_structured_field(key, attributes.get("content"))
+        elif attributes.get("itemprop") and attributes.get("content") is not None:
+            self._append_structured_field(attributes["itemprop"] or "", attributes.get("content"))
+
     def handle_endtag(self, tag: str) -> None:
-        if tag.lower() in self._BLOCKED and self._blocked_depth:
+        lowered_tag = tag.lower()
+        if lowered_tag == "script" and self._jsonld_script_depth:
+            self._append_jsonld_product_fields()
+            self._jsonld_script_depth -= 1
+        if lowered_tag in {"th", "td"}:
+            self._table_cell_count += 1
+            if self._table_cell_count % 2 == 0:
+                self.parts.append(" ; ")
+            else:
+                self.parts.append(" | ")
+        elif lowered_tag == "dt":
+            self.parts.append(" | ")
+        elif lowered_tag == "dd":
+            self.parts.append(" ; ")
+        elif lowered_tag == "tr" and self._table_cell_count % 2:
+            self.parts.append(" ; ")
+        if lowered_tag in self._BLOCKED and self._blocked_depth:
             self._blocked_depth -= 1
 
     def handle_data(self, data: str) -> None:
-        if not self._blocked_depth:
+        if self._jsonld_script_depth:
+            self._jsonld_parts.append(data)
+        elif not self._blocked_depth:
             self.parts.append(data)
 
 
