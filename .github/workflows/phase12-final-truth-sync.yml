@@ -438,6 +438,12 @@ jobs:
           git add .workflow docs README.md .github/workflows
           git commit -m 'docs: sync phase 12 production candidate truth'
 
+      - name: Remove ignored build artifacts before read-only validators
+        shell: bash
+        run: |
+          git clean -fdX
+          test -z "$(git status --porcelain)"
+
       - name: Validate latest STRICT governance on clean tree
         shell: bash
         run: |

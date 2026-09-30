@@ -6,11 +6,28 @@
   "critical": true,
   "entry_condition": "Operator configuration supplies trusted SearXNG, Ollama, and Qdrant service URLs plus a non-empty API key.",
   "authority": "Production service composition and exact capability boundary over accepted Phase 0-11 primitives",
-  "states": ["CONFIG_RECEIVED","RUNTIME_BUILT","OPERATION_EXECUTED","FAILED_CLOSED"],
+  "states": [
+    "CONFIG_RECEIVED",
+    "RUNTIME_BUILT",
+    "OPERATION_EXECUTED",
+    "FAILED_CLOSED"
+  ],
   "transitions": [
-    {"from":"CONFIG_RECEIVED","to":"RUNTIME_BUILT","action":"validate production settings and construct accepted provider/store adapters"},
-    {"from":"RUNTIME_BUILT","to":"OPERATION_EXECUTED","action":"execute bounded search, secure fetch, persistent index, or persistent semantic query"},
-    {"from":"RUNTIME_BUILT","to":"FAILED_CLOSED","action":"reject invalid configuration or provider/store/runtime failure"}
+    {
+      "from": "CONFIG_RECEIVED",
+      "to": "RUNTIME_BUILT",
+      "action": "validate production settings and construct accepted provider/store adapters"
+    },
+    {
+      "from": "RUNTIME_BUILT",
+      "to": "OPERATION_EXECUTED",
+      "action": "execute bounded search, secure fetch, persistent index, or persistent semantic query"
+    },
+    {
+      "from": "RUNTIME_BUILT",
+      "to": "FAILED_CLOSED",
+      "action": "reject invalid configuration or provider/store/runtime failure"
+    }
   ],
   "invariants": [
     "The service facade exposes only search_web, fetch_evidence, index_evidence, query_evidence, and readiness operations accepted by prior phases.",
@@ -33,11 +50,10 @@
   ],
   "source_owners": [
     "src/max_grounding/service.py::build_production_runtime",
-    "src/max_grounding/service.py::GroundingService.search_web",
-    "src/max_grounding/service.py::GroundingService.fetch_evidence",
-    "src/max_grounding/service.py::GroundingService.index_evidence",
-    "src/max_grounding/service.py::GroundingService.query_evidence"
+    "src/max_grounding/service.py"
   ],
-  "tests": ["tests/test_service.py"],
+  "tests": [
+    "tests/test_service.py"
+  ],
   "sequence_session": "docs/sequence/sessions/phase-12-production-runtime.json"
 }
