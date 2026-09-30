@@ -18,7 +18,7 @@ Branch: main
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: a858cf2117412f42c2784ca31440f3b459416283
 Current candidate SHA: external final acceptance evidence
-Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
+Current source digest: f25bc0c0006d49d44ca4dc3500e8cfdb4729a7b58ce4ad88d50b812103137ded
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
