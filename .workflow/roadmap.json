@@ -118,10 +118,12 @@
       "id": "PHASE_12_PRODUCTION_API_MCP",
       "title": "REST, MCP, multi-arch containers, E2E/security/load, and production acceptance",
       "status": "CURRENT",
-      "objective": "Deliver REST, MCP, multi-arch containers, E2E/security/load, and production acceptance without weakening accepted fail-closed and provenance contracts.",
+      "objective": "Maintain the accepted Production V1 REST/MCP, multi-arch container, E2E/security/load-smoke baseline without weakening fail-closed, provenance, or cross-platform contracts.",
       "exit_criteria": [
-        "Freeze a BEFORE sequence plan before implementation.",
-        "Pass exact-head pull-request Acceptance and post-merge main revalidation."
+        "Exact Phase 12 product pull-request head passed permanent Acceptance 13/13.",
+        "Merged Phase 12 main passed permanent post-merge Acceptance 13/13.",
+        "Production V1 closure is merged and revalidated on main.",
+        "Optional Phase 13-16 work remains unpromoted unless explicitly authorized by the Owner."
       ]
     },
     {
