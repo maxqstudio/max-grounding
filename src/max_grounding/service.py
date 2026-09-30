@@ -143,7 +143,10 @@ class GroundingService:
         if not isinstance(url, str) or not url.strip():
             raise ServiceOperationError("evidence URL must be non-empty")
         try:
-            return self._fetcher(url.strip())
+            normalized_url = url.strip()
+            if self._fetcher is fetch_document:
+                return fetch_document(normalized_url)
+            return self._fetcher(normalized_url)
         except ServiceOperationError:
             raise
         except Exception as exc:
@@ -156,7 +159,18 @@ class GroundingService:
             raise ServiceOperationError(
                 f"index URLs must contain between 1 and {MAX_INDEX_URLS} items"
             )
-        documents = tuple(self.fetch_evidence(url) for url in urls)
+        documents_list: list[FetchedDocument] = []
+        for url in urls:
+            if self._fetcher is fetch_document:
+                try:
+                    documents_list.append(fetch_document(url))
+                except ServiceOperationError:
+                    raise
+                except Exception as exc:
+                    raise ServiceOperationError("secure evidence fetch failed") from exc
+            else:
+                documents_list.append(self.fetch_evidence(url))
+        documents = tuple(documents_list)
         try:
             return index_documents(
                 documents,
