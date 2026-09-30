@@ -182,6 +182,8 @@ async def _mcp_probe(base_url: str) -> None:
                 )
                 assert not result.is_error, result
                 structured = result.structured_content
+                if isinstance(structured, dict) and set(structured) == {"result"}:
+                    structured = structured["result"]
                 assert isinstance(structured, list), structured
                 assert structured[0]["chunk"]["source_url"] == GOLD_URL, structured
 
