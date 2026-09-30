@@ -6,6 +6,7 @@ from typing import Any
 
 from mcp.server import MCPServer
 
+from .evidence_authority import DEFAULT_REQUIRED_SOURCES
 from .service import GroundingService
 from .wire import to_wire
 
@@ -61,8 +62,25 @@ def mcp_query_evidence(
     return to_wire(service.query_evidence(query, limit=limit))
 
 
+def mcp_verify_claims(
+    service: GroundingService,
+    *,
+    claims: list[dict[str, Any]] | tuple[dict[str, Any], ...],
+    evidence_refs: list[str] | tuple[str, ...],
+    required_sources: int = DEFAULT_REQUIRED_SOURCES,
+) -> dict[str, Any]:
+    """Return only the server-built verified packet for bounded claim proposals."""
+    return to_wire(
+        service.verify_candidate_claims(
+            claims,
+            evidence_refs=evidence_refs,
+            required_sources=required_sources,
+        )
+    )
+
+
 def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
-    """Register exactly the four production grounding tools."""
+    """Register four retrieval tools and one server-verified output tool."""
 
     def _tool_search_web(
         query: str,
@@ -97,18 +115,34 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
         """Query the accepted persistent semantic evidence index."""
         return mcp_query_evidence(service, query=query, limit=limit)
 
+
+    def _tool_verify_claims(
+        claims: list[dict[str, Any]],
+        evidence_refs: list[str],
+        required_sources: int = DEFAULT_REQUIRED_SOURCES,
+    ) -> dict[str, Any]:
+        """Verify proposals against this instance's opaque server-issued fetch references."""
+        return mcp_verify_claims(
+            service,
+            claims=claims,
+            evidence_refs=evidence_refs,
+            required_sources=required_sources,
+        )
+
     server.tool(name="search_web", structured_output=True)(_tool_search_web)
     server.tool(name="fetch_evidence", structured_output=True)(_tool_fetch_evidence)
     server.tool(name="index_evidence", structured_output=True)(_tool_index_evidence)
     server.tool(name="query_evidence", structured_output=True)(_tool_query_evidence)
+    server.tool(name="verify_claims", structured_output=True)(_tool_verify_claims)
 
 
 def create_mcp_server(service: GroundingService) -> MCPServer:
     server = MCPServer(
         "MAX Grounding",
         instructions=(
-            "Evidence retrieval only. Tools return bounded provenance-bearing evidence; "
-            "they do not produce a final factual answer or research conclusion."
+            "Evidence retrieval and deterministic claim verification only. "
+            "Tools return provenance-bearing evidence or a server-built verified packet; "
+            "they do not generate free-form research conclusions."
         ),
     )
     register_mcp_tools(server, service)

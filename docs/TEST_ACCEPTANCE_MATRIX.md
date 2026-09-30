@@ -7,7 +7,7 @@
 Phase 12 Production V1 remains accepted on merged main 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f. Run 003 is a valid real-stack black-box campaign with findings, not Phase 12A acceptance. Phase 12A acceptance remains NOT_PROVEN until server-owned claim verification, canonical citation binding, fail-closed consumer behavior, fetch taxonomy, redirect-to-private runtime security, persistence, cross-platform CI, and exact-main revalidation pass.
 
 Final tested source: external final acceptance evidence.
-Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
+Current source digest: 2b69fc63105f98415a73db10b5b037c718321e95c40ff44b5bd1cfc334c3609c
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
@@ -48,6 +48,7 @@ Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa134
 - Multi-arch OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705.
 - Phase 12 exact product PR head 45e75bbb051fbe3b1d2d7b66b95aacbd4fbef9e9 passed permanent Acceptance run 36655589837 with 13/13 required jobs.
 - Phase 12 merged main SHA a858cf2117412f42c2784ca31440f3b459416283 passed permanent post-merge Acceptance run 36655739294 with 13/13 required jobs.
+- The generic RUNTIME_E2E truth gate records the accepted Run 003 real-stack campaign only; Phase 12A real-stack/Run 004 acceptance remains NOT_PROVEN under P12A-RUN004.
 
 ## Roadmap synchronization evidence
 
@@ -58,7 +59,7 @@ ROADMAP_SYNC: PASS
 
 Sequence mode for this phase/session: BEFORE
 Sequence session contract: docs/sequence/sessions/phase-12a-verified-output.json
-SEQUENCE_SYNC: NOT_PROVEN
+SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence
 

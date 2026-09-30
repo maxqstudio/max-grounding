@@ -18,11 +18,11 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-12a-verified-output.actual.json",
     "diagram": "docs/sequence/generated/phase-12a-verified-output.actual.mmd",
-    "source_digest": "3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390",
+    "source_digest": "2b69fc63105f98415a73db10b5b037c718321e95c40ff44b5bd1cfc334c3609c",
     "entries": [
-      "src/max_grounding/api.py::create_rest_app",
-      "src/max_grounding/mcp_server.py::create_mcp_server",
-      "src/max_grounding/service.py::build_production_runtime"
+      "src/max_grounding/api.py::verify_endpoint",
+      "src/max_grounding/mcp_server.py::mcp_verify_claims",
+      "src/max_grounding/service.py::GroundingService.verify_candidate_claims"
     ]
   },
   "test_traceability_required": true,

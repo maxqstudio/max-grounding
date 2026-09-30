@@ -18,7 +18,7 @@ Branch: work/phase12a-production-grounding-hardening
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f
 Current candidate SHA: external final acceptance evidence
-Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
+Current source digest: 2b69fc63105f98415a73db10b5b037c718321e95c40ff44b5bd1cfc334c3609c
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -36,7 +36,7 @@ PROJECT_DOCS_SYNC: PASS
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
 Current sequence session: docs/sequence/sessions/phase-12a-verified-output.json
-SEQUENCE_SYNC: NOT_PROVEN
+SEQUENCE_SYNC: PASS
 
 ## Proven
 - Phase 10 closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.
@@ -81,8 +81,8 @@ SEQUENCE_SYNC: NOT_PROVEN
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Complete the frozen Phase 12A verified-output contract and TDD RED before implementation.
-- Implement only the bounded server-owned claim-verification, citation-integrity, fail-closed consumer, fetch-taxonomy, and required security hardening in Phase 12A.
+- Phase 12A BEFORE sequence contract is frozen and TDD RED is recorded at source commit 6d90ade1399397beb0628e4e6544e0c31c313033; continue the narrow verified-output implementation and keep its acceptance unproven until all required gates pass.
+- Complete bounded server-owned claim verification, citation integrity, fail-closed consumer termination, fetch-failure taxonomy, and required security hardening; update semantic contracts and generated docs from the implementation.
 - Run local validation, exact-head GitHub Actions, real-stack Run 004 regression, and security acceptance before any merge.
 - After Phase 12A is accepted, stop at READY_FOR_PRETIO_TESTER_INTEGRATION_PLANNING; Pretio integration requires a separate Owner-authorized step.
 

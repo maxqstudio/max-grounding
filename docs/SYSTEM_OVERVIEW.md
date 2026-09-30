@@ -26,7 +26,7 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 52 files, 1 language categories.
+Observed source inventory: 54 files, 1 language categories.
 
 ## Major components
 
@@ -40,7 +40,7 @@ Observed source inventory: 52 files, 1 language categories.
 | Grounding Engine | Orchestrate validation, bounded search calls, evidence normalization, and fail-closed output. | grounding flow | policy, budget, provider-boundary, evidence |
 | SearXNG Provider | Build a fixed-authority JSON search request, perform bounded non-redirecting HTTP, validate response shape, and emit SourceCandidate values. | SearxngProvider, SearXNG request construction, bounded JSON response handling | models, network-policy |
 | Network Target Policy | Reject unsafe result URLs, resolve result-page hosts at fetch time, reject the entire DNS answer set if any address is non-public, and return only validated public IP targets. | scheme/userinfo/control-character validation, localhost and ambiguous numeric host rejection, literal non-public IP rejection, all-answer DNS public-IP validation |  |
-| Secure Result Fetcher | Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, bound response handling, and extract untrusted visible text. | fetch_document, public-IP-pinned HTTP(S) connection, bounded response policy, visible text extraction | models, network-policy |
+| Secure Result Fetcher | Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, classify bounded secure-fetch failures internally, bound response handling, and extract untrusted visible text. | fetch_document, public-IP-pinned HTTP(S) connection, bounded response policy, secure-fetch failure taxonomy, visible text extraction | models, network-policy |
 | Lexical Retrieval | Turn immutable fetched text into bounded deterministic chunks and rank positive lexical matches with in-memory BM25. | retrieve_lexical, chunk_document, rank_chunks, Unicode lexical tokenization, BM25 lexical scoring, stable chunk provenance | models |
 | Semantic Retrieval | Build bounded deterministic chunks, obtain role-separated dense embeddings through an injected provider, validate vectors fail-closed, and rank positive semantic matches by cosine similarity. | EmbeddingProvider protocol, retrieve_semantic, build_semantic_chunks, embed_bounded, rank_semantic, cosine_similarity, embedding batch/call/dimension bounds, semantic provenance ordering | models, lexical-retrieval |
 | Hybrid Fusion | Combine bounded lexical and semantic ranked hits with fixed equal-weight reciprocal-rank fusion while preserving immutable chunk provenance. | retrieve_hybrid, fuse_hybrid, fixed RRF k=60, hybrid rank validation, hybrid provenance conflict rejection | models, lexical-retrieval, semantic-retrieval |
@@ -51,11 +51,11 @@ Observed source inventory: 52 files, 1 language categories.
 | Concrete Ollama Embedding Runtime | Call pinned Ollama 0.34.0 through bounded stdlib HTTP and validate qwen3-embedding:0.6b output as exactly 1024-dimensional finite vectors. | OllamaEmbeddingProvider, runtime version check, pinned model identity, query instruction, bounded /api/embed transport | models, semantic-retrieval |
 | Persistent Qdrant Vector Store | Create or validate a versioned named-vector schema, persist deterministic chunk provenance, and return bounded validated vector matches. | QdrantVectorStore, Qdrant 1.19.1 runtime check, named-vector collection schema, deterministic point identity, provenance payload validation | models, ollama-embedding-runtime |
 | Persistent Semantic Index and Retrieval | Connect accepted deterministic chunks to the concrete embedding runtime and Qdrant store without weakening semantic-hit validation. | index_documents, retrieve_persistent_semantic, embed_documents_concrete, embed_query_concrete, build_semantic_hits | models, semantic-retrieval, ollama-embedding-runtime, qdrant-vector-store |
-| Production Service Facade | Compose only accepted grounding/search/fetch/persistent-query capabilities behind bounded production operations. | ProductionSettings, GroundingService, build_production_runtime, readiness | engine, secure-fetch, persistent-semantic, searxng-provider, ollama-embedding-runtime, qdrant-vector-store |
-| Authenticated REST Boundary | Expose health/readiness plus four bounded REST evidence operations with API-key auth, body caps, and fail-closed error serialization. | create_rest_app, ProductionSecurityMiddleware, /healthz, /readyz, /v1/search, /v1/fetch, /v1/index, /v1/query | production-service |
-| Authenticated MCP Boundary | Expose exactly four structured evidence tools through MCP Streamable HTTP under the parent authentication and transport-security boundary. | create_mcp_server, search_web, fetch_evidence, index_evidence, query_evidence | production-service, production-rest |
+| Production Service Facade | Compose accepted grounding, secure-fetch, deterministic verified-output, and persistent-query capabilities behind bounded production operations. | ProductionSettings, GroundingService, build_production_runtime, readiness, verify_candidate_claims | engine, secure-fetch, persistent-semantic, searxng-provider, ollama-embedding-runtime, qdrant-vector-store |
+| Authenticated REST Boundary | Expose health/readiness plus five bounded REST operations, including server-owned deterministic verification, with API-key auth, body caps, and fail-closed error serialization. | create_rest_app, ProductionSecurityMiddleware, /healthz, /readyz, /v1/search, /v1/fetch, /v1/index, /v1/query, /v1/verify | production-service |
+| Authenticated MCP Boundary | Expose four structured retrieval tools and one deterministic server-verified output tool through MCP Streamable HTTP under the parent authentication and transport-security boundary. | create_mcp_server, search_web, fetch_evidence, index_evidence, query_evidence, verify_claims | production-service, production-rest |
 | Production Container | Package the Phase 12 service as a non-root Python 3.12 OCI image with healthcheck and multi-architecture build evidence. | Dockerfile, .dockerignore, linux/amd64 image, linux/arm64 image | production-rest, production-mcp |
-| Server-Owned Verification and Citation Boundary | Resolve only server-issued references to accepted fetched evidence, construct evidence assertions server-side, run the deterministic Phase 10 verifier, and emit canonical citations plus an explicit synthesis-safe packet. | server-issued evidence references, evidence reference resolution, bounded candidate claim binding, authoritative verification packet, canonical claim citations | secure-fetch, evidence-graph, claim-verification, production-service, production-rest, production-mcp |
+| Server-Owned Verification and Citation Boundary | Resolve only server-issued references to accepted fetched evidence, construct evidence assertions server-side, run the deterministic Phase 10 verifier, and emit canonical citations plus an explicit synthesis-safe packet. | server-issued evidence references, 15-minute process-local evidence reference registry, evidence reference resolution, same-source exact barcode binding for product fields, bounded candidate claim binding, authoritative verification packet, canonical claim citations | secure-fetch, evidence-graph, claim-verification, production-service, production-rest, production-mcp |
 
 ## Main data flow
 
@@ -379,8 +379,8 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Complete the frozen Phase 12A verified-output contract and TDD RED before implementation.
-- Implement only the bounded server-owned claim-verification, citation-integrity, fail-closed consumer, fetch-taxonomy, and required security hardening in Phase 12A.
+- Phase 12A BEFORE sequence contract is frozen and TDD RED is recorded at source commit 6d90ade1399397beb0628e4e6544e0c31c313033; continue the narrow verified-output implementation and keep its acceptance unproven until all required gates pass.
+- Complete bounded server-owned claim verification, citation integrity, fail-closed consumer termination, fetch-failure taxonomy, and required security hardening; update semantic contracts and generated docs from the implementation.
 - Run local validation, exact-head GitHub Actions, real-stack Run 004 regression, and security acceptance before any merge.
 - After Phase 12A is accepted, stop at READY_FOR_PRETIO_TESTER_INTEGRATION_PLANNING; Pretio integration requires a separate Owner-authorized step.
 

@@ -13,7 +13,7 @@ Repository: maxqstudio/max-grounding
 Active branch: work/phase12a-production-grounding-hardening
 Current authoritative SHA: external final acceptance evidence
 Last accepted SHA: 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f
-Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
+Current source digest: 2b69fc63105f98415a73db10b5b037c718321e95c40ff44b5bd1cfc334c3609c
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.
@@ -47,7 +47,7 @@ External systems: GitHub Actions, operator-configured SearXNG instance, Ollama v
 | Persistent semantic retrieval | src/max_grounding/persistent.py | orchestrate deterministic chunking, concrete embedding, persistent indexing, and validated Qdrant semantic retrieval |
 | Production service facade | src/max_grounding/service.py | compose accepted search, secure fetch, Ollama embedding, and Qdrant persistence behind bounded production operations |
 | Production REST application | src/max_grounding/api.py | serve authenticated bounded REST operations plus public liveness and authenticated readiness |
-| Production MCP server | src/max_grounding/mcp_server.py | expose exactly four structured provenance-bearing evidence tools over authenticated Streamable HTTP |
+| Production MCP server | src/max_grounding/mcp_server.py | expose four structured retrieval tools and one deterministic verified-output tool over authenticated Streamable HTTP |
 | Production container | Dockerfile | run the production ASGI service as a non-root container on linux/amd64 and linux/arm64 |
 
 ## Critical directories

@@ -73,13 +73,13 @@ def runtime() -> MagicMock:
 
 
 class Phase12McpTests(unittest.TestCase):
-    def test_only_four_explicit_grounding_tools_are_registered(self) -> None:
+    def test_five_explicit_grounding_tools_are_registered(self) -> None:
         server = create_mcp_server(runtime())
         tools = asyncio.run(server.list_tools())
         names = {tool.name for tool in tools}
         self.assertEqual(
             names,
-            {"search_web", "fetch_evidence", "index_evidence", "query_evidence"},
+            {"search_web", "fetch_evidence", "index_evidence", "query_evidence", "verify_claims"},
         )
         for forbidden in ("research", "answer", "shell", "filesystem", "command"):
             self.assertNotIn(forbidden, names)

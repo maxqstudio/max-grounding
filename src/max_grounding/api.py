@@ -5,15 +5,22 @@ from __future__ import annotations
 import hmac
 import json
 from contextlib import asynccontextmanager
-from typing import Any
+from typing import Annotated, Any
 
 from fastapi import APIRouter, FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from mcp.server import MCPServer
 from mcp.server.transport_security import TransportSecuritySettings
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.middleware.cors import CORSMiddleware
 
+from . import __version__
+from .evidence_authority import (
+    DEFAULT_REQUIRED_SOURCES,
+    MAX_EVIDENCE_REFERENCE_CHARS,
+    MAX_EVIDENCE_REFERENCES,
+)
 from .errors import GroundingError, InvalidGroundingRequest, ServiceOperationError
 from .mcp_server import create_mcp_server
 from .policy import MAX_QUERY_CHARACTERS, MAX_RESULTS_PER_CALL, MAX_SEARCH_CALLS
@@ -24,6 +31,13 @@ from .service import (
     GroundingService,
     ProductionSettings,
     build_production_runtime,
+)
+from .verification import (
+    MAX_ANSWER_CLAIMS,
+    MAX_CLAIM_ID_CHARS,
+    MAX_CLAIM_KEY_CHARS,
+    MAX_CLAIM_VALUE_CHARS,
+    MAX_REQUIRED_SOURCES,
 )
 from .wire import to_wire
 
@@ -59,6 +73,43 @@ class QueryRequest(BaseModel):
 
     query: str = Field(min_length=1, max_length=MAX_QUERY_CHARACTERS)
     limit: int = Field(default=5, ge=1, le=MAX_RESULTS)
+
+
+class CandidateClaimRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    claim_id: str = Field(min_length=1, max_length=MAX_CLAIM_ID_CHARS)
+    claim_key: str = Field(min_length=1, max_length=MAX_CLAIM_KEY_CHARS)
+    value: str = Field(min_length=1, max_length=MAX_CLAIM_VALUE_CHARS)
+
+
+EvidenceReference = Annotated[
+    str,
+    Field(
+        min_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        max_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        pattern=r"^[A-Za-z0-9_-]{43}$",
+    ),
+]
+
+
+class VerifyRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    claims: tuple[CandidateClaimRequest, ...] = Field(
+        min_length=1,
+        max_length=MAX_ANSWER_CLAIMS,
+    )
+    evidence_refs: tuple[EvidenceReference, ...] = Field(
+        min_length=1,
+        max_length=MAX_EVIDENCE_REFERENCES,
+    )
+    required_sources: int = Field(
+        default=DEFAULT_REQUIRED_SOURCES,
+        ge=1,
+        le=MAX_REQUIRED_SOURCES,
+        strict=True,
+    )
 
 
 def _header_map(scope: dict[str, Any]) -> dict[bytes, bytes]:
@@ -231,6 +282,18 @@ def query_endpoint(payload: QueryRequest, request: Request):
     )
 
 
+@router.post("/v1/verify")
+def verify_endpoint(payload: VerifyRequest, request: Request):
+    claims = tuple(item.model_dump() for item in payload.claims)
+    return to_wire(
+        request.app.state.grounding_service.verify_candidate_claims(
+            claims,
+            evidence_refs=payload.evidence_refs,
+            required_sources=payload.required_sources,
+        )
+    )
+
+
 def create_rest_app(
     service: GroundingService,
     *,
@@ -275,7 +338,7 @@ def create_rest_app(
 
     app = FastAPI(
         title="MAX Grounding",
-        version="0.0.1",
+        version=__version__,
         docs_url=None,
         redoc_url=None,
         openapi_url=None,
@@ -312,6 +375,14 @@ def create_rest_app(
         api_key=api_key,
         max_body_bytes=MAX_REQUEST_BODY_BYTES,
     )
+
+    @app.exception_handler(RequestValidationError)
+    async def request_validation_handler(_request: Request, _exc: RequestValidationError):
+        return JSONResponse(
+            status_code=422,
+            content={"error": "invalid_request"},
+            headers={"Cache-Control": "no-store"},
+        )
 
     @app.exception_handler(InvalidGroundingRequest)
     async def invalid_request_handler(_request: Request, _exc: InvalidGroundingRequest):

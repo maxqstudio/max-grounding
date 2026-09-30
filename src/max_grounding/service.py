@@ -2,13 +2,28 @@
 
 from __future__ import annotations
 
+import logging
 import os
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Callable
 
 from .engine import GroundingEngine
-from .errors import GroundingError, ServiceConfigurationError, ServiceOperationError
+from .evidence_authority import (
+    DEFAULT_REQUIRED_SOURCES,
+    EvidenceAuthority,
+    build_authoritative_verification_packet,
+    build_server_owned_evidence_graph,
+    normalize_candidate_claims,
+)
+from .errors import (
+    FetchError,
+    FetchFailureCategory,
+    GroundingError,
+    InvalidGroundingRequest,
+    ServiceConfigurationError,
+    ServiceOperationError,
+)
 from .fetcher import fetch_document
 from .models import (
     EvidencePack,
@@ -22,9 +37,11 @@ from .providers.ollama_embedding import OllamaEmbeddingProvider
 from .providers.qdrant import QdrantVectorStore
 from .providers.searxng import SearxngProvider
 from .retrieval import MAX_DOCUMENTS, MAX_RESULTS
+from .verification import MAX_REQUIRED_SOURCES, build_synthesis_packet
 
 MAX_INDEX_URLS = MAX_DOCUMENTS
 MIN_API_KEY_CHARS = 32
+_LOGGER = logging.getLogger(__name__)
 
 
 def _required(mapping: Mapping[str, str], name: str) -> str:
@@ -109,11 +126,13 @@ class GroundingService:
         vector_store,
         *,
         fetcher: Callable[[str], FetchedDocument] = fetch_document,
+        evidence_authority: EvidenceAuthority | None = None,
     ) -> None:
         self._search_provider = search_provider
         self._embedding_provider = embedding_provider
         self._vector_store = vector_store
         self._fetcher = fetcher
+        self._evidence_authority = evidence_authority or EvidenceAuthority()
         self._engine = GroundingEngine(search_provider)
 
     def search_web(
@@ -139,18 +158,70 @@ class GroundingService:
             )
         )
 
-    def fetch_evidence(self, url: str) -> FetchedDocument:
-        if not isinstance(url, str) or not url.strip():
-            raise ServiceOperationError("evidence URL must be non-empty")
+    def _fetch_document(self, url: str) -> FetchedDocument:
         try:
-            normalized_url = url.strip()
             if self._fetcher is fetch_document:
-                return fetch_document(normalized_url)
-            return self._fetcher(normalized_url)
+                return fetch_document(url)
+            return self._fetcher(url)
+        except FetchError as exc:
+            # Keep external errors bounded while preserving a safe internal category.
+            _LOGGER.warning(
+                "secure_fetch_failure category=%s status=%s",
+                exc.category.value,
+                exc.status_code,
+            )
+            raise ServiceOperationError("secure evidence fetch failed") from exc
         except ServiceOperationError:
             raise
         except Exception as exc:
+            _LOGGER.warning(
+                "secure_fetch_failure category=%s status=%s",
+                FetchFailureCategory.OTHER.value,
+                None,
+            )
             raise ServiceOperationError("secure evidence fetch failed") from exc
+
+    def fetch_evidence(self, url: str) -> FetchedDocument:
+        if not isinstance(url, str) or not url.strip():
+            raise ServiceOperationError("evidence URL must be non-empty")
+        document = self._fetch_document(url.strip())
+        try:
+            return self._evidence_authority.issue(document)
+        except InvalidGroundingRequest:
+            raise
+        except Exception as exc:
+            raise ServiceOperationError("secure evidence fetch failed") from exc
+
+    def verify_candidate_claims(
+        self,
+        claims: object,
+        *,
+        evidence_refs: object,
+        required_sources: int = DEFAULT_REQUIRED_SOURCES,
+    ):
+        """Verify bounded proposals only against evidence fetched by this service instance."""
+        if (
+            isinstance(required_sources, bool)
+            or not isinstance(required_sources, int)
+            or not 1 <= required_sources <= MAX_REQUIRED_SOURCES
+        ):
+            raise InvalidGroundingRequest("required_sources is outside the accepted range")
+        try:
+            normalized_claims = normalize_candidate_claims(claims)
+            records = self._evidence_authority.resolve(evidence_refs)
+            graph = build_server_owned_evidence_graph(normalized_claims, records)
+            packet = build_synthesis_packet(
+                normalized_claims,
+                graph,
+                required_sources=required_sources,
+            )
+            return build_authoritative_verification_packet(packet, normalized_claims)
+        except InvalidGroundingRequest:
+            raise
+        except GroundingError as exc:
+            raise InvalidGroundingRequest("verification proposal could not be accepted") from exc
+        except Exception as exc:
+            raise ServiceOperationError("verified output operation failed") from exc
 
     def index_evidence(self, urls: Sequence[str]) -> PersistentIndexResult:
         if isinstance(urls, (str, bytes)) or not isinstance(urls, tuple):
@@ -161,15 +232,7 @@ class GroundingService:
             )
         documents_list: list[FetchedDocument] = []
         for url in urls:
-            if self._fetcher is fetch_document:
-                try:
-                    documents_list.append(fetch_document(url))
-                except ServiceOperationError:
-                    raise
-                except Exception as exc:
-                    raise ServiceOperationError("secure evidence fetch failed") from exc
-            else:
-                documents_list.append(self.fetch_evidence(url))
+            documents_list.append(self._fetch_document(url))
         documents = tuple(documents_list)
         try:
             return index_documents(

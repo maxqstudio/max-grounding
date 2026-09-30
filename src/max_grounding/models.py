@@ -100,6 +100,7 @@ class FetchedDocument:
     charset: str
     byte_length: int
     text: str
+    evidence_ref: str | None = None
 
 
 @dataclass(frozen=True, slots=True)

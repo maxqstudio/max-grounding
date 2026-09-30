@@ -8,6 +8,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
+from .. import __version__
 from ..errors import EmbeddingProviderError, RuntimeProviderError
 from ..semantic import MAX_EMBEDDING_BATCH, _validated_vector
 
@@ -78,7 +79,7 @@ def request_ollama_json(
     headers = {
         "Accept": "application/json",
         "Accept-Encoding": "identity",
-        "User-Agent": "max-grounding/0.0.1",
+        "User-Agent": f"max-grounding/{__version__}",
     }
     if payload is not None:
         body = json.dumps(payload, separators=(",", ":")).encode("utf-8")

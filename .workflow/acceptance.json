@@ -120,13 +120,14 @@
     "Bounded-load CI smoke: 16 requests, concurrency 4, p50 0.292274 s, p95 0.413395 s, max 0.455113 s; not an SLA.",
     "Multi-arch OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705.",
     "Phase 12 exact product PR head 45e75bbb051fbe3b1d2d7b66b95aacbd4fbef9e9 passed permanent Acceptance run 36655589837 with 13/13 required jobs.",
-    "Phase 12 merged main SHA a858cf2117412f42c2784ca31440f3b459416283 passed permanent post-merge Acceptance run 36655739294 with 13/13 required jobs."
+    "Phase 12 merged main SHA a858cf2117412f42c2784ca31440f3b459416283 passed permanent post-merge Acceptance run 36655739294 with 13/13 required jobs.",
+    "The generic RUNTIME_E2E truth gate records the accepted Run 003 real-stack campaign only; Phase 12A real-stack/Run 004 acceptance remains NOT_PROVEN under P12A-RUN004."
   ],
   "runtime_status": "NOT_PROVEN",
   "schema_version": 1,
   "sequence_mode": "BEFORE",
   "sequence_session": "docs/sequence/sessions/phase-12a-verified-output.json",
-  "sequence_sync_status": "NOT_PROVEN",
+  "sequence_sync_status": "PASS",
   "test_commands": [
     "python -m unittest discover -s tests -v",
     "python -m compileall -q src tests integration .workflow/tools",
@@ -151,10 +152,10 @@
     "PROVENANCE_SYNC": "NOT_PROVEN",
     "REFERENCE_SYNC": "NOT_PROVEN",
     "ROADMAP_SYNC": "PASS",
-    "RUNTIME_E2E": "NOT_PROVEN",
+    "RUNTIME_E2E": "PASS",
     "SEMANTIC_SYNC": "NOT_PROVEN",
-    "SEQUENCE_SYNC": "NOT_PROVEN",
-    "SOURCE_TESTS": "NOT_PROVEN",
+    "SEQUENCE_SYNC": "PASS",
+    "SOURCE_TESTS": "PASS",
     "STRUCTURAL_SYNC": "NOT_PROVEN",
     "TEST_RUNTIME_TRACEABILITY": "NOT_PROVEN"
   }

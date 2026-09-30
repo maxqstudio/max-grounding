@@ -9,7 +9,8 @@ from html.parser import HTMLParser
 from ipaddress import ip_address
 from urllib.parse import urlsplit, urlunsplit
 
-from .errors import FetchError
+from . import __version__
+from .errors import FetchError, FetchFailureCategory
 from .models import FetchedDocument
 from .network_policy import is_admissible_result_url, resolve_public_addresses
 
@@ -101,9 +102,9 @@ def _require_public_ip(ip: str) -> str:
     try:
         address = ip_address(ip)
     except ValueError as exc:
-        raise FetchError("pinned connection target is not an IP address") from exc
+        raise FetchError("pinned connection target is not an IP address", category=FetchFailureCategory.NETWORK_TARGET_REJECTED) from exc
     if not address.is_global or address.is_multicast:
-        raise FetchError("pinned connection target is not public")
+        raise FetchError("pinned connection target is not public", category=FetchFailureCategory.NETWORK_TARGET_REJECTED)
     return str(address)
 
 
@@ -131,7 +132,7 @@ def open_pinned_connection(
             timeout_seconds,
             context,
         )
-    raise FetchError("only standard HTTP(S) ports are allowed")
+    raise FetchError("only standard HTTP(S) ports are allowed", category=FetchFailureCategory.NETWORK_TARGET_REJECTED)
 
 
 def read_bounded_response(
@@ -144,40 +145,50 @@ def read_bounded_response(
         raise FetchError("max_response_bytes must be greater than zero")
 
     status = int(getattr(response, "status", 0))
+    if 300 <= status < 400:
+        raise FetchError(
+            "result page redirects are not followed",
+            category=FetchFailureCategory.REDIRECT,
+            status_code=status,
+        )
     if status != 200:
-        raise FetchError("result page returned a non-200 response")
+        raise FetchError(
+            "result page returned a non-200 response",
+            category=FetchFailureCategory.HTTP_STATUS,
+            status_code=status,
+        )
 
     encoding = (response.headers.get("Content-Encoding") or "identity").strip().lower()
     if encoding != "identity":
-        raise FetchError("compressed result pages are not accepted")
+        raise FetchError("compressed result pages are not accepted", category=FetchFailureCategory.COMPRESSION_POLICY)
 
     if not response.headers.get("Content-Type"):
-        raise FetchError("result-page Content-Type is required")
+        raise FetchError("result-page Content-Type is required", category=FetchFailureCategory.MEDIA_TYPE)
 
     try:
         media_type = response.headers.get_content_type().lower()
     except (AttributeError, TypeError, ValueError) as exc:
-        raise FetchError("invalid result-page content type") from exc
+        raise FetchError("invalid result-page content type", category=FetchFailureCategory.MEDIA_TYPE) from exc
     if media_type not in _ALLOWED_MEDIA_TYPES:
-        raise FetchError("result-page content type is not approved text")
+        raise FetchError("result-page content type is not approved text", category=FetchFailureCategory.MEDIA_TYPE)
 
     length = response.headers.get("Content-Length")
     if length is not None:
         try:
             declared_length = int(length)
         except ValueError as exc:
-            raise FetchError("invalid result-page Content-Length") from exc
+            raise FetchError("invalid result-page Content-Length", category=FetchFailureCategory.SIZE_LIMIT) from exc
         if declared_length < 0 or declared_length > max_response_bytes:
-            raise FetchError("result page exceeds byte limit")
+            raise FetchError("result page exceeds byte limit", category=FetchFailureCategory.SIZE_LIMIT)
 
     body = response.read(max_response_bytes + 1)
     if len(body) > max_response_bytes:
-        raise FetchError("result page exceeds byte limit")
+        raise FetchError("result page exceeds byte limit", category=FetchFailureCategory.SIZE_LIMIT)
 
     charset = response.headers.get_content_charset() or "utf-8"
     charset = charset.strip().lower().replace("_", "-")
     if charset not in _ALLOWED_CHARSETS:
-        raise FetchError("result-page charset is not approved")
+        raise FetchError("result-page charset is not approved", category=FetchFailureCategory.CHARSET)
 
     return body, media_type, charset
 
@@ -192,26 +203,26 @@ def extract_text(
     try:
         decoded = body.decode(charset, errors="strict")
     except (LookupError, UnicodeDecodeError) as exc:
-        raise FetchError("result page could not be decoded safely") from exc
+        raise FetchError("result page could not be decoded safely", category=FetchFailureCategory.CHARSET) from exc
 
     if media_type == "text/plain":
         return " ".join(decoded.split())
 
     if media_type not in {"text/html", "application/xhtml+xml"}:
-        raise FetchError("unsupported extraction media type")
+        raise FetchError("unsupported extraction media type", category=FetchFailureCategory.MEDIA_TYPE)
 
     parser = _TextExtractor()
     try:
         parser.feed(decoded)
         parser.close()
     except Exception as exc:
-        raise FetchError("result-page HTML parsing failed") from exc
+        raise FetchError("result-page HTML parsing failed", category=FetchFailureCategory.EXTRACTION) from exc
     return " ".join(" ".join(parser.parts).split())
 
 
 def _normalized_fetch_target(url: str) -> tuple[str, str, int, str, str]:
     if not is_admissible_result_url(url):
-        raise FetchError("result URL is not admissible")
+        raise FetchError("result URL is not admissible", category=FetchFailureCategory.URL_POLICY)
 
     parsed = urlsplit(url.strip())
     scheme = parsed.scheme.lower()
@@ -219,7 +230,7 @@ def _normalized_fetch_target(url: str) -> tuple[str, str, int, str, str]:
     default_port = 443 if scheme == "https" else 80
     port = parsed.port or default_port
     if port != default_port:
-        raise FetchError("only standard HTTP(S) ports are allowed")
+        raise FetchError("only standard HTTP(S) ports are allowed", category=FetchFailureCategory.NETWORK_TARGET_REJECTED)
 
     path = parsed.path or "/"
     request_target = path + (("?" + parsed.query) if parsed.query else "")
@@ -267,7 +278,7 @@ def fetch_document(
                 "Host": host_header,
                 "Accept": "text/html, application/xhtml+xml, text/plain;q=0.9",
                 "Accept-Encoding": "identity",
-                "User-Agent": "max-grounding/0.0.1",
+                "User-Agent": f"max-grounding/{__version__}",
                 "Connection": "close",
             },
         )
@@ -283,8 +294,16 @@ def fetch_document(
         )
     except FetchError:
         raise
-    except (http.client.HTTPException, OSError, ssl.SSLError, TimeoutError) as exc:
-        raise FetchError("result-page transport failed") from exc
+    except TimeoutError as exc:
+        raise FetchError("result-page transport timed out", category=FetchFailureCategory.TIMEOUT) from exc
+    except ssl.SSLError as exc:
+        raise FetchError("result-page TLS failed", category=FetchFailureCategory.TLS) from exc
+    except socket.gaierror as exc:
+        raise FetchError("result-page DNS resolution failed", category=FetchFailureCategory.DNS) from exc
+    except http.client.HTTPException as exc:
+        raise FetchError("result-page HTTP transport failed", category=FetchFailureCategory.CONNECTION) from exc
+    except OSError as exc:
+        raise FetchError("result-page connection failed", category=FetchFailureCategory.CONNECTION) from exc
     finally:
         connection.close()
 

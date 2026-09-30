@@ -12,7 +12,7 @@ import socket
 from ipaddress import ip_address
 from urllib.parse import urlsplit
 
-from .errors import FetchError
+from .errors import FetchError, FetchFailureCategory
 
 
 def is_admissible_result_url(url: str) -> bool:
@@ -65,10 +65,10 @@ def resolve_public_addresses(
             proto=socket.IPPROTO_TCP,
         )
     except (socket.gaierror, OSError) as exc:
-        raise FetchError("DNS resolution failed") from exc
+        raise FetchError("DNS resolution failed", category=FetchFailureCategory.DNS) from exc
 
     if not rows:
-        raise FetchError("DNS resolution returned no addresses")
+        raise FetchError("DNS resolution returned no addresses", category=FetchFailureCategory.DNS)
 
     addresses: list[str] = []
     seen: set[str] = set()
@@ -78,10 +78,10 @@ def resolve_public_addresses(
             raw_address = str(sockaddr[0]).split("%", 1)[0]
             address = ip_address(raw_address)
         except (IndexError, TypeError, ValueError) as exc:
-            raise FetchError("DNS resolution returned an invalid address") from exc
+            raise FetchError("DNS resolution returned an invalid address", category=FetchFailureCategory.DNS) from exc
 
         if not address.is_global or address.is_multicast:
-            raise FetchError("DNS resolution returned a non-public address")
+            raise FetchError("DNS resolution returned a non-public address", category=FetchFailureCategory.NETWORK_TARGET_REJECTED)
 
         normalized = str(address)
         if normalized not in seen:
@@ -89,5 +89,5 @@ def resolve_public_addresses(
             addresses.append(normalized)
 
     if not addresses:
-        raise FetchError("DNS resolution returned no usable addresses")
+        raise FetchError("DNS resolution returned no usable addresses", category=FetchFailureCategory.DNS)
     return tuple(addresses)
