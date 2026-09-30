@@ -301,7 +301,7 @@ See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 | runtime | GitHub Actions runner matrix | Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority. |
 | acceptance | GitHub Actions required workflows | A phase is accepted only when its required workflow checks pass on the exact candidate commit. |
 | documentation | .workflow/*.json plus deterministic Project Truth Compiler | Structured specs are semantic authority; docs/ is generated projection. |
-| skill_workflow | maxqstudio/Skill_Workflow@440bcc6b750f7338738903b04a8eb7ac59b6630e | Pinned latest governance tooling including server HTTP route predecessor reachability repair adopted during Phase 12. |
+| skill_workflow | maxqstudio/Skill_Workflow@024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8 | Pinned latest governance tooling including Python class-method path-symbol validation and Phase 12 route-predecessor support. |
 
 ## Mutable vs immutable
 
@@ -314,7 +314,7 @@ See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
 - runtime: Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority.
 - acceptance: A phase is accepted only when its required workflow checks pass on the exact candidate commit.
-- skill_workflow: Pinned latest governance tooling including server HTTP route predecessor reachability repair adopted during Phase 12.
+- skill_workflow: Pinned latest governance tooling including Python class-method path-symbol validation and Phase 12 route-predecessor support.
 
 ### Configuration vs execution snapshot
 
@@ -360,9 +360,9 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Regenerate deterministic Project Truth from the final Phase 12 candidate snapshot and run the latest STRICT validator chain.
-- Open the Phase 12 product pull request only after clean truth sync passes.
-- Merge only if exact-head permanent Acceptance passes, then revalidate merged main before Phase 12 closure.
+- Run permanent exact-head pull-request Acceptance using Skill Workflow 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8.
+- Merge Phase 12 only if every permanent required job passes on the exact pull-request head.
+- Revalidate merged main before accepting Production V1 and closing Phase 12.
 
 Blocked actions:
 - Do not claim external deployment, TLS/reverse-proxy hardening, capacity SLA, or internet-scale performance from repository acceptance evidence.
@@ -378,7 +378,7 @@ Known blockers:
 ### Proven
 
 - Phase 10 closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.
-- Skill Workflow authority is maxqstudio/Skill_Workflow@440bcc6b750f7338738903b04a8eb7ac59b6630e with ROADMAP_SYNC enforced.
+- Skill Workflow authority is maxqstudio/Skill_Workflow@024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8 with ROADMAP_SYNC and Python class-method path-symbol validation enforced.
 - Both Phase 11 BEFORE sequence plans were frozen before implementation at ancestor 7aca8f3886f0698260d2f572782ea30a956be83b.
 - Phase 11 TDD RED run 36611863446 failed before the concrete persistent runtime contract existed; GREEN run 36612347152 passed after implementation.
 - Phase 11 real-service run 36631528065 passed on exact source candidate b20322e074755960b29a4504c95e08a35946c6e2 using Ollama 0.34.0, qwen3-embedding:0.6b, validated 1024-dimensional embeddings, and Qdrant 1.19.1.
@@ -399,7 +399,7 @@ Known blockers:
 - Bounded CI load smoke completed 16 authenticated persistent queries at concurrency 4 with observed p50 0.292274 s, p95 0.413395 s, and max 0.455113 s; these measurements are CI evidence only and are not a production SLA.
 - Multi-arch OCI build for linux/amd64 and linux/arm64 produced a 120 MB archive with SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705.
 - Production container runs as non-root user maxgrounding, exposes port 8080, disables FastAPI docs/OpenAPI/debug, and has an HTTP /healthz container health check.
-- Skill Workflow 440bcc6b750f7338738903b04a8eb7ac59b6630e is the current governance authority; its route-predecessor generator repair passed Ubuntu/Windows upstream self-tests and enables frozen REST SOURCE route evidence without weakening the plan.
+- Skill Workflow class-method path-symbol validator repair PR #4 passed Governance Selftest on Ubuntu and Windows, merged as 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8, passed post-merge main self-test, and is adopted by Phase 12.
 
 ### Not proven
 

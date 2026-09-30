@@ -3,7 +3,7 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: 1b193080922fc95a7955123e0d4c6c950f83c081
+Authority verified at SHA: 886ea1b363694d0f947362ab5b6745e2d768ab0f
 Governance profile: strict
 
 ## Current phase
@@ -16,7 +16,7 @@ ROADMAP_SYNC: PASS
 Repository: maxqstudio/max-grounding
 Branch: work/phase-12-production-api-mcp
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: 1b193080922fc95a7955123e0d4c6c950f83c081
+Last accepted SHA: 886ea1b363694d0f947362ab5b6745e2d768ab0f
 Current candidate SHA: external final acceptance evidence
 Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
 
@@ -40,7 +40,7 @@ SEQUENCE_SYNC: PASS
 
 ## Proven
 - Phase 10 closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.
-- Skill Workflow authority is maxqstudio/Skill_Workflow@440bcc6b750f7338738903b04a8eb7ac59b6630e with ROADMAP_SYNC enforced.
+- Skill Workflow authority is maxqstudio/Skill_Workflow@024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8 with ROADMAP_SYNC and Python class-method path-symbol validation enforced.
 - Both Phase 11 BEFORE sequence plans were frozen before implementation at ancestor 7aca8f3886f0698260d2f572782ea30a956be83b.
 - Phase 11 TDD RED run 36611863446 failed before the concrete persistent runtime contract existed; GREEN run 36612347152 passed after implementation.
 - Phase 11 real-service run 36631528065 passed on exact source candidate b20322e074755960b29a4504c95e08a35946c6e2 using Ollama 0.34.0, qwen3-embedding:0.6b, validated 1024-dimensional embeddings, and Qdrant 1.19.1.
@@ -61,7 +61,7 @@ SEQUENCE_SYNC: PASS
 - Bounded CI load smoke completed 16 authenticated persistent queries at concurrency 4 with observed p50 0.292274 s, p95 0.413395 s, and max 0.455113 s; these measurements are CI evidence only and are not a production SLA.
 - Multi-arch OCI build for linux/amd64 and linux/arm64 produced a 120 MB archive with SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705.
 - Production container runs as non-root user maxgrounding, exposes port 8080, disables FastAPI docs/OpenAPI/debug, and has an HTTP /healthz container health check.
-- Skill Workflow 440bcc6b750f7338738903b04a8eb7ac59b6630e is the current governance authority; its route-predecessor generator repair passed Ubuntu/Windows upstream self-tests and enables frozen REST SOURCE route evidence without weakening the plan.
+- Skill Workflow class-method path-symbol validator repair PR #4 passed Governance Selftest on Ubuntu and Windows, merged as 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8, passed post-merge main self-test, and is adopted by Phase 12.
 
 ## Not proven
 - Final Phase 12 product acceptance is not proven until the clean Project Truth candidate passes exact-head pull-request Acceptance and merged main is revalidated.
@@ -76,9 +76,9 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Regenerate deterministic Project Truth from the final Phase 12 candidate snapshot and run the latest STRICT validator chain.
-- Open the Phase 12 product pull request only after clean truth sync passes.
-- Merge only if exact-head permanent Acceptance passes, then revalidate merged main before Phase 12 closure.
+- Run permanent exact-head pull-request Acceptance using Skill Workflow 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8.
+- Merge Phase 12 only if every permanent required job passes on the exact pull-request head.
+- Revalidate merged main before accepting Production V1 and closing Phase 12.
 
 ## Explicitly blocked
 - Do not claim external deployment, TLS/reverse-proxy hardening, capacity SLA, or internet-scale performance from repository acceptance evidence.
