@@ -100,6 +100,10 @@
     {
       "date": "2026-09-30",
       "change": "Phase 11 accepted on main after exact-head PR Acceptance and post-merge main revalidation both passed 13/13 jobs; real Ollama/Qwen3 embedding and Qdrant restart-persistence evidence is now accepted, and Phase 12 becomes the sole CURRENT roadmap phase."
+    },
+    {
+      "date": "2026-09-30",
+      "change": "Phase 12 advanced governance to Skill Workflow 440bcc6b750f7338738903b04a8eb7ac59b6630e after Ubuntu/Windows self-tests proved the generic HTTP route predecessor reachability repair."
     }
   ]
 }

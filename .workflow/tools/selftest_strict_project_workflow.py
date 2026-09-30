@@ -672,6 +672,20 @@ notes:
         print("DETERMINISTIC_SEQUENCE_LF=PASS")
 
         actual = json.loads(actual_json.read_text(encoding="utf-8"))
+        expected_route_edge = {
+            "from": "HTTP /health",
+            "to": "app.py::health",
+        }
+        if not any(
+            edge.get("from") == expected_route_edge["from"]
+            and edge.get("to") == expected_route_edge["to"]
+            and edge.get("action") == "GET route"
+            for edge in actual.get("edges", [])
+        ):
+            raise RuntimeError(
+                "generate_sequence_actual dropped the HTTP route predecessor edge"
+            )
+        print("HTTP_ROUTE_PREDECESSOR_REACHABILITY=PASS")
         write_json(
             root / "docs" / "sequence" / "sessions" / "health.json",
             {

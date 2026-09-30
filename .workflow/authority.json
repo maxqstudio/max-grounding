@@ -27,8 +27,8 @@
     },
     {
       "concern": "skill_workflow",
-      "authority": "maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259",
-      "meaning": "Pinned latest governance tooling and rules adopted during Phase 10 closure.",
+      "authority": "maxqstudio/Skill_Workflow@440bcc6b750f7338738903b04a8eb7ac59b6630e",
+      "meaning": "Pinned latest governance tooling including server HTTP route predecessor reachability repair adopted during Phase 12.",
       "mutable": false
     }
   ],
