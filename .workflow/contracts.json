@@ -10,6 +10,14 @@
       "error_behavior": "Import/runtime failure blocks acceptance."
     },
     {
+      "method": "VERSION",
+      "path": "max_grounding.__version__",
+      "purpose": "Provide the sole package/service version used by setuptools metadata, REST identity, and provider User-Agent values; OCI releases are identified by immutable image digest and contain this package version.",
+      "authority": "src/max_grounding/__init__.py::__version__; pyproject.toml resolves setuptools version metadata from that attribute; src/max_grounding/api.py uses the same value.",
+      "mutation": "none",
+      "error_behavior": "Package metadata and REST version mismatch blocks acceptance."
+    },
+    {
       "method": "PYTHON",
       "path": "GroundingEngine.ground(request)",
       "purpose": "Produce a bounded evidence pack from one grounding request.",
@@ -47,7 +55,7 @@
       "purpose": "Fetch and extract one untrusted result page through a validated public-IP-pinned connection.",
       "authority": "src/max_grounding/fetcher.py::fetch_document",
       "mutation": "network read only; returns immutable FetchedDocument",
-      "error_behavior": "Invalid URL/port/DNS target, transport/TLS failure, redirect/non-200 response, disallowed content metadata, overflow, or decode failure raises FetchError without returning partial content."
+      "error_behavior": "Invalid URL/port/DNS target, transport/TLS failure, redirect/non-200 response, disallowed content metadata, overflow, or decode failure raises a categorized FetchError without returning partial content; service logs only category/status and returns a bounded generic error."
     },
     {
       "method": "INTERNAL",
@@ -344,6 +352,22 @@
       "authority": "src/max_grounding/mcp_server.py::mcp_query_evidence",
       "mutation": "NONE",
       "error_behavior": "Tool returns bounded provenance-bearing semantic hits."
+    },
+    {
+      "method": "POST",
+      "path": "/v1/verify",
+      "purpose": "Authenticated bounded deterministic verification of candidate claims against server-owned fetched evidence references; returns canonical citations, synthesis_claims, and blocked_claims.",
+      "authority": "src/max_grounding/api.py::verify_endpoint -> src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "mutation": "NONE",
+      "error_behavior": "Only server-issued process-local references can be resolved; malformed/extra/over-limit fields, duplicate claim IDs, mixed barcode identities, and unknown references fail closed with generic bounded errors; only SUPPORTED claims enter synthesis_claims."
+    },
+    {
+      "method": "MCP",
+      "path": "verify_claims",
+      "purpose": "Structured MCP verification operation over server-owned evidence references and deterministic Phase 10 synthesis gating.",
+      "authority": "src/max_grounding/mcp_server.py::mcp_verify_claims -> src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "mutation": "NONE",
+      "error_behavior": "Unknown/forged/expired refs and malformed/over-limit claims fail closed; citations and status fields are server-derived; only SUPPORTED claims are synthesis-safe."
     }
   ],
   "data_contracts": [
@@ -414,13 +438,14 @@
       "legal_writes": [
         "src/max_grounding/fetcher.py::fetch_document result construction"
       ],
-      "retention": "caller-defined after return",
+      "retention": "FetchedDocument content is retained in the service-local evidence registry only for verification-reference lifetime; raw fetcher documents remain immutable request results",
       "invariants": [
         "url has no fragment and uses standard-port HTTP(S)",
         "fetched_from_ip is a validated public IP selected from the fetch-time DNS answer set",
         "media_type and charset passed the explicit allowlist",
         "byte_length is bounded before text extraction",
-        "text is untrusted evidence data and not an instruction authority"
+        "text is untrusted evidence data and not an instruction authority",
+        "evidence_ref is absent in raw fetcher output and may be attached only by the authenticated production service after secure fetch"
       ]
     },
     {
@@ -772,6 +797,38 @@
         "serves port 8080",
         "contains service runtime but excludes tests/governance from build context",
         "amd64 and arm64 build must pass"
+      ]
+    },
+    {
+      "name": "ServerEvidenceReference",
+      "source_of_truth": "MAX Grounding secure-fetch boundary and server-owned evidence authority",
+      "mutability": "immutable opaque reference",
+      "legal_writes": [
+        "MAX Grounding accepted fetch response construction"
+      ],
+      "retention": "15 minutes, maximum 128 records per service process; expires on process restart or eviction",
+      "invariants": [
+        "reference resolves only to exact evidence retrieved and validated by MAX Grounding",
+        "caller cannot supply or alter source URL, document/chunk identity, excerpt, score, or citation fields",
+        "expired, unknown, or altered references fail closed",
+        "reference tokens are exactly 43 URL-safe characters and resolve only within the issuing service process",
+        "when a barcode claim is present, product-field support must be in the same fetched document that binds that exact barcode"
+      ]
+    },
+    {
+      "name": "AuthoritativeVerificationPacket",
+      "source_of_truth": "src/max_grounding/verification.py::build_synthesis_packet plus the production evidence-binding boundary",
+      "mutability": "immutable response projection",
+      "legal_writes": [
+        "authenticated REST/MCP response construction"
+      ],
+      "retention": "request/tool-call lifetime",
+      "invariants": [
+        "verifications includes each validated bounded claim",
+        "synthesis_claims contains only SUPPORTED claims",
+        "PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims are blocked",
+        "canonical citations are produced from server-owned evidence and retain exact source/document/chunk/excerpt binding",
+        "LLM prose and caller citation markers are non-authoritative"
       ]
     }
   ],

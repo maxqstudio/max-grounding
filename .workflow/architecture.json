@@ -125,11 +125,12 @@
     {
       "id": "secure-fetch",
       "name": "Secure Result Fetcher",
-      "purpose": "Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, bound response handling, and extract untrusted visible text.",
+      "purpose": "Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, classify bounded secure-fetch failures internally, bound response handling, and extract untrusted visible text.",
       "owns": [
         "fetch_document",
         "public-IP-pinned HTTP(S) connection",
         "bounded response policy",
+        "secure-fetch failure taxonomy",
         "visible text extraction"
       ],
       "depends_on": [
@@ -316,12 +317,13 @@
     {
       "id": "production-service",
       "name": "Production Service Facade",
-      "purpose": "Compose only accepted grounding/search/fetch/persistent-query capabilities behind bounded production operations.",
+      "purpose": "Compose accepted grounding, secure-fetch, deterministic verified-output, and persistent-query capabilities behind bounded production operations.",
       "owns": [
         "ProductionSettings",
         "GroundingService",
         "build_production_runtime",
-        "readiness"
+        "readiness",
+        "verify_candidate_claims"
       ],
       "depends_on": [
         "engine",
@@ -335,7 +337,7 @@
     {
       "id": "production-rest",
       "name": "Authenticated REST Boundary",
-      "purpose": "Expose health/readiness plus four bounded REST evidence operations with API-key auth, body caps, and fail-closed error serialization.",
+      "purpose": "Expose health/readiness plus five bounded REST operations, including server-owned deterministic verification, with API-key auth, body caps, and fail-closed error serialization.",
       "owns": [
         "create_rest_app",
         "ProductionSecurityMiddleware",
@@ -344,7 +346,8 @@
         "/v1/search",
         "/v1/fetch",
         "/v1/index",
-        "/v1/query"
+        "/v1/query",
+        "/v1/verify"
       ],
       "depends_on": [
         "production-service"
@@ -353,13 +356,14 @@
     {
       "id": "production-mcp",
       "name": "Authenticated MCP Boundary",
-      "purpose": "Expose exactly four structured evidence tools through MCP Streamable HTTP under the parent authentication and transport-security boundary.",
+      "purpose": "Expose four structured retrieval tools and one deterministic server-verified output tool through MCP Streamable HTTP under the parent authentication and transport-security boundary.",
       "owns": [
         "create_mcp_server",
         "search_web",
         "fetch_evidence",
         "index_evidence",
-        "query_evidence"
+        "query_evidence",
+        "verify_claims"
       ],
       "depends_on": [
         "production-service",
@@ -380,6 +384,29 @@
         "production-rest",
         "production-mcp"
       ]
+    },
+    {
+      "id": "verified-output-boundary",
+      "name": "Server-Owned Verification and Citation Boundary",
+      "purpose": "Resolve only server-issued references to accepted fetched evidence, construct evidence assertions server-side, run the deterministic Phase 10 verifier, and emit canonical citations plus an explicit synthesis-safe packet.",
+      "owns": [
+        "server-issued evidence references",
+        "15-minute process-local evidence reference registry",
+        "evidence reference resolution",
+        "same-source exact barcode binding for product fields",
+        "bounded candidate claim binding",
+        "authoritative verification packet",
+        "canonical claim citations"
+      ],
+      "depends_on": [
+        "secure-fetch",
+        "evidence-graph",
+        "claim-verification",
+        "production-service",
+        "production-rest",
+        "production-mcp"
+      ],
+      "authority": "MAX Grounding-owned fetch/provenance plus deterministic Phase 10 verification; external LLM output remains proposal-only."
     }
   ],
   "data_flows": [

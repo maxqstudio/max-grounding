@@ -181,3 +181,12 @@ Type: change
 Type: change
 
 - None declared.
+
+## 2026-09-30 — Phase 12A production grounding hardening authorized
+
+Type: governance
+
+- Phase 12 remains the accepted Production V1 baseline; Phase 12A is current and in progress.
+- Run 003 is retained as accepted black-box evidence with unresolved output-integrity and redirect-to-private findings.
+- Phase 12A requires a critical frozen BEFORE verified-output sequence, TDD RED evidence, server-owned evidence binding, deterministic synthesis gating, real-stack Run 004, and exact-main revalidation before merge.
+- Phase 13-16 remain OPTIONAL; no Pretio integration or deployment is authorized by this phase.

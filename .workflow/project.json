@@ -113,7 +113,7 @@
     {
       "name": "Production MCP server",
       "path": "src/max_grounding/mcp_server.py",
-      "purpose": "expose exactly four structured provenance-bearing evidence tools over authenticated Streamable HTTP"
+      "purpose": "expose four structured retrieval tools and one deterministic verified-output tool over authenticated Streamable HTTP"
     },
     {
       "name": "Production container",

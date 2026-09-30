@@ -40,6 +40,8 @@ Permanent acceptance passed on the exact Phase 12 pull-request head and again af
 
 Phase 13-16 remain OPTIONAL and are not started automatically.
 
+Phase 12A Production Grounding Hardening is CURRENT and IN PROGRESS on `work/phase12a-production-grounding-hardening`. It addresses server-owned verification and canonical citations, fail-closed consumer behavior, fetch-failure classification, and the unproven redirect-to-private security boundary. No Pretio integration or deployment is part of Phase 12A. `src/max_grounding/__init__.py::__version__` is the sole package version source; setuptools metadata, FastAPI identity, and provider User-Agent values derive from it. “Production V1” names the accepted product milestone, not package semver. A released OCI image is identified by its immutable image digest; the package version inside the image remains the same canonical version.
+
 ## Platform policy
 
 Native core-runtime acceptance runs on GitHub-hosted Linux, Windows, and macOS runners.

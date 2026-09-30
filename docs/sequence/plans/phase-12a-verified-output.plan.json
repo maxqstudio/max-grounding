@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PRODUCTION-VERIFIED-OUTPUT",
+  "title": "Phase 12A server-owned verified output and canonical citations",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "consumer",
+      "label": "External consumer / LLM proposal-only",
+      "locator": "external consumer; outside MAX Grounding source",
+      "kind": "actor"
+    },
+    {
+      "id": "verify_rest",
+      "label": "POST /v1/verify",
+      "locator": "src/max_grounding/api.py::verify_endpoint",
+      "kind": "source"
+    },
+    {
+      "id": "verify_mcp",
+      "label": "MCP verify_claims",
+      "locator": "src/max_grounding/mcp_server.py::mcp_verify_claims",
+      "kind": "source"
+    },
+    {
+      "id": "service_verify",
+      "label": "GroundingService.verify_candidate_claims",
+      "locator": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "kind": "source"
+    },
+    {
+      "id": "evidence_authority",
+      "label": "EvidenceAuthority.resolve",
+      "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve",
+      "kind": "source"
+    },
+    {
+      "id": "server_graph",
+      "label": "build_server_owned_evidence_graph",
+      "locator": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph",
+      "kind": "source"
+    },
+    {
+      "id": "synthesis",
+      "label": "build_synthesis_packet",
+      "locator": "src/max_grounding/verification.py::build_synthesis_packet",
+      "kind": "source"
+    },
+    {
+      "id": "authoritative_packet",
+      "label": "build_authoritative_verification_packet",
+      "locator": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "consumer",
+      "to": "verify_rest",
+      "action": "submit bounded candidate claims and opaque server-issued evidence refs; no caller-authored graph or citations",
+      "requirement": "MUST",
+      "verification": "DOCUMENT"
+    },
+    {
+      "from": "consumer",
+      "to": "verify_mcp",
+      "action": "submit the same bounded proposal through MCP",
+      "requirement": "MAY",
+      "verification": "DOCUMENT"
+    },
+    {
+      "from": "verify_rest",
+      "to": "service_verify",
+      "action": "authenticate, validate bounded request, delegate verification",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "verify_mcp",
+      "to": "service_verify",
+      "action": "validate tool input and delegate to the same service method",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "service_verify",
+      "to": "evidence_authority",
+      "action": "resolve opaque refs only from MAX Grounding server-owned evidence",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "service_verify",
+      "to": "server_graph",
+      "action": "construct assertions and quality/provenance from resolved server-owned evidence",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "service_verify",
+      "to": "synthesis",
+      "action": "deterministically classify bounded claims and attach claim-level citations",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "service_verify",
+      "to": "authoritative_packet",
+      "action": "serialize verifications, canonical citations, synthesis claims, and blocked claims",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "evidence_authority",
+      "to": "verify_rest",
+      "action": "unknown, forged, expired, or altered ref returns bounded rejection; no partial packet",
+      "requirement": "MUST",
+      "verification": "DOCUMENT"
+    },
+    {
+      "from": "synthesis",
+      "to": "authoritative_packet",
+      "action": "SUPPORTED only enters synthesis_claims; PARTIAL / CONFLICTED / UNSUPPORTED remain blocked",
+      "requirement": "MUST",
+      "verification": "DOCUMENT"
+    },
+    {
+      "from": "authoritative_packet",
+      "to": "consumer",
+      "action": "consumer treats only server-returned synthesis_claims and canonical citations as authoritative facts",
+      "requirement": "MUST",
+      "verification": "DOCUMENT"
+    }
+  ],
+  "authority_invariants": [
+    "External LLM is candidate-proposal-only and never evidence authority.",
+    "MAX Grounding server-owned fetched evidence is the evidence and citation authority.",
+    "Unknown or fabricated evidence reference fails closed.",
+    "Only SUPPORTED claim enters the synthesis-safe packet; partial, conflicted, and unsupported claims are blocked."
+  ]
+}

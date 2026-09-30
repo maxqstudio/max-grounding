@@ -3,26 +3,26 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: a858cf2117412f42c2784ca31440f3b459416283
+Authority verified at SHA: 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f
 Governance profile: strict
 
 ## Current phase
-Phase: PHASE_12_PRODUCTION_API_MCP
-Status: PRODUCTION_V1_ACCEPTED
-Roadmap phase: PHASE_12_PRODUCTION_API_MCP
+Phase: PHASE_12A_PRODUCTION_GROUNDING_HARDENING
+Status: IN_PROGRESS
+Roadmap phase: PHASE_12A_PRODUCTION_GROUNDING_HARDENING
 ROADMAP_SYNC: PASS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: main
+Branch: work/phase12a-production-grounding-hardening
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: a858cf2117412f42c2784ca31440f3b459416283
+Last accepted SHA: 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f
 Current candidate SHA: external final acceptance evidence
-Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
+Current source digest: 80457afb710405502225b283ca876e22ac97aca66cf7d6419b6895f92df76a2f
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
-Runtime status: PASS
+Runtime status: NOT_PROVEN
 
 ## Documentation governance
 Documentation root: docs/
@@ -35,7 +35,7 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-12-production-runtime.json
+Current sequence session: docs/sequence/sessions/phase-12a-verified-output.json
 SEQUENCE_SYNC: PASS
 
 ## Proven
@@ -65,24 +65,29 @@ SEQUENCE_SYNC: PASS
 - Phase 12 exact product PR head 45e75bbb051fbe3b1d2d7b66b95aacbd4fbef9e9 passed permanent Acceptance run 36655589837 with 13/13 required jobs.
 - Phase 12 merged main SHA a858cf2117412f42c2784ca31440f3b459416283 passed post-merge permanent Acceptance run 36655739294 with 13/13 required jobs.
 - Production V1 repository acceptance is complete through Phase 12; optional Phase 13-16 capabilities remain unpromoted.
+- Run 003 at evidence HEAD 05690c840d8abbc94dcba8e28a5578f3fa2b4f16 is accepted as a valid real-stack black-box campaign, not as Phase 12A acceptance; it observed 18 unresolved citation markers, 9 unsupported assertions, 1 hallucination, and runtime redirect-to-private NOT_PROVEN.
+- The stored Run 003 task prompts, source minimums, and indexing permissions were compared against all 27 raw task transcripts; all 27 matched. The Run 003 manifest-recorded corpus hash differs from the stored benchmark blob hash and remains an evidence-integrity discrepancy.
 
 ## Not proven
 - External production hosting/domain provisioning, TLS termination, reverse-proxy configuration, operator secret management, monitoring/SLOs, and a specific operator SearXNG instance remain deployment/operator concerns rather than repository acceptance evidence.
 - The bounded 16-request concurrency smoke is not a capacity benchmark, latency SLO, availability SLA, or proof of internet-scale load.
 - Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional Phase 13-16 capabilities and are not part of accepted Production V1.
+- Phase 12A server-owned verification, canonical citation binding, bounded fail-closed consumer behavior, fetch-failure taxonomy, runtime redirect-to-private behavior, and exact-main revalidation have not yet been proven.
 
 ## Known blockers
-- None declared.
+- Phase 12A is IN_PROGRESS; merge is prohibited until all Phase 12A blocking acceptance gates pass.
 
 ## Known defects
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Keep Phase 12 as the accepted Production V1 baseline.
-- Do not begin Phase 13-16 unless the Owner explicitly promotes an OPTIONAL phase in the governed roadmap.
-- Future maintenance must preserve exact-head GitHub Actions acceptance, post-merge main revalidation, ROADMAP_SYNC, and Skill Workflow 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8 or an explicitly adopted newer authority.
+- Phase 12A BEFORE sequence contract is frozen and TDD RED is recorded at source commit 6d90ade1399397beb0628e4e6544e0c31c313033; continue the narrow verified-output implementation and keep its acceptance unproven until all required gates pass.
+- Complete bounded server-owned claim verification, citation integrity, fail-closed consumer termination, fetch-failure taxonomy, and required security hardening; update semantic contracts and generated docs from the implementation.
+- Run local validation, exact-head GitHub Actions, real-stack Run 004 regression, and security acceptance before any merge.
+- After Phase 12A is accepted, stop at READY_FOR_PRETIO_TESTER_INTEGRATION_PLANNING; Pretio integration requires a separate Owner-authorized step.
 
 ## Explicitly blocked
-- Do not auto-promote Phase 13, 14, 15, or 16.
-- Do not claim external hosting/TLS/SLA state from repository acceptance.
-- Do not weaken authenticated REST/MCP, provenance, fail-closed, or cross-platform acceptance contracts.
+- Do not merge Phase 12A while any blocking gate is FAIL or NOT_PROVEN.
+- Do not deploy to, configure, or integrate Pretio as part of Phase 12A.
+- Do not promote or start optional Phase 13-16 work.
+- Do not weaken SSRF, DNS validation, IP pinning, redirect policy, authentication, provenance, or evidence bounds to improve recall.

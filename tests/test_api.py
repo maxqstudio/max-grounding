@@ -5,6 +5,7 @@ from unittest.mock import MagicMock
 
 from fastapi.testclient import TestClient
 
+from max_grounding import __version__
 from max_grounding.errors import ServiceOperationError
 from max_grounding.models import (
     EvidencePack,
@@ -95,6 +96,7 @@ class Phase12RestApiTests(unittest.TestCase):
 
     def test_health_is_public_but_readiness_and_v1_operations_require_auth(self) -> None:
         client, _service = self.client()
+        self.assertEqual(client.app.version, __version__)
         self.assertEqual(client.get("/healthz").status_code, 200)
         for method, path, payload in (
             ("get", "/readyz", None),

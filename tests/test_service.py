@@ -3,7 +3,12 @@ from __future__ import annotations
 import unittest
 from unittest.mock import MagicMock, patch
 
-from max_grounding.errors import ServiceConfigurationError, ServiceOperationError
+from max_grounding.errors import (
+    FetchError,
+    FetchFailureCategory,
+    ServiceConfigurationError,
+    ServiceOperationError,
+)
 from max_grounding.models import (
     EvidencePack,
     EvidenceStatus,
@@ -138,6 +143,24 @@ class Phase12ServiceTests(unittest.TestCase):
         self.assertEqual(search.search.call_count, 1)
         self.assertEqual(fetched.url, "https://example.com/a")
         fetcher.assert_called_once_with("https://example.com/a")
+
+    def test_fetch_failure_category_is_logged_without_url_or_error_text(self) -> None:
+        service, *_ = self.service()
+        service._fetcher.side_effect = FetchError(
+            "private fixture URL must not be logged",
+            category=FetchFailureCategory.REDIRECT,
+            status_code=302,
+        )
+        with self.assertLogs("max_grounding.service", level="WARNING") as captured:
+            with self.assertRaises(ServiceOperationError) as error:
+                service.fetch_evidence("https://example.com/private?token=secret")
+        self.assertEqual(str(error.exception), "secure evidence fetch failed")
+        joined = "\n".join(captured.output)
+        self.assertIn("category=redirect", joined)
+        self.assertIn("status=302", joined)
+        self.assertNotIn("example.com", joined)
+        self.assertNotIn("secret", joined)
+        self.assertNotIn("private fixture", joined)
 
     def test_index_and_query_delegate_to_phase11_persistent_contracts(self) -> None:
         service, _search, embed, store, fetcher = self.service()

@@ -3,13 +3,15 @@
 from __future__ import annotations
 
 import http.client
+import json
 import socket
 import ssl
 from html.parser import HTMLParser
 from ipaddress import ip_address
 from urllib.parse import urlsplit, urlunsplit
 
-from .errors import FetchError
+from . import __version__
+from .errors import FetchError, FetchFailureCategory
 from .models import FetchedDocument
 from .network_policy import is_admissible_result_url, resolve_public_addresses
 
@@ -74,26 +76,140 @@ class _PinnedHTTPSConnection(http.client.HTTPSConnection):
 
 class _TextExtractor(HTMLParser):
     _BLOCKED = {"script", "style", "noscript", "template", "svg"}
+    _STRUCTURED_FIELDS = {
+        "name": "Product name",
+        "product:name": "Product name",
+        "brand": "Brand",
+        "product:brand": "Brand",
+        "manufacturer": "Manufacturer",
+        "model": "Model",
+        "gtin": "Barcode",
+        "gtin8": "Barcode",
+        "gtin12": "Barcode",
+        "gtin13": "Barcode",
+        "gtin14": "Barcode",
+        "ean": "Barcode",
+        "upc": "Barcode",
+        "sku": "Product code",
+    }
 
     def __init__(self) -> None:
         super().__init__(convert_charrefs=True)
         self._blocked_depth = 0
+        self._jsonld_script_depth = 0
+        self._jsonld_parts: list[str] = []
+        self._table_cell_count = 0
         self.parts: list[str] = []
+
+    def _append_structured_field(self, key: str, value: str | None) -> None:
+        label = self._STRUCTURED_FIELDS.get(key.strip().casefold())
+        normalized_value = " ".join((value or "").split())
+        if label and normalized_value:
+            self.parts.append(f"; {label} | {normalized_value}; ")
+
+    @staticmethod
+    def _jsonld_text(value: object) -> str | None:
+        if isinstance(value, str):
+            return value
+        if isinstance(value, dict):
+            name = value.get("name")
+            return name if isinstance(name, str) else None
+        return None
+
+    def _append_jsonld_product_fields(self) -> None:
+        try:
+            payload = json.loads("".join(self._jsonld_parts))
+        except (json.JSONDecodeError, TypeError):
+            return
+
+        def visit(node: object) -> None:
+            if isinstance(node, list):
+                for item in node:
+                    visit(item)
+                return
+            if not isinstance(node, dict):
+                return
+
+            node_type = node.get("@type")
+            types = node_type if isinstance(node_type, list) else [node_type]
+            is_product = any(
+                isinstance(value, str)
+                and value.rsplit("/", 1)[-1].casefold() == "product"
+                for value in types
+            )
+            if is_product:
+                for key, label in (
+                    ("name", "Product name"),
+                    ("brand", "Brand"),
+                    ("manufacturer", "Manufacturer"),
+                    ("model", "Model"),
+                    ("gtin", "Barcode"),
+                    ("gtin8", "Barcode"),
+                    ("gtin12", "Barcode"),
+                    ("gtin13", "Barcode"),
+                    ("gtin14", "Barcode"),
+                    ("sku", "Product code"),
+                ):
+                    value = self._jsonld_text(node.get(key))
+                    if value and value.strip():
+                        self.parts.append(f"; {label} | {' '.join(value.split())}; ")
+
+            for key, value in node.items():
+                if key in {"@graph", "mainEntity", "mainEntityOfPage"}:
+                    visit(value)
+
+        visit(payload)
+        self._jsonld_parts.clear()
 
     def handle_starttag(
         self,
         tag: str,
         attrs: list[tuple[str, str | None]],
     ) -> None:
-        if tag.lower() in self._BLOCKED:
+        lowered_tag = tag.lower()
+        attributes = {key.lower(): value for key, value in attrs}
+        script_type = (attributes.get("type") or "").split(";", 1)[0].strip().casefold()
+        if lowered_tag == "script" and script_type == "application/ld+json":
+            self._jsonld_script_depth += 1
+            self._blocked_depth += 1
+            self._jsonld_parts = []
+            return
+        if lowered_tag == "tr":
+            self._table_cell_count = 0
+        if lowered_tag in self._BLOCKED:
             self._blocked_depth += 1
 
+        if lowered_tag == "meta":
+            key = attributes.get("itemprop") or attributes.get("property") or attributes.get("name")
+            if key:
+                self._append_structured_field(key, attributes.get("content"))
+        elif attributes.get("itemprop") and attributes.get("content") is not None:
+            self._append_structured_field(attributes["itemprop"] or "", attributes.get("content"))
+
     def handle_endtag(self, tag: str) -> None:
-        if tag.lower() in self._BLOCKED and self._blocked_depth:
+        lowered_tag = tag.lower()
+        if lowered_tag == "script" and self._jsonld_script_depth:
+            self._append_jsonld_product_fields()
+            self._jsonld_script_depth -= 1
+        if lowered_tag in {"th", "td"}:
+            self._table_cell_count += 1
+            if self._table_cell_count % 2 == 0:
+                self.parts.append(" ; ")
+            else:
+                self.parts.append(" | ")
+        elif lowered_tag == "dt":
+            self.parts.append(" | ")
+        elif lowered_tag == "dd":
+            self.parts.append(" ; ")
+        elif lowered_tag == "tr" and self._table_cell_count % 2:
+            self.parts.append(" ; ")
+        if lowered_tag in self._BLOCKED and self._blocked_depth:
             self._blocked_depth -= 1
 
     def handle_data(self, data: str) -> None:
-        if not self._blocked_depth:
+        if self._jsonld_script_depth:
+            self._jsonld_parts.append(data)
+        elif not self._blocked_depth:
             self.parts.append(data)
 
 
@@ -101,9 +217,9 @@ def _require_public_ip(ip: str) -> str:
     try:
         address = ip_address(ip)
     except ValueError as exc:
-        raise FetchError("pinned connection target is not an IP address") from exc
+        raise FetchError("pinned connection target is not an IP address", category=FetchFailureCategory.NETWORK_TARGET_REJECTED) from exc
     if not address.is_global or address.is_multicast:
-        raise FetchError("pinned connection target is not public")
+        raise FetchError("pinned connection target is not public", category=FetchFailureCategory.NETWORK_TARGET_REJECTED)
     return str(address)
 
 
@@ -131,7 +247,7 @@ def open_pinned_connection(
             timeout_seconds,
             context,
         )
-    raise FetchError("only standard HTTP(S) ports are allowed")
+    raise FetchError("only standard HTTP(S) ports are allowed", category=FetchFailureCategory.NETWORK_TARGET_REJECTED)
 
 
 def read_bounded_response(
@@ -144,40 +260,50 @@ def read_bounded_response(
         raise FetchError("max_response_bytes must be greater than zero")
 
     status = int(getattr(response, "status", 0))
+    if 300 <= status < 400:
+        raise FetchError(
+            "result page redirects are not followed",
+            category=FetchFailureCategory.REDIRECT,
+            status_code=status,
+        )
     if status != 200:
-        raise FetchError("result page returned a non-200 response")
+        raise FetchError(
+            "result page returned a non-200 response",
+            category=FetchFailureCategory.HTTP_STATUS,
+            status_code=status,
+        )
 
     encoding = (response.headers.get("Content-Encoding") or "identity").strip().lower()
     if encoding != "identity":
-        raise FetchError("compressed result pages are not accepted")
+        raise FetchError("compressed result pages are not accepted", category=FetchFailureCategory.COMPRESSION_POLICY)
 
     if not response.headers.get("Content-Type"):
-        raise FetchError("result-page Content-Type is required")
+        raise FetchError("result-page Content-Type is required", category=FetchFailureCategory.MEDIA_TYPE)
 
     try:
         media_type = response.headers.get_content_type().lower()
     except (AttributeError, TypeError, ValueError) as exc:
-        raise FetchError("invalid result-page content type") from exc
+        raise FetchError("invalid result-page content type", category=FetchFailureCategory.MEDIA_TYPE) from exc
     if media_type not in _ALLOWED_MEDIA_TYPES:
-        raise FetchError("result-page content type is not approved text")
+        raise FetchError("result-page content type is not approved text", category=FetchFailureCategory.MEDIA_TYPE)
 
     length = response.headers.get("Content-Length")
     if length is not None:
         try:
             declared_length = int(length)
         except ValueError as exc:
-            raise FetchError("invalid result-page Content-Length") from exc
+            raise FetchError("invalid result-page Content-Length", category=FetchFailureCategory.SIZE_LIMIT) from exc
         if declared_length < 0 or declared_length > max_response_bytes:
-            raise FetchError("result page exceeds byte limit")
+            raise FetchError("result page exceeds byte limit", category=FetchFailureCategory.SIZE_LIMIT)
 
     body = response.read(max_response_bytes + 1)
     if len(body) > max_response_bytes:
-        raise FetchError("result page exceeds byte limit")
+        raise FetchError("result page exceeds byte limit", category=FetchFailureCategory.SIZE_LIMIT)
 
     charset = response.headers.get_content_charset() or "utf-8"
     charset = charset.strip().lower().replace("_", "-")
     if charset not in _ALLOWED_CHARSETS:
-        raise FetchError("result-page charset is not approved")
+        raise FetchError("result-page charset is not approved", category=FetchFailureCategory.CHARSET)
 
     return body, media_type, charset
 
@@ -192,26 +318,26 @@ def extract_text(
     try:
         decoded = body.decode(charset, errors="strict")
     except (LookupError, UnicodeDecodeError) as exc:
-        raise FetchError("result page could not be decoded safely") from exc
+        raise FetchError("result page could not be decoded safely", category=FetchFailureCategory.CHARSET) from exc
 
     if media_type == "text/plain":
         return " ".join(decoded.split())
 
     if media_type not in {"text/html", "application/xhtml+xml"}:
-        raise FetchError("unsupported extraction media type")
+        raise FetchError("unsupported extraction media type", category=FetchFailureCategory.MEDIA_TYPE)
 
     parser = _TextExtractor()
     try:
         parser.feed(decoded)
         parser.close()
     except Exception as exc:
-        raise FetchError("result-page HTML parsing failed") from exc
+        raise FetchError("result-page HTML parsing failed", category=FetchFailureCategory.EXTRACTION) from exc
     return " ".join(" ".join(parser.parts).split())
 
 
 def _normalized_fetch_target(url: str) -> tuple[str, str, int, str, str]:
     if not is_admissible_result_url(url):
-        raise FetchError("result URL is not admissible")
+        raise FetchError("result URL is not admissible", category=FetchFailureCategory.URL_POLICY)
 
     parsed = urlsplit(url.strip())
     scheme = parsed.scheme.lower()
@@ -219,7 +345,7 @@ def _normalized_fetch_target(url: str) -> tuple[str, str, int, str, str]:
     default_port = 443 if scheme == "https" else 80
     port = parsed.port or default_port
     if port != default_port:
-        raise FetchError("only standard HTTP(S) ports are allowed")
+        raise FetchError("only standard HTTP(S) ports are allowed", category=FetchFailureCategory.NETWORK_TARGET_REJECTED)
 
     path = parsed.path or "/"
     request_target = path + (("?" + parsed.query) if parsed.query else "")
@@ -267,7 +393,7 @@ def fetch_document(
                 "Host": host_header,
                 "Accept": "text/html, application/xhtml+xml, text/plain;q=0.9",
                 "Accept-Encoding": "identity",
-                "User-Agent": "max-grounding/0.0.1",
+                "User-Agent": f"max-grounding/{__version__}",
                 "Connection": "close",
             },
         )
@@ -283,8 +409,16 @@ def fetch_document(
         )
     except FetchError:
         raise
-    except (http.client.HTTPException, OSError, ssl.SSLError, TimeoutError) as exc:
-        raise FetchError("result-page transport failed") from exc
+    except TimeoutError as exc:
+        raise FetchError("result-page transport timed out", category=FetchFailureCategory.TIMEOUT) from exc
+    except ssl.SSLError as exc:
+        raise FetchError("result-page TLS failed", category=FetchFailureCategory.TLS) from exc
+    except socket.gaierror as exc:
+        raise FetchError("result-page DNS resolution failed", category=FetchFailureCategory.DNS) from exc
+    except http.client.HTTPException as exc:
+        raise FetchError("result-page HTTP transport failed", category=FetchFailureCategory.CONNECTION) from exc
+    except OSError as exc:
+        raise FetchError("result-page connection failed", category=FetchFailureCategory.CONNECTION) from exc
     finally:
         connection.close()
 

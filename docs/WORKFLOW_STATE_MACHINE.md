@@ -401,9 +401,11 @@ Authority: MCP tool names, schemas, bounded service calls, and Streamable HTTP m
 
 ### Invariants
 
-- Registered tool names are search_web, fetch_evidence, index_evidence, and query_evidence.
+- Registered tool names are search_web, fetch_evidence, index_evidence, query_evidence, and verify_claims.
 - MCP does not expose a fake research, answer, synthesis, shell, arbitrary filesystem, or arbitrary command tool.
 - MCP tool wrappers reuse the same service methods and request bounds as REST.
+- verify_claims accepts only opaque server-issued evidence references, produces citations from server-owned fetch records, and exposes only SUPPORTED claims for synthesis.
+- Evidence references are process-local, expire after 15 minutes, and fail closed after a service restart or when resolved by another process.
 - MCP Streamable HTTP is stateless/JSON-response oriented unless later evidence justifies stateful streaming.
 - Mounted MCP traffic is covered by the same API authentication and request-size policy as production REST traffic.
 - Tool results preserve provenance and never reinterpret unsupported evidence as fact.
@@ -450,10 +452,12 @@ Authority: REST routes, request/response bounds, authentication, and safe error 
 
 - GET /healthz reveals only liveness and requires no secret.
 - GET /readyz reports readiness without returning credentials or provider secrets.
-- POST /v1/search, /v1/fetch, /v1/index, and /v1/query require authentication.
+- POST /v1/search, /v1/fetch, /v1/index, /v1/query, and /v1/verify require authentication.
 - Request bodies are bounded before JSON parsing and typed validation.
 - REST routes expose no arbitrary URL fetch bypass beyond accepted fetch_evidence validation.
 - Error responses do not include raw exception tracebacks, secrets, or untrusted executable content.
+- POST /v1/verify accepts only bounded claims and 43-character server-issued evidence references; only SUPPORTED claims enter synthesis_claims.
+- Malformed request responses are generic and do not echo request values, and verification references expire after 15 minutes or service-process restart.
 - REST response fields preserve exact URLs/chunk identities/provenance returned by accepted core types.
 
 ### Failure behavior
@@ -514,6 +518,60 @@ Authority: Production service composition and exact capability boundary over acc
 ### Rollback behavior
 
 - Service facade construction performs no destructive migration of accepted Phase 11 data.
+
+## FLOW-PRODUCTION-VERIFIED-OUTPUT — Phase 12A verified production output and canonical citations
+
+Purpose: Accept bounded candidate claims only when they bind to server-owned fetched evidence; run deterministic claim verification; return canonical citations and an explicit fail-closed synthesis packet through authenticated REST and MCP.
+Critical: TRUE
+Entry condition: The authenticated Production V1 runtime is ready and the consumer has bounded candidate claims plus opaque evidence references previously issued by MAX Grounding.
+Authority: MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority.
+
+### States
+
+- CANDIDATE_RECEIVED
+- EVIDENCE_REFERENCES_RESOLVED
+- CLAIMS_BOUND
+- CLAIMS_VERIFIED
+- PACKET_BUILT
+- RESPONSE_RETURNED
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| CANDIDATE_RECEIVED | EVIDENCE_REFERENCES_RESOLVED | resolve only opaque references issued for evidence actually fetched and validated by MAX Grounding | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+| EVIDENCE_REFERENCES_RESOLVED | CLAIMS_BOUND | construct evidence assertions from server-owned source/chunk/excerpt records; reject unknown, forged, mutated, or mismatched references | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+| CLAIMS_BOUND | CLAIMS_VERIFIED | invoke deterministic Phase 10 graph and claim verification with bounded claims and independent-source thresholds | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+| CLAIMS_VERIFIED | PACKET_BUILT | attach server-generated canonical citations and place only SUPPORTED claims in synthesis_claims; preserve partial/conflicted/unsupported claims in blocked_claims | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+| PACKET_BUILT | RESPONSE_RETURNED | serialize the same authoritative structured packet through authenticated REST or MCP | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+| CANDIDATE_RECEIVED | REJECTED | fail closed on malformed, unbounded, duplicate, expired, unknown, forged, or caller-authored evidence/citation material | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+
+### Invariants
+
+- The external model may propose bounded claims but has no authority to invent or select evidence identity, source URL, chunk, excerpt, quality score, source count, verification status, or citation.
+- The caller supplies only opaque MAX Grounding evidence references; MAX Grounding resolves references to its own accepted fetched evidence.
+- Unknown, expired, forged, altered, or mismatched evidence references are rejected without partial authoritative output.
+- Canonical source URLs, document/chunk IDs, and exact citations are generated from server-owned evidence records.
+- Only SUPPORTED claims enter synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims remain blocked.
+- Source count uses distinct canonical source URLs and duplicate mirrors do not inflate independent-source count.
+- Search, fetch, indexing, Qdrant persistence, REST authentication/body caps, MCP DNS-rebinding protection, SSRF policy, redirect policy, and response bounds remain unchanged unless a separately evidenced secure compatibility repair is required.
+
+### Failure behavior
+
+- Invalid/unknown evidence references or malformed candidate claims fail closed with a bounded error and no verification packet.
+- A claim with insufficient independent sources is PARTIALLY_SUPPORTED and blocked.
+- An exclusive claim with contradictory evidence is CONFLICTED and blocked.
+- A claim with no exact bound support is UNSUPPORTED and blocked.
+- Only the server-generated canonical citation packet is authoritative; free-form model prose and model-generated citation markers are ignored.
+
+### Restart behavior
+
+- Evidence references are valid only for the documented server-owned evidence lifetime; a reference that can no longer be resolved fails closed. Any persistent reference design must pass restart provenance tests.
+
+### Rollback behavior
+
+- The verification operation is additive and read-only; rollback removes only the new operation and evidence-reference presentation without altering indexed source data.
 
 ## FLOW-RERANK-COMPRESS — Bounded reranking and extractive context compression
 

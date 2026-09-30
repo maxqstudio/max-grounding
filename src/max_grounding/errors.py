@@ -1,5 +1,27 @@
 """Domain errors for deterministic grounding behavior."""
 
+from enum import Enum
+
+
+class FetchFailureCategory(str, Enum):
+    """Safe internal taxonomy for bounded secure-fetch failures."""
+
+    URL_POLICY = "url_policy"
+    DNS = "dns"
+    NETWORK_TARGET_REJECTED = "network_target_rejected"
+    CONNECTION = "connection"
+    TLS = "tls"
+    TIMEOUT = "timeout"
+    HTTP_STATUS = "http_status"
+    HOST_ANTI_BOT = "host_anti_bot"
+    REDIRECT = "redirect"
+    COMPRESSION_POLICY = "compression_policy"
+    MEDIA_TYPE = "media_type"
+    CHARSET = "charset"
+    SIZE_LIMIT = "size_limit"
+    EXTRACTION = "extraction"
+    OTHER = "other"
+
 
 class GroundingError(Exception):
     """Base error for grounding-domain failures."""
@@ -23,6 +45,17 @@ class InvalidProviderConfiguration(SearchProviderError, ValueError):
 
 class FetchError(GroundingError):
     """Raised when an untrusted result page cannot be fetched safely."""
+
+    def __init__(
+        self,
+        message: str,
+        *,
+        category: FetchFailureCategory = FetchFailureCategory.OTHER,
+        status_code: int | None = None,
+    ) -> None:
+        super().__init__(message)
+        self.category = category
+        self.status_code = status_code
 
 
 class RetrievalError(GroundingError, ValueError):

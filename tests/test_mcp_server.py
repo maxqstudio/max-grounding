@@ -73,16 +73,45 @@ def runtime() -> MagicMock:
 
 
 class Phase12McpTests(unittest.TestCase):
-    def test_only_four_explicit_grounding_tools_are_registered(self) -> None:
+    def test_five_explicit_grounding_tools_are_registered(self) -> None:
         server = create_mcp_server(runtime())
         tools = asyncio.run(server.list_tools())
         names = {tool.name for tool in tools}
         self.assertEqual(
             names,
-            {"search_web", "fetch_evidence", "index_evidence", "query_evidence"},
+            {"search_web", "fetch_evidence", "index_evidence", "query_evidence", "verify_claims"},
         )
         for forbidden in ("research", "answer", "shell", "filesystem", "command"):
             self.assertNotIn(forbidden, names)
+
+    def test_verify_tool_schema_explains_server_issued_evidence_refs(self) -> None:
+        server = create_mcp_server(runtime())
+        tools = asyncio.run(server.list_tools())
+        verify = next(tool for tool in tools if tool.name == "verify_claims")
+
+        definitions = verify.input_schema.get("$defs", {})
+        self.assertIn("CandidateClaimProposal", definitions)
+        claim_schema = definitions["CandidateClaimProposal"]
+        self.assertFalse(claim_schema["additionalProperties"])
+        self.assertEqual(
+            set(claim_schema["required"]),
+            {"claim_key", "value"},
+        )
+        self.assertIn(
+            "exact_evidence",
+            claim_schema["properties"]["claim_key"]["description"],
+        )
+        self.assertIn(
+            "verbatim source text",
+            claim_schema["properties"]["value"]["description"],
+        )
+        reference_schema = verify.input_schema["properties"]["evidence_refs"]
+        item_description = reference_schema["items"].get("description", "")
+        self.assertIn("fetch_evidence", item_description)
+        self.assertIn("evidence_ref", item_description)
+        self.assertIn("URL", item_description)
+        self.assertIn("server-generated", verify.description)
+        self.assertIn("literal text span", " ".join(verify.description.split()))
 
     def test_mcp_wrappers_reuse_service_capabilities_and_return_provenance(self) -> None:
         service = runtime()

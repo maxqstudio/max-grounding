@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-12a-verified-output",
+  "phase": "PHASE_12A_PRODUCTION_GROUNDING_HARDENING",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "FROZEN",
+  "implementation_base_sha": "d82dc18ccf46ab63afaf89b70c44887b3892be5b",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-12a-verified-output.plan.json",
+    "frozen": true,
+    "frozen_commit": "d82dc18ccf46ab63afaf89b70c44887b3892be5b",
+    "sha256": "db65a25b7d50973e61b1e8409388498a1ed1be988ce2ccc99d5b73b388d1086e",
+    "diagram": "docs/sequence/generated/phase-12a-verified-output.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-12a-verified-output.actual.json",
+    "diagram": "docs/sequence/generated/phase-12a-verified-output.actual.mmd",
+    "source_digest": "80457afb710405502225b283ca876e22ac97aca66cf7d6419b6895f92df76a2f",
+    "entries": [
+      "src/max_grounding/api.py::verify_endpoint",
+      "src/max_grounding/mcp_server.py::mcp_verify_claims",
+      "src/max_grounding/service.py::GroundingService.verify_candidate_claims"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_verified_output.py",
+    "tests/test_api.py",
+    "tests/test_mcp_server.py",
+    "tests/test_service_security.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}

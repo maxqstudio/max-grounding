@@ -57,3 +57,11 @@ Status: ACCEPTED
 Phase 11 uses Ollama v0.34.0 with qwen3-embedding:0.6b as the first concrete local embedding service and Qdrant v1.19.1 REST as the persistent vector index. Python core adapters remain stdlib-only and service processes remain external/container boundaries.
 
 Rationale: The 0.6B embedding model is small enough for practical self-hosting while retaining 1024-dimensional multilingual embeddings; Qdrant provides a mature persistent vector service. Keeping both behind HTTP contracts preserves native Linux/Windows/macOS core portability and avoids heavyweight Python ML/vector dependencies.
+
+## DEC-0008 — Authorize mandatory Phase 12A production grounding hardening
+
+Status: ACCEPTED
+
+Treat verified production output, canonical citation integrity, fail-closed consumer behavior, fetch-failure classification, and the unproven redirect-to-private security boundary as a mandatory Phase 12A hardening phase before any Pretio tester integration planning. Phase 13-16 remain OPTIONAL.
+
+Rationale: Run 003 is a valid accepted black-box campaign but exposed evidence/citation integrity and security evidence gaps that prevent MAX Grounding from being ready for downstream consumer integration.
