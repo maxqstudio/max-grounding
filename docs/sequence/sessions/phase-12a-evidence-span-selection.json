@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "session_id": "phase-12a-evidence-span-selection",
+  "phase": "PHASE_12A_PRODUCTION_GROUNDING_HARDENING",
+  "mode": "BEFORE",
+  "scope": "CURRENT",
+  "critical": true,
+  "status": "FROZEN",
+  "implementation_base_sha": "835e502075d3a9ce54c0da910647dae06f2967f0",
+  "plan": {
+    "required": true,
+    "contract": "docs/sequence/plans/phase-12a-evidence-span-selection.plan.json",
+    "frozen": true,
+    "frozen_commit": "835e502075d3a9ce54c0da910647dae06f2967f0",
+    "sha256": "fec56eef4c3fae327f265065897e2559d9a8452c7bf915d1cfdcea7729928a98",
+    "diagram": "docs/sequence/generated/phase-12a-evidence-span-selection.plan.mmd"
+  },
+  "actual": {
+    "graph": "docs/sequence/generated/phase-12a-evidence-span-selection.actual.json",
+    "diagram": "docs/sequence/generated/phase-12a-evidence-span-selection.actual.mmd",
+    "source_digest": "80457afb710405502225b283ca876e22ac97aca66cf7d6419b6895f92df76a2f",
+    "entries": [
+      "src/max_grounding/api.py::fetch_endpoint",
+      "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue",
+      "src/max_grounding/api.py::verify_endpoint",
+      "src/max_grounding/service.py::GroundingService.verify_candidate_claims"
+    ]
+  },
+  "test_traceability_required": true,
+  "tests": [
+    "tests/test_verified_output.py",
+    "tests/test_api.py",
+    "tests/test_mcp_server.py",
+    "tests/test_service.py"
+  ],
+  "runtime_trace": {
+    "required": false,
+    "graph": ""
+  },
+  "acceptance_report": ""
+}
