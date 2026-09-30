@@ -24,8 +24,8 @@
     },
     {
       "id": "service_verify",
-      "label": "GroundingService.verify_claims",
-      "locator": "src/max_grounding/service.py::GroundingService.verify_claims",
+      "label": "GroundingService.verify_candidate_claims",
+      "locator": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "kind": "source"
     },
     {

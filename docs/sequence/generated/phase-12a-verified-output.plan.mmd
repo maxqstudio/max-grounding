@@ -1,11 +1,11 @@
 %% GENERATED FILE - DO NOT EDIT
-%% PLAN_SHA256: 5f61cb73d350b3169954d48fdac8e309268ad08523c5ac45ab155c5710f81859
+%% PLAN_SHA256: db65a25b7d50973e61b1e8409388498a1ed1be988ce2ccc99d5b73b388d1086e
 %% FLOW_ID: FLOW-PRODUCTION-VERIFIED-OUTPUT
 sequenceDiagram
     actor consumer_0 as External consumer / LLM proposal-only
     participant verify_rest_1 as POST /v1/verify
     participant verify_mcp_2 as MCP verify_claims
-    participant service_verify_3 as GroundingService.verify_claims
+    participant service_verify_3 as GroundingService.verify_candidate_claims
     participant evidence_authority_4 as EvidenceAuthority.resolve
     participant server_graph_5 as build_server_owned_evidence_graph
     participant synthesis_6 as build_synthesis_packet
