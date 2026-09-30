@@ -7,7 +7,7 @@
 Production V1 repository acceptance is proven through Phase 12: authenticated bounded REST and MCP evidence operations, deterministic provenance/fail-closed grounding contracts, pinned Ollama/Qwen3/Qdrant runtime integration, non-root multi-arch OCI packaging, full Linux/Windows/macOS Python 3.11-3.14 service regression, real Linux container E2E, security checks, and bounded-load smoke. External hosting/TLS/reverse-proxy/SLO operation and optional Phase 13-16 capabilities remain outside this acceptance boundary.
 
 Final tested source: external final acceptance evidence.
-Current source digest: f25bc0c0006d49d44ca4dc3500e8cfdb4729a7b58ce4ad88d50b812103137ded
+Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
