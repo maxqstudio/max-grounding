@@ -65,11 +65,7 @@ jobs:
               actual = load(actual_path)
               session["status"] = "VERIFIED"
               session["actual"]["source_digest"] = actual["source_digest"]
-              session["acceptance_report"] = (
-                  "Phase 12 candidate source head " + FINAL_SOURCE_HEAD
-                  + " passed final sequence/matrix run 36653665732 and "
-                  + "production acceptance run 36653665768."
-              )
+              session["acceptance_report"] = ""
               save(session_path, session)
 
           state = load(".workflow/state.json")
