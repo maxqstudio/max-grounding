@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PHASE12A-EVIDENCE-SPAN-SELECTION",
+  "title": "Phase 12A server-owned evidence span selection and bounded verification recovery",
+  "status": "FROZEN",
+  "nodes": [
+    {
+      "id": "consumer",
+      "label": "External consumer / proposal only",
+      "locator": "external consumer; outside MAX Grounding source",
+      "kind": "actor"
+    },
+    {
+      "id": "fetch",
+      "label": "POST /v1/fetch",
+      "locator": "src/max_grounding/api.py::fetch_endpoint",
+      "kind": "source"
+    },
+    {
+      "id": "issue",
+      "label": "Issue server-owned evidence_ref",
+      "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue",
+      "kind": "source"
+    },
+    {
+      "id": "select",
+      "label": "POST /v1/evidence/spans or MCP select_evidence_spans",
+      "locator": "src/max_grounding/api.py::select_evidence_spans_endpoint",
+      "kind": "source"
+    },
+    {
+      "id": "select_service",
+      "label": "GroundingService.select_evidence_spans",
+      "locator": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
+      "kind": "source"
+    },
+    {
+      "id": "select_authority",
+      "label": "Deterministic lexical/extractive span selection",
+      "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.select_spans",
+      "kind": "source"
+    },
+    {
+      "id": "verify",
+      "label": "POST /v1/verify or MCP verify_claims",
+      "locator": "src/max_grounding/api.py::verify_endpoint",
+      "kind": "source"
+    },
+    {
+      "id": "resolve_spans",
+      "label": "Resolve server-issued evidence_span_refs",
+      "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve_spans",
+      "kind": "source"
+    },
+    {
+      "id": "graph",
+      "label": "Build scoped STRUCTURED_FIELD / EXTRACTIVE_STATEMENT evidence graph",
+      "locator": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph",
+      "kind": "source"
+    },
+    {
+      "id": "packet",
+      "label": "Build deterministic verification packet",
+      "locator": "src/max_grounding/verification.py::build_synthesis_packet",
+      "kind": "source"
+    },
+    {
+      "id": "canonical",
+      "label": "Emit canonical server-owned excerpts and citations",
+      "locator": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "consumer",
+      "to": "fetch",
+      "action": "request secure fetch of a public source URL",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "fetch",
+      "to": "issue",
+      "action": "issue an opaque evidence_ref bound to fetched server-owned text",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "consumer",
+      "to": "select",
+      "action": "submit only the evidence_ref returned by this instance's fetch_evidence and bounded search terms",
+      "requirement": "MUST",
+      "verification": "DOCUMENT"
+    },
+    {
+      "from": "select",
+      "to": "select_service",
+      "action": "authenticate, validate, and delegate span selection",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "select_service",
+      "to": "select_authority",
+      "action": "resolve fetched evidence and deterministically select bounded exact source spans",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "select_authority",
+      "to": "consumer",
+      "action": "return opaque evidence_span_refs with canonical source URL, exact server excerpt, and offsets",
+      "requirement": "MUST",
+      "verification": "DOCUMENT"
+    },
+    {
+      "from": "consumer",
+      "to": "verify",
+      "action": "submit explicit verification modes and span refs without caller-authored citation metadata",
+      "requirement": "MUST",
+      "verification": "DOCUMENT"
+    },
+    {
+      "from": "verify",
+      "to": "resolve_spans",
+      "action": "resolve only unexpired span refs issued by this process from fetched evidence",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "resolve_spans",
+      "to": "graph",
+      "action": "scope each structured assertion to selected server spans and same-source product binding",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "graph",
+      "to": "packet",
+      "action": "classify only deterministic structured field relations or exact extractive statements; never infer semantic paraphrase support",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "packet",
+      "to": "canonical",
+      "action": "preserve independent source URLs, block unsupported/partial/conflicted structured claims, and retain separate exact statement citations",
+      "requirement": "MUST",
+      "verification": "SOURCE"
+    },
+    {
+      "from": "canonical",
+      "to": "consumer",
+      "action": "return server-generated claim IDs, canonical URLs, and server-owned excerpts only",
+      "requirement": "MUST",
+      "verification": "DOCUMENT"
+    },
+    {
+      "from": "canonical",
+      "to": "consumer",
+      "action": "return one machine-readable correction reason for eligible blocked proposals; consumer may retry once only when fetched evidence is usable and no tool/security failure occurred",
+      "requirement": "MAY",
+      "verification": "DOCUMENT"
+    }
+  ],
+  "authority_invariants": [
+    "LLM output is proposal only; MAX Grounding owns evidence identity, source identity, exact excerpt, support status, claim IDs, and citations.",
+    "An evidence_span_ref resolves only to a span selected from a server-owned fetched document in the same process and expires with its evidence_ref or process restart.",
+    "Unknown, forged, expired, or cross-process evidence and span references fail closed.",
+    "STRUCTURED_FIELD support requires a deterministic field/value relationship in the selected server excerpt; nearby words alone do not establish a field relation.",
+    "EXTRACTIVE_STATEMENT value and citation text are copied from one selected server-owned exact span; caller prose cannot replace or concatenate excerpts.",
+    "Multiple selected spans remain separate source excerpts and citations; distinct-source counts use canonical URLs, not span counts.",
+    "Barcode, name, brand, and package facts are bound only within the same fetched canonical source when barcode binding is required.",
+    "Search snippets remain discovery evidence and cannot be resolved as fetched evidence or enter synthesis-safe claims.",
+    "Verification correction is bounded to one consumer retry for eligible proposal formatting or binding failures; there is no semantic/NLI verification and no endless loop.",
+    "Unsupported, partially supported, and conflicted claims remain excluded from authoritative synthesis."
+  ]
+}
