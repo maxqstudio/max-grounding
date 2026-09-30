@@ -1,0 +1,5 @@
+/docs/sequence/plans/*.plan.json text eol=lf
+/docs/sequence/generated/*.plan.mmd text eol=lf
+/docs/*.md text eol=lf
+/.workflow/generated/code_facts.json text eol=lf
+*.py text eol=lf
