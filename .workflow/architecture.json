@@ -312,6 +312,74 @@
         "ollama-embedding-runtime",
         "qdrant-vector-store"
       ]
+    },
+    {
+      "id": "production-service",
+      "name": "Production Service Facade",
+      "purpose": "Compose only accepted grounding/search/fetch/persistent-query capabilities behind bounded production operations.",
+      "owns": [
+        "ProductionSettings",
+        "GroundingService",
+        "build_production_runtime",
+        "readiness"
+      ],
+      "depends_on": [
+        "engine",
+        "secure-fetch",
+        "persistent-semantic",
+        "searxng-provider",
+        "ollama-embedding-runtime",
+        "qdrant-vector-store"
+      ]
+    },
+    {
+      "id": "production-rest",
+      "name": "Authenticated REST Boundary",
+      "purpose": "Expose health/readiness plus four bounded REST evidence operations with API-key auth, body caps, and fail-closed error serialization.",
+      "owns": [
+        "create_rest_app",
+        "ProductionSecurityMiddleware",
+        "/healthz",
+        "/readyz",
+        "/v1/search",
+        "/v1/fetch",
+        "/v1/index",
+        "/v1/query"
+      ],
+      "depends_on": [
+        "production-service"
+      ]
+    },
+    {
+      "id": "production-mcp",
+      "name": "Authenticated MCP Boundary",
+      "purpose": "Expose exactly four structured evidence tools through MCP Streamable HTTP under the parent authentication and transport-security boundary.",
+      "owns": [
+        "create_mcp_server",
+        "search_web",
+        "fetch_evidence",
+        "index_evidence",
+        "query_evidence"
+      ],
+      "depends_on": [
+        "production-service",
+        "production-rest"
+      ]
+    },
+    {
+      "id": "production-container",
+      "name": "Production Container",
+      "purpose": "Package the Phase 12 service as a non-root Python 3.12 OCI image with healthcheck and multi-architecture build evidence.",
+      "owns": [
+        "Dockerfile",
+        ".dockerignore",
+        "linux/amd64 image",
+        "linux/arm64 image"
+      ],
+      "depends_on": [
+        "production-rest",
+        "production-mcp"
+      ]
     }
   ],
   "data_flows": [
@@ -529,6 +597,36 @@
       "from": "Persistent Semantic Index and Retrieval",
       "to": "SemanticHit",
       "meaning": "positive persistent matches are returned through the existing immutable SemanticHit contract"
+    },
+    {
+      "from": "REST caller",
+      "to": "Authenticated REST Boundary",
+      "meaning": "API key is validated before readiness or v1 operations and request bytes are capped before service execution"
+    },
+    {
+      "from": "MCP client",
+      "to": "Authenticated MCP Boundary",
+      "meaning": "parent API-key middleware and MCP transport-security policy protect Streamable HTTP tool access"
+    },
+    {
+      "from": "Authenticated REST Boundary",
+      "to": "Production Service Facade",
+      "meaning": "validated bounded REST payloads invoke only accepted evidence operations"
+    },
+    {
+      "from": "Authenticated MCP Boundary",
+      "to": "Production Service Facade",
+      "meaning": "exactly four structured MCP tools reuse the same accepted evidence operations"
+    },
+    {
+      "from": "Production Service Facade",
+      "to": "SearXNG/Ollama/Qdrant",
+      "meaning": "accepted concrete providers execute bounded search, embedding, and persistent vector operations"
+    },
+    {
+      "from": "Production Container",
+      "to": "REST/MCP callers",
+      "meaning": "non-root ASGI runtime exposes port 8080 with liveness and authenticated service boundaries"
     }
   ],
   "external_boundaries": [
@@ -559,6 +657,18 @@
     {
       "name": "Qdrant service",
       "contract": "Phase 11 accepts Qdrant 1.19.1 through bounded stdlib REST. Collection vector name/model/dimension/schema and returned provenance payload are revalidated; persistent-volume restart recovery is proven by real-service integration."
+    },
+    {
+      "name": "Production REST clients",
+      "contract": "Only /healthz is public. /readyz and all /v1 operations require the configured API key; request bodies are capped and internal exception text is not returned."
+    },
+    {
+      "name": "Production MCP clients",
+      "contract": "Streamable HTTP MCP is protected by parent API-key middleware plus MCP DNS-rebinding/allowed-host policy and exposes exactly search_web, fetch_evidence, index_evidence, and query_evidence."
+    },
+    {
+      "name": "Production OCI runtime",
+      "contract": "Repository acceptance proves a non-root linux/amd64 and linux/arm64 image build and real Linux container E2E; external TLS/reverse proxy/hosting remain operator deployment concerns."
     }
   ]
 }

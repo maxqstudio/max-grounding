@@ -4,36 +4,35 @@
 
 ## Evidence boundary
 
-Phase 11 is accepted: pinned Ollama 0.34.0 + qwen3-embedding:0.6b produces validated 1024-dimensional embeddings, Qdrant 1.19.1 persists provenance-bound vectors, real retrieval survives Qdrant restart, and the portable core/adapters pass Linux/Windows/macOS. Phase 12 REST/MCP exposure, production container/load/security acceptance, and deployment readiness remain unproven.
+Phase 12 proves repository-level Production V1 service readiness: authenticated bounded REST and MCP evidence operations, non-root multi-arch OCI build, full cross-platform service regression, and real Linux container E2E against pinned Ollama/Qwen3/Qdrant. It does not prove external hosting/TLS/reverse-proxy configuration, internet-scale capacity, or optional Phase 13-16 capabilities.
 
 Final tested source: external final acceptance evidence.
-Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
+Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|
-| P11-PLAN | Both Phase 11 BEFORE sequence plans are frozen before implementation and generated ACTUAL flows conform to them. | Frozen ancestor 7aca8f3886f0698260d2f572782ea30a956be83b; Candidate Verify run 36631528126 | PASS |
-| P11-OLLAMA | Pinned Ollama 0.34.0 with qwen3-embedding:0.6b returns validated 1024-dimensional embeddings through the concrete stdlib adapter. | tests/test_ollama_embedding.py; Real Services run 36631528065 | PASS |
-| P11-QDRANT | Pinned Qdrant 1.19.1 accepts the versioned named-vector schema and provenance-bound upsert/query contract. | tests/test_qdrant_store.py; Real Services run 36631528065 | PASS |
-| P11-PERSISTENCE | A real persistent Qdrant volume retains indexed evidence across service restart and returns the expected top evidence after restart. | integration/phase11_services.py; Real Services run 36631528065 | PASS |
-| P11-SEMANTIC | Persistent semantic orchestration preserves bounded concrete embedding roles, deterministic chunk provenance, store compatibility, and accepted SemanticHit reconstruction. | tests/test_persistent_semantic.py; Candidate Verify run 36631528126; Real Services run 36631528065 | PASS |
-| P11-CROSS-OS | Portable Phase 11 core/adapters pass Python 3.11-3.14 on Linux, Windows, and macOS. | Candidate Verify run 36631528126: sequence plus 12/12 runtime matrix jobs PASS | PASS |
+| P12-REST | REST liveness/readiness/search/fetch/index/query contracts are bounded, authenticated except health, and fail closed. | tests/test_api.py; tests/test_service_security.py; run 36653665768 | PASS |
+| P12-MCP | Exactly four structured MCP evidence tools are authenticated and usable through the official Streamable HTTP client. | tests/test_mcp_server.py; integration/phase12_e2e.py; run 36653665768 | PASS |
+| P12-SECURITY | Wrong/missing auth, mounted MCP auth bypass attempts, oversized request bodies, and internal exception leakage are rejected. | tests/test_api.py; tests/test_service_security.py; run 36653665768 | PASS |
+| P12-SEQUENCES | Production runtime, REST, and MCP implementations conform to all three frozen BEFORE sequence plans. | Phase 12 Candidate Verify run 36653665732 | PASS |
+| P12-CROSSOS | Pinned service dependencies and full service suite pass Python 3.11-3.14 on Linux, Windows, and macOS. | Phase 12 Candidate Verify run 36653665732: sequence + 12 service matrix jobs PASS | PASS |
+| P12-REAL-E2E | Real Linux production container E2E passes with Ollama 0.34.0, qwen3-embedding:0.6b, Qdrant 1.19.1, REST, MCP, security, and bounded-load smoke. | Phase 12 Production Acceptance run 36653665768 | PASS |
+| P12-MULTIARCH | Production OCI image builds successfully for linux/amd64 and linux/arm64 and runs as non-root. | Phase 12 Production Acceptance run 36653665768; OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705 | PASS |
 
 ## Test commands
 
 - python -m unittest discover -s tests -v
-- python -m compileall -q src tests .workflow/tools
+- python -m compileall -q src tests integration .workflow/tools
 - python .workflow/tools/validate_sequence_sessions.py
 - python .workflow/tools/validate_project_truth.py
 
 ## Runtime checks
 
-- TDD RED run 36611863446 proved the Phase 11 concrete runtime/index contract absent before implementation.
-- GREEN run 36612347152 passed full unit and compile regression.
-- Real Services run 36631528065 passed exact Ollama/Qwen3/Qdrant version, embedding dimension, index/query, and restart-persistence assertions on candidate b20322e074755960b29a4504c95e08a35946c6e2.
-- Candidate Verify run 36631528126 passed both frozen sequence contracts and all 12 Linux/Windows/macOS Python 3.11-3.14 jobs.
-- Project Truth sync run 36632318429 passed source regression, both sequence contracts, deterministic docs, STRICT clean-tree validation, and product-source unchanged verification.
-- Phase 11 exact PR head 9ec4814be35641a6f2e643d4216fecd09cf008b0 passed Acceptance run 36632963021 with 13/13 required jobs.
-- Phase 11 merged main SHA 1b193080922fc95a7955123e0d4c6c950f83c081 passed post-merge Acceptance run 36633188935 with 13/13 required jobs.
+- Phase 12 final GREEN run 36653665814 passed on source head cc347a91af52c091187a5762a9f64bd7b3d55034.
+- Phase 12 final Candidate Verify run 36653665732 passed all three sequences and all 12 service matrix jobs on source head cc347a91af52c091187a5762a9f64bd7b3d55034.
+- Phase 12 Production Acceptance run 36653665768 passed real container E2E and multi-arch OCI build on source head cc347a91af52c091187a5762a9f64bd7b3d55034.
+- Bounded-load CI smoke: 16 requests, concurrency 4, p50 0.292274 s, p95 0.413395 s, max 0.455113 s; not an SLA.
+- Multi-arch OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705.
 
 ## Roadmap synchronization evidence
 
@@ -43,7 +42,7 @@ ROADMAP_SYNC: PASS
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-11-persistent-index.json
+Sequence session contract: docs/sequence/sessions/phase-12-production-runtime.json
 SEQUENCE_SYNC: PASS
 
 ## Project Truth Compiler evidence

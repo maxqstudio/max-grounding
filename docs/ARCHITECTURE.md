@@ -2,7 +2,7 @@
 
 # ARCHITECTURE
 
-Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
+Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
 
 ## Components
 
@@ -27,6 +27,10 @@ Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a337
 | ollama-embedding-runtime | Concrete Ollama Embedding Runtime | Call pinned Ollama 0.34.0 through bounded stdlib HTTP and validate qwen3-embedding:0.6b output as exactly 1024-dimensional finite vectors. | OllamaEmbeddingProvider, runtime version check, pinned model identity, query instruction, bounded /api/embed transport | models, semantic-retrieval |
 | qdrant-vector-store | Persistent Qdrant Vector Store | Create or validate a versioned named-vector schema, persist deterministic chunk provenance, and return bounded validated vector matches. | QdrantVectorStore, Qdrant 1.19.1 runtime check, named-vector collection schema, deterministic point identity, provenance payload validation | models, ollama-embedding-runtime |
 | persistent-semantic | Persistent Semantic Index and Retrieval | Connect accepted deterministic chunks to the concrete embedding runtime and Qdrant store without weakening semantic-hit validation. | index_documents, retrieve_persistent_semantic, embed_documents_concrete, embed_query_concrete, build_semantic_hits | models, semantic-retrieval, ollama-embedding-runtime, qdrant-vector-store |
+| production-service | Production Service Facade | Compose only accepted grounding/search/fetch/persistent-query capabilities behind bounded production operations. | ProductionSettings, GroundingService, build_production_runtime, readiness | engine, secure-fetch, persistent-semantic, searxng-provider, ollama-embedding-runtime, qdrant-vector-store |
+| production-rest | Authenticated REST Boundary | Expose health/readiness plus four bounded REST evidence operations with API-key auth, body caps, and fail-closed error serialization. | create_rest_app, ProductionSecurityMiddleware, /healthz, /readyz, /v1/search, /v1/fetch, /v1/index, /v1/query | production-service |
+| production-mcp | Authenticated MCP Boundary | Expose exactly four structured evidence tools through MCP Streamable HTTP under the parent authentication and transport-security boundary. | create_mcp_server, search_web, fetch_evidence, index_evidence, query_evidence | production-service, production-rest |
+| production-container | Production Container | Package the Phase 12 service as a non-root Python 3.12 OCI image with healthcheck and multi-architecture build evidence. | Dockerfile, .dockerignore, linux/amd64 image, linux/arm64 image | production-rest, production-mcp |
 
 ## Data flow
 
@@ -73,6 +77,12 @@ Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a337
 - Concrete Ollama Embedding Runtime -> Persistent Qdrant Vector Store: validated 1024-dimensional vectors are stored with immutable chunk provenance
 - Persistent Qdrant Vector Store -> Persistent Semantic Index and Retrieval: bounded query matches are revalidated for point identity, model, dimension, schema, payload provenance, and finite score
 - Persistent Semantic Index and Retrieval -> SemanticHit: positive persistent matches are returned through the existing immutable SemanticHit contract
+- REST caller -> Authenticated REST Boundary: API key is validated before readiness or v1 operations and request bytes are capped before service execution
+- MCP client -> Authenticated MCP Boundary: parent API-key middleware and MCP transport-security policy protect Streamable HTTP tool access
+- Authenticated REST Boundary -> Production Service Facade: validated bounded REST payloads invoke only accepted evidence operations
+- Authenticated MCP Boundary -> Production Service Facade: exactly four structured MCP tools reuse the same accepted evidence operations
+- Production Service Facade -> SearXNG/Ollama/Qdrant: accepted concrete providers execute bounded search, embedding, and persistent vector operations
+- Production Container -> REST/MCP callers: non-root ASGI runtime exposes port 8080 with liveness and authenticated service boundaries
 
 ## External boundaries
 
@@ -83,12 +93,15 @@ Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a337
 - Rerank provider: Injected Phase 7 scoring boundary. Core accepts one bounded Sequence of exactly one finite numeric score per candidate; arbitrary iterables, wrong counts, booleans, non-numeric values, non-finite values, or provider exceptions fail closed. No concrete model/runtime is accepted in Phase 7.
 - Ollama service: Phase 11 accepts exactly Ollama 0.34.0 with qwen3-embedding:0.6b through bounded non-redirecting stdlib HTTP. Query/document output must be exactly 1024 finite dimensions; model/runtime mismatch fails closed.
 - Qdrant service: Phase 11 accepts Qdrant 1.19.1 through bounded stdlib REST. Collection vector name/model/dimension/schema and returned provenance payload are revalidated; persistent-volume restart recovery is proven by real-service integration.
+- Production REST clients: Only /healthz is public. /readyz and all /v1 operations require the configured API key; request bodies are capped and internal exception text is not returned.
+- Production MCP clients: Streamable HTTP MCP is protected by parent API-key middleware plus MCP DNS-rebinding/allowed-host policy and exposes exactly search_web, fetch_evidence, index_evidence, and query_evidence.
+- Production OCI runtime: Repository acceptance proves a non-root linux/amd64 and linux/arm64 image build and real Linux container E2E; external TLS/reverse proxy/hosting remain operator deployment concerns.
 
 ## Observed implementation inventory
 
-Source files: 41
-Source lines: 7864
-Languages: Python=41
+Source files: 52
+Source lines: 9483
+Languages: Python=52
 
 Structural facts come from the code extractor. Component meaning comes from
 .workflow/architecture.json.

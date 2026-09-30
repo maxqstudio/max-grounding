@@ -264,6 +264,86 @@
       "authority": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
       "mutation": "read-only query plus collection compatibility check",
       "error_behavior": "Invalid query/store/provider/match provenance fails closed with PersistentIndexError."
+    },
+    {
+      "method": "GET",
+      "path": "/healthz",
+      "purpose": "Public liveness only.",
+      "authority": "src/max_grounding/api.py::healthz",
+      "mutation": "NONE",
+      "error_behavior": "Returns bounded status only."
+    },
+    {
+      "method": "GET",
+      "path": "/readyz",
+      "purpose": "Authenticated concrete runtime readiness.",
+      "authority": "src/max_grounding/api.py::readyz",
+      "mutation": "NONE",
+      "error_behavior": "Missing/wrong auth is 401; runtime failure is bounded service error."
+    },
+    {
+      "method": "POST",
+      "path": "/v1/search",
+      "purpose": "Authenticated bounded web-search evidence.",
+      "authority": "src/max_grounding/api.py::search_endpoint",
+      "mutation": "NONE",
+      "error_behavior": "Payload bounds or core policy failures fail closed."
+    },
+    {
+      "method": "POST",
+      "path": "/v1/fetch",
+      "purpose": "Authenticated secure evidence fetch.",
+      "authority": "src/max_grounding/api.py::fetch_endpoint",
+      "mutation": "NONE",
+      "error_behavior": "Secure fetch policy remains authoritative; internal exception text is not exposed."
+    },
+    {
+      "method": "POST",
+      "path": "/v1/index",
+      "purpose": "Authenticated bounded persistent evidence indexing.",
+      "authority": "src/max_grounding/api.py::index_endpoint",
+      "mutation": "Qdrant upsert only after secure fetch and validated embeddings",
+      "error_behavior": "Input is capped and persistence failures return bounded service error."
+    },
+    {
+      "method": "POST",
+      "path": "/v1/query",
+      "purpose": "Authenticated bounded persistent semantic evidence query.",
+      "authority": "src/max_grounding/api.py::query_endpoint",
+      "mutation": "NONE",
+      "error_behavior": "Limit is bounded and malformed/persistence failures fail closed."
+    },
+    {
+      "method": "MCP",
+      "path": "search_web",
+      "purpose": "Structured MCP search evidence tool.",
+      "authority": "src/max_grounding/mcp_server.py::mcp_search_web",
+      "mutation": "NONE",
+      "error_behavior": "Tool reuses production service search and returns structured provenance."
+    },
+    {
+      "method": "MCP",
+      "path": "fetch_evidence",
+      "purpose": "Structured MCP secure-fetch evidence tool.",
+      "authority": "src/max_grounding/mcp_server.py::mcp_fetch_evidence",
+      "mutation": "NONE",
+      "error_behavior": "Tool reuses secure production fetch."
+    },
+    {
+      "method": "MCP",
+      "path": "index_evidence",
+      "purpose": "Structured MCP persistent-index tool.",
+      "authority": "src/max_grounding/mcp_server.py::mcp_index_evidence",
+      "mutation": "Qdrant upsert after accepted fetch/embed path",
+      "error_behavior": "Tool input remains bounded by service contract."
+    },
+    {
+      "method": "MCP",
+      "path": "query_evidence",
+      "purpose": "Structured MCP persistent semantic query tool.",
+      "authority": "src/max_grounding/mcp_server.py::mcp_query_evidence",
+      "mutation": "NONE",
+      "error_behavior": "Tool returns bounded provenance-bearing semantic hits."
     }
   ],
   "data_contracts": [
@@ -649,6 +729,49 @@
         "embedding_dimension is 1024",
         "schema_version is 1",
         "point ID is deterministically derived from chunk identity"
+      ]
+    },
+    {
+      "name": "ProductionSettings",
+      "source_of_truth": "src/max_grounding/service.py::ProductionSettings",
+      "mutability": "immutable runtime settings snapshot",
+      "legal_writes": [
+        "operator environment before process start"
+      ],
+      "retention": "process lifetime",
+      "invariants": [
+        "SearXNG/Ollama/Qdrant URLs are required",
+        "API key is at least 32 characters",
+        "secrets are not committed or returned by service errors"
+      ]
+    },
+    {
+      "name": "Public wire payload",
+      "source_of_truth": "src/max_grounding/wire.py::to_wire",
+      "mutability": "immutable serialized response value",
+      "legal_writes": [
+        "REST/MCP response construction"
+      ],
+      "retention": "request/tool-call lifetime",
+      "invariants": [
+        "only dataclasses/enums/tuples/lists/dicts/JSON primitives are serialized",
+        "unsupported public wire types fail closed",
+        "provenance fields are retained"
+      ]
+    },
+    {
+      "name": "Production OCI image",
+      "source_of_truth": "Dockerfile",
+      "mutability": "build artifact",
+      "legal_writes": [
+        "GitHub Actions container build"
+      ],
+      "retention": "CI artifact/build output; registry publication is outside current repo acceptance",
+      "invariants": [
+        "runs as maxgrounding non-root user",
+        "serves port 8080",
+        "contains service runtime but excludes tests/governance from build context",
+        "amd64 and arm64 build must pass"
       ]
     }
   ],

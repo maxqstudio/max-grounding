@@ -13,7 +13,7 @@ Repository: maxqstudio/max-grounding
 Active branch: work/phase-12-production-api-mcp
 Current authoritative SHA: external final acceptance evidence
 Last accepted SHA: 1b193080922fc95a7955123e0d4c6c950f83c081
-Current source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
+Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.
@@ -25,9 +25,9 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 
 ## Technology
 Languages: Python
-Frameworks: Python standard library
-Persistence: Qdrant v1.19.1 persistent vector index in Phase 11 candidate
-External systems: GitHub Actions, operator-configured SearXNG instance, Ollama v0.34.0, qwen3-embedding:0.6b, Qdrant v1.19.1
+Frameworks: Python standard library, FastAPI 0.141.1, Uvicorn 0.54.0, MCP Python SDK 2.2.0
+Persistence: Qdrant 1.19.1 persistent vector index
+External systems: GitHub Actions, operator-configured SearXNG instance, Ollama v0.34.0, qwen3-embedding:0.6b, Qdrant v1.19.1, authenticated REST service, authenticated MCP Streamable HTTP service, Docker/OCI linux/amd64 and linux/arm64 production image
 
 ## Entry points
 
@@ -45,6 +45,10 @@ External systems: GitHub Actions, operator-configured SearXNG instance, Ollama v
 | Ollama embedding adapter | src/max_grounding/providers/ollama_embedding.py | pinned stdlib HTTP adapter for Ollama 0.34.0 and qwen3-embedding:0.6b with validated 1024-dimensional query/document embeddings |
 | Qdrant vector store | src/max_grounding/providers/qdrant.py | pinned stdlib REST adapter for Qdrant 1.19.1 collection validation, provenance-bound upsert, and bounded vector query |
 | Persistent semantic retrieval | src/max_grounding/persistent.py | orchestrate deterministic chunking, concrete embedding, persistent indexing, and validated Qdrant semantic retrieval |
+| Production service facade | src/max_grounding/service.py | compose accepted search, secure fetch, Ollama embedding, and Qdrant persistence behind bounded production operations |
+| Production REST application | src/max_grounding/api.py | serve authenticated bounded REST operations plus public liveness and authenticated readiness |
+| Production MCP server | src/max_grounding/mcp_server.py | expose exactly four structured provenance-bearing evidence tools over authenticated Streamable HTTP |
+| Production container | Dockerfile | run the production ASGI service as a non-root container on linux/amd64 and linux/arm64 |
 
 ## Critical directories
 

@@ -3,7 +3,7 @@
 # FLOW INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
+Source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
 
 ## Flow inventory
 
@@ -19,7 +19,7 @@ Source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
 | FLOW-PHASE-DELIVERY | A phase branch exists from the current accepted main baseline. | .github/workflows/ci.yml, .workflow/state.json | CANDIDATE, ACTIONS_PASS, MERGED_MAIN, MAIN_REVALIDATED | tests/test_bootstrap.py | docs/sequence/sessions/phase-00-bootstrap.json | DECLARED |
 | FLOW-PRODUCTION-MCP | A validated GroundingService runtime, MCPServer instance, and API authentication middleware are available. | src/max_grounding/mcp_server.py::create_mcp_server, src/max_grounding/mcp_server.py::mcp_search_web, src/max_grounding/mcp_server.py::mcp_fetch_evidence, src/max_grounding/mcp_server.py::mcp_index_evidence, src/max_grounding/mcp_server.py::mcp_query_evidence | TOOL_VALIDATED, SERVICE_CALLED, TOOL_RESULT | tests/test_mcp_server.py | docs/sequence/sessions/phase-12-mcp-server.json | DECLARED |
 | FLOW-PRODUCTION-REST | A validated GroundingService runtime and API authentication policy are available. | src/max_grounding/api.py::create_rest_app, src/max_grounding/api.py::healthz, src/max_grounding/api.py::readyz, src/max_grounding/api.py::search_endpoint, src/max_grounding/api.py::fetch_endpoint, src/max_grounding/api.py::index_endpoint, src/max_grounding/api.py::query_endpoint | AUTHENTICATED, VALIDATED, SERVICE_CALLED, RESPONSE_RETURNED | tests/test_api.py, tests/test_service_security.py | docs/sequence/sessions/phase-12-rest-api.json | DECLARED |
-| FLOW-PRODUCTION-RUNTIME | Operator configuration supplies trusted SearXNG, Ollama, and Qdrant service URLs plus a non-empty API key. | src/max_grounding/service.py::build_production_runtime, src/max_grounding/service.py::GroundingService.search_web, src/max_grounding/service.py::GroundingService.fetch_evidence, src/max_grounding/service.py::GroundingService.index_evidence, src/max_grounding/service.py::GroundingService.query_evidence | RUNTIME_BUILT, OPERATION_EXECUTED, FAILED_CLOSED | tests/test_service.py | docs/sequence/sessions/phase-12-production-runtime.json | DECLARED |
+| FLOW-PRODUCTION-RUNTIME | Operator configuration supplies trusted SearXNG, Ollama, and Qdrant service URLs plus a non-empty API key. | src/max_grounding/service.py::build_production_runtime, src/max_grounding/service.py | RUNTIME_BUILT, OPERATION_EXECUTED, FAILED_CLOSED | tests/test_service.py | docs/sequence/sessions/phase-12-production-runtime.json | DECLARED |
 | FLOW-RERANK-COMPRESS | A non-empty query, bounded HybridHit values, and a rerank provider are available. | src/max_grounding/reranking.py::build_grounded_context, src/max_grounding/reranking.py::rerank_hybrid, src/max_grounding/reranking.py::compress_context | RERANKED, COMPRESSED | tests/test_reranking.py | docs/sequence/sessions/phase-07-rerank-compress.json | DECLARED |
 | FLOW-SEARXNG-SEARCH | GroundingEngine invokes SearxngProvider with a validated SearchQuery and operator-trusted SearXNG base URL. | src/max_grounding/providers/searxng.py::search, src/max_grounding/providers/searxng.py::build_searxng_search_url, src/max_grounding/providers/searxng.py::fetch_searxng_json, src/max_grounding/providers/searxng.py::parse_searxng_results, src/max_grounding/network_policy.py::is_admissible_result_url | REQUEST_BUILT, RESPONSE_RECEIVED, RESULTS_VALIDATED, CANDIDATES_READY, PROVIDER_ERROR, PROVIDER_ERROR | tests/test_searxng_provider.py, tests/test_network_policy.py, tests/test_engine.py | docs/sequence/sessions/phase-02-searxng-provider.json | DECLARED |
 | FLOW-SECURE-FETCH | A previously admitted SourceCandidate URL is selected for page retrieval. | src/max_grounding/fetcher.py::fetch_document, src/max_grounding/fetcher.py::open_pinned_connection, src/max_grounding/fetcher.py::read_bounded_response, src/max_grounding/fetcher.py::extract_text, src/max_grounding/network_policy.py::resolve_public_addresses | TARGET_RESOLVED, TARGET_VALIDATED, CONNECTED, RESPONSE_RECEIVED, TEXT_EXTRACTED | tests/test_secure_fetcher.py, tests/test_network_policy.py | docs/sequence/sessions/phase-03-secure-fetch.json | DECLARED |
@@ -30,7 +30,12 @@ Source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
 
 | Method | Route | Handler |
 |---|---|---|
-| | | |
+| GET | /healthz | src/max_grounding/api.py::healthz |
+| GET | /readyz | src/max_grounding/api.py::readyz |
+| POST | /v1/fetch | src/max_grounding/api.py::fetch_endpoint |
+| POST | /v1/index | src/max_grounding/api.py::index_endpoint |
+| POST | /v1/query | src/max_grounding/api.py::query_endpoint |
+| POST | /v1/search | src/max_grounding/api.py::search_endpoint |
 
 Declared flow semantics come from .workflow/workflows. Observed implementation
 facts come from source extraction and sequence artifacts.

@@ -26,7 +26,7 @@ Users / External Systems
     -> State / Evidence Authorities
     -> External Runtime / Outputs
 
-Observed source inventory: 41 files, 1 language categories.
+Observed source inventory: 52 files, 1 language categories.
 
 ## Major components
 
@@ -51,6 +51,10 @@ Observed source inventory: 41 files, 1 language categories.
 | Concrete Ollama Embedding Runtime | Call pinned Ollama 0.34.0 through bounded stdlib HTTP and validate qwen3-embedding:0.6b output as exactly 1024-dimensional finite vectors. | OllamaEmbeddingProvider, runtime version check, pinned model identity, query instruction, bounded /api/embed transport | models, semantic-retrieval |
 | Persistent Qdrant Vector Store | Create or validate a versioned named-vector schema, persist deterministic chunk provenance, and return bounded validated vector matches. | QdrantVectorStore, Qdrant 1.19.1 runtime check, named-vector collection schema, deterministic point identity, provenance payload validation | models, ollama-embedding-runtime |
 | Persistent Semantic Index and Retrieval | Connect accepted deterministic chunks to the concrete embedding runtime and Qdrant store without weakening semantic-hit validation. | index_documents, retrieve_persistent_semantic, embed_documents_concrete, embed_query_concrete, build_semantic_hits | models, semantic-retrieval, ollama-embedding-runtime, qdrant-vector-store |
+| Production Service Facade | Compose only accepted grounding/search/fetch/persistent-query capabilities behind bounded production operations. | ProductionSettings, GroundingService, build_production_runtime, readiness | engine, secure-fetch, persistent-semantic, searxng-provider, ollama-embedding-runtime, qdrant-vector-store |
+| Authenticated REST Boundary | Expose health/readiness plus four bounded REST evidence operations with API-key auth, body caps, and fail-closed error serialization. | create_rest_app, ProductionSecurityMiddleware, /healthz, /readyz, /v1/search, /v1/fetch, /v1/index, /v1/query | production-service |
+| Authenticated MCP Boundary | Expose exactly four structured evidence tools through MCP Streamable HTTP under the parent authentication and transport-security boundary. | create_mcp_server, search_web, fetch_evidence, index_evidence, query_evidence | production-service, production-rest |
+| Production Container | Package the Phase 12 service as a non-root Python 3.12 OCI image with healthcheck and multi-architecture build evidence. | Dockerfile, .dockerignore, linux/amd64 image, linux/arm64 image | production-rest, production-mcp |
 
 ## Main data flow
 
@@ -97,6 +101,12 @@ Observed source inventory: 41 files, 1 language categories.
 - Concrete Ollama Embedding Runtime -> Persistent Qdrant Vector Store: validated 1024-dimensional vectors are stored with immutable chunk provenance
 - Persistent Qdrant Vector Store -> Persistent Semantic Index and Retrieval: bounded query matches are revalidated for point identity, model, dimension, schema, payload provenance, and finite score
 - Persistent Semantic Index and Retrieval -> SemanticHit: positive persistent matches are returned through the existing immutable SemanticHit contract
+- REST caller -> Authenticated REST Boundary: API key is validated before readiness or v1 operations and request bytes are capped before service execution
+- MCP client -> Authenticated MCP Boundary: parent API-key middleware and MCP transport-security policy protect Streamable HTTP tool access
+- Authenticated REST Boundary -> Production Service Facade: validated bounded REST payloads invoke only accepted evidence operations
+- Authenticated MCP Boundary -> Production Service Facade: exactly four structured MCP tools reuse the same accepted evidence operations
+- Production Service Facade -> SearXNG/Ollama/Qdrant: accepted concrete providers execute bounded search, embedding, and persistent vector operations
+- Production Container -> REST/MCP callers: non-root ASGI runtime exposes port 8080 with liveness and authenticated service boundaries
 
 ## Main user workflows
 
@@ -279,7 +289,7 @@ Authority: Temporal metadata validation, deterministic freshness/validity formul
 
 Current phase: PHASE_12_PRODUCTION_API_MCP
 
-Current status: PLANNING
+Current status: CANDIDATE_PENDING_GITHUB_ACTIONS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -291,7 +301,7 @@ See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 | runtime | GitHub Actions runner matrix | Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority. |
 | acceptance | GitHub Actions required workflows | A phase is accepted only when its required workflow checks pass on the exact candidate commit. |
 | documentation | .workflow/*.json plus deterministic Project Truth Compiler | Structured specs are semantic authority; docs/ is generated projection. |
-| skill_workflow | maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259 | Pinned latest governance tooling and rules adopted during Phase 10 closure. |
+| skill_workflow | maxqstudio/Skill_Workflow@440bcc6b750f7338738903b04a8eb7ac59b6630e | Pinned latest governance tooling including server HTTP route predecessor reachability repair adopted during Phase 12. |
 
 ## Mutable vs immutable
 
@@ -304,7 +314,7 @@ See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
 - runtime: Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority.
 - acceptance: A phase is accepted only when its required workflow checks pass on the exact candidate commit.
-- skill_workflow: Pinned latest governance tooling and rules adopted during Phase 10 closure.
+- skill_workflow: Pinned latest governance tooling including server HTTP route predecessor reachability repair adopted during Phase 12.
 
 ### Configuration vs execution snapshot
 
@@ -350,14 +360,15 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Freeze all three Phase 12 BEFORE sequence plans and bind their exact Git ancestry before source implementation.
-- Then implement the minimum production service facade, authenticated REST API, authenticated MCP Streamable HTTP endpoint, and production container boundary under the frozen contracts.
-- Require cross-platform service-unit regression plus Linux real-service E2E, security, bounded load, and amd64/arm64 container-build evidence before Phase 12 acceptance.
+- Regenerate deterministic Project Truth from the final Phase 12 candidate snapshot and run the latest STRICT validator chain.
+- Open the Phase 12 product pull request only after clean truth sync passes.
+- Merge only if exact-head permanent Acceptance passes, then revalidate merged main before Phase 12 closure.
 
 Blocked actions:
-- Do not implement Phase 12 source before all three BEFORE plans are frozen.
-- Do not expose research/final-answer/synthesis capabilities not accepted by Phase 0-11.
-- Do not claim production readiness until real E2E, security, load, container, exact-head PR, and post-merge main acceptance all pass.
+- Do not claim external deployment, TLS/reverse-proxy hardening, capacity SLA, or internet-scale performance from repository acceptance evidence.
+- Do not expose MCP tools outside the accepted four evidence operations.
+- Do not auto-promote optional Phase 13-16 work during Production V1 closure.
+- Do not merge Phase 12 while any exact-head required check is failing or missing.
 
 Known blockers:
 - None declared.
@@ -367,7 +378,7 @@ Known blockers:
 ### Proven
 
 - Phase 10 closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.
-- Skill Workflow authority is maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259 with ROADMAP_SYNC enforced.
+- Skill Workflow authority is maxqstudio/Skill_Workflow@440bcc6b750f7338738903b04a8eb7ac59b6630e with ROADMAP_SYNC enforced.
 - Both Phase 11 BEFORE sequence plans were frozen before implementation at ancestor 7aca8f3886f0698260d2f572782ea30a956be83b.
 - Phase 11 TDD RED run 36611863446 failed before the concrete persistent runtime contract existed; GREEN run 36612347152 passed after implementation.
 - Phase 11 real-service run 36631528065 passed on exact source candidate b20322e074755960b29a4504c95e08a35946c6e2 using Ollama 0.34.0, qwen3-embedding:0.6b, validated 1024-dimensional embeddings, and Qdrant 1.19.1.
@@ -377,11 +388,25 @@ Known blockers:
 - Phase 11 Project Truth sync run 36632318429 passed source regression, both frozen sequence contracts, ROADMAP_SYNC, STRICT governance, clean-tree validation, and source-unchanged verification.
 - Phase 11 exact PR head 9ec4814be35641a6f2e643d4216fecd09cf008b0 passed Acceptance run 36632963021 with 13/13 required jobs.
 - Phase 11 merged main SHA 1b193080922fc95a7955123e0d4c6c950f83c081 passed post-merge Acceptance run 36633188935 with 13/13 required jobs.
+- Skill Workflow route-predecessor generator repair PR #3 passed Governance Selftest on Ubuntu and Windows, merged as 440bcc6b750f7338738903b04a8eb7ac59b6630e, and is adopted by Phase 12.
+- All three Phase 12 BEFORE sequence plans were frozen before implementation at ancestor ec4948e299993f53dfce7b0b7a4affea326d1689.
+- Phase 12 TDD RED run 36635382752 failed before the production REST/MCP service contract existed.
+- Phase 12 final GREEN run 36653665814 passed the complete service/unit/security/container contract suite on source head cc347a91af52c091187a5762a9f64bd7b3d55034.
+- Phase 12 final candidate verification run 36653665732 passed all three frozen PLAN-to-ACTUAL contracts and all 12 Linux/Windows/macOS Python 3.11-3.14 service-matrix jobs on source head cc347a91af52c091187a5762a9f64bd7b3d55034.
+- Phase 12 production acceptance run 36653665768 passed real container REST/MCP/security/bounded-load E2E and linux/amd64 plus linux/arm64 OCI image build on source head cc347a91af52c091187a5762a9f64bd7b3d55034.
+- Real E2E used Ollama 0.34.0, qwen3-embedding:0.6b with 1024 dimensions, and Qdrant 1.19.1 behind the production service container.
+- Real E2E proved public /healthz, authenticated /readyz and v1 operations, unauthenticated REST/MCP rejection, 256 KiB request-body rejection, official MCP client initialize/list/call behavior, and provenance-bearing persistent query output.
+- Bounded CI load smoke completed 16 authenticated persistent queries at concurrency 4 with observed p50 0.292274 s, p95 0.413395 s, and max 0.455113 s; these measurements are CI evidence only and are not a production SLA.
+- Multi-arch OCI build for linux/amd64 and linux/arm64 produced a 120 MB archive with SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705.
+- Production container runs as non-root user maxgrounding, exposes port 8080, disables FastAPI docs/OpenAPI/debug, and has an HTTP /healthz container health check.
+- Skill Workflow 440bcc6b750f7338738903b04a8eb7ac59b6630e is the current governance authority; its route-predecessor generator repair passed Ubuntu/Windows upstream self-tests and enables frozen REST SOURCE route evidence without weakening the plan.
 
 ### Not proven
 
-- Phase 12 REST and MCP public service contracts, multi-arch production containers, end-to-end API behavior, production security/load acceptance, and deployment readiness are not yet proven.
-- Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional later roadmap work.
+- Final Phase 12 product acceptance is not proven until the clean Project Truth candidate passes exact-head pull-request Acceptance and merged main is revalidated.
+- The bounded 16-request concurrency smoke is not a capacity benchmark, latency SLO, availability SLA, or proof of internet-scale load.
+- Deployment to an external production host/domain, TLS termination, reverse proxy configuration, external secret management, and a specific operator SearXNG production instance remain deployment concerns rather than proven repository-hosted deployment state.
+- Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional Phase 13-16 work and are not part of Production V1 acceptance.
 
 ## Important limitations
 

@@ -5,7 +5,7 @@
   "mode": "BEFORE",
   "scope": "CURRENT",
   "critical": true,
-  "status": "FROZEN",
+  "status": "VERIFIED",
   "implementation_base_sha": "ec4948e299993f53dfce7b0b7a4affea326d1689",
   "plan": {
     "required": true,
@@ -18,7 +18,7 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-12-rest-api.actual.json",
     "diagram": "docs/sequence/generated/phase-12-rest-api.actual.mmd",
-    "source_digest": "",
+    "source_digest": "3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390",
     "entries": [
       "src/max_grounding/api.py::healthz",
       "src/max_grounding/api.py::readyz",
