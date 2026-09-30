@@ -10,9 +10,9 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase12a-production-grounding-hardening
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: a858cf2117412f42c2784ca31440f3b459416283
+Last accepted SHA: 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f
 Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
 
 ## Authorities

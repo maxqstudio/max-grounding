@@ -7,3 +7,6 @@
 | Grounding | Binding generated claims to retrieved external evidence with explicit provenance. |
 | Evidence pack | A bounded normalized set of sources and claim-support material passed to a model. |
 | Acceptance authority | The execution environment whose successful checks permit a phase to merge. |
+| Server-owned evidence reference | An opaque reference issued by MAX Grounding for evidence it retrieved and validated; callers cannot set or mutate the source, chunk, excerpt, or score represented by the reference. |
+| Canonical citation | A citation identity and exact evidence excerpt constructed by MAX Grounding from its server-owned evidence record, not from model-generated source markers. |
+| Authoritative verification packet | A structured response separating all verifications, synthesis-safe SUPPORTED claims, blocked claims, and canonical citations. |

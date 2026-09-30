@@ -1,0 +1,23 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 5f61cb73d350b3169954d48fdac8e309268ad08523c5ac45ab155c5710f81859
+%% FLOW_ID: FLOW-PRODUCTION-VERIFIED-OUTPUT
+sequenceDiagram
+    actor consumer_0 as External consumer / LLM proposal-only
+    participant verify_rest_1 as POST /v1/verify
+    participant verify_mcp_2 as MCP verify_claims
+    participant service_verify_3 as GroundingService.verify_claims
+    participant evidence_authority_4 as EvidenceAuthority.resolve
+    participant server_graph_5 as build_server_owned_evidence_graph
+    participant synthesis_6 as build_synthesis_packet
+    participant authoritative_packet_7 as build_authoritative_verification_packet
+    consumer_0->>verify_rest_1: submit bounded candidate claims and opaque server-issued evidence refs; no caller-authored graph or citations [MUST]
+    consumer_0->>verify_mcp_2: submit the same bounded proposal through MCP [MAY]
+    verify_rest_1->>service_verify_3: authenticate, validate bounded request, delegate verification [MUST]
+    verify_mcp_2->>service_verify_3: validate tool input and delegate to the same service method [MUST]
+    service_verify_3->>evidence_authority_4: resolve opaque refs only from MAX Grounding server-owned evidence [MUST]
+    service_verify_3->>server_graph_5: construct assertions and quality/provenance from resolved server-owned evidence [MUST]
+    service_verify_3->>synthesis_6: deterministically classify bounded claims and attach claim-level citations [MUST]
+    service_verify_3->>authoritative_packet_7: serialize verifications, canonical citations, synthesis claims, and blocked claims [MUST]
+    evidence_authority_4->>verify_rest_1: unknown, forged, expired, or altered ref returns bounded rejection; no partial packet [MUST]
+    synthesis_6->>authoritative_packet_7: SUPPORTED only enters synthesis_claims; PARTIAL / CONFLICTED / UNSUPPORTED remain blocked [MUST]
+    authoritative_packet_7->>consumer_0: consumer treats only server-returned synthesis_claims and canonical citations as authoritative facts [MUST]

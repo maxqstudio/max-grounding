@@ -344,6 +344,22 @@
       "authority": "src/max_grounding/mcp_server.py::mcp_query_evidence",
       "mutation": "NONE",
       "error_behavior": "Tool returns bounded provenance-bearing semantic hits."
+    },
+    {
+      "method": "POST",
+      "path": "/v1/verify",
+      "purpose": "Authenticated bounded deterministic verification of candidate claims against server-owned fetched evidence references; returns canonical citations, synthesis_claims, and blocked_claims.",
+      "authority": "src/max_grounding/api.py::create_rest_app",
+      "mutation": "NONE",
+      "error_behavior": "Unknown/forged evidence refs, caller-supplied evidence, malformed claims, duplicate IDs, and over-limit inputs fail closed with bounded errors."
+    },
+    {
+      "method": "MCP",
+      "path": "verify_claims",
+      "purpose": "Structured MCP verification operation over server-owned evidence references and deterministic Phase 10 synthesis gating.",
+      "authority": "src/max_grounding/mcp_server.py::create_mcp_server",
+      "mutation": "NONE",
+      "error_behavior": "Unknown/forged evidence refs and malformed/over-limit claims fail closed; citations and status fields are server-derived."
     }
   ],
   "data_contracts": [
@@ -772,6 +788,36 @@
         "serves port 8080",
         "contains service runtime but excludes tests/governance from build context",
         "amd64 and arm64 build must pass"
+      ]
+    },
+    {
+      "name": "ServerEvidenceReference",
+      "source_of_truth": "MAX Grounding secure-fetch boundary and server-owned evidence authority",
+      "mutability": "immutable opaque reference",
+      "legal_writes": [
+        "MAX Grounding accepted fetch response construction"
+      ],
+      "retention": "bounded according to the implemented evidence-reference lifetime",
+      "invariants": [
+        "reference resolves only to exact evidence retrieved and validated by MAX Grounding",
+        "caller cannot supply or alter source URL, document/chunk identity, excerpt, score, or citation fields",
+        "expired, unknown, or altered references fail closed"
+      ]
+    },
+    {
+      "name": "AuthoritativeVerificationPacket",
+      "source_of_truth": "src/max_grounding/verification.py::build_synthesis_packet plus the production evidence-binding boundary",
+      "mutability": "immutable response projection",
+      "legal_writes": [
+        "authenticated REST/MCP response construction"
+      ],
+      "retention": "request/tool-call lifetime",
+      "invariants": [
+        "verifications includes each validated bounded claim",
+        "synthesis_claims contains only SUPPORTED claims",
+        "PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims are blocked",
+        "canonical citations are produced from server-owned evidence and retain exact source/document/chunk/excerpt binding",
+        "LLM prose and caller citation markers are non-authoritative"
       ]
     }
   ],

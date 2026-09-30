@@ -120,6 +120,17 @@
     {
       "date": "2026-09-30",
       "change": "Phase 12 Production V1 accepted after exact product PR Acceptance 13/13 and post-merge main Acceptance 13/13. REST, MCP, cross-platform service runtime, real Ollama/Qwen3/Qdrant E2E, non-root multi-arch OCI, security and bounded-load smoke are accepted; optional Phase 13-16 work remains unpromoted."
+    },
+    {
+      "date": "2026-09-30",
+      "title": "Phase 12A production grounding hardening authorized",
+      "type": "governance",
+      "changes": [
+        "Phase 12 remains the accepted Production V1 baseline; Phase 12A is current and in progress.",
+        "Run 003 is retained as accepted black-box evidence with unresolved output-integrity and redirect-to-private findings.",
+        "Phase 12A requires a critical frozen BEFORE verified-output sequence, TDD RED evidence, server-owned evidence binding, deterministic synthesis gating, real-stack Run 004, and exact-main revalidation before merge.",
+        "Phase 13-16 remain OPTIONAL; no Pretio integration or deployment is authorized by this phase."
+      ]
     }
   ]
 }

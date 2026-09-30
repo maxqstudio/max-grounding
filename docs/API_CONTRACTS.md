@@ -47,5 +47,7 @@
 | MCP | fetch_evidence | Structured MCP secure-fetch evidence tool. | src/max_grounding/mcp_server.py::mcp_fetch_evidence | NONE | Tool reuses secure production fetch. |
 | MCP | index_evidence | Structured MCP persistent-index tool. | src/max_grounding/mcp_server.py::mcp_index_evidence | Qdrant upsert after accepted fetch/embed path | Tool input remains bounded by service contract. |
 | MCP | query_evidence | Structured MCP persistent semantic query tool. | src/max_grounding/mcp_server.py::mcp_query_evidence | NONE | Tool returns bounded provenance-bearing semantic hits. |
+| POST | /v1/verify | Authenticated bounded deterministic verification of candidate claims against server-owned fetched evidence references; returns canonical citations, synthesis_claims, and blocked_claims. | src/max_grounding/api.py::create_rest_app | NONE | Unknown/forged evidence refs, caller-supplied evidence, malformed claims, duplicate IDs, and over-limit inputs fail closed with bounded errors. |
+| MCP | verify_claims | Structured MCP verification operation over server-owned evidence references and deterministic Phase 10 synthesis gating. | src/max_grounding/mcp_server.py::create_mcp_server | NONE | Unknown/forged evidence refs and malformed/over-limit claims fail closed; citations and status fields are server-derived. |
 
 Declared in .workflow/contracts.json. Observed routes are listed in FLOW_INDEX.

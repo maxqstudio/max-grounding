@@ -31,6 +31,7 @@ Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa134
 | production-rest | Authenticated REST Boundary | Expose health/readiness plus four bounded REST evidence operations with API-key auth, body caps, and fail-closed error serialization. | create_rest_app, ProductionSecurityMiddleware, /healthz, /readyz, /v1/search, /v1/fetch, /v1/index, /v1/query | production-service |
 | production-mcp | Authenticated MCP Boundary | Expose exactly four structured evidence tools through MCP Streamable HTTP under the parent authentication and transport-security boundary. | create_mcp_server, search_web, fetch_evidence, index_evidence, query_evidence | production-service, production-rest |
 | production-container | Production Container | Package the Phase 12 service as a non-root Python 3.12 OCI image with healthcheck and multi-architecture build evidence. | Dockerfile, .dockerignore, linux/amd64 image, linux/arm64 image | production-rest, production-mcp |
+| verified-output-boundary | Server-Owned Verification and Citation Boundary | Resolve only server-issued references to accepted fetched evidence, construct evidence assertions server-side, run the deterministic Phase 10 verifier, and emit canonical citations plus an explicit synthesis-safe packet. | server-issued evidence references, evidence reference resolution, bounded candidate claim binding, authoritative verification packet, canonical claim citations | secure-fetch, evidence-graph, claim-verification, production-service, production-rest, production-mcp |
 
 ## Data flow
 

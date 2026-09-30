@@ -4,6 +4,9 @@
 
 | ID | Status | Summary | Evidence |
 |---|---|---|---|
-| | | | |
+| P12A-001 | OPEN | Production REST/MCP retrieval output is not yet gated by server-owned deterministic claim verification; free-form consumer prose and model citation markers can exceed returned evidence. | Run 003 at 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f: 18 unresolvable citation-marker instances, 9 unsupported assertions, and 1 clear hallucination. |
+| P12A-002 | NOT_PROVEN | Runtime redirect-to-private refusal has not been demonstrated through an allowed first hop and controlled private canary. | Run 003 security result: redirect-to-private NOT_PROVEN; initial loopback redirect fixture request was rejected before redirect. |
+| P12A-003 | OPEN | Reference-agent campaign can continue repeated insufficient-evidence attempts until the model-turn limit rather than terminating at deterministic convergence. | Run 003: OBSCURE-05, FALSE-03, and FALSE-04 reached model turn limit without a final answer. |
+| P12A-004 | OPEN | Run 003 fetch failures require per-attempt failure taxonomy before any secure compatibility changes are considered. | Run 003: 44/76 fetches returned documents; 32/76 returned no document/error, with failure categories not fully classified. |
 
 Use explicit OPEN, FIXED/ACCEPTED, HISTORICAL, or NOT_PROVEN semantics.

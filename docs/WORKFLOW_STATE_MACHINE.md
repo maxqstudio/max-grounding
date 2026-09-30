@@ -515,6 +515,60 @@ Authority: Production service composition and exact capability boundary over acc
 
 - Service facade construction performs no destructive migration of accepted Phase 11 data.
 
+## FLOW-PRODUCTION-VERIFIED-OUTPUT — Phase 12A verified production output and canonical citations
+
+Purpose: Accept bounded candidate claims only when they bind to server-owned fetched evidence; run deterministic claim verification; return canonical citations and an explicit fail-closed synthesis packet through authenticated REST and MCP.
+Critical: TRUE
+Entry condition: The authenticated Production V1 runtime is ready and the consumer has bounded candidate claims plus opaque evidence references previously issued by MAX Grounding.
+Authority: MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority.
+
+### States
+
+- CANDIDATE_RECEIVED
+- EVIDENCE_REFERENCES_RESOLVED
+- CLAIMS_BOUND
+- CLAIMS_VERIFIED
+- PACKET_BUILT
+- RESPONSE_RETURNED
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| CANDIDATE_RECEIVED | EVIDENCE_REFERENCES_RESOLVED | resolve only opaque references issued for evidence actually fetched and validated by MAX Grounding | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+| EVIDENCE_REFERENCES_RESOLVED | CLAIMS_BOUND | construct evidence assertions from server-owned source/chunk/excerpt records; reject unknown, forged, mutated, or mismatched references | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+| CLAIMS_BOUND | CLAIMS_VERIFIED | invoke deterministic Phase 10 graph and claim verification with bounded claims and independent-source thresholds | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+| CLAIMS_VERIFIED | PACKET_BUILT | attach server-generated canonical citations and place only SUPPORTED claims in synthesis_claims; preserve partial/conflicted/unsupported claims in blocked_claims | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+| PACKET_BUILT | RESPONSE_RETURNED | serialize the same authoritative structured packet through authenticated REST or MCP | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+| CANDIDATE_RECEIVED | REJECTED | fail closed on malformed, unbounded, duplicate, expired, unknown, forged, or caller-authored evidence/citation material | MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority. |  |
+
+### Invariants
+
+- The external model may propose bounded claims but has no authority to invent or select evidence identity, source URL, chunk, excerpt, quality score, source count, verification status, or citation.
+- The caller supplies only opaque MAX Grounding evidence references; MAX Grounding resolves references to its own accepted fetched evidence.
+- Unknown, expired, forged, altered, or mismatched evidence references are rejected without partial authoritative output.
+- Canonical source URLs, document/chunk IDs, and exact citations are generated from server-owned evidence records.
+- Only SUPPORTED claims enter synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims remain blocked.
+- Source count uses distinct canonical source URLs and duplicate mirrors do not inflate independent-source count.
+- Search, fetch, indexing, Qdrant persistence, REST authentication/body caps, MCP DNS-rebinding protection, SSRF policy, redirect policy, and response bounds remain unchanged unless a separately evidenced secure compatibility repair is required.
+
+### Failure behavior
+
+- Invalid/unknown evidence references or malformed candidate claims fail closed with a bounded error and no verification packet.
+- A claim with insufficient independent sources is PARTIALLY_SUPPORTED and blocked.
+- An exclusive claim with contradictory evidence is CONFLICTED and blocked.
+- A claim with no exact bound support is UNSUPPORTED and blocked.
+- Only the server-generated canonical citation packet is authoritative; free-form model prose and model-generated citation markers are ignored.
+
+### Restart behavior
+
+- Evidence references are valid only for the documented server-owned evidence lifetime; a reference that can no longer be resolved fails closed. Any persistent reference design must pass restart provenance tests.
+
+### Rollback behavior
+
+- The verification operation is additive and read-only; rollback removes only the new operation and evidence-reference presentation without altering indexed source data.
+
 ## FLOW-RERANK-COMPRESS — Bounded reranking and extractive context compression
 
 Purpose: Rerank already-bounded hybrid hits through an injected provider, validate scores fail-closed, then extract a bounded provenance-preserving context without generative rewriting.

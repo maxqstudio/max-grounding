@@ -1,0 +1,154 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [
+    {
+      "action": "register_mcp_tools",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/mcp_server.py::create_mcp_server",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/mcp_server.py::register_mcp_tools"
+    },
+    {
+      "action": "ServiceConfigurationError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::build_production_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::ServiceConfigurationError"
+    },
+    {
+      "action": "OllamaEmbeddingProvider",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::build_production_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider"
+    },
+    {
+      "action": "QdrantVectorStore",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::build_production_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore"
+    },
+    {
+      "action": "SearxngProvider",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::build_production_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/searxng.py::SearxngProvider"
+    },
+    {
+      "action": "GroundingService",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::build_production_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/service.py::GroundingService"
+    }
+  ],
+  "entries": [
+    "src/max_grounding/api.py::create_rest_app",
+    "src/max_grounding/mcp_server.py::create_mcp_server",
+    "src/max_grounding/service.py::build_production_runtime"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/api.py::create_rest_app",
+      "kind": "function",
+      "label": "src/max_grounding/api.py::create_rest_app",
+      "language": "Python",
+      "line_end": 332,
+      "line_start": 234,
+      "locator": "src/max_grounding/api.py::create_rest_app"
+    },
+    {
+      "id": "src/max_grounding/errors.py::ServiceConfigurationError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::ServiceConfigurationError",
+      "language": "Python",
+      "line_end": 73,
+      "line_start": 72,
+      "locator": "src/max_grounding/errors.py::ServiceConfigurationError"
+    },
+    {
+      "id": "src/max_grounding/mcp_server.py::create_mcp_server",
+      "kind": "function",
+      "label": "src/max_grounding/mcp_server.py::create_mcp_server",
+      "language": "Python",
+      "line_end": 115,
+      "line_start": 106,
+      "locator": "src/max_grounding/mcp_server.py::create_mcp_server"
+    },
+    {
+      "id": "src/max_grounding/mcp_server.py::register_mcp_tools",
+      "kind": "function",
+      "label": "src/max_grounding/mcp_server.py::register_mcp_tools",
+      "language": "Python",
+      "line_end": 103,
+      "line_start": 64,
+      "locator": "src/max_grounding/mcp_server.py::register_mcp_tools"
+    },
+    {
+      "id": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider",
+      "kind": "class",
+      "label": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider",
+      "language": "Python",
+      "line_end": 246,
+      "line_start": 133,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore",
+      "kind": "class",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore",
+      "language": "Python",
+      "line_end": 453,
+      "line_start": 164,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore"
+    },
+    {
+      "id": "src/max_grounding/providers/searxng.py::SearxngProvider",
+      "kind": "class",
+      "label": "src/max_grounding/providers/searxng.py::SearxngProvider",
+      "language": "Python",
+      "line_end": 220,
+      "line_start": 181,
+      "locator": "src/max_grounding/providers/searxng.py::SearxngProvider"
+    },
+    {
+      "id": "src/max_grounding/service.py::GroundingService",
+      "kind": "class",
+      "label": "src/max_grounding/service.py::GroundingService",
+      "language": "Python",
+      "line_end": 218,
+      "line_start": 102,
+      "locator": "src/max_grounding/service.py::GroundingService"
+    },
+    {
+      "id": "src/max_grounding/service.py::build_production_runtime",
+      "kind": "function",
+      "label": "src/max_grounding/service.py::build_production_runtime",
+      "language": "Python",
+      "line_end": 231,
+      "line_start": 221,
+      "locator": "src/max_grounding/service.py::build_production_runtime"
+    }
+  ],
+  "observed_head": "4c45a23c48b7954bbfb0ab86bcc92c975f345a1f",
+  "schema_version": 1,
+  "source_digest": "3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390"
+}

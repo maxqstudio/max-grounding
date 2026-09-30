@@ -55,6 +55,7 @@ Observed source inventory: 52 files, 1 language categories.
 | Authenticated REST Boundary | Expose health/readiness plus four bounded REST evidence operations with API-key auth, body caps, and fail-closed error serialization. | create_rest_app, ProductionSecurityMiddleware, /healthz, /readyz, /v1/search, /v1/fetch, /v1/index, /v1/query | production-service |
 | Authenticated MCP Boundary | Expose exactly four structured evidence tools through MCP Streamable HTTP under the parent authentication and transport-security boundary. | create_mcp_server, search_web, fetch_evidence, index_evidence, query_evidence | production-service, production-rest |
 | Production Container | Package the Phase 12 service as a non-root Python 3.12 OCI image with healthcheck and multi-architecture build evidence. | Dockerfile, .dockerignore, linux/amd64 image, linux/arm64 image | production-rest, production-mcp |
+| Server-Owned Verification and Citation Boundary | Resolve only server-issued references to accepted fetched evidence, construct evidence assertions server-side, run the deterministic Phase 10 verifier, and emit canonical citations plus an explicit synthesis-safe packet. | server-issued evidence references, evidence reference resolution, bounded candidate claim binding, authoritative verification packet, canonical claim citations | secure-fetch, evidence-graph, claim-verification, production-service, production-rest, production-mcp |
 
 ## Main data flow
 
@@ -228,6 +229,19 @@ Authority: Production service composition and exact capability boundary over acc
 - RUNTIME_BUILT -> OPERATION_EXECUTED : execute bounded search, secure fetch, persistent index, or persistent semantic query
 - RUNTIME_BUILT -> FAILED_CLOSED : reject invalid configuration or provider/store/runtime failure
 
+### FLOW-PRODUCTION-VERIFIED-OUTPUT — Phase 12A verified production output and canonical citations
+
+Accept bounded candidate claims only when they bind to server-owned fetched evidence; run deterministic claim verification; return canonical citations and an explicit fail-closed synthesis packet through authenticated REST and MCP.
+
+Authority: MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority.
+
+- CANDIDATE_RECEIVED -> EVIDENCE_REFERENCES_RESOLVED : resolve only opaque references issued for evidence actually fetched and validated by MAX Grounding
+- EVIDENCE_REFERENCES_RESOLVED -> CLAIMS_BOUND : construct evidence assertions from server-owned source/chunk/excerpt records; reject unknown, forged, mutated, or mismatched references
+- CLAIMS_BOUND -> CLAIMS_VERIFIED : invoke deterministic Phase 10 graph and claim verification with bounded claims and independent-source thresholds
+- CLAIMS_VERIFIED -> PACKET_BUILT : attach server-generated canonical citations and place only SUPPORTED claims in synthesis_claims; preserve partial/conflicted/unsupported claims in blocked_claims
+- PACKET_BUILT -> RESPONSE_RETURNED : serialize the same authoritative structured packet through authenticated REST or MCP
+- CANDIDATE_RECEIVED -> REJECTED : fail closed on malformed, unbounded, duplicate, expired, unknown, forged, or caller-authored evidence/citation material
+
 ### FLOW-RERANK-COMPRESS — Bounded reranking and extractive context compression
 
 Rerank already-bounded hybrid hits through an injected provider, validate scores fail-closed, then extract a bounded provenance-preserving context without generative rewriting.
@@ -287,9 +301,9 @@ Authority: Temporal metadata validation, deterministic freshness/validity formul
 
 ## Lifecycle and state
 
-Current phase: PHASE_12_PRODUCTION_API_MCP
+Current phase: PHASE_12A_PRODUCTION_GROUNDING_HARDENING
 
-Current status: PRODUCTION_V1_ACCEPTED
+Current status: IN_PROGRESS
 
 See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
@@ -345,6 +359,11 @@ compiler does not infer them from implementation names.
 - FLOW-PRODUCTION-REST: Domain/service failures map to bounded JSON errors and never become fabricated 2xx success.
 - FLOW-PRODUCTION-RUNTIME: Missing/invalid required configuration fails before serving traffic.
 - FLOW-PRODUCTION-RUNTIME: Provider, fetch, embedding, or vector-store failures remain controlled domain/service errors; no partial fabricated success is returned.
+- FLOW-PRODUCTION-VERIFIED-OUTPUT: Invalid/unknown evidence references or malformed candidate claims fail closed with a bounded error and no verification packet.
+- FLOW-PRODUCTION-VERIFIED-OUTPUT: A claim with insufficient independent sources is PARTIALLY_SUPPORTED and blocked.
+- FLOW-PRODUCTION-VERIFIED-OUTPUT: An exclusive claim with contradictory evidence is CONFLICTED and blocked.
+- FLOW-PRODUCTION-VERIFIED-OUTPUT: A claim with no exact bound support is UNSUPPORTED and blocked.
+- FLOW-PRODUCTION-VERIFIED-OUTPUT: Only the server-generated canonical citation packet is authoritative; free-form model prose and model-generated citation markers are ignored.
 - FLOW-RERANK-COMPRESS: Invalid ranks, duplicate chunks, invalid bounds, provider exceptions, wrong score counts, or invalid scores fail closed with a controlled reranking error.
 - FLOW-RERANK-COMPRESS: No partial reranked or compressed result is returned after validation failure.
 - FLOW-SEARXNG-SEARCH: Transport, redirect, HTTP, media-type, size, JSON, and schema failures raise a controlled provider error.
@@ -360,17 +379,19 @@ compiler does not infer them from implementation names.
 ## Current project state
 
 Next authorized actions:
-- Keep Phase 12 as the accepted Production V1 baseline.
-- Do not begin Phase 13-16 unless the Owner explicitly promotes an OPTIONAL phase in the governed roadmap.
-- Future maintenance must preserve exact-head GitHub Actions acceptance, post-merge main revalidation, ROADMAP_SYNC, and Skill Workflow 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8 or an explicitly adopted newer authority.
+- Complete the frozen Phase 12A verified-output contract and TDD RED before implementation.
+- Implement only the bounded server-owned claim-verification, citation-integrity, fail-closed consumer, fetch-taxonomy, and required security hardening in Phase 12A.
+- Run local validation, exact-head GitHub Actions, real-stack Run 004 regression, and security acceptance before any merge.
+- After Phase 12A is accepted, stop at READY_FOR_PRETIO_TESTER_INTEGRATION_PLANNING; Pretio integration requires a separate Owner-authorized step.
 
 Blocked actions:
-- Do not auto-promote Phase 13, 14, 15, or 16.
-- Do not claim external hosting/TLS/SLA state from repository acceptance.
-- Do not weaken authenticated REST/MCP, provenance, fail-closed, or cross-platform acceptance contracts.
+- Do not merge Phase 12A while any blocking gate is FAIL or NOT_PROVEN.
+- Do not deploy to, configure, or integrate Pretio as part of Phase 12A.
+- Do not promote or start optional Phase 13-16 work.
+- Do not weaken SSRF, DNS validation, IP pinning, redirect policy, authentication, provenance, or evidence bounds to improve recall.
 
 Known blockers:
-- None declared.
+- Phase 12A is IN_PROGRESS; merge is prohibited until all Phase 12A blocking acceptance gates pass.
 
 ## Proven vs not proven
 
@@ -402,12 +423,15 @@ Known blockers:
 - Phase 12 exact product PR head 45e75bbb051fbe3b1d2d7b66b95aacbd4fbef9e9 passed permanent Acceptance run 36655589837 with 13/13 required jobs.
 - Phase 12 merged main SHA a858cf2117412f42c2784ca31440f3b459416283 passed post-merge permanent Acceptance run 36655739294 with 13/13 required jobs.
 - Production V1 repository acceptance is complete through Phase 12; optional Phase 13-16 capabilities remain unpromoted.
+- Run 003 at evidence HEAD 05690c840d8abbc94dcba8e28a5578f3fa2b4f16 is accepted as a valid real-stack black-box campaign, not as Phase 12A acceptance; it observed 18 unresolved citation markers, 9 unsupported assertions, 1 hallucination, and runtime redirect-to-private NOT_PROVEN.
+- The stored Run 003 task prompts, source minimums, and indexing permissions were compared against all 27 raw task transcripts; all 27 matched. The Run 003 manifest-recorded corpus hash differs from the stored benchmark blob hash and remains an evidence-integrity discrepancy.
 
 ### Not proven
 
 - External production hosting/domain provisioning, TLS termination, reverse-proxy configuration, operator secret management, monitoring/SLOs, and a specific operator SearXNG instance remain deployment/operator concerns rather than repository acceptance evidence.
 - The bounded 16-request concurrency smoke is not a capacity benchmark, latency SLO, availability SLA, or proof of internet-scale load.
 - Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional Phase 13-16 capabilities and are not part of accepted Production V1.
+- Phase 12A server-owned verification, canonical citation binding, bounded fail-closed consumer behavior, fetch-failure taxonomy, runtime redirect-to-private behavior, and exact-main revalidation have not yet been proven.
 
 ## Important limitations
 

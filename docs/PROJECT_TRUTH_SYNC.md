@@ -11,25 +11,25 @@ HEAD is recorded externally after the commit exists.
 
 | Gate | Status | Evidence / Notes |
 |---|---|---|
-| SOURCE_TESTS | PASS | |
-| RUNTIME_E2E | PASS | |
-| PROVENANCE_SYNC | PASS | |
-| REFERENCE_SYNC | PASS | |
-| STRUCTURAL_SYNC | PASS | |
-| SEMANTIC_SYNC | PASS | |
-| BEHAVIORAL_SYNC | PASS | |
-| CROSS_DOCUMENT_CONSISTENCY | PASS | |
+| SOURCE_TESTS | NOT_PROVEN | |
+| RUNTIME_E2E | NOT_PROVEN | |
+| PROVENANCE_SYNC | NOT_PROVEN | |
+| REFERENCE_SYNC | NOT_PROVEN | |
+| STRUCTURAL_SYNC | NOT_PROVEN | |
+| SEMANTIC_SYNC | NOT_PROVEN | |
+| BEHAVIORAL_SYNC | NOT_PROVEN | |
+| CROSS_DOCUMENT_CONSISTENCY | NOT_PROVEN | |
 | HUMAN_COMPREHENSION | PASS | |
-| SEQUENCE_SYNC | PASS | |
+| SEQUENCE_SYNC | NOT_PROVEN | |
 | ROADMAP_SYNC | PASS | |
 | DOC_LAYOUT | PASS | |
 | PROJECT_DOCS_NORMALIZED | PASS | |
 | DOC_READABILITY | PASS | |
 | PROJECT_DOCS_SYNC | PASS | |
-| DOC_SOURCE_TRACEABILITY | PASS | |
-| DOC_TEST_TRACEABILITY | PASS | |
-| TEST_RUNTIME_TRACEABILITY | PASS | |
-| PROJECT_STATE_SYNC | PASS | |
+| DOC_SOURCE_TRACEABILITY | NOT_PROVEN | |
+| DOC_TEST_TRACEABILITY | NOT_PROVEN | |
+| TEST_RUNTIME_TRACEABILITY | NOT_PROVEN | |
+| PROJECT_STATE_SYNC | NOT_PROVEN | |
 
 ## Critical claim traceability
 
@@ -84,6 +84,10 @@ HEAD is recorded externally after the commit exists.
 | TRUTH-P12-CONTAINER-001 | Phase 12 production container runs non-root, has a healthcheck, and builds successfully as linux/amd64 plus linux/arm64 OCI output. | PROJECT_TRUTH_SYNC.md | Dockerfile; .dockerignore | tests/test_container_contract.py | Phase 12 Production Acceptance run 36653665768; OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705 | PASS |
 | TRUTH-P12-E2E-001 | Phase 12 real Linux container E2E passes against pinned Ollama 0.34.0, qwen3-embedding:0.6b, and Qdrant 1.19.1, including authentication, request-size rejection, REST evidence, MCP evidence, and bounded concurrent persistent queries. | PROJECT_TRUTH_SYNC.md | integration/phase12_e2e.py; src/max_grounding/service.py | integration/phase12_e2e.py | Phase 12 Production Acceptance run 36653665768 | PASS |
 | TRUTH-P12-CROSSOS-001 | Phase 12 service code and pinned service dependencies pass the full suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS, and all three frozen BEFORE sequence contracts validate. | PROJECT_TRUTH_SYNC.md | src/max_grounding/service.py; src/max_grounding/api.py; src/max_grounding/mcp_server.py | tests/test_service.py; tests/test_api.py; tests/test_mcp_server.py; tests/test_service_security.py | Phase 12 Candidate Verify run 36653665732 | PASS |
+| TRUTH-P12A-BOUNDARY-001 | Production verification accepts only server-issued evidence references resolved to exact MAX Grounding fetched evidence; caller-authored evidence, scores, source identity, and citation fields are never treated as authority. | PROJECT_TRUTH_SYNC.md | src/max_grounding/service.py::GroundingService; src/max_grounding/verification.py::build_synthesis_packet | tests/test_service.py; tests/test_verification.py | NOT_PROVEN | NOT_PROVEN |
+| TRUTH-P12A-SYNTHESIS-001 | The production authoritative response includes canonical citation provenance and exposes only SUPPORTED claims in synthesis_claims; all partial, conflicted, and unsupported claims remain blocked. | PROJECT_TRUTH_SYNC.md | src/max_grounding/verification.py::build_synthesis_packet | tests/test_verification.py; tests/test_api.py | NOT_PROVEN | NOT_PROVEN |
+| TRUTH-P12A-SECURITY-001 | The authenticated verification boundary is bounded and fail-closed, and the controlled redirect-to-private runtime test proves a redirected private target receives no request. | PROJECT_TRUTH_SYNC.md | src/max_grounding/fetcher.py::fetch_document; src/max_grounding/api.py::ProductionSecurityMiddleware | tests/test_service_security.py | NOT_PROVEN | NOT_PROVEN |
+| TRUTH-P12A-CONSUMER-001 | The reference consumer terminates repeated insufficient-evidence loops deterministically and distinguishes MAX Grounding tool failures from external model or harness failures. | PROJECT_TRUTH_SYNC.md | integration/phase12_e2e.py | NOT_PROVEN | NOT_PROVEN | NOT_PROVEN |
 
 ## Claim relations
 

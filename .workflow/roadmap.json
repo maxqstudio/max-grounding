@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "current_phase": "PHASE_12_PRODUCTION_API_MCP",
+  "current_phase": "PHASE_12A_PRODUCTION_GROUNDING_HARDENING",
   "phases": [
     {
       "id": "PHASE_00_GOVERNANCE_BASELINE",
@@ -117,13 +117,29 @@
     {
       "id": "PHASE_12_PRODUCTION_API_MCP",
       "title": "REST, MCP, multi-arch containers, E2E/security/load, and production acceptance",
-      "status": "CURRENT",
+      "status": "ACCEPTED",
       "objective": "Maintain the accepted Production V1 REST/MCP, multi-arch container, E2E/security/load-smoke baseline without weakening fail-closed, provenance, or cross-platform contracts.",
       "exit_criteria": [
         "Exact Phase 12 product pull-request head passed permanent Acceptance 13/13.",
         "Merged Phase 12 main passed permanent post-merge Acceptance 13/13.",
         "Production V1 closure is merged and revalidated on main.",
         "Optional Phase 13-16 work remains unpromoted unless explicitly authorized by the Owner."
+      ]
+    },
+    {
+      "id": "PHASE_12A_PRODUCTION_GROUNDING_HARDENING",
+      "title": "Verified production output, citation integrity, fail-closed consumer behavior, and fetch/security hardening",
+      "status": "CURRENT",
+      "objective": "Harden the accepted Production V1 REST/MCP boundary so server-owned retrieved evidence is deterministically bound to structured claims and canonical citations, unsupported claims remain blocked, consumer retries terminate safely, and fetch/security behavior is proven without weakening accepted protections.",
+      "exit_criteria": [
+        "A critical BEFORE sequence plan is frozen before implementation and validates against the final source graph.",
+        "TDD RED evidence proves the production verification boundary is absent before implementation.",
+        "REST /v1/verify and MCP verify_claims accept only server-owned fetched evidence references and return canonical citations.",
+        "Only SUPPORTED claims enter synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims are blocked.",
+        "Caller-fabricated evidence references, source URLs, chunks, excerpts, scores, or citations are rejected.",
+        "Run 004 preserves the Run 003 benchmark task corpus and passes all blocking claim-safety, false-premise, barcode-field-isolation, fetch-taxonomy, persistence, and real redirect-to-private security gates.",
+        "Full local tests, STRICT governance, GitHub Actions Linux/Windows/macOS Python 3.11-3.14 matrix, and exact-main post-merge revalidation pass.",
+        "All sanitized Run 004 evidence is pushed to maxqstudio/pretio-grounding-testing before closure."
       ]
     },
     {

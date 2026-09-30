@@ -1,0 +1,20 @@
+%% GENERATED FILE - DO NOT EDIT
+%% SOURCE_DIGEST: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
+%% OBSERVED_HEAD: 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f
+%% GENERATED_BY: generate_sequence_actual.py
+sequenceDiagram
+    participant src_max_grounding_api_py__create_rest_app_0 as src/max_grounding/api.py::create_rest_app
+    participant src_max_grounding_errors_py__ServiceConfigurationError_1 as src/max_grounding/errors.py::ServiceConfigurationError
+    participant src_max_grounding_mcp_server_py__create_mcp_server_2 as src/max_grounding/mcp_server.py::create_mcp_server
+    participant src_max_grounding_mcp_server_py__register_mcp_tools_3 as src/max_grounding/mcp_server.py::register_mcp_tools
+    participant src_max_grounding_providers_ollama_embedding_py__OllamaEmbeddingProvider_4 as src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider
+    participant src_max_grounding_providers_qdrant_py__QdrantVectorStore_5 as src/max_grounding/providers/qdrant.py::QdrantVectorStore
+    participant src_max_grounding_providers_searxng_py__SearxngProvider_6 as src/max_grounding/providers/searxng.py::SearxngProvider
+    participant src_max_grounding_service_py__GroundingService_7 as src/max_grounding/service.py::GroundingService
+    participant src_max_grounding_service_py__build_production_runtime_8 as src/max_grounding/service.py::build_production_runtime
+    src_max_grounding_mcp_server_py__create_mcp_server_2->>src_max_grounding_mcp_server_py__register_mcp_tools_3: register_mcp_tools [STATIC]
+    src_max_grounding_service_py__build_production_runtime_8->>src_max_grounding_errors_py__ServiceConfigurationError_1: ServiceConfigurationError [STATIC]
+    src_max_grounding_service_py__build_production_runtime_8->>src_max_grounding_providers_ollama_embedding_py__OllamaEmbeddingProvider_4: OllamaEmbeddingProvider [STATIC]
+    src_max_grounding_service_py__build_production_runtime_8->>src_max_grounding_providers_qdrant_py__QdrantVectorStore_5: QdrantVectorStore [STATIC]
+    src_max_grounding_service_py__build_production_runtime_8->>src_max_grounding_providers_searxng_py__SearxngProvider_6: SearxngProvider [STATIC]
+    src_max_grounding_service_py__build_production_runtime_8->>src_max_grounding_service_py__GroundingService_7: GroundingService [STATIC]

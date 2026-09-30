@@ -12,6 +12,18 @@
     {
       "term": "Acceptance authority",
       "definition": "The execution environment whose successful checks permit a phase to merge."
+    },
+    {
+      "term": "Server-owned evidence reference",
+      "definition": "An opaque reference issued by MAX Grounding for evidence it retrieved and validated; callers cannot set or mutate the source, chunk, excerpt, or score represented by the reference."
+    },
+    {
+      "term": "Canonical citation",
+      "definition": "A citation identity and exact evidence excerpt constructed by MAX Grounding from its server-owned evidence record, not from model-generated source markers."
+    },
+    {
+      "term": "Authoritative verification packet",
+      "definition": "A structured response separating all verifications, synthesis-safe SUPPORTED claims, blocked claims, and canonical citations."
     }
   ]
 }
