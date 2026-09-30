@@ -442,6 +442,7 @@ jobs:
         shell: bash
         run: |
           git clean -fdX
+          git status --porcelain
           test -z "$(git status --porcelain)"
 
       - name: Validate latest STRICT governance on clean tree
