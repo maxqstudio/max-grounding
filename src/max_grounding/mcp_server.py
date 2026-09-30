@@ -64,7 +64,7 @@ def mcp_query_evidence(
 def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
     """Register exactly the four production grounding tools."""
 
-    def search_web(
+    def _tool_search_web(
         query: str,
         language: str = "en",
         country: str | None = None,
@@ -85,22 +85,22 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
             min_evidence_sources=min_evidence_sources,
         )
 
-    def fetch_evidence(url: str) -> dict[str, Any]:
+    def _tool_fetch_evidence(url: str) -> dict[str, Any]:
         """Securely fetch one public evidence URL and return extracted text provenance."""
         return mcp_fetch_evidence(service, url=url)
 
-    def index_evidence(urls: list[str]) -> dict[str, Any]:
+    def _tool_index_evidence(urls: list[str]) -> dict[str, Any]:
         """Securely fetch and persist a bounded list of evidence URLs."""
         return mcp_index_evidence(service, urls=urls)
 
-    def query_evidence(query: str, limit: int = 5) -> list[dict[str, Any]]:
+    def _tool_query_evidence(query: str, limit: int = 5) -> list[dict[str, Any]]:
         """Query the accepted persistent semantic evidence index."""
         return mcp_query_evidence(service, query=query, limit=limit)
 
-    server.tool(name="search_web", structured_output=True)(search_web)
-    server.tool(name="fetch_evidence", structured_output=True)(fetch_evidence)
-    server.tool(name="index_evidence", structured_output=True)(index_evidence)
-    server.tool(name="query_evidence", structured_output=True)(query_evidence)
+    server.tool(name="search_web", structured_output=True)(_tool_search_web)
+    server.tool(name="fetch_evidence", structured_output=True)(_tool_fetch_evidence)
+    server.tool(name="index_evidence", structured_output=True)(_tool_index_evidence)
+    server.tool(name="query_evidence", structured_output=True)(_tool_query_evidence)
 
 
 def create_mcp_server(service: GroundingService) -> MCPServer:
