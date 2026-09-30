@@ -29,6 +29,7 @@
   },
   "test_traceability_required": true,
   "tests": [
+    "tests/test_evidence_spans.py",
     "tests/test_verified_output.py",
     "tests/test_api.py",
     "tests/test_mcp_server.py",

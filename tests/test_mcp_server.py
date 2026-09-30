@@ -73,13 +73,20 @@ def runtime() -> MagicMock:
 
 
 class Phase12McpTests(unittest.TestCase):
-    def test_five_explicit_grounding_tools_are_registered(self) -> None:
+    def test_six_explicit_grounding_tools_are_registered(self) -> None:
         server = create_mcp_server(runtime())
         tools = asyncio.run(server.list_tools())
         names = {tool.name for tool in tools}
         self.assertEqual(
             names,
-            {"search_web", "fetch_evidence", "index_evidence", "query_evidence", "verify_claims"},
+            {
+                "search_web",
+                "fetch_evidence",
+                "select_evidence_spans",
+                "index_evidence",
+                "query_evidence",
+                "verify_claims",
+            },
         )
         for forbidden in ("research", "answer", "shell", "filesystem", "command"):
             self.assertNotIn(forbidden, names)
@@ -112,6 +119,45 @@ class Phase12McpTests(unittest.TestCase):
         self.assertIn("URL", item_description)
         self.assertIn("server-generated", verify.description)
         self.assertIn("literal text span", " ".join(verify.description.split()))
+
+    def test_span_selection_and_verification_schema_explain_reference_authority(self) -> None:
+        server = create_mcp_server(runtime())
+        tools = asyncio.run(server.list_tools())
+        selector = next(tool for tool in tools if tool.name == "select_evidence_spans")
+        verify = next(tool for tool in tools if tool.name == "verify_claims")
+
+        evidence_description = selector.input_schema["properties"]["evidence_ref"].get(
+            "description", ""
+        )
+        self.assertIn("fetch_evidence", evidence_description)
+        self.assertIn("evidence_ref", evidence_description)
+        self.assertIn("URL", evidence_description)
+        self.assertIn("evidence_span_ref", verify.description)
+        self.assertIn("never combine multiple excerpts", verify.description)
+        self.assertIn("STRUCTURED_FIELD", verify.description)
+        self.assertIn("EXTRACTIVE_STATEMENT", verify.description)
+
+    def test_span_selection_tool_calls_server_service(self) -> None:
+        service = runtime()
+        service.select_evidence_spans.return_value = {
+            "evidence_ref": "R" * 43,
+            "spans": [],
+        }
+        server = create_mcp_server(service)
+
+        async def invoke():
+            return await server.call_tool(
+                "select_evidence_spans",
+                {"evidence_ref": "R" * 43, "query": "barcode", "limit": 3},
+            )
+
+        result = asyncio.run(invoke())
+        self.assertFalse(result.is_error)
+        service.select_evidence_spans.assert_called_once_with(
+            "R" * 43,
+            query="barcode",
+            limit=3,
+        )
 
     def test_mcp_wrappers_reuse_service_capabilities_and_return_provenance(self) -> None:
         service = runtime()

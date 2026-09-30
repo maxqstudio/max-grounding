@@ -102,6 +102,11 @@ class Phase12RestApiTests(unittest.TestCase):
             ("get", "/readyz", None),
             ("post", "/v1/search", {"query": "gold"}),
             ("post", "/v1/fetch", {"url": "https://example.com/gold"}),
+            (
+                "post",
+                "/v1/evidence/spans",
+                {"evidence_ref": "R" * 43, "query": "gold", "limit": 2},
+            ),
             ("post", "/v1/index", {"urls": ["https://example.com/gold"]}),
             ("post", "/v1/query", {"query": "gold", "limit": 3}),
         ):
@@ -114,6 +119,10 @@ class Phase12RestApiTests(unittest.TestCase):
 
     def test_authenticated_rest_operations_preserve_structured_provenance(self) -> None:
         client, service = self.client()
+        service.select_evidence_spans.return_value = {
+            "evidence_ref": "R" * 43,
+            "spans": [],
+        }
 
         ready = client.get("/readyz", headers=self.auth())
         search = client.post("/v1/search", headers=self.auth(), json={"query": "gold"})
@@ -132,12 +141,23 @@ class Phase12RestApiTests(unittest.TestCase):
             headers=self.auth(),
             json={"query": "gold", "limit": 3},
         )
+        selected = client.post(
+            "/v1/evidence/spans",
+            headers=self.auth(),
+            json={"evidence_ref": "R" * 43, "query": "gold", "limit": 2},
+        )
 
         self.assertTrue(ready.json()["ready"])
         self.assertEqual(search.json()["sources"][0]["url"], "https://example.com/gold")
         self.assertEqual(fetched.json()["fetched_from_ip"], "93.184.216.34")
         self.assertEqual(indexed.json()["embedding_dimension"], 1024)
         self.assertEqual(queried.json()[0]["chunk"]["chunk_id"], "abc")
+        self.assertEqual(selected.status_code, 200, selected.text)
+        service.select_evidence_spans.assert_called_once_with(
+            "R" * 43,
+            query="gold",
+            limit=2,
+        )
         service.search_web.assert_called_once()
         service.fetch_evidence.assert_called_once()
         service.index_evidence.assert_called_once_with(("https://example.com/gold",))
