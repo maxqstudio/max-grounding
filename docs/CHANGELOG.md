@@ -190,3 +190,12 @@ Type: governance
 - Run 003 is retained as accepted black-box evidence with unresolved output-integrity and redirect-to-private findings.
 - Phase 12A requires a critical frozen BEFORE verified-output sequence, TDD RED evidence, server-owned evidence binding, deterministic synthesis gating, real-stack Run 004, and exact-main revalidation before merge.
 - Phase 13-16 remain OPTIONAL; no Pretio integration or deployment is authorized by this phase.
+
+## 2026-10-01 — Correct Phase 12A closure authority before Run 006
+
+Type: governance
+
+- Phase 12A remains CURRENT; its closure gate is based on the latest repair candidate passing the current real-stack regression campaign, not on Run 004 specifically.
+- Run 004 and Run 005 remain preserved as historical failed acceptance evidence; Run 006 is the next attempt on the original frozen Run 003 corpus and does not replace prior evidence.
+- Closure requires all blocking verification, citation, fail-closed, security, persistence, corpus-preservation, and evidence-preservation gates, pushed final passing evidence, GitHub cross-platform CI, and exact merged-main revalidation.
+- Phase 13-16 remain OPTIONAL.

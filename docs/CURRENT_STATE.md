@@ -35,8 +35,8 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-12a-verified-output.json
-SEQUENCE_SYNC: PASS
+Current sequence session: docs/sequence/sessions/phase-12a-evidence-span-selection.json
+SEQUENCE_SYNC: NOT_PROVEN
 
 ## Proven
 - Phase 10 closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.
@@ -67,12 +67,13 @@ SEQUENCE_SYNC: PASS
 - Production V1 repository acceptance is complete through Phase 12; optional Phase 13-16 capabilities remain unpromoted.
 - Run 003 at evidence HEAD 05690c840d8abbc94dcba8e28a5578f3fa2b4f16 is accepted as a valid real-stack black-box campaign, not as Phase 12A acceptance; it observed 18 unresolved citation markers, 9 unsupported assertions, 1 hallucination, and runtime redirect-to-private NOT_PROVEN.
 - The stored Run 003 task prompts, source minimums, and indexing permissions were compared against all 27 raw task transcripts; all 27 matched. The Run 003 manifest-recorded corpus hash differs from the stored benchmark blob hash and remains an evidence-integrity discrepancy.
+- Run 004 and Run 005 are preserved historical failed Phase 12A acceptance evidence; neither run is deleted or rewritten. Run 006 is the next current acceptance attempt using the original frozen Run 003 corpus.
 
 ## Not proven
 - External production hosting/domain provisioning, TLS termination, reverse-proxy configuration, operator secret management, monitoring/SLOs, and a specific operator SearXNG instance remain deployment/operator concerns rather than repository acceptance evidence.
 - The bounded 16-request concurrency smoke is not a capacity benchmark, latency SLO, availability SLA, or proof of internet-scale load.
 - Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional Phase 13-16 capabilities and are not part of accepted Production V1.
-- Phase 12A server-owned verification, canonical citation binding, bounded fail-closed consumer behavior, fetch-failure taxonomy, runtime redirect-to-private behavior, and exact-main revalidation have not yet been proven.
+- Phase 12A closure remains NOT_PROVEN until the latest repair candidate passes the current real-stack regression campaign and all blocking verification, citation, fail-closed, security, persistence, CI, exact-main revalidation, and evidence-preservation gates. Run 004 and Run 005 remain failed historical evidence; Run 006 is current.
 
 ## Known blockers
 - Phase 12A is IN_PROGRESS; merge is prohibited until all Phase 12A blocking acceptance gates pass.
@@ -81,9 +82,9 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Phase 12A BEFORE sequence contract is frozen and TDD RED is recorded at source commit 6d90ade1399397beb0628e4e6544e0c31c313033; continue the narrow verified-output implementation and keep its acceptance unproven until all required gates pass.
-- Complete bounded server-owned claim verification, citation integrity, fail-closed consumer termination, fetch-failure taxonomy, and required security hardening; update semantic contracts and generated docs from the implementation.
-- Run local validation, exact-head GitHub Actions, real-stack Run 004 regression, and security acceptance before any merge.
+- The critical Phase 12A evidence-span-selection BEFORE sequence is frozen at source commit 835e502075d3a9ce54c0da910647dae06f2967f0; add and record focused TDD RED tests before implementation.
+- Implement bounded server-owned evidence-span selection, explicit structured/extractive verification, flattened-field extraction, and one correction attempt without weakening evidence authority.
+- Run the current real-stack regression as Run 006 on the unchanged Run 003 corpus; preserve Run 004/005 failures and push sanitized evidence for every attempt.
 - After Phase 12A is accepted, stop at READY_FOR_PRETIO_TESTER_INTEGRATION_PLANNING; Pretio integration requires a separate Owner-authorized step.
 
 ## Explicitly blocked

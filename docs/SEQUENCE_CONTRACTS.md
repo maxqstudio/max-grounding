@@ -16,23 +16,23 @@ Status: CURRENT
 
 | Flow | Mode | Critical | Sequence session | Status |
 |---|---|---|---|---|
-| FLOW-CLAIM-VERIFICATION | BEFORE | YES | docs/sequence/sessions/phase-10-claim-verification.json | PASS |
-| FLOW-EVIDENCE-GRAPH | BEFORE | YES | docs/sequence/sessions/phase-09-evidence-graph.json | PASS |
-| FLOW-GROUND-REQUEST | BEFORE | YES | docs/sequence/sessions/phase-01-core-contracts.json | PASS |
-| FLOW-HYBRID-FUSION | BEFORE | YES | docs/sequence/sessions/phase-06-hybrid-fusion.json | PASS |
-| FLOW-LEXICAL-RETRIEVAL | BEFORE | YES | docs/sequence/sessions/phase-04-lexical-retrieval.json | PASS |
-| FLOW-PERSISTENT-INDEX | BEFORE | YES | docs/sequence/sessions/phase-11-persistent-index.json | PASS |
-| FLOW-PERSISTENT-QUERY | BEFORE | YES | docs/sequence/sessions/phase-11-persistent-query.json | PASS |
-| FLOW-PHASE-DELIVERY | BEFORE | YES | docs/sequence/sessions/phase-00-bootstrap.json | PASS |
-| FLOW-PRODUCTION-MCP | BEFORE | YES | docs/sequence/sessions/phase-12-mcp-server.json | PASS |
-| FLOW-PRODUCTION-REST | BEFORE | YES | docs/sequence/sessions/phase-12-rest-api.json | PASS |
-| FLOW-PRODUCTION-RUNTIME | BEFORE | YES | docs/sequence/sessions/phase-12-production-runtime.json | PASS |
-| FLOW-PRODUCTION-VERIFIED-OUTPUT | BEFORE | YES | docs/sequence/sessions/phase-12a-verified-output.json | PASS |
-| FLOW-RERANK-COMPRESS | BEFORE | YES | docs/sequence/sessions/phase-07-rerank-compress.json | PASS |
-| FLOW-SEARXNG-SEARCH | BEFORE | YES | docs/sequence/sessions/phase-02-searxng-provider.json | PASS |
-| FLOW-SECURE-FETCH | BEFORE | YES | docs/sequence/sessions/phase-03-secure-fetch.json | PASS |
-| FLOW-SEMANTIC-RETRIEVAL | BEFORE | YES | docs/sequence/sessions/phase-05-semantic-retrieval.json | PASS |
-| FLOW-TEMPORAL-AUTHORITY | BEFORE | YES | docs/sequence/sessions/phase-08-temporal-authority.json | PASS |
+| FLOW-CLAIM-VERIFICATION | BEFORE | YES | docs/sequence/sessions/phase-10-claim-verification.json | NOT_PROVEN |
+| FLOW-EVIDENCE-GRAPH | BEFORE | YES | docs/sequence/sessions/phase-09-evidence-graph.json | NOT_PROVEN |
+| FLOW-GROUND-REQUEST | BEFORE | YES | docs/sequence/sessions/phase-01-core-contracts.json | NOT_PROVEN |
+| FLOW-HYBRID-FUSION | BEFORE | YES | docs/sequence/sessions/phase-06-hybrid-fusion.json | NOT_PROVEN |
+| FLOW-LEXICAL-RETRIEVAL | BEFORE | YES | docs/sequence/sessions/phase-04-lexical-retrieval.json | NOT_PROVEN |
+| FLOW-PERSISTENT-INDEX | BEFORE | YES | docs/sequence/sessions/phase-11-persistent-index.json | NOT_PROVEN |
+| FLOW-PERSISTENT-QUERY | BEFORE | YES | docs/sequence/sessions/phase-11-persistent-query.json | NOT_PROVEN |
+| FLOW-PHASE-DELIVERY | BEFORE | YES | docs/sequence/sessions/phase-00-bootstrap.json | NOT_PROVEN |
+| FLOW-PRODUCTION-MCP | BEFORE | YES | docs/sequence/sessions/phase-12-mcp-server.json | NOT_PROVEN |
+| FLOW-PRODUCTION-REST | BEFORE | YES | docs/sequence/sessions/phase-12-rest-api.json | NOT_PROVEN |
+| FLOW-PRODUCTION-RUNTIME | BEFORE | YES | docs/sequence/sessions/phase-12-production-runtime.json | NOT_PROVEN |
+| FLOW-PRODUCTION-VERIFIED-OUTPUT | BEFORE | YES | docs/sequence/sessions/phase-12a-verified-output.json | NOT_PROVEN |
+| FLOW-RERANK-COMPRESS | BEFORE | YES | docs/sequence/sessions/phase-07-rerank-compress.json | NOT_PROVEN |
+| FLOW-SEARXNG-SEARCH | BEFORE | YES | docs/sequence/sessions/phase-02-searxng-provider.json | NOT_PROVEN |
+| FLOW-SECURE-FETCH | BEFORE | YES | docs/sequence/sessions/phase-03-secure-fetch.json | NOT_PROVEN |
+| FLOW-SEMANTIC-RETRIEVAL | BEFORE | YES | docs/sequence/sessions/phase-05-semantic-retrieval.json | NOT_PROVEN |
+| FLOW-TEMPORAL-AUTHORITY | BEFORE | YES | docs/sequence/sessions/phase-08-temporal-authority.json | NOT_PROVEN |
 
 ## Mismatch handling
 
