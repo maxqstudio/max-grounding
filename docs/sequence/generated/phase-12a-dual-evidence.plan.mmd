@@ -1,0 +1,19 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: aa0f5c7ef28bc34aa335a09511b6304af980afba64ed69c26c48de8350ded7b4
+%% FLOW_ID: FLOW-PHASE12A-DUAL-EVIDENCE
+sequenceDiagram
+    actor consumer_0 as External consumer / proposal only
+    participant verify_rest_1 as POST /v1/verify
+    participant service_verify_2 as GroundingService.verify_candidate_claims
+    participant resolve_3 as Resolve opaque evidence references
+    participant server_graph_4 as Build server-owned evidence graph
+    participant synthesis_5 as Build deterministic verification packet
+    participant canonical_6 as Restore canonical output packet
+    consumer_0->>verify_rest_1: submit bounded claim proposals and opaque refs returned by fetch_evidence [MUST]
+    verify_rest_1->>service_verify_2: authenticate and delegate verification [MUST]
+    service_verify_2->>resolve_3: resolve only server-issued fetch references [MUST]
+    service_verify_2->>server_graph_4: construct assertions from resolved server-owned fetched text [MUST]
+    service_verify_2->>synthesis_5: classify claims from the server-built evidence graph [MUST]
+    service_verify_2->>canonical_6: emit a canonical packet with server-owned identifiers and citations [MUST]
+    server_graph_4->>synthesis_5: structured fields require a deterministic labeled relationship; generic claims require a strictly normalized exact source span [MUST]
+    canonical_6->>consumer_0: return only server-owned source URLs and excerpts; unsupported, partial, and conflicted claims stay blocked [MUST]
