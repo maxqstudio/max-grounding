@@ -1,0 +1,457 @@
+name: Phase 12 Final Truth Sync
+
+on:
+  push:
+    branches:
+      - work/phase-12-production-api-mcp
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout candidate
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-12-production-api-mcp
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+
+      - name: Source regression
+        shell: bash
+        run: |
+          python -m pip install '.[service,test]'
+          python -m unittest discover -s tests -v
+          python -m compileall -q src tests integration .workflow/tools
+
+      - name: Generate all Phase 12 ACTUAL graphs
+        shell: bash
+        run: |
+          python .workflow/tools/generate_sequence_actual.py             --output-json docs/sequence/generated/phase-12-production-runtime.actual.json             --output-mermaid docs/sequence/generated/phase-12-production-runtime.actual.mmd             --entry src/max_grounding/service.py::build_production_runtime             --entry src/max_grounding/service.py::GroundingService.search_web             --entry src/max_grounding/service.py::GroundingService.fetch_evidence             --entry src/max_grounding/service.py::GroundingService.index_evidence             --entry src/max_grounding/service.py::GroundingService.query_evidence
+          python .workflow/tools/generate_sequence_actual.py             --output-json docs/sequence/generated/phase-12-rest-api.actual.json             --output-mermaid docs/sequence/generated/phase-12-rest-api.actual.mmd             --entry src/max_grounding/api.py::healthz             --entry src/max_grounding/api.py::readyz             --entry src/max_grounding/api.py::search_endpoint             --entry src/max_grounding/api.py::fetch_endpoint             --entry src/max_grounding/api.py::index_endpoint             --entry src/max_grounding/api.py::query_endpoint
+          python .workflow/tools/generate_sequence_actual.py             --output-json docs/sequence/generated/phase-12-mcp-server.actual.json             --output-mermaid docs/sequence/generated/phase-12-mcp-server.actual.mmd             --entry src/max_grounding/mcp_server.py::create_mcp_server             --entry src/max_grounding/mcp_server.py::mcp_search_web             --entry src/max_grounding/mcp_server.py::mcp_fetch_evidence             --entry src/max_grounding/mcp_server.py::mcp_index_evidence             --entry src/max_grounding/mcp_server.py::mcp_query_evidence
+
+      - name: Bind Phase 12 evidence and governance specs
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          FINAL_SOURCE_HEAD = "cc347a91af52c091187a5762a9f64bd7b3d55034"
+          SKILL_SHA = "440bcc6b750f7338738903b04a8eb7ac59b6630e"
+
+          def load(path):
+              return json.loads(Path(path).read_text(encoding="utf-8"))
+
+          def save(path, value):
+              Path(path).write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+
+          session_paths = (
+              "docs/sequence/sessions/phase-12-production-runtime.json",
+              "docs/sequence/sessions/phase-12-rest-api.json",
+              "docs/sequence/sessions/phase-12-mcp-server.json",
+          )
+          for session_path in session_paths:
+              session = load(session_path)
+              actual_path = Path(session["actual"]["graph"])
+              actual = load(actual_path)
+              session["status"] = "VERIFIED"
+              session["actual"]["source_digest"] = actual["source_digest"]
+              session["acceptance_report"] = (
+                  "Phase 12 candidate source head " + FINAL_SOURCE_HEAD
+                  + " passed final sequence/matrix run 36653665732 and "
+                  + "production acceptance run 36653665768."
+              )
+              save(session_path, session)
+
+          state = load(".workflow/state.json")
+          state["status"] = "CANDIDATE_PENDING_GITHUB_ACTIONS"
+          state["working_branch"] = "work/phase-12-production-api-mcp"
+          phase12_proven = [
+              "All three Phase 12 BEFORE sequence plans were frozen before implementation at ancestor ec4948e299993f53dfce7b0b7a4affea326d1689.",
+              "Phase 12 TDD RED run 36635382752 failed before the production REST/MCP service contract existed.",
+              "Phase 12 final GREEN run 36653665814 passed the complete service/unit/security/container contract suite on source head " + FINAL_SOURCE_HEAD + ".",
+              "Phase 12 final candidate verification run 36653665732 passed all three frozen PLAN-to-ACTUAL contracts and all 12 Linux/Windows/macOS Python 3.11-3.14 service-matrix jobs on source head " + FINAL_SOURCE_HEAD + ".",
+              "Phase 12 production acceptance run 36653665768 passed real container REST/MCP/security/bounded-load E2E and linux/amd64 plus linux/arm64 OCI image build on source head " + FINAL_SOURCE_HEAD + ".",
+              "Real E2E used Ollama 0.34.0, qwen3-embedding:0.6b with 1024 dimensions, and Qdrant 1.19.1 behind the production service container.",
+              "Real E2E proved public /healthz, authenticated /readyz and v1 operations, unauthenticated REST/MCP rejection, 256 KiB request-body rejection, official MCP client initialize/list/call behavior, and provenance-bearing persistent query output.",
+              "Bounded CI load smoke completed 16 authenticated persistent queries at concurrency 4 with observed p50 0.292274 s, p95 0.413395 s, and max 0.455113 s; these measurements are CI evidence only and are not a production SLA.",
+              "Multi-arch OCI build for linux/amd64 and linux/arm64 produced a 120 MB archive with SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705.",
+              "Production container runs as non-root user maxgrounding, exposes port 8080, disables FastAPI docs/OpenAPI/debug, and has an HTTP /healthz container health check.",
+              "Skill Workflow " + SKILL_SHA + " is the current governance authority; its route-predecessor generator repair passed Ubuntu/Windows upstream self-tests and enables frozen REST SOURCE route evidence without weakening the plan."
+          ]
+          for item in phase12_proven:
+              if item not in state["proven"]:
+                  state["proven"].append(item)
+          state["not_proven"] = [
+              "Final Phase 12 product acceptance is not proven until the clean Project Truth candidate passes exact-head pull-request Acceptance and merged main is revalidated.",
+              "The bounded 16-request concurrency smoke is not a capacity benchmark, latency SLO, availability SLA, or proof of internet-scale load.",
+              "Deployment to an external production host/domain, TLS termination, reverse proxy configuration, external secret management, and a specific operator SearXNG production instance remain deployment concerns rather than proven repository-hosted deployment state.",
+              "Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional Phase 13-16 work and are not part of Production V1 acceptance."
+          ]
+          state["blockers"] = []
+          state["next_authorized_actions"] = [
+              "Regenerate deterministic Project Truth from the final Phase 12 candidate snapshot and run the latest STRICT validator chain.",
+              "Open the Phase 12 product pull request only after clean truth sync passes.",
+              "Merge only if exact-head permanent Acceptance passes, then revalidate merged main before Phase 12 closure."
+          ]
+          state["blocked_actions"] = [
+              "Do not claim external deployment, TLS/reverse-proxy hardening, capacity SLA, or internet-scale performance from repository acceptance evidence.",
+              "Do not expose MCP tools outside the accepted four evidence operations.",
+              "Do not auto-promote optional Phase 13-16 work during Production V1 closure.",
+              "Do not merge Phase 12 while any exact-head required check is failing or missing."
+          ]
+          save(".workflow/state.json", state)
+
+          project = load(".workflow/project.json")
+          tech = project["technology"]
+          tech["frameworks"] = [
+              "Python standard library",
+              "FastAPI 0.141.1",
+              "Uvicorn 0.54.0",
+              "MCP Python SDK 2.2.0",
+          ]
+          tech["persistence"] = ["Qdrant 1.19.1 persistent vector index"]
+          external = tech["external_systems"]
+          for item in [
+              "authenticated REST service",
+              "authenticated MCP Streamable HTTP service",
+              "Docker/OCI linux/amd64 and linux/arm64 production image",
+          ]:
+              if item not in external:
+                  external.append(item)
+          entry_additions = [
+              {
+                  "name":"Production service facade",
+                  "path":"src/max_grounding/service.py",
+                  "purpose":"compose accepted search, secure fetch, Ollama embedding, and Qdrant persistence behind bounded production operations"
+              },
+              {
+                  "name":"Production REST application",
+                  "path":"src/max_grounding/api.py",
+                  "purpose":"serve authenticated bounded REST operations plus public liveness and authenticated readiness"
+              },
+              {
+                  "name":"Production MCP server",
+                  "path":"src/max_grounding/mcp_server.py",
+                  "purpose":"expose exactly four structured provenance-bearing evidence tools over authenticated Streamable HTTP"
+              },
+              {
+                  "name":"Production container",
+                  "path":"Dockerfile",
+                  "purpose":"run the production ASGI service as a non-root container on linux/amd64 and linux/arm64"
+              }
+          ]
+          existing_paths = {item["path"] for item in project["entry_points"]}
+          for item in entry_additions:
+              if item["path"] not in existing_paths:
+                  project["entry_points"].append(item)
+          save(".workflow/project.json", project)
+
+          architecture = load(".workflow/architecture.json")
+          components = architecture["components"]
+          additions = [
+              {
+                  "id":"production-service",
+                  "name":"Production Service Facade",
+                  "purpose":"Compose only accepted grounding/search/fetch/persistent-query capabilities behind bounded production operations.",
+                  "owns":["ProductionSettings","GroundingService","build_production_runtime","readiness"],
+                  "depends_on":["engine","secure-fetch","persistent-semantic","searxng-provider","ollama-embedding-runtime","qdrant-vector-store"]
+              },
+              {
+                  "id":"production-rest",
+                  "name":"Authenticated REST Boundary",
+                  "purpose":"Expose health/readiness plus four bounded REST evidence operations with API-key auth, body caps, and fail-closed error serialization.",
+                  "owns":["create_rest_app","ProductionSecurityMiddleware","/healthz","/readyz","/v1/search","/v1/fetch","/v1/index","/v1/query"],
+                  "depends_on":["production-service"]
+              },
+              {
+                  "id":"production-mcp",
+                  "name":"Authenticated MCP Boundary",
+                  "purpose":"Expose exactly four structured evidence tools through MCP Streamable HTTP under the parent authentication and transport-security boundary.",
+                  "owns":["create_mcp_server","search_web","fetch_evidence","index_evidence","query_evidence"],
+                  "depends_on":["production-service","production-rest"]
+              },
+              {
+                  "id":"production-container",
+                  "name":"Production Container",
+                  "purpose":"Package the Phase 12 service as a non-root Python 3.12 OCI image with healthcheck and multi-architecture build evidence.",
+                  "owns":["Dockerfile",".dockerignore","linux/amd64 image","linux/arm64 image"],
+                  "depends_on":["production-rest","production-mcp"]
+              }
+          ]
+          ids = {item["id"] for item in components}
+          for item in additions:
+              if item["id"] not in ids:
+                  components.append(item)
+          flows = [
+              {"from":"REST caller","to":"Authenticated REST Boundary","meaning":"API key is validated before readiness or v1 operations and request bytes are capped before service execution"},
+              {"from":"MCP client","to":"Authenticated MCP Boundary","meaning":"parent API-key middleware and MCP transport-security policy protect Streamable HTTP tool access"},
+              {"from":"Authenticated REST Boundary","to":"Production Service Facade","meaning":"validated bounded REST payloads invoke only accepted evidence operations"},
+              {"from":"Authenticated MCP Boundary","to":"Production Service Facade","meaning":"exactly four structured MCP tools reuse the same accepted evidence operations"},
+              {"from":"Production Service Facade","to":"SearXNG/Ollama/Qdrant","meaning":"accepted concrete providers execute bounded search, embedding, and persistent vector operations"},
+              {"from":"Production Container","to":"REST/MCP callers","meaning":"non-root ASGI runtime exposes port 8080 with liveness and authenticated service boundaries"}
+          ]
+          existing_flows = {(x["from"],x["to"],x["meaning"]) for x in architecture["data_flows"]}
+          for item in flows:
+              key=(item["from"],item["to"],item["meaning"])
+              if key not in existing_flows:
+                  architecture["data_flows"].append(item)
+          boundaries = architecture["external_boundaries"]
+          boundary_names = {item["name"] for item in boundaries}
+          boundary_additions = [
+              {
+                  "name":"Production REST clients",
+                  "contract":"Only /healthz is public. /readyz and all /v1 operations require the configured API key; request bodies are capped and internal exception text is not returned."
+              },
+              {
+                  "name":"Production MCP clients",
+                  "contract":"Streamable HTTP MCP is protected by parent API-key middleware plus MCP DNS-rebinding/allowed-host policy and exposes exactly search_web, fetch_evidence, index_evidence, and query_evidence."
+              },
+              {
+                  "name":"Production OCI runtime",
+                  "contract":"Repository acceptance proves a non-root linux/amd64 and linux/arm64 image build and real Linux container E2E; external TLS/reverse proxy/hosting remain operator deployment concerns."
+              }
+          ]
+          for item in boundary_additions:
+              if item["name"] not in boundary_names:
+                  boundaries.append(item)
+          save(".workflow/architecture.json", architecture)
+
+          contracts = load(".workflow/contracts.json")
+          api_contracts = contracts["api_contracts"]
+          api_paths = {item["path"] for item in api_contracts}
+          api_additions = [
+              ("GET","/healthz","Public liveness only.","src/max_grounding/api.py::healthz","NONE","Returns bounded status only."),
+              ("GET","/readyz","Authenticated concrete runtime readiness.","src/max_grounding/api.py::readyz","NONE","Missing/wrong auth is 401; runtime failure is bounded service error."),
+              ("POST","/v1/search","Authenticated bounded web-search evidence.","src/max_grounding/api.py::search_endpoint","NONE","Payload bounds or core policy failures fail closed."),
+              ("POST","/v1/fetch","Authenticated secure evidence fetch.","src/max_grounding/api.py::fetch_endpoint","NONE","Secure fetch policy remains authoritative; internal exception text is not exposed."),
+              ("POST","/v1/index","Authenticated bounded persistent evidence indexing.","src/max_grounding/api.py::index_endpoint","Qdrant upsert only after secure fetch and validated embeddings","Input is capped and persistence failures return bounded service error."),
+              ("POST","/v1/query","Authenticated bounded persistent semantic evidence query.","src/max_grounding/api.py::query_endpoint","NONE","Limit is bounded and malformed/persistence failures fail closed."),
+              ("MCP","search_web","Structured MCP search evidence tool.","src/max_grounding/mcp_server.py::mcp_search_web","NONE","Tool reuses production service search and returns structured provenance."),
+              ("MCP","fetch_evidence","Structured MCP secure-fetch evidence tool.","src/max_grounding/mcp_server.py::mcp_fetch_evidence","NONE","Tool reuses secure production fetch."),
+              ("MCP","index_evidence","Structured MCP persistent-index tool.","src/max_grounding/mcp_server.py::mcp_index_evidence","Qdrant upsert after accepted fetch/embed path","Tool input remains bounded by service contract."),
+              ("MCP","query_evidence","Structured MCP persistent semantic query tool.","src/max_grounding/mcp_server.py::mcp_query_evidence","NONE","Tool returns bounded provenance-bearing semantic hits.")
+          ]
+          for method,path,purpose,authority,mutation,error in api_additions:
+              if path not in api_paths:
+                  api_contracts.append({
+                      "method":method,
+                      "path":path,
+                      "purpose":purpose,
+                      "authority":authority,
+                      "mutation":mutation,
+                      "error_behavior":error
+                  })
+          data_contracts = contracts["data_contracts"]
+          names = {item["name"] for item in data_contracts}
+          for item in [
+              {
+                  "name":"ProductionSettings",
+                  "source_of_truth":"src/max_grounding/service.py::ProductionSettings",
+                  "mutability":"immutable runtime settings snapshot",
+                  "legal_writes":["operator environment before process start"],
+                  "retention":"process lifetime",
+                  "invariants":["SearXNG/Ollama/Qdrant URLs are required","API key is at least 32 characters","secrets are not committed or returned by service errors"]
+              },
+              {
+                  "name":"Public wire payload",
+                  "source_of_truth":"src/max_grounding/wire.py::to_wire",
+                  "mutability":"immutable serialized response value",
+                  "legal_writes":["REST/MCP response construction"],
+                  "retention":"request/tool-call lifetime",
+                  "invariants":["only dataclasses/enums/tuples/lists/dicts/JSON primitives are serialized","unsupported public wire types fail closed","provenance fields are retained"]
+              },
+              {
+                  "name":"Production OCI image",
+                  "source_of_truth":"Dockerfile",
+                  "mutability":"build artifact",
+                  "legal_writes":["GitHub Actions container build"],
+                  "retention":"CI artifact/build output; registry publication is outside current repo acceptance",
+                  "invariants":["runs as maxgrounding non-root user","serves port 8080","contains service runtime but excludes tests/governance from build context","amd64 and arm64 build must pass"]
+              }
+          ]:
+              if item["name"] not in names:
+                  data_contracts.append(item)
+          save(".workflow/contracts.json", contracts)
+
+          claims = load(".workflow/claims.json")
+          claim_additions = [
+              {
+                  "id":"TRUTH-P12-REST-001",
+                  "claim":"Phase 12 exposes public liveness plus authenticated bounded readiness/search/fetch/index/query REST operations; invalid authentication and oversized bodies fail closed.",
+                  "documents":["PROJECT_TRUTH_SYNC.md"],
+                  "source_owners":["src/max_grounding/api.py::create_rest_app","src/max_grounding/api.py::ProductionSecurityMiddleware"],
+                  "tests":["tests/test_api.py","tests/test_service_security.py"],
+                  "runtime_evidence":["Phase 12 Production Acceptance run 36653665768"],
+                  "status":"PASS"
+              },
+              {
+                  "id":"TRUTH-P12-MCP-001",
+                  "claim":"Phase 12 exposes exactly four authenticated structured MCP evidence tools over Streamable HTTP and real official-client initialize/list/call behavior passes.",
+                  "documents":["PROJECT_TRUTH_SYNC.md"],
+                  "source_owners":["src/max_grounding/mcp_server.py::create_mcp_server","src/max_grounding/api.py::create_rest_app"],
+                  "tests":["tests/test_mcp_server.py","tests/test_service_security.py","integration/phase12_e2e.py"],
+                  "runtime_evidence":["Phase 12 Production Acceptance run 36653665768"],
+                  "status":"PASS"
+              },
+              {
+                  "id":"TRUTH-P12-CONTAINER-001",
+                  "claim":"Phase 12 production container runs non-root, has a healthcheck, and builds successfully as linux/amd64 plus linux/arm64 OCI output.",
+                  "documents":["PROJECT_TRUTH_SYNC.md"],
+                  "source_owners":["Dockerfile",".dockerignore"],
+                  "tests":["tests/test_container_contract.py"],
+                  "runtime_evidence":["Phase 12 Production Acceptance run 36653665768; OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705"],
+                  "status":"PASS"
+              },
+              {
+                  "id":"TRUTH-P12-E2E-001",
+                  "claim":"Phase 12 real Linux container E2E passes against pinned Ollama 0.34.0, qwen3-embedding:0.6b, and Qdrant 1.19.1, including authentication, request-size rejection, REST evidence, MCP evidence, and bounded concurrent persistent queries.",
+                  "documents":["PROJECT_TRUTH_SYNC.md"],
+                  "source_owners":["integration/phase12_e2e.py","src/max_grounding/service.py"],
+                  "tests":["integration/phase12_e2e.py"],
+                  "runtime_evidence":["Phase 12 Production Acceptance run 36653665768"],
+                  "status":"PASS"
+              },
+              {
+                  "id":"TRUTH-P12-CROSSOS-001",
+                  "claim":"Phase 12 service code and pinned service dependencies pass the full suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS, and all three frozen BEFORE sequence contracts validate.",
+                  "documents":["PROJECT_TRUTH_SYNC.md"],
+                  "source_owners":["src/max_grounding/service.py","src/max_grounding/api.py","src/max_grounding/mcp_server.py"],
+                  "tests":["tests/test_service.py","tests/test_api.py","tests/test_mcp_server.py","tests/test_service_security.py"],
+                  "runtime_evidence":["Phase 12 Candidate Verify run 36653665732"],
+                  "status":"PASS"
+              }
+          ]
+          ids = {item["id"] for item in claims["claims"]}
+          for item in claim_additions:
+              if item["id"] not in ids:
+                  claims["claims"].append(item)
+          save(".workflow/claims.json", claims)
+
+          acceptance = load(".workflow/acceptance.json")
+          acceptance["evidence_boundary"] = (
+              "Phase 12 proves repository-level Production V1 service readiness: authenticated bounded REST and MCP evidence operations, "
+              "non-root multi-arch OCI build, full cross-platform service regression, and real Linux container E2E against pinned Ollama/Qwen3/Qdrant. "
+              "It does not prove external hosting/TLS/reverse-proxy configuration, internet-scale capacity, or optional Phase 13-16 capabilities."
+          )
+          acceptance["requirements"] = [
+              {"id":"P12-REST","requirement":"REST liveness/readiness/search/fetch/index/query contracts are bounded, authenticated except health, and fail closed.","evidence":"tests/test_api.py; tests/test_service_security.py; run 36653665768","status":"PASS"},
+              {"id":"P12-MCP","requirement":"Exactly four structured MCP evidence tools are authenticated and usable through the official Streamable HTTP client.","evidence":"tests/test_mcp_server.py; integration/phase12_e2e.py; run 36653665768","status":"PASS"},
+              {"id":"P12-SECURITY","requirement":"Wrong/missing auth, mounted MCP auth bypass attempts, oversized request bodies, and internal exception leakage are rejected.","evidence":"tests/test_api.py; tests/test_service_security.py; run 36653665768","status":"PASS"},
+              {"id":"P12-SEQUENCES","requirement":"Production runtime, REST, and MCP implementations conform to all three frozen BEFORE sequence plans.","evidence":"Phase 12 Candidate Verify run 36653665732","status":"PASS"},
+              {"id":"P12-CROSSOS","requirement":"Pinned service dependencies and full service suite pass Python 3.11-3.14 on Linux, Windows, and macOS.","evidence":"Phase 12 Candidate Verify run 36653665732: sequence + 12 service matrix jobs PASS","status":"PASS"},
+              {"id":"P12-REAL-E2E","requirement":"Real Linux production container E2E passes with Ollama 0.34.0, qwen3-embedding:0.6b, Qdrant 1.19.1, REST, MCP, security, and bounded-load smoke.","evidence":"Phase 12 Production Acceptance run 36653665768","status":"PASS"},
+              {"id":"P12-MULTIARCH","requirement":"Production OCI image builds successfully for linux/amd64 and linux/arm64 and runs as non-root.","evidence":"Phase 12 Production Acceptance run 36653665768; OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705","status":"PASS"}
+          ]
+          acceptance["runtime_status"] = "PASS"
+          acceptance["sequence_mode"] = "BEFORE"
+          acceptance["sequence_session"] = "docs/sequence/sessions/phase-12-production-runtime.json"
+          acceptance["sequence_sync_status"] = "PASS"
+          acceptance["test_commands"] = [
+              "python -m unittest discover -s tests -v",
+              "python -m compileall -q src tests integration .workflow/tools",
+              "python .workflow/tools/validate_sequence_sessions.py",
+              "python .workflow/tools/validate_project_truth.py"
+          ]
+          acceptance["runtime_checks"] = [
+              "Phase 12 final GREEN run 36653665814 passed on source head " + FINAL_SOURCE_HEAD + ".",
+              "Phase 12 final Candidate Verify run 36653665732 passed all three sequences and all 12 service matrix jobs on source head " + FINAL_SOURCE_HEAD + ".",
+              "Phase 12 Production Acceptance run 36653665768 passed real container E2E and multi-arch OCI build on source head " + FINAL_SOURCE_HEAD + ".",
+              "Bounded-load CI smoke: 16 requests, concurrency 4, p50 0.292274 s, p95 0.413395 s, max 0.455113 s; not an SLA.",
+              "Multi-arch OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705."
+          ]
+          save(".workflow/acceptance.json", acceptance)
+
+          changelog = load(".workflow/changelog.json")
+          marker = "Phase 12 candidate proves authenticated REST"
+          if not any(item.get("change","").startswith(marker) for item in changelog["entries"]):
+              changelog["entries"].append({
+                  "date":"2026-09-30",
+                  "change":"Phase 12 candidate proves authenticated REST and MCP evidence service boundaries, non-root production container packaging, linux/amd64 and linux/arm64 OCI builds, full Linux/Windows/macOS Python 3.11-3.14 service regression, three frozen sequence contracts, and real Ollama/Qwen3/Qdrant REST/MCP/security/bounded-load E2E."
+              })
+          save(".workflow/changelog.json", changelog)
+
+          readme_path = Path("README.md")
+          readme = readme_path.read_text(encoding="utf-8")
+          start = readme.index("## Current phase")
+          end = readme.index("## Platform policy")
+          current = """## Current phase
+
+Phase 12 is the Production V1 candidate.
+
+The candidate exposes a production service facade backed by the accepted SearXNG, secure-fetch, Ollama `qwen3-embedding:0.6b`, and Qdrant capabilities. REST provides public `/healthz`, authenticated `/readyz`, and authenticated bounded `/v1/search`, `/v1/fetch`, `/v1/index`, and `/v1/query` operations. MCP Streamable HTTP exposes exactly four structured evidence tools: `search_web`, `fetch_evidence`, `index_evidence`, and `query_evidence`.
+
+Final branch evidence passes all three frozen sequence contracts, the full Python 3.11-3.14 service suite on Linux/Windows/macOS, real Linux container REST/MCP/security E2E, a bounded 16-request concurrency-4 query smoke, and linux/amd64 + linux/arm64 OCI image builds. The load measurements are CI smoke evidence, not a production SLA.
+
+Phase 12 still requires exact-head pull-request Acceptance and post-merge main revalidation before Production V1 is accepted. Optional Phase 13-16 work is not auto-started.
+
+"""
+          readme = readme[:start] + current + readme[end:]
+          old_pin = "c1d7e58a0fcadc606c8cf75c6283a17278f99259"
+          readme = readme.replace(old_pin, SKILL_SHA)
+          readme_path.write_text(readme, encoding="utf-8")
+          PY
+
+      - name: Validate all frozen Phase 12 sequences
+        shell: bash
+        run: |
+          python .workflow/tools/validate_sequence_contract.py --session docs/sequence/sessions/phase-12-production-runtime.json
+          python .workflow/tools/validate_sequence_contract.py --session docs/sequence/sessions/phase-12-rest-api.json
+          python .workflow/tools/validate_sequence_contract.py --session docs/sequence/sessions/phase-12-mcp-server.json
+
+      - name: Remove temporary Phase 12 workflows before final compiler snapshot
+        shell: bash
+        run: |
+          rm -f .github/workflows/phase12-green.yml
+          rm -f .github/workflows/phase12-candidate-verify.yml
+          rm -f .github/workflows/phase12-production-acceptance.yml
+          rm -f .github/workflows/phase12-final-truth-sync.yml
+
+      - name: Synchronize Project Truth from final snapshot
+        run: python .workflow/tools/sync_project_truth.py
+
+      - name: Verify final governance state
+        shell: bash
+        run: |
+          test -f docs/ROADMAP.md
+          grep -q 'Current roadmap phase: PHASE_12_PRODUCTION_API_MCP' docs/ROADMAP.md
+          grep -q 'ROADMAP_SYNC: PASS' docs/ROADMAP.md
+          grep -q 'maxqstudio/Skill_Workflow@440bcc6b750f7338738903b04a8eb7ac59b6630e' .workflow/authority.json
+          test "$(find .github/workflows -maxdepth 1 -type f -printf '%f\n' | sort)" = "ci.yml"
+
+      - name: Commit final Project Truth snapshot
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .workflow docs README.md .github/workflows
+          git commit -m 'docs: sync phase 12 production candidate truth'
+
+      - name: Validate latest STRICT governance on clean tree
+        shell: bash
+        run: |
+          python .workflow/tools/validate_project_docs.py
+          python .workflow/tools/validate_doc_quality.py
+          python .workflow/tools/validate_handoff.py
+          python .workflow/tools/validate_human_comprehension.py --require-pass
+          python .workflow/tools/validate_sequence_sessions.py
+          python .workflow/tools/validate_cross_document_consistency.py --base 886ea1b363694d0f947362ab5b6745e2d768ab0f --require-base
+          python .workflow/tools/validate_project_truth.py
+          test -z "$(git status --porcelain)"
+
+      - name: Prove product source unchanged from accepted branch evidence
+        shell: bash
+        run: |
+          git diff --exit-code cc347a91af52c091187a5762a9f64bd7b3d55034 HEAD --             src tests integration Dockerfile .dockerignore pyproject.toml
+
+      - name: Push clean production candidate truth
+        run: git push origin HEAD:work/phase-12-production-api-mcp
