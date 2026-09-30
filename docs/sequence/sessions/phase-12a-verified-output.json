@@ -36,5 +36,5 @@
     "required": false,
     "graph": ""
   },
-  "acceptance_report": "docs/sequence/reports/phase-12a-verified-output.acceptance.json"
+  "acceptance_report": ""
 }
