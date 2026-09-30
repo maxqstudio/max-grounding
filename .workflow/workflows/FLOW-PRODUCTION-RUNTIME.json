@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PRODUCTION-RUNTIME",
+  "title": "Phase 12 production runtime facade",
+  "purpose": "Compose accepted search, secure fetch, Ollama embedding, Qdrant persistence, and bounded retrieval operations behind one explicit service facade without inventing synthesis capabilities.",
+  "critical": true,
+  "entry_condition": "Operator configuration supplies trusted SearXNG, Ollama, and Qdrant service URLs plus a non-empty API key.",
+  "authority": "Production service composition and exact capability boundary over accepted Phase 0-11 primitives",
+  "states": [
+    "CONFIG_RECEIVED",
+    "RUNTIME_BUILT",
+    "OPERATION_EXECUTED",
+    "FAILED_CLOSED"
+  ],
+  "transitions": [
+    {
+      "from": "CONFIG_RECEIVED",
+      "to": "RUNTIME_BUILT",
+      "action": "validate production settings and construct accepted provider/store adapters"
+    },
+    {
+      "from": "RUNTIME_BUILT",
+      "to": "OPERATION_EXECUTED",
+      "action": "execute bounded search, secure fetch, persistent index, or persistent semantic query"
+    },
+    {
+      "from": "RUNTIME_BUILT",
+      "to": "FAILED_CLOSED",
+      "action": "reject invalid configuration or provider/store/runtime failure"
+    }
+  ],
+  "invariants": [
+    "The service facade exposes only search_web, fetch_evidence, index_evidence, query_evidence, and readiness operations accepted by prior phases.",
+    "No Phase 12 runtime method fabricates free-form final answers, automatic claim extraction, fuzzy verification, or multi-hop research.",
+    "Search reuses GroundingEngine and the configured SearXNG provider with accepted search budgets.",
+    "Fetch reuses secure fetch_document; public callers cannot bypass SSRF/DNS/IP-pinning policy.",
+    "Index reuses accepted deterministic chunking, Ollama qwen3-embedding:0.6b, and Qdrant persistence contracts.",
+    "Query reuses accepted persistent semantic retrieval and returns provenance-bearing SemanticHit values.",
+    "Configuration secrets are read from environment/runtime configuration and are never serialized into response payloads."
+  ],
+  "failure_behavior": [
+    "Missing/invalid required configuration fails before serving traffic.",
+    "Provider, fetch, embedding, or vector-store failures remain controlled domain/service errors; no partial fabricated success is returned."
+  ],
+  "restart_behavior": [
+    "The runtime is rebuildable from environment configuration; persistent semantic state remains Qdrant-owned under the accepted Phase 11 collection schema."
+  ],
+  "rollback_behavior": [
+    "Service facade construction performs no destructive migration of accepted Phase 11 data."
+  ],
+  "source_owners": [
+    "src/max_grounding/service.py::build_production_runtime",
+    "src/max_grounding/service.py"
+  ],
+  "tests": [
+    "tests/test_service.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-12-production-runtime.json"
+}

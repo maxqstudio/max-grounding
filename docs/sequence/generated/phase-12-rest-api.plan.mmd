@@ -1,0 +1,30 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: bc49ec5638b02bbe57609032e4e2bb3f67a270285b63f880b32fd27ccccccb60
+%% FLOW_ID: FLOW-PRODUCTION-REST
+sequenceDiagram
+    participant health_http_0 as HTTP /healthz
+    participant health_1 as healthz
+    participant ready_http_2 as HTTP /readyz
+    participant ready_3 as readyz
+    participant search_http_4 as HTTP /v1/search
+    participant search_5 as search_endpoint
+    participant service_search_6 as GroundingService.search_web
+    participant fetch_http_7 as HTTP /v1/fetch
+    participant fetch_8 as fetch_endpoint
+    participant service_fetch_9 as GroundingService.fetch_evidence
+    participant index_http_10 as HTTP /v1/index
+    participant index_11 as index_endpoint
+    participant service_index_12 as GroundingService.index_evidence
+    participant query_http_13 as HTTP /v1/query
+    participant query_14 as query_endpoint
+    participant service_query_15 as GroundingService.query_evidence
+    health_http_0->>health_1: GET liveness route [MUST]
+    ready_http_2->>ready_3: GET readiness route [MUST]
+    search_http_4->>search_5: POST bounded search route [MUST]
+    search_5->>service_search_6: execute bounded web search capability [MUST]
+    fetch_http_7->>fetch_8: POST bounded fetch route [MUST]
+    fetch_8->>service_fetch_9: execute secure fetch capability [MUST]
+    index_http_10->>index_11: POST bounded persistent-index route [MUST]
+    index_11->>service_index_12: execute persistent indexing capability [MUST]
+    query_http_13->>query_14: POST bounded persistent-query route [MUST]
+    query_14->>service_query_15: execute persistent semantic query capability [MUST]

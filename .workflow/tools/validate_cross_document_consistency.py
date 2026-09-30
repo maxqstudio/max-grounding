@@ -14,6 +14,7 @@ Semantic truth still requires source/test/runtime audit.
 from __future__ import annotations
 
 import argparse
+import ast
 import json
 import re
 import subprocess
@@ -72,6 +73,42 @@ def git_root(start: Path) -> Path:
 
 def read(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="ignore")
+
+
+def source_has_symbol(path: Path, symbol: str) -> bool:
+    """Resolve a declared path::symbol reference without guessing across files."""
+    content = read(path)
+    if symbol in content:
+        return True
+    if path.suffix.lower() != ".py":
+        return False
+    parts = symbol.split(".")
+    if not parts or any(not part.isidentifier() for part in parts):
+        return False
+    try:
+        tree = ast.parse(content)
+    except SyntaxError:
+        return False
+
+    nodes = list(tree.body)
+    for index, part in enumerate(parts):
+        match = next(
+            (
+                node
+                for node in nodes
+                if isinstance(node, (ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef))
+                and node.name == part
+            ),
+            None,
+        )
+        if match is None:
+            return False
+        if index == len(parts) - 1:
+            return True
+        if not isinstance(match, ast.ClassDef):
+            return False
+        nodes = list(match.body)
+    return False
 
 
 def strip_fences(text: str) -> str:
@@ -526,7 +563,7 @@ def main() -> int:
             source = root / path_ref
             if not source.is_file():
                 failures.append("BROKEN_PATH_SYMBOL_FILE:" + relative + ":" + path_ref + "::" + symbol)
-            elif symbol not in read(source):
+            elif not source_has_symbol(source, symbol):
                 failures.append("UNRESOLVED_PATH_SYMBOL:" + relative + ":" + path_ref + "::" + symbol)
 
         ids = set(CLAIM_ID_RE.findall(unfenced))

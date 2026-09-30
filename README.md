@@ -30,15 +30,7 @@ No Owner-PC execution is part of the project acceptance authority.
 - Linux, Windows, and macOS core-runtime support;
 - Linux container images for `amd64` and `arm64`.
 
-## Current phase
-
-Phase 11 is accepted on main at `1b193080922fc95a7955123e0d4c6c950f83c081`.
-
-Accepted Phase 11 uses pinned Ollama 0.34.0 with `qwen3-embedding:0.6b` and validates 1024-dimensional embeddings. Qdrant 1.19.1 provides a versioned persistent vector schema with deterministic provenance-bound point identity. GitHub Actions real-service evidence proved indexing/query and persistence across Qdrant restart, while the portable core/adapters pass Python 3.11-3.14 on Linux, Windows, and macOS.
-
-Phase 12 is now the current planning phase: REST, MCP, multi-architecture service containers, end-to-end/security/load validation, and production acceptance. None of those Phase 12 production-service claims are accepted yet.
-
-## Platform policy
+## Current phase\n\nPhase 12 is the Production V1 candidate.\n\nThe candidate exposes a production service facade backed by the accepted SearXNG, secure-fetch, Ollama \`qwen3-embedding:0.6b\`, and Qdrant capabilities. REST provides public \`/healthz\`, authenticated \`/readyz\`, and authenticated bounded \`/v1/search\`, \`/v1/fetch\`, \`/v1/index\`, and \`/v1/query\` operations. MCP Streamable HTTP exposes exactly four structured evidence tools: \`search_web\`, \`fetch_evidence\`, \`index_evidence\`, and \`query_evidence\`.\n\nFinal branch evidence passes all three frozen sequence contracts, the full Python 3.11-3.14 service suite on Linux/Windows/macOS, real Linux container REST/MCP/security E2E, a bounded 16-request concurrency-4 query smoke, and linux/amd64 + linux/arm64 OCI image builds. The load measurements are CI smoke evidence, not a production SLA.\n\nPhase 12 still requires exact-head pull-request Acceptance and post-merge main revalidation before Production V1 is accepted. Optional Phase 13-16 work is not auto-started.\n\n## Platform policy
 
 Native core-runtime acceptance runs on GitHub-hosted Linux, Windows, and macOS runners.
 Service-heavy dependencies such as search engines, vector databases, model runtimes, and caches are isolated behind contracts and validated separately before they can become accepted capabilities.
@@ -47,7 +39,7 @@ Service-heavy dependencies such as search engines, vector databases, model runti
 
 Project governance follows `maxqstudio/Skill_Workflow` pinned at:
 
-`c1d7e58a0fcadc606c8cf75c6283a17278f99259`
+`440bcc6b750f7338738903b04a8eb7ac59b6630e`
 
 Canonical human-facing governance documentation is generated under `docs/` from structured specs under `.workflow/`.
 

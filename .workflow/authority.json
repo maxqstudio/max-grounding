@@ -27,8 +27,8 @@
     },
     {
       "concern": "skill_workflow",
-      "authority": "maxqstudio/Skill_Workflow@c1d7e58a0fcadc606c8cf75c6283a17278f99259",
-      "meaning": "Pinned latest governance tooling and rules adopted during Phase 10 closure.",
+      "authority": "maxqstudio/Skill_Workflow@024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8",
+      "meaning": "Pinned latest governance tooling including Python class-method path-symbol validation and Phase 12 route-predecessor support.",
       "mutable": false
     }
   ],

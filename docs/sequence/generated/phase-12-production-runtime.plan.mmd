@@ -1,0 +1,26 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 74abc19333a276256f673c70fe9f08b63f509c63be67047d41bd41cfa0cebab9
+%% FLOW_ID: FLOW-PRODUCTION-RUNTIME
+sequenceDiagram
+    participant build_0 as build_production_runtime
+    participant searxng_1 as SearxngProvider
+    participant ollama_2 as OllamaEmbeddingProvider
+    participant qdrant_3 as QdrantVectorStore
+    participant service_4 as GroundingService
+    participant search_5 as GroundingService.search_web
+    participant ground_6 as GroundingEngine.ground
+    participant fetchop_7 as GroundingService.fetch_evidence
+    participant fetch_8 as fetch_document
+    participant indexop_9 as GroundingService.index_evidence
+    participant index_10 as index_documents
+    participant queryop_11 as GroundingService.query_evidence
+    participant query_12 as retrieve_persistent_semantic
+    build_0->>searxng_1: construct bounded live-search provider [MUST]
+    build_0->>ollama_2: construct pinned embedding runtime [MUST]
+    build_0->>qdrant_3: construct pinned persistent vector store [MUST]
+    build_0->>service_4: compose production service facade [MUST]
+    search_5->>ground_6: reuse bounded grounding search orchestration [MUST]
+    fetchop_7->>fetch_8: reuse secure result-page fetch [MUST]
+    indexop_9->>fetch_8: securely fetch each requested evidence URL [MUST]
+    indexop_9->>index_10: persist accepted fetched evidence [MUST]
+    queryop_11->>query_12: query accepted persistent semantic index [MUST]

@@ -805,6 +805,103 @@
         "GitHub Actions Phase 11 Real Services run 36631528065"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P12-REST-001",
+      "claim": "Phase 12 exposes public liveness plus authenticated bounded readiness/search/fetch/index/query REST operations; invalid authentication and oversized bodies fail closed.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/api.py::create_rest_app",
+        "src/max_grounding/api.py::ProductionSecurityMiddleware"
+      ],
+      "tests": [
+        "tests/test_api.py",
+        "tests/test_service_security.py"
+      ],
+      "runtime_evidence": [
+        "Phase 12 Production Acceptance run 36653665768"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P12-MCP-001",
+      "claim": "Phase 12 exposes exactly four authenticated structured MCP evidence tools over Streamable HTTP and real official-client initialize/list/call behavior passes.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/mcp_server.py::create_mcp_server",
+        "src/max_grounding/api.py::create_rest_app"
+      ],
+      "tests": [
+        "tests/test_mcp_server.py",
+        "tests/test_service_security.py",
+        "integration/phase12_e2e.py"
+      ],
+      "runtime_evidence": [
+        "Phase 12 Production Acceptance run 36653665768"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P12-CONTAINER-001",
+      "claim": "Phase 12 production container runs non-root, has a healthcheck, and builds successfully as linux/amd64 plus linux/arm64 OCI output.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "Dockerfile",
+        ".dockerignore"
+      ],
+      "tests": [
+        "tests/test_container_contract.py"
+      ],
+      "runtime_evidence": [
+        "Phase 12 Production Acceptance run 36653665768; OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P12-E2E-001",
+      "claim": "Phase 12 real Linux container E2E passes against pinned Ollama 0.34.0, qwen3-embedding:0.6b, and Qdrant 1.19.1, including authentication, request-size rejection, REST evidence, MCP evidence, and bounded concurrent persistent queries.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "integration/phase12_e2e.py",
+        "src/max_grounding/service.py"
+      ],
+      "tests": [
+        "integration/phase12_e2e.py"
+      ],
+      "runtime_evidence": [
+        "Phase 12 Production Acceptance run 36653665768"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P12-CROSSOS-001",
+      "claim": "Phase 12 service code and pinned service dependencies pass the full suite on Python 3.11-3.14 across Ubuntu, Windows, and macOS, and all three frozen BEFORE sequence contracts validate.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/service.py",
+        "src/max_grounding/api.py",
+        "src/max_grounding/mcp_server.py"
+      ],
+      "tests": [
+        "tests/test_service.py",
+        "tests/test_api.py",
+        "tests/test_mcp_server.py",
+        "tests/test_service_security.py"
+      ],
+      "runtime_evidence": [
+        "Phase 12 Candidate Verify run 36653665732"
+      ],
+      "status": "PASS"
     }
   ],
   "relations": []

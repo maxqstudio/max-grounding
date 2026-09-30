@@ -24,6 +24,9 @@ Status: CURRENT
 | FLOW-PERSISTENT-INDEX | BEFORE | YES | docs/sequence/sessions/phase-11-persistent-index.json | PASS |
 | FLOW-PERSISTENT-QUERY | BEFORE | YES | docs/sequence/sessions/phase-11-persistent-query.json | PASS |
 | FLOW-PHASE-DELIVERY | BEFORE | YES | docs/sequence/sessions/phase-00-bootstrap.json | PASS |
+| FLOW-PRODUCTION-MCP | BEFORE | YES | docs/sequence/sessions/phase-12-mcp-server.json | PASS |
+| FLOW-PRODUCTION-REST | BEFORE | YES | docs/sequence/sessions/phase-12-rest-api.json | PASS |
+| FLOW-PRODUCTION-RUNTIME | BEFORE | YES | docs/sequence/sessions/phase-12-production-runtime.json | PASS |
 | FLOW-RERANK-COMPRESS | BEFORE | YES | docs/sequence/sessions/phase-07-rerank-compress.json | PASS |
 | FLOW-SEARXNG-SEARCH | BEFORE | YES | docs/sequence/sessions/phase-02-searxng-provider.json | PASS |
 | FLOW-SECURE-FETCH | BEFORE | YES | docs/sequence/sessions/phase-03-secure-fetch.json | PASS |

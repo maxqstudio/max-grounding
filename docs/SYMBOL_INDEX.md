@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2
+Source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
@@ -13,7 +13,43 @@ Status: CURRENT
 | integration/phase11_services.py | run_index | function | 43-105 | Observed Python symbol | | | |
 | integration/phase11_services.py | run_query | function | 108-131 | Observed Python symbol | | | |
 | integration/phase11_services.py | main | function | 134-142 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _SearchStub | class | 30-55 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _SearchStub.do_GET | method | 31-52 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _SearchStub.log_message | method | 54-55 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _start_search_stub | function | 58-62 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _seed_index | function | 65-79 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _wait_health | function | 82-93 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _rest_probe | function | 96-155 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _mcp_probe | async_function | 158-188 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _bounded_load_probe | function | 191-218 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _bounded_load_probe.one | method | 194-205 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | main | function | 221-255 | Observed Python symbol | | | |
 | src/max_grounding/__init__.py | project_identity | function | 8-15 | Observed Python symbol | | | |
+| src/max_grounding/api.py | SearchRequest | class | 33-42 | Observed Python symbol | | | |
+| src/max_grounding/api.py | FetchRequest | class | 45-48 | Observed Python symbol | | | |
+| src/max_grounding/api.py | IndexRequest | class | 51-54 | Observed Python symbol | | | |
+| src/max_grounding/api.py | QueryRequest | class | 57-61 | Observed Python symbol | | | |
+| src/max_grounding/api.py | _header_map | function | 64-68 | Observed Python symbol | | | |
+| src/max_grounding/api.py | _extract_token | function | 71-88 | Observed Python symbol | | | |
+| src/max_grounding/api.py | _send_error | async_function | 91-104 | Observed Python symbol | | | |
+| src/max_grounding/api.py | _RequestTooLarge | class | 107-108 | Observed Python symbol | | | |
+| src/max_grounding/api.py | ProductionSecurityMiddleware | class | 111-178 | Observed Python symbol | | | |
+| src/max_grounding/api.py | ProductionSecurityMiddleware.__init__ | method | 114-127 | Observed Python symbol | | | |
+| src/max_grounding/api.py | ProductionSecurityMiddleware.__call__ | async_method | 129-178 | Observed Python symbol | | | |
+| src/max_grounding/api.py | ProductionSecurityMiddleware.__call__.limited_receive | async_method | 158-165 | Observed Python symbol | | | |
+| src/max_grounding/api.py | ProductionSecurityMiddleware.__call__.tracked_send | async_method | 167-171 | Observed Python symbol | | | |
+| src/max_grounding/api.py | healthz | function | 185-186 | Observed Python symbol | | | |
+| src/max_grounding/api.py | readyz | function | 190-191 | Observed Python symbol | | | |
+| src/max_grounding/api.py | search_endpoint | function | 195-207 | Observed Python symbol | | | |
+| src/max_grounding/api.py | fetch_endpoint | function | 211-214 | Observed Python symbol | | | |
+| src/max_grounding/api.py | index_endpoint | function | 218-221 | Observed Python symbol | | | |
+| src/max_grounding/api.py | query_endpoint | function | 225-231 | Observed Python symbol | | | |
+| src/max_grounding/api.py | create_rest_app | function | 234-332 | Observed Python symbol | | | |
+| src/max_grounding/api.py | create_rest_app.lifespan | async_method | 268-270 | Observed Python symbol | | | |
+| src/max_grounding/api.py | create_rest_app.lifespan | async_method | 273-274 | Observed Python symbol | | | |
+| src/max_grounding/api.py | create_rest_app.invalid_request_handler | async_method | 317-322 | Observed Python symbol | | | |
+| src/max_grounding/api.py | create_rest_app.grounding_error_handler | async_method | 325-330 | Observed Python symbol | | | |
+| src/max_grounding/api.py | create_production_app | function | 335-345 | Observed Python symbol | | | |
 | src/max_grounding/budget.py | SearchBudget | class | 13-30 | Observed Python symbol | | | |
 | src/max_grounding/budget.py | SearchBudget.__post_init__ | method | 19-21 | Observed Python symbol | | | |
 | src/max_grounding/budget.py | SearchBudget.remaining | method | 24-25 | Observed Python symbol | | | |
@@ -38,6 +74,8 @@ Status: CURRENT
 | src/max_grounding/errors.py | RuntimeProviderError | class | 60-61 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | VectorStoreError | class | 64-65 | Observed Python symbol | | | |
 | src/max_grounding/errors.py | PersistentIndexError | class | 68-69 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | ServiceConfigurationError | class | 72-73 | Observed Python symbol | | | |
+| src/max_grounding/errors.py | ServiceOperationError | class | 76-77 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
 | src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
@@ -69,6 +107,16 @@ Status: CURRENT
 | src/max_grounding/hybrid.py | _validate_ranked_hits | function | 22-41 | Observed Python symbol | | | |
 | src/max_grounding/hybrid.py | fuse_hybrid | function | 44-109 | Observed Python symbol | | | |
 | src/max_grounding/hybrid.py | retrieve_hybrid | function | 112-149 | Observed Python symbol | | | |
+| src/max_grounding/mcp_server.py | mcp_search_web | function | 13-34 | Observed Python symbol | | | |
+| src/max_grounding/mcp_server.py | mcp_fetch_evidence | function | 37-42 | Observed Python symbol | | | |
+| src/max_grounding/mcp_server.py | mcp_index_evidence | function | 45-52 | Observed Python symbol | | | |
+| src/max_grounding/mcp_server.py | mcp_query_evidence | function | 55-61 | Observed Python symbol | | | |
+| src/max_grounding/mcp_server.py | register_mcp_tools | function | 64-103 | Observed Python symbol | | | |
+| src/max_grounding/mcp_server.py | register_mcp_tools._tool_search_web | method | 67-86 | Observed Python symbol | | | |
+| src/max_grounding/mcp_server.py | register_mcp_tools._tool_fetch_evidence | method | 88-90 | Observed Python symbol | | | |
+| src/max_grounding/mcp_server.py | register_mcp_tools._tool_index_evidence | method | 92-94 | Observed Python symbol | | | |
+| src/max_grounding/mcp_server.py | register_mcp_tools._tool_query_evidence | method | 96-98 | Observed Python symbol | | | |
+| src/max_grounding/mcp_server.py | create_mcp_server | function | 106-115 | Observed Python symbol | | | |
 | src/max_grounding/models.py | EvidenceStatus | class | 10-15 | Observed Python symbol | | | |
 | src/max_grounding/models.py | EvidenceRelationType | class | 18-22 | Observed Python symbol | | | |
 | src/max_grounding/models.py | ClaimVerificationStatus | class | 25-31 | Observed Python symbol | | | |
@@ -182,6 +230,20 @@ Status: CURRENT
 | src/max_grounding/semantic.py | cosine_similarity | function | 188-204 | Observed Python symbol | | | |
 | src/max_grounding/semantic.py | rank_semantic | function | 207-245 | Observed Python symbol | | | |
 | src/max_grounding/semantic.py | retrieve_semantic | function | 248-285 | Observed Python symbol | | | |
+| src/max_grounding/service.py | _required | function | 30-34 | Observed Python symbol | | | |
+| src/max_grounding/service.py | _csv | function | 37-41 | Observed Python symbol | | | |
+| src/max_grounding/service.py | ProductionSettings | class | 45-91 | Observed Python symbol | | | |
+| src/max_grounding/service.py | ProductionSettings.from_mapping | method | 59-87 | Observed Python symbol | | | |
+| src/max_grounding/service.py | ProductionSettings.from_env | method | 90-91 | Observed Python symbol | | | |
+| src/max_grounding/service.py | ServiceReadiness | class | 95-99 | Observed Python symbol | | | |
+| src/max_grounding/service.py | GroundingService | class | 102-218 | Observed Python symbol | | | |
+| src/max_grounding/service.py | GroundingService.__init__ | method | 105-117 | Observed Python symbol | | | |
+| src/max_grounding/service.py | GroundingService.search_web | method | 119-140 | Observed Python symbol | | | |
+| src/max_grounding/service.py | GroundingService.fetch_evidence | method | 142-153 | Observed Python symbol | | | |
+| src/max_grounding/service.py | GroundingService.index_evidence | method | 155-183 | Observed Python symbol | | | |
+| src/max_grounding/service.py | GroundingService.query_evidence | method | 185-205 | Observed Python symbol | | | |
+| src/max_grounding/service.py | GroundingService.readiness | method | 207-218 | Observed Python symbol | | | |
+| src/max_grounding/service.py | build_production_runtime | function | 221-231 | Observed Python symbol | | | |
 | src/max_grounding/temporal.py | AuthorityProvider | class | 26-33 | Observed Python symbol | | | |
 | src/max_grounding/temporal.py | AuthorityProvider.score | method | 29-33 | Observed Python symbol | | | |
 | src/max_grounding/temporal.py | _validate_utc | function | 36-41 | Observed Python symbol | | | |
@@ -206,12 +268,25 @@ Status: CURRENT
 | src/max_grounding/verification.py | verify_claims | function | 175-218 | Observed Python symbol | | | |
 | src/max_grounding/verification.py | build_claim_citations | function | 221-257 | Observed Python symbol | | | |
 | src/max_grounding/verification.py | build_synthesis_packet | function | 260-308 | Observed Python symbol | | | |
+| src/max_grounding/wire.py | to_wire | function | 10-26 | Observed Python symbol | | | |
+| tests/test_api.py | service_mock | function | 25-79 | Observed Python symbol | | | |
+| tests/test_api.py | Phase12RestApiTests | class | 82-187 | Observed Python symbol | | | |
+| tests/test_api.py | Phase12RestApiTests.client | method | 83-91 | Observed Python symbol | | | |
+| tests/test_api.py | Phase12RestApiTests.auth | method | 93-94 | Observed Python symbol | | | |
+| tests/test_api.py | Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth | method | 96-111 | Observed Python symbol | | | |
+| tests/test_api.py | Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance | method | 113-142 | Observed Python symbol | | | |
+| tests/test_api.py | Phase12RestApiTests.test_api_key_header_and_wrong_tokens_fail_closed | method | 144-161 | Observed Python symbol | | | |
+| tests/test_api.py | Phase12RestApiTests.test_request_body_cap_applies_before_service_execution | method | 163-172 | Observed Python symbol | | | |
+| tests/test_api.py | Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text | method | 174-187 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests | class | 10-20 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_project_identity_is_stable_and_cross_platform | method | 11-16 | Observed Python symbol | | | |
 | tests/test_bootstrap.py | BootstrapTests.test_runtime_uses_supported_python | method | 18-20 | Observed Python symbol | | | |
 | tests/test_budget.py | SearchBudgetTests | class | 9-21 | Observed Python symbol | | | |
 | tests/test_budget.py | SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected | method | 10-17 | Observed Python symbol | | | |
 | tests/test_budget.py | SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap | method | 19-21 | Observed Python symbol | | | |
+| tests/test_container_contract.py | Phase12ContainerContractTests | class | 7-26 | Observed Python symbol | | | |
+| tests/test_container_contract.py | Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime | method | 8-17 | Observed Python symbol | | | |
+| tests/test_container_contract.py | Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata | method | 19-26 | Observed Python symbol | | | |
 | tests/test_engine.py | candidate | function | 10-17 | Observed Python symbol | | | |
 | tests/test_engine.py | FakeProvider | class | 20-30 | Observed Python symbol | | | |
 | tests/test_engine.py | FakeProvider.__init__ | method | 21-23 | Observed Python symbol | | | |
@@ -257,6 +332,12 @@ Status: CURRENT
 | tests/test_hybrid.py | HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict | method | 114-132 | Observed Python symbol | | | |
 | tests/test_hybrid.py | HybridFusionTests.test_empty_modalities_return_empty_tuple | method | 134-135 | Observed Python symbol | | | |
 | tests/test_hybrid.py | HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers | method | 137-164 | Observed Python symbol | | | |
+| tests/test_mcp_server.py | runtime | function | 25-72 | Observed Python symbol | | | |
+| tests/test_mcp_server.py | Phase12McpTests | class | 75-119 | Observed Python symbol | | | |
+| tests/test_mcp_server.py | Phase12McpTests.test_only_four_explicit_grounding_tools_are_registered | method | 76-85 | Observed Python symbol | | | |
+| tests/test_mcp_server.py | Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance | method | 87-105 | Observed Python symbol | | | |
+| tests/test_mcp_server.py | Phase12McpTests.test_mcp_tool_call_returns_structured_content | method | 107-119 | Observed Python symbol | | | |
+| tests/test_mcp_server.py | Phase12McpTests.test_mcp_tool_call_returns_structured_content.invoke | async_method | 110-111 | Observed Python symbol | | | |
 | tests/test_network_policy.py | ResultUrlAdmissionTests | class | 13-57 | Observed Python symbol | | | |
 | tests/test_network_policy.py | ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets | method | 14-16 | Observed Python symbol | | | |
 | tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes | method | 18-21 | Observed Python symbol | | | |
@@ -300,6 +381,8 @@ Status: CURRENT
 | tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed | method | 248-280 | Observed Python symbol | | | |
 | tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider | class | 249-251 | Observed Python symbol | | | |
 | tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider.embed_query | method | 250-251 | Observed Python symbol | | | |
+| tests/test_phase12_dependencies.py | Phase12DependencyPinsTests | class | 8-15 | Observed Python symbol | | | |
+| tests/test_phase12_dependencies.py | Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned | method | 9-15 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests | class | 10-43 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.setUp | method | 11-12 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_blank_query | method | 14-16 | Observed Python symbol | | | |
@@ -411,6 +494,19 @@ Status: CURRENT
 | tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_build_semantic_chunks_rejects_total_chunk_overflow | method | 238-252 | Observed Python symbol | | | |
 | tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_invalid_request_bounds_fail_before_provider | method | 254-269 | Observed Python symbol | | | |
 | tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_repeated_retrieval_is_deterministic_for_deterministic_provider | method | 271-288 | Observed Python symbol | | | |
+| tests/test_service.py | doc | function | 28-37 | Observed Python symbol | | | |
+| tests/test_service.py | Phase12ServiceTests | class | 40-218 | Observed Python symbol | | | |
+| tests/test_service.py | Phase12ServiceTests.settings | method | 41-51 | Observed Python symbol | | | |
+| tests/test_service.py | Phase12ServiceTests.service | method | 53-73 | Observed Python symbol | | | |
+| tests/test_service.py | Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key | method | 75-104 | Observed Python symbol | | | |
+| tests/test_service.py | Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies | method | 106-121 | Observed Python symbol | | | |
+| tests/test_service.py | Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core | method | 123-140 | Observed Python symbol | | | |
+| tests/test_service.py | Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts | method | 142-185 | Observed Python symbol | | | |
+| tests/test_service.py | Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed | method | 187-197 | Observed Python symbol | | | |
+| tests/test_service.py | Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets | method | 199-218 | Observed Python symbol | | | |
+| tests/test_service_security.py | Phase12ServiceSecurityTests | class | 15-46 | Observed Python symbol | | | |
+| tests/test_service_security.py | Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint | method | 16-31 | Observed Python symbol | | | |
+| tests/test_service_security.py | Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route | method | 33-46 | Observed Python symbol | | | |
 | tests/test_temporal_scoring.py | excerpt | function | 26-41 | Observed Python symbol | | | |
 | tests/test_temporal_scoring.py | metadata | function | 44-63 | Observed Python symbol | | | |
 | tests/test_temporal_scoring.py | _AuthorityProvider | class | 66-76 | Observed Python symbol | | | |

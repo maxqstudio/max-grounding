@@ -265,7 +265,11 @@ notes:
             "app = FastAPI()\n"
             "@app.get('/health')\n"
             "def health():\n"
-            "    return {'ok': True}\n",
+            "    return {'ok': True}\n"
+            "\n"
+            "class HealthService:\n"
+            "    def check(self):\n"
+            "        return True\n",
             encoding="utf-8",
         )
         tests_root = root / "tests"
@@ -273,6 +277,14 @@ notes:
         (tests_root / "test_health.py").write_text(
             "def test_health_contract():\n"
             "    assert True\n",
+            encoding="utf-8",
+        )
+
+        class_method_doc = root / "docs" / "CLASS_METHOD_REFERENCE.md"
+        class_method_doc.parent.mkdir(parents=True, exist_ok=True)
+        class_method_doc.write_text(
+            "# Class Method Reference\n\n"
+            "Regression reference: `app.py::HealthService.check`\n",
             encoding="utf-8",
         )
 
@@ -672,6 +684,20 @@ notes:
         print("DETERMINISTIC_SEQUENCE_LF=PASS")
 
         actual = json.loads(actual_json.read_text(encoding="utf-8"))
+        expected_route_edge = {
+            "from": "HTTP /health",
+            "to": "app.py::health",
+        }
+        if not any(
+            edge.get("from") == expected_route_edge["from"]
+            and edge.get("to") == expected_route_edge["to"]
+            and edge.get("action") == "GET route"
+            for edge in actual.get("edges", [])
+        ):
+            raise RuntimeError(
+                "generate_sequence_actual dropped the HTTP route predecessor edge"
+            )
+        print("HTTP_ROUTE_PREDECESSOR_REACHABILITY=PASS")
         write_json(
             root / "docs" / "sequence" / "sessions" / "health.json",
             {

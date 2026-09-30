@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   cross-platform:
-    name: Core ${{ matrix.os }} py${{ matrix.python }}
+    name: Service ${{ matrix.os }} py${{ matrix.python }}
     strategy:
       fail-fast: false
       matrix:
@@ -29,11 +29,11 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
       - name: Install package
-        run: python -m pip install .
+        run: python -m pip install '.[service,test]'
       - name: Unit and smoke tests
         run: python -m unittest discover -s tests -v
       - name: Compile tracked Python
-        run: python -m compileall -q src tests .workflow/tools
+        run: python -m compileall -q src tests integration .workflow/tools
       - name: Runtime identity
         run: python -c "from max_grounding import project_identity; x=project_identity(); assert x['cross_platform'] is True; print(x)"
 
@@ -70,7 +70,7 @@ jobs:
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           repository: maxqstudio/Skill_Workflow
-          ref: 9e22feddb8f94e8c0f1af6a33e14b64de5068f8f
+          ref: 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8
           path: .skill-workflow-authority
           persist-credentials: false
       - name: Self-test pinned STRICT workflow authority

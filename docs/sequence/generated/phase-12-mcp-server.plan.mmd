@@ -1,0 +1,23 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 0c1a48ed15b2e00c66e4703e6c4dc7451f6abb9ed2a992aac608546d0f932022
+%% FLOW_ID: FLOW-PRODUCTION-MCP
+sequenceDiagram
+    participant create_0 as create_mcp_server
+    participant register_1 as register_mcp_tools
+    participant search_2 as mcp_search_web
+    participant service_search_3 as GroundingService.search_web
+    participant fetch_4 as mcp_fetch_evidence
+    participant service_fetch_5 as GroundingService.fetch_evidence
+    participant index_6 as mcp_index_evidence
+    participant service_index_7 as GroundingService.index_evidence
+    participant query_8 as mcp_query_evidence
+    participant service_query_9 as GroundingService.query_evidence
+    create_0->>register_1: register bounded production MCP tool set [MUST]
+    register_1->>search_2: register search_web tool callback [MUST]
+    register_1->>fetch_4: register fetch_evidence tool callback [MUST]
+    register_1->>index_6: register index_evidence tool callback [MUST]
+    register_1->>query_8: register query_evidence tool callback [MUST]
+    search_2->>service_search_3: execute bounded web search capability [MUST]
+    fetch_4->>service_fetch_5: execute secure fetch capability [MUST]
+    index_6->>service_index_7: execute persistent indexing capability [MUST]
+    query_8->>service_query_9: execute persistent semantic query capability [MUST]

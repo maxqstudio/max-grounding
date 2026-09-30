@@ -20,17 +20,23 @@
       "Python"
     ],
     "frameworks": [
-      "Python standard library"
+      "Python standard library",
+      "FastAPI 0.141.1",
+      "Uvicorn 0.54.0",
+      "MCP Python SDK 2.2.0"
     ],
     "persistence": [
-      "Qdrant v1.19.1 persistent vector index in Phase 11 candidate"
+      "Qdrant 1.19.1 persistent vector index"
     ],
     "external_systems": [
       "GitHub Actions",
       "operator-configured SearXNG instance",
       "Ollama v0.34.0",
       "qwen3-embedding:0.6b",
-      "Qdrant v1.19.1"
+      "Qdrant v1.19.1",
+      "authenticated REST service",
+      "authenticated MCP Streamable HTTP service",
+      "Docker/OCI linux/amd64 and linux/arm64 production image"
     ]
   },
   "entry_points": [
@@ -93,6 +99,26 @@
       "name": "Persistent semantic retrieval",
       "path": "src/max_grounding/persistent.py",
       "purpose": "orchestrate deterministic chunking, concrete embedding, persistent indexing, and validated Qdrant semantic retrieval"
+    },
+    {
+      "name": "Production service facade",
+      "path": "src/max_grounding/service.py",
+      "purpose": "compose accepted search, secure fetch, Ollama embedding, and Qdrant persistence behind bounded production operations"
+    },
+    {
+      "name": "Production REST application",
+      "path": "src/max_grounding/api.py",
+      "purpose": "serve authenticated bounded REST operations plus public liveness and authenticated readiness"
+    },
+    {
+      "name": "Production MCP server",
+      "path": "src/max_grounding/mcp_server.py",
+      "purpose": "expose exactly four structured provenance-bearing evidence tools over authenticated Streamable HTTP"
+    },
+    {
+      "name": "Production container",
+      "path": "Dockerfile",
+      "purpose": "run the production ASGI service as a non-root container on linux/amd64 and linux/arm64"
     }
   ],
   "constraints": [

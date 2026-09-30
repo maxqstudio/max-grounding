@@ -376,6 +376,145 @@ Authority: GitHub Actions required checks
 
 - A defective merged phase must be reverted through a new governed change and revalidated.
 
+## FLOW-PRODUCTION-MCP — Phase 12 production MCP server
+
+Purpose: Expose the same accepted service facade through explicitly named authenticated MCP tools without creating additional model authority.
+Critical: TRUE
+Entry condition: A validated GroundingService runtime, MCPServer instance, and API authentication middleware are available.
+Authority: MCP tool names, schemas, bounded service calls, and Streamable HTTP mounting behavior
+
+### States
+
+- MCP_REQUEST
+- TOOL_VALIDATED
+- SERVICE_CALLED
+- TOOL_RESULT
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| MCP_REQUEST | TOOL_VALIDATED | MCP SDK validates one registered bounded tool call | MCP tool names, schemas, bounded service calls, and Streamable HTTP mounting behavior |  |
+| TOOL_VALIDATED | SERVICE_CALLED | tool wrapper invokes exactly one accepted GroundingService capability | MCP tool names, schemas, bounded service calls, and Streamable HTTP mounting behavior |  |
+| SERVICE_CALLED | TOOL_RESULT | return structured JSON-compatible provenance result | MCP tool names, schemas, bounded service calls, and Streamable HTTP mounting behavior |  |
+
+### Invariants
+
+- Registered tool names are search_web, fetch_evidence, index_evidence, and query_evidence.
+- MCP does not expose a fake research, answer, synthesis, shell, arbitrary filesystem, or arbitrary command tool.
+- MCP tool wrappers reuse the same service methods and request bounds as REST.
+- MCP Streamable HTTP is stateless/JSON-response oriented unless later evidence justifies stateful streaming.
+- Mounted MCP traffic is covered by the same API authentication and request-size policy as production REST traffic.
+- Tool results preserve provenance and never reinterpret unsupported evidence as fact.
+
+### Failure behavior
+
+- Invalid MCP input or service failure returns controlled tool/protocol error without fabricated success.
+- Authentication failure is rejected before tool execution.
+
+### Restart behavior
+
+- The MCP server is stateless above accepted persistent Qdrant state.
+
+### Rollback behavior
+
+- MCP exposure mutates persistent state only through the explicit index_evidence tool.
+
+## FLOW-PRODUCTION-REST — Phase 12 production REST API
+
+Purpose: Expose bounded authenticated JSON REST operations for accepted grounding capabilities plus minimal health/readiness probes.
+Critical: TRUE
+Entry condition: A validated GroundingService runtime and API authentication policy are available.
+Authority: REST routes, request/response bounds, authentication, and safe error mapping
+
+### States
+
+- REQUEST_RECEIVED
+- AUTHENTICATED
+- VALIDATED
+- SERVICE_CALLED
+- RESPONSE_RETURNED
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| REQUEST_RECEIVED | AUTHENTICATED | authenticate non-health requests with configured bearer/API token | REST routes, request/response bounds, authentication, and safe error mapping |  |
+| AUTHENTICATED | VALIDATED | validate bounded typed request body | REST routes, request/response bounds, authentication, and safe error mapping |  |
+| VALIDATED | SERVICE_CALLED | call exactly one explicit GroundingService capability | REST routes, request/response bounds, authentication, and safe error mapping |  |
+| SERVICE_CALLED | RESPONSE_RETURNED | serialize bounded provenance-preserving JSON response | REST routes, request/response bounds, authentication, and safe error mapping |  |
+
+### Invariants
+
+- GET /healthz reveals only liveness and requires no secret.
+- GET /readyz reports readiness without returning credentials or provider secrets.
+- POST /v1/search, /v1/fetch, /v1/index, and /v1/query require authentication.
+- Request bodies are bounded before JSON parsing and typed validation.
+- REST routes expose no arbitrary URL fetch bypass beyond accepted fetch_evidence validation.
+- Error responses do not include raw exception tracebacks, secrets, or untrusted executable content.
+- REST response fields preserve exact URLs/chunk identities/provenance returned by accepted core types.
+
+### Failure behavior
+
+- Missing/invalid authentication returns controlled 401/403-style failure.
+- Oversized/malformed requests fail before service execution.
+- Domain/service failures map to bounded JSON errors and never become fabricated 2xx success.
+
+### Restart behavior
+
+- REST is stateless apart from underlying accepted runtime services.
+
+### Rollback behavior
+
+- REST exposure performs no destructive persistent migration.
+
+## FLOW-PRODUCTION-RUNTIME — Phase 12 production runtime facade
+
+Purpose: Compose accepted search, secure fetch, Ollama embedding, Qdrant persistence, and bounded retrieval operations behind one explicit service facade without inventing synthesis capabilities.
+Critical: TRUE
+Entry condition: Operator configuration supplies trusted SearXNG, Ollama, and Qdrant service URLs plus a non-empty API key.
+Authority: Production service composition and exact capability boundary over accepted Phase 0-11 primitives
+
+### States
+
+- CONFIG_RECEIVED
+- RUNTIME_BUILT
+- OPERATION_EXECUTED
+- FAILED_CLOSED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| CONFIG_RECEIVED | RUNTIME_BUILT | validate production settings and construct accepted provider/store adapters | Production service composition and exact capability boundary over accepted Phase 0-11 primitives |  |
+| RUNTIME_BUILT | OPERATION_EXECUTED | execute bounded search, secure fetch, persistent index, or persistent semantic query | Production service composition and exact capability boundary over accepted Phase 0-11 primitives |  |
+| RUNTIME_BUILT | FAILED_CLOSED | reject invalid configuration or provider/store/runtime failure | Production service composition and exact capability boundary over accepted Phase 0-11 primitives |  |
+
+### Invariants
+
+- The service facade exposes only search_web, fetch_evidence, index_evidence, query_evidence, and readiness operations accepted by prior phases.
+- No Phase 12 runtime method fabricates free-form final answers, automatic claim extraction, fuzzy verification, or multi-hop research.
+- Search reuses GroundingEngine and the configured SearXNG provider with accepted search budgets.
+- Fetch reuses secure fetch_document; public callers cannot bypass SSRF/DNS/IP-pinning policy.
+- Index reuses accepted deterministic chunking, Ollama qwen3-embedding:0.6b, and Qdrant persistence contracts.
+- Query reuses accepted persistent semantic retrieval and returns provenance-bearing SemanticHit values.
+- Configuration secrets are read from environment/runtime configuration and are never serialized into response payloads.
+
+### Failure behavior
+
+- Missing/invalid required configuration fails before serving traffic.
+- Provider, fetch, embedding, or vector-store failures remain controlled domain/service errors; no partial fabricated success is returned.
+
+### Restart behavior
+
+- The runtime is rebuildable from environment configuration; persistent semantic state remains Qdrant-owned under the accepted Phase 11 collection schema.
+
+### Rollback behavior
+
+- Service facade construction performs no destructive migration of accepted Phase 11 data.
+
 ## FLOW-RERANK-COMPRESS — Bounded reranking and extractive context compression
 
 Purpose: Rerank already-bounded hybrid hits through an injected provider, validate scores fail-closed, then extract a bounded provenance-preserving context without generative rewriting.

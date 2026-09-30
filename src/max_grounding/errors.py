@@ -67,3 +67,11 @@ class VectorStoreError(GroundingError, ValueError):
 
 class PersistentIndexError(GroundingError, ValueError):
     """Raised when persistent semantic indexing or retrieval fails closed."""
+
+
+class ServiceConfigurationError(GroundingError, ValueError):
+    """Raised when required production service configuration is invalid."""
+
+
+class ServiceOperationError(GroundingError):
+    """Raised when a production service operation cannot complete safely."""

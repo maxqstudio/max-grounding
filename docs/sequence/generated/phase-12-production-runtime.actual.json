@@ -1,0 +1,1547 @@
+{
+  "coverage": {
+    "js_ts_http_module_scan": true,
+    "limitations": [
+      "dynamic dispatch",
+      "dependency injection",
+      "reflection",
+      "callbacks/events",
+      "framework magic not visible statically",
+      "JS/TS function-level call ownership is not fully resolved"
+    ],
+    "python_ast": true,
+    "python_parse_failures": [],
+    "python_route_decorators": true,
+    "runtime_trace": false
+  },
+  "edges": [
+    {
+      "action": "SearchBudgetExceeded",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/budget.py::SearchBudget.consume_search_call",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::SearchBudgetExceeded"
+    },
+    {
+      "action": "SearchBudget",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/budget.py::SearchBudget"
+    },
+    {
+      "action": "budget.consume_search_call",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/budget.py::SearchBudget.consume_search_call"
+    },
+    {
+      "action": "build_evidence_pack",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence.py::build_evidence_pack"
+    },
+    {
+      "action": "normalize_candidates",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence.py::normalize_candidates"
+    },
+    {
+      "action": "SearchQuery",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::SearchQuery"
+    },
+    {
+      "action": "self._policy.validate_request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/policy.py::GroundingPolicy.validate_request"
+    },
+    {
+      "action": "invoke_search",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/base.py::invoke_search"
+    },
+    {
+      "action": "EvidencePack",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence.py::build_evidence_pack",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::EvidencePack"
+    },
+    {
+      "action": "canonicalize_url",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence.py::normalize_candidates",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence.py::canonicalize_url"
+    },
+    {
+      "action": "EvidenceSource",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence.py::normalize_candidates",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::EvidenceSource"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "is_admissible_result_url",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/network_policy.py::is_admissible_result_url"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::_require_public_ip",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::extract_text",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "_TextExtractor",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::extract_text",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::_TextExtractor"
+    },
+    {
+      "action": "parser.close",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::extract_text",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Connection.close"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "_normalized_fetch_target",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::_normalized_fetch_target"
+    },
+    {
+      "action": "extract_text",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::extract_text"
+    },
+    {
+      "action": "open_pinned_connection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::open_pinned_connection"
+    },
+    {
+      "action": "read_bounded_response",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::read_bounded_response"
+    },
+    {
+      "action": "FetchedDocument",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::FetchedDocument"
+    },
+    {
+      "action": "resolve_public_addresses",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/network_policy.py::resolve_public_addresses"
+    },
+    {
+      "action": "connection.close",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Connection.close"
+    },
+    {
+      "action": "connection.getresponse",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Connection.getresponse"
+    },
+    {
+      "action": "connection.request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::fetch_document",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Connection.request"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "_PinnedHTTPConnection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::_PinnedHTTPConnection"
+    },
+    {
+      "action": "_PinnedHTTPSConnection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection"
+    },
+    {
+      "action": "_require_public_ip",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::_require_public_ip"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::read_bounded_response",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "response.read",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/fetcher.py::read_bounded_response",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Response.read"
+    },
+    {
+      "action": "FetchError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::_provider_contract",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::_store_contract",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "_validated_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validated_vector"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::build_semantic_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "SemanticHit",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::build_semantic_hits",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::SemanticHit"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "provider.embed_documents",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_documents"
+    },
+    {
+      "action": "_provider_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_provider_contract"
+    },
+    {
+      "action": "_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_vector"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_query_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "provider.embed_query",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_query_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_query"
+    },
+    {
+      "action": "_provider_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_query_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_provider_contract"
+    },
+    {
+      "action": "_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::embed_query_concrete",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_vector"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::index_documents",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "PersistentIndexResult",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::index_documents",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::PersistentIndexResult"
+    },
+    {
+      "action": "_provider_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::index_documents",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_provider_contract"
+    },
+    {
+      "action": "_store_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::index_documents",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_store_contract"
+    },
+    {
+      "action": "embed_documents_concrete",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::index_documents",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::embed_documents_concrete"
+    },
+    {
+      "action": "store.ensure_collection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::index_documents",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection"
+    },
+    {
+      "action": "store.upsert_chunks",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::index_documents",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks"
+    },
+    {
+      "action": "build_semantic_chunks",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::index_documents",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::build_semantic_chunks"
+    },
+    {
+      "action": "PersistentIndexError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "action": "_provider_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_provider_contract"
+    },
+    {
+      "action": "_store_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::_store_contract"
+    },
+    {
+      "action": "build_semantic_hits",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::build_semantic_hits"
+    },
+    {
+      "action": "embed_query_concrete",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::embed_query_concrete"
+    },
+    {
+      "action": "store.ensure_collection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection"
+    },
+    {
+      "action": "store.query_chunks",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks"
+    },
+    {
+      "action": "InvalidGroundingRequest",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "action": "provider.search",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/base.py::invoke_search",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/base.py::SearchProvider.search"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "PersistentVectorHit",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::PersistentVectorHit"
+    },
+    {
+      "action": "TextChunk",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::TextChunk"
+    },
+    {
+      "action": "point_id_for_chunk",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::point_id_for_chunk"
+    },
+    {
+      "action": "request_qdrant_json",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::request_qdrant_json"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "self._request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request"
+    },
+    {
+      "action": "self._validate_collection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection"
+    },
+    {
+      "action": "self.verify_runtime",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "self._parse_point",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point"
+    },
+    {
+      "action": "self._request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request"
+    },
+    {
+      "action": "self.ensure_collection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection"
+    },
+    {
+      "action": "_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::_vector"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "self._request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request"
+    },
+    {
+      "action": "self.ensure_collection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection"
+    },
+    {
+      "action": "_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::_vector"
+    },
+    {
+      "action": "point_id_for_chunk",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::point_id_for_chunk"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "self._request",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "_validated_vector",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/semantic.py::_validated_vector"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "VectorStoreError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "action": "_NoRedirect",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::_NoRedirect"
+    },
+    {
+      "action": "response.read",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "resolver": "python_ast",
+      "to": "tests/test_secure_fetcher.py::_Response.read"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "TextChunk",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::TextChunk"
+    },
+    {
+      "action": "_chunk_id",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_chunk_id"
+    },
+    {
+      "action": "_validate_chunk_bounds",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::_validate_chunk_bounds"
+    },
+    {
+      "action": "tokenize_text",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/retrieval.py::chunk_document",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::tokenize_text"
+    },
+    {
+      "action": "EmbeddingProviderError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::_validated_vector",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::EmbeddingProviderError"
+    },
+    {
+      "action": "RetrievalError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::build_semantic_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "action": "chunk_document",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/semantic.py::build_semantic_chunks",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/retrieval.py::chunk_document"
+    },
+    {
+      "action": "ServiceOperationError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::ServiceOperationError"
+    },
+    {
+      "action": "fetch_document",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::fetch_document"
+    },
+    {
+      "action": "ServiceOperationError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::ServiceOperationError"
+    },
+    {
+      "action": "fetch_document",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/fetcher.py::fetch_document"
+    },
+    {
+      "action": "index_documents",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::index_documents"
+    },
+    {
+      "action": "self.fetch_evidence",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/service.py::GroundingService.fetch_evidence"
+    },
+    {
+      "action": "ServiceOperationError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::ServiceOperationError"
+    },
+    {
+      "action": "retrieve_persistent_semantic",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/persistent.py::retrieve_persistent_semantic"
+    },
+    {
+      "action": "self._engine.ground",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.search_web",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/engine.py::GroundingEngine.ground"
+    },
+    {
+      "action": "GroundingRequest",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.search_web",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::GroundingRequest"
+    },
+    {
+      "action": "ServiceConfigurationError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::build_production_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::ServiceConfigurationError"
+    },
+    {
+      "action": "OllamaEmbeddingProvider",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::build_production_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider"
+    },
+    {
+      "action": "QdrantVectorStore",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::build_production_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/qdrant.py::QdrantVectorStore"
+    },
+    {
+      "action": "SearxngProvider",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::build_production_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/providers/searxng.py::SearxngProvider"
+    },
+    {
+      "action": "GroundingService",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::build_production_runtime",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/service.py::GroundingService"
+    }
+  ],
+  "entries": [
+    "src/max_grounding/service.py::build_production_runtime",
+    "src/max_grounding/service.py::GroundingService.search_web",
+    "src/max_grounding/service.py::GroundingService.fetch_evidence",
+    "src/max_grounding/service.py::GroundingService.index_evidence",
+    "src/max_grounding/service.py::GroundingService.query_evidence"
+  ],
+  "generated": true,
+  "generated_by": "generate_sequence_actual.py",
+  "nodes": [
+    {
+      "id": "src/max_grounding/budget.py::SearchBudget",
+      "kind": "class",
+      "label": "src/max_grounding/budget.py::SearchBudget",
+      "language": "Python",
+      "line_end": 30,
+      "line_start": 13,
+      "locator": "src/max_grounding/budget.py::SearchBudget"
+    },
+    {
+      "id": "src/max_grounding/budget.py::SearchBudget.consume_search_call",
+      "kind": "method",
+      "label": "src/max_grounding/budget.py::SearchBudget.consume_search_call",
+      "language": "Python",
+      "line_end": 30,
+      "line_start": 27,
+      "locator": "src/max_grounding/budget.py::SearchBudget.consume_search_call"
+    },
+    {
+      "id": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "kind": "method",
+      "label": "src/max_grounding/engine.py::GroundingEngine.ground",
+      "language": "Python",
+      "line_end": 57,
+      "line_start": 24,
+      "locator": "src/max_grounding/engine.py::GroundingEngine.ground"
+    },
+    {
+      "id": "src/max_grounding/errors.py::EmbeddingProviderError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::EmbeddingProviderError",
+      "language": "Python",
+      "line_end": 33,
+      "line_start": 32,
+      "locator": "src/max_grounding/errors.py::EmbeddingProviderError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::FetchError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::FetchError",
+      "language": "Python",
+      "line_end": 25,
+      "line_start": 24,
+      "locator": "src/max_grounding/errors.py::FetchError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::InvalidGroundingRequest",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::InvalidGroundingRequest",
+      "language": "Python",
+      "line_end": 9,
+      "line_start": 8,
+      "locator": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "id": "src/max_grounding/errors.py::PersistentIndexError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::PersistentIndexError",
+      "language": "Python",
+      "line_end": 69,
+      "line_start": 68,
+      "locator": "src/max_grounding/errors.py::PersistentIndexError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::RetrievalError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::RetrievalError",
+      "language": "Python",
+      "line_end": 29,
+      "line_start": 28,
+      "locator": "src/max_grounding/errors.py::RetrievalError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::SearchBudgetExceeded",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::SearchBudgetExceeded",
+      "language": "Python",
+      "line_end": 13,
+      "line_start": 12,
+      "locator": "src/max_grounding/errors.py::SearchBudgetExceeded"
+    },
+    {
+      "id": "src/max_grounding/errors.py::ServiceConfigurationError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::ServiceConfigurationError",
+      "language": "Python",
+      "line_end": 73,
+      "line_start": 72,
+      "locator": "src/max_grounding/errors.py::ServiceConfigurationError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::ServiceOperationError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::ServiceOperationError",
+      "language": "Python",
+      "line_end": 77,
+      "line_start": 76,
+      "locator": "src/max_grounding/errors.py::ServiceOperationError"
+    },
+    {
+      "id": "src/max_grounding/errors.py::VectorStoreError",
+      "kind": "class",
+      "label": "src/max_grounding/errors.py::VectorStoreError",
+      "language": "Python",
+      "line_end": 65,
+      "line_start": 64,
+      "locator": "src/max_grounding/errors.py::VectorStoreError"
+    },
+    {
+      "id": "src/max_grounding/evidence.py::build_evidence_pack",
+      "kind": "function",
+      "label": "src/max_grounding/evidence.py::build_evidence_pack",
+      "language": "Python",
+      "line_end": 97,
+      "line_start": 73,
+      "locator": "src/max_grounding/evidence.py::build_evidence_pack"
+    },
+    {
+      "id": "src/max_grounding/evidence.py::canonicalize_url",
+      "kind": "function",
+      "label": "src/max_grounding/evidence.py::canonicalize_url",
+      "language": "Python",
+      "line_end": 46,
+      "line_start": 17,
+      "locator": "src/max_grounding/evidence.py::canonicalize_url"
+    },
+    {
+      "id": "src/max_grounding/evidence.py::normalize_candidates",
+      "kind": "function",
+      "label": "src/max_grounding/evidence.py::normalize_candidates",
+      "language": "Python",
+      "line_end": 70,
+      "line_start": 49,
+      "locator": "src/max_grounding/evidence.py::normalize_candidates"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::_PinnedHTTPConnection",
+      "kind": "class",
+      "label": "src/max_grounding/fetcher.py::_PinnedHTTPConnection",
+      "language": "Python",
+      "line_end": 45,
+      "line_start": 30,
+      "locator": "src/max_grounding/fetcher.py::_PinnedHTTPConnection"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection",
+      "kind": "class",
+      "label": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection",
+      "language": "Python",
+      "line_end": 72,
+      "line_start": 48,
+      "locator": "src/max_grounding/fetcher.py::_PinnedHTTPSConnection"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::_TextExtractor",
+      "kind": "class",
+      "label": "src/max_grounding/fetcher.py::_TextExtractor",
+      "language": "Python",
+      "line_end": 97,
+      "line_start": 75,
+      "locator": "src/max_grounding/fetcher.py::_TextExtractor"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::_normalized_fetch_target",
+      "language": "Python",
+      "line_end": 230,
+      "line_start": 212,
+      "locator": "src/max_grounding/fetcher.py::_normalized_fetch_target"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::_require_public_ip",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::_require_public_ip",
+      "language": "Python",
+      "line_end": 107,
+      "line_start": 100,
+      "locator": "src/max_grounding/fetcher.py::_require_public_ip"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::extract_text",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::extract_text",
+      "language": "Python",
+      "line_end": 209,
+      "line_start": 185,
+      "locator": "src/max_grounding/fetcher.py::extract_text"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::fetch_document",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::fetch_document",
+      "language": "Python",
+      "line_end": 298,
+      "line_start": 233,
+      "locator": "src/max_grounding/fetcher.py::fetch_document"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::open_pinned_connection",
+      "language": "Python",
+      "line_end": 134,
+      "line_start": 110,
+      "locator": "src/max_grounding/fetcher.py::open_pinned_connection"
+    },
+    {
+      "id": "src/max_grounding/fetcher.py::read_bounded_response",
+      "kind": "function",
+      "label": "src/max_grounding/fetcher.py::read_bounded_response",
+      "language": "Python",
+      "line_end": 182,
+      "line_start": 137,
+      "locator": "src/max_grounding/fetcher.py::read_bounded_response"
+    },
+    {
+      "id": "src/max_grounding/models.py::EvidencePack",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::EvidencePack",
+      "language": "Python",
+      "line_end": 90,
+      "line_start": 83,
+      "locator": "src/max_grounding/models.py::EvidencePack"
+    },
+    {
+      "id": "src/max_grounding/models.py::EvidenceSource",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::EvidenceSource",
+      "language": "Python",
+      "line_end": 79,
+      "line_start": 71,
+      "locator": "src/max_grounding/models.py::EvidenceSource"
+    },
+    {
+      "id": "src/max_grounding/models.py::FetchedDocument",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::FetchedDocument",
+      "language": "Python",
+      "line_end": 102,
+      "line_start": 94,
+      "locator": "src/max_grounding/models.py::FetchedDocument"
+    },
+    {
+      "id": "src/max_grounding/models.py::GroundingRequest",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::GroundingRequest",
+      "language": "Python",
+      "line_end": 44,
+      "line_start": 35,
+      "locator": "src/max_grounding/models.py::GroundingRequest"
+    },
+    {
+      "id": "src/max_grounding/models.py::PersistentIndexResult",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::PersistentIndexResult",
+      "language": "Python",
+      "line_end": 316,
+      "line_start": 308,
+      "locator": "src/max_grounding/models.py::PersistentIndexResult"
+    },
+    {
+      "id": "src/max_grounding/models.py::PersistentVectorHit",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::PersistentVectorHit",
+      "language": "Python",
+      "line_end": 304,
+      "line_start": 296,
+      "locator": "src/max_grounding/models.py::PersistentVectorHit"
+    },
+    {
+      "id": "src/max_grounding/models.py::SearchQuery",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::SearchQuery",
+      "language": "Python",
+      "line_end": 56,
+      "line_start": 48,
+      "locator": "src/max_grounding/models.py::SearchQuery"
+    },
+    {
+      "id": "src/max_grounding/models.py::SemanticHit",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::SemanticHit",
+      "language": "Python",
+      "line_end": 131,
+      "line_start": 126,
+      "locator": "src/max_grounding/models.py::SemanticHit"
+    },
+    {
+      "id": "src/max_grounding/models.py::TextChunk",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::TextChunk",
+      "language": "Python",
+      "line_end": 113,
+      "line_start": 106,
+      "locator": "src/max_grounding/models.py::TextChunk"
+    },
+    {
+      "id": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "kind": "function",
+      "label": "src/max_grounding/network_policy.py::is_admissible_result_url",
+      "language": "Python",
+      "line_end": 50,
+      "line_start": 18,
+      "locator": "src/max_grounding/network_policy.py::is_admissible_result_url"
+    },
+    {
+      "id": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "kind": "function",
+      "label": "src/max_grounding/network_policy.py::resolve_public_addresses",
+      "language": "Python",
+      "line_end": 93,
+      "line_start": 53,
+      "locator": "src/max_grounding/network_policy.py::resolve_public_addresses"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_documents",
+      "kind": "method",
+      "label": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_documents",
+      "language": "Python",
+      "line_end": 58,
+      "line_start": 57,
+      "locator": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_documents"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_query",
+      "kind": "method",
+      "label": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_query",
+      "language": "Python",
+      "line_end": 55,
+      "line_start": 54,
+      "locator": "src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_query"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::_provider_contract",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::_provider_contract",
+      "language": "Python",
+      "line_end": 75,
+      "line_start": 71,
+      "locator": "src/max_grounding/persistent.py::_provider_contract"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::_store_contract",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::_store_contract",
+      "language": "Python",
+      "line_end": 87,
+      "line_start": 78,
+      "locator": "src/max_grounding/persistent.py::_store_contract"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::_vector",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::_vector",
+      "language": "Python",
+      "line_end": 99,
+      "line_start": 90,
+      "locator": "src/max_grounding/persistent.py::_vector"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::build_semantic_hits",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::build_semantic_hits",
+      "language": "Python",
+      "line_end": 292,
+      "line_start": 236,
+      "locator": "src/max_grounding/persistent.py::build_semantic_hits"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::embed_documents_concrete",
+      "language": "Python",
+      "line_end": 147,
+      "line_start": 102,
+      "locator": "src/max_grounding/persistent.py::embed_documents_concrete"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::embed_query_concrete",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::embed_query_concrete",
+      "language": "Python",
+      "line_end": 168,
+      "line_start": 150,
+      "locator": "src/max_grounding/persistent.py::embed_query_concrete"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::index_documents",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::index_documents",
+      "language": "Python",
+      "line_end": 233,
+      "line_start": 171,
+      "locator": "src/max_grounding/persistent.py::index_documents"
+    },
+    {
+      "id": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "kind": "function",
+      "label": "src/max_grounding/persistent.py::retrieve_persistent_semantic",
+      "language": "Python",
+      "line_end": 317,
+      "line_start": 295,
+      "locator": "src/max_grounding/persistent.py::retrieve_persistent_semantic"
+    },
+    {
+      "id": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "kind": "method",
+      "label": "src/max_grounding/policy.py::GroundingPolicy.validate_request",
+      "language": "Python",
+      "line_end": 51,
+      "line_start": 18,
+      "locator": "src/max_grounding/policy.py::GroundingPolicy.validate_request"
+    },
+    {
+      "id": "src/max_grounding/providers/base.py::SearchProvider.search",
+      "kind": "method",
+      "label": "src/max_grounding/providers/base.py::SearchProvider.search",
+      "language": "Python",
+      "line_end": 15,
+      "line_start": 13,
+      "locator": "src/max_grounding/providers/base.py::SearchProvider.search"
+    },
+    {
+      "id": "src/max_grounding/providers/base.py::invoke_search",
+      "kind": "function",
+      "label": "src/max_grounding/providers/base.py::invoke_search",
+      "language": "Python",
+      "line_end": 23,
+      "line_start": 18,
+      "locator": "src/max_grounding/providers/base.py::invoke_search"
+    },
+    {
+      "id": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider",
+      "kind": "class",
+      "label": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider",
+      "language": "Python",
+      "line_end": 246,
+      "line_start": 133,
+      "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore",
+      "kind": "class",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore",
+      "language": "Python",
+      "line_end": 453,
+      "line_start": 164,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point",
+      "language": "Python",
+      "line_end": 421,
+      "line_start": 353,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request",
+      "language": "Python",
+      "line_end": 212,
+      "line_start": 195,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._request"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection",
+      "language": "Python",
+      "line_end": 263,
+      "line_start": 228,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection",
+      "language": "Python",
+      "line_end": 300,
+      "line_start": 265,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks",
+      "language": "Python",
+      "line_end": 453,
+      "line_start": 423,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks",
+      "language": "Python",
+      "line_end": 351,
+      "line_start": 302,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "kind": "method",
+      "label": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime",
+      "language": "Python",
+      "line_end": 222,
+      "line_start": 214,
+      "locator": "src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::_NoRedirect",
+      "kind": "class",
+      "label": "src/max_grounding/providers/qdrant.py::_NoRedirect",
+      "language": "Python",
+      "line_end": 34,
+      "line_start": 32,
+      "locator": "src/max_grounding/providers/qdrant.py::_NoRedirect"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::_vector",
+      "kind": "function",
+      "label": "src/max_grounding/providers/qdrant.py::_vector",
+      "language": "Python",
+      "line_end": 161,
+      "line_start": 154,
+      "locator": "src/max_grounding/providers/qdrant.py::_vector"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "kind": "function",
+      "label": "src/max_grounding/providers/qdrant.py::point_id_for_chunk",
+      "language": "Python",
+      "line_end": 151,
+      "line_start": 148,
+      "locator": "src/max_grounding/providers/qdrant.py::point_id_for_chunk"
+    },
+    {
+      "id": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "kind": "function",
+      "label": "src/max_grounding/providers/qdrant.py::request_qdrant_json",
+      "language": "Python",
+      "line_end": 145,
+      "line_start": 70,
+      "locator": "src/max_grounding/providers/qdrant.py::request_qdrant_json"
+    },
+    {
+      "id": "src/max_grounding/providers/searxng.py::SearxngProvider",
+      "kind": "class",
+      "label": "src/max_grounding/providers/searxng.py::SearxngProvider",
+      "language": "Python",
+      "line_end": 220,
+      "line_start": 181,
+      "locator": "src/max_grounding/providers/searxng.py::SearxngProvider"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::_chunk_id",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::_chunk_id",
+      "language": "Python",
+      "line_end": 65,
+      "line_start": 63,
+      "locator": "src/max_grounding/retrieval.py::_chunk_id"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::_validate_chunk_bounds",
+      "language": "Python",
+      "line_end": 60,
+      "line_start": 45,
+      "locator": "src/max_grounding/retrieval.py::_validate_chunk_bounds"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::chunk_document",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::chunk_document",
+      "language": "Python",
+      "line_end": 105,
+      "line_start": 68,
+      "locator": "src/max_grounding/retrieval.py::chunk_document"
+    },
+    {
+      "id": "src/max_grounding/retrieval.py::tokenize_text",
+      "kind": "function",
+      "label": "src/max_grounding/retrieval.py::tokenize_text",
+      "language": "Python",
+      "line_end": 42,
+      "line_start": 29,
+      "locator": "src/max_grounding/retrieval.py::tokenize_text"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::_validated_vector",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::_validated_vector",
+      "language": "Python",
+      "line_end": 99,
+      "line_start": 61,
+      "locator": "src/max_grounding/semantic.py::_validated_vector"
+    },
+    {
+      "id": "src/max_grounding/semantic.py::build_semantic_chunks",
+      "kind": "function",
+      "label": "src/max_grounding/semantic.py::build_semantic_chunks",
+      "language": "Python",
+      "line_end": 185,
+      "line_start": 158,
+      "locator": "src/max_grounding/semantic.py::build_semantic_chunks"
+    },
+    {
+      "id": "src/max_grounding/service.py::GroundingService",
+      "kind": "class",
+      "label": "src/max_grounding/service.py::GroundingService",
+      "language": "Python",
+      "line_end": 218,
+      "line_start": 102,
+      "locator": "src/max_grounding/service.py::GroundingService"
+    },
+    {
+      "id": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "kind": "method",
+      "label": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "language": "Python",
+      "line_end": 153,
+      "line_start": 142,
+      "locator": "src/max_grounding/service.py::GroundingService.fetch_evidence"
+    },
+    {
+      "id": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "kind": "method",
+      "label": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "language": "Python",
+      "line_end": 183,
+      "line_start": 155,
+      "locator": "src/max_grounding/service.py::GroundingService.index_evidence"
+    },
+    {
+      "id": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "kind": "method",
+      "label": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "language": "Python",
+      "line_end": 205,
+      "line_start": 185,
+      "locator": "src/max_grounding/service.py::GroundingService.query_evidence"
+    },
+    {
+      "id": "src/max_grounding/service.py::GroundingService.search_web",
+      "kind": "method",
+      "label": "src/max_grounding/service.py::GroundingService.search_web",
+      "language": "Python",
+      "line_end": 140,
+      "line_start": 119,
+      "locator": "src/max_grounding/service.py::GroundingService.search_web"
+    },
+    {
+      "id": "src/max_grounding/service.py::build_production_runtime",
+      "kind": "function",
+      "label": "src/max_grounding/service.py::build_production_runtime",
+      "language": "Python",
+      "line_end": 231,
+      "line_start": 221,
+      "locator": "src/max_grounding/service.py::build_production_runtime"
+    },
+    {
+      "id": "tests/test_secure_fetcher.py::_Connection.close",
+      "kind": "method",
+      "label": "tests/test_secure_fetcher.py::_Connection.close",
+      "language": "Python",
+      "line_end": 59,
+      "line_start": 58,
+      "locator": "tests/test_secure_fetcher.py::_Connection.close"
+    },
+    {
+      "id": "tests/test_secure_fetcher.py::_Connection.getresponse",
+      "kind": "method",
+      "label": "tests/test_secure_fetcher.py::_Connection.getresponse",
+      "language": "Python",
+      "line_end": 56,
+      "line_start": 55,
+      "locator": "tests/test_secure_fetcher.py::_Connection.getresponse"
+    },
+    {
+      "id": "tests/test_secure_fetcher.py::_Connection.request",
+      "kind": "method",
+      "label": "tests/test_secure_fetcher.py::_Connection.request",
+      "language": "Python",
+      "line_end": 53,
+      "line_start": 46,
+      "locator": "tests/test_secure_fetcher.py::_Connection.request"
+    },
+    {
+      "id": "tests/test_secure_fetcher.py::_Response.read",
+      "kind": "method",
+      "label": "tests/test_secure_fetcher.py::_Response.read",
+      "language": "Python",
+      "line_end": 37,
+      "line_start": 36,
+      "locator": "tests/test_secure_fetcher.py::_Response.read"
+    }
+  ],
+  "observed_head": "fb64617ebd22be09760658f03d8ef9895a71abe2",
+  "schema_version": 1,
+  "source_digest": "3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390"
+}

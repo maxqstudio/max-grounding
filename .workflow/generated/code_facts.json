@@ -20,11 +20,25 @@
       "lines": 146
     },
     {
+      "directory": "integration",
+      "file": "integration/phase12_e2e.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 259
+    },
+    {
       "directory": "src/max_grounding",
       "file": "src/max_grounding/__init__.py",
       "is_test": false,
       "language": "Python",
       "lines": 15
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/api.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 345
     },
     {
       "directory": "src/max_grounding",
@@ -45,7 +59,7 @@
       "file": "src/max_grounding/errors.py",
       "is_test": false,
       "language": "Python",
-      "lines": 69
+      "lines": 77
     },
     {
       "directory": "src/max_grounding",
@@ -74,6 +88,13 @@
       "is_test": false,
       "language": "Python",
       "lines": 149
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/mcp_server.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 115
     },
     {
       "directory": "src/max_grounding",
@@ -161,6 +182,13 @@
     },
     {
       "directory": "src/max_grounding",
+      "file": "src/max_grounding/service.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 231
+    },
+    {
+      "directory": "src/max_grounding",
       "file": "src/max_grounding/temporal.py",
       "is_test": false,
       "language": "Python",
@@ -172,6 +200,20 @@
       "is_test": false,
       "language": "Python",
       "lines": 308
+    },
+    {
+      "directory": "src/max_grounding",
+      "file": "src/max_grounding/wire.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 26
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_api.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 191
     },
     {
       "directory": "tests",
@@ -186,6 +228,13 @@
       "is_test": true,
       "language": "Python",
       "lines": 25
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_container_contract.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 30
     },
     {
       "directory": "tests",
@@ -217,6 +266,13 @@
     },
     {
       "directory": "tests",
+      "file": "tests/test_mcp_server.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 123
+    },
+    {
+      "directory": "tests",
       "file": "tests/test_network_policy.py",
       "is_test": true,
       "language": "Python",
@@ -235,6 +291,13 @@
       "is_test": true,
       "language": "Python",
       "lines": 284
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_phase12_dependencies.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 19
     },
     {
       "directory": "tests",
@@ -284,6 +347,20 @@
       "is_test": true,
       "language": "Python",
       "lines": 292
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_service.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 222
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_service_security.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 50
     },
     {
       "directory": "tests",
@@ -432,6 +509,622 @@
     {
       "caller": "integration/phase11_services.py::main",
       "target_token": "run_query"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "self.path.startswith"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "self.send_response"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "self.end_headers"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "encode"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "json.dumps"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "self.send_response"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "self.send_header"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "self.send_header"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "str"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "len"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "self.end_headers"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "target_token": "self.wfile.write"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_start_search_stub",
+      "target_token": "ThreadingHTTPServer"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_start_search_stub",
+      "target_token": "threading.Thread"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_start_search_stub",
+      "target_token": "thread.start"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_seed_index",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_seed_index",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_seed_index",
+      "target_token": "FetchedDocument"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_seed_index",
+      "target_token": "len"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_seed_index",
+      "target_token": "GOLD_TEXT.encode"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_seed_index",
+      "target_token": "index_documents"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_seed_index",
+      "target_token": "AssertionError"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_wait_health",
+      "target_token": "time.monotonic"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_wait_health",
+      "target_token": "time.monotonic"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_wait_health",
+      "target_token": "httpx.get"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_wait_health",
+      "target_token": "time.sleep"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_wait_health",
+      "target_token": "AssertionError"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "httpx.get"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "httpx.get"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "httpx.post"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "httpx.post"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "httpx.get"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "ready.json"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "httpx.post"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "search.json"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "httpx.post"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "queried.json"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_rest_probe",
+      "target_token": "httpx.post"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_mcp_probe",
+      "target_token": "httpx2.AsyncClient"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_mcp_probe",
+      "target_token": "streamable_http_client"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_mcp_probe",
+      "target_token": "ClientSession"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_mcp_probe",
+      "target_token": "session.initialize"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_mcp_probe",
+      "target_token": "session.list_tools"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_mcp_probe",
+      "target_token": "session.call_tool"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_mcp_probe",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_mcp_probe",
+      "target_token": "set"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_mcp_probe",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe.one",
+      "target_token": "time.perf_counter"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe.one",
+      "target_token": "httpx.post"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe.one",
+      "target_token": "time.perf_counter"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe.one",
+      "target_token": "response.json"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "ThreadPoolExecutor"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "list"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "pool.map"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "one"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "range"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "sorted"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "max"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "int"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "len"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "len"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "statistics.median"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::_bounded_load_probe",
+      "target_token": "max"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "argparse.ArgumentParser"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "parser.add_argument"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "parser.add_argument"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "parser.add_argument"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "parser.add_argument"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "parser.parse_args"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "_start_search_stub"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "_seed_index"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "_wait_health"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "_rest_probe"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "asyncio.run"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "_mcp_probe"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "_bounded_load_probe"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "stub.shutdown"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "stub.server_close"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "print"
+    },
+    {
+      "caller": "integration/phase12_e2e.py::main",
+      "target_token": "json.dumps"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_header_map",
+      "target_token": "key.lower"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_header_map",
+      "target_token": "scope.get"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_extract_token",
+      "target_token": "headers.get"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_extract_token",
+      "target_token": "direct.decode"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_extract_token",
+      "target_token": "headers.get"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_extract_token",
+      "target_token": "auth.decode"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_extract_token",
+      "target_token": "value.partition"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_extract_token",
+      "target_token": "scheme.casefold"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_send_error",
+      "target_token": "encode"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_send_error",
+      "target_token": "json.dumps"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_send_error",
+      "target_token": "send"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_send_error",
+      "target_token": "encode"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_send_error",
+      "target_token": "str"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_send_error",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/api.py::_send_error",
+      "target_token": "send"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__init__",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__init__",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__init__",
+      "target_token": "ValueError"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__init__",
+      "target_token": "ValueError"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "scope.get"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "self.app"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "_header_map"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "upper"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "str"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "scope.get"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "str"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "scope.get"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "_extract_token"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "hmac.compare_digest"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "_send_error"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "headers.get"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "int"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "content_length.decode"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "_send_error"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "_send_error"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__.limited_receive",
+      "target_token": "receive"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__.limited_receive",
+      "target_token": "message.get"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__.limited_receive",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__.limited_receive",
+      "target_token": "message.get"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__.tracked_send",
+      "target_token": "message.get"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__.tracked_send",
+      "target_token": "send"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "self.app"
+    },
+    {
+      "caller": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "target_token": "_send_error"
+    },
+    {
+      "caller": "src/max_grounding/api.py::readyz",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/api.py::readyz",
+      "target_token": "request.app.state.grounding_service.readiness"
+    },
+    {
+      "caller": "src/max_grounding/api.py::search_endpoint",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/api.py::search_endpoint",
+      "target_token": "service.search_web"
+    },
+    {
+      "caller": "src/max_grounding/api.py::fetch_endpoint",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/api.py::fetch_endpoint",
+      "target_token": "request.app.state.grounding_service.fetch_evidence"
+    },
+    {
+      "caller": "src/max_grounding/api.py::index_endpoint",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/api.py::index_endpoint",
+      "target_token": "request.app.state.grounding_service.index_evidence"
+    },
+    {
+      "caller": "src/max_grounding/api.py::query_endpoint",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/api.py::query_endpoint",
+      "target_token": "request.app.state.grounding_service.query_evidence"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "ValueError"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "ValueError"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "TransportSecuritySettings"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "list"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "list"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "mcp_server.streamable_http_app"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app.lifespan",
+      "target_token": "mcp_server.session_manager.run"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "FastAPI"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "app.include_router"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "app.mount"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "app.add_middleware"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "list"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app",
+      "target_token": "app.add_middleware"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app.invalid_request_handler",
+      "target_token": "JSONResponse"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_rest_app.grounding_error_handler",
+      "target_token": "JSONResponse"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_production_app",
+      "target_token": "ProductionSettings.from_env"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_production_app",
+      "target_token": "build_production_runtime"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_production_app",
+      "target_token": "create_mcp_server"
+    },
+    {
+      "caller": "src/max_grounding/api.py::create_production_app",
+      "target_token": "create_rest_app"
     },
     {
       "caller": "src/max_grounding/budget.py::SearchBudget.__post_init__",
@@ -1328,6 +2021,90 @@
     {
       "caller": "src/max_grounding/hybrid.py::retrieve_hybrid",
       "target_token": "fuse_hybrid"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_search_web",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_search_web",
+      "target_token": "service.search_web"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_fetch_evidence",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_fetch_evidence",
+      "target_token": "service.fetch_evidence"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_index_evidence",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_index_evidence",
+      "target_token": "ValueError"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_index_evidence",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_index_evidence",
+      "target_token": "service.index_evidence"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_index_evidence",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_query_evidence",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_query_evidence",
+      "target_token": "service.query_evidence"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_search_web",
+      "target_token": "mcp_search_web"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_fetch_evidence",
+      "target_token": "mcp_fetch_evidence"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_index_evidence",
+      "target_token": "mcp_index_evidence"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_query_evidence",
+      "target_token": "mcp_query_evidence"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::register_mcp_tools",
+      "target_token": "server.tool"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::register_mcp_tools",
+      "target_token": "server.tool"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::register_mcp_tools",
+      "target_token": "server.tool"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::register_mcp_tools",
+      "target_token": "server.tool"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::create_mcp_server",
+      "target_token": "MCPServer"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::create_mcp_server",
+      "target_token": "register_mcp_tools"
     },
     {
       "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
@@ -4070,6 +4847,266 @@
       "target_token": "rank_semantic"
     },
     {
+      "caller": "src/max_grounding/service.py::_required",
+      "target_token": "mapping.get"
+    },
+    {
+      "caller": "src/max_grounding/service.py::_required",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/service.py::_required",
+      "target_token": "value.strip"
+    },
+    {
+      "caller": "src/max_grounding/service.py::_required",
+      "target_token": "ServiceConfigurationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::_required",
+      "target_token": "value.strip"
+    },
+    {
+      "caller": "src/max_grounding/service.py::_csv",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/service.py::_csv",
+      "target_token": "part.strip"
+    },
+    {
+      "caller": "src/max_grounding/service.py::_csv",
+      "target_token": "value.split"
+    },
+    {
+      "caller": "src/max_grounding/service.py::_csv",
+      "target_token": "part.strip"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "_required"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "_required"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "_required"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "_required"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "ServiceConfigurationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "mapping.get"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "qdrant_api_key.strip"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "ServiceConfigurationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "cls"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "_csv"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "mapping.get"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "_csv"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "target_token": "mapping.get"
+    },
+    {
+      "caller": "src/max_grounding/service.py::ProductionSettings.from_env",
+      "target_token": "cls.from_mapping"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.__init__",
+      "target_token": "GroundingEngine"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.search_web",
+      "target_token": "self._engine.ground"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.search_web",
+      "target_token": "GroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "target_token": "url.strip"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "target_token": "url.strip"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "target_token": "fetch_document"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "target_token": "self._fetcher"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "documents_list.append"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "fetch_document"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "documents_list.append"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "self.fetch_evidence"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "index_documents"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "target_token": "retrieve_persistent_semantic"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.readiness",
+      "target_token": "self._embedding_provider.verify_runtime"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.readiness",
+      "target_token": "self._vector_store.verify_runtime"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.readiness",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.readiness",
+      "target_token": "ServiceReadiness"
+    },
+    {
+      "caller": "src/max_grounding/service.py::build_production_runtime",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/service.py::build_production_runtime",
+      "target_token": "ServiceConfigurationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::build_production_runtime",
+      "target_token": "SearxngProvider"
+    },
+    {
+      "caller": "src/max_grounding/service.py::build_production_runtime",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "src/max_grounding/service.py::build_production_runtime",
+      "target_token": "QdrantVectorStore"
+    },
+    {
+      "caller": "src/max_grounding/service.py::build_production_runtime",
+      "target_token": "GroundingService"
+    },
+    {
       "caller": "src/max_grounding/temporal.py::_validate_utc",
       "target_token": "isinstance"
     },
@@ -4830,6 +5867,326 @@
       "target_token": "SynthesisPacket"
     },
     {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "is_dataclass"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "getattr"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "fields"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "str"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "value.items"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "TypeError"
+    },
+    {
+      "caller": "src/max_grounding/wire.py::to_wire",
+      "target_token": "type"
+    },
+    {
+      "caller": "tests/test_api.py::service_mock",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_api.py::service_mock",
+      "target_token": "ServiceReadiness"
+    },
+    {
+      "caller": "tests/test_api.py::service_mock",
+      "target_token": "EvidencePack"
+    },
+    {
+      "caller": "tests/test_api.py::service_mock",
+      "target_token": "EvidenceSource"
+    },
+    {
+      "caller": "tests/test_api.py::service_mock",
+      "target_token": "FetchedDocument"
+    },
+    {
+      "caller": "tests/test_api.py::service_mock",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_api.py::service_mock",
+      "target_token": "PersistentIndexResult"
+    },
+    {
+      "caller": "tests/test_api.py::service_mock",
+      "target_token": "SemanticHit"
+    },
+    {
+      "caller": "tests/test_api.py::service_mock",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.client",
+      "target_token": "service_mock"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.client",
+      "target_token": "create_rest_app"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.client",
+      "target_token": "TestClient"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth",
+      "target_token": "self.client"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth",
+      "target_token": "client.get"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth",
+      "target_token": "client.get"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.client"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "client.get"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.auth"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.auth"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.auth"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.auth"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.auth"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.assertTrue"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "ready.json"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "search.json"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "fetched.json"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "indexed.json"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "queried.json"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "service.search_web.assert_called_once"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "service.fetch_evidence.assert_called_once"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "service.index_evidence.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "target_token": "service.query_evidence.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_api_key_header_and_wrong_tokens_fail_closed",
+      "target_token": "self.client"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_api_key_header_and_wrong_tokens_fail_closed",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_api_key_header_and_wrong_tokens_fail_closed",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_api_key_header_and_wrong_tokens_fail_closed",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_api_key_header_and_wrong_tokens_fail_closed",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_request_body_cap_applies_before_service_execution",
+      "target_token": "self.client"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_request_body_cap_applies_before_service_execution",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_request_body_cap_applies_before_service_execution",
+      "target_token": "self.auth"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_request_body_cap_applies_before_service_execution",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_request_body_cap_applies_before_service_execution",
+      "target_token": "service.search_web.assert_not_called"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text",
+      "target_token": "service_mock"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text",
+      "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text",
+      "target_token": "self.client"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text",
+      "target_token": "self.auth"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text",
+      "target_token": "self.assertNotIn"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_api.py::Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text",
+      "target_token": "response.json"
+    },
+    {
       "caller": "tests/test_bootstrap.py::BootstrapTests.test_project_identity_is_stable_and_cross_platform",
       "target_token": "project_identity"
     },
@@ -4892,6 +6249,70 @@
     {
       "caller": "tests/test_budget.py::SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap",
       "target_token": "SearchBudget"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "target_token": "read_text"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "target_token": "pathlib.Path"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "target_token": "self.assertNotIn"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "target_token": "self.assertNotIn"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata",
+      "target_token": "line.strip"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata",
+      "target_token": "splitlines"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata",
+      "target_token": "read_text"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata",
+      "target_token": "pathlib.Path"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata",
+      "target_token": "line.strip"
+    },
+    {
+      "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata",
+      "target_token": "self.assertIn"
     },
     {
       "caller": "tests/test_engine.py::candidate",
@@ -5802,6 +7223,134 @@
       "target_token": "math.isfinite"
     },
     {
+      "caller": "tests/test_mcp_server.py::runtime",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::runtime",
+      "target_token": "EvidencePack"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::runtime",
+      "target_token": "EvidenceSource"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::runtime",
+      "target_token": "FetchedDocument"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::runtime",
+      "target_token": "PersistentIndexResult"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::runtime",
+      "target_token": "SemanticHit"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::runtime",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_only_four_explicit_grounding_tools_are_registered",
+      "target_token": "create_mcp_server"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_only_four_explicit_grounding_tools_are_registered",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_only_four_explicit_grounding_tools_are_registered",
+      "target_token": "asyncio.run"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_only_four_explicit_grounding_tools_are_registered",
+      "target_token": "server.list_tools"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_only_four_explicit_grounding_tools_are_registered",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_only_four_explicit_grounding_tools_are_registered",
+      "target_token": "self.assertNotIn"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "mcp_search_web"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "mcp_fetch_evidence"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "mcp_index_evidence"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "mcp_query_evidence"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "service.index_evidence.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "target_token": "service.query_evidence.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_tool_call_returns_structured_content",
+      "target_token": "create_mcp_server"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_tool_call_returns_structured_content",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_tool_call_returns_structured_content.invoke",
+      "target_token": "server.call_tool"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_tool_call_returns_structured_content",
+      "target_token": "asyncio.run"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_tool_call_returns_structured_content",
+      "target_token": "invoke"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_tool_call_returns_structured_content",
+      "target_token": "self.assertFalse"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_tool_call_returns_structured_content",
+      "target_token": "self.assertIsNotNone"
+    },
+    {
+      "caller": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_tool_call_returns_structured_content",
+      "target_token": "self.assertEqual"
+    },
+    {
       "caller": "tests/test_network_policy.py::ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets",
       "target_token": "self.assertTrue"
     },
@@ -6512,6 +8061,34 @@
     {
       "caller": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed",
       "target_token": "_Store"
+    },
+    {
+      "caller": "tests/test_phase12_dependencies.py::Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned",
+      "target_token": "tomllib.loads"
+    },
+    {
+      "caller": "tests/test_phase12_dependencies.py::Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned",
+      "target_token": "read_text"
+    },
+    {
+      "caller": "tests/test_phase12_dependencies.py::Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned",
+      "target_token": "pathlib.Path"
+    },
+    {
+      "caller": "tests/test_phase12_dependencies.py::Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_phase12_dependencies.py::Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_phase12_dependencies.py::Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_phase12_dependencies.py::Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned",
+      "target_token": "self.assertIn"
     },
     {
       "caller": "tests/test_policy.py::GroundingPolicyTests.setUp",
@@ -8810,6 +10387,338 @@
       "target_token": "self.assertEqual"
     },
     {
+      "caller": "tests/test_service.py::doc",
+      "target_token": "FetchedDocument"
+    },
+    {
+      "caller": "tests/test_service.py::doc",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_service.py::doc",
+      "target_token": "text.encode"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.settings",
+      "target_token": "ProductionSettings.from_mapping"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.service",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.service",
+      "target_token": "SourceCandidate"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.service",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.service",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.service",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.service",
+      "target_token": "doc"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.service",
+      "target_token": "GroundingService"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "self.settings"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "dict"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "self.subTest"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "ProductionSettings.from_mapping"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "dict"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "target_token": "ProductionSettings.from_mapping"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies",
+      "target_token": "self.settings"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies",
+      "target_token": "build_production_runtime"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies",
+      "target_token": "self.assertIsInstance"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies",
+      "target_token": "searxng.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies",
+      "target_token": "ollama.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies",
+      "target_token": "qdrant.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core",
+      "target_token": "self.service"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core",
+      "target_token": "service.search_web"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core",
+      "target_token": "service.fetch_evidence"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core",
+      "target_token": "fetcher.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "self.service"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "PersistentIndexResult"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "SemanticHit"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "service.index_evidence"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "service.query_evidence"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "indexer.assert_called_once"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "target_token": "query.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed",
+      "target_token": "self.service"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed",
+      "target_token": "service.index_evidence"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed",
+      "target_token": "service.index_evidence"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed",
+      "target_token": "range"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "self.service"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "service.readiness"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "ServiceReadiness"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "embed.verify_runtime.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "store.verify_runtime.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "RuntimeError"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "service.readiness"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "self.assertNotIn"
+    },
+    {
+      "caller": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "target_token": "str"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint",
+      "target_token": "create_mcp_server"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint",
+      "target_token": "create_rest_app"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint",
+      "target_token": "TestClient"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route",
+      "target_token": "create_rest_app"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route",
+      "target_token": "get"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route",
+      "target_token": "TestClient"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route",
+      "target_token": "self.assertNotIn"
+    },
+    {
       "caller": "tests/test_temporal_scoring.py::excerpt",
       "target_token": "EvidenceExcerpt"
     },
@@ -9734,7 +11643,38 @@
       "target_token": "tuple"
     }
   ],
-  "python_routes": [],
+  "python_routes": [
+    {
+      "handler": "src/max_grounding/api.py::healthz",
+      "method": "GET",
+      "route": "/healthz"
+    },
+    {
+      "handler": "src/max_grounding/api.py::readyz",
+      "method": "GET",
+      "route": "/readyz"
+    },
+    {
+      "handler": "src/max_grounding/api.py::fetch_endpoint",
+      "method": "POST",
+      "route": "/v1/fetch"
+    },
+    {
+      "handler": "src/max_grounding/api.py::index_endpoint",
+      "method": "POST",
+      "route": "/v1/index"
+    },
+    {
+      "handler": "src/max_grounding/api.py::query_endpoint",
+      "method": "POST",
+      "route": "/v1/query"
+    },
+    {
+      "handler": "src/max_grounding/api.py::search_endpoint",
+      "method": "POST",
+      "route": "/v1/search"
+    }
+  ],
   "python_symbols": [
     {
       "file": "integration/phase11_services.py",
@@ -9777,12 +11717,300 @@
       "symbol": "main"
     },
     {
+      "file": "integration/phase12_e2e.py",
+      "kind": "class",
+      "line_end": 55,
+      "line_start": 30,
+      "locator": "integration/phase12_e2e.py::_SearchStub",
+      "symbol": "_SearchStub"
+    },
+    {
+      "file": "integration/phase12_e2e.py",
+      "kind": "method",
+      "line_end": 52,
+      "line_start": 31,
+      "locator": "integration/phase12_e2e.py::_SearchStub.do_GET",
+      "symbol": "_SearchStub.do_GET"
+    },
+    {
+      "file": "integration/phase12_e2e.py",
+      "kind": "method",
+      "line_end": 55,
+      "line_start": 54,
+      "locator": "integration/phase12_e2e.py::_SearchStub.log_message",
+      "symbol": "_SearchStub.log_message"
+    },
+    {
+      "file": "integration/phase12_e2e.py",
+      "kind": "function",
+      "line_end": 62,
+      "line_start": 58,
+      "locator": "integration/phase12_e2e.py::_start_search_stub",
+      "symbol": "_start_search_stub"
+    },
+    {
+      "file": "integration/phase12_e2e.py",
+      "kind": "function",
+      "line_end": 79,
+      "line_start": 65,
+      "locator": "integration/phase12_e2e.py::_seed_index",
+      "symbol": "_seed_index"
+    },
+    {
+      "file": "integration/phase12_e2e.py",
+      "kind": "function",
+      "line_end": 93,
+      "line_start": 82,
+      "locator": "integration/phase12_e2e.py::_wait_health",
+      "symbol": "_wait_health"
+    },
+    {
+      "file": "integration/phase12_e2e.py",
+      "kind": "function",
+      "line_end": 155,
+      "line_start": 96,
+      "locator": "integration/phase12_e2e.py::_rest_probe",
+      "symbol": "_rest_probe"
+    },
+    {
+      "file": "integration/phase12_e2e.py",
+      "kind": "async_function",
+      "line_end": 188,
+      "line_start": 158,
+      "locator": "integration/phase12_e2e.py::_mcp_probe",
+      "symbol": "_mcp_probe"
+    },
+    {
+      "file": "integration/phase12_e2e.py",
+      "kind": "function",
+      "line_end": 218,
+      "line_start": 191,
+      "locator": "integration/phase12_e2e.py::_bounded_load_probe",
+      "symbol": "_bounded_load_probe"
+    },
+    {
+      "file": "integration/phase12_e2e.py",
+      "kind": "method",
+      "line_end": 205,
+      "line_start": 194,
+      "locator": "integration/phase12_e2e.py::_bounded_load_probe.one",
+      "symbol": "_bounded_load_probe.one"
+    },
+    {
+      "file": "integration/phase12_e2e.py",
+      "kind": "function",
+      "line_end": 255,
+      "line_start": 221,
+      "locator": "integration/phase12_e2e.py::main",
+      "symbol": "main"
+    },
+    {
       "file": "src/max_grounding/__init__.py",
       "kind": "function",
       "line_end": 15,
       "line_start": 8,
       "locator": "src/max_grounding/__init__.py::project_identity",
       "symbol": "project_identity"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "class",
+      "line_end": 42,
+      "line_start": 33,
+      "locator": "src/max_grounding/api.py::SearchRequest",
+      "symbol": "SearchRequest"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "class",
+      "line_end": 48,
+      "line_start": 45,
+      "locator": "src/max_grounding/api.py::FetchRequest",
+      "symbol": "FetchRequest"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "class",
+      "line_end": 54,
+      "line_start": 51,
+      "locator": "src/max_grounding/api.py::IndexRequest",
+      "symbol": "IndexRequest"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "class",
+      "line_end": 61,
+      "line_start": 57,
+      "locator": "src/max_grounding/api.py::QueryRequest",
+      "symbol": "QueryRequest"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "function",
+      "line_end": 68,
+      "line_start": 64,
+      "locator": "src/max_grounding/api.py::_header_map",
+      "symbol": "_header_map"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "function",
+      "line_end": 88,
+      "line_start": 71,
+      "locator": "src/max_grounding/api.py::_extract_token",
+      "symbol": "_extract_token"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_function",
+      "line_end": 104,
+      "line_start": 91,
+      "locator": "src/max_grounding/api.py::_send_error",
+      "symbol": "_send_error"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "class",
+      "line_end": 108,
+      "line_start": 107,
+      "locator": "src/max_grounding/api.py::_RequestTooLarge",
+      "symbol": "_RequestTooLarge"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "class",
+      "line_end": 178,
+      "line_start": 111,
+      "locator": "src/max_grounding/api.py::ProductionSecurityMiddleware",
+      "symbol": "ProductionSecurityMiddleware"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "method",
+      "line_end": 127,
+      "line_start": 114,
+      "locator": "src/max_grounding/api.py::ProductionSecurityMiddleware.__init__",
+      "symbol": "ProductionSecurityMiddleware.__init__"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_method",
+      "line_end": 178,
+      "line_start": 129,
+      "locator": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
+      "symbol": "ProductionSecurityMiddleware.__call__"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_method",
+      "line_end": 165,
+      "line_start": 158,
+      "locator": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__.limited_receive",
+      "symbol": "ProductionSecurityMiddleware.__call__.limited_receive"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_method",
+      "line_end": 171,
+      "line_start": 167,
+      "locator": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__.tracked_send",
+      "symbol": "ProductionSecurityMiddleware.__call__.tracked_send"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "function",
+      "line_end": 186,
+      "line_start": 185,
+      "locator": "src/max_grounding/api.py::healthz",
+      "symbol": "healthz"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "function",
+      "line_end": 191,
+      "line_start": 190,
+      "locator": "src/max_grounding/api.py::readyz",
+      "symbol": "readyz"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "function",
+      "line_end": 207,
+      "line_start": 195,
+      "locator": "src/max_grounding/api.py::search_endpoint",
+      "symbol": "search_endpoint"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "function",
+      "line_end": 214,
+      "line_start": 211,
+      "locator": "src/max_grounding/api.py::fetch_endpoint",
+      "symbol": "fetch_endpoint"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "function",
+      "line_end": 221,
+      "line_start": 218,
+      "locator": "src/max_grounding/api.py::index_endpoint",
+      "symbol": "index_endpoint"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "function",
+      "line_end": 231,
+      "line_start": 225,
+      "locator": "src/max_grounding/api.py::query_endpoint",
+      "symbol": "query_endpoint"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "function",
+      "line_end": 332,
+      "line_start": 234,
+      "locator": "src/max_grounding/api.py::create_rest_app",
+      "symbol": "create_rest_app"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_method",
+      "line_end": 270,
+      "line_start": 268,
+      "locator": "src/max_grounding/api.py::create_rest_app.lifespan",
+      "symbol": "create_rest_app.lifespan"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_method",
+      "line_end": 274,
+      "line_start": 273,
+      "locator": "src/max_grounding/api.py::create_rest_app.lifespan",
+      "symbol": "create_rest_app.lifespan"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_method",
+      "line_end": 322,
+      "line_start": 317,
+      "locator": "src/max_grounding/api.py::create_rest_app.invalid_request_handler",
+      "symbol": "create_rest_app.invalid_request_handler"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_method",
+      "line_end": 330,
+      "line_start": 325,
+      "locator": "src/max_grounding/api.py::create_rest_app.grounding_error_handler",
+      "symbol": "create_rest_app.grounding_error_handler"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "function",
+      "line_end": 345,
+      "line_start": 335,
+      "locator": "src/max_grounding/api.py::create_production_app",
+      "symbol": "create_production_app"
     },
     {
       "file": "src/max_grounding/budget.py",
@@ -9975,6 +12203,22 @@
       "line_start": 68,
       "locator": "src/max_grounding/errors.py::PersistentIndexError",
       "symbol": "PersistentIndexError"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 73,
+      "line_start": 72,
+      "locator": "src/max_grounding/errors.py::ServiceConfigurationError",
+      "symbol": "ServiceConfigurationError"
+    },
+    {
+      "file": "src/max_grounding/errors.py",
+      "kind": "class",
+      "line_end": 77,
+      "line_start": 76,
+      "locator": "src/max_grounding/errors.py::ServiceOperationError",
+      "symbol": "ServiceOperationError"
     },
     {
       "file": "src/max_grounding/evidence.py",
@@ -10223,6 +12467,86 @@
       "line_start": 112,
       "locator": "src/max_grounding/hybrid.py::retrieve_hybrid",
       "symbol": "retrieve_hybrid"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
+      "kind": "function",
+      "line_end": 34,
+      "line_start": 13,
+      "locator": "src/max_grounding/mcp_server.py::mcp_search_web",
+      "symbol": "mcp_search_web"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
+      "kind": "function",
+      "line_end": 42,
+      "line_start": 37,
+      "locator": "src/max_grounding/mcp_server.py::mcp_fetch_evidence",
+      "symbol": "mcp_fetch_evidence"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
+      "kind": "function",
+      "line_end": 52,
+      "line_start": 45,
+      "locator": "src/max_grounding/mcp_server.py::mcp_index_evidence",
+      "symbol": "mcp_index_evidence"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
+      "kind": "function",
+      "line_end": 61,
+      "line_start": 55,
+      "locator": "src/max_grounding/mcp_server.py::mcp_query_evidence",
+      "symbol": "mcp_query_evidence"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
+      "kind": "function",
+      "line_end": 103,
+      "line_start": 64,
+      "locator": "src/max_grounding/mcp_server.py::register_mcp_tools",
+      "symbol": "register_mcp_tools"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
+      "kind": "method",
+      "line_end": 86,
+      "line_start": 67,
+      "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_search_web",
+      "symbol": "register_mcp_tools._tool_search_web"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
+      "kind": "method",
+      "line_end": 90,
+      "line_start": 88,
+      "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_fetch_evidence",
+      "symbol": "register_mcp_tools._tool_fetch_evidence"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
+      "kind": "method",
+      "line_end": 94,
+      "line_start": 92,
+      "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_index_evidence",
+      "symbol": "register_mcp_tools._tool_index_evidence"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
+      "kind": "method",
+      "line_end": 98,
+      "line_start": 96,
+      "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_query_evidence",
+      "symbol": "register_mcp_tools._tool_query_evidence"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
+      "kind": "function",
+      "line_end": 115,
+      "line_start": 106,
+      "locator": "src/max_grounding/mcp_server.py::create_mcp_server",
+      "symbol": "create_mcp_server"
     },
     {
       "file": "src/max_grounding/models.py",
@@ -11129,6 +13453,118 @@
       "symbol": "retrieve_semantic"
     },
     {
+      "file": "src/max_grounding/service.py",
+      "kind": "function",
+      "line_end": 34,
+      "line_start": 30,
+      "locator": "src/max_grounding/service.py::_required",
+      "symbol": "_required"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "function",
+      "line_end": 41,
+      "line_start": 37,
+      "locator": "src/max_grounding/service.py::_csv",
+      "symbol": "_csv"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "class",
+      "line_end": 91,
+      "line_start": 45,
+      "locator": "src/max_grounding/service.py::ProductionSettings",
+      "symbol": "ProductionSettings"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "method",
+      "line_end": 87,
+      "line_start": 59,
+      "locator": "src/max_grounding/service.py::ProductionSettings.from_mapping",
+      "symbol": "ProductionSettings.from_mapping"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "method",
+      "line_end": 91,
+      "line_start": 90,
+      "locator": "src/max_grounding/service.py::ProductionSettings.from_env",
+      "symbol": "ProductionSettings.from_env"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "class",
+      "line_end": 99,
+      "line_start": 95,
+      "locator": "src/max_grounding/service.py::ServiceReadiness",
+      "symbol": "ServiceReadiness"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "class",
+      "line_end": 218,
+      "line_start": 102,
+      "locator": "src/max_grounding/service.py::GroundingService",
+      "symbol": "GroundingService"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "method",
+      "line_end": 117,
+      "line_start": 105,
+      "locator": "src/max_grounding/service.py::GroundingService.__init__",
+      "symbol": "GroundingService.__init__"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "method",
+      "line_end": 140,
+      "line_start": 119,
+      "locator": "src/max_grounding/service.py::GroundingService.search_web",
+      "symbol": "GroundingService.search_web"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "method",
+      "line_end": 153,
+      "line_start": 142,
+      "locator": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "symbol": "GroundingService.fetch_evidence"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "method",
+      "line_end": 183,
+      "line_start": 155,
+      "locator": "src/max_grounding/service.py::GroundingService.index_evidence",
+      "symbol": "GroundingService.index_evidence"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "method",
+      "line_end": 205,
+      "line_start": 185,
+      "locator": "src/max_grounding/service.py::GroundingService.query_evidence",
+      "symbol": "GroundingService.query_evidence"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "method",
+      "line_end": 218,
+      "line_start": 207,
+      "locator": "src/max_grounding/service.py::GroundingService.readiness",
+      "symbol": "GroundingService.readiness"
+    },
+    {
+      "file": "src/max_grounding/service.py",
+      "kind": "function",
+      "line_end": 231,
+      "line_start": 221,
+      "locator": "src/max_grounding/service.py::build_production_runtime",
+      "symbol": "build_production_runtime"
+    },
+    {
       "file": "src/max_grounding/temporal.py",
       "kind": "class",
       "line_end": 33,
@@ -11321,6 +13757,86 @@
       "symbol": "build_synthesis_packet"
     },
     {
+      "file": "src/max_grounding/wire.py",
+      "kind": "function",
+      "line_end": 26,
+      "line_start": 10,
+      "locator": "src/max_grounding/wire.py::to_wire",
+      "symbol": "to_wire"
+    },
+    {
+      "file": "tests/test_api.py",
+      "kind": "function",
+      "line_end": 79,
+      "line_start": 25,
+      "locator": "tests/test_api.py::service_mock",
+      "symbol": "service_mock"
+    },
+    {
+      "file": "tests/test_api.py",
+      "kind": "class",
+      "line_end": 187,
+      "line_start": 82,
+      "locator": "tests/test_api.py::Phase12RestApiTests",
+      "symbol": "Phase12RestApiTests"
+    },
+    {
+      "file": "tests/test_api.py",
+      "kind": "method",
+      "line_end": 91,
+      "line_start": 83,
+      "locator": "tests/test_api.py::Phase12RestApiTests.client",
+      "symbol": "Phase12RestApiTests.client"
+    },
+    {
+      "file": "tests/test_api.py",
+      "kind": "method",
+      "line_end": 94,
+      "line_start": 93,
+      "locator": "tests/test_api.py::Phase12RestApiTests.auth",
+      "symbol": "Phase12RestApiTests.auth"
+    },
+    {
+      "file": "tests/test_api.py",
+      "kind": "method",
+      "line_end": 111,
+      "line_start": 96,
+      "locator": "tests/test_api.py::Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth",
+      "symbol": "Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth"
+    },
+    {
+      "file": "tests/test_api.py",
+      "kind": "method",
+      "line_end": 142,
+      "line_start": 113,
+      "locator": "tests/test_api.py::Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance",
+      "symbol": "Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance"
+    },
+    {
+      "file": "tests/test_api.py",
+      "kind": "method",
+      "line_end": 161,
+      "line_start": 144,
+      "locator": "tests/test_api.py::Phase12RestApiTests.test_api_key_header_and_wrong_tokens_fail_closed",
+      "symbol": "Phase12RestApiTests.test_api_key_header_and_wrong_tokens_fail_closed"
+    },
+    {
+      "file": "tests/test_api.py",
+      "kind": "method",
+      "line_end": 172,
+      "line_start": 163,
+      "locator": "tests/test_api.py::Phase12RestApiTests.test_request_body_cap_applies_before_service_execution",
+      "symbol": "Phase12RestApiTests.test_request_body_cap_applies_before_service_execution"
+    },
+    {
+      "file": "tests/test_api.py",
+      "kind": "method",
+      "line_end": 187,
+      "line_start": 174,
+      "locator": "tests/test_api.py::Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text",
+      "symbol": "Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text"
+    },
+    {
       "file": "tests/test_bootstrap.py",
       "kind": "class",
       "line_end": 20,
@@ -11367,6 +13883,30 @@
       "line_start": 19,
       "locator": "tests/test_budget.py::SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap",
       "symbol": "SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap"
+    },
+    {
+      "file": "tests/test_container_contract.py",
+      "kind": "class",
+      "line_end": 26,
+      "line_start": 7,
+      "locator": "tests/test_container_contract.py::Phase12ContainerContractTests",
+      "symbol": "Phase12ContainerContractTests"
+    },
+    {
+      "file": "tests/test_container_contract.py",
+      "kind": "method",
+      "line_end": 17,
+      "line_start": 8,
+      "locator": "tests/test_container_contract.py::Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime",
+      "symbol": "Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime"
+    },
+    {
+      "file": "tests/test_container_contract.py",
+      "kind": "method",
+      "line_end": 26,
+      "line_start": 19,
+      "locator": "tests/test_container_contract.py::Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata",
+      "symbol": "Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata"
     },
     {
       "file": "tests/test_engine.py",
@@ -11729,6 +14269,54 @@
       "symbol": "HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers"
     },
     {
+      "file": "tests/test_mcp_server.py",
+      "kind": "function",
+      "line_end": 72,
+      "line_start": 25,
+      "locator": "tests/test_mcp_server.py::runtime",
+      "symbol": "runtime"
+    },
+    {
+      "file": "tests/test_mcp_server.py",
+      "kind": "class",
+      "line_end": 119,
+      "line_start": 75,
+      "locator": "tests/test_mcp_server.py::Phase12McpTests",
+      "symbol": "Phase12McpTests"
+    },
+    {
+      "file": "tests/test_mcp_server.py",
+      "kind": "method",
+      "line_end": 85,
+      "line_start": 76,
+      "locator": "tests/test_mcp_server.py::Phase12McpTests.test_only_four_explicit_grounding_tools_are_registered",
+      "symbol": "Phase12McpTests.test_only_four_explicit_grounding_tools_are_registered"
+    },
+    {
+      "file": "tests/test_mcp_server.py",
+      "kind": "method",
+      "line_end": 105,
+      "line_start": 87,
+      "locator": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance",
+      "symbol": "Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance"
+    },
+    {
+      "file": "tests/test_mcp_server.py",
+      "kind": "method",
+      "line_end": 119,
+      "line_start": 107,
+      "locator": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_tool_call_returns_structured_content",
+      "symbol": "Phase12McpTests.test_mcp_tool_call_returns_structured_content"
+    },
+    {
+      "file": "tests/test_mcp_server.py",
+      "kind": "async_method",
+      "line_end": 111,
+      "line_start": 110,
+      "locator": "tests/test_mcp_server.py::Phase12McpTests.test_mcp_tool_call_returns_structured_content.invoke",
+      "symbol": "Phase12McpTests.test_mcp_tool_call_returns_structured_content.invoke"
+    },
+    {
       "file": "tests/test_network_policy.py",
       "kind": "class",
       "line_end": 57,
@@ -12071,6 +14659,22 @@
       "line_start": 250,
       "locator": "tests/test_persistent_semantic.py::PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider.embed_query",
       "symbol": "PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider.embed_query"
+    },
+    {
+      "file": "tests/test_phase12_dependencies.py",
+      "kind": "class",
+      "line_end": 15,
+      "line_start": 8,
+      "locator": "tests/test_phase12_dependencies.py::Phase12DependencyPinsTests",
+      "symbol": "Phase12DependencyPinsTests"
+    },
+    {
+      "file": "tests/test_phase12_dependencies.py",
+      "kind": "method",
+      "line_end": 15,
+      "line_start": 9,
+      "locator": "tests/test_phase12_dependencies.py::Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned",
+      "symbol": "Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned"
     },
     {
       "file": "tests/test_policy.py",
@@ -12961,6 +15565,110 @@
       "symbol": "SemanticRetrievalTests.test_repeated_retrieval_is_deterministic_for_deterministic_provider"
     },
     {
+      "file": "tests/test_service.py",
+      "kind": "function",
+      "line_end": 37,
+      "line_start": 28,
+      "locator": "tests/test_service.py::doc",
+      "symbol": "doc"
+    },
+    {
+      "file": "tests/test_service.py",
+      "kind": "class",
+      "line_end": 218,
+      "line_start": 40,
+      "locator": "tests/test_service.py::Phase12ServiceTests",
+      "symbol": "Phase12ServiceTests"
+    },
+    {
+      "file": "tests/test_service.py",
+      "kind": "method",
+      "line_end": 51,
+      "line_start": 41,
+      "locator": "tests/test_service.py::Phase12ServiceTests.settings",
+      "symbol": "Phase12ServiceTests.settings"
+    },
+    {
+      "file": "tests/test_service.py",
+      "kind": "method",
+      "line_end": 73,
+      "line_start": 53,
+      "locator": "tests/test_service.py::Phase12ServiceTests.service",
+      "symbol": "Phase12ServiceTests.service"
+    },
+    {
+      "file": "tests/test_service.py",
+      "kind": "method",
+      "line_end": 104,
+      "line_start": 75,
+      "locator": "tests/test_service.py::Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key",
+      "symbol": "Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key"
+    },
+    {
+      "file": "tests/test_service.py",
+      "kind": "method",
+      "line_end": 121,
+      "line_start": 106,
+      "locator": "tests/test_service.py::Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies",
+      "symbol": "Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies"
+    },
+    {
+      "file": "tests/test_service.py",
+      "kind": "method",
+      "line_end": 140,
+      "line_start": 123,
+      "locator": "tests/test_service.py::Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core",
+      "symbol": "Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core"
+    },
+    {
+      "file": "tests/test_service.py",
+      "kind": "method",
+      "line_end": 185,
+      "line_start": 142,
+      "locator": "tests/test_service.py::Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts",
+      "symbol": "Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts"
+    },
+    {
+      "file": "tests/test_service.py",
+      "kind": "method",
+      "line_end": 197,
+      "line_start": 187,
+      "locator": "tests/test_service.py::Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed",
+      "symbol": "Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed"
+    },
+    {
+      "file": "tests/test_service.py",
+      "kind": "method",
+      "line_end": 218,
+      "line_start": 199,
+      "locator": "tests/test_service.py::Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets",
+      "symbol": "Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets"
+    },
+    {
+      "file": "tests/test_service_security.py",
+      "kind": "class",
+      "line_end": 46,
+      "line_start": 15,
+      "locator": "tests/test_service_security.py::Phase12ServiceSecurityTests",
+      "symbol": "Phase12ServiceSecurityTests"
+    },
+    {
+      "file": "tests/test_service_security.py",
+      "kind": "method",
+      "line_end": 31,
+      "line_start": 16,
+      "locator": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint",
+      "symbol": "Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint"
+    },
+    {
+      "file": "tests/test_service_security.py",
+      "kind": "method",
+      "line_end": 46,
+      "line_start": 33,
+      "locator": "tests/test_service_security.py::Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route",
+      "symbol": "Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route"
+    },
+    {
       "file": "tests/test_temporal_scoring.py",
       "kind": "function",
       "line_end": 41,
@@ -13242,25 +15950,29 @@
     }
   ],
   "schema_version": 1,
-  "source_digest": "f82847898761d01d96ce60dd228c50012ca9dc75945cfc925b483a33791569b2",
+  "source_digest": "3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390",
   "source_summary": {
-    "files": 41,
+    "files": 52,
     "languages": {
-      "Python": 41
+      "Python": 52
     },
-    "lines": 7864,
-    "test_files": 18
+    "lines": 9483,
+    "test_files": 24
   },
   "tests": [
+    "tests/test_api.py",
     "tests/test_bootstrap.py",
     "tests/test_budget.py",
+    "tests/test_container_contract.py",
     "tests/test_engine.py",
     "tests/test_evidence.py",
     "tests/test_evidence_graph.py",
     "tests/test_hybrid.py",
+    "tests/test_mcp_server.py",
     "tests/test_network_policy.py",
     "tests/test_ollama_embedding.py",
     "tests/test_persistent_semantic.py",
+    "tests/test_phase12_dependencies.py",
     "tests/test_policy.py",
     "tests/test_qdrant_store.py",
     "tests/test_reranking.py",
@@ -13268,6 +15980,8 @@
     "tests/test_searxng_provider.py",
     "tests/test_secure_fetcher.py",
     "tests/test_semantic_retrieval.py",
+    "tests/test_service.py",
+    "tests/test_service_security.py",
     "tests/test_temporal_scoring.py",
     "tests/test_verification.py"
   ]

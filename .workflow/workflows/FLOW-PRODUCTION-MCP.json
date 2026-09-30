@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PRODUCTION-MCP",
+  "title": "Phase 12 production MCP server",
+  "purpose": "Expose the same accepted service facade through explicitly named authenticated MCP tools without creating additional model authority.",
+  "critical": true,
+  "entry_condition": "A validated GroundingService runtime, MCPServer instance, and API authentication middleware are available.",
+  "authority": "MCP tool names, schemas, bounded service calls, and Streamable HTTP mounting behavior",
+  "states": ["MCP_REQUEST","TOOL_VALIDATED","SERVICE_CALLED","TOOL_RESULT","REJECTED"],
+  "transitions": [
+    {"from":"MCP_REQUEST","to":"TOOL_VALIDATED","action":"MCP SDK validates one registered bounded tool call"},
+    {"from":"TOOL_VALIDATED","to":"SERVICE_CALLED","action":"tool wrapper invokes exactly one accepted GroundingService capability"},
+    {"from":"SERVICE_CALLED","to":"TOOL_RESULT","action":"return structured JSON-compatible provenance result"}
+  ],
+  "invariants": [
+    "Registered tool names are search_web, fetch_evidence, index_evidence, and query_evidence.",
+    "MCP does not expose a fake research, answer, synthesis, shell, arbitrary filesystem, or arbitrary command tool.",
+    "MCP tool wrappers reuse the same service methods and request bounds as REST.",
+    "MCP Streamable HTTP is stateless/JSON-response oriented unless later evidence justifies stateful streaming.",
+    "Mounted MCP traffic is covered by the same API authentication and request-size policy as production REST traffic.",
+    "Tool results preserve provenance and never reinterpret unsupported evidence as fact."
+  ],
+  "failure_behavior": [
+    "Invalid MCP input or service failure returns controlled tool/protocol error without fabricated success.",
+    "Authentication failure is rejected before tool execution."
+  ],
+  "restart_behavior": ["The MCP server is stateless above accepted persistent Qdrant state."],
+  "rollback_behavior": ["MCP exposure mutates persistent state only through the explicit index_evidence tool."],
+  "source_owners": [
+    "src/max_grounding/mcp_server.py::create_mcp_server",
+    "src/max_grounding/mcp_server.py::mcp_search_web",
+    "src/max_grounding/mcp_server.py::mcp_fetch_evidence",
+    "src/max_grounding/mcp_server.py::mcp_index_evidence",
+    "src/max_grounding/mcp_server.py::mcp_query_evidence"
+  ],
+  "tests": ["tests/test_mcp_server.py"],
+  "sequence_session": "docs/sequence/sessions/phase-12-mcp-server.json"
+}

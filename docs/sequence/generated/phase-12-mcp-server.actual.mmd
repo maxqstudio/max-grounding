@@ -1,0 +1,204 @@
+%% GENERATED FILE - DO NOT EDIT
+%% SOURCE_DIGEST: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
+%% OBSERVED_HEAD: fb64617ebd22be09760658f03d8ef9895a71abe2
+%% GENERATED_BY: generate_sequence_actual.py
+sequenceDiagram
+    participant src_max_grounding_budget_py__SearchBudget_0 as src/max_grounding/budget.py::SearchBudget
+    participant src_max_grounding_budget_py__SearchBudget_consume_search_call_1 as src/max_grounding/budget.py::SearchBudget.consume_search_call
+    participant src_max_grounding_engine_py__GroundingEngine_ground_2 as src/max_grounding/engine.py::GroundingEngine.ground
+    participant src_max_grounding_errors_py__EmbeddingProviderError_3 as src/max_grounding/errors.py::EmbeddingProviderError
+    participant src_max_grounding_errors_py__FetchError_4 as src/max_grounding/errors.py::FetchError
+    participant src_max_grounding_errors_py__InvalidGroundingRequest_5 as src/max_grounding/errors.py::InvalidGroundingRequest
+    participant src_max_grounding_errors_py__PersistentIndexError_6 as src/max_grounding/errors.py::PersistentIndexError
+    participant src_max_grounding_errors_py__RetrievalError_7 as src/max_grounding/errors.py::RetrievalError
+    participant src_max_grounding_errors_py__SearchBudgetExceeded_8 as src/max_grounding/errors.py::SearchBudgetExceeded
+    participant src_max_grounding_errors_py__ServiceOperationError_9 as src/max_grounding/errors.py::ServiceOperationError
+    participant src_max_grounding_errors_py__VectorStoreError_10 as src/max_grounding/errors.py::VectorStoreError
+    participant src_max_grounding_evidence_py__build_evidence_pack_11 as src/max_grounding/evidence.py::build_evidence_pack
+    participant src_max_grounding_evidence_py__canonicalize_url_12 as src/max_grounding/evidence.py::canonicalize_url
+    participant src_max_grounding_evidence_py__normalize_candidates_13 as src/max_grounding/evidence.py::normalize_candidates
+    participant src_max_grounding_fetcher_py___PinnedHTTPConnection_14 as src/max_grounding/fetcher.py::_PinnedHTTPConnection
+    participant src_max_grounding_fetcher_py___PinnedHTTPSConnection_15 as src/max_grounding/fetcher.py::_PinnedHTTPSConnection
+    participant src_max_grounding_fetcher_py___TextExtractor_16 as src/max_grounding/fetcher.py::_TextExtractor
+    participant src_max_grounding_fetcher_py___normalized_fetch_target_17 as src/max_grounding/fetcher.py::_normalized_fetch_target
+    participant src_max_grounding_fetcher_py___require_public_ip_18 as src/max_grounding/fetcher.py::_require_public_ip
+    participant src_max_grounding_fetcher_py__extract_text_19 as src/max_grounding/fetcher.py::extract_text
+    participant src_max_grounding_fetcher_py__fetch_document_20 as src/max_grounding/fetcher.py::fetch_document
+    participant src_max_grounding_fetcher_py__open_pinned_connection_21 as src/max_grounding/fetcher.py::open_pinned_connection
+    participant src_max_grounding_fetcher_py__read_bounded_response_22 as src/max_grounding/fetcher.py::read_bounded_response
+    participant src_max_grounding_mcp_server_py__create_mcp_server_23 as src/max_grounding/mcp_server.py::create_mcp_server
+    participant src_max_grounding_mcp_server_py__mcp_fetch_evidence_24 as src/max_grounding/mcp_server.py::mcp_fetch_evidence
+    participant src_max_grounding_mcp_server_py__mcp_index_evidence_25 as src/max_grounding/mcp_server.py::mcp_index_evidence
+    participant src_max_grounding_mcp_server_py__mcp_query_evidence_26 as src/max_grounding/mcp_server.py::mcp_query_evidence
+    participant src_max_grounding_mcp_server_py__mcp_search_web_27 as src/max_grounding/mcp_server.py::mcp_search_web
+    participant src_max_grounding_mcp_server_py__register_mcp_tools_28 as src/max_grounding/mcp_server.py::register_mcp_tools
+    participant src_max_grounding_models_py__EvidencePack_29 as src/max_grounding/models.py::EvidencePack
+    participant src_max_grounding_models_py__EvidenceSource_30 as src/max_grounding/models.py::EvidenceSource
+    participant src_max_grounding_models_py__FetchedDocument_31 as src/max_grounding/models.py::FetchedDocument
+    participant src_max_grounding_models_py__GroundingRequest_32 as src/max_grounding/models.py::GroundingRequest
+    participant src_max_grounding_models_py__PersistentIndexResult_33 as src/max_grounding/models.py::PersistentIndexResult
+    participant src_max_grounding_models_py__PersistentVectorHit_34 as src/max_grounding/models.py::PersistentVectorHit
+    participant src_max_grounding_models_py__SearchQuery_35 as src/max_grounding/models.py::SearchQuery
+    participant src_max_grounding_models_py__SemanticHit_36 as src/max_grounding/models.py::SemanticHit
+    participant src_max_grounding_models_py__TextChunk_37 as src/max_grounding/models.py::TextChunk
+    participant src_max_grounding_network_policy_py__is_admissible_result_url_38 as src/max_grounding/network_policy.py::is_admissible_result_url
+    participant src_max_grounding_network_policy_py__resolve_public_addresses_39 as src/max_grounding/network_policy.py::resolve_public_addresses
+    participant src_max_grounding_persistent_py__ConcreteEmbeddingProvider_embed_documents_40 as src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_documents
+    participant src_max_grounding_persistent_py__ConcreteEmbeddingProvider_embed_query_41 as src/max_grounding/persistent.py::ConcreteEmbeddingProvider.embed_query
+    participant src_max_grounding_persistent_py___provider_contract_42 as src/max_grounding/persistent.py::_provider_contract
+    participant src_max_grounding_persistent_py___store_contract_43 as src/max_grounding/persistent.py::_store_contract
+    participant src_max_grounding_persistent_py___vector_44 as src/max_grounding/persistent.py::_vector
+    participant src_max_grounding_persistent_py__build_semantic_hits_45 as src/max_grounding/persistent.py::build_semantic_hits
+    participant src_max_grounding_persistent_py__embed_documents_concrete_46 as src/max_grounding/persistent.py::embed_documents_concrete
+    participant src_max_grounding_persistent_py__embed_query_concrete_47 as src/max_grounding/persistent.py::embed_query_concrete
+    participant src_max_grounding_persistent_py__index_documents_48 as src/max_grounding/persistent.py::index_documents
+    participant src_max_grounding_persistent_py__retrieve_persistent_semantic_49 as src/max_grounding/persistent.py::retrieve_persistent_semantic
+    participant src_max_grounding_policy_py__GroundingPolicy_validate_request_50 as src/max_grounding/policy.py::GroundingPolicy.validate_request
+    participant src_max_grounding_providers_base_py__SearchProvider_search_51 as src/max_grounding/providers/base.py::SearchProvider.search
+    participant src_max_grounding_providers_base_py__invoke_search_52 as src/max_grounding/providers/base.py::invoke_search
+    participant src_max_grounding_providers_qdrant_py__QdrantVectorStore__parse_point_53 as src/max_grounding/providers/qdrant.py::QdrantVectorStore._parse_point
+    participant src_max_grounding_providers_qdrant_py__QdrantVectorStore__request_54 as src/max_grounding/providers/qdrant.py::QdrantVectorStore._request
+    participant src_max_grounding_providers_qdrant_py__QdrantVectorStore__validate_collection_55 as src/max_grounding/providers/qdrant.py::QdrantVectorStore._validate_collection
+    participant src_max_grounding_providers_qdrant_py__QdrantVectorStore_ensure_collection_56 as src/max_grounding/providers/qdrant.py::QdrantVectorStore.ensure_collection
+    participant src_max_grounding_providers_qdrant_py__QdrantVectorStore_query_chunks_57 as src/max_grounding/providers/qdrant.py::QdrantVectorStore.query_chunks
+    participant src_max_grounding_providers_qdrant_py__QdrantVectorStore_upsert_chunks_58 as src/max_grounding/providers/qdrant.py::QdrantVectorStore.upsert_chunks
+    participant src_max_grounding_providers_qdrant_py__QdrantVectorStore_verify_runtime_59 as src/max_grounding/providers/qdrant.py::QdrantVectorStore.verify_runtime
+    participant src_max_grounding_providers_qdrant_py___NoRedirect_60 as src/max_grounding/providers/qdrant.py::_NoRedirect
+    participant src_max_grounding_providers_qdrant_py___vector_61 as src/max_grounding/providers/qdrant.py::_vector
+    participant src_max_grounding_providers_qdrant_py__point_id_for_chunk_62 as src/max_grounding/providers/qdrant.py::point_id_for_chunk
+    participant src_max_grounding_providers_qdrant_py__request_qdrant_json_63 as src/max_grounding/providers/qdrant.py::request_qdrant_json
+    participant src_max_grounding_retrieval_py___chunk_id_64 as src/max_grounding/retrieval.py::_chunk_id
+    participant src_max_grounding_retrieval_py___validate_chunk_bounds_65 as src/max_grounding/retrieval.py::_validate_chunk_bounds
+    participant src_max_grounding_retrieval_py__chunk_document_66 as src/max_grounding/retrieval.py::chunk_document
+    participant src_max_grounding_retrieval_py__tokenize_text_67 as src/max_grounding/retrieval.py::tokenize_text
+    participant src_max_grounding_semantic_py___validated_vector_68 as src/max_grounding/semantic.py::_validated_vector
+    participant src_max_grounding_semantic_py__build_semantic_chunks_69 as src/max_grounding/semantic.py::build_semantic_chunks
+    participant src_max_grounding_service_py__GroundingService_fetch_evidence_70 as src/max_grounding/service.py::GroundingService.fetch_evidence
+    participant src_max_grounding_service_py__GroundingService_index_evidence_71 as src/max_grounding/service.py::GroundingService.index_evidence
+    participant src_max_grounding_service_py__GroundingService_query_evidence_72 as src/max_grounding/service.py::GroundingService.query_evidence
+    participant src_max_grounding_service_py__GroundingService_search_web_73 as src/max_grounding/service.py::GroundingService.search_web
+    participant src_max_grounding_wire_py__to_wire_74 as src/max_grounding/wire.py::to_wire
+    participant tests_test_secure_fetcher_py___Connection_close_75 as tests/test_secure_fetcher.py::_Connection.close
+    participant tests_test_secure_fetcher_py___Connection_getresponse_76 as tests/test_secure_fetcher.py::_Connection.getresponse
+    participant tests_test_secure_fetcher_py___Connection_request_77 as tests/test_secure_fetcher.py::_Connection.request
+    participant tests_test_secure_fetcher_py___Response_read_78 as tests/test_secure_fetcher.py::_Response.read
+    src_max_grounding_budget_py__SearchBudget_consume_search_call_1->>src_max_grounding_errors_py__SearchBudgetExceeded_8: SearchBudgetExceeded [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_budget_py__SearchBudget_0: SearchBudget [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_budget_py__SearchBudget_consume_search_call_1: budget.consume_search_call [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_evidence_py__build_evidence_pack_11: build_evidence_pack [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_evidence_py__normalize_candidates_13: normalize_candidates [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_models_py__SearchQuery_35: SearchQuery [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_policy_py__GroundingPolicy_validate_request_50: self._policy.validate_request [STATIC]
+    src_max_grounding_engine_py__GroundingEngine_ground_2->>src_max_grounding_providers_base_py__invoke_search_52: invoke_search [STATIC]
+    src_max_grounding_evidence_py__build_evidence_pack_11->>src_max_grounding_models_py__EvidencePack_29: EvidencePack [STATIC]
+    src_max_grounding_evidence_py__normalize_candidates_13->>src_max_grounding_evidence_py__canonicalize_url_12: canonicalize_url [STATIC]
+    src_max_grounding_evidence_py__normalize_candidates_13->>src_max_grounding_models_py__EvidenceSource_30: EvidenceSource [STATIC]
+    src_max_grounding_fetcher_py___normalized_fetch_target_17->>src_max_grounding_errors_py__FetchError_4: FetchError [STATIC]
+    src_max_grounding_fetcher_py___normalized_fetch_target_17->>src_max_grounding_network_policy_py__is_admissible_result_url_38: is_admissible_result_url [STATIC]
+    src_max_grounding_fetcher_py___require_public_ip_18->>src_max_grounding_errors_py__FetchError_4: FetchError [STATIC]
+    src_max_grounding_fetcher_py__extract_text_19->>src_max_grounding_errors_py__FetchError_4: FetchError [STATIC]
+    src_max_grounding_fetcher_py__extract_text_19->>src_max_grounding_fetcher_py___TextExtractor_16: _TextExtractor [STATIC]
+    src_max_grounding_fetcher_py__extract_text_19->>tests_test_secure_fetcher_py___Connection_close_75: parser.close [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_20->>src_max_grounding_errors_py__FetchError_4: FetchError [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_20->>src_max_grounding_fetcher_py___normalized_fetch_target_17: _normalized_fetch_target [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_20->>src_max_grounding_fetcher_py__extract_text_19: extract_text [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_20->>src_max_grounding_fetcher_py__open_pinned_connection_21: open_pinned_connection [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_20->>src_max_grounding_fetcher_py__read_bounded_response_22: read_bounded_response [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_20->>src_max_grounding_models_py__FetchedDocument_31: FetchedDocument [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_20->>src_max_grounding_network_policy_py__resolve_public_addresses_39: resolve_public_addresses [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_20->>tests_test_secure_fetcher_py___Connection_close_75: connection.close [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_20->>tests_test_secure_fetcher_py___Connection_getresponse_76: connection.getresponse [STATIC]
+    src_max_grounding_fetcher_py__fetch_document_20->>tests_test_secure_fetcher_py___Connection_request_77: connection.request [STATIC]
+    src_max_grounding_fetcher_py__open_pinned_connection_21->>src_max_grounding_errors_py__FetchError_4: FetchError [STATIC]
+    src_max_grounding_fetcher_py__open_pinned_connection_21->>src_max_grounding_fetcher_py___PinnedHTTPConnection_14: _PinnedHTTPConnection [STATIC]
+    src_max_grounding_fetcher_py__open_pinned_connection_21->>src_max_grounding_fetcher_py___PinnedHTTPSConnection_15: _PinnedHTTPSConnection [STATIC]
+    src_max_grounding_fetcher_py__open_pinned_connection_21->>src_max_grounding_fetcher_py___require_public_ip_18: _require_public_ip [STATIC]
+    src_max_grounding_fetcher_py__read_bounded_response_22->>src_max_grounding_errors_py__FetchError_4: FetchError [STATIC]
+    src_max_grounding_fetcher_py__read_bounded_response_22->>tests_test_secure_fetcher_py___Response_read_78: response.read [STATIC]
+    src_max_grounding_mcp_server_py__create_mcp_server_23->>src_max_grounding_mcp_server_py__register_mcp_tools_28: register_mcp_tools [STATIC]
+    src_max_grounding_mcp_server_py__mcp_fetch_evidence_24->>src_max_grounding_service_py__GroundingService_fetch_evidence_70: service.fetch_evidence [STATIC]
+    src_max_grounding_mcp_server_py__mcp_fetch_evidence_24->>src_max_grounding_wire_py__to_wire_74: to_wire [STATIC]
+    src_max_grounding_mcp_server_py__mcp_index_evidence_25->>src_max_grounding_service_py__GroundingService_index_evidence_71: service.index_evidence [STATIC]
+    src_max_grounding_mcp_server_py__mcp_index_evidence_25->>src_max_grounding_wire_py__to_wire_74: to_wire [STATIC]
+    src_max_grounding_mcp_server_py__mcp_query_evidence_26->>src_max_grounding_service_py__GroundingService_query_evidence_72: service.query_evidence [STATIC]
+    src_max_grounding_mcp_server_py__mcp_query_evidence_26->>src_max_grounding_wire_py__to_wire_74: to_wire [STATIC]
+    src_max_grounding_mcp_server_py__mcp_search_web_27->>src_max_grounding_service_py__GroundingService_search_web_73: service.search_web [STATIC]
+    src_max_grounding_mcp_server_py__mcp_search_web_27->>src_max_grounding_wire_py__to_wire_74: to_wire [STATIC]
+    src_max_grounding_network_policy_py__resolve_public_addresses_39->>src_max_grounding_errors_py__FetchError_4: FetchError [STATIC]
+    src_max_grounding_persistent_py___provider_contract_42->>src_max_grounding_errors_py__PersistentIndexError_6: PersistentIndexError [STATIC]
+    src_max_grounding_persistent_py___store_contract_43->>src_max_grounding_errors_py__PersistentIndexError_6: PersistentIndexError [STATIC]
+    src_max_grounding_persistent_py___vector_44->>src_max_grounding_errors_py__PersistentIndexError_6: PersistentIndexError [STATIC]
+    src_max_grounding_persistent_py___vector_44->>src_max_grounding_semantic_py___validated_vector_68: _validated_vector [STATIC]
+    src_max_grounding_persistent_py__build_semantic_hits_45->>src_max_grounding_errors_py__PersistentIndexError_6: PersistentIndexError [STATIC]
+    src_max_grounding_persistent_py__build_semantic_hits_45->>src_max_grounding_models_py__SemanticHit_36: SemanticHit [STATIC]
+    src_max_grounding_persistent_py__embed_documents_concrete_46->>src_max_grounding_errors_py__PersistentIndexError_6: PersistentIndexError [STATIC]
+    src_max_grounding_persistent_py__embed_documents_concrete_46->>src_max_grounding_persistent_py__ConcreteEmbeddingProvider_embed_documents_40: provider.embed_documents [STATIC]
+    src_max_grounding_persistent_py__embed_documents_concrete_46->>src_max_grounding_persistent_py___provider_contract_42: _provider_contract [STATIC]
+    src_max_grounding_persistent_py__embed_documents_concrete_46->>src_max_grounding_persistent_py___vector_44: _vector [STATIC]
+    src_max_grounding_persistent_py__embed_query_concrete_47->>src_max_grounding_errors_py__PersistentIndexError_6: PersistentIndexError [STATIC]
+    src_max_grounding_persistent_py__embed_query_concrete_47->>src_max_grounding_persistent_py__ConcreteEmbeddingProvider_embed_query_41: provider.embed_query [STATIC]
+    src_max_grounding_persistent_py__embed_query_concrete_47->>src_max_grounding_persistent_py___provider_contract_42: _provider_contract [STATIC]
+    src_max_grounding_persistent_py__embed_query_concrete_47->>src_max_grounding_persistent_py___vector_44: _vector [STATIC]
+    src_max_grounding_persistent_py__index_documents_48->>src_max_grounding_errors_py__PersistentIndexError_6: PersistentIndexError [STATIC]
+    src_max_grounding_persistent_py__index_documents_48->>src_max_grounding_models_py__PersistentIndexResult_33: PersistentIndexResult [STATIC]
+    src_max_grounding_persistent_py__index_documents_48->>src_max_grounding_persistent_py___provider_contract_42: _provider_contract [STATIC]
+    src_max_grounding_persistent_py__index_documents_48->>src_max_grounding_persistent_py___store_contract_43: _store_contract [STATIC]
+    src_max_grounding_persistent_py__index_documents_48->>src_max_grounding_persistent_py__embed_documents_concrete_46: embed_documents_concrete [STATIC]
+    src_max_grounding_persistent_py__index_documents_48->>src_max_grounding_providers_qdrant_py__QdrantVectorStore_ensure_collection_56: store.ensure_collection [STATIC]
+    src_max_grounding_persistent_py__index_documents_48->>src_max_grounding_providers_qdrant_py__QdrantVectorStore_upsert_chunks_58: store.upsert_chunks [STATIC]
+    src_max_grounding_persistent_py__index_documents_48->>src_max_grounding_semantic_py__build_semantic_chunks_69: build_semantic_chunks [STATIC]
+    src_max_grounding_persistent_py__retrieve_persistent_semantic_49->>src_max_grounding_errors_py__PersistentIndexError_6: PersistentIndexError [STATIC]
+    src_max_grounding_persistent_py__retrieve_persistent_semantic_49->>src_max_grounding_persistent_py___provider_contract_42: _provider_contract [STATIC]
+    src_max_grounding_persistent_py__retrieve_persistent_semantic_49->>src_max_grounding_persistent_py___store_contract_43: _store_contract [STATIC]
+    src_max_grounding_persistent_py__retrieve_persistent_semantic_49->>src_max_grounding_persistent_py__build_semantic_hits_45: build_semantic_hits [STATIC]
+    src_max_grounding_persistent_py__retrieve_persistent_semantic_49->>src_max_grounding_persistent_py__embed_query_concrete_47: embed_query_concrete [STATIC]
+    src_max_grounding_persistent_py__retrieve_persistent_semantic_49->>src_max_grounding_providers_qdrant_py__QdrantVectorStore_ensure_collection_56: store.ensure_collection [STATIC]
+    src_max_grounding_persistent_py__retrieve_persistent_semantic_49->>src_max_grounding_providers_qdrant_py__QdrantVectorStore_query_chunks_57: store.query_chunks [STATIC]
+    src_max_grounding_policy_py__GroundingPolicy_validate_request_50->>src_max_grounding_errors_py__InvalidGroundingRequest_5: InvalidGroundingRequest [STATIC]
+    src_max_grounding_providers_base_py__invoke_search_52->>src_max_grounding_providers_base_py__SearchProvider_search_51: provider.search [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore__parse_point_53->>src_max_grounding_errors_py__VectorStoreError_10: VectorStoreError [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore__parse_point_53->>src_max_grounding_models_py__PersistentVectorHit_34: PersistentVectorHit [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore__parse_point_53->>src_max_grounding_models_py__TextChunk_37: TextChunk [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore__parse_point_53->>src_max_grounding_providers_qdrant_py__point_id_for_chunk_62: point_id_for_chunk [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore__request_54->>src_max_grounding_providers_qdrant_py__request_qdrant_json_63: request_qdrant_json [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore__validate_collection_55->>src_max_grounding_errors_py__VectorStoreError_10: VectorStoreError [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_ensure_collection_56->>src_max_grounding_errors_py__VectorStoreError_10: VectorStoreError [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_ensure_collection_56->>src_max_grounding_providers_qdrant_py__QdrantVectorStore__request_54: self._request [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_ensure_collection_56->>src_max_grounding_providers_qdrant_py__QdrantVectorStore__validate_collection_55: self._validate_collection [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_ensure_collection_56->>src_max_grounding_providers_qdrant_py__QdrantVectorStore_verify_runtime_59: self.verify_runtime [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_query_chunks_57->>src_max_grounding_errors_py__VectorStoreError_10: VectorStoreError [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_query_chunks_57->>src_max_grounding_providers_qdrant_py__QdrantVectorStore__parse_point_53: self._parse_point [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_query_chunks_57->>src_max_grounding_providers_qdrant_py__QdrantVectorStore__request_54: self._request [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_query_chunks_57->>src_max_grounding_providers_qdrant_py__QdrantVectorStore_ensure_collection_56: self.ensure_collection [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_query_chunks_57->>src_max_grounding_providers_qdrant_py___vector_61: _vector [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_upsert_chunks_58->>src_max_grounding_errors_py__VectorStoreError_10: VectorStoreError [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_upsert_chunks_58->>src_max_grounding_providers_qdrant_py__QdrantVectorStore__request_54: self._request [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_upsert_chunks_58->>src_max_grounding_providers_qdrant_py__QdrantVectorStore_ensure_collection_56: self.ensure_collection [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_upsert_chunks_58->>src_max_grounding_providers_qdrant_py___vector_61: _vector [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_upsert_chunks_58->>src_max_grounding_providers_qdrant_py__point_id_for_chunk_62: point_id_for_chunk [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_verify_runtime_59->>src_max_grounding_errors_py__VectorStoreError_10: VectorStoreError [STATIC]
+    src_max_grounding_providers_qdrant_py__QdrantVectorStore_verify_runtime_59->>src_max_grounding_providers_qdrant_py__QdrantVectorStore__request_54: self._request [STATIC]
+    src_max_grounding_providers_qdrant_py___vector_61->>src_max_grounding_errors_py__VectorStoreError_10: VectorStoreError [STATIC]
+    src_max_grounding_providers_qdrant_py___vector_61->>src_max_grounding_semantic_py___validated_vector_68: _validated_vector [STATIC]
+    src_max_grounding_providers_qdrant_py__point_id_for_chunk_62->>src_max_grounding_errors_py__VectorStoreError_10: VectorStoreError [STATIC]
+    src_max_grounding_providers_qdrant_py__request_qdrant_json_63->>src_max_grounding_errors_py__VectorStoreError_10: VectorStoreError [STATIC]
+    src_max_grounding_providers_qdrant_py__request_qdrant_json_63->>src_max_grounding_providers_qdrant_py___NoRedirect_60: _NoRedirect [STATIC]
+    src_max_grounding_providers_qdrant_py__request_qdrant_json_63->>tests_test_secure_fetcher_py___Response_read_78: response.read [STATIC]
+    src_max_grounding_retrieval_py___validate_chunk_bounds_65->>src_max_grounding_errors_py__RetrievalError_7: RetrievalError [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_66->>src_max_grounding_models_py__TextChunk_37: TextChunk [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_66->>src_max_grounding_retrieval_py___chunk_id_64: _chunk_id [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_66->>src_max_grounding_retrieval_py___validate_chunk_bounds_65: _validate_chunk_bounds [STATIC]
+    src_max_grounding_retrieval_py__chunk_document_66->>src_max_grounding_retrieval_py__tokenize_text_67: tokenize_text [STATIC]
+    src_max_grounding_semantic_py___validated_vector_68->>src_max_grounding_errors_py__EmbeddingProviderError_3: EmbeddingProviderError [STATIC]
+    src_max_grounding_semantic_py__build_semantic_chunks_69->>src_max_grounding_errors_py__RetrievalError_7: RetrievalError [STATIC]
+    src_max_grounding_semantic_py__build_semantic_chunks_69->>src_max_grounding_retrieval_py__chunk_document_66: chunk_document [STATIC]
+    src_max_grounding_service_py__GroundingService_fetch_evidence_70->>src_max_grounding_errors_py__ServiceOperationError_9: ServiceOperationError [STATIC]
+    src_max_grounding_service_py__GroundingService_fetch_evidence_70->>src_max_grounding_fetcher_py__fetch_document_20: fetch_document [STATIC]
+    src_max_grounding_service_py__GroundingService_index_evidence_71->>src_max_grounding_errors_py__ServiceOperationError_9: ServiceOperationError [STATIC]
+    src_max_grounding_service_py__GroundingService_index_evidence_71->>src_max_grounding_fetcher_py__fetch_document_20: fetch_document [STATIC]
+    src_max_grounding_service_py__GroundingService_index_evidence_71->>src_max_grounding_persistent_py__index_documents_48: index_documents [STATIC]
+    src_max_grounding_service_py__GroundingService_index_evidence_71->>src_max_grounding_service_py__GroundingService_fetch_evidence_70: self.fetch_evidence [STATIC]
+    src_max_grounding_service_py__GroundingService_query_evidence_72->>src_max_grounding_errors_py__ServiceOperationError_9: ServiceOperationError [STATIC]
+    src_max_grounding_service_py__GroundingService_query_evidence_72->>src_max_grounding_persistent_py__retrieve_persistent_semantic_49: retrieve_persistent_semantic [STATIC]
+    src_max_grounding_service_py__GroundingService_search_web_73->>src_max_grounding_engine_py__GroundingEngine_ground_2: self._engine.ground [STATIC]
+    src_max_grounding_service_py__GroundingService_search_web_73->>src_max_grounding_models_py__GroundingRequest_32: GroundingRequest [STATIC]
