@@ -116,6 +116,10 @@
     {
       "date": "2026-09-30",
       "change": "Phase 12 adopted final Skill Workflow 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8 with Python class-method path-symbol validation; permanent Acceptance installs service/test dependencies and self-tests the same authority."
+    },
+    {
+      "date": "2026-09-30",
+      "change": "Phase 12 Production V1 accepted after exact product PR Acceptance 13/13 and post-merge main Acceptance 13/13. REST, MCP, cross-platform service runtime, real Ollama/Qwen3/Qdrant E2E, non-root multi-arch OCI, security and bounded-load smoke are accepted; optional Phase 13-16 work remains unpromoted."
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "evidence_boundary": "Phase 12 proves repository-level Production V1 service readiness: authenticated bounded REST and MCP evidence operations, non-root multi-arch OCI build, full cross-platform service regression, and real Linux container E2E against pinned Ollama/Qwen3/Qdrant. It does not prove external hosting/TLS/reverse-proxy configuration, internet-scale capacity, or optional Phase 13-16 capabilities.",
+  "evidence_boundary": "Production V1 repository acceptance is proven through Phase 12: authenticated bounded REST and MCP evidence operations, deterministic provenance/fail-closed grounding contracts, pinned Ollama/Qwen3/Qdrant runtime integration, non-root multi-arch OCI packaging, full Linux/Windows/macOS Python 3.11-3.14 service regression, real Linux container E2E, security checks, and bounded-load smoke. External hosting/TLS/reverse-proxy/SLO operation and optional Phase 13-16 capabilities remain outside this acceptance boundary.",
   "human_comprehension_questions": {
     "How does failure/recovery behave?": "PASS",
     "How does important data flow through the system?": "PASS",
@@ -64,7 +64,9 @@
     "Phase 12 final Candidate Verify run 36653665732 passed all three sequences and all 12 service matrix jobs on source head cc347a91af52c091187a5762a9f64bd7b3d55034.",
     "Phase 12 Production Acceptance run 36653665768 passed real container E2E and multi-arch OCI build on source head cc347a91af52c091187a5762a9f64bd7b3d55034.",
     "Bounded-load CI smoke: 16 requests, concurrency 4, p50 0.292274 s, p95 0.413395 s, max 0.455113 s; not an SLA.",
-    "Multi-arch OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705."
+    "Multi-arch OCI SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705.",
+    "Phase 12 exact product PR head 45e75bbb051fbe3b1d2d7b66b95aacbd4fbef9e9 passed permanent Acceptance run 36655589837 with 13/13 required jobs.",
+    "Phase 12 merged main SHA a858cf2117412f42c2784ca31440f3b459416283 passed permanent post-merge Acceptance run 36655739294 with 13/13 required jobs."
   ],
   "runtime_status": "PASS",
   "schema_version": 1,

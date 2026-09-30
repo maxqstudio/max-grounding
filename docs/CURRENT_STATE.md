@@ -3,20 +3,20 @@
 # CURRENT STATE
 
 Last updated: generated from current specs
-Authority verified at SHA: 886ea1b363694d0f947362ab5b6745e2d768ab0f
+Authority verified at SHA: a858cf2117412f42c2784ca31440f3b459416283
 Governance profile: strict
 
 ## Current phase
 Phase: PHASE_12_PRODUCTION_API_MCP
-Status: CANDIDATE_PENDING_GITHUB_ACTIONS
+Status: PRODUCTION_V1_ACCEPTED
 Roadmap phase: PHASE_12_PRODUCTION_API_MCP
 ROADMAP_SYNC: PASS
 
 ## Source
 Repository: maxqstudio/max-grounding
-Branch: work/phase-12-production-api-mcp
+Branch: main
 Authoritative SHA: external final acceptance evidence
-Last accepted SHA: 886ea1b363694d0f947362ab5b6745e2d768ab0f
+Last accepted SHA: a858cf2117412f42c2784ca31440f3b459416283
 Current candidate SHA: external final acceptance evidence
 Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
 
@@ -62,12 +62,14 @@ SEQUENCE_SYNC: PASS
 - Multi-arch OCI build for linux/amd64 and linux/arm64 produced a 120 MB archive with SHA-256 243ce95df3428162a02946b0ec8ee3dedc07c52e241e09b1f2734a4b90e4d705.
 - Production container runs as non-root user maxgrounding, exposes port 8080, disables FastAPI docs/OpenAPI/debug, and has an HTTP /healthz container health check.
 - Skill Workflow class-method path-symbol validator repair PR #4 passed Governance Selftest on Ubuntu and Windows, merged as 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8, passed post-merge main self-test, and is adopted by Phase 12.
+- Phase 12 exact product PR head 45e75bbb051fbe3b1d2d7b66b95aacbd4fbef9e9 passed permanent Acceptance run 36655589837 with 13/13 required jobs.
+- Phase 12 merged main SHA a858cf2117412f42c2784ca31440f3b459416283 passed post-merge permanent Acceptance run 36655739294 with 13/13 required jobs.
+- Production V1 repository acceptance is complete through Phase 12; optional Phase 13-16 capabilities remain unpromoted.
 
 ## Not proven
-- Final Phase 12 product acceptance is not proven until the clean Project Truth candidate passes exact-head pull-request Acceptance and merged main is revalidated.
+- External production hosting/domain provisioning, TLS termination, reverse-proxy configuration, operator secret management, monitoring/SLOs, and a specific operator SearXNG instance remain deployment/operator concerns rather than repository acceptance evidence.
 - The bounded 16-request concurrency smoke is not a capacity benchmark, latency SLO, availability SLA, or proof of internet-scale load.
-- Deployment to an external production host/domain, TLS termination, reverse proxy configuration, external secret management, and a specific operator SearXNG production instance remain deployment concerns rather than proven repository-hosted deployment state.
-- Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional Phase 13-16 work and are not part of Production V1 acceptance.
+- Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional Phase 13-16 capabilities and are not part of accepted Production V1.
 
 ## Known blockers
 - None declared.
@@ -76,12 +78,11 @@ SEQUENCE_SYNC: PASS
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- Run permanent exact-head pull-request Acceptance using Skill Workflow 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8.
-- Merge Phase 12 only if every permanent required job passes on the exact pull-request head.
-- Revalidate merged main before accepting Production V1 and closing Phase 12.
+- Keep Phase 12 as the accepted Production V1 baseline.
+- Do not begin Phase 13-16 unless the Owner explicitly promotes an OPTIONAL phase in the governed roadmap.
+- Future maintenance must preserve exact-head GitHub Actions acceptance, post-merge main revalidation, ROADMAP_SYNC, and Skill Workflow 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8 or an explicitly adopted newer authority.
 
 ## Explicitly blocked
-- Do not claim external deployment, TLS/reverse-proxy hardening, capacity SLA, or internet-scale performance from repository acceptance evidence.
-- Do not expose MCP tools outside the accepted four evidence operations.
-- Do not auto-promote optional Phase 13-16 work during Production V1 closure.
-- Do not merge Phase 12 while any exact-head required check is failing or missing.
+- Do not auto-promote Phase 13, 14, 15, or 16.
+- Do not claim external hosting/TLS/SLA state from repository acceptance.
+- Do not weaken authenticated REST/MCP, provenance, fail-closed, or cross-platform acceptance contracts.

@@ -3,7 +3,7 @@
   "session_id": "phase-12-production-runtime",
   "phase": "PHASE_12_PRODUCTION_API_MCP",
   "mode": "BEFORE",
-  "scope": "CURRENT",
+  "scope": "HISTORICAL",
   "critical": true,
   "status": "VERIFIED",
   "implementation_base_sha": "ec4948e299993f53dfce7b0b7a4affea326d1689",
