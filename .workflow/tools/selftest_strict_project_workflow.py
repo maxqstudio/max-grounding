@@ -265,7 +265,11 @@ notes:
             "app = FastAPI()\n"
             "@app.get('/health')\n"
             "def health():\n"
-            "    return {'ok': True}\n",
+            "    return {'ok': True}\n"
+            "\n"
+            "class HealthService:\n"
+            "    def check(self):\n"
+            "        return True\n",
             encoding="utf-8",
         )
         tests_root = root / "tests"
@@ -273,6 +277,14 @@ notes:
         (tests_root / "test_health.py").write_text(
             "def test_health_contract():\n"
             "    assert True\n",
+            encoding="utf-8",
+        )
+
+        class_method_doc = root / "docs" / "CLASS_METHOD_REFERENCE.md"
+        class_method_doc.parent.mkdir(parents=True, exist_ok=True)
+        class_method_doc.write_text(
+            "# Class Method Reference\n\n"
+            "Regression reference: `app.py::HealthService.check`\n",
             encoding="utf-8",
         )
 

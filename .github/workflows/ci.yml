@@ -70,7 +70,7 @@ jobs:
         uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
           repository: maxqstudio/Skill_Workflow
-          ref: 440bcc6b750f7338738903b04a8eb7ac59b6630e
+          ref: 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8
           path: .skill-workflow-authority
           persist-credentials: false
       - name: Self-test pinned STRICT workflow authority

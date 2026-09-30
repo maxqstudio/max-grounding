@@ -27,8 +27,8 @@
     },
     {
       "concern": "skill_workflow",
-      "authority": "maxqstudio/Skill_Workflow@440bcc6b750f7338738903b04a8eb7ac59b6630e",
-      "meaning": "Pinned latest governance tooling including server HTTP route predecessor reachability repair adopted during Phase 12.",
+      "authority": "maxqstudio/Skill_Workflow@024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8",
+      "meaning": "Pinned latest governance tooling including Python class-method path-symbol validation and Phase 12 route-predecessor support.",
       "mutable": false
     }
   ],
