@@ -1,0 +1,148 @@
+name: Adopt Phase 12 Skill Workflow Fix
+
+on:
+  push:
+    branches:
+      - work/phase-12-production-api-mcp
+
+permissions:
+  contents: write
+
+jobs:
+  adopt:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout MAX Grounding
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: work/phase-12-production-api-mcp
+          fetch-depth: 0
+
+      - name: Checkout exact Skill Workflow authority
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          repository: maxqstudio/Skill_Workflow
+          ref: 440bcc6b750f7338738903b04a8eb7ac59b6630e
+          path: .skill-workflow
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1
+        with:
+          python-version: '3.12'
+
+      - name: Vendor exact current project-local tool pack
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          source = Path(".skill-workflow/scripts")
+          target = Path(".workflow/tools")
+          excluded = {"initialize_project_truth.py", "selftest_project_truth_compiler.py"}
+          expected = []
+          target.mkdir(parents=True, exist_ok=True)
+          for src in sorted(source.glob("*.py")):
+              if src.name in excluded:
+                  continue
+              shutil.copyfile(src, target / src.name)
+              expected.append(src.name)
+          for dst in sorted(target.glob("*.py")):
+              if dst.name not in expected:
+                  dst.unlink()
+          print("VENDORED_TOOLS=" + str(len(expected)))
+          PY
+          for f in .workflow/tools/*.py; do
+            cmp "$f" ".skill-workflow/scripts/$(basename "$f")"
+          done
+          echo SKILL_TOOLPACK_EXACT=PASS
+
+      - name: Advance governance authority
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          OLD = "c1d7e58a0fcadc606c8cf75c6283a17278f99259"
+          NEW = "440bcc6b750f7338738903b04a8eb7ac59b6630e"
+
+          def load(path):
+              return json.loads(Path(path).read_text(encoding="utf-8"))
+
+          def save(path, value):
+              Path(path).write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+
+          authority = load(".workflow/authority.json")
+          skill = next(item for item in authority["authorities"] if item["concern"] == "skill_workflow")
+          skill["authority"] = "maxqstudio/Skill_Workflow@" + NEW
+          skill["meaning"] = "Pinned latest governance tooling including server HTTP route predecessor reachability repair adopted during Phase 12."
+          save(".workflow/authority.json", authority)
+
+          state = load(".workflow/state.json")
+          state["proven"] = [
+              item.replace(OLD, NEW)
+              if "Skill Workflow authority" in item
+              else item
+              for item in state.get("proven", [])
+          ]
+          proof = (
+              "Skill Workflow route-predecessor generator repair PR #3 passed Governance Selftest "
+              "on Ubuntu and Windows, merged as " + NEW + ", and is adopted by Phase 12."
+          )
+          if proof not in state["proven"]:
+              state["proven"].append(proof)
+          save(".workflow/state.json", state)
+
+          decisions = load(".workflow/decisions.json")
+          if not any(item.get("id") == "DEC-0007" for item in decisions["decisions"]):
+              decisions["decisions"].append({
+                  "id":"DEC-0007",
+                  "title":"Advance Skill Workflow for server route sequence evidence",
+                  "status":"ACCEPTED",
+                  "date":"2026-09-30",
+                  "decision":"Pin governance to maxqstudio/Skill_Workflow@" + NEW + " after its generic sequence extractor was repaired to preserve server HTTP route predecessor edges.",
+                  "rationale":"Phase 12 frozen REST SOURCE contracts require HTTP route-to-handler evidence. The prior forward-only reachability filter generated route edges and then discarded their predecessor nodes, making a valid frozen REST plan impossible to prove without weakening the plan or falsifying entries."
+              })
+          save(".workflow/decisions.json", decisions)
+
+          changelog = load(".workflow/changelog.json")
+          marker = "Skill Workflow " + NEW
+          if not any(marker in item.get("change", "") for item in changelog["entries"]):
+              changelog["entries"].append({
+                  "date":"2026-09-30",
+                  "change":"Phase 12 advanced governance to Skill Workflow " + NEW + " after Ubuntu/Windows self-tests proved the generic HTTP route predecessor reachability repair."
+              })
+          save(".workflow/changelog.json", changelog)
+          PY
+
+      - name: Verify upstream STRICT self-test
+        run: python .skill-workflow/scripts/selftest_strict_project_workflow.py
+
+      - name: Verify fixed route generator is vendored
+        shell: bash
+        run: |
+          grep -q 'source.startswith("HTTP ")' .workflow/tools/generate_sequence_actual.py
+          cmp .workflow/tools/generate_sequence_actual.py .skill-workflow/scripts/generate_sequence_actual.py
+
+      - name: Regression
+        shell: bash
+        run: |
+          python -m pip install '.[service,test]'
+          python -m unittest discover -s tests -v
+          python -m compileall -q src tests integration .workflow/tools
+
+      - name: Commit clean authority snapshot
+        shell: bash
+        run: |
+          rm -rf .skill-workflow
+          rm -f .github/workflows/phase12-adopt-skill-workflow.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .workflow .github/workflows
+          git commit -m 'chore: adopt fixed latest Skill Workflow authority'
+          test -z "$(git status --porcelain)"
+
+      - name: Push validated adoption
+        run: git push origin HEAD:work/phase-12-production-api-mcp
