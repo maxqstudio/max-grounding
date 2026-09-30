@@ -104,9 +104,10 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
             self.assertNotEqual(span["evidence_span_ref"], span["excerpt"])
 
     def test_forged_or_expired_span_reference_fails_closed(self) -> None:
+        monotonic = [100.0]
         registry = EvidenceAuthority(
             ttl_seconds=30,
-            monotonic_clock=lambda: 100.0,
+            monotonic_clock=lambda: monotonic[0],
             utc_clock=lambda: datetime(2026, 10, 1, tzinfo=timezone.utc),
         )
         issued = registry.issue(document("https://source.example/item", "Brand | SampleCo"))
@@ -114,12 +115,17 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
             registry.resolve_spans(["A" * 43])
 
         span = registry.select_spans(issued.evidence_ref, query="SampleCo", limit=2)[0]
+        monotonic[0] = 130.0
         with self.assertRaises(InvalidGroundingRequest):
-            EvidenceAuthority(
-                ttl_seconds=30,
-                monotonic_clock=lambda: 100.0,
-                utc_clock=lambda: datetime(2026, 10, 1, tzinfo=timezone.utc),
-            ).resolve_spans([span.evidence_span_ref])
+            registry.resolve_spans([span.evidence_span_ref])
+
+        restarted_registry = EvidenceAuthority(
+            ttl_seconds=30,
+            monotonic_clock=lambda: monotonic[0],
+            utc_clock=lambda: datetime(2026, 10, 1, tzinfo=timezone.utc),
+        )
+        with self.assertRaises(InvalidGroundingRequest):
+            restarted_registry.resolve_spans([span.evidence_span_ref])
 
     def test_flattened_fields_bind_barcode_name_and_brand_from_one_source(self) -> None:
         url = "https://source.example/catalog"
