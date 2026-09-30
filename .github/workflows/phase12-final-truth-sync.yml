@@ -384,17 +384,19 @@ jobs:
           readme = readme_path.read_text(encoding="utf-8")
           start = readme.index("## Current phase")
           end = readme.index("## Platform policy")
-          current = """## Current phase
-
-Phase 12 is the Production V1 candidate.
-
-The candidate exposes a production service facade backed by the accepted SearXNG, secure-fetch, Ollama `qwen3-embedding:0.6b`, and Qdrant capabilities. REST provides public `/healthz`, authenticated `/readyz`, and authenticated bounded `/v1/search`, `/v1/fetch`, `/v1/index`, and `/v1/query` operations. MCP Streamable HTTP exposes exactly four structured evidence tools: `search_web`, `fetch_evidence`, `index_evidence`, and `query_evidence`.
-
-Final branch evidence passes all three frozen sequence contracts, the full Python 3.11-3.14 service suite on Linux/Windows/macOS, real Linux container REST/MCP/security E2E, a bounded 16-request concurrency-4 query smoke, and linux/amd64 + linux/arm64 OCI image builds. The load measurements are CI smoke evidence, not a production SLA.
-
-Phase 12 still requires exact-head pull-request Acceptance and post-merge main revalidation before Production V1 is accepted. Optional Phase 13-16 work is not auto-started.
-
-"""
+          current = "\\n".join([
+              "## Current phase",
+              "",
+              "Phase 12 is the Production V1 candidate.",
+              "",
+              "The candidate exposes a production service facade backed by the accepted SearXNG, secure-fetch, Ollama \`qwen3-embedding:0.6b\`, and Qdrant capabilities. REST provides public \`/healthz\`, authenticated \`/readyz\`, and authenticated bounded \`/v1/search\`, \`/v1/fetch\`, \`/v1/index\`, and \`/v1/query\` operations. MCP Streamable HTTP exposes exactly four structured evidence tools: \`search_web\`, \`fetch_evidence\`, \`index_evidence\`, and \`query_evidence\`.",
+              "",
+              "Final branch evidence passes all three frozen sequence contracts, the full Python 3.11-3.14 service suite on Linux/Windows/macOS, real Linux container REST/MCP/security E2E, a bounded 16-request concurrency-4 query smoke, and linux/amd64 + linux/arm64 OCI image builds. The load measurements are CI smoke evidence, not a production SLA.",
+              "",
+              "Phase 12 still requires exact-head pull-request Acceptance and post-merge main revalidation before Production V1 is accepted. Optional Phase 13-16 work is not auto-started.",
+              "",
+              "",
+          ])
           readme = readme[:start] + current + readme[end:]
           old_pin = "c1d7e58a0fcadc606c8cf75c6283a17278f99259"
           readme = readme.replace(old_pin, SKILL_SHA)
