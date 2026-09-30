@@ -148,7 +148,7 @@
       "locator": "src/max_grounding/service.py::build_production_runtime"
     }
   ],
-  "observed_head": "4c45a23c48b7954bbfb0ab86bcc92c975f345a1f",
+  "observed_head": "d82dc18ccf46ab63afaf89b70c44887b3892be5b",
   "schema_version": 1,
   "source_digest": "3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390"
 }

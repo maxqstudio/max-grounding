@@ -1,0 +1,73 @@
+{
+  "allowed_mismatch_classifications": [
+    "CODE_DEFECT",
+    "PLAN_CHANGE",
+    "GENERATOR_DEFECT"
+  ],
+  "critical": true,
+  "evidence_boundary": "Static generated actual graph proves only extracted structural edges. Dynamic behavior requires runtime trace or semantic evidence when applicable.",
+  "failures": [
+    "MISSING_REQUIRED_EDGES:6"
+  ],
+  "final_head": "d82dc18ccf46ab63afaf89b70c44887b3892be5b",
+  "mismatch_resolution_required": true,
+  "mode": "BEFORE",
+  "phase": "PHASE_12A_PRODUCTION_GROUNDING_HARDENING",
+  "plan_actual_source_comparison": {
+    "forbidden_edges_present": [],
+    "match": false,
+    "missing_required_edges": [
+      {
+        "action": "authenticate, validate bounded request, delegate verification",
+        "from": "verify_rest",
+        "requirement": "MUST",
+        "to": "service_verify",
+        "verification": "SOURCE"
+      },
+      {
+        "action": "validate tool input and delegate to the same service method",
+        "from": "verify_mcp",
+        "requirement": "MUST",
+        "to": "service_verify",
+        "verification": "SOURCE"
+      },
+      {
+        "action": "resolve opaque refs only from MAX Grounding server-owned evidence",
+        "from": "service_verify",
+        "requirement": "MUST",
+        "to": "evidence_authority",
+        "verification": "SOURCE"
+      },
+      {
+        "action": "construct assertions and quality/provenance from resolved server-owned evidence",
+        "from": "service_verify",
+        "requirement": "MUST",
+        "to": "server_graph",
+        "verification": "SOURCE"
+      },
+      {
+        "action": "deterministically classify bounded claims and attach claim-level citations",
+        "from": "service_verify",
+        "requirement": "MUST",
+        "to": "synthesis",
+        "verification": "SOURCE"
+      },
+      {
+        "action": "serialize verifications, canonical citations, synthesis claims, and blocked claims",
+        "from": "service_verify",
+        "requirement": "MUST",
+        "to": "authoritative_packet",
+        "verification": "SOURCE"
+      }
+    ],
+    "unresolved_bindings": []
+  },
+  "plan_runtime_comparison": null,
+  "result": "FAIL",
+  "schema_version": 1,
+  "scope": "CURRENT",
+  "session": "docs\\sequence\\sessions\\phase-12a-verified-output.json",
+  "session_id": "phase-12a-verified-output",
+  "source_digest": "3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390",
+  "warnings": []
+}
