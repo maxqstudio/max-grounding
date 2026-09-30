@@ -108,6 +108,10 @@
     {
       "date": "2026-09-30",
       "change": "Phase 12 candidate proves authenticated REST and MCP evidence service boundaries, non-root production container packaging, linux/amd64 and linux/arm64 OCI builds, full Linux/Windows/macOS Python 3.11-3.14 service regression, three frozen sequence contracts, and real Ollama/Qwen3/Qdrant REST/MCP/security/bounded-load E2E."
+    },
+    {
+      "date": "2026-09-30",
+      "change": "Permanent Acceptance aligned with Phase 12 service dependencies, integration compilation, and Skill Workflow 440bcc6b750f7338738903b04a8eb7ac59b6630e after PR acceptance exposed stale core-only installation and an obsolete governance pin."
     }
   ]
 }
