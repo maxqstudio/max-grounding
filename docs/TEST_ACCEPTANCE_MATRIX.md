@@ -28,6 +28,7 @@ Current source digest: 2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f
 | P12A-ATTEMPT-EVIDENCE-PRESERVATION | Sanitized evidence for every attempted Phase 12A acceptance run is preserved, and final passing evidence is pushed before closure. | Run 004 and Run 005 remain immutable historical failed evidence; Run 006 evidence is pending | NOT_PROVEN |
 | P12A-CROSSOS | All required tests and governance checks pass on the unchanged Linux/Windows/macOS Python 3.11-3.14 matrix. | Run 004 and Run 005 historical failed evidence; Run 006 candidate evidence pending | NOT_PROVEN |
 | P12A-VERSION-IDENTITY | Package, runtime and REST version values share one canonical 0.0.1 source; Production V1 is documented as the accepted product milestone, not package semver. | Run 004 and Run 005 historical failed evidence; Run 006 candidate evidence pending | NOT_PROVEN |
+| P12A-QUESTION-RELEVANCE-SUFFICIENCY | REST and MCP verification require a bounded original-question scope; only complete, entity/identifier-bound, authority/temporal/source-sufficient and non-conflicted answers may expose synthesis claims. Literal quote support alone is insufficient. | Run 006 FALSE-04 attempt 02 remains immutable failed evidence; semantic-relevance candidate and RED/GREEN evidence pending. | NOT_PROVEN |
 
 ## Test commands
 

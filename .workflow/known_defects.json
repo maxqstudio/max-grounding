@@ -28,6 +28,13 @@
       "severity": "P2",
       "summary": "Run 003 fetch failures require per-attempt failure taxonomy before any secure compatibility changes are considered.",
       "evidence": "Run 003: 44/76 fetches returned documents; 32/76 returned no document/error, with failure categories not fully classified."
+    },
+    {
+      "id": "P12A-005",
+      "status": "OPEN",
+      "severity": "P0-GATE",
+      "summary": "Claim-level literal support can be promoted without proving question-to-claim relevance, exact request-identifier binding, complete answer coverage, or explicitly requested source authority.",
+      "evidence": "Immutable Run 006 FALSE-04 attempt 02: raw evidence SHA-256 4bbc539bfb999839f6ee30a2e75bbe2e225169bc2a9dec38418d72626b71ed2f; a supported seven-digit barcode-prefix quotation was promoted for a complete thirteen-digit exact-barcode authority question."
     }
   ]
 }

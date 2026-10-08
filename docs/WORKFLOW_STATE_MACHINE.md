@@ -376,6 +376,67 @@ Authority: GitHub Actions required checks
 
 - A defective merged phase must be reverted through a new governed change and revalidated.
 
+## FLOW-PHASE12A-QUESTION-RELEVANCE — Phase 12A question-to-evidence relevance and sufficiency authority
+
+Purpose: Prevent literal but irrelevant, entity-mismatched, insufficient, stale, conflicted, or unauthorized evidence from being promoted as an answer through REST or MCP verification.
+Critical: TRUE
+Entry condition: Authenticated verification receives bounded candidate claims, server-issued evidence references, and a structured request scope tied to the original user question.
+Authority: The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility.
+
+### States
+
+- QUESTION_SCOPE_RECEIVED
+- QUESTION_SCOPE_COMPILED
+- EVIDENCE_REFERENCES_RESOLVED
+- CLAIMS_VERIFIED
+- QUESTION_RELEVANCE_ASSESSED
+- ANSWER_SUFFICIENCY_ASSESSED
+- PACKET_BUILT
+- ABSTAINED
+- REJECTED
+
+### Legal transitions
+
+| From | To | Action | Authority | Side effects |
+|---|---|---|---|---|
+| QUESTION_SCOPE_RECEIVED | QUESTION_SCOPE_COMPILED | validate the bounded scope against the original question and derive exact identifiers, explicit authority requirements, temporal requirements, quote intent, and required answer coverage | The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility. |  |
+| QUESTION_SCOPE_RECEIVED | REJECTED | reject missing, malformed, ambiguous, internally inconsistent, or unbounded question scope | The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility. |  |
+| QUESTION_SCOPE_COMPILED | EVIDENCE_REFERENCES_RESOLVED | resolve only unexpired server-issued evidence references | The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility. |  |
+| EVIDENCE_REFERENCES_RESOLVED | CLAIMS_VERIFIED | build evidence assertions from fetched server-owned text and run deterministic field/value, exact-span, source-count, and contradiction checks | The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility. |  |
+| CLAIMS_VERIFIED | QUESTION_RELEVANCE_ASSESSED | bind every proposed claim to a requested answer key and same-source subject or exact-identifier constraint; standalone extracts are not answers unless an exact quotation was requested | The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility. |  |
+| QUESTION_RELEVANCE_ASSESSED | ANSWER_SUFFICIENCY_ASSESSED | require complete requested-field coverage, configured distinct-source minimums, trusted required source roles, temporal coverage, and no unresolved contradiction | The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility. |  |
+| ANSWER_SUFFICIENCY_ASSESSED | PACKET_BUILT | expose synthesis claims only when the complete request scope is satisfied; preserve claim-level results and explicit question-level reason codes | The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility. |  |
+| ANSWER_SUFFICIENCY_ASSESSED | ABSTAINED | return an insufficient-evidence assessment with an empty synthesis_claims collection when relevance, identity, authority, freshness, coverage, or sufficiency is not proven | The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility. |  |
+
+### Invariants
+
+- Question text and requested answer keys define scope only; they never establish factual support.
+- The server derives detectable exact identifiers and explicit authority/temporal/quote requirements from the question and rejects a scope contract that omits or contradicts them.
+- Exact identifiers are compared as complete normalized tokens and are bound to the same canonical source as every dependent product claim; prefixes and partial identifiers never satisfy a full identifier.
+- A claim key outside the requested answer scope is excluded from synthesis even when its literal text exists in a fetched source.
+- EXACT_EVIDENCE or EXTRACTIVE_STATEMENT cannot satisfy a factual answer field unless the original question explicitly requests an exact quotation and the request scope identifies that answer mode.
+- Required source authority is determined only by a trusted server-injected policy; caller-supplied roles, domain appearance, media type, model judgment, and vector similarity cannot establish authority.
+- An absent authority policy or unknown source role fails closed when authority is required.
+- Freshness-sensitive questions require server-owned temporal metadata sufficient to establish the requested date or horizon; unknown dates fail closed.
+- All required answer fields must be supported, entity-bound, source-bound, and non-conflicted before any answer claim is synthesis-safe.
+- No LLM judge, embedding similarity, keyword overlap, or citation-text equality is treated as independent semantic or factual authority.
+- Existing authentication, source-reference, SSRF, redirect, DNS, payload-size, persistence, and bounded-retry protections remain unchanged.
+
+### Failure behavior
+
+- Missing or malformed question scope fails request validation with no authoritative packet.
+- Unrequested or irrelevant claims remain excluded from synthesis even when their citation text is exact.
+- Unbound exact identifiers, prefix-only matches, missing subject bindings, missing required authority roles, unknown temporal metadata, incomplete required fields, insufficient distinct sources, and conflicts produce an insufficient question assessment and no synthesis claims.
+- Provider failures remain provider failures and are never relabeled as insufficient grounding or retried without an explicit bounded retry policy.
+
+### Restart behavior
+
+- None declared.
+
+### Rollback behavior
+
+- The change is read-only with respect to fetched and persistent evidence. Rollback reverts the versioned verification-contract changes and restores the previous API shape only in a new candidate; it does not alter benchmark packages, historical run evidence, or indexed source data.
+
 ## FLOW-PRODUCTION-MCP — Phase 12 production MCP server
 
 Purpose: Expose the same accepted service facade through explicitly named authenticated MCP tools without creating additional model authority.

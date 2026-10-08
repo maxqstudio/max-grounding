@@ -117,6 +117,12 @@
       "id": "P12A-VERSION-IDENTITY",
       "requirement": "Package, runtime and REST version values share one canonical 0.0.1 source; Production V1 is documented as the accepted product milestone, not package semver.",
       "status": "NOT_PROVEN"
+    },
+    {
+      "evidence": "Run 006 FALSE-04 attempt 02 remains immutable failed evidence; semantic-relevance candidate and RED/GREEN evidence pending.",
+      "id": "P12A-QUESTION-RELEVANCE-SUFFICIENCY",
+      "requirement": "REST and MCP verification require a bounded original-question scope; only complete, entity/identifier-bound, authority/temporal/source-sufficient and non-conflicted answers may expose synthesis claims. Literal quote support alone is insufficient.",
+      "status": "NOT_PROVEN"
     }
   ],
   "runtime_checks": [

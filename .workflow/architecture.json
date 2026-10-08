@@ -386,9 +386,28 @@
       ]
     },
     {
+      "id": "question-relevance",
+      "name": "Question Relevance and Answer Sufficiency Authority",
+      "purpose": "Compile bounded original-question scope, enforce deterministic subject/identifier and explicit authority/temporal constraints, and gate complete answers after per-claim verification.",
+      "owns": [
+        "compile_question_contract",
+        "exact question-scope constraints",
+        "question-to-claim answer-key alignment",
+        "same-source entity and exact-identifier relevance",
+        "injected source-role requirement checks",
+        "question-level completeness and abstention reason codes"
+      ],
+      "depends_on": [
+        "models",
+        "evidence-graph",
+        "claim-verification",
+        "temporal-authority"
+      ]
+    },
+    {
       "id": "verified-output-boundary",
       "name": "Server-Owned Verification and Citation Boundary",
-      "purpose": "Resolve only server-issued references to accepted fetched evidence, construct evidence assertions server-side, run the deterministic Phase 10 verifier, and emit canonical citations plus an explicit synthesis-safe packet.",
+      "purpose": "Resolve only server-issued references to accepted fetched evidence, construct evidence assertions server-side, run deterministic claim verification plus question-level relevance/sufficiency authority, and emit canonical citations with explicit abstention.",
       "owns": [
         "server-issued evidence references",
         "15-minute process-local evidence reference registry",
@@ -404,7 +423,8 @@
         "claim-verification",
         "production-service",
         "production-rest",
-        "production-mcp"
+        "production-mcp",
+        "question-relevance"
       ],
       "authority": "MAX Grounding-owned fetch/provenance plus deterministic Phase 10 verification; external LLM output remains proposal-only."
     }

@@ -24,6 +24,7 @@ Status: CURRENT
 | FLOW-PERSISTENT-INDEX | BEFORE | YES | docs/sequence/sessions/phase-11-persistent-index.json | NOT_PROVEN |
 | FLOW-PERSISTENT-QUERY | BEFORE | YES | docs/sequence/sessions/phase-11-persistent-query.json | NOT_PROVEN |
 | FLOW-PHASE-DELIVERY | BEFORE | YES | docs/sequence/sessions/phase-00-bootstrap.json | NOT_PROVEN |
+| FLOW-PHASE12A-QUESTION-RELEVANCE | BEFORE | YES | docs/sequence/sessions/phase-12a-question-relevance.json | NOT_PROVEN |
 | FLOW-PRODUCTION-MCP | BEFORE | YES | docs/sequence/sessions/phase-12-mcp-server.json | NOT_PROVEN |
 | FLOW-PRODUCTION-REST | BEFORE | YES | docs/sequence/sessions/phase-12-rest-api.json | NOT_PROVEN |
 | FLOW-PRODUCTION-RUNTIME | BEFORE | YES | docs/sequence/sessions/phase-12-production-runtime.json | NOT_PROVEN |

@@ -55,7 +55,8 @@ Observed source inventory: 57 files, 1 language categories.
 | Authenticated REST Boundary | Expose health/readiness plus five bounded REST operations, including server-owned deterministic verification, with API-key auth, body caps, and fail-closed error serialization. | create_rest_app, ProductionSecurityMiddleware, /healthz, /readyz, /v1/search, /v1/fetch, /v1/index, /v1/query, /v1/verify | production-service |
 | Authenticated MCP Boundary | Expose four structured retrieval tools and one deterministic server-verified output tool through MCP Streamable HTTP under the parent authentication and transport-security boundary. | create_mcp_server, search_web, fetch_evidence, index_evidence, query_evidence, verify_claims | production-service, production-rest |
 | Production Container | Package the Phase 12 service as a non-root Python 3.12 OCI image with healthcheck and multi-architecture build evidence. | Dockerfile, .dockerignore, linux/amd64 image, linux/arm64 image | production-rest, production-mcp |
-| Server-Owned Verification and Citation Boundary | Resolve only server-issued references to accepted fetched evidence, construct evidence assertions server-side, run the deterministic Phase 10 verifier, and emit canonical citations plus an explicit synthesis-safe packet. | server-issued evidence references, 15-minute process-local evidence reference registry, evidence reference resolution, same-source exact barcode binding for product fields, bounded candidate claim binding, authoritative verification packet, canonical claim citations | secure-fetch, evidence-graph, claim-verification, production-service, production-rest, production-mcp |
+| Question Relevance and Answer Sufficiency Authority | Compile bounded original-question scope, enforce deterministic subject/identifier and explicit authority/temporal constraints, and gate complete answers after per-claim verification. | compile_question_contract, exact question-scope constraints, question-to-claim answer-key alignment, same-source entity and exact-identifier relevance, injected source-role requirement checks, question-level completeness and abstention reason codes | models, evidence-graph, claim-verification, temporal-authority |
+| Server-Owned Verification and Citation Boundary | Resolve only server-issued references to accepted fetched evidence, construct evidence assertions server-side, run deterministic claim verification plus question-level relevance/sufficiency authority, and emit canonical citations with explicit abstention. | server-issued evidence references, 15-minute process-local evidence reference registry, evidence reference resolution, same-source exact barcode binding for product fields, bounded candidate claim binding, authoritative verification packet, canonical claim citations | secure-fetch, evidence-graph, claim-verification, production-service, production-rest, production-mcp, question-relevance |
 
 ## Main data flow
 
@@ -197,6 +198,21 @@ Authority: GitHub Actions required checks
 - CANDIDATE -> ACTIONS_PASS : all required GitHub Actions checks pass
 - ACTIONS_PASS -> MERGED_MAIN : merge pull request
 - MERGED_MAIN -> MAIN_REVALIDATED : GitHub Actions revalidate merged main
+
+### FLOW-PHASE12A-QUESTION-RELEVANCE — Phase 12A question-to-evidence relevance and sufficiency authority
+
+Prevent literal but irrelevant, entity-mismatched, insufficient, stale, conflicted, or unauthorized evidence from being promoted as an answer through REST or MCP verification.
+
+Authority: The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility.
+
+- QUESTION_SCOPE_RECEIVED -> QUESTION_SCOPE_COMPILED : validate the bounded scope against the original question and derive exact identifiers, explicit authority requirements, temporal requirements, quote intent, and required answer coverage
+- QUESTION_SCOPE_RECEIVED -> REJECTED : reject missing, malformed, ambiguous, internally inconsistent, or unbounded question scope
+- QUESTION_SCOPE_COMPILED -> EVIDENCE_REFERENCES_RESOLVED : resolve only unexpired server-issued evidence references
+- EVIDENCE_REFERENCES_RESOLVED -> CLAIMS_VERIFIED : build evidence assertions from fetched server-owned text and run deterministic field/value, exact-span, source-count, and contradiction checks
+- CLAIMS_VERIFIED -> QUESTION_RELEVANCE_ASSESSED : bind every proposed claim to a requested answer key and same-source subject or exact-identifier constraint; standalone extracts are not answers unless an exact quotation was requested
+- QUESTION_RELEVANCE_ASSESSED -> ANSWER_SUFFICIENCY_ASSESSED : require complete requested-field coverage, configured distinct-source minimums, trusted required source roles, temporal coverage, and no unresolved contradiction
+- ANSWER_SUFFICIENCY_ASSESSED -> PACKET_BUILT : expose synthesis claims only when the complete request scope is satisfied; preserve claim-level results and explicit question-level reason codes
+- ANSWER_SUFFICIENCY_ASSESSED -> ABSTAINED : return an insufficient-evidence assessment with an empty synthesis_claims collection when relevance, identity, authority, freshness, coverage, or sufficiency is not proven
 
 ### FLOW-PRODUCTION-MCP — Phase 12 production MCP server
 
@@ -352,6 +368,10 @@ compiler does not infer them from implementation names.
 - FLOW-PERSISTENT-QUERY: Transport/HTTP/JSON/vector/schema/payload failures raise controlled errors and return no partial trusted result.
 - FLOW-PERSISTENT-QUERY: Missing or incompatible collection is an explicit provider/index failure.
 - FLOW-PHASE-DELIVERY: A failed check keeps the phase unaccepted and requires repair on the phase branch.
+- FLOW-PHASE12A-QUESTION-RELEVANCE: Missing or malformed question scope fails request validation with no authoritative packet.
+- FLOW-PHASE12A-QUESTION-RELEVANCE: Unrequested or irrelevant claims remain excluded from synthesis even when their citation text is exact.
+- FLOW-PHASE12A-QUESTION-RELEVANCE: Unbound exact identifiers, prefix-only matches, missing subject bindings, missing required authority roles, unknown temporal metadata, incomplete required fields, insufficient distinct sources, and conflicts produce an insufficient question assessment and no synthesis claims.
+- FLOW-PHASE12A-QUESTION-RELEVANCE: Provider failures remain provider failures and are never relabeled as insufficient grounding or retried without an explicit bounded retry policy.
 - FLOW-PRODUCTION-MCP: Invalid MCP input or service failure returns controlled tool/protocol error without fabricated success.
 - FLOW-PRODUCTION-MCP: Authentication failure is rejected before tool execution.
 - FLOW-PRODUCTION-REST: Missing/invalid authentication returns controlled 401/403-style failure.
