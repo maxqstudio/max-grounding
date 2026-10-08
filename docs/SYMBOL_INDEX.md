@@ -3,72 +3,11 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: eb04a34d396de7a6c4f2fcbfbddaf4cbbf38acb6fbaff0fe0a399a0bdf60e5ec
+Source digest: f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
 |---|---|---|---|---|---|---|---|
-| .runtime/fetch_default_probe.py | fetch | function | 16-29 | Observed Python symbol | | | |
-| .runtime/fetch_timeout_probe.py | fetch | function | 16-29 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe.py | StagedSearchProvider | class | 71-87 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe.py | StagedSearchProvider.search | method | 74-87 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe.py | ollama_chat | function | 104-112 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe.py | result_payload | function | 115-121 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe.py | compact_result | function | 124-136 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe.py | run_barcode | async_function | 139-332 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe.py | main | async_function | 335-362 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt10.py | StagedSearchProvider | class | 66-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt10.py | StagedSearchProvider.search | method | 69-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt10.py | ollama_chat | function | 99-107 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt10.py | result_payload | function | 110-116 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt10.py | compact_result | function | 119-131 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt10.py | run_barcode | async_function | 134-383 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt10.py | main | async_function | 386-413 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt11.py | StagedSearchProvider | class | 66-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt11.py | StagedSearchProvider.search | method | 69-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt11.py | ollama_chat | function | 99-107 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt11.py | result_payload | function | 110-116 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt11.py | compact_result | function | 119-131 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt11.py | run_barcode | async_function | 134-384 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt11.py | main | async_function | 387-414 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt12.py | StagedSearchProvider | class | 66-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt12.py | StagedSearchProvider.search | method | 69-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt12.py | ollama_chat | function | 99-107 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt12.py | result_payload | function | 110-116 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt12.py | compact_result | function | 119-131 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt12.py | run_barcode | async_function | 134-384 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt12.py | main | async_function | 387-414 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt13.py | StagedSearchProvider | class | 66-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt13.py | StagedSearchProvider.search | method | 69-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt13.py | ollama_chat | function | 99-107 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt13.py | result_payload | function | 110-116 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt13.py | compact_result | function | 119-131 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt13.py | finalize_verified_packet | async_function | 134-286 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt13.py | run_barcode | async_function | 289-545 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt13.py | main | async_function | 548-575 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt14.py | StagedSearchProvider | class | 66-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt14.py | StagedSearchProvider.search | method | 69-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt14.py | ollama_chat | function | 105-113 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt14.py | result_payload | function | 116-122 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt14.py | compact_result | function | 125-137 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt14.py | finalize_verified_packet | async_function | 140-315 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt14.py | run_barcode | async_function | 318-574 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt14.py | main | async_function | 577-604 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt15.py | StagedSearchProvider | class | 66-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt15.py | StagedSearchProvider.search | method | 69-82 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt15.py | ollama_chat | function | 105-113 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt15.py | result_payload | function | 116-122 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt15.py | compact_result | function | 125-137 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt15.py | finalize_verified_packet | async_function | 140-315 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt15.py | run_barcode | async_function | 318-574 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt15.py | main | async_function | 577-606 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt9.py | StagedSearchProvider | class | 71-87 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt9.py | StagedSearchProvider.search | method | 74-87 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt9.py | ollama_chat | function | 104-112 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt9.py | result_payload | function | 115-121 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt9.py | compact_result | function | 124-136 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt9.py | run_barcode | async_function | 139-338 | Observed Python symbol | | | |
-| .runtime/qwen_barcode_probe_attempt9.py | main | async_function | 341-368 | Observed Python symbol | | | |
 | integration/phase11_services.py | document | function | 22-30 | Observed Python symbol | | | |
 | integration/phase11_services.py | services | function | 33-40 | Observed Python symbol | | | |
 | integration/phase11_services.py | run_index | function | 43-105 | Observed Python symbol | | | |
@@ -538,6 +477,9 @@ Status: CURRENT
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_more_than_two_search_rounds | method | 18-22 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_normalizes_query_and_locale | method | 24-33 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits | method | 35-43 | Observed Python symbol | | | |
+| tests/test_project_source_boundary.py | SourceInventoryIsolationTests | class | 28-66 | Observed Python symbol | | | |
+| tests/test_project_source_boundary.py | SourceInventoryIsolationTests.test_operator_scratch_does_not_enter_structural_code_facts | method | 29-54 | Observed Python symbol | | | |
+| tests/test_project_source_boundary.py | SourceInventoryIsolationTests.test_scratch_files_do_not_change_source_digest | method | 56-66 | Observed Python symbol | | | |
 | tests/test_qdrant_store.py | chunk | function | 24-31 | Observed Python symbol | | | |
 | tests/test_qdrant_store.py | vector | function | 34-35 | Observed Python symbol | | | |
 | tests/test_qdrant_store.py | collection_payload | function | 38-60 | Observed Python symbol | | | |

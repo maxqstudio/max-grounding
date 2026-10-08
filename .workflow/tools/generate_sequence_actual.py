@@ -25,6 +25,7 @@ from sequence_contract import compute_source_digest, git_head, render_graph_merm
 EXCLUDED = {
     ".git", ".workflow", ".idea", ".vscode", ".venv", "venv", "node_modules",
     "dist", "build", "coverage", "vendor", "__pycache__",
+    ".runtime", ".evidence", ".local-acceptance", ".pytest_cache",
 }
 JS_EXTS = {".js", ".jsx", ".ts", ".tsx"}
 HTTP_METHODS = {"get", "post", "put", "patch", "delete", "options", "head"}

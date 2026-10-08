@@ -7,7 +7,7 @@
 Phase 12 Production V1 remains accepted on merged main 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f. Run 003 is the preserved baseline corpus and evidence, not Phase 12A acceptance. Run 004 and Run 005 are historical failed Phase 12A acceptance evidence. Run 006 is the next current acceptance attempt and does not replace prior run evidence. Phase 12A acceptance remains NOT_PROVEN until the latest candidate passes server-owned claim verification, canonical citation binding, fail-closed behavior, fetch/security and persistence gates, cross-platform CI, exact merged-main revalidation, and all sanitized run evidence is preserved and pushed.
 
 Final tested source: external final acceptance evidence.
-Current source digest: eb04a34d396de7a6c4f2fcbfbddaf4cbbf38acb6fbaff0fe0a399a0bdf60e5ec
+Current source digest: f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0
 
 | Requirement | Contract | Evidence | Status |
 |---|---|---|---|

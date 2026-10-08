@@ -3,36 +3,11 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: eb04a34d396de7a6c4f2fcbfbddaf4cbbf38acb6fbaff0fe0a399a0bdf60e5ec
+Source digest: f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
 |---|---|---:|---|---|
-| .runtime/fetch_default_probe.py | Python | 35 | .runtime | NO |
-| .runtime/fetch_timeout_probe.py | Python | 35 | .runtime | NO |
-| .runtime/pytest_full_after_assertion_partition.xml | XML | 104 | .runtime | NO |
-| .runtime/pytest_full_after_barcode_binding.xml | XML | 1 | .runtime | NO |
-| .runtime/pytest_full_after_ogtitle.xml | XML | 1 | .runtime | NO |
-| .runtime/pytest_full_after_ollama_pin.xml | XML | 1 | .runtime | NO |
-| .runtime/pytest_full_typed_refs.xml | XML | 1 | .runtime | NO |
-| .runtime/pytest_mcp_auto_span_r1.xml | XML | 1 | .runtime | NO |
-| .runtime/pytest_mcp_auto_span_r2.xml | XML | 262 | .runtime | NO |
-| .runtime/pytest_mcp_auto_span_r3.xml | XML | 1 | .runtime | NO |
-| .runtime/pytest_mcp_pool.xml | XML | 99 | .runtime | NO |
-| .runtime/pytest_mcp_pool_r1.xml | XML | 36 | .runtime | NO |
-| .runtime/pytest_mcp_pool_r2.xml | XML | 36 | .runtime | NO |
-| .runtime/pytest_mcp_pool_r3.xml | XML | 1 | .runtime | NO |
-| .runtime/pytest_mcp_pool_r4.xml | XML | 1 | .runtime | NO |
-| .runtime/pytest_mcp_pool_red.xml | XML | 23 | .runtime | NO |
-| .runtime/pytest_ogtitle_r1.xml | XML | 1 | .runtime | NO |
-| .runtime/qwen_barcode_probe.py | Python | 366 | .runtime | NO |
-| .runtime/qwen_barcode_probe_attempt10.py | Python | 417 | .runtime | NO |
-| .runtime/qwen_barcode_probe_attempt11.py | Python | 418 | .runtime | NO |
-| .runtime/qwen_barcode_probe_attempt12.py | Python | 418 | .runtime | NO |
-| .runtime/qwen_barcode_probe_attempt13.py | Python | 579 | .runtime | NO |
-| .runtime/qwen_barcode_probe_attempt14.py | Python | 608 | .runtime | NO |
-| .runtime/qwen_barcode_probe_attempt15.py | Python | 610 | .runtime | NO |
-| .runtime/qwen_barcode_probe_attempt9.py | Python | 372 | .runtime | NO |
 | integration/phase11_services.py | Python | 146 | integration | NO |
 | integration/phase12_e2e.py | Python | 283 | integration | NO |
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
@@ -77,6 +52,7 @@ Generated/refreshed: current compiler run
 | tests/test_persistent_semantic.py | Python | 284 | tests | YES |
 | tests/test_phase12_dependencies.py | Python | 19 | tests | YES |
 | tests/test_policy.py | Python | 47 | tests | YES |
+| tests/test_project_source_boundary.py | Python | 70 | tests | YES |
 | tests/test_qdrant_store.py | Python | 284 | tests | YES |
 | tests/test_reranking.py | Python | 279 | tests | YES |
 | tests/test_retrieval.py | Python | 181 | tests | YES |
