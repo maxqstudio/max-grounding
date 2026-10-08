@@ -10,11 +10,12 @@ from typing import Callable
 
 from .engine import GroundingEngine
 from .evidence_authority import (
+    _BARCODE_CLAIM_KEYS,
     DEFAULT_REQUIRED_SOURCES,
     EvidenceAuthority,
     build_authoritative_verification_packet,
     build_server_owned_evidence_graph,
-    normalize_candidate_claims,
+    normalize_candidate_proposals,
 )
 from .errors import (
     FetchError,
@@ -26,11 +27,17 @@ from .errors import (
 )
 from .fetcher import fetch_document
 from .models import (
+    AnswerClaim,
+    ClaimVerification,
+    ClaimVerificationStatus,
     EvidencePack,
+    EvidenceSpan,
     FetchedDocument,
     GroundingRequest,
     PersistentIndexResult,
     SemanticHit,
+    SynthesisPacket,
+    VerificationCorrection,
 )
 from .persistent import index_documents, retrieve_persistent_semantic
 from .providers.ollama_embedding import OllamaEmbeddingProvider
@@ -192,6 +199,47 @@ class GroundingService:
         except Exception as exc:
             raise ServiceOperationError("secure evidence fetch failed") from exc
 
+    def select_evidence_spans(
+        self,
+        evidence_ref: str,
+        *,
+        query: str,
+        limit: int = 4,
+    ) -> tuple[EvidenceSpan, ...]:
+        """Return bounded exact excerpts from evidence fetched by this service instance."""
+        try:
+            return self._evidence_authority.select_spans(
+                evidence_ref,
+                query=query,
+                limit=limit,
+            )
+        except InvalidGroundingRequest:
+            raise
+        except Exception as exc:
+            raise ServiceOperationError("evidence span selection failed") from exc
+
+    def deduplicate_evidence_span_refs(self, references: object) -> tuple[str, ...]:
+        """Deduplicate selected references by their server-owned source offsets."""
+        try:
+            resolved = self._evidence_authority.resolve_spans(references)
+            selected: list[str] = []
+            seen: set[tuple[str, int, int]] = set()
+            for item in resolved:
+                identity = (
+                    item.span.evidence_ref,
+                    item.span.start_offset,
+                    item.span.end_offset,
+                )
+                if identity in seen:
+                    continue
+                seen.add(identity)
+                selected.append(item.span.evidence_span_ref)
+            return tuple(selected)
+        except InvalidGroundingRequest:
+            raise
+        except Exception as exc:
+            raise ServiceOperationError("evidence span resolution failed") from exc
+
     def verify_candidate_claims(
         self,
         claims: object,
@@ -207,15 +255,113 @@ class GroundingService:
         ):
             raise InvalidGroundingRequest("required_sources is outside the accepted range")
         try:
-            normalized_claims = normalize_candidate_claims(claims)
+            proposals = normalize_candidate_proposals(claims)
+            normalized_claims = tuple(item.claim for item in proposals)
+            barcode_values = {
+                claim.value.casefold()
+                for claim in normalized_claims
+                if claim.claim_key.casefold() in _BARCODE_CLAIM_KEYS
+            }
+            if len(barcode_values) > 1:
+                raise InvalidGroundingRequest(
+                    "one verification request cannot mix barcode identities"
+                )
+            expected_barcode = next(iter(barcode_values), None)
             records = self._evidence_authority.resolve(evidence_refs)
-            graph = build_server_owned_evidence_graph(normalized_claims, records)
-            packet = build_synthesis_packet(
-                normalized_claims,
-                graph,
-                required_sources=required_sources,
+            selected_spans_by_claim = None
+            verification_modes_by_claim = None
+            if any(item.evidence_span_refs for item in proposals):
+                evidence_reference_set = set(evidence_refs)
+                all_span_refs = tuple(
+                    dict.fromkeys(
+                        reference
+                        for item in proposals
+                        for reference in item.evidence_span_refs
+                    )
+                )
+                resolved_spans = self._evidence_authority.resolve_spans(all_span_refs)
+                spans_by_ref = {
+                    item.span.evidence_span_ref: item
+                    for item in resolved_spans
+                }
+                selected_spans_by_claim = {}
+                verification_modes_by_claim = {}
+                for item in proposals:
+                    selected = tuple(
+                        spans_by_ref[reference]
+                        for reference in item.evidence_span_refs
+                    )
+                    if any(
+                        span.span.evidence_ref not in evidence_reference_set
+                        for span in selected
+                    ):
+                        raise InvalidGroundingRequest(
+                            "evidence span does not belong to the supplied evidence refs"
+                        )
+                    selected_spans_by_claim[item.claim.claim_id] = selected
+                    verification_modes_by_claim[item.claim.claim_id] = (
+                        item.verification_mode or ""
+                    )
+
+            claims_by_key: dict[str, list[AnswerClaim]] = {}
+            for claim in normalized_claims:
+                claims_by_key.setdefault(claim.claim_key.casefold(), []).append(claim)
+
+            # Keep each evidence graph within its assertion budget while still
+            # comparing alternate values for the same field in one graph.
+            verifications: list[ClaimVerification] = []
+            for key_claims in claims_by_key.values():
+                graph = build_server_owned_evidence_graph(
+                    tuple(key_claims),
+                    records,
+                    selected_spans_by_claim=selected_spans_by_claim,
+                    verification_modes_by_claim=verification_modes_by_claim,
+                    expected_barcode=expected_barcode,
+                )
+                packet_for_key = build_synthesis_packet(
+                    tuple(key_claims),
+                    graph,
+                    required_sources=required_sources,
+                )
+                verifications.extend(packet_for_key.verifications)
+
+            ordered_verifications = tuple(
+                sorted(verifications, key=lambda item: item.claim.claim_id)
             )
-            return build_authoritative_verification_packet(packet, normalized_claims)
+            packet = SynthesisPacket(
+                verifications=ordered_verifications,
+                synthesis_claims=tuple(
+                    item
+                    for item in ordered_verifications
+                    if item.status is ClaimVerificationStatus.SUPPORTED
+                ),
+                blocked_claims=tuple(
+                    item
+                    for item in ordered_verifications
+                    if item.status is not ClaimVerificationStatus.SUPPORTED
+                ),
+            )
+            correction = None
+            verification_by_id = {
+                item.claim.claim_id: item
+                for item in packet.verifications
+            }
+            for proposal in proposals:
+                verification = verification_by_id[proposal.claim.claim_id]
+                if (
+                    proposal.verification_mode == "EXTRACTIVE_STATEMENT"
+                    and verification.status is ClaimVerificationStatus.UNSUPPORTED
+                ):
+                    correction = VerificationCorrection(
+                        reason_code="NON_CONTIGUOUS_EXACT_SPAN",
+                        eligible=True,
+                    )
+                    break
+            return build_authoritative_verification_packet(
+                packet,
+                normalized_claims,
+                correction=correction,
+            )
         except InvalidGroundingRequest:
             raise
         except GroundingError as exc:

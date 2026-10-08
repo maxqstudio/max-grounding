@@ -12,7 +12,7 @@ from .. import __version__
 from ..errors import EmbeddingProviderError, RuntimeProviderError
 from ..semantic import MAX_EMBEDDING_BATCH, _validated_vector
 
-OLLAMA_VERSION = "0.34.0"
+OLLAMA_VERSION = "0.35.1"
 OLLAMA_MODEL = "qwen3-embedding:0.6b"
 OLLAMA_EMBEDDING_DIMENSION = 1024
 QUERY_INSTRUCTION = (

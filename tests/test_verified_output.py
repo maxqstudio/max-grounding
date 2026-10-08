@@ -12,7 +12,12 @@ from max_grounding.evidence_authority import EvidenceAuthority
 from max_grounding.errors import InvalidGroundingRequest, ServiceOperationError
 from max_grounding.fetcher import extract_text
 from max_grounding.models import FetchedDocument, SourceCandidate
-from max_grounding.mcp_server import create_mcp_server, mcp_fetch_evidence
+from max_grounding.mcp_server import (
+    create_mcp_server,
+    mcp_fetch_evidence,
+    mcp_select_evidence_spans,
+    mcp_verify_claims,
+)
 from max_grounding.service import GroundingService
 
 
@@ -149,6 +154,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
     def test_allowlisted_html_product_metadata_can_support_bound_fields(self) -> None:
         url = "https://source.example/metadata-product"
         html = b"""
+        <meta property="og:title" content="Sample Widget">
         <meta property="product:brand" content="SampleCo">
         <table>
           <tr><th>Product name</th><td>Sample Widget</td></tr>
@@ -158,6 +164,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
         </script>
         """
         text = extract_text(html, media_type="text/html", charset="utf-8")
+        self.assertIn("Product name | Sample Widget", text)
         client = rest_client(runtime({url: document(url, text)}))
         evidence_ref = fetch_ref(client, url)
 
@@ -378,7 +385,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
             headers=auth(),
             json={
                 "claims": [claim("brand", "brand", "SampleCo")],
-                "evidence_refs": ["A" * 43],
+                "evidence_refs": ["ev_" + "A" * 40],
                 "required_sources": 1,
             },
         )
@@ -690,7 +697,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
                 "claims": [
                     {**claim("brand", "brand", "SampleCo"), "caller_marker": marker}
                 ],
-                "evidence_refs": ["A" * 43],
+                "evidence_refs": ["ev_" + "A" * 40],
             },
         )
         self.assertEqual(response.status_code, 422, response.text)
@@ -707,7 +714,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
             headers=auth(),
             json={
                 "claims": [claim("brand", "brand", "SampleCo")],
-                "evidence_refs": ["A" * 43],
+                "evidence_refs": ["ev_" + "A" * 40],
             },
         )
         self.assertEqual(response.status_code, 502, response.text)
@@ -750,30 +757,384 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
             registry.resolve([reference])
 
     def test_mcp_exposes_same_verified_output_boundary(self) -> None:
-        url = "https://source.example/product"
-        service = runtime({url: document(url, "Brand: SampleCo.")})
+        urls = (
+            "https://source.example/product",
+            "https://other.example/product",
+        )
+        text = "Brand | SampleCo | Product name | Sample Widget"
+        service = runtime(
+            {url: document(url, text) for url in urls}
+        )
         server = create_mcp_server(service)
         names = {tool.name for tool in asyncio.run(server.list_tools())}
         self.assertEqual(
             names,
-            {"search_web", "fetch_evidence", "index_evidence", "query_evidence", "verify_claims"},
+            {
+                "search_web",
+                "fetch_evidence",
+                "select_evidence_spans",
+                "index_evidence",
+                "query_evidence",
+                "verify_claims",
+            },
         )
-        fetched = mcp_fetch_evidence(service, url=url)
-        evidence_ref = fetched["evidence_ref"]
+        evidence_refs = []
+        span_refs = []
+        for url in urls:
+            fetched = mcp_fetch_evidence(service, url=url)
+            evidence_ref = fetched["evidence_ref"]
+            evidence_refs.append(evidence_ref)
+            span_refs.append(
+                mcp_select_evidence_spans(
+                    service,
+                    evidence_ref=evidence_ref,
+                    query="SampleCo",
+                )["spans"][0]["evidence_span_ref"]
+            )
 
         async def invoke():
             return await server.call_tool(
                 "verify_claims",
                 {
-                    "claims": [claim("brand", "brand", "SampleCo")],
-                    "evidence_refs": [evidence_ref],
-                    "required_sources": 1,
+                    "claims": [
+                        {
+                            "claim_key": "brand",
+                            "value": "SampleCo",
+                            "verification_mode": "STRUCTURED_FIELD",
+                            "evidence_span_refs": span_refs[:1],
+                        },
+                        {
+                            "claim_key": "product_name",
+                            "value": "Sample Widget",
+                            "verification_mode": "STRUCTURED_FIELD",
+                            "evidence_span_refs": span_refs[1:],
+                        },
+                    ],
+                    "evidence_refs": evidence_refs,
+                    "required_sources": 2,
                 },
             )
 
         result = asyncio.run(invoke())
         self.assertFalse(result.is_error)
-        self.assertEqual(result.structured_content["synthesis_claims"][0]["status"], "supported")
+        self.assertEqual(
+            [item["status"] for item in result.structured_content["synthesis_claims"]],
+            ["supported", "supported"],
+        )
+        self.assertEqual(
+            [item["supporting_source_count"] for item in result.structured_content["verifications"]],
+            [2, 2],
+        )
+
+    def test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts(self) -> None:
+        barcode = "8991002122000"
+        urls = (
+            "https://source.example/abc-200ml",
+            "https://other.example/abc-180ml",
+            "https://third.example/brand-without-barcode",
+        )
+        documents = {
+            urls[0]: document(
+                urls[0],
+                f"Product name | ABC Choco Malt | Barcode | {barcode} "
+                "| Brand | ABC | Package size | 200 ml",
+            ),
+            urls[1]: document(
+                urls[1],
+                f"Product name | ABC Choco Malt | Barcode | {barcode} "
+                "| Brand | ABC | Package size | 180 ml",
+            ),
+            urls[2]: document(urls[2], "Brand | ABC | Package size | 200 ml"),
+        }
+        service = runtime(documents)
+        evidence_refs = []
+        span_refs = []
+        for url in urls:
+            fetched = mcp_fetch_evidence(service, url=url)
+            evidence_ref = fetched["evidence_ref"]
+            evidence_refs.append(evidence_ref)
+            span_refs.append(
+                mcp_select_evidence_spans(
+                    service,
+                    evidence_ref=evidence_ref,
+                    query=barcode if url != urls[2] else "ABC",
+                )["spans"][0]["evidence_span_ref"]
+            )
+        server = create_mcp_server(service)
+
+        async def invoke():
+            return await server.call_tool(
+                "verify_claims",
+                {
+                    "claims": [
+                        {
+                            "claim_key": "barcode_binding",
+                            "value": barcode,
+                            "verification_mode": "STRUCTURED_FIELD",
+                            "evidence_span_refs": span_refs[:2],
+                        },
+                        {
+                            "claim_key": "brand",
+                            "value": "ABC",
+                            "verification_mode": "STRUCTURED_FIELD",
+                            "evidence_span_refs": span_refs[:1],
+                        },
+                        {
+                            "claim_key": "package_size",
+                            "value": "200 ml",
+                            "verification_mode": "STRUCTURED_FIELD",
+                            "evidence_span_refs": span_refs[:1],
+                        },
+                    ],
+                    "evidence_refs": evidence_refs,
+                    "required_sources": 2,
+                },
+            )
+
+        result = asyncio.run(invoke())
+        self.assertFalse(result.is_error)
+        verifications = result.structured_content["verifications"]
+        self.assertEqual(
+            [item["status"] for item in verifications],
+            ["supported", "supported", "conflicted"],
+        )
+        self.assertEqual(verifications[1]["supporting_source_count"], 2)
+        synthesis_keys = {
+            item["claim"]["claim_key"]
+            for item in result.structured_content["synthesis_claims"]
+        }
+        self.assertNotIn("package_size", synthesis_keys)
+
+    def test_mcp_barcode_auto_selection_does_not_accept_forged_span_refs(self) -> None:
+        barcode = "8993163502059"
+        url = "https://source.example/montiss-product"
+        service = runtime(
+            {url: document(url, f"Barcode: {barcode}. Brand: MONTISS.")}
+        )
+        evidence_ref = mcp_fetch_evidence(service, url=url)["evidence_ref"]
+        forged_ref = "sp_" + "A" * 40
+        with self.assertRaises(InvalidGroundingRequest):
+            mcp_verify_claims(
+                service,
+                claims=[
+                    {
+                        "claim_key": "barcode_binding",
+                        "value": barcode,
+                        "verification_mode": "STRUCTURED_FIELD",
+                        "evidence_span_refs": [forged_ref],
+                    },
+                    {
+                        "claim_key": "brand",
+                        "value": "MONTISS",
+                        "verification_mode": "STRUCTURED_FIELD",
+                        "evidence_span_refs": [forged_ref],
+                    },
+                ],
+                evidence_refs=[evidence_ref],
+                required_sources=1,
+            )
+
+    def test_mcp_barcode_auto_selection_includes_product_title_spans(self) -> None:
+        barcode = "8993163502059"
+        urls = (
+            "https://source.example/montiss-one",
+            "https://other.example/montiss-two",
+        )
+        documents = {
+            url: document(
+                url,
+                "Product name | MONTISS Facial Tissue 200 sheets\n"
+                f"Barcode | {barcode}\n"
+                "Brand | MONTISS\n"
+                "Package size | 200 sheets",
+            )
+            for url in urls
+        }
+        service = runtime(documents)
+        evidence_refs = [
+            mcp_fetch_evidence(service, url=url)["evidence_ref"]
+            for url in urls
+        ]
+        caller_barcode_span = mcp_select_evidence_spans(
+            service,
+            evidence_ref=evidence_refs[0],
+            query=barcode,
+            limit=1,
+        )["spans"][0]["evidence_span_ref"]
+
+        packet = mcp_verify_claims(
+            service,
+            claims=[
+                {
+                    "claim_key": "barcode_binding",
+                    "value": barcode,
+                    "verification_mode": "STRUCTURED_FIELD",
+                    "evidence_span_refs": [caller_barcode_span],
+                },
+                {
+                    "claim_key": "product_name",
+                    "value": "MONTISS Facial Tissue 200 sheets",
+                    "verification_mode": "STRUCTURED_FIELD",
+                    "evidence_span_refs": [caller_barcode_span],
+                },
+                {
+                    "claim_key": "package_size",
+                    "value": "200 sheets",
+                    "verification_mode": "STRUCTURED_FIELD",
+                    "evidence_span_refs": [caller_barcode_span],
+                },
+            ],
+            evidence_refs=evidence_refs,
+            required_sources=2,
+        )
+
+        by_key = {
+            item["claim"]["claim_key"]: item
+            for item in packet["verifications"]
+        }
+        self.assertEqual(by_key["barcode_binding"]["status"], "supported")
+        self.assertEqual(by_key["product_name"]["status"], "supported")
+        self.assertEqual(by_key["product_name"]["supporting_source_count"], 2)
+        self.assertEqual(by_key["package_size"]["status"], "supported")
+
+    def test_mcp_barcode_auto_selection_uses_html_product_heading(self) -> None:
+        barcode = "8993163502059"
+        urls = (
+            "https://source.example/montiss-heading-one",
+            "https://other.example/montiss-heading-two",
+            "https://third.example/montiss-heading-three",
+        )
+        html = (
+            "<h1>MONTISS Facial Tissue 200 sheets</h1>"
+            f"<p>Barcode: {barcode}</p>"
+            "<p>Brand: MONTISS</p>"
+            "<p>Product type: Facial tissue</p>"
+        ).encode("utf-8")
+        text = extract_text(html, media_type="text/html", charset="utf-8")
+        self.assertIn("Product heading | MONTISS Facial Tissue 200 sheets", text)
+        service = runtime({url: document(url, text) for url in urls})
+        evidence_refs = [
+            mcp_fetch_evidence(service, url=url)["evidence_ref"]
+            for url in urls
+        ]
+        caller_barcode_span = mcp_select_evidence_spans(
+            service,
+            evidence_ref=evidence_refs[0],
+            query=barcode,
+            limit=1,
+        )["spans"][0]["evidence_span_ref"]
+
+        packet = mcp_verify_claims(
+            service,
+            claims=[
+                {
+                    "claim_key": "barcode_binding",
+                    "value": barcode,
+                    "verification_mode": "STRUCTURED_FIELD",
+                    "evidence_span_refs": [caller_barcode_span],
+                },
+                {
+                    "claim_key": "product_name",
+                    "value": "MONTISS Facial Tissue 200 sheets",
+                    "verification_mode": "STRUCTURED_FIELD",
+                    "evidence_span_refs": [caller_barcode_span],
+                },
+                {
+                    "claim_key": "brand",
+                    "value": "MONTISS",
+                    "verification_mode": "STRUCTURED_FIELD",
+                    "evidence_span_refs": [caller_barcode_span],
+                },
+                {
+                    "claim_key": "product_type",
+                    "value": "Facial tissue",
+                    "verification_mode": "STRUCTURED_FIELD",
+                    "evidence_span_refs": [caller_barcode_span],
+                },
+                {
+                    "claim_key": "package_size",
+                    "value": "200 sheets",
+                    "verification_mode": "STRUCTURED_FIELD",
+                    "evidence_span_refs": [caller_barcode_span],
+                },
+            ],
+            evidence_refs=evidence_refs,
+            required_sources=2,
+        )
+
+        by_key = {
+            item["claim"]["claim_key"]: item
+            for item in packet["verifications"]
+        }
+        self.assertEqual(by_key["barcode_binding"]["status"], "supported")
+        self.assertEqual(by_key["product_name"]["status"], "supported")
+        self.assertEqual(by_key["product_name"]["supporting_source_count"], 3)
+        self.assertEqual(by_key["brand"]["status"], "supported")
+        self.assertEqual(by_key["product_type"]["status"], "supported")
+        self.assertEqual(by_key["package_size"]["status"], "supported")
+
+    def test_mcp_barcode_auto_selection_preserves_caller_selected_field_spans(self) -> None:
+        barcode = "8993163502059"
+        urls = (
+            "https://source.example/montiss-category-one",
+            "https://other.example/montiss-category-two",
+        )
+        documents = {
+            url: document(
+                url,
+                "Product name | MONTISS Facial Tissue 200 sheets\n"
+                f"Barcode | {barcode}\n"
+                "Product type | Facial tissue",
+            )
+            for url in urls
+        }
+        service = runtime(documents)
+        evidence_refs = [
+            mcp_fetch_evidence(service, url=url)["evidence_ref"]
+            for url in urls
+        ]
+        barcode_span = mcp_select_evidence_spans(
+            service,
+            evidence_ref=evidence_refs[0],
+            query=barcode,
+            limit=1,
+        )["spans"][0]["evidence_span_ref"]
+        type_spans = [
+            mcp_select_evidence_spans(
+                service,
+                evidence_ref=evidence_ref,
+                query="product type",
+                limit=1,
+            )["spans"][0]["evidence_span_ref"]
+            for evidence_ref in evidence_refs
+        ]
+
+        packet = mcp_verify_claims(
+            service,
+            claims=[
+                {
+                    "claim_key": "barcode_binding",
+                    "value": barcode,
+                    "verification_mode": "STRUCTURED_FIELD",
+                    "evidence_span_refs": [barcode_span],
+                },
+                {
+                    "claim_key": "product_type",
+                    "value": "Facial tissue",
+                    "verification_mode": "STRUCTURED_FIELD",
+                    "evidence_span_refs": type_spans,
+                },
+            ],
+            evidence_refs=evidence_refs,
+            required_sources=2,
+        )
+
+        by_key = {
+            item["claim"]["claim_key"]: item
+            for item in packet["verifications"]
+        }
+        self.assertEqual(by_key["product_type"]["status"], "supported")
+        self.assertEqual(by_key["product_type"]["supporting_source_count"], 2)
 
     def test_missing_verification_auth_is_rejected(self) -> None:
         client = rest_client(runtime({}))

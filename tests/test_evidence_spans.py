@@ -85,6 +85,24 @@ def proposal(
 
 
 class EvidenceSpanSelectionTests(unittest.TestCase):
+    def test_reference_tokens_have_distinct_prefixes_and_cross_type_rejection(self) -> None:
+        registry = EvidenceAuthority()
+        issued = registry.issue(
+            document("https://source.example/item", "Barcode | 8993163502059")
+        )
+        span = registry.select_spans(
+            issued.evidence_ref,
+            query="8993163502059",
+            limit=1,
+        )[0]
+
+        self.assertTrue(issued.evidence_ref.startswith("ev_"))
+        self.assertTrue(span.evidence_span_ref.startswith("sp_"))
+        with self.assertRaises(InvalidGroundingRequest):
+            registry.resolve([span.evidence_span_ref])
+        with self.assertRaises(InvalidGroundingRequest):
+            registry.resolve_spans([issued.evidence_ref])
+
     def test_span_selection_returns_exact_server_owned_text_and_offsets(self) -> None:
         url = "https://source.example/item"
         text = f"Nama | MONTISS 200 S | Kode | {BARCODE} | Merk | MONTISS"
@@ -112,7 +130,7 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
         )
         issued = registry.issue(document("https://source.example/item", "Brand | SampleCo"))
         with self.assertRaises(InvalidGroundingRequest):
-            registry.resolve_spans(["A" * 43])
+            registry.resolve_spans(["sp_" + "A" * 40])
 
         span = registry.select_spans(issued.evidence_ref, query="SampleCo", limit=2)[0]
         monotonic[0] = 130.0
@@ -181,6 +199,258 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
         self.assertEqual(response.json()["verifications"][0]["status"], "unsupported")
         self.assertEqual(response.json()["synthesis_claims"], [])
 
+    def test_indonesian_marketplace_labels_bind_valid_gtin_product_fields(self) -> None:
+        first_url = "https://source.example/montiss-product-code"
+        second_url = "https://source.example/montiss-marketplace"
+        first_text = (
+            f"Product name | Montiss Tissue (200Lembar) | Product code | {BARCODE} "
+            "| Product type | Facial Tissue"
+        )
+        second_text = (
+            f"Product name | MONTISS TISSUE 200'S BENDED | Merek | MONTISS "
+            f"| Kategori | TISSUE | SKU | {BARCODE}"
+        )
+        client = rest_client(
+            service_for(
+                {
+                    first_url: document(first_url, first_text),
+                    second_url: document(second_url, second_text),
+                }
+            )
+        )
+        first_ref = fetch_ref(client, first_url)
+        second_ref = fetch_ref(client, second_url)
+        first_span = select_spans(client, first_ref, BARCODE)[0]
+        second_span = select_spans(client, second_ref, BARCODE)[0]
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    proposal(
+                        "barcode_binding",
+                        BARCODE,
+                        [
+                            first_span["evidence_span_ref"],
+                            second_span["evidence_span_ref"],
+                        ],
+                    ),
+                    proposal(
+                        "product_name",
+                        "Montiss Tissue (200Lembar)",
+                        [first_span["evidence_span_ref"]],
+                    ),
+                    proposal(
+                        "brand",
+                        "MONTISS",
+                        [second_span["evidence_span_ref"]],
+                    ),
+                    proposal(
+                        "product_type",
+                        "TISSUE",
+                        [second_span["evidence_span_ref"]],
+                    ),
+                    proposal(
+                        "package_size",
+                        "200Lembar",
+                        [first_span["evidence_span_ref"]],
+                    ),
+                ],
+                "evidence_refs": [first_ref, second_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(
+            [item["status"] for item in response.json()["verifications"]],
+            ["supported"] * 5,
+        )
+        barcode_verification = response.json()["verifications"][0]
+        self.assertEqual(barcode_verification["supporting_source_count"], 2)
+
+    def test_flattened_marketplace_labels_and_literal_title_bind_product_claims(self) -> None:
+        url = "https://source.example/flattened-marketplace"
+        text = (
+            "Menu Kategori ACCESSORIES ADULT DIAPERS TISSUE WOMENS CARE "
+            "Tanpa Kategori TAS TAS BELANJA TISSUE WOMENS CARE "
+            "Kategori Beranda Produk Promosi Keranjang "
+            f"Lihat Keranjang Beranda Product Name: MONTISS TISSUE 200`S BENDED Merek MONTISS "
+            f"Kategori TISSUE SKU {BARCODE} Stok Stok lebih dari 500"
+        )
+        client = rest_client(service_for({url: document(url, text)}))
+        evidence_ref = fetch_ref(client, url)
+        span_ref = select_spans(client, evidence_ref, BARCODE)[0][
+            "evidence_span_ref"
+        ]
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    proposal("barcode_binding", BARCODE, [span_ref]),
+                    proposal(
+                        "product_name",
+                        "MONTISS TISSUE 200`S BENDED",
+                        [span_ref],
+                    ),
+                    proposal("brand", "MONTISS", [span_ref]),
+                    proposal("product_type", "TISSUE", [span_ref]),
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        packet = response.json()
+        self.assertEqual(
+            [item["status"] for item in packet["verifications"]],
+            ["supported"] * 4,
+        )
+        type_claim = next(
+            item for item in packet["synthesis_claims"]
+            if item["claim"]["claim_key"] == "product_type"
+        )
+        self.assertEqual(type_claim["claim"]["value"], "TISSUE")
+        self.assertEqual(len(packet["synthesis_claims"]), 4)
+        title_claim = next(
+            item for item in packet["synthesis_claims"]
+            if item["claim"]["claim_key"] == "product_name"
+        )
+        self.assertEqual(title_claim["citations"][0]["text"], text)
+
+    def test_extractive_statement_cannot_verify_structured_product_fields(self) -> None:
+        url = "https://source.example/product-field-mode"
+        text = f"Product name | MONTISS TISSUE | Brand | MONTISS | Barcode | {BARCODE}"
+        client = rest_client(service_for({url: document(url, text)}))
+        evidence_ref = fetch_ref(client, url)
+        span_ref = select_spans(client, evidence_ref, BARCODE)[0][
+            "evidence_span_ref"
+        ]
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    proposal("brand", "MONTISS", [span_ref], "EXTRACTIVE_STATEMENT")
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 400, response.text)
+        self.assertEqual(response.json(), {"error": "invalid_request"})
+
+    def test_navigation_category_is_not_treated_as_a_product_type(self) -> None:
+        url = "https://source.example/navigation"
+        text = "Menu Kategori TISSUE Womens Care"
+        client = rest_client(service_for({url: document(url, text)}))
+        evidence_ref = fetch_ref(client, url)
+        span_ref = select_spans(client, evidence_ref, "TISSUE")[0][
+            "evidence_span_ref"
+        ]
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [proposal("product_type", "TISSUE", [span_ref])],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.json()["verifications"][0]["status"], "unsupported")
+        self.assertEqual(response.json()["synthesis_claims"], [])
+
+    def test_inline_fields_stop_before_marketplace_navigation_and_promotion(self) -> None:
+        url = "https://source.example/indonesian-product-page"
+        text = (
+            "Kategori: READY TO DRINK Brand: ADEM SARI "
+            "Flashdeal: ADEM SARI CINGKU PET 350 ML Deskripsi Produk"
+        )
+        client = rest_client(service_for({url: document(url, text)}))
+        evidence_ref = fetch_ref(client, url)
+        span_ref = select_spans(client, evidence_ref, "ADEM SARI")[0][
+            "evidence_span_ref"
+        ]
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    proposal("brand", "ADEM SARI", [span_ref]),
+                    proposal("product_type", "READY TO DRINK", [span_ref]),
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(
+            [item["status"] for item in response.json()["verifications"]],
+            ["supported", "supported"],
+        )
+        self.assertEqual(
+            [item["claim"]["value"] for item in response.json()["synthesis_claims"]],
+            ["ADEM SARI", "READY TO DRINK"],
+        )
+
+    def test_invalid_gtin_in_sku_does_not_bind_a_barcode_claim(self) -> None:
+        invalid_barcode = "8993163502050"
+        url = "https://source.example/invalid-check-digit"
+        text = f"Nama | MONTISS TISSUE | SKU | {invalid_barcode}"
+        client = rest_client(service_for({url: document(url, text)}))
+        evidence_ref = fetch_ref(client, url)
+        span_ref = select_spans(client, evidence_ref, invalid_barcode)[0][
+            "evidence_span_ref"
+        ]
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [
+                    proposal("barcode_binding", invalid_barcode, [span_ref]),
+                ],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.json()["verifications"][0]["status"], "unsupported")
+
+    def test_valid_gtin_is_extracted_from_labeled_value_with_page_footer(self) -> None:
+        url = "https://source.example/barcode-with-footer"
+        text = f"Share ABC BARCODE / SKU : {BARCODE} IPUNGCELL.ID www.ipungcell.id"
+        client = rest_client(service_for({url: document(url, text)}))
+        evidence_ref = fetch_ref(client, url)
+        span_ref = select_spans(client, evidence_ref, BARCODE)[0][
+            "evidence_span_ref"
+        ]
+
+        response = client.post(
+            "/v1/verify",
+            headers=auth(),
+            json={
+                "claims": [proposal("barcode_binding", BARCODE, [span_ref])],
+                "evidence_refs": [evidence_ref],
+                "required_sources": 1,
+            },
+        )
+
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.json()["verifications"][0]["status"], "supported")
+
     def test_barcode_and_product_fields_from_different_sources_do_not_bind(self) -> None:
         barcode_url = "https://source.example/code"
         product_url = "https://other.example/item"
@@ -224,7 +494,14 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
             "/v1/verify",
             headers=auth(),
             json={
-                "claims": [proposal("extractive_statement", source, [span_ref], "EXTRACTIVE_STATEMENT")],
+                "claims": [
+                    proposal(
+                        "extractive_statement",
+                        "validates public addresses before connecting.",
+                        [span_ref],
+                        "EXTRACTIVE_STATEMENT",
+                    )
+                ],
                 "evidence_refs": [evidence_ref],
                 "required_sources": 1,
             },

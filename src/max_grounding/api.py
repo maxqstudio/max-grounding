@@ -5,7 +5,7 @@ from __future__ import annotations
 import hmac
 import json
 from contextlib import asynccontextmanager
-from typing import Annotated, Any
+from typing import Annotated, Any, Literal
 
 from fastapi import APIRouter, FastAPI, Request
 from fastapi.exceptions import RequestValidationError
@@ -20,6 +20,9 @@ from .evidence_authority import (
     DEFAULT_REQUIRED_SOURCES,
     MAX_EVIDENCE_REFERENCE_CHARS,
     MAX_EVIDENCE_REFERENCES,
+    MAX_EVIDENCE_SPANS_PER_CLAIM,
+    MAX_EVIDENCE_SPANS_PER_SELECTION,
+    MAX_EVIDENCE_SPAN_QUERY_CHARS,
 )
 from .errors import GroundingError, InvalidGroundingRequest, ServiceOperationError
 from .mcp_server import create_mcp_server
@@ -74,6 +77,34 @@ class QueryRequest(BaseModel):
     limit: int = Field(default=5, ge=1, le=MAX_RESULTS)
 
 
+EvidenceReference = Annotated[
+    str,
+    Field(
+        min_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        max_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        pattern=r"^ev_[A-Za-z0-9_-]{40}$",
+        description=(
+            "Use only the ev_-prefixed evidence_ref returned by this service's /v1/fetch; "
+            "source URLs are not evidence references."
+        ),
+    ),
+]
+
+
+EvidenceSpanReference = Annotated[
+    str,
+    Field(
+        min_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        max_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        pattern=r"^sp_[A-Za-z0-9_-]{40}$",
+        description=(
+            "Use only an sp_-prefixed evidence_span_ref returned by this service's "
+            "/v1/evidence/spans endpoint; never provide caller-authored excerpts."
+        ),
+    ),
+]
+
+
 class CandidateClaimRequest(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
@@ -85,32 +116,54 @@ class CandidateClaimRequest(BaseModel):
         min_length=1,
         max_length=MAX_CLAIM_KEY_CHARS,
         description=(
-            "Structured fact key, or exact_evidence for a literal source span "
-            "that must appear in fetched evidence."
+            "Stable field name, never a field value or source excerpt. For product lookup use "
+            "keys such as barcode_binding, product_name, brand, product_type, and package_size. "
+            "Use exact_evidence only for a literal statement from fetched evidence."
         ),
     )
     value: str = Field(
         min_length=1,
         max_length=MAX_CLAIM_VALUE_CHARS,
         description=(
-            "Proposed fact value. For exact_evidence, provide source text verbatim; "
-            "semantic paraphrases are not accepted as evidence."
+            "One proposed value for claim_key, never the whole source excerpt. For example, "
+            "claim_key=brand and value=MONTISS. Values must be explicitly supported; "
+            "for exact_evidence, provide verbatim source text; semantic paraphrases are not accepted as evidence."
+        ),
+    )
+    verification_mode: Literal["STRUCTURED_FIELD", "EXTRACTIVE_STATEMENT"] | None = Field(
+        default=None,
+        description=(
+            "For span-scoped verification, this mode must be provided together with "
+            "a non-empty evidence_span_refs list on the same claim. Leave both absent "
+            "for legacy full-document structured-field verification."
+        ),
+    )
+    evidence_span_refs: tuple[EvidenceSpanReference, ...] = Field(
+        default=(),
+        max_length=MAX_EVIDENCE_SPANS_PER_CLAIM,
+        description=(
+            "Opaque evidence_span_ref values returned by this instance's "
+            "/v1/evidence/spans endpoint. When non-empty, provide verification_mode "
+            "on the same claim; every claim in a span-scoped request must include "
+            "both a mode and at least one span reference."
         ),
     )
 
 
-EvidenceReference = Annotated[
-    str,
-    Field(
-        min_length=MAX_EVIDENCE_REFERENCE_CHARS,
-        max_length=MAX_EVIDENCE_REFERENCE_CHARS,
-        pattern=r"^[A-Za-z0-9_-]{43}$",
-        description=(
-            "Use only the opaque evidence_ref returned by this service's /v1/fetch; "
-            "source URLs are not evidence references."
-        ),
-    ),
-]
+class EvidenceSpanSelectionRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    evidence_ref: EvidenceReference
+    query: str = Field(
+        min_length=1,
+        max_length=MAX_EVIDENCE_SPAN_QUERY_CHARS,
+    )
+    limit: int = Field(
+        default=4,
+        ge=1,
+        le=MAX_EVIDENCE_SPANS_PER_SELECTION,
+        strict=True,
+    )
 
 
 class VerifyRequest(BaseModel):
@@ -283,6 +336,19 @@ def fetch_endpoint(payload: FetchRequest, request: Request):
     return to_wire(
         request.app.state.grounding_service.fetch_evidence(payload.url)
     )
+
+
+@router.post("/v1/evidence/spans")
+def select_evidence_spans_endpoint(
+    payload: EvidenceSpanSelectionRequest,
+    request: Request,
+):
+    spans = request.app.state.grounding_service.select_evidence_spans(
+        payload.evidence_ref,
+        query=payload.query,
+        limit=payload.limit,
+    )
+    return {"spans": to_wire(spans)}
 
 
 @router.post("/v1/index")

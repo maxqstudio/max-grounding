@@ -3,7 +3,7 @@
 # FLOW INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: 80457afb710405502225b283ca876e22ac97aca66cf7d6419b6895f92df76a2f
+Source digest: eb04a34d396de7a6c4f2fcbfbddaf4cbbf38acb6fbaff0fe0a399a0bdf60e5ec
 
 ## Flow inventory
 
@@ -33,6 +33,7 @@ Source digest: 80457afb710405502225b283ca876e22ac97aca66cf7d6419b6895f92df76a2f
 |---|---|---|
 | GET | /healthz | src/max_grounding/api.py::healthz |
 | GET | /readyz | src/max_grounding/api.py::readyz |
+| POST | /v1/evidence/spans | src/max_grounding/api.py::select_evidence_spans_endpoint |
 | POST | /v1/fetch | src/max_grounding/api.py::fetch_endpoint |
 | POST | /v1/index | src/max_grounding/api.py::index_endpoint |
 | POST | /v1/query | src/max_grounding/api.py::query_endpoint |

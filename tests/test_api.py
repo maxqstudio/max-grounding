@@ -105,7 +105,7 @@ class Phase12RestApiTests(unittest.TestCase):
             (
                 "post",
                 "/v1/evidence/spans",
-                {"evidence_ref": "R" * 43, "query": "gold", "limit": 2},
+                {"evidence_ref": "ev_" + "R" * 40, "query": "gold", "limit": 2},
             ),
             ("post", "/v1/index", {"urls": ["https://example.com/gold"]}),
             ("post", "/v1/query", {"query": "gold", "limit": 3}),
@@ -120,7 +120,7 @@ class Phase12RestApiTests(unittest.TestCase):
     def test_authenticated_rest_operations_preserve_structured_provenance(self) -> None:
         client, service = self.client()
         service.select_evidence_spans.return_value = {
-            "evidence_ref": "R" * 43,
+            "evidence_ref": "ev_" + "R" * 40,
             "spans": [],
         }
 
@@ -144,7 +144,7 @@ class Phase12RestApiTests(unittest.TestCase):
         selected = client.post(
             "/v1/evidence/spans",
             headers=self.auth(),
-            json={"evidence_ref": "R" * 43, "query": "gold", "limit": 2},
+            json={"evidence_ref": "ev_" + "R" * 40, "query": "gold", "limit": 2},
         )
 
         self.assertTrue(ready.json()["ready"])
@@ -154,7 +154,7 @@ class Phase12RestApiTests(unittest.TestCase):
         self.assertEqual(queried.json()[0]["chunk"]["chunk_id"], "abc")
         self.assertEqual(selected.status_code, 200, selected.text)
         service.select_evidence_spans.assert_called_once_with(
-            "R" * 43,
+            "ev_" + "R" * 40,
             query="gold",
             limit=2,
         )

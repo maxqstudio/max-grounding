@@ -2,15 +2,21 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Any
+import re
+from typing import Annotated, Any, Literal
 
 from mcp.server import MCPServer
 from pydantic import BaseModel, ConfigDict, Field
 
+from .errors import InvalidGroundingRequest
 from .evidence_authority import (
+    _BARCODE_CLAIM_KEYS,
     DEFAULT_REQUIRED_SOURCES,
     MAX_EVIDENCE_REFERENCE_CHARS,
     MAX_EVIDENCE_REFERENCES,
+    MAX_EVIDENCE_SPANS_PER_CLAIM,
+    MAX_EVIDENCE_SPANS_PER_SELECTION,
+    MAX_EVIDENCE_SPAN_QUERY_CHARS,
 )
 from .service import GroundingService
 from .verification import (
@@ -19,6 +25,22 @@ from .verification import (
     MAX_CLAIM_VALUE_CHARS,
 )
 from .wire import to_wire
+
+
+EvidenceSpanReferenceProposal = Annotated[
+    str,
+    Field(
+        min_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        max_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        pattern=r"^sp_[A-Za-z0-9_-]{40}$",
+        description=(
+            "sp_-prefixed evidence_span_ref returned by select_evidence_spans; ev_-prefixed "
+            "evidence_ref values are a different type and cannot be used as span refs; "
+            "call that tool first and copy its reference exactly; never invent a "
+            "reference, provide a source URL, or provide a caller-authored excerpt."
+        ),
+    ),
+]
 
 
 class CandidateClaimProposal(BaseModel):
@@ -30,15 +52,18 @@ class CandidateClaimProposal(BaseModel):
         min_length=1,
         max_length=MAX_CLAIM_KEY_CHARS,
         description=(
-            "Structured fact key, or exact_evidence for a literal span from fetched evidence."
+            "Stable field name, never a field value or source excerpt. For product lookup use "
+            "keys such as barcode_binding, product_name, brand, product_type, and package_size. "
+            "Use exact_evidence only for a literal statement from fetched evidence."
         ),
     )
     value: str = Field(
         min_length=1,
         max_length=MAX_CLAIM_VALUE_CHARS,
         description=(
-            "Proposed fact value. For exact_evidence, supply verbatim source text; "
-            "semantic paraphrases are not evidence."
+            "One proposed value for claim_key, never the whole source excerpt. For example, "
+            "claim_key=brand and value=MONTISS. Values must be explicitly supported; "
+            "for exact_evidence, supply verbatim source text; semantic paraphrases are not evidence."
         ),
     )
     claim_id: str | int | None = Field(
@@ -48,6 +73,33 @@ class CandidateClaimProposal(BaseModel):
             "generates the canonical claim ID."
         ),
     )
+    verification_mode: Literal["STRUCTURED_FIELD", "EXTRACTIVE_STATEMENT"] = Field(
+        description=(
+            "Required for every MCP verification claim. Use STRUCTURED_FIELD for a "
+            "matching labeled value for product fields. EXTRACTIVE_STATEMENT is only "
+            "for claim_key=exact_evidence or claim_key=extractive_statement, with one "
+            "exact contiguous quote from the selected source span."
+        ),
+    )
+    evidence_span_refs: tuple[EvidenceSpanReferenceProposal, ...] = Field(
+        min_length=1,
+        max_length=MAX_EVIDENCE_SPANS_PER_CLAIM,
+        description=(
+            "Required for every MCP verification claim. Provide one or more opaque "
+            "sp_-prefixed evidence_span_ref values copied exactly from select_evidence_spans. "
+            "They are not interchangeable with ev_-prefixed evidence_ref values. For "
+            "STRUCTURED_FIELD claims, the server shares the deduplicated references across "
+            "those claims. For barcode lookups, verify_claims also selects one exact-barcode "
+            "span from each supplied evidence_ref. When product_name or package_size is "
+            "proposed, it prefers a labeled product-heading span from the same fetched "
+            "pages and falls back to a labeled product-name span. It uses this bounded "
+            "server-selected set for "
+            "structured fields; only pages containing that exact barcode can support a "
+            "product field. "
+            "EXTRACTIVE_STATEMENT references remain claim-specific. Never invent references "
+            "or provide caller-authored excerpts."
+        ),
+    )
 
 
 EvidenceReferenceProposal = Annotated[
@@ -55,10 +107,11 @@ EvidenceReferenceProposal = Annotated[
     Field(
         min_length=MAX_EVIDENCE_REFERENCE_CHARS,
         max_length=MAX_EVIDENCE_REFERENCE_CHARS,
-        pattern=r"^[A-Za-z0-9_-]{43}$",
+        pattern=r"^ev_[A-Za-z0-9_-]{40}$",
         description=(
-            "Must be the opaque evidence_ref returned by this server's "
-            "fetch_evidence tool. Never provide a source URL."
+            "Must be an ev_-prefixed evidence_ref returned by this server's fetch_evidence "
+            "tool. These are not interchangeable with sp_-prefixed evidence_span_ref values. "
+            "Never provide a source URL."
         ),
     ),
 ]
@@ -83,7 +136,7 @@ def mcp_search_web(
     results_per_call: int = 5,
     min_evidence_sources: int = 1,
 ) -> dict[str, Any]:
-    return to_wire(
+    payload = to_wire(
         service.search_web(
             query,
             language=language,
@@ -94,6 +147,12 @@ def mcp_search_web(
             min_evidence_sources=min_evidence_sources,
         )
     )
+    if isinstance(payload, dict):
+        for source in payload.get("sources", []):
+            if isinstance(source, dict) and isinstance(source.get("url"), str):
+                # Keep the exact provider URL available beside its deduplication URL.
+                source["fetch_url"] = source["url"]
+    return payload
 
 
 def mcp_fetch_evidence(
@@ -102,6 +161,159 @@ def mcp_fetch_evidence(
     url: str,
 ) -> dict[str, Any]:
     return to_wire(service.fetch_evidence(url))
+
+
+def mcp_select_evidence_spans(
+    service: GroundingService,
+    *,
+    evidence_ref: str,
+    query: str,
+    limit: int = 4,
+) -> dict[str, Any]:
+    """Select exact bounded excerpts from one fetched evidence reference."""
+    return {
+        "spans": to_wire(
+            service.select_evidence_spans(
+                evidence_ref,
+                query=query,
+                limit=limit,
+            )
+        )
+    }
+
+
+def _share_structured_claim_span_refs(
+    claims: object,
+    *,
+    server_selected_refs: tuple[str, ...] | None = None,
+) -> object:
+    """Apply one bounded selected-span set to all structured-field MCP claims."""
+    if not isinstance(claims, (list, tuple)) or any(
+        not isinstance(claim, dict) for claim in claims
+    ):
+        return claims
+
+    structured_indexes: list[int] = []
+    selected_refs: list[str] = []
+    for index, claim in enumerate(claims):
+        mode = claim.get("verification_mode")
+        if not isinstance(mode, str) or mode.strip().upper() != "STRUCTURED_FIELD":
+            continue
+        references = claim.get("evidence_span_refs")
+        if (
+            not isinstance(references, (list, tuple))
+            or not references
+            or any(not isinstance(reference, str) for reference in references)
+            or len(set(references)) != len(references)
+        ):
+            # Leave malformed proposals untouched so the service's normal validation
+            # rejects them instead of silently repairing caller input.
+            return claims
+        structured_indexes.append(index)
+        selected_refs.extend(references)
+
+    if not structured_indexes:
+        return claims
+
+    unique_refs = tuple(
+        dict.fromkeys(
+            server_selected_refs if server_selected_refs is not None else selected_refs
+        )
+    )
+    if len(unique_refs) > MAX_EVIDENCE_SPANS_PER_CLAIM:
+        raise InvalidGroundingRequest(
+            "structured claims select more evidence spans than the MCP request limit"
+        )
+
+    shared = list(unique_refs)
+    normalized = [dict(claim) for claim in claims]
+    for index in structured_indexes:
+        normalized[index]["evidence_span_refs"] = shared.copy()
+    return normalized
+
+
+def _mcp_barcode_value(claims: object) -> str | None:
+    if not isinstance(claims, (list, tuple)):
+        return None
+    values: set[str] = set()
+    for claim in claims:
+        if not isinstance(claim, dict):
+            continue
+        claim_key = claim.get("claim_key")
+        value = claim.get("value")
+        if (
+            isinstance(claim_key, str)
+            and claim_key.strip().casefold() in _BARCODE_CLAIM_KEYS
+            and isinstance(value, str)
+        ):
+            values.add(value.strip())
+    if len(values) != 1:
+        return None
+    barcode = next(iter(values))
+    if re.fullmatch(r"(?:\d{8}|\d{12}|\d{13}|\d{14})", barcode):
+        return barcode
+    return None
+
+
+def _select_barcode_spans(
+    service: GroundingService,
+    evidence_refs: object,
+    barcode: str,
+    *,
+    include_product_name: bool = False,
+) -> tuple[str, ...]:
+    if (
+        not isinstance(evidence_refs, (list, tuple))
+        or any(not isinstance(reference, str) for reference in evidence_refs)
+    ):
+        return ()
+    unique_evidence_refs = tuple(dict.fromkeys(evidence_refs))
+    selected_refs: list[str] = []
+    selected_spans: set[tuple[str, int, int]] = set()
+
+    def add_spans(spans: object) -> None:
+        if not isinstance(spans, (list, tuple)):
+            return
+        for span in spans:
+            identity = (
+                span.evidence_ref,
+                span.start_offset,
+                span.end_offset,
+            )
+            if identity in selected_spans:
+                continue
+            selected_spans.add(identity)
+            selected_refs.append(span.evidence_span_ref)
+
+    # Keep a barcode excerpt from every supplied source before spending the
+    # shared per-claim span budget on field-specific context.
+    for evidence_ref in unique_evidence_refs:
+        add_spans(
+            service.select_evidence_spans(
+                evidence_ref,
+                query=barcode,
+                limit=1,
+            )
+        )
+
+    if include_product_name:
+        for evidence_ref in unique_evidence_refs:
+            if len(selected_refs) >= MAX_EVIDENCE_SPANS_PER_CLAIM:
+                break
+            product_name_spans = service.select_evidence_spans(
+                evidence_ref,
+                query="Product heading",
+                limit=1,
+            )
+            if not product_name_spans:
+                product_name_spans = service.select_evidence_spans(
+                    evidence_ref,
+                    query="Product name",
+                    limit=1,
+                )
+            add_spans(product_name_spans)
+
+    return tuple(selected_refs)
 
 
 def mcp_index_evidence(
@@ -131,9 +343,57 @@ def mcp_verify_claims(
     required_sources: int = DEFAULT_REQUIRED_SOURCES,
 ) -> dict[str, Any]:
     """Return only the server-built verified packet for bounded claim proposals."""
+    barcode = _mcp_barcode_value(claims)
+    if barcode is not None:
+        # Validate caller tokens and their evidence_ref binding before supplementing them.
+        original_packet = service.verify_candidate_claims(
+            claims,
+            evidence_refs=evidence_refs,
+            required_sources=required_sources,
+        )
+        server_selected_refs = _select_barcode_spans(
+            service,
+            evidence_refs,
+            barcode,
+            include_product_name=any(
+                isinstance(claim, dict)
+                and isinstance(claim.get("claim_key"), str)
+                and claim["claim_key"].strip().casefold()
+                in {"product_name", "package_size"}
+                for claim in claims
+            ),
+        )
+        if not server_selected_refs:
+            return to_wire(original_packet)
+        caller_selected_refs = tuple(
+            dict.fromkeys(
+                reference
+                for claim in claims
+                if isinstance(claim, dict)
+                and isinstance(claim.get("verification_mode"), str)
+                and claim["verification_mode"].strip().upper()
+                == "STRUCTURED_FIELD"
+                for reference in claim.get("evidence_span_refs", ())
+                if isinstance(reference, str)
+            )
+        )
+        merged_selected_refs = service.deduplicate_evidence_span_refs(
+            (*caller_selected_refs, *server_selected_refs)
+        )
+        claims = _share_structured_claim_span_refs(
+            claims,
+            server_selected_refs=merged_selected_refs,
+        )
+        return to_wire(
+            service.verify_candidate_claims(
+                claims,
+                evidence_refs=evidence_refs,
+                required_sources=required_sources,
+            )
+        )
     return to_wire(
         service.verify_candidate_claims(
-            claims,
+            _share_structured_claim_span_refs(claims),
             evidence_refs=evidence_refs,
             required_sources=required_sources,
         )
@@ -152,7 +412,7 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
         results_per_call: int = 5,
         min_evidence_sources: int = 1,
     ) -> dict[str, Any]:
-        """Search the configured web provider and return bounded source evidence."""
+        """Search and return bounded sources; copy each fetch_url exactly into fetch_evidence."""
         return mcp_search_web(
             service,
             query=query,
@@ -165,8 +425,42 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
         )
 
     def _tool_fetch_evidence(url: str) -> dict[str, Any]:
-        """Securely fetch one public evidence URL and return extracted text provenance."""
+        """Fetch the exact search_web fetch_url, preserving path case and trailing slash."""
         return mcp_fetch_evidence(service, url=url)
+
+    def _tool_select_evidence_spans(
+        evidence_ref: EvidenceReferenceProposal,
+        query: Annotated[
+            str,
+            Field(
+                min_length=1,
+                max_length=MAX_EVIDENCE_SPAN_QUERY_CHARS,
+                description=(
+                    "Terms used to select exact source excerpts. For barcode lookup, use the "
+                    "exact barcode as query on every fetched product page so each selected "
+                    "excerpt binds that page to the requested barcode."
+                ),
+            ),
+        ],
+        limit: Annotated[
+            int,
+            Field(
+                ge=1,
+                le=MAX_EVIDENCE_SPANS_PER_SELECTION,
+            ),
+        ] = 4,
+    ) -> dict[str, Any]:
+        """Select exact excerpts using the evidence_ref returned by fetch_evidence.
+
+        Source URLs are not evidence_ref values. Returned excerpts and offsets are
+        server-owned and each evidence_span_ref resolves only inside this process.
+        """
+        return mcp_select_evidence_spans(
+            service,
+            evidence_ref=evidence_ref,
+            query=query,
+            limit=limit,
+        )
 
     def _tool_index_evidence(urls: list[str]) -> dict[str, Any]:
         """Securely fetch and persist a bounded list of evidence URLs."""
@@ -182,12 +476,29 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
         evidence_refs: EvidenceReferenceProposals,
         required_sources: int = DEFAULT_REQUIRED_SOURCES,
     ) -> dict[str, Any]:
-        """Verify claims using opaque references returned by this server's fetch_evidence tool.
+        """Verify proposals using server-issued evidence_ref and evidence_span_ref values.
 
+        claim_key is a stable field name and value is one field value, never a source excerpt.
+        For example, use claim_key=brand and value=MONTISS, not the product name as the key.
         claim_id is optional bookkeeping and ignored; canonical IDs are server-generated.
-        evidence_refs must contain fetch_evidence evidence_ref values, never URLs.
-        For general evidence statements use claim_key='exact_evidence' and provide a literal
-        text span from fetched evidence; semantic paraphrases are not accepted as supported.
+        evidence_refs must contain ev_-prefixed fetch_evidence evidence_ref values, never URLs
+        or sp_-prefixed evidence_span_ref values. Span references start with sp_ and belong only
+        in each claim's evidence_span_refs field; the two token types are not interchangeable.
+        First call select_evidence_spans with each fetched evidence_ref; copy its returned
+        evidence_span_ref values exactly. Never invent references. Every claim needs at least
+        one span ref. The server deduplicates the selected refs across STRUCTURED_FIELD claims
+        and applies that bounded set to each structured field, so include every independent
+        source span at least once. For barcode lookups, the server selects one exact-barcode
+        span from each supplied evidence_ref so a missing copied reference cannot hide a
+        fetched source. When product_name or package_size is proposed, a labeled product-name
+        span from those same pages is selected when the span limit allows. A field only counts
+        from a page whose selected spans bind the same exact barcode.
+        Use EXTRACTIVE_STATEMENT only for
+        claim_key=exact_evidence or claim_key=extractive_statement; refs stay claim-specific
+        and must contain one literal quote. Never combine multiple excerpts into one statement.
+        EXTRACTIVE_STATEMENT uses one literal text span; semantic paraphrases are not supported.
+        If a verification is unsupported or partially_supported, do not resubmit unchanged claims
+        and span refs; select or fetch more independent evidence, or leave the value unverified.
         """
         return mcp_verify_claims(
             service,
@@ -198,6 +509,9 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
 
     server.tool(name="search_web", structured_output=True)(_tool_search_web)
     server.tool(name="fetch_evidence", structured_output=True)(_tool_fetch_evidence)
+    server.tool(name="select_evidence_spans", structured_output=True)(
+        _tool_select_evidence_spans
+    )
     server.tool(name="index_evidence", structured_output=True)(_tool_index_evidence)
     server.tool(name="query_evidence", structured_output=True)(_tool_query_evidence)
     server.tool(name="verify_claims", structured_output=True)(_tool_verify_claims)
@@ -210,10 +524,30 @@ def create_mcp_server(service: GroundingService) -> MCPServer:
             "Evidence retrieval and deterministic claim verification only. "
             "Tools return provenance-bearing evidence or a server-built verified packet; "
             "they do not generate free-form research conclusions. "
-            "verify_claims requires opaque evidence_ref values returned by this server's "
-            "fetch_evidence tool, never URLs; canonical claim IDs are server-generated. "
-            "For generic exact evidence, use claim_key='exact_evidence' with a literal span "
-            "from fetched text; semantic paraphrases are not marked supported."
+            "For each search_web source, fetch its fetch_url exactly as returned; preserve "
+            "path case and any trailing slash. canonical_url is for source deduplication. "
+            "select_evidence_spans requires the opaque evidence_ref returned by fetch_evidence; "
+            "verify_claims accepts only server-issued evidence_ref and evidence_span_ref values. "
+            "evidence_ref tokens start with ev_; evidence_span_ref tokens start with sp_. "
+            "Never interchange these token types. "
+            "For every source, call fetch_evidence then select_evidence_spans. Copy the returned "
+            "evidence_span_ref tokens exactly into verify_claims; never make up a token. "
+            "For barcode lookup, use the exact barcode as the span selection query on each page. "
+            "Call verify_claims only after spans are selected. "
+            "Every verify_claims claim must include verification_mode and at least one "
+            "evidence_span_ref from select_evidence_spans. The server shares the bounded, "
+            "deduplicated refs across STRUCTURED_FIELD claims. For barcode requests, the "
+            "server also selects one exact-barcode span from every supplied evidence_ref, then "
+            "prefers a labeled product-heading span from those pages, then falls back to a "
+            "labeled product-name span when product_name or package_size is proposed and "
+            "the span limit allows. It uses those spans for "
+            "structured fields. Product fields count only on pages whose selected spans bind "
+            "the same exact barcode. EXTRACTIVE_STATEMENT refs remain "
+            "claim-specific and must "
+            "contain one literal quote; never combine multiple excerpts into one statement. "
+            "Do not repeat unchanged claims and spans after unsupported or partially_supported; "
+            "gather independent evidence or stop with the field unverified. "
+            "Canonical claim IDs are server-generated; semantic paraphrases are not supported."
         ),
     )
     register_mcp_tools(server, service)

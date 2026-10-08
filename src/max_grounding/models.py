@@ -104,6 +104,18 @@ class FetchedDocument:
 
 
 @dataclass(frozen=True, slots=True)
+class EvidenceSpan:
+    """One opaque reference to an exact, bounded excerpt from fetched evidence."""
+
+    evidence_span_ref: str
+    evidence_ref: str
+    source_url: str
+    excerpt: str
+    start_offset: int
+    end_offset: int
+
+
+@dataclass(frozen=True, slots=True)
 class TextChunk:
     """Deterministic bounded text slice retaining source provenance."""
 
@@ -285,12 +297,21 @@ class ClaimVerification:
 
 
 @dataclass(frozen=True, slots=True)
+class VerificationCorrection:
+    """At most one bounded, machine-readable correction opportunity."""
+
+    reason_code: str
+    eligible: bool
+
+
+@dataclass(frozen=True, slots=True)
 class SynthesisPacket:
     """Structured fail-closed handoff containing only synthesis-safe claims."""
 
     verifications: tuple[ClaimVerification, ...]
     synthesis_claims: tuple[ClaimVerification, ...]
     blocked_claims: tuple[ClaimVerification, ...]
+    correction: VerificationCorrection | None = None
 
 
 @dataclass(frozen=True, slots=True)

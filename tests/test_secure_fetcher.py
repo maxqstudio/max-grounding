@@ -339,6 +339,7 @@ class SecureFetcherTests(unittest.TestCase):
     def test_extract_html_preserves_product_table_and_allowlisted_metadata(self) -> None:
         body = b"""
         <meta property="product:brand" content="SampleCo">
+        <h1>Sample Widget</h1>
         <table>
           <tr><th>Product name</th><td>Sample Widget</td></tr>
           <tr><th>GTIN-13</th><td>8993163502059</td></tr>
@@ -351,6 +352,7 @@ class SecureFetcherTests(unittest.TestCase):
         segments = [segment.strip() for segment in text.split(";") if segment.strip()]
 
         self.assertIn("Brand | SampleCo", segments)
+        self.assertIn("Product heading | Sample Widget", segments)
         self.assertIn("Product name | Sample Widget", segments)
         self.assertIn("GTIN-13 | 8993163502059", segments)
         self.assertIn("Model | SW-4", segments)

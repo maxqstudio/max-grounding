@@ -3,25 +3,50 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: 80457afb710405502225b283ca876e22ac97aca66cf7d6419b6895f92df76a2f
+Source digest: eb04a34d396de7a6c4f2fcbfbddaf4cbbf38acb6fbaff0fe0a399a0bdf60e5ec
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
 |---|---|---:|---|---|
+| .runtime/fetch_default_probe.py | Python | 35 | .runtime | NO |
+| .runtime/fetch_timeout_probe.py | Python | 35 | .runtime | NO |
+| .runtime/pytest_full_after_assertion_partition.xml | XML | 104 | .runtime | NO |
+| .runtime/pytest_full_after_barcode_binding.xml | XML | 1 | .runtime | NO |
+| .runtime/pytest_full_after_ogtitle.xml | XML | 1 | .runtime | NO |
+| .runtime/pytest_full_after_ollama_pin.xml | XML | 1 | .runtime | NO |
+| .runtime/pytest_full_typed_refs.xml | XML | 1 | .runtime | NO |
+| .runtime/pytest_mcp_auto_span_r1.xml | XML | 1 | .runtime | NO |
+| .runtime/pytest_mcp_auto_span_r2.xml | XML | 262 | .runtime | NO |
+| .runtime/pytest_mcp_auto_span_r3.xml | XML | 1 | .runtime | NO |
+| .runtime/pytest_mcp_pool.xml | XML | 99 | .runtime | NO |
+| .runtime/pytest_mcp_pool_r1.xml | XML | 36 | .runtime | NO |
+| .runtime/pytest_mcp_pool_r2.xml | XML | 36 | .runtime | NO |
+| .runtime/pytest_mcp_pool_r3.xml | XML | 1 | .runtime | NO |
+| .runtime/pytest_mcp_pool_r4.xml | XML | 1 | .runtime | NO |
+| .runtime/pytest_mcp_pool_red.xml | XML | 23 | .runtime | NO |
+| .runtime/pytest_ogtitle_r1.xml | XML | 1 | .runtime | NO |
+| .runtime/qwen_barcode_probe.py | Python | 366 | .runtime | NO |
+| .runtime/qwen_barcode_probe_attempt10.py | Python | 417 | .runtime | NO |
+| .runtime/qwen_barcode_probe_attempt11.py | Python | 418 | .runtime | NO |
+| .runtime/qwen_barcode_probe_attempt12.py | Python | 418 | .runtime | NO |
+| .runtime/qwen_barcode_probe_attempt13.py | Python | 579 | .runtime | NO |
+| .runtime/qwen_barcode_probe_attempt14.py | Python | 608 | .runtime | NO |
+| .runtime/qwen_barcode_probe_attempt15.py | Python | 610 | .runtime | NO |
+| .runtime/qwen_barcode_probe_attempt9.py | Python | 372 | .runtime | NO |
 | integration/phase11_services.py | Python | 146 | integration | NO |
 | integration/phase12_e2e.py | Python | 283 | integration | NO |
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
-| src/max_grounding/api.py | Python | 436 | src/max_grounding | NO |
+| src/max_grounding/api.py | Python | 502 | src/max_grounding | NO |
 | src/max_grounding/budget.py | Python | 30 | src/max_grounding | NO |
 | src/max_grounding/engine.py | Python | 57 | src/max_grounding | NO |
 | src/max_grounding/errors.py | Python | 110 | src/max_grounding | NO |
 | src/max_grounding/evidence.py | Python | 97 | src/max_grounding | NO |
-| src/max_grounding/evidence_authority.py | Python | 500 | src/max_grounding | NO |
+| src/max_grounding/evidence_authority.py | Python | 1060 | src/max_grounding | NO |
 | src/max_grounding/evidence_graph.py | Python | 223 | src/max_grounding | NO |
-| src/max_grounding/fetcher.py | Python | 432 | src/max_grounding | NO |
+| src/max_grounding/fetcher.py | Python | 441 | src/max_grounding | NO |
 | src/max_grounding/hybrid.py | Python | 149 | src/max_grounding | NO |
-| src/max_grounding/mcp_server.py | Python | 220 | src/max_grounding | NO |
-| src/max_grounding/models.py | Python | 317 | src/max_grounding | NO |
+| src/max_grounding/mcp_server.py | Python | 554 | src/max_grounding | NO |
+| src/max_grounding/models.py | Python | 338 | src/max_grounding | NO |
 | src/max_grounding/network_policy.py | Python | 93 | src/max_grounding | NO |
 | src/max_grounding/persistent.py | Python | 317 | src/max_grounding | NO |
 | src/max_grounding/policy.py | Python | 51 | src/max_grounding | NO |
@@ -33,19 +58,20 @@ Generated/refreshed: current compiler run
 | src/max_grounding/reranking.py | Python | 295 | src/max_grounding | NO |
 | src/max_grounding/retrieval.py | Python | 219 | src/max_grounding | NO |
 | src/max_grounding/semantic.py | Python | 285 | src/max_grounding | NO |
-| src/max_grounding/service.py | Python | 294 | src/max_grounding | NO |
+| src/max_grounding/service.py | Python | 440 | src/max_grounding | NO |
 | src/max_grounding/temporal.py | Python | 360 | src/max_grounding | NO |
 | src/max_grounding/verification.py | Python | 308 | src/max_grounding | NO |
 | src/max_grounding/wire.py | Python | 26 | src/max_grounding | NO |
-| tests/test_api.py | Python | 193 | tests | YES |
+| tests/test_api.py | Python | 213 | tests | YES |
 | tests/test_bootstrap.py | Python | 26 | tests | YES |
 | tests/test_budget.py | Python | 25 | tests | YES |
 | tests/test_container_contract.py | Python | 30 | tests | YES |
 | tests/test_engine.py | Python | 118 | tests | YES |
 | tests/test_evidence.py | Python | 54 | tests | YES |
 | tests/test_evidence_graph.py | Python | 381 | tests | YES |
+| tests/test_evidence_spans.py | Python | 617 | tests | YES |
 | tests/test_hybrid.py | Python | 168 | tests | YES |
-| tests/test_mcp_server.py | Python | 152 | tests | YES |
+| tests/test_mcp_server.py | Python | 284 | tests | YES |
 | tests/test_network_policy.py | Python | 123 | tests | YES |
 | tests/test_ollama_embedding.py | Python | 118 | tests | YES |
 | tests/test_persistent_semantic.py | Python | 284 | tests | YES |
@@ -55,12 +81,12 @@ Generated/refreshed: current compiler run
 | tests/test_reranking.py | Python | 279 | tests | YES |
 | tests/test_retrieval.py | Python | 181 | tests | YES |
 | tests/test_searxng_provider.py | Python | 206 | tests | YES |
-| tests/test_secure_fetcher.py | Python | 409 | tests | YES |
+| tests/test_secure_fetcher.py | Python | 411 | tests | YES |
 | tests/test_semantic_retrieval.py | Python | 292 | tests | YES |
 | tests/test_service.py | Python | 245 | tests | YES |
 | tests/test_service_security.py | Python | 50 | tests | YES |
 | tests/test_temporal_scoring.py | Python | 346 | tests | YES |
 | tests/test_verification.py | Python | 442 | tests | YES |
-| tests/test_verified_output.py | Python | 788 | tests | YES |
+| tests/test_verified_output.py | Python | 1149 | tests | YES |
 
 Machine-derived facts do not invent semantic ownership.

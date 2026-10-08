@@ -18,6 +18,13 @@
     {
       "action": "POST route",
       "evidence": "STATIC",
+      "from": "HTTP /v1/evidence/spans",
+      "resolver": "python_route_decorator",
+      "to": "src/max_grounding/api.py::select_evidence_spans_endpoint"
+    },
+    {
+      "action": "POST route",
+      "evidence": "STATIC",
       "from": "HTTP /v1/fetch",
       "resolver": "python_route_decorator",
       "to": "src/max_grounding/api.py::fetch_endpoint"
@@ -44,6 +51,20 @@
       "to": "src/max_grounding/wire.py::to_wire"
     },
     {
+      "action": "request.app.state.grounding_service.select_evidence_spans",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/api.py::select_evidence_spans_endpoint",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/service.py::GroundingService.select_evidence_spans"
+    },
+    {
+      "action": "to_wire",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/api.py::select_evidence_spans_endpoint",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/wire.py::to_wire"
+    },
+    {
       "action": "request.app.state.grounding_service.verify_candidate_claims",
       "evidence": "STATIC",
       "from": "src/max_grounding/api.py::verify_endpoint",
@@ -56,6 +77,13 @@
       "from": "src/max_grounding/api.py::verify_endpoint",
       "resolver": "python_ast",
       "to": "src/max_grounding/wire.py::to_wire"
+    },
+    {
+      "action": "self._purge_orphaned_spans",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_expired",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_orphaned_spans"
     },
     {
       "action": "InvalidGroundingRequest",
@@ -79,6 +107,13 @@
       "to": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_expired"
     },
     {
+      "action": "self._purge_orphaned_spans",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_orphaned_spans"
+    },
+    {
       "action": "EvidenceRecord",
       "evidence": "STATIC",
       "from": "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue",
@@ -96,6 +131,20 @@
       "action": "self._purge_expired",
       "evidence": "STATIC",
       "from": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_expired"
+    },
+    {
+      "action": "InvalidGroundingRequest",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve_spans",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "action": "self._purge_expired",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve_spans",
       "resolver": "python_ast",
       "to": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_expired"
     },
@@ -130,9 +179,58 @@
     {
       "action": "_field_labels",
       "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_inline_labeled_values",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_field_labels"
+    },
+    {
+      "action": "_normalize_evidence_span",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_inline_labeled_values",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_normalize_evidence_span"
+    },
+    {
+      "action": "_normalized_field_value",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_inline_labeled_values",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_normalized_field_value"
+    },
+    {
+      "action": "_field_labels",
+      "evidence": "STATIC",
       "from": "src/max_grounding/evidence_authority.py::_labeled_values",
       "resolver": "python_ast",
       "to": "src/max_grounding/evidence_authority.py::_field_labels"
+    },
+    {
+      "action": "_inline_labeled_values",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_labeled_values",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_inline_labeled_values"
+    },
+    {
+      "action": "_is_valid_gtin",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_labeled_values",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_is_valid_gtin"
+    },
+    {
+      "action": "_normalized_field_value",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_labeled_values",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_normalized_field_value"
+    },
+    {
+      "action": "_pipe_labeled_values",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_labeled_values",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_pipe_labeled_values"
     },
     {
       "action": "_segments",
@@ -147,6 +245,34 @@
       "from": "src/max_grounding/evidence_authority.py::_normalized_text",
       "resolver": "python_ast",
       "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "action": "_field_labels",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_pipe_labeled_values",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_field_labels"
+    },
+    {
+      "action": "_normalize_evidence_span",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_pipe_labeled_values",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_normalize_evidence_span"
+    },
+    {
+      "action": "add_value",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_pipe_labeled_values",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_pipe_labeled_values.add_value"
+    },
+    {
+      "action": "_normalized_field_value",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::_pipe_labeled_values.add_value",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_normalized_field_value"
     },
     {
       "action": "InvalidGroundingRequest",
@@ -184,6 +310,13 @@
       "to": "src/max_grounding/evidence.py::canonicalize_url"
     },
     {
+      "action": "_contains_exact_span",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_contains_exact_span"
+    },
+    {
       "action": "_exact_evidence_values",
       "evidence": "STATIC",
       "from": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph",
@@ -196,6 +329,13 @@
       "from": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph",
       "resolver": "python_ast",
       "to": "src/max_grounding/evidence_authority.py::_labeled_values"
+    },
+    {
+      "action": "_normalize_evidence_span",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::_normalize_evidence_span"
     },
     {
       "action": "_utc_now",
@@ -249,21 +389,28 @@
     {
       "action": "InvalidGroundingRequest",
       "evidence": "STATIC",
-      "from": "src/max_grounding/evidence_authority.py::normalize_candidate_claims",
+      "from": "src/max_grounding/evidence_authority.py::normalize_candidate_proposals",
       "resolver": "python_ast",
       "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
     },
     {
+      "action": "NormalizedClaimProposal",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::normalize_candidate_proposals",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::NormalizedClaimProposal"
+    },
+    {
       "action": "_normalized_text",
       "evidence": "STATIC",
-      "from": "src/max_grounding/evidence_authority.py::normalize_candidate_claims",
+      "from": "src/max_grounding/evidence_authority.py::normalize_candidate_proposals",
       "resolver": "python_ast",
       "to": "src/max_grounding/evidence_authority.py::_normalized_text"
     },
     {
       "action": "AnswerClaim",
       "evidence": "STATIC",
-      "from": "src/max_grounding/evidence_authority.py::normalize_candidate_claims",
+      "from": "src/max_grounding/evidence_authority.py::normalize_candidate_proposals",
       "resolver": "python_ast",
       "to": "src/max_grounding/models.py::AnswerClaim"
     },
@@ -590,6 +737,13 @@
       "to": "src/max_grounding/service.py::GroundingService._fetch_document"
     },
     {
+      "action": "ServiceOperationError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::ServiceOperationError"
+    },
+    {
       "action": "InvalidGroundingRequest",
       "evidence": "STATIC",
       "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
@@ -611,6 +765,13 @@
       "to": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve"
     },
     {
+      "action": "self._evidence_authority.resolve_spans",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve_spans"
+    },
+    {
       "action": "build_authoritative_verification_packet",
       "evidence": "STATIC",
       "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
@@ -625,11 +786,25 @@
       "to": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph"
     },
     {
-      "action": "normalize_candidate_claims",
+      "action": "normalize_candidate_proposals",
       "evidence": "STATIC",
       "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "resolver": "python_ast",
-      "to": "src/max_grounding/evidence_authority.py::normalize_candidate_claims"
+      "to": "src/max_grounding/evidence_authority.py::normalize_candidate_proposals"
+    },
+    {
+      "action": "SynthesisPacket",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::SynthesisPacket"
+    },
+    {
+      "action": "VerificationCorrection",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/models.py::VerificationCorrection"
     },
     {
       "action": "build_synthesis_packet",
@@ -907,14 +1082,19 @@
   ],
   "entries": [
     "src/max_grounding/api.py::fetch_endpoint",
-    "src/max_grounding/service.py::GroundingService.fetch_evidence",
-    "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue",
-    "src/max_grounding/api.py::verify_endpoint",
-    "src/max_grounding/service.py::GroundingService.verify_candidate_claims"
+    "src/max_grounding/api.py::select_evidence_spans_endpoint",
+    "src/max_grounding/api.py::verify_endpoint"
   ],
   "generated": true,
   "generated_by": "generate_sequence_actual.py",
   "nodes": [
+    {
+      "id": "HTTP /v1/evidence/spans",
+      "kind": "external",
+      "label": "HTTP /v1/evidence/spans",
+      "language": "HTTP",
+      "locator": "HTTP /v1/evidence/spans"
+    },
     {
       "id": "HTTP /v1/fetch",
       "kind": "external",
@@ -934,17 +1114,26 @@
       "kind": "function",
       "label": "src/max_grounding/api.py::fetch_endpoint",
       "language": "Python",
-      "line_end": 285,
-      "line_start": 282,
+      "line_end": 338,
+      "line_start": 335,
       "locator": "src/max_grounding/api.py::fetch_endpoint"
+    },
+    {
+      "id": "src/max_grounding/api.py::select_evidence_spans_endpoint",
+      "kind": "function",
+      "label": "src/max_grounding/api.py::select_evidence_spans_endpoint",
+      "language": "Python",
+      "line_end": 351,
+      "line_start": 342,
+      "locator": "src/max_grounding/api.py::select_evidence_spans_endpoint"
     },
     {
       "id": "src/max_grounding/api.py::verify_endpoint",
       "kind": "function",
       "label": "src/max_grounding/api.py::verify_endpoint",
       "language": "Python",
-      "line_end": 314,
-      "line_start": 306,
+      "line_end": 380,
+      "line_start": 372,
       "locator": "src/max_grounding/api.py::verify_endpoint"
     },
     {
@@ -1015,17 +1204,26 @@
       "kind": "method",
       "label": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_expired",
       "language": "Python",
-      "line_end": 217,
-      "line_start": 210,
+      "line_end": 372,
+      "line_start": 364,
       "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_expired"
+    },
+    {
+      "id": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_orphaned_spans",
+      "kind": "method",
+      "label": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_orphaned_spans",
+      "language": "Python",
+      "line_end": 362,
+      "line_start": 358,
+      "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_orphaned_spans"
     },
     {
       "id": "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue",
       "kind": "method",
       "label": "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue",
       "language": "Python",
-      "line_end": 244,
-      "line_start": 219,
+      "line_end": 400,
+      "line_start": 374,
       "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue"
     },
     {
@@ -1033,26 +1231,44 @@
       "kind": "method",
       "label": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve",
       "language": "Python",
-      "line_end": 269,
-      "line_start": 246,
+      "line_end": 425,
+      "line_start": 402,
       "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve"
+    },
+    {
+      "id": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve_spans",
+      "kind": "method",
+      "label": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve_spans",
+      "language": "Python",
+      "line_end": 516,
+      "line_start": 481,
+      "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve_spans"
     },
     {
       "id": "src/max_grounding/evidence_authority.py::EvidenceRecord",
       "kind": "class",
       "label": "src/max_grounding/evidence_authority.py::EvidenceRecord",
       "language": "Python",
-      "line_end": 185,
-      "line_start": 182,
+      "line_end": 326,
+      "line_start": 323,
       "locator": "src/max_grounding/evidence_authority.py::EvidenceRecord"
+    },
+    {
+      "id": "src/max_grounding/evidence_authority.py::NormalizedClaimProposal",
+      "kind": "class",
+      "label": "src/max_grounding/evidence_authority.py::NormalizedClaimProposal",
+      "language": "Python",
+      "line_end": 211,
+      "line_start": 206,
+      "locator": "src/max_grounding/evidence_authority.py::NormalizedClaimProposal"
     },
     {
       "id": "src/max_grounding/evidence_authority.py::_contains_exact_span",
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::_contains_exact_span",
       "language": "Python",
-      "line_end": 307,
-      "line_start": 298,
+      "line_end": 585,
+      "line_start": 576,
       "locator": "src/max_grounding/evidence_authority.py::_contains_exact_span"
     },
     {
@@ -1060,8 +1276,8 @@
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::_exact_evidence_values",
       "language": "Python",
-      "line_end": 324,
-      "line_start": 310,
+      "line_end": 622,
+      "line_start": 608,
       "locator": "src/max_grounding/evidence_authority.py::_exact_evidence_values"
     },
     {
@@ -1069,17 +1285,35 @@
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::_field_labels",
       "language": "Python",
-      "line_end": 277,
-      "line_start": 272,
+      "line_end": 524,
+      "line_start": 519,
       "locator": "src/max_grounding/evidence_authority.py::_field_labels"
+    },
+    {
+      "id": "src/max_grounding/evidence_authority.py::_inline_labeled_values",
+      "kind": "function",
+      "label": "src/max_grounding/evidence_authority.py::_inline_labeled_values",
+      "language": "Python",
+      "line_end": 767,
+      "line_start": 694,
+      "locator": "src/max_grounding/evidence_authority.py::_inline_labeled_values"
+    },
+    {
+      "id": "src/max_grounding/evidence_authority.py::_is_valid_gtin",
+      "kind": "function",
+      "label": "src/max_grounding/evidence_authority.py::_is_valid_gtin",
+      "language": "Python",
+      "line_end": 641,
+      "line_start": 633,
+      "locator": "src/max_grounding/evidence_authority.py::_is_valid_gtin"
     },
     {
       "id": "src/max_grounding/evidence_authority.py::_is_word_character",
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::_is_word_character",
       "language": "Python",
-      "line_end": 295,
-      "line_start": 294,
+      "line_end": 573,
+      "line_start": 572,
       "locator": "src/max_grounding/evidence_authority.py::_is_word_character"
     },
     {
@@ -1087,8 +1321,8 @@
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::_labeled_values",
       "language": "Python",
-      "line_end": 368,
-      "line_start": 327,
+      "line_end": 842,
+      "line_start": 770,
       "locator": "src/max_grounding/evidence_authority.py::_labeled_values"
     },
     {
@@ -1096,26 +1330,53 @@
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::_normalize_evidence_span",
       "language": "Python",
-      "line_end": 291,
-      "line_start": 290,
+      "line_end": 569,
+      "line_start": 568,
       "locator": "src/max_grounding/evidence_authority.py::_normalize_evidence_span"
+    },
+    {
+      "id": "src/max_grounding/evidence_authority.py::_normalized_field_value",
+      "kind": "function",
+      "label": "src/max_grounding/evidence_authority.py::_normalized_field_value",
+      "language": "Python",
+      "line_end": 630,
+      "line_start": 625,
+      "locator": "src/max_grounding/evidence_authority.py::_normalized_field_value"
     },
     {
       "id": "src/max_grounding/evidence_authority.py::_normalized_text",
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::_normalized_text",
       "language": "Python",
-      "line_end": 137,
-      "line_start": 129,
+      "line_end": 202,
+      "line_start": 194,
       "locator": "src/max_grounding/evidence_authority.py::_normalized_text"
+    },
+    {
+      "id": "src/max_grounding/evidence_authority.py::_pipe_labeled_values",
+      "kind": "function",
+      "label": "src/max_grounding/evidence_authority.py::_pipe_labeled_values",
+      "language": "Python",
+      "line_end": 691,
+      "line_start": 644,
+      "locator": "src/max_grounding/evidence_authority.py::_pipe_labeled_values"
+    },
+    {
+      "id": "src/max_grounding/evidence_authority.py::_pipe_labeled_values.add_value",
+      "kind": "method",
+      "label": "src/max_grounding/evidence_authority.py::_pipe_labeled_values.add_value",
+      "language": "Python",
+      "line_end": 669,
+      "line_start": 664,
+      "locator": "src/max_grounding/evidence_authority.py::_pipe_labeled_values.add_value"
     },
     {
       "id": "src/max_grounding/evidence_authority.py::_segments",
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::_segments",
       "language": "Python",
-      "line_end": 287,
-      "line_start": 280,
+      "line_end": 534,
+      "line_start": 527,
       "locator": "src/max_grounding/evidence_authority.py::_segments"
     },
     {
@@ -1123,8 +1384,8 @@
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::_utc_now",
       "language": "Python",
-      "line_end": 126,
-      "line_start": 125,
+      "line_end": 191,
+      "line_start": 190,
       "locator": "src/max_grounding/evidence_authority.py::_utc_now"
     },
     {
@@ -1132,8 +1393,8 @@
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet",
       "language": "Python",
-      "line_end": 500,
-      "line_start": 481,
+      "line_end": 1060,
+      "line_start": 1038,
       "locator": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet"
     },
     {
@@ -1141,8 +1402,8 @@
       "kind": "method",
       "label": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet.preserve",
       "language": "Python",
-      "line_end": 494,
-      "line_start": 490,
+      "line_end": 1053,
+      "line_start": 1049,
       "locator": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet.preserve"
     },
     {
@@ -1150,18 +1411,18 @@
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph",
       "language": "Python",
-      "line_end": 478,
-      "line_start": 371,
+      "line_end": 1035,
+      "line_start": 845,
       "locator": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph"
     },
     {
-      "id": "src/max_grounding/evidence_authority.py::normalize_candidate_claims",
+      "id": "src/max_grounding/evidence_authority.py::normalize_candidate_proposals",
       "kind": "function",
-      "label": "src/max_grounding/evidence_authority.py::normalize_candidate_claims",
+      "label": "src/max_grounding/evidence_authority.py::normalize_candidate_proposals",
       "language": "Python",
-      "line_end": 178,
-      "line_start": 140,
-      "locator": "src/max_grounding/evidence_authority.py::normalize_candidate_claims"
+      "line_end": 312,
+      "line_start": 214,
+      "locator": "src/max_grounding/evidence_authority.py::normalize_candidate_proposals"
     },
     {
       "id": "src/max_grounding/evidence_graph.py::_bounded_assertions",
@@ -1258,7 +1519,7 @@
       "kind": "class",
       "label": "src/max_grounding/fetcher.py::_TextExtractor",
       "language": "Python",
-      "line_end": 213,
+      "line_end": 222,
       "line_start": 77,
       "locator": "src/max_grounding/fetcher.py::_TextExtractor"
     },
@@ -1267,8 +1528,8 @@
       "kind": "function",
       "label": "src/max_grounding/fetcher.py::_normalized_fetch_target",
       "language": "Python",
-      "line_end": 356,
-      "line_start": 338,
+      "line_end": 365,
+      "line_start": 347,
       "locator": "src/max_grounding/fetcher.py::_normalized_fetch_target"
     },
     {
@@ -1276,8 +1537,8 @@
       "kind": "function",
       "label": "src/max_grounding/fetcher.py::_require_public_ip",
       "language": "Python",
-      "line_end": 223,
-      "line_start": 216,
+      "line_end": 232,
+      "line_start": 225,
       "locator": "src/max_grounding/fetcher.py::_require_public_ip"
     },
     {
@@ -1285,8 +1546,8 @@
       "kind": "function",
       "label": "src/max_grounding/fetcher.py::extract_text",
       "language": "Python",
-      "line_end": 335,
-      "line_start": 311,
+      "line_end": 344,
+      "line_start": 320,
       "locator": "src/max_grounding/fetcher.py::extract_text"
     },
     {
@@ -1294,8 +1555,8 @@
       "kind": "function",
       "label": "src/max_grounding/fetcher.py::fetch_document",
       "language": "Python",
-      "line_end": 432,
-      "line_start": 359,
+      "line_end": 441,
+      "line_start": 368,
       "locator": "src/max_grounding/fetcher.py::fetch_document"
     },
     {
@@ -1303,8 +1564,8 @@
       "kind": "function",
       "label": "src/max_grounding/fetcher.py::open_pinned_connection",
       "language": "Python",
-      "line_end": 250,
-      "line_start": 226,
+      "line_end": 259,
+      "line_start": 235,
       "locator": "src/max_grounding/fetcher.py::open_pinned_connection"
     },
     {
@@ -1312,8 +1573,8 @@
       "kind": "function",
       "label": "src/max_grounding/fetcher.py::read_bounded_response",
       "language": "Python",
-      "line_end": 308,
-      "line_start": 253,
+      "line_end": 317,
+      "line_start": 262,
       "locator": "src/max_grounding/fetcher.py::read_bounded_response"
     },
     {
@@ -1321,8 +1582,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::AnswerClaim",
       "language": "Python",
-      "line_end": 261,
-      "line_start": 255,
+      "line_end": 273,
+      "line_start": 267,
       "locator": "src/max_grounding/models.py::AnswerClaim"
     },
     {
@@ -1330,8 +1591,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::ClaimCitation",
       "language": "Python",
-      "line_end": 272,
-      "line_start": 265,
+      "line_end": 284,
+      "line_start": 277,
       "locator": "src/max_grounding/models.py::ClaimCitation"
     },
     {
@@ -1339,8 +1600,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::ClaimVerification",
       "language": "Python",
-      "line_end": 284,
-      "line_start": 276,
+      "line_end": 296,
+      "line_start": 288,
       "locator": "src/max_grounding/models.py::ClaimVerification"
     },
     {
@@ -1348,8 +1609,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceAssertion",
       "language": "Python",
-      "line_end": 222,
-      "line_start": 215,
+      "line_end": 234,
+      "line_start": 227,
       "locator": "src/max_grounding/models.py::EvidenceAssertion"
     },
     {
@@ -1357,8 +1618,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceCluster",
       "language": "Python",
-      "line_end": 242,
-      "line_start": 235,
+      "line_end": 254,
+      "line_start": 247,
       "locator": "src/max_grounding/models.py::EvidenceCluster"
     },
     {
@@ -1366,8 +1627,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceExcerpt",
       "language": "Python",
-      "line_end": 167,
-      "line_start": 159,
+      "line_end": 179,
+      "line_start": 171,
       "locator": "src/max_grounding/models.py::EvidenceExcerpt"
     },
     {
@@ -1375,8 +1636,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceGraph",
       "language": "Python",
-      "line_end": 251,
-      "line_start": 246,
+      "line_end": 263,
+      "line_start": 258,
       "locator": "src/max_grounding/models.py::EvidenceGraph"
     },
     {
@@ -1384,8 +1645,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceMetadata",
       "language": "Python",
-      "line_end": 181,
-      "line_start": 171,
+      "line_end": 193,
+      "line_start": 183,
       "locator": "src/max_grounding/models.py::EvidenceMetadata"
     },
     {
@@ -1393,8 +1654,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceQualityScore",
       "language": "Python",
-      "line_end": 211,
-      "line_start": 202,
+      "line_end": 223,
+      "line_start": 214,
       "locator": "src/max_grounding/models.py::EvidenceQualityScore"
     },
     {
@@ -1402,8 +1663,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceRelation",
       "language": "Python",
-      "line_end": 231,
-      "line_start": 226,
+      "line_end": 243,
+      "line_start": 238,
       "locator": "src/max_grounding/models.py::EvidenceRelation"
     },
     {
@@ -1420,8 +1681,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::SynthesisPacket",
       "language": "Python",
-      "line_end": 293,
-      "line_start": 288,
+      "line_end": 314,
+      "line_start": 308,
       "locator": "src/max_grounding/models.py::SynthesisPacket"
     },
     {
@@ -1429,9 +1690,18 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::TemporalComponents",
       "language": "Python",
-      "line_end": 198,
-      "line_start": 194,
+      "line_end": 210,
+      "line_start": 206,
       "locator": "src/max_grounding/models.py::TemporalComponents"
+    },
+    {
+      "id": "src/max_grounding/models.py::VerificationCorrection",
+      "kind": "class",
+      "label": "src/max_grounding/models.py::VerificationCorrection",
+      "language": "Python",
+      "line_end": 304,
+      "line_start": 300,
+      "locator": "src/max_grounding/models.py::VerificationCorrection"
     },
     {
       "id": "src/max_grounding/network_policy.py::is_admissible_result_url",
@@ -1456,8 +1726,8 @@
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService._fetch_document",
       "language": "Python",
-      "line_end": 182,
-      "line_start": 161,
+      "line_end": 189,
+      "line_start": 168,
       "locator": "src/max_grounding/service.py::GroundingService._fetch_document"
     },
     {
@@ -1465,17 +1735,26 @@
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService.fetch_evidence",
       "language": "Python",
-      "line_end": 193,
-      "line_start": 184,
+      "line_end": 200,
+      "line_start": 191,
       "locator": "src/max_grounding/service.py::GroundingService.fetch_evidence"
+    },
+    {
+      "id": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
+      "kind": "method",
+      "label": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
+      "language": "Python",
+      "line_end": 219,
+      "line_start": 202,
+      "locator": "src/max_grounding/service.py::GroundingService.select_evidence_spans"
     },
     {
       "id": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "language": "Python",
-      "line_end": 224,
-      "line_start": 195,
+      "line_end": 370,
+      "line_start": 243,
       "locator": "src/max_grounding/service.py::GroundingService.verify_candidate_claims"
     },
     {
@@ -1686,7 +1965,7 @@
       "locator": "tests/test_secure_fetcher.py::_Response.read"
     }
   ],
-  "observed_head": "835e502075d3a9ce54c0da910647dae06f2967f0",
+  "observed_head": "577cedc4acd6812e505beaaf810d3bc091b2ef45",
   "schema_version": 1,
-  "source_digest": "80457afb710405502225b283ca876e22ac97aca66cf7d6419b6895f92df76a2f"
+  "source_digest": "eb04a34d396de7a6c4f2fcbfbddaf4cbbf38acb6fbaff0fe0a399a0bdf60e5ec"
 }

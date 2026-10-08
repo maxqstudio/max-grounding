@@ -21,7 +21,7 @@ def vector(value: float = 0.0) -> list[float]:
 
 class OllamaEmbeddingProviderTests(unittest.TestCase):
     def test_pinned_runtime_and_model_constants(self) -> None:
-        self.assertEqual(OLLAMA_VERSION, "0.34.0")
+        self.assertEqual(OLLAMA_VERSION, "0.35.1")
         self.assertEqual(OLLAMA_MODEL, "qwen3-embedding:0.6b")
         self.assertEqual(OLLAMA_EMBEDDING_DIMENSION, 1024)
 

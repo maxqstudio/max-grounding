@@ -79,6 +79,7 @@ class _TextExtractor(HTMLParser):
     _STRUCTURED_FIELDS = {
         "name": "Product name",
         "product:name": "Product name",
+        "og:title": "Product name",
         "brand": "Brand",
         "product:brand": "Brand",
         "manufacturer": "Manufacturer",
@@ -99,6 +100,7 @@ class _TextExtractor(HTMLParser):
         self._jsonld_script_depth = 0
         self._jsonld_parts: list[str] = []
         self._table_cell_count = 0
+        self._product_heading_depth = 0
         self.parts: list[str] = []
 
     def _append_structured_field(self, key: str, value: str | None) -> None:
@@ -179,6 +181,10 @@ class _TextExtractor(HTMLParser):
         if lowered_tag in self._BLOCKED:
             self._blocked_depth += 1
 
+        if lowered_tag == "h1" and not self._blocked_depth:
+            self._product_heading_depth += 1
+            self.parts.append("; Product heading | ")
+
         if lowered_tag == "meta":
             key = attributes.get("itemprop") or attributes.get("property") or attributes.get("name")
             if key:
@@ -191,6 +197,9 @@ class _TextExtractor(HTMLParser):
         if lowered_tag == "script" and self._jsonld_script_depth:
             self._append_jsonld_product_fields()
             self._jsonld_script_depth -= 1
+        if lowered_tag == "h1" and self._product_heading_depth:
+            self.parts.append(" ; ")
+            self._product_heading_depth -= 1
         if lowered_tag in {"th", "td"}:
             self._table_cell_count += 1
             if self._table_cell_count % 2 == 0:
