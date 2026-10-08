@@ -138,7 +138,7 @@
   "runtime_status": "NOT_PROVEN",
   "schema_version": 1,
   "sequence_mode": "BEFORE",
-  "sequence_session": "docs/sequence/sessions/phase-12a-evidence-span-selection.json",
+  "sequence_session": "docs/sequence/sessions/phase-12a-question-relevance.json",
   "sequence_sync_status": "NOT_PROVEN",
   "test_commands": [
     "python -m unittest discover -s tests -v",
@@ -166,8 +166,8 @@
     "ROADMAP_SYNC": "PASS",
     "RUNTIME_E2E": "PASS",
     "SEMANTIC_SYNC": "NOT_PROVEN",
-    "SEQUENCE_SYNC": "PASS",
-    "SOURCE_TESTS": "PASS",
+    "SEQUENCE_SYNC": "NOT_PROVEN",
+    "SOURCE_TESTS": "NOT_PROVEN",
     "STRUCTURAL_SYNC": "NOT_PROVEN",
     "TEST_RUNTIME_TRACEABILITY": "NOT_PROVEN"
   }

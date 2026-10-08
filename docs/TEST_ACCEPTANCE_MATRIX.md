@@ -60,7 +60,7 @@ ROADMAP_SYNC: PASS
 ## Sequence contract evidence
 
 Sequence mode for this phase/session: BEFORE
-Sequence session contract: docs/sequence/sessions/phase-12a-evidence-span-selection.json
+Sequence session contract: docs/sequence/sessions/phase-12a-question-relevance.json
 SEQUENCE_SYNC: NOT_PROVEN
 
 ## Project Truth Compiler evidence

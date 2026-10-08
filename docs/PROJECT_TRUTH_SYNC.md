@@ -11,7 +11,7 @@ HEAD is recorded externally after the commit exists.
 
 | Gate | Status | Evidence / Notes |
 |---|---|---|
-| SOURCE_TESTS | PASS | |
+| SOURCE_TESTS | NOT_PROVEN | |
 | RUNTIME_E2E | PASS | |
 | PROVENANCE_SYNC | NOT_PROVEN | |
 | REFERENCE_SYNC | NOT_PROVEN | |
@@ -20,7 +20,7 @@ HEAD is recorded externally after the commit exists.
 | BEHAVIORAL_SYNC | NOT_PROVEN | |
 | CROSS_DOCUMENT_CONSISTENCY | NOT_PROVEN | |
 | HUMAN_COMPREHENSION | PASS | |
-| SEQUENCE_SYNC | PASS | |
+| SEQUENCE_SYNC | NOT_PROVEN | |
 | ROADMAP_SYNC | PASS | |
 | DOC_LAYOUT | PASS | |
 | PROJECT_DOCS_NORMALIZED | PASS | |

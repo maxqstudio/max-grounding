@@ -35,7 +35,7 @@ PROJECT_DOCS_SYNC: PASS
 ## Sequence governance
 Sequence policy: REQUIRED
 Current sequence mode: BEFORE
-Current sequence session: docs/sequence/sessions/phase-12a-evidence-span-selection.json
+Current sequence session: docs/sequence/sessions/phase-12a-question-relevance.json
 SEQUENCE_SYNC: NOT_PROVEN
 
 ## Proven
