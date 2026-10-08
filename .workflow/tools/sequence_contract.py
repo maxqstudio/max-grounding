@@ -9,22 +9,16 @@ import re
 import subprocess
 from pathlib import Path
 
+from project_snapshot import (
+    ProjectSnapshot,
+    active_snapshot_for,
+    canonical_source_bytes,
+    discover_source_paths,
+)
 
 VALID_MODES = {"BEFORE", "DURING", "AFTER"}
 VALID_REQUIREMENTS = {"MUST", "MAY", "MUST_NOT"}
 VALID_VERIFICATION = {"SOURCE", "RUNTIME", "BOTH", "DOCUMENT"}
-
-SOURCE_EXTENSIONS = {
-    ".py", ".pyi", ".js", ".jsx", ".ts", ".tsx", ".java", ".kt", ".kts",
-    ".cs", ".c", ".cc", ".cpp", ".cxx", ".h", ".hh", ".hpp", ".rs", ".go",
-    ".swift", ".m", ".mm", ".php", ".rb", ".scala", ".sh", ".ps1", ".sql",
-    ".proto", ".graphql", ".gql", ".xml", ".gradle",
-}
-SOURCE_EXCLUDED_PARTS = {
-    ".git", ".workflow", ".idea", ".vscode", ".venv", "venv", "node_modules", "dist",
-    "build", "coverage", "vendor", "__pycache__",
-    ".runtime", ".evidence", ".local-acceptance", ".pytest_cache",
-}
 
 
 def load_json(path: Path) -> dict:
@@ -52,25 +46,42 @@ def git_head(root: Path) -> str:
     return git(root, "rev-parse", "HEAD")
 
 
-def source_files(root: Path) -> list[Path]:
-    result: list[Path] = []
-    for path in root.rglob("*"):
-        if not path.is_file() or path.suffix.lower() not in SOURCE_EXTENSIONS:
-            continue
-        rel = path.relative_to(root)
-        if any(part in SOURCE_EXCLUDED_PARTS for part in rel.parts):
-            continue
-        result.append(path)
-    return sorted(result, key=lambda p: p.relative_to(root).as_posix())
+def _selected_snapshot(root: Path, snapshot: ProjectSnapshot | None) -> ProjectSnapshot | None:
+    root = root.resolve()
+    selected = snapshot or active_snapshot_for(root)
+    if selected is not None and selected.root != root:
+        raise ValueError(
+            f"SNAPSHOT_ROOT_MISMATCH:{selected.root.as_posix()}:{root.as_posix()}"
+        )
+    return selected
 
 
-def compute_source_digest(root: Path) -> str:
+def source_files(
+    root: Path,
+    snapshot: ProjectSnapshot | None = None,
+) -> list[Path]:
+    root = root.resolve()
+    selected = _selected_snapshot(root, snapshot)
+    if selected is not None:
+        return selected.source_files()
+    return discover_source_paths(root)
+
+
+def compute_source_digest(
+    root: Path,
+    snapshot: ProjectSnapshot | None = None,
+) -> str:
+    root = root.resolve()
+    selected = _selected_snapshot(root, snapshot)
+    if selected is not None:
+        return selected.source_digest
+
     digest = hashlib.sha256()
-    for path in source_files(root):
+    for path in discover_source_paths(root):
         rel = path.relative_to(root).as_posix().encode("utf-8")
         digest.update(rel)
         digest.update(b"\0")
-        digest.update(path.read_bytes())
+        digest.update(canonical_source_bytes(path))
         digest.update(b"\0")
     return digest.hexdigest()
 
@@ -83,6 +94,72 @@ def is_ancestor(root: Path, ancestor: str, descendant: str) -> bool:
         check=False,
     )
     return proc.returncode == 0
+
+
+def git_tree(root: Path, commit: str) -> str:
+    return git(root, "rev-parse", f"{commit}^{{tree}}")
+
+
+def validate_before_implementation_lineage(
+    root: Path,
+    implementation_base: str,
+    head: str,
+    merge_provenance: object,
+) -> dict:
+    """Validate direct ancestry or an explicit content-identical squash bridge."""
+    result = {
+        "mode": "DIRECT",
+        "strategy": "",
+        "accepted_branch_head": "",
+        "product_merge_sha": "",
+        "accepted_branch_tree": "",
+        "product_merge_tree": "",
+        "failures": [],
+    }
+    if is_ancestor(root, implementation_base, head):
+        return result
+
+    result["mode"] = "MERGE_PROVENANCE"
+    if not isinstance(merge_provenance, dict):
+        result["failures"].append("IMPLEMENTATION_BASE_NOT_ANCESTOR_OF_HEAD")
+        return result
+
+    strategy = str(merge_provenance.get("strategy", "")).strip().upper()
+    accepted_branch_head = str(merge_provenance.get("accepted_branch_head", "")).strip()
+    product_merge_sha = str(merge_provenance.get("product_merge_sha", "")).strip()
+    result.update({
+        "strategy": strategy,
+        "accepted_branch_head": accepted_branch_head,
+        "product_merge_sha": product_merge_sha,
+    })
+    if strategy != "SQUASH":
+        result["failures"].append("INVALID_MERGE_PROVENANCE_STRATEGY:" + strategy)
+        return result
+    if not accepted_branch_head:
+        result["failures"].append("SQUASH_ACCEPTED_BRANCH_HEAD_MISSING")
+    if not product_merge_sha:
+        result["failures"].append("SQUASH_PRODUCT_MERGE_SHA_MISSING")
+    if result["failures"]:
+        return result
+    if not is_ancestor(root, implementation_base, accepted_branch_head):
+        result["failures"].append("SQUASH_ACCEPTED_BRANCH_NOT_DESCENDANT_OF_IMPLEMENTATION_BASE")
+    if not is_ancestor(root, product_merge_sha, head):
+        result["failures"].append("SQUASH_PRODUCT_MERGE_NOT_ANCESTOR_OF_HEAD")
+    try:
+        accepted_tree = git_tree(root, accepted_branch_head)
+        result["accepted_branch_tree"] = accepted_tree
+    except Exception:
+        result["failures"].append("SQUASH_ACCEPTED_BRANCH_HEAD_UNRESOLVED")
+        accepted_tree = ""
+    try:
+        product_tree = git_tree(root, product_merge_sha)
+        result["product_merge_tree"] = product_tree
+    except Exception:
+        result["failures"].append("SQUASH_PRODUCT_MERGE_SHA_UNRESOLVED")
+        product_tree = ""
+    if accepted_tree and product_tree and accepted_tree != product_tree:
+        result["failures"].append("SQUASH_TREE_MISMATCH")
+    return result
 
 
 def sanitize_alias(value: str, index: int) -> str:

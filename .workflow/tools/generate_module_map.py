@@ -15,7 +15,6 @@ from pathlib import Path
 EXCLUDED = {
     ".git", ".idea", ".vscode", ".venv", "venv", "node_modules",
     "dist", "build", "coverage", "vendor", "__pycache__",
-    ".runtime", ".evidence", ".local-acceptance", ".pytest_cache",
 }
 
 SOURCE_EXTS = {

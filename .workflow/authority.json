@@ -27,8 +27,8 @@
     },
     {
       "concern": "skill_workflow",
-      "authority": "maxqstudio/Skill_Workflow@024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8",
-      "meaning": "Pinned latest governance tooling including Python class-method path-symbol validation and Phase 12 route-predecessor support.",
+      "authority": "maxqstudio/Skill_Workflow@91b58b98049a7d27ed65169508177ea7dc978ca1",
+      "meaning": "Exact latest applicable governance source; vendored tools are bound by .workflow/toolchain.lock.json content digest and producer provenance.",
       "mutable": false
     }
   ],

@@ -37,7 +37,6 @@ from project_profile import (
 EXCLUDED = {
     ".git", ".workflow", ".idea", ".vscode", ".venv", "venv", "node_modules",
     "dist", "build", "coverage", "vendor", "__pycache__",
-    ".runtime", ".evidence", ".local-acceptance", ".pytest_cache",
 }
 
 SOURCE_EXTS = {
@@ -129,6 +128,22 @@ def strip_fences(text: str) -> str:
         if not inside:
             out.append(line)
     return "\n".join(out)
+
+
+def is_template_document(root: Path, doc: Path) -> bool:
+    try:
+        return "templates" in doc.relative_to(root).parts
+    except ValueError:
+        return False
+
+
+def is_skill_reference_document(root: Path, doc: Path) -> bool:
+    """Return True only for bundled top-level SKILL.md reference fragments."""
+    try:
+        relative = doc.relative_to(root)
+    except ValueError:
+        return False
+    return len(relative.parts) >= 2 and relative.parts[0] == "references"
 
 
 def all_docs(root: Path) -> list[Path]:
@@ -557,18 +572,22 @@ def main() -> int:
             if resolved.name == "__MISSING__":
                 warnings.append("UNRESOLVED_INLINE_PATH:" + relative + ":" + token)
 
-        for match in PATH_SYMBOL_RE.finditer(unfenced):
-            path_ref = match.group("path").replace("\\", "/")
-            symbol = match.group("symbol")
-            refs_checked += 1
-            source = root / path_ref
-            if not source.is_file():
-                failures.append("BROKEN_PATH_SYMBOL_FILE:" + relative + ":" + path_ref + "::" + symbol)
-            elif not source_has_symbol(source, symbol):
-                failures.append("UNRESOLVED_PATH_SYMBOL:" + relative + ":" + path_ref + "::" + symbol)
+        if not is_template_document(root, doc):
+            for match in PATH_SYMBOL_RE.finditer(unfenced):
+                path_ref = match.group("path").replace("\\", "/")
+                symbol = match.group("symbol")
+                refs_checked += 1
+                source = root / path_ref
+                if not source.is_file():
+                    failures.append("BROKEN_PATH_SYMBOL_FILE:" + relative + ":" + path_ref + "::" + symbol)
+                elif not source_has_symbol(source, symbol):
+                    failures.append("UNRESOLVED_PATH_SYMBOL:" + relative + ":" + path_ref + "::" + symbol)
 
         ids = set(CLAIM_ID_RE.findall(unfenced))
-        if doc.name not in {"PROJECT_TRUTH_SYNC.md", "README.md", "SKILL.md"}:
+        if (
+            doc.name not in {"PROJECT_TRUTH_SYNC.md", "README.md", "SKILL.md"}
+            and not is_skill_reference_document(root, doc)
+        ):
             for claim_id in sorted(ids):
                 if claim_id not in canonical:
                     failures.append("UNKNOWN_CLAIM_ID:" + relative + ":" + claim_id)
