@@ -68,6 +68,8 @@ SEQUENCE_SYNC: NOT_PROVEN
 - Run 003 at evidence HEAD 05690c840d8abbc94dcba8e28a5578f3fa2b4f16 is accepted as a valid real-stack black-box campaign, not as Phase 12A acceptance; it observed 18 unresolved citation markers, 9 unsupported assertions, 1 hallucination, and runtime redirect-to-private NOT_PROVEN.
 - The stored Run 003 task prompts, source minimums, and indexing permissions were compared against all 27 raw task transcripts; all 27 matched. The Run 003 manifest-recorded corpus hash differs from the stored benchmark blob hash and remains an evidence-integrity discrepancy.
 - Run 004 and Run 005 are preserved historical failed Phase 12A acceptance evidence; neither run is deleted or rewritten. Run 006 is the next current acceptance attempt using the original frozen Run 003 corpus.
+- The original Phase 12A evidence-span BEFORE plan frozen at 835e502075d3a9ce54c0da910647dae06f2967f0 is preserved as historical evidence. DEC-0009 classifies invalid direct SOURCE edges as PLAN_CHANGE; amended source-topology plan was separately frozen at 0a0fe3c560947761036ec2069f46edccb2b91c72 before subsequent acceptance work, not before original implementation.
+- Isolated October 8 PC implementation checkpoint passed 216 local unit tests, Python compile, and 19/19 static sequence sessions; this proves neither a real-stack Run 006 PASS nor a final Phase 12A closure.
 
 ## Not proven
 - External production hosting/domain provisioning, TLS termination, reverse-proxy configuration, operator secret management, monitoring/SLOs, and a specific operator SearXNG instance remain deployment/operator concerns rather than repository acceptance evidence.
@@ -82,8 +84,8 @@ SEQUENCE_SYNC: NOT_PROVEN
 See KNOWN_DEFECTS.md.
 
 ## Next authorized action
-- The critical Phase 12A evidence-span-selection BEFORE sequence is frozen at source commit 835e502075d3a9ce54c0da910647dae06f2967f0; add and record focused TDD RED tests before implementation.
-- Implement bounded server-owned evidence-span selection, explicit structured/extractive verification, flattened-field extraction, and one correction attempt without weakening evidence authority.
+- Maintain both the original immutable Phase 12A evidence-span BEFORE plan at 835e502075d3a9ce54c0da910647dae06f2967f0 and the honestly labeled corrective source-topology PLAN_CHANGE at 0a0fe3c560947761036ec2069f46edccb2b91c72; do not claim that the corrective plan predates initial implementation.
+- Review and harden the implemented server-owned span selection, structured/extractive verification, flattened fields, and bounded correction behavior against security, negative-path, provenance, cross-platform and real-service evidence; local unit PASS is not Phase 12A acceptance.
 - Run the current real-stack regression as Run 006 on the unchanged Run 003 corpus; preserve Run 004/005 failures and push sanitized evidence for every attempt.
 - After Phase 12A is accepted, stop at READY_FOR_PRETIO_TESTER_INTEGRATION_PLANNING; Pretio integration requires a separate Owner-authorized step.
 

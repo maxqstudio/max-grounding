@@ -18,6 +18,13 @@
     {
       "action": "POST route",
       "evidence": "STATIC",
+      "from": "HTTP /v1/evidence/spans",
+      "resolver": "python_route_decorator",
+      "to": "src/max_grounding/api.py::select_evidence_spans_endpoint"
+    },
+    {
+      "action": "POST route",
+      "evidence": "STATIC",
       "from": "HTTP /v1/fetch",
       "resolver": "python_route_decorator",
       "to": "src/max_grounding/api.py::fetch_endpoint"
@@ -40,6 +47,20 @@
       "action": "to_wire",
       "evidence": "STATIC",
       "from": "src/max_grounding/api.py::fetch_endpoint",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/wire.py::to_wire"
+    },
+    {
+      "action": "request.app.state.grounding_service.select_evidence_spans",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/api.py::select_evidence_spans_endpoint",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/service.py::GroundingService.select_evidence_spans"
+    },
+    {
+      "action": "to_wire",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/api.py::select_evidence_spans_endpoint",
       "resolver": "python_ast",
       "to": "src/max_grounding/wire.py::to_wire"
     },
@@ -716,6 +737,13 @@
       "to": "src/max_grounding/service.py::GroundingService._fetch_document"
     },
     {
+      "action": "ServiceOperationError",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::ServiceOperationError"
+    },
+    {
       "action": "InvalidGroundingRequest",
       "evidence": "STATIC",
       "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
@@ -1054,14 +1082,19 @@
   ],
   "entries": [
     "src/max_grounding/api.py::fetch_endpoint",
-    "src/max_grounding/service.py::GroundingService.fetch_evidence",
-    "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue",
-    "src/max_grounding/api.py::verify_endpoint",
-    "src/max_grounding/service.py::GroundingService.verify_candidate_claims"
+    "src/max_grounding/api.py::select_evidence_spans_endpoint",
+    "src/max_grounding/api.py::verify_endpoint"
   ],
   "generated": true,
   "generated_by": "generate_sequence_actual.py",
   "nodes": [
+    {
+      "id": "HTTP /v1/evidence/spans",
+      "kind": "external",
+      "label": "HTTP /v1/evidence/spans",
+      "language": "HTTP",
+      "locator": "HTTP /v1/evidence/spans"
+    },
     {
       "id": "HTTP /v1/fetch",
       "kind": "external",
@@ -1084,6 +1117,15 @@
       "line_end": 338,
       "line_start": 335,
       "locator": "src/max_grounding/api.py::fetch_endpoint"
+    },
+    {
+      "id": "src/max_grounding/api.py::select_evidence_spans_endpoint",
+      "kind": "function",
+      "label": "src/max_grounding/api.py::select_evidence_spans_endpoint",
+      "language": "Python",
+      "line_end": 351,
+      "line_start": 342,
+      "locator": "src/max_grounding/api.py::select_evidence_spans_endpoint"
     },
     {
       "id": "src/max_grounding/api.py::verify_endpoint",
@@ -1698,6 +1740,15 @@
       "locator": "src/max_grounding/service.py::GroundingService.fetch_evidence"
     },
     {
+      "id": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
+      "kind": "method",
+      "label": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
+      "language": "Python",
+      "line_end": 219,
+      "line_start": 202,
+      "locator": "src/max_grounding/service.py::GroundingService.select_evidence_spans"
+    },
+    {
       "id": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
@@ -1914,7 +1965,7 @@
       "locator": "tests/test_secure_fetcher.py::_Response.read"
     }
   ],
-  "observed_head": "4909cb7d44c6dd6190c2ae8a3ebb7486a8d9f570",
+  "observed_head": "60c3e21069232be93ec7a3ab85b705fd403e4249",
   "schema_version": 1,
   "source_digest": "f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0"
 }

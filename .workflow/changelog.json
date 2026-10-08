@@ -142,6 +142,18 @@
         "Closure requires all blocking verification, citation, fail-closed, security, persistence, corpus-preservation, and evidence-preservation gates, pushed final passing evidence, GitHub cross-platform CI, and exact merged-main revalidation.",
         "Phase 13-16 remain OPTIONAL."
       ]
+    },
+    {
+      "date": "2026-10-08",
+      "title": "Phase 12A isolated source repair and corrective plan evidence",
+      "type": "governance",
+      "changes": [
+        "Resumed implementation from the isolated local worktree without overwriting the owner working tree; server-owned evidence spans and claim verification passed 214 local unit tests at the first checkpoint.",
+        "Added RED and GREEN regression proving operator scratch directories cannot pollute generated Project Truth or source digests, then passed 216 unit tests and Python compile.",
+        "Preserved the original Phase 12A BEFORE plan, recorded its invalid direct SOURCE-edge topology as PLAN_CHANGE, and froze the corrected source topology at 0a0fe3c560947761036ec2069f46edccb2b91c72 with source-verifiable call edges and documented behavior.",
+        "Nineteen sequence sessions passed in the isolated local worktree after the corrective freeze. This is intermediate evidence, not real-stack Run 006 or final Phase 12A acceptance.",
+        "Phase 12A remains IN_PROGRESS; PR #29 remains Draft, with no deployment, Pretio integration, or main merge authorized until all blocking Run 006 and GitHub acceptance gates pass."
+      ]
     }
   ]
 }

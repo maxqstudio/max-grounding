@@ -65,3 +65,11 @@ Status: ACCEPTED
 Treat verified production output, canonical citation integrity, fail-closed consumer behavior, fetch-failure classification, and the unproven redirect-to-private security boundary as a mandatory Phase 12A hardening phase before any Pretio tester integration planning. Phase 13-16 remain OPTIONAL.
 
 Rationale: Run 003 is a valid accepted black-box campaign but exposed evidence/citation integrity and security evidence gaps that prevent MAX Grounding from being ready for downstream consumer integration.
+
+## DEC-0009 — Record corrective Phase 12A source topology amendment without rewriting the original freeze
+
+Status: ACCEPTED
+
+Preserve the original immutable Phase 12A evidence-span selection BEFORE plan frozen at 835e502075d3a9ce54c0da910647dae06f2967f0, explicitly classify its impossible direct SOURCE edges as PLAN_CHANGE, and freeze a corrective source-verifiable topology plan at 0a0fe3c560947761036ec2069f46edccb2b91c72. The corrective freeze applies only to subsequent acceptance work, not retroactively to initial implementation.
+
+Rationale: The original static sequence declared direct call edges from an external consumer and between operations actually orchestrated through GroundingService, which the source AST cannot truthfully prove. Preserve the historical plan and source/test evidence, verify true direct calls separately from documented behavioral contracts, and never add artificial call sites to force PASS.

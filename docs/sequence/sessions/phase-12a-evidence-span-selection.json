@@ -6,14 +6,21 @@
   "scope": "CURRENT",
   "critical": true,
   "status": "FROZEN",
-  "implementation_base_sha": "835e502075d3a9ce54c0da910647dae06f2967f0",
+  "implementation_base_sha": "0a0fe3c560947761036ec2069f46edccb2b91c72",
   "plan": {
     "required": true,
-    "contract": "docs/sequence/plans/phase-12a-evidence-span-selection.plan.json",
+    "contract": "docs/sequence/plans/phase-12a-evidence-span-selection-amended.plan.json",
     "frozen": true,
-    "frozen_commit": "835e502075d3a9ce54c0da910647dae06f2967f0",
-    "sha256": "fec56eef4c3fae327f265065897e2559d9a8452c7bf915d1cfdcea7729928a98",
-    "diagram": "docs/sequence/generated/phase-12a-evidence-span-selection.plan.mmd"
+    "frozen_commit": "0a0fe3c560947761036ec2069f46edccb2b91c72",
+    "sha256": "718d4e0a16444be044b706ea643cf1f224452af326e932e7c271aaffc4352888",
+    "diagram": "docs/sequence/generated/phase-12a-evidence-span-selection-amended.plan.mmd"
+  },
+  "plan_change": {
+    "classification": "PLAN_CHANGE",
+    "original_frozen_commit": "835e502075d3a9ce54c0da910647dae06f2967f0",
+    "original_contract": "docs/sequence/plans/phase-12a-evidence-span-selection.plan.json",
+    "original_sha256": "fec56eef4c3fae327f265065897e2559d9a8452c7bf915d1cfdcea7729928a98",
+    "reason": "Original source verification asserted impossible direct edges across an external actor and orchestrated sequential calls. Original immutable plan is preserved; this corrective freeze governs subsequent acceptance and security work, not the initial implementation."
   },
   "actual": {
     "graph": "docs/sequence/generated/phase-12a-evidence-span-selection.actual.json",
@@ -21,10 +28,8 @@
     "source_digest": "f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0",
     "entries": [
       "src/max_grounding/api.py::fetch_endpoint",
-      "src/max_grounding/service.py::GroundingService.fetch_evidence",
-      "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue",
-      "src/max_grounding/api.py::verify_endpoint",
-      "src/max_grounding/service.py::GroundingService.verify_candidate_claims"
+      "src/max_grounding/api.py::select_evidence_spans_endpoint",
+      "src/max_grounding/api.py::verify_endpoint"
     ]
   },
   "test_traceability_required": true,
