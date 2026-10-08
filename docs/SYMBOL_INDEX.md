@@ -6,704 +6,1217 @@ Authority SHA: external final acceptance evidence
 Source digest: 2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1
 Status: CURRENT
 
-| File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
-|---|---|---|---|---|---|---|---|
-| integration/phase11_services.py | document | function | 20-28 | Observed Python symbol | | | |
-| integration/phase11_services.py | services | function | 36-45 | Observed Python symbol | | | |
-| integration/phase11_services.py | run_index | function | 48-110 | Observed Python symbol | | | |
-| integration/phase11_services.py | run_query | function | 113-136 | Observed Python symbol | | | |
-| integration/phase11_services.py | main | function | 139-147 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _SearchStub | class | 30-55 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _SearchStub.do_GET | method | 31-52 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _SearchStub.log_message | method | 54-55 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _start_search_stub | function | 58-62 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _seed_index | function | 65-79 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _wait_health | function | 82-93 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _rest_probe | function | 96-168 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _mcp_probe | async_function | 171-213 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _bounded_load_probe | function | 216-243 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _bounded_load_probe.one | method | 219-230 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | main | function | 246-280 | Observed Python symbol | | | |
-| src/max_grounding/__init__.py | project_identity | function | 8-15 | Observed Python symbol | | | |
-| src/max_grounding/api.py | SearchRequest | class | 49-58 | Observed Python symbol | | | |
-| src/max_grounding/api.py | FetchRequest | class | 61-64 | Observed Python symbol | | | |
-| src/max_grounding/api.py | IndexRequest | class | 67-70 | Observed Python symbol | | | |
-| src/max_grounding/api.py | QueryRequest | class | 73-77 | Observed Python symbol | | | |
-| src/max_grounding/api.py | CandidateClaimRequest | class | 108-150 | Observed Python symbol | | | |
-| src/max_grounding/api.py | EvidenceSpanSelectionRequest | class | 153-166 | Observed Python symbol | | | |
-| src/max_grounding/api.py | VerifyRequest | class | 169-185 | Observed Python symbol | | | |
-| src/max_grounding/api.py | _header_map | function | 188-192 | Observed Python symbol | | | |
-| src/max_grounding/api.py | _extract_token | function | 195-212 | Observed Python symbol | | | |
-| src/max_grounding/api.py | _send_error | async_function | 215-228 | Observed Python symbol | | | |
-| src/max_grounding/api.py | _RequestTooLarge | class | 231-232 | Observed Python symbol | | | |
-| src/max_grounding/api.py | ProductionSecurityMiddleware | class | 235-302 | Observed Python symbol | | | |
-| src/max_grounding/api.py | ProductionSecurityMiddleware.__init__ | method | 238-251 | Observed Python symbol | | | |
-| src/max_grounding/api.py | ProductionSecurityMiddleware.__call__ | async_method | 253-302 | Observed Python symbol | | | |
-| src/max_grounding/api.py | ProductionSecurityMiddleware.__call__.limited_receive | async_method | 282-289 | Observed Python symbol | | | |
-| src/max_grounding/api.py | ProductionSecurityMiddleware.__call__.tracked_send | async_method | 291-295 | Observed Python symbol | | | |
-| src/max_grounding/api.py | healthz | function | 309-310 | Observed Python symbol | | | |
-| src/max_grounding/api.py | readyz | function | 314-315 | Observed Python symbol | | | |
-| src/max_grounding/api.py | search_endpoint | function | 319-331 | Observed Python symbol | | | |
-| src/max_grounding/api.py | fetch_endpoint | function | 335-338 | Observed Python symbol | | | |
-| src/max_grounding/api.py | select_evidence_spans_endpoint | function | 342-351 | Observed Python symbol | | | |
-| src/max_grounding/api.py | index_endpoint | function | 355-358 | Observed Python symbol | | | |
-| src/max_grounding/api.py | query_endpoint | function | 362-368 | Observed Python symbol | | | |
-| src/max_grounding/api.py | verify_endpoint | function | 372-380 | Observed Python symbol | | | |
-| src/max_grounding/api.py | create_rest_app | function | 383-489 | Observed Python symbol | | | |
-| src/max_grounding/api.py | create_rest_app.lifespan | async_method | 417-419 | Observed Python symbol | | | |
-| src/max_grounding/api.py | create_rest_app.lifespan | async_method | 422-423 | Observed Python symbol | | | |
-| src/max_grounding/api.py | create_rest_app.request_validation_handler | async_method | 466-471 | Observed Python symbol | | | |
-| src/max_grounding/api.py | create_rest_app.invalid_request_handler | async_method | 474-479 | Observed Python symbol | | | |
-| src/max_grounding/api.py | create_rest_app.grounding_error_handler | async_method | 482-487 | Observed Python symbol | | | |
-| src/max_grounding/api.py | create_production_app | function | 492-502 | Observed Python symbol | | | |
-| src/max_grounding/budget.py | SearchBudget | class | 13-30 | Observed Python symbol | | | |
-| src/max_grounding/budget.py | SearchBudget.__post_init__ | method | 19-21 | Observed Python symbol | | | |
-| src/max_grounding/budget.py | SearchBudget.remaining | method | 24-25 | Observed Python symbol | | | |
-| src/max_grounding/budget.py | SearchBudget.consume_search_call | method | 27-30 | Observed Python symbol | | | |
-| src/max_grounding/engine.py | GroundingEngine | class | 12-57 | Observed Python symbol | | | |
-| src/max_grounding/engine.py | GroundingEngine.__init__ | method | 15-22 | Observed Python symbol | | | |
-| src/max_grounding/engine.py | GroundingEngine.ground | method | 24-57 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | FetchFailureCategory | class | 6-23 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | GroundingError | class | 26-27 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | InvalidGroundingRequest | class | 30-31 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | SearchBudgetExceeded | class | 34-35 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | SearchProviderError | class | 38-39 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | InvalidProviderConfiguration | class | 42-43 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | FetchError | class | 46-58 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | FetchError.__init__ | method | 49-58 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | RetrievalError | class | 61-62 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | EmbeddingProviderError | class | 65-66 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | RerankingError | class | 69-70 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | RerankProviderError | class | 73-74 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | TemporalScoringError | class | 77-78 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | AuthorityProviderError | class | 81-82 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | EvidenceGraphError | class | 85-86 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | ClaimVerificationError | class | 89-90 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | RuntimeProviderError | class | 93-94 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | VectorStoreError | class | 97-98 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | PersistentIndexError | class | 101-102 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | ServiceConfigurationError | class | 105-106 | Observed Python symbol | | | |
-| src/max_grounding/errors.py | ServiceOperationError | class | 109-110 | Observed Python symbol | | | |
-| src/max_grounding/evidence.py | canonicalize_url | function | 17-46 | Observed Python symbol | | | |
-| src/max_grounding/evidence.py | normalize_candidates | function | 49-70 | Observed Python symbol | | | |
-| src/max_grounding/evidence.py | build_evidence_pack | function | 73-97 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _utc_now | function | 190-191 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _normalized_text | function | 194-202 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | NormalizedClaimProposal | class | 206-211 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | normalize_candidate_proposals | function | 214-312 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | normalize_candidate_claims | function | 315-319 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | EvidenceRecord | class | 323-326 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | ResolvedEvidenceSpan | class | 330-332 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | EvidenceAuthority | class | 335-516 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | EvidenceAuthority.__init__ | method | 338-356 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | EvidenceAuthority._purge_orphaned_spans | method | 358-362 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | EvidenceAuthority._purge_expired | method | 364-372 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | EvidenceAuthority.issue | method | 374-400 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | EvidenceAuthority.resolve | method | 402-425 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | EvidenceAuthority.select_spans | method | 427-479 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | EvidenceAuthority.resolve_spans | method | 481-516 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _field_labels | function | 519-524 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _segments | function | 527-534 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _segments_with_offsets | function | 537-565 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _normalize_evidence_span | function | 568-569 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _is_word_character | function | 572-573 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _contains_exact_span | function | 576-585 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _ranked_evidence_segments | function | 588-605 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _exact_evidence_values | function | 608-622 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _normalized_field_value | function | 625-630 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _is_valid_gtin | function | 633-641 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _pipe_labeled_values | function | 644-691 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _pipe_labeled_values.add_value | method | 664-669 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _inline_labeled_values | function | 694-767 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | _labeled_values | function | 770-842 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | build_server_owned_evidence_graph | function | 845-1035 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | build_authoritative_verification_packet | function | 1038-1060 | Observed Python symbol | | | |
-| src/max_grounding/evidence_authority.py | build_authoritative_verification_packet.preserve | method | 1049-1053 | Observed Python symbol | | | |
-| src/max_grounding/evidence_graph.py | _bounded_assertions | function | 25-39 | Observed Python symbol | | | |
-| src/max_grounding/evidence_graph.py | _normalize_text | function | 42-50 | Observed Python symbol | | | |
-| src/max_grounding/evidence_graph.py | _validated_number | function | 53-59 | Observed Python symbol | | | |
-| src/max_grounding/evidence_graph.py | _validate_quality | function | 62-87 | Observed Python symbol | | | |
-| src/max_grounding/evidence_graph.py | _normalize_and_validate | function | 90-156 | Observed Python symbol | | | |
-| src/max_grounding/evidence_graph.py | build_relations | function | 159-182 | Observed Python symbol | | | |
-| src/max_grounding/evidence_graph.py | build_clusters | function | 185-211 | Observed Python symbol | | | |
-| src/max_grounding/evidence_graph.py | build_evidence_graph | function | 214-223 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _PinnedHTTPConnection | class | 32-47 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _PinnedHTTPConnection.__init__ | method | 33-41 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _PinnedHTTPConnection.connect | method | 43-47 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _PinnedHTTPSConnection | class | 50-74 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _PinnedHTTPSConnection.__init__ | method | 51-60 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _PinnedHTTPSConnection.connect | method | 62-74 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _TextExtractor | class | 77-222 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _TextExtractor.__init__ | method | 97-104 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _TextExtractor._append_structured_field | method | 106-110 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _TextExtractor._jsonld_text | method | 113-119 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _TextExtractor._append_jsonld_product_fields | method | 121-164 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _TextExtractor._append_jsonld_product_fields.visit | method | 127-161 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _TextExtractor.handle_starttag | method | 166-193 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _TextExtractor.handle_endtag | method | 195-216 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _TextExtractor.handle_data | method | 218-222 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _require_public_ip | function | 225-232 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | open_pinned_connection | function | 235-259 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | read_bounded_response | function | 262-317 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | extract_text | function | 320-344 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | _normalized_fetch_target | function | 347-365 | Observed Python symbol | | | |
-| src/max_grounding/fetcher.py | fetch_document | function | 368-441 | Observed Python symbol | | | |
-| src/max_grounding/hybrid.py | _validate_ranked_hits | function | 22-41 | Observed Python symbol | | | |
-| src/max_grounding/hybrid.py | fuse_hybrid | function | 44-109 | Observed Python symbol | | | |
-| src/max_grounding/hybrid.py | retrieve_hybrid | function | 112-149 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | CandidateClaimProposal | class | 46-102 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | mcp_search_web | function | 128-155 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | mcp_fetch_evidence | function | 158-163 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | mcp_select_evidence_spans | function | 166-182 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | _share_structured_claim_span_refs | function | 185-232 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | _mcp_barcode_value | function | 235-255 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | _select_barcode_spans | function | 258-316 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | _select_barcode_spans.add_spans | method | 274-286 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | mcp_index_evidence | function | 319-326 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | mcp_query_evidence | function | 329-335 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | mcp_verify_claims | function | 338-400 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | register_mcp_tools | function | 403-517 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | register_mcp_tools._tool_search_web | method | 406-425 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | register_mcp_tools._tool_fetch_evidence | method | 427-429 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | register_mcp_tools._tool_select_evidence_spans | method | 431-463 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | register_mcp_tools._tool_index_evidence | method | 465-467 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | register_mcp_tools._tool_query_evidence | method | 469-471 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | register_mcp_tools._tool_verify_claims | method | 474-508 | Observed Python symbol | | | |
-| src/max_grounding/mcp_server.py | create_mcp_server | function | 520-554 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceStatus | class | 10-15 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceRelationType | class | 18-22 | Observed Python symbol | | | |
-| src/max_grounding/models.py | ClaimVerificationStatus | class | 25-31 | Observed Python symbol | | | |
-| src/max_grounding/models.py | GroundingRequest | class | 35-44 | Observed Python symbol | | | |
-| src/max_grounding/models.py | SearchQuery | class | 48-56 | Observed Python symbol | | | |
-| src/max_grounding/models.py | SourceCandidate | class | 60-67 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceSource | class | 71-79 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidencePack | class | 83-90 | Observed Python symbol | | | |
-| src/max_grounding/models.py | FetchedDocument | class | 94-103 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceSpan | class | 107-115 | Observed Python symbol | | | |
-| src/max_grounding/models.py | TextChunk | class | 119-126 | Observed Python symbol | | | |
-| src/max_grounding/models.py | LexicalHit | class | 130-135 | Observed Python symbol | | | |
-| src/max_grounding/models.py | SemanticHit | class | 139-144 | Observed Python symbol | | | |
-| src/max_grounding/models.py | HybridHit | class | 148-155 | Observed Python symbol | | | |
-| src/max_grounding/models.py | RerankedHit | class | 159-167 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceExcerpt | class | 171-179 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceMetadata | class | 183-193 | Observed Python symbol | | | |
-| src/max_grounding/models.py | AuthoritySubject | class | 197-202 | Observed Python symbol | | | |
-| src/max_grounding/models.py | TemporalComponents | class | 206-210 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceQualityScore | class | 214-223 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceAssertion | class | 227-234 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceRelation | class | 238-243 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceCluster | class | 247-254 | Observed Python symbol | | | |
-| src/max_grounding/models.py | EvidenceGraph | class | 258-263 | Observed Python symbol | | | |
-| src/max_grounding/models.py | AnswerClaim | class | 267-273 | Observed Python symbol | | | |
-| src/max_grounding/models.py | ClaimCitation | class | 277-284 | Observed Python symbol | | | |
-| src/max_grounding/models.py | ClaimVerification | class | 288-296 | Observed Python symbol | | | |
-| src/max_grounding/models.py | VerificationCorrection | class | 300-304 | Observed Python symbol | | | |
-| src/max_grounding/models.py | SynthesisPacket | class | 308-314 | Observed Python symbol | | | |
-| src/max_grounding/models.py | PersistentVectorHit | class | 318-326 | Observed Python symbol | | | |
-| src/max_grounding/models.py | PersistentIndexResult | class | 330-338 | Observed Python symbol | | | |
-| src/max_grounding/network_policy.py | is_admissible_result_url | function | 18-50 | Observed Python symbol | | | |
-| src/max_grounding/network_policy.py | resolve_public_addresses | function | 53-93 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | ConcreteEmbeddingProvider | class | 50-58 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | ConcreteEmbeddingProvider.embed_query | method | 54-55 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | ConcreteEmbeddingProvider.embed_documents | method | 57-58 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | PersistentVectorStore | class | 61-68 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | _provider_contract | function | 71-75 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | _store_contract | function | 78-87 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | _vector | function | 90-99 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | embed_documents_concrete | function | 102-147 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | embed_query_concrete | function | 150-168 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | index_documents | function | 171-233 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | build_semantic_hits | function | 236-292 | Observed Python symbol | | | |
-| src/max_grounding/persistent.py | retrieve_persistent_semantic | function | 295-317 | Observed Python symbol | | | |
-| src/max_grounding/policy.py | GroundingPolicy | class | 15-51 | Observed Python symbol | | | |
-| src/max_grounding/policy.py | GroundingPolicy.validate_request | method | 18-51 | Observed Python symbol | | | |
-| src/max_grounding/providers/base.py | SearchProvider | class | 10-15 | Observed Python symbol | | | |
-| src/max_grounding/providers/base.py | SearchProvider.search | method | 13-15 | Observed Python symbol | | | |
-| src/max_grounding/providers/base.py | invoke_search | function | 18-23 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | _NoRedirect | class | 31-33 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | _NoRedirect.redirect_request | method | 32-33 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | _normalize_base_url | function | 36-66 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | request_ollama_json | function | 69-135 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider | class | 138-258 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.__init__ | method | 145-160 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.verify_runtime | method | 162-182 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider._embed | method | 184-228 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.embed_query | method | 230-237 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.embed_documents | method | 239-258 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | _NoRedirect | class | 33-35 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | _NoRedirect.redirect_request | method | 34-35 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | _normalize_base_url | function | 38-68 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | request_qdrant_json | function | 71-146 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | point_id_for_chunk | function | 149-152 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | _vector | function | 155-162 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | QdrantVectorStore | class | 165-454 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | QdrantVectorStore.__init__ | method | 172-194 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | QdrantVectorStore._request | method | 196-213 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | QdrantVectorStore.verify_runtime | method | 215-223 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | QdrantVectorStore._collection_path | method | 226-227 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | QdrantVectorStore._validate_collection | method | 229-264 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | QdrantVectorStore.ensure_collection | method | 266-301 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | QdrantVectorStore.upsert_chunks | method | 303-352 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | QdrantVectorStore._parse_point | method | 354-422 | Observed Python symbol | | | |
-| src/max_grounding/providers/qdrant.py | QdrantVectorStore.query_chunks | method | 424-454 | Observed Python symbol | | | |
-| src/max_grounding/providers/searxng.py | _NoRedirect | class | 25-29 | Observed Python symbol | | | |
-| src/max_grounding/providers/searxng.py | _NoRedirect.redirect_request | method | 28-29 | Observed Python symbol | | | |
-| src/max_grounding/providers/searxng.py | _normalize_base_url | function | 32-55 | Observed Python symbol | | | |
-| src/max_grounding/providers/searxng.py | build_searxng_search_url | function | 58-75 | Observed Python symbol | | | |
-| src/max_grounding/providers/searxng.py | fetch_searxng_json | function | 78-138 | Observed Python symbol | | | |
-| src/max_grounding/providers/searxng.py | parse_searxng_results | function | 141-179 | Observed Python symbol | | | |
-| src/max_grounding/providers/searxng.py | SearxngProvider | class | 182-221 | Observed Python symbol | | | |
-| src/max_grounding/providers/searxng.py | SearxngProvider.__init__ | method | 185-207 | Observed Python symbol | | | |
-| src/max_grounding/providers/searxng.py | SearxngProvider.search | method | 209-221 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | RerankProvider | class | 27-35 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | RerankProvider.score | method | 30-35 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | _validated_query | function | 38-45 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | _validated_finite_number | function | 48-54 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | _validate_optional_rank | function | 57-63 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | _validate_hybrid_hits | function | 66-88 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | _validate_reranked_hits | function | 91-113 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | rerank_hybrid | function | 116-187 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | _sentences | function | 190-199 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | _best_extractive_sentence | function | 202-215 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | compress_context | function | 218-269 | Observed Python symbol | | | |
-| src/max_grounding/reranking.py | build_grounded_context | function | 272-295 | Observed Python symbol | | | |
-| src/max_grounding/retrieval.py | tokenize_text | function | 29-42 | Observed Python symbol | | | |
-| src/max_grounding/retrieval.py | _validate_chunk_bounds | function | 45-60 | Observed Python symbol | | | |
-| src/max_grounding/retrieval.py | _chunk_id | function | 63-65 | Observed Python symbol | | | |
-| src/max_grounding/retrieval.py | chunk_document | function | 68-105 | Observed Python symbol | | | |
-| src/max_grounding/retrieval.py | _validate_query | function | 108-118 | Observed Python symbol | | | |
-| src/max_grounding/retrieval.py | rank_chunks | function | 121-181 | Observed Python symbol | | | |
-| src/max_grounding/retrieval.py | retrieve_lexical | function | 184-219 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | EmbeddingProvider | class | 31-41 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | EmbeddingProvider.embed_query | method | 34-35 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | EmbeddingProvider.embed_documents | method | 37-41 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | _validate_query | function | 44-51 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | _validate_batch_size | function | 54-58 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | _validated_vector | function | 61-99 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | embed_bounded | function | 102-155 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | build_semantic_chunks | function | 158-185 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | cosine_similarity | function | 188-204 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | rank_semantic | function | 207-245 | Observed Python symbol | | | |
-| src/max_grounding/semantic.py | retrieve_semantic | function | 248-285 | Observed Python symbol | | | |
-| src/max_grounding/service.py | _required | function | 54-58 | Observed Python symbol | | | |
-| src/max_grounding/service.py | _csv | function | 61-65 | Observed Python symbol | | | |
-| src/max_grounding/service.py | ProductionSettings | class | 69-115 | Observed Python symbol | | | |
-| src/max_grounding/service.py | ProductionSettings.from_mapping | method | 83-111 | Observed Python symbol | | | |
-| src/max_grounding/service.py | ProductionSettings.from_env | method | 114-115 | Observed Python symbol | | | |
-| src/max_grounding/service.py | ServiceReadiness | class | 119-123 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService | class | 126-427 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService.__init__ | method | 129-143 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService.search_web | method | 145-166 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService._fetch_document | method | 168-189 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService.fetch_evidence | method | 191-200 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService.select_evidence_spans | method | 202-219 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService.deduplicate_evidence_span_refs | method | 221-241 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService.verify_candidate_claims | method | 243-370 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService.index_evidence | method | 372-392 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService.query_evidence | method | 394-414 | Observed Python symbol | | | |
-| src/max_grounding/service.py | GroundingService.readiness | method | 416-427 | Observed Python symbol | | | |
-| src/max_grounding/service.py | build_production_runtime | function | 430-440 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | AuthorityProvider | class | 26-33 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | AuthorityProvider.score | method | 29-33 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | _validate_utc | function | 36-41 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | _validate_horizon | function | 44-51 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | _bounded_sequence | function | 54-70 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | _bounded_metadata_sequence | function | 73-81 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | _bounded_excerpt_sequence | function | 84-92 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | _validate_basic_metadata | function | 95-120 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | _validate_temporal_inputs | function | 123-163 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | score_authority | function | 166-222 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | score_temporal_components | function | 225-255 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | _validate_excerpt_metadata_pairs | function | 258-294 | Observed Python symbol | | | |
-| src/max_grounding/temporal.py | score_evidence_quality | function | 297-360 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | _bounded_claims | function | 32-46 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | _normalize_text | function | 49-65 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | _normalize_claims | function | 68-107 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | _validate_required_sources | function | 110-117 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | _validated_graph | function | 120-131 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | _cluster_map | function | 134-138 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | _has_conflict | function | 141-151 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | _confidence_index | function | 154-172 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | verify_claims | function | 175-218 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | build_claim_citations | function | 221-257 | Observed Python symbol | | | |
-| src/max_grounding/verification.py | build_synthesis_packet | function | 260-308 | Observed Python symbol | | | |
-| src/max_grounding/wire.py | to_wire | function | 10-26 | Observed Python symbol | | | |
-| tests/test_api.py | service_mock | function | 26-80 | Observed Python symbol | | | |
-| tests/test_api.py | Phase12RestApiTests | class | 83-209 | Observed Python symbol | | | |
-| tests/test_api.py | Phase12RestApiTests.client | method | 84-92 | Observed Python symbol | | | |
-| tests/test_api.py | Phase12RestApiTests.auth | method | 94-95 | Observed Python symbol | | | |
-| tests/test_api.py | Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth | method | 97-118 | Observed Python symbol | | | |
-| tests/test_api.py | Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance | method | 120-164 | Observed Python symbol | | | |
-| tests/test_api.py | Phase12RestApiTests.test_api_key_header_and_wrong_tokens_fail_closed | method | 166-183 | Observed Python symbol | | | |
-| tests/test_api.py | Phase12RestApiTests.test_request_body_cap_applies_before_service_execution | method | 185-194 | Observed Python symbol | | | |
-| tests/test_api.py | Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text | method | 196-209 | Observed Python symbol | | | |
-| tests/test_bootstrap.py | BootstrapTests | class | 11-22 | Observed Python symbol | | | |
-| tests/test_bootstrap.py | BootstrapTests.test_project_identity_is_stable_and_cross_platform | method | 12-18 | Observed Python symbol | | | |
-| tests/test_bootstrap.py | BootstrapTests.test_runtime_uses_supported_python | method | 20-22 | Observed Python symbol | | | |
-| tests/test_budget.py | SearchBudgetTests | class | 9-21 | Observed Python symbol | | | |
-| tests/test_budget.py | SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected | method | 10-17 | Observed Python symbol | | | |
-| tests/test_budget.py | SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap | method | 19-21 | Observed Python symbol | | | |
-| tests/test_container_contract.py | Phase12ContainerContractTests | class | 7-26 | Observed Python symbol | | | |
-| tests/test_container_contract.py | Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime | method | 8-17 | Observed Python symbol | | | |
-| tests/test_container_contract.py | Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata | method | 19-26 | Observed Python symbol | | | |
-| tests/test_engine.py | candidate | function | 10-17 | Observed Python symbol | | | |
-| tests/test_engine.py | FakeProvider | class | 20-30 | Observed Python symbol | | | |
-| tests/test_engine.py | FakeProvider.__init__ | method | 21-23 | Observed Python symbol | | | |
-| tests/test_engine.py | FakeProvider.search | method | 25-30 | Observed Python symbol | | | |
-| tests/test_engine.py | FailingProvider | class | 33-39 | Observed Python symbol | | | |
-| tests/test_engine.py | FailingProvider.__init__ | method | 34-35 | Observed Python symbol | | | |
-| tests/test_engine.py | FailingProvider.search | method | 37-39 | Observed Python symbol | | | |
-| tests/test_engine.py | GroundingEngineTests | class | 42-114 | Observed Python symbol | | | |
-| tests/test_engine.py | GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient | method | 43-51 | Observed Python symbol | | | |
-| tests/test_engine.py | GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency | method | 53-70 | Observed Python symbol | | | |
-| tests/test_engine.py | GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted | method | 72-79 | Observed Python symbol | | | |
-| tests/test_engine.py | GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop | method | 81-89 | Observed Python symbol | | | |
-| tests/test_engine.py | GroundingEngineTests.test_invalid_request_never_calls_provider | method | 91-97 | Observed Python symbol | | | |
-| tests/test_engine.py | GroundingEngineTests.test_provider_receives_bounded_round_metadata | method | 99-114 | Observed Python symbol | | | |
-| tests/test_evidence.py | EvidenceNormalizationTests | class | 9-50 | Observed Python symbol | | | |
-| tests/test_evidence.py | EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash | method | 10-31 | Observed Python symbol | | | |
-| tests/test_evidence.py | EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded | method | 33-50 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | quality | function | 25-57 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | assertion | function | 60-82 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests | class | 85-377 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate | method | 86-117 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_exclusive_different_values_contradict | method | 119-143 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_nonexclusive_different_values_do_not_contradict | method | 145-167 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality | method | 169-208 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_inconsistent_exclusivity_for_same_claim_fails_closed | method | 210-232 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed | method | 234-262 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed | method | 264-298 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed | method | 300-342 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner | method | 344-371 | Observed Python symbol | | | |
-| tests/test_evidence_graph.py | Phase9EvidenceGraphTests.test_empty_input_returns_empty_graph | method | 373-377 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | document | function | 20-28 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | service_for | function | 31-37 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | rest_client | function | 40-48 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | auth | function | 51-52 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | fetch_ref | function | 55-59 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | select_spans | function | 62-70 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | proposal | function | 73-84 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests | class | 87-613 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_reference_tokens_have_distinct_prefixes_and_cross_type_rejection | method | 88-104 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_span_selection_returns_exact_server_owned_text_and_offsets | method | 106-122 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_forged_or_expired_span_reference_fails_closed | method | 124-146 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_flattened_fields_bind_barcode_name_and_brand_from_one_source | method | 148-179 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_flattened_field_values_cannot_contaminate_another_claim_key | method | 181-200 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_indonesian_marketplace_labels_bind_valid_gtin_product_fields | method | 202-271 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims | method | 273-323 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_extractive_statement_cannot_verify_structured_product_fields | method | 325-347 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_navigation_category_is_not_treated_as_a_product_type | method | 349-370 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_inline_fields_stop_before_marketplace_navigation_and_promotion | method | 372-405 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_invalid_gtin_in_sku_does_not_bind_a_barcode_claim | method | 407-430 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_valid_gtin_is_extracted_from_labeled_value_with_page_footer | method | 432-452 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_barcode_and_product_fields_from_different_sources_do_not_bind | method | 454-484 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_extractive_statement_uses_server_span_and_rejects_paraphrase | method | 486-539 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_multiple_extractive_spans_are_not_concatenated_into_one_quote | method | 541-567 | Observed Python symbol | | | |
-| tests/test_evidence_spans.py | EvidenceSpanSelectionTests.test_same_source_spans_count_as_one_source_but_canonical_urls_are_independent | method | 569-613 | Observed Python symbol | | | |
-| tests/test_hybrid.py | chunk | function | 16-23 | Observed Python symbol | | | |
-| tests/test_hybrid.py | lexical | function | 26-27 | Observed Python symbol | | | |
-| tests/test_hybrid.py | semantic | function | 30-31 | Observed Python symbol | | | |
-| tests/test_hybrid.py | document | function | 34-42 | Observed Python symbol | | | |
-| tests/test_hybrid.py | _EmbeddingProvider | class | 45-53 | Observed Python symbol | | | |
-| tests/test_hybrid.py | _EmbeddingProvider.embed_query | method | 46-47 | Observed Python symbol | | | |
-| tests/test_hybrid.py | _EmbeddingProvider.embed_documents | method | 49-53 | Observed Python symbol | | | |
-| tests/test_hybrid.py | HybridFusionTests | class | 56-164 | Observed Python symbol | | | |
-| tests/test_hybrid.py | HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score | method | 57-75 | Observed Python symbol | | | |
-| tests/test_hybrid.py | HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order | method | 77-88 | Observed Python symbol | | | |
-| tests/test_hybrid.py | HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks | method | 90-103 | Observed Python symbol | | | |
-| tests/test_hybrid.py | HybridFusionTests.test_rejects_duplicate_chunk_within_one_modality | method | 105-112 | Observed Python symbol | | | |
-| tests/test_hybrid.py | HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict | method | 114-132 | Observed Python symbol | | | |
-| tests/test_hybrid.py | HybridFusionTests.test_empty_modalities_return_empty_tuple | method | 134-135 | Observed Python symbol | | | |
-| tests/test_hybrid.py | HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers | method | 137-164 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | runtime | function | 25-72 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | Phase12McpTests | class | 75-280 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | Phase12McpTests.test_six_explicit_grounding_tools_are_registered | method | 76-92 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | Phase12McpTests.test_verify_tool_schema_explains_server_issued_evidence_refs | method | 94-165 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | Phase12McpTests.test_span_selection_and_verification_schema_explain_reference_authority | method | 167-198 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | Phase12McpTests.test_span_selection_tool_calls_server_service | method | 200-220 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | Phase12McpTests.test_span_selection_tool_calls_server_service.invoke | async_method | 208-212 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance | method | 222-240 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | Phase12McpTests.test_mcp_tool_call_returns_structured_content | method | 242-254 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | Phase12McpTests.test_mcp_tool_call_returns_structured_content.invoke | async_method | 245-246 | Observed Python symbol | | | |
-| tests/test_mcp_server.py | Phase12McpTests.test_search_web_marks_exact_provider_url_for_fetching | method | 256-280 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests | class | 13-57 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets | method | 14-16 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes | method | 18-21 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_localhost_names | method | 23-25 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets | method | 27-44 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_malformed_ports | method | 46-47 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ResultUrlAdmissionTests.test_rejects_ascii_control_characters_anywhere_in_url | method | 49-57 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ConnectionTargetResolutionTests | class | 60-119 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ConnectionTargetResolutionTests._resolver | method | 62-79 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ConnectionTargetResolutionTests._resolver.resolve_addresses | method | 63-77 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ConnectionTargetResolutionTests.test_accepts_and_deduplicates_only_public_dns_answers | method | 81-92 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ConnectionTargetResolutionTests.test_rejects_mixed_public_and_private_dns_answers | method | 94-100 | Observed Python symbol | | | |
-| tests/test_network_policy.py | ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers | method | 102-119 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | vector | function | 16-19 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests | class | 22-137 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_pinned_runtime_and_model_constants | method | 23-26 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported | method | 28-40 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_unverified_future_ollama_runtime_is_rejected | method | 42-49 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension | method | 51-71 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts | method | 73-87 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed | method | 89-113 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed | method | 115-129 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport | method | 131-137 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | vector | function | 22-25 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | document | function | 28-36 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | _Provider | class | 39-53 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | _Provider.__init__ | method | 43-45 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | _Provider.embed_query | method | 47-49 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | _Provider.embed_documents | method | 51-53 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | _Store | class | 56-79 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | _Store.__init__ | method | 62-69 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | _Store._ensure_collection | method | 71-72 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | _Store._upsert_chunks | method | 74-75 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | _Store._query_chunks | method | 77-79 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests | class | 82-280 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding | method | 83-93 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding | method | 95-101 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance | method | 103-133 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls | method | 135-143 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store | method | 145-180 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties | method | 182-230 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed | method | 232-246 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed | method | 248-280 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider | class | 249-251 | Observed Python symbol | | | |
-| tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider.embed_query | method | 250-251 | Observed Python symbol | | | |
-| tests/test_phase11_runtime_isolation.py | Phase11E2EIsolationTests | class | 12-36 | Observed Python symbol | | | |
-| tests/test_phase11_runtime_isolation.py | Phase11E2EIsolationTests.test_restart_fixture_has_distinct_collection_identity | method | 13-14 | Observed Python symbol | | | |
-| tests/test_phase11_runtime_isolation.py | Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection | method | 16-36 | Observed Python symbol | | | |
-| tests/test_phase12_dependencies.py | Phase12DependencyPinsTests | class | 8-15 | Observed Python symbol | | | |
-| tests/test_phase12_dependencies.py | Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned | method | 9-15 | Observed Python symbol | | | |
-| tests/test_policy.py | GroundingPolicyTests | class | 10-43 | Observed Python symbol | | | |
-| tests/test_policy.py | GroundingPolicyTests.setUp | method | 11-12 | Observed Python symbol | | | |
-| tests/test_policy.py | GroundingPolicyTests.test_rejects_blank_query | method | 14-16 | Observed Python symbol | | | |
-| tests/test_policy.py | GroundingPolicyTests.test_rejects_more_than_two_search_rounds | method | 18-22 | Observed Python symbol | | | |
-| tests/test_policy.py | GroundingPolicyTests.test_normalizes_query_and_locale | method | 24-33 | Observed Python symbol | | | |
-| tests/test_policy.py | GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits | method | 35-43 | Observed Python symbol | | | |
-| tests/test_project_source_boundary.py | SourceInventoryIsolationTests | class | 28-66 | Observed Python symbol | | | |
-| tests/test_project_source_boundary.py | SourceInventoryIsolationTests.test_operator_scratch_does_not_enter_structural_code_facts | method | 29-54 | Observed Python symbol | | | |
-| tests/test_project_source_boundary.py | SourceInventoryIsolationTests.test_scratch_files_do_not_change_source_digest | method | 56-66 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | chunk | function | 24-31 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | vector | function | 34-35 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | collection_payload | function | 38-60 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | QdrantVectorStoreTests | class | 63-280 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_pinned_runtime_and_schema_constants | method | 64-68 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity | method | 70-77 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing | method | 79-105 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema | method | 107-132 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload | method | 134-166 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance | method | 168-208 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score | method | 210-257 | Observed Python symbol | | | |
-| tests/test_qdrant_store.py | QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed | method | 259-280 | Observed Python symbol | | | |
-| tests/test_reranking.py | chunk | function | 19-26 | Observed Python symbol | | | |
-| tests/test_reranking.py | hybrid | function | 29-43 | Observed Python symbol | | | |
-| tests/test_reranking.py | _Provider | class | 46-56 | Observed Python symbol | | | |
-| tests/test_reranking.py | _Provider.__init__ | method | 47-50 | Observed Python symbol | | | |
-| tests/test_reranking.py | _Provider.score | method | 52-56 | Observed Python symbol | | | |
-| tests/test_reranking.py | _GeneratorProvider | class | 59-61 | Observed Python symbol | | | |
-| tests/test_reranking.py | _GeneratorProvider.score | method | 60-61 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests | class | 64-275 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.setUp | method | 65-77 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance | method | 79-98 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank | method | 100-109 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_empty_candidates_do_not_call_provider | method | 111-114 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed | method | 116-128 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_rejects_unbounded_iterable_provider_output | method | 130-136 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed | method | 138-172 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence | method | 174-193 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive | method | 195-209 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_compression_hard_budgets_and_determinism | method | 211-239 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_compression_rejects_invalid_budgets | method | 241-258 | Observed Python symbol | | | |
-| tests/test_reranking.py | Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression | method | 260-275 | Observed Python symbol | | | |
-| tests/test_retrieval.py | document | function | 15-23 | Observed Python symbol | | | |
-| tests/test_retrieval.py | chunk | function | 26-33 | Observed Python symbol | | | |
-| tests/test_retrieval.py | LexicalRetrievalTests | class | 36-177 | Observed Python symbol | | | |
-| tests/test_retrieval.py | LexicalRetrievalTests.test_tokenizer_is_unicode_casefolded_and_punctuation_stable | method | 37-41 | Observed Python symbol | | | |
-| tests/test_retrieval.py | LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic | method | 43-73 | Observed Python symbol | | | |
-| tests/test_retrieval.py | LexicalRetrievalTests.test_chunk_limit_stops_work_deterministically | method | 75-89 | Observed Python symbol | | | |
-| tests/test_retrieval.py | LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches | method | 91-106 | Observed Python symbol | | | |
-| tests/test_retrieval.py | LexicalRetrievalTests.test_equal_scores_use_stable_provenance_order | method | 108-117 | Observed Python symbol | | | |
-| tests/test_retrieval.py | LexicalRetrievalTests.test_no_lexical_match_returns_empty_result | method | 119-121 | Observed Python symbol | | | |
-| tests/test_retrieval.py | LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance | method | 123-147 | Observed Python symbol | | | |
-| tests/test_retrieval.py | LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval | method | 149-163 | Observed Python symbol | | | |
-| tests/test_retrieval.py | LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests | method | 165-177 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | _ResponseHandler | class | 18-34 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | _ResponseHandler.do_GET | method | 24-31 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | _ResponseHandler.log_message | method | 33-34 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | _Server | class | 37-67 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | _Server.__init__ | method | 38-57 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | _Server.__enter__ | method | 59-62 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | _Server.__exit__ | method | 64-67 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | query | function | 70-78 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | SearxngProviderTests | class | 81-202 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host | method | 82-130 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host.fake_fetch | method | 85-102 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | SearxngProviderTests.test_base_url_rejects_credentials_query_and_fragment | method | 132-142 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | SearxngProviderTests.test_fetch_accepts_bounded_json_object | method | 144-152 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | SearxngProviderTests.test_fetch_rejects_redirects | method | 154-161 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | SearxngProviderTests.test_fetch_rejects_oversized_response_before_json_decode | method | 163-170 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | SearxngProviderTests.test_fetch_rejects_non_json_and_invalid_json | method | 172-185 | Observed Python symbol | | | |
-| tests/test_searxng_provider.py | SearxngProviderTests.test_provider_rejects_invalid_results_schema | method | 187-202 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | _Response | class | 20-40 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | _Response.__init__ | method | 21-37 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | _Response.read | method | 39-40 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | _Connection | class | 43-62 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | _Connection.__init__ | method | 44-47 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | _Connection.request | method | 49-56 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | _Connection.getresponse | method | 58-59 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | _Connection.close | method | 61-62 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | public_resolver | function | 65-74 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests | class | 77-407 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority | method | 78-125 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority.opener | method | 85-100 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_rejects_nonstandard_ports_before_dns | method | 127-132 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_classifies_url_dns_and_transport_failures | method | 134-160 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_classifies_url_dns_and_transport_failures.dns_failure | method | 139-140 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_response_failures_have_bounded_categories_and_status | method | 162-176 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary | method | 178-246 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.CanaryHandler | class | 181-190 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.CanaryHandler.do_GET | method | 182-187 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.CanaryHandler.log_message | method | 189-190 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.RedirectHandler | class | 196-207 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.RedirectHandler.do_GET | method | 197-204 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.RedirectHandler.log_message | method | 206-207 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.route_pinned_ip_to_fixture | method | 214-228 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_response_size_limit_on_public_target_path_returns_no_document | method | 248-301 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_response_size_limit_on_public_target_path_returns_no_document.OversizedHandler | class | 252-262 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_response_size_limit_on_public_target_path_returns_no_document.OversizedHandler.do_GET | method | 253-259 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_response_size_limit_on_public_target_path_returns_no_document.OversizedHandler.log_message | method | 261-262 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_fetch_response_size_limit_on_public_target_path_returns_no_document.route_pinned_ip_to_fixture | method | 269-283 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_read_rejects_missing_content_type | method | 303-307 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize | method | 309-320 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_extract_html_discards_executable_and_style_content | method | 322-337 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_extract_html_preserves_product_table_and_allowlisted_metadata | method | 339-359 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname | method | 361-375 | Observed Python symbol | | | |
-| tests/test_secure_fetcher.py | SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name | method | 377-407 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | document | function | 18-26 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | chunk | function | 29-36 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | keyword_vector | function | 39-45 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | KeywordEmbeddingProvider | class | 48-62 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | KeywordEmbeddingProvider.__init__ | method | 49-51 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | KeywordEmbeddingProvider.embed_query | method | 53-55 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | KeywordEmbeddingProvider.embed_documents | method | 57-62 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | FixedProvider | class | 65-83 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | FixedProvider.__init__ | method | 66-70 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | FixedProvider.embed_query | method | 72-76 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | FixedProvider.embed_documents | method | 78-83 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests | class | 86-288 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_cosine_similarity_is_deterministic | method | 87-93 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_query_and_documents_use_distinct_embedding_roles | method | 95-109 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_retrieve_semantic_preserves_provenance_and_ranks_meaning | method | 111-139 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_embedding_calls_are_batched_and_bounded | method | 141-160 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_embedding_call_cap_rejects_before_provider_work | method | 162-168 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_query_provider_exception_is_wrapped_fail_closed | method | 170-173 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_document_provider_exception_is_wrapped_fail_closed | method | 175-178 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_rejects_wrong_vector_count | method | 180-183 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_rejects_inconsistent_dimensions_across_batches | method | 185-199 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_rejects_non_finite_boolean_zero_and_oversized_vectors | method | 201-213 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_rank_semantic_returns_positive_hits_with_stable_ties | method | 215-236 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_build_semantic_chunks_rejects_total_chunk_overflow | method | 238-252 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_invalid_request_bounds_fail_before_provider | method | 254-269 | Observed Python symbol | | | |
-| tests/test_semantic_retrieval.py | SemanticRetrievalTests.test_repeated_retrieval_is_deterministic_for_deterministic_provider | method | 271-288 | Observed Python symbol | | | |
-| tests/test_service.py | doc | function | 33-42 | Observed Python symbol | | | |
-| tests/test_service.py | Phase12ServiceTests | class | 45-241 | Observed Python symbol | | | |
-| tests/test_service.py | Phase12ServiceTests.settings | method | 46-56 | Observed Python symbol | | | |
-| tests/test_service.py | Phase12ServiceTests.service | method | 58-78 | Observed Python symbol | | | |
-| tests/test_service.py | Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key | method | 80-109 | Observed Python symbol | | | |
-| tests/test_service.py | Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies | method | 111-126 | Observed Python symbol | | | |
-| tests/test_service.py | Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core | method | 128-145 | Observed Python symbol | | | |
-| tests/test_service.py | Phase12ServiceTests.test_fetch_failure_category_is_logged_without_url_or_error_text | method | 147-163 | Observed Python symbol | | | |
-| tests/test_service.py | Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts | method | 165-208 | Observed Python symbol | | | |
-| tests/test_service.py | Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed | method | 210-220 | Observed Python symbol | | | |
-| tests/test_service.py | Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets | method | 222-241 | Observed Python symbol | | | |
-| tests/test_service_security.py | Phase12ServiceSecurityTests | class | 15-46 | Observed Python symbol | | | |
-| tests/test_service_security.py | Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint | method | 16-31 | Observed Python symbol | | | |
-| tests/test_service_security.py | Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route | method | 33-46 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | excerpt | function | 26-41 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | metadata | function | 44-63 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | _AuthorityProvider | class | 66-76 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | _AuthorityProvider.__init__ | method | 67-70 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | _AuthorityProvider.score | method | 72-76 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | _GeneratorAuthorityProvider | class | 79-81 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | _GeneratorAuthorityProvider.score | method | 80-81 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests | class | 84-342 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.setUp | method | 85-97 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_authority_provider_is_called_once_with_source_context | method | 99-114 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_combined_score_multiplies_authority_freshness_and_validity | method | 116-138 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_published_at_missing_falls_back_to_retrieved_at | method | 140-152 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_not_yet_valid_and_expired_evidence_score_zero_temporally | method | 154-171 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_exact_validity_boundaries_are_inclusive | method | 173-184 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_equal_combined_scores_preserve_prior_rerank_order | method | 186-195 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_empty_input_does_not_call_authority_provider | method | 197-209 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_rejects_unbounded_iterable_inputs | method | 211-229 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_invalid_prior_rerank_rank_fails_closed | method | 231-247 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_provider_failures_and_invalid_scores_fail_closed | method | 249-265 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_invalid_identity_timestamp_and_horizon_fail_closed | method | 267-307 | Observed Python symbol | | | |
-| tests/test_temporal_scoring.py | Phase8TemporalScoringTests.test_more_than_eight_items_and_duplicate_identity_fail_closed | method | 309-342 | Observed Python symbol | | | |
-| tests/test_verification.py | quality | function | 28-60 | Observed Python symbol | | | |
-| tests/test_verification.py | assertion | function | 63-87 | Observed Python symbol | | | |
-| tests/test_verification.py | claim | function | 90-101 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests | class | 104-438 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index | method | 105-159 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met | method | 161-190 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests.test_conflict_has_precedence_over_strong_support | method | 192-239 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations | method | 241-270 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict | method | 272-307 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance | method | 309-335 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed | method | 337-354 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests.test_more_than_max_claims_fail_closed | method | 356-368 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests.test_malformed_graph_fails_closed | method | 370-404 | Observed Python symbol | | | |
-| tests/test_verification.py | Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe | method | 406-438 | Observed Python symbol | | | |
-| tests/test_verified_output.py | document | function | 27-35 | Observed Python symbol | | | |
-| tests/test_verified_output.py | runtime | function | 38-47 | Observed Python symbol | | | |
-| tests/test_verified_output.py | runtime.fetcher | method | 39-40 | Observed Python symbol | | | |
-| tests/test_verified_output.py | rest_client | function | 50-57 | Observed Python symbol | | | |
-| tests/test_verified_output.py | auth | function | 60-61 | Observed Python symbol | | | |
-| tests/test_verified_output.py | claim | function | 64-69 | Observed Python symbol | | | |
-| tests/test_verified_output.py | fetch_ref | function | 72-81 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests | class | 84-1145 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_realistic_labeled_source_forms_support_structured_fields | method | 85-129 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_inverted_label_statement_is_deterministic_structured_support | method | 131-152 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_allowlisted_html_product_metadata_can_support_bound_fields | method | 154-189 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id | method | 191-227 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_generic_paraphrase_is_not_supported_by_semantic_similarity | method | 229-256 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_numeric_model_claim_id_is_ignored_and_server_generates_id | method | 258-283 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_barcode_label_does_not_promote_a_prefixed_sku_to_gtin | method | 285-309 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_search_snippet_is_discovery_only_until_fetched_text_supports_it | method | 311-351 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_fetch_then_verify_returns_server_canonical_citation | method | 353-377 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_unknown_or_forged_evidence_reference_fails_closed | method | 379-394 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_caller_cannot_supply_graph_scores_or_citation_identity | method | 396-418 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_partial_claim_is_blocked_from_synthesis | method | 420-437 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_conflicted_claims_are_blocked_from_synthesis | method | 439-466 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_unsupported_claim_is_blocked_without_citation | method | 468-485 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_duplicate_canonical_source_counts_once | method | 487-508 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_evidence_for_one_field_cannot_support_another_field | method | 510-535 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_nearby_unlabeled_words_do_not_establish_structured_field_meaning | method | 537-561 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_barcode_binding_does_not_support_a_brand_claim | method | 563-585 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_product_fields_require_same_source_barcode_binding | method | 587-615 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_product_fields_are_supported_when_same_source_binds_barcode | method | 617-635 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_mixed_barcode_identities_are_rejected | method | 637-653 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_malformed_evidence_reference_rejected_without_echo | method | 655-668 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_oversized_request_is_rejected | method | 670-678 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_wrong_authentication_is_rejected_before_verification | method | 680-688 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_malformed_request_returns_bounded_error_without_input_echo | method | 690-705 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_internal_verification_error_is_bounded | method | 707-722 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_mounted_mcp_auth_is_required_for_verify_path | method | 724-730 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_expired_or_restarted_registry_rejects_old_reference | method | 732-757 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary | method | 759-827 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary.invoke | async_method | 795-816 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts | method | 829-906 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts.invoke | async_method | 865-892 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_does_not_accept_forged_span_refs | method | 908-935 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_includes_product_title_spans | method | 937-998 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_uses_html_product_heading | method | 1000-1074 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_preserves_caller_selected_field_spans | method | 1076-1137 | Observed Python symbol | | | |
-| tests/test_verified_output.py | VerifiedOutputBoundaryTests.test_missing_verification_auth_is_rejected | method | 1139-1145 | Observed Python symbol | | | |
+The default view summarizes machine-observed symbols by file. Expand a file only
+when exact symbol navigation is needed. Full machine facts remain available in
+`.workflow/generated/code_facts.json`; this projection does not invent semantic
+responsibility, callers, or state ownership.
+
+## File summary
+
+| File | Symbols | Classes | Functions | Methods |
+|---|---:|---:|---:|---:|
+| integration/phase11_services.py | 5 | 0 | 5 | 0 |
+| integration/phase12_e2e.py | 11 | 1 | 6 | 3 |
+| src/max_grounding/__init__.py | 1 | 0 | 1 | 0 |
+| src/max_grounding/api.py | 31 | 9 | 12 | 1 |
+| src/max_grounding/budget.py | 4 | 1 | 0 | 3 |
+| src/max_grounding/engine.py | 3 | 1 | 0 | 2 |
+| src/max_grounding/errors.py | 21 | 20 | 0 | 1 |
+| src/max_grounding/evidence.py | 3 | 0 | 3 | 0 |
+| src/max_grounding/evidence_authority.py | 32 | 4 | 19 | 9 |
+| src/max_grounding/evidence_graph.py | 8 | 0 | 8 | 0 |
+| src/max_grounding/fetcher.py | 21 | 3 | 6 | 12 |
+| src/max_grounding/hybrid.py | 3 | 0 | 3 | 0 |
+| src/max_grounding/mcp_server.py | 19 | 1 | 11 | 7 |
+| src/max_grounding/models.py | 31 | 31 | 0 | 0 |
+| src/max_grounding/network_policy.py | 2 | 0 | 2 | 0 |
+| src/max_grounding/persistent.py | 12 | 2 | 8 | 2 |
+| src/max_grounding/policy.py | 2 | 1 | 0 | 1 |
+| src/max_grounding/providers/base.py | 3 | 1 | 1 | 1 |
+| src/max_grounding/providers/ollama_embedding.py | 10 | 2 | 2 | 6 |
+| src/max_grounding/providers/qdrant.py | 16 | 2 | 4 | 10 |
+| src/max_grounding/providers/searxng.py | 9 | 2 | 4 | 3 |
+| src/max_grounding/reranking.py | 12 | 1 | 10 | 1 |
+| src/max_grounding/retrieval.py | 7 | 0 | 7 | 0 |
+| src/max_grounding/semantic.py | 11 | 1 | 8 | 2 |
+| src/max_grounding/service.py | 18 | 3 | 3 | 12 |
+| src/max_grounding/temporal.py | 13 | 1 | 11 | 1 |
+| src/max_grounding/verification.py | 11 | 0 | 11 | 0 |
+| src/max_grounding/wire.py | 1 | 0 | 1 | 0 |
+| tests/test_api.py | 9 | 1 | 1 | 7 |
+| tests/test_bootstrap.py | 3 | 1 | 0 | 2 |
+| tests/test_budget.py | 3 | 1 | 0 | 2 |
+| tests/test_container_contract.py | 3 | 1 | 0 | 2 |
+| tests/test_engine.py | 14 | 3 | 1 | 10 |
+| tests/test_evidence.py | 3 | 1 | 0 | 2 |
+| tests/test_evidence_graph.py | 13 | 1 | 2 | 10 |
+| tests/test_evidence_spans.py | 24 | 1 | 7 | 16 |
+| tests/test_hybrid.py | 15 | 2 | 4 | 9 |
+| tests/test_mcp_server.py | 11 | 1 | 1 | 7 |
+| tests/test_network_policy.py | 13 | 2 | 0 | 11 |
+| tests/test_ollama_embedding.py | 10 | 1 | 1 | 8 |
+| tests/test_persistent_semantic.py | 22 | 4 | 2 | 16 |
+| tests/test_phase11_runtime_isolation.py | 3 | 1 | 0 | 2 |
+| tests/test_phase12_dependencies.py | 2 | 1 | 0 | 1 |
+| tests/test_policy.py | 6 | 1 | 0 | 5 |
+| tests/test_project_source_boundary.py | 3 | 1 | 0 | 2 |
+| tests/test_qdrant_store.py | 12 | 1 | 3 | 8 |
+| tests/test_reranking.py | 20 | 3 | 2 | 15 |
+| tests/test_retrieval.py | 12 | 1 | 2 | 9 |
+| tests/test_searxng_provider.py | 17 | 3 | 1 | 13 |
+| tests/test_secure_fetcher.py | 35 | 6 | 1 | 28 |
+| tests/test_semantic_retrieval.py | 26 | 3 | 3 | 20 |
+| tests/test_service.py | 11 | 1 | 1 | 9 |
+| tests/test_service_security.py | 3 | 1 | 0 | 2 |
+| tests/test_temporal_scoring.py | 21 | 3 | 2 | 16 |
+| tests/test_verification.py | 14 | 1 | 3 | 10 |
+| tests/test_verified_output.py | 45 | 1 | 6 | 36 |
+
+## Detailed symbols
+
+<details>
+<summary><code>integration/phase11_services.py</code> — 5 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| document | function | 20-28 |
+| services | function | 36-45 |
+| run_index | function | 48-110 |
+| run_query | function | 113-136 |
+| main | function | 139-147 |
+
+</details>
+
+<details>
+<summary><code>integration/phase12_e2e.py</code> — 11 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _SearchStub | class | 30-55 |
+| _SearchStub.do_GET | method | 31-52 |
+| _SearchStub.log_message | method | 54-55 |
+| _start_search_stub | function | 58-62 |
+| _seed_index | function | 65-79 |
+| _wait_health | function | 82-93 |
+| _rest_probe | function | 96-168 |
+| _mcp_probe | async_function | 171-213 |
+| _bounded_load_probe | function | 216-243 |
+| _bounded_load_probe.one | method | 219-230 |
+| main | function | 246-280 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/__init__.py</code> — 1 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| project_identity | function | 8-15 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/api.py</code> — 31 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| SearchRequest | class | 49-58 |
+| FetchRequest | class | 61-64 |
+| IndexRequest | class | 67-70 |
+| QueryRequest | class | 73-77 |
+| CandidateClaimRequest | class | 108-150 |
+| EvidenceSpanSelectionRequest | class | 153-166 |
+| VerifyRequest | class | 169-185 |
+| _header_map | function | 188-192 |
+| _extract_token | function | 195-212 |
+| _send_error | async_function | 215-228 |
+| _RequestTooLarge | class | 231-232 |
+| ProductionSecurityMiddleware | class | 235-302 |
+| ProductionSecurityMiddleware.__init__ | method | 238-251 |
+| ProductionSecurityMiddleware.__call__ | async_method | 253-302 |
+| ProductionSecurityMiddleware.__call__.limited_receive | async_method | 282-289 |
+| ProductionSecurityMiddleware.__call__.tracked_send | async_method | 291-295 |
+| healthz | function | 309-310 |
+| readyz | function | 314-315 |
+| search_endpoint | function | 319-331 |
+| fetch_endpoint | function | 335-338 |
+| select_evidence_spans_endpoint | function | 342-351 |
+| index_endpoint | function | 355-358 |
+| query_endpoint | function | 362-368 |
+| verify_endpoint | function | 372-380 |
+| create_rest_app | function | 383-489 |
+| create_rest_app.lifespan | async_method | 417-419 |
+| create_rest_app.lifespan | async_method | 422-423 |
+| create_rest_app.request_validation_handler | async_method | 466-471 |
+| create_rest_app.invalid_request_handler | async_method | 474-479 |
+| create_rest_app.grounding_error_handler | async_method | 482-487 |
+| create_production_app | function | 492-502 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/budget.py</code> — 4 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| SearchBudget | class | 13-30 |
+| SearchBudget.__post_init__ | method | 19-21 |
+| SearchBudget.remaining | method | 24-25 |
+| SearchBudget.consume_search_call | method | 27-30 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/engine.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| GroundingEngine | class | 12-57 |
+| GroundingEngine.__init__ | method | 15-22 |
+| GroundingEngine.ground | method | 24-57 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/errors.py</code> — 21 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| FetchFailureCategory | class | 6-23 |
+| GroundingError | class | 26-27 |
+| InvalidGroundingRequest | class | 30-31 |
+| SearchBudgetExceeded | class | 34-35 |
+| SearchProviderError | class | 38-39 |
+| InvalidProviderConfiguration | class | 42-43 |
+| FetchError | class | 46-58 |
+| FetchError.__init__ | method | 49-58 |
+| RetrievalError | class | 61-62 |
+| EmbeddingProviderError | class | 65-66 |
+| RerankingError | class | 69-70 |
+| RerankProviderError | class | 73-74 |
+| TemporalScoringError | class | 77-78 |
+| AuthorityProviderError | class | 81-82 |
+| EvidenceGraphError | class | 85-86 |
+| ClaimVerificationError | class | 89-90 |
+| RuntimeProviderError | class | 93-94 |
+| VectorStoreError | class | 97-98 |
+| PersistentIndexError | class | 101-102 |
+| ServiceConfigurationError | class | 105-106 |
+| ServiceOperationError | class | 109-110 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/evidence.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| canonicalize_url | function | 17-46 |
+| normalize_candidates | function | 49-70 |
+| build_evidence_pack | function | 73-97 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/evidence_authority.py</code> — 32 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _utc_now | function | 190-191 |
+| _normalized_text | function | 194-202 |
+| NormalizedClaimProposal | class | 206-211 |
+| normalize_candidate_proposals | function | 214-312 |
+| normalize_candidate_claims | function | 315-319 |
+| EvidenceRecord | class | 323-326 |
+| ResolvedEvidenceSpan | class | 330-332 |
+| EvidenceAuthority | class | 335-516 |
+| EvidenceAuthority.__init__ | method | 338-356 |
+| EvidenceAuthority._purge_orphaned_spans | method | 358-362 |
+| EvidenceAuthority._purge_expired | method | 364-372 |
+| EvidenceAuthority.issue | method | 374-400 |
+| EvidenceAuthority.resolve | method | 402-425 |
+| EvidenceAuthority.select_spans | method | 427-479 |
+| EvidenceAuthority.resolve_spans | method | 481-516 |
+| _field_labels | function | 519-524 |
+| _segments | function | 527-534 |
+| _segments_with_offsets | function | 537-565 |
+| _normalize_evidence_span | function | 568-569 |
+| _is_word_character | function | 572-573 |
+| _contains_exact_span | function | 576-585 |
+| _ranked_evidence_segments | function | 588-605 |
+| _exact_evidence_values | function | 608-622 |
+| _normalized_field_value | function | 625-630 |
+| _is_valid_gtin | function | 633-641 |
+| _pipe_labeled_values | function | 644-691 |
+| _pipe_labeled_values.add_value | method | 664-669 |
+| _inline_labeled_values | function | 694-767 |
+| _labeled_values | function | 770-842 |
+| build_server_owned_evidence_graph | function | 845-1035 |
+| build_authoritative_verification_packet | function | 1038-1060 |
+| build_authoritative_verification_packet.preserve | method | 1049-1053 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/evidence_graph.py</code> — 8 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _bounded_assertions | function | 25-39 |
+| _normalize_text | function | 42-50 |
+| _validated_number | function | 53-59 |
+| _validate_quality | function | 62-87 |
+| _normalize_and_validate | function | 90-156 |
+| build_relations | function | 159-182 |
+| build_clusters | function | 185-211 |
+| build_evidence_graph | function | 214-223 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/fetcher.py</code> — 21 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _PinnedHTTPConnection | class | 32-47 |
+| _PinnedHTTPConnection.__init__ | method | 33-41 |
+| _PinnedHTTPConnection.connect | method | 43-47 |
+| _PinnedHTTPSConnection | class | 50-74 |
+| _PinnedHTTPSConnection.__init__ | method | 51-60 |
+| _PinnedHTTPSConnection.connect | method | 62-74 |
+| _TextExtractor | class | 77-222 |
+| _TextExtractor.__init__ | method | 97-104 |
+| _TextExtractor._append_structured_field | method | 106-110 |
+| _TextExtractor._jsonld_text | method | 113-119 |
+| _TextExtractor._append_jsonld_product_fields | method | 121-164 |
+| _TextExtractor._append_jsonld_product_fields.visit | method | 127-161 |
+| _TextExtractor.handle_starttag | method | 166-193 |
+| _TextExtractor.handle_endtag | method | 195-216 |
+| _TextExtractor.handle_data | method | 218-222 |
+| _require_public_ip | function | 225-232 |
+| open_pinned_connection | function | 235-259 |
+| read_bounded_response | function | 262-317 |
+| extract_text | function | 320-344 |
+| _normalized_fetch_target | function | 347-365 |
+| fetch_document | function | 368-441 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/hybrid.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _validate_ranked_hits | function | 22-41 |
+| fuse_hybrid | function | 44-109 |
+| retrieve_hybrid | function | 112-149 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/mcp_server.py</code> — 19 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| CandidateClaimProposal | class | 46-102 |
+| mcp_search_web | function | 128-155 |
+| mcp_fetch_evidence | function | 158-163 |
+| mcp_select_evidence_spans | function | 166-182 |
+| _share_structured_claim_span_refs | function | 185-232 |
+| _mcp_barcode_value | function | 235-255 |
+| _select_barcode_spans | function | 258-316 |
+| _select_barcode_spans.add_spans | method | 274-286 |
+| mcp_index_evidence | function | 319-326 |
+| mcp_query_evidence | function | 329-335 |
+| mcp_verify_claims | function | 338-400 |
+| register_mcp_tools | function | 403-517 |
+| register_mcp_tools._tool_search_web | method | 406-425 |
+| register_mcp_tools._tool_fetch_evidence | method | 427-429 |
+| register_mcp_tools._tool_select_evidence_spans | method | 431-463 |
+| register_mcp_tools._tool_index_evidence | method | 465-467 |
+| register_mcp_tools._tool_query_evidence | method | 469-471 |
+| register_mcp_tools._tool_verify_claims | method | 474-508 |
+| create_mcp_server | function | 520-554 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/models.py</code> — 31 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| EvidenceStatus | class | 10-15 |
+| EvidenceRelationType | class | 18-22 |
+| ClaimVerificationStatus | class | 25-31 |
+| GroundingRequest | class | 35-44 |
+| SearchQuery | class | 48-56 |
+| SourceCandidate | class | 60-67 |
+| EvidenceSource | class | 71-79 |
+| EvidencePack | class | 83-90 |
+| FetchedDocument | class | 94-103 |
+| EvidenceSpan | class | 107-115 |
+| TextChunk | class | 119-126 |
+| LexicalHit | class | 130-135 |
+| SemanticHit | class | 139-144 |
+| HybridHit | class | 148-155 |
+| RerankedHit | class | 159-167 |
+| EvidenceExcerpt | class | 171-179 |
+| EvidenceMetadata | class | 183-193 |
+| AuthoritySubject | class | 197-202 |
+| TemporalComponents | class | 206-210 |
+| EvidenceQualityScore | class | 214-223 |
+| EvidenceAssertion | class | 227-234 |
+| EvidenceRelation | class | 238-243 |
+| EvidenceCluster | class | 247-254 |
+| EvidenceGraph | class | 258-263 |
+| AnswerClaim | class | 267-273 |
+| ClaimCitation | class | 277-284 |
+| ClaimVerification | class | 288-296 |
+| VerificationCorrection | class | 300-304 |
+| SynthesisPacket | class | 308-314 |
+| PersistentVectorHit | class | 318-326 |
+| PersistentIndexResult | class | 330-338 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/network_policy.py</code> — 2 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| is_admissible_result_url | function | 18-50 |
+| resolve_public_addresses | function | 53-93 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/persistent.py</code> — 12 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| ConcreteEmbeddingProvider | class | 50-58 |
+| ConcreteEmbeddingProvider.embed_query | method | 54-55 |
+| ConcreteEmbeddingProvider.embed_documents | method | 57-58 |
+| PersistentVectorStore | class | 61-68 |
+| _provider_contract | function | 71-75 |
+| _store_contract | function | 78-87 |
+| _vector | function | 90-99 |
+| embed_documents_concrete | function | 102-147 |
+| embed_query_concrete | function | 150-168 |
+| index_documents | function | 171-233 |
+| build_semantic_hits | function | 236-292 |
+| retrieve_persistent_semantic | function | 295-317 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/policy.py</code> — 2 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| GroundingPolicy | class | 15-51 |
+| GroundingPolicy.validate_request | method | 18-51 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/providers/base.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| SearchProvider | class | 10-15 |
+| SearchProvider.search | method | 13-15 |
+| invoke_search | function | 18-23 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/providers/ollama_embedding.py</code> — 10 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _NoRedirect | class | 31-33 |
+| _NoRedirect.redirect_request | method | 32-33 |
+| _normalize_base_url | function | 36-66 |
+| request_ollama_json | function | 69-135 |
+| OllamaEmbeddingProvider | class | 138-258 |
+| OllamaEmbeddingProvider.__init__ | method | 145-160 |
+| OllamaEmbeddingProvider.verify_runtime | method | 162-182 |
+| OllamaEmbeddingProvider._embed | method | 184-228 |
+| OllamaEmbeddingProvider.embed_query | method | 230-237 |
+| OllamaEmbeddingProvider.embed_documents | method | 239-258 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/providers/qdrant.py</code> — 16 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _NoRedirect | class | 33-35 |
+| _NoRedirect.redirect_request | method | 34-35 |
+| _normalize_base_url | function | 38-68 |
+| request_qdrant_json | function | 71-146 |
+| point_id_for_chunk | function | 149-152 |
+| _vector | function | 155-162 |
+| QdrantVectorStore | class | 165-454 |
+| QdrantVectorStore.__init__ | method | 172-194 |
+| QdrantVectorStore._request | method | 196-213 |
+| QdrantVectorStore.verify_runtime | method | 215-223 |
+| QdrantVectorStore._collection_path | method | 226-227 |
+| QdrantVectorStore._validate_collection | method | 229-264 |
+| QdrantVectorStore.ensure_collection | method | 266-301 |
+| QdrantVectorStore.upsert_chunks | method | 303-352 |
+| QdrantVectorStore._parse_point | method | 354-422 |
+| QdrantVectorStore.query_chunks | method | 424-454 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/providers/searxng.py</code> — 9 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _NoRedirect | class | 25-29 |
+| _NoRedirect.redirect_request | method | 28-29 |
+| _normalize_base_url | function | 32-55 |
+| build_searxng_search_url | function | 58-75 |
+| fetch_searxng_json | function | 78-138 |
+| parse_searxng_results | function | 141-179 |
+| SearxngProvider | class | 182-221 |
+| SearxngProvider.__init__ | method | 185-207 |
+| SearxngProvider.search | method | 209-221 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/reranking.py</code> — 12 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| RerankProvider | class | 27-35 |
+| RerankProvider.score | method | 30-35 |
+| _validated_query | function | 38-45 |
+| _validated_finite_number | function | 48-54 |
+| _validate_optional_rank | function | 57-63 |
+| _validate_hybrid_hits | function | 66-88 |
+| _validate_reranked_hits | function | 91-113 |
+| rerank_hybrid | function | 116-187 |
+| _sentences | function | 190-199 |
+| _best_extractive_sentence | function | 202-215 |
+| compress_context | function | 218-269 |
+| build_grounded_context | function | 272-295 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/retrieval.py</code> — 7 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| tokenize_text | function | 29-42 |
+| _validate_chunk_bounds | function | 45-60 |
+| _chunk_id | function | 63-65 |
+| chunk_document | function | 68-105 |
+| _validate_query | function | 108-118 |
+| rank_chunks | function | 121-181 |
+| retrieve_lexical | function | 184-219 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/semantic.py</code> — 11 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| EmbeddingProvider | class | 31-41 |
+| EmbeddingProvider.embed_query | method | 34-35 |
+| EmbeddingProvider.embed_documents | method | 37-41 |
+| _validate_query | function | 44-51 |
+| _validate_batch_size | function | 54-58 |
+| _validated_vector | function | 61-99 |
+| embed_bounded | function | 102-155 |
+| build_semantic_chunks | function | 158-185 |
+| cosine_similarity | function | 188-204 |
+| rank_semantic | function | 207-245 |
+| retrieve_semantic | function | 248-285 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/service.py</code> — 18 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _required | function | 54-58 |
+| _csv | function | 61-65 |
+| ProductionSettings | class | 69-115 |
+| ProductionSettings.from_mapping | method | 83-111 |
+| ProductionSettings.from_env | method | 114-115 |
+| ServiceReadiness | class | 119-123 |
+| GroundingService | class | 126-427 |
+| GroundingService.__init__ | method | 129-143 |
+| GroundingService.search_web | method | 145-166 |
+| GroundingService._fetch_document | method | 168-189 |
+| GroundingService.fetch_evidence | method | 191-200 |
+| GroundingService.select_evidence_spans | method | 202-219 |
+| GroundingService.deduplicate_evidence_span_refs | method | 221-241 |
+| GroundingService.verify_candidate_claims | method | 243-370 |
+| GroundingService.index_evidence | method | 372-392 |
+| GroundingService.query_evidence | method | 394-414 |
+| GroundingService.readiness | method | 416-427 |
+| build_production_runtime | function | 430-440 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/temporal.py</code> — 13 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| AuthorityProvider | class | 26-33 |
+| AuthorityProvider.score | method | 29-33 |
+| _validate_utc | function | 36-41 |
+| _validate_horizon | function | 44-51 |
+| _bounded_sequence | function | 54-70 |
+| _bounded_metadata_sequence | function | 73-81 |
+| _bounded_excerpt_sequence | function | 84-92 |
+| _validate_basic_metadata | function | 95-120 |
+| _validate_temporal_inputs | function | 123-163 |
+| score_authority | function | 166-222 |
+| score_temporal_components | function | 225-255 |
+| _validate_excerpt_metadata_pairs | function | 258-294 |
+| score_evidence_quality | function | 297-360 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/verification.py</code> — 11 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _bounded_claims | function | 32-46 |
+| _normalize_text | function | 49-65 |
+| _normalize_claims | function | 68-107 |
+| _validate_required_sources | function | 110-117 |
+| _validated_graph | function | 120-131 |
+| _cluster_map | function | 134-138 |
+| _has_conflict | function | 141-151 |
+| _confidence_index | function | 154-172 |
+| verify_claims | function | 175-218 |
+| build_claim_citations | function | 221-257 |
+| build_synthesis_packet | function | 260-308 |
+
+</details>
+
+<details>
+<summary><code>src/max_grounding/wire.py</code> — 1 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| to_wire | function | 10-26 |
+
+</details>
+
+<details>
+<summary><code>tests/test_api.py</code> — 9 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| service_mock | function | 26-80 |
+| Phase12RestApiTests | class | 83-209 |
+| Phase12RestApiTests.client | method | 84-92 |
+| Phase12RestApiTests.auth | method | 94-95 |
+| Phase12RestApiTests.test_health_is_public_but_readiness_and_v1_operations_require_auth | method | 97-118 |
+| Phase12RestApiTests.test_authenticated_rest_operations_preserve_structured_provenance | method | 120-164 |
+| Phase12RestApiTests.test_api_key_header_and_wrong_tokens_fail_closed | method | 166-183 |
+| Phase12RestApiTests.test_request_body_cap_applies_before_service_execution | method | 185-194 |
+| Phase12RestApiTests.test_service_errors_are_bounded_and_do_not_leak_exception_text | method | 196-209 |
+
+</details>
+
+<details>
+<summary><code>tests/test_bootstrap.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| BootstrapTests | class | 11-22 |
+| BootstrapTests.test_project_identity_is_stable_and_cross_platform | method | 12-18 |
+| BootstrapTests.test_runtime_uses_supported_python | method | 20-22 |
+
+</details>
+
+<details>
+<summary><code>tests/test_budget.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| SearchBudgetTests | class | 9-21 |
+| SearchBudgetTests.test_two_calls_are_allowed_and_third_is_rejected | method | 10-17 |
+| SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap | method | 19-21 |
+
+</details>
+
+<details>
+<summary><code>tests/test_container_contract.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| Phase12ContainerContractTests | class | 7-26 |
+| Phase12ContainerContractTests.test_production_dockerfile_is_non_root_and_exposes_only_service_runtime | method | 8-17 |
+| Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata | method | 19-26 |
+
+</details>
+
+<details>
+<summary><code>tests/test_engine.py</code> — 14 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| candidate | function | 10-17 |
+| FakeProvider | class | 20-30 |
+| FakeProvider.__init__ | method | 21-23 |
+| FakeProvider.search | method | 25-30 |
+| FailingProvider | class | 33-39 |
+| FailingProvider.__init__ | method | 34-35 |
+| FailingProvider.search | method | 37-39 |
+| GroundingEngineTests | class | 42-114 |
+| GroundingEngineTests.test_stops_after_first_call_when_evidence_is_sufficient | method | 43-51 |
+| GroundingEngineTests.test_uses_at_most_two_calls_and_duplicates_do_not_fake_sufficiency | method | 53-70 |
+| GroundingEngineTests.test_no_results_fails_closed_after_budget_is_exhausted | method | 72-79 |
+| GroundingEngineTests.test_provider_exception_fails_closed_without_retry_loop | method | 81-89 |
+| GroundingEngineTests.test_invalid_request_never_calls_provider | method | 91-97 |
+| GroundingEngineTests.test_provider_receives_bounded_round_metadata | method | 99-114 |
+
+</details>
+
+<details>
+<summary><code>tests/test_evidence.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| EvidenceNormalizationTests | class | 9-50 |
+| EvidenceNormalizationTests.test_canonical_url_dedupes_host_case_fragment_and_trailing_slash | method | 10-31 |
+| EvidenceNormalizationTests.test_unsupported_or_hostless_urls_are_discarded | method | 33-50 |
+
+</details>
+
+<details>
+<summary><code>tests/test_evidence_graph.py</code> — 13 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| quality | function | 25-57 |
+| assertion | function | 60-82 |
+| Phase9EvidenceGraphTests | class | 85-377 |
+| Phase9EvidenceGraphTests.test_same_normalized_claim_and_value_corroborate | method | 86-117 |
+| Phase9EvidenceGraphTests.test_exclusive_different_values_contradict | method | 119-143 |
+| Phase9EvidenceGraphTests.test_nonexclusive_different_values_do_not_contradict | method | 145-167 |
+| Phase9EvidenceGraphTests.test_cluster_counts_distinct_sources_and_uses_per_source_max_quality | method | 169-208 |
+| Phase9EvidenceGraphTests.test_inconsistent_exclusivity_for_same_claim_fails_closed | method | 210-232 |
+| Phase9EvidenceGraphTests.test_generator_input_and_over_limit_input_fail_closed | method | 234-262 |
+| Phase9EvidenceGraphTests.test_duplicate_assertion_and_chunk_identity_fail_closed | method | 264-298 |
+| Phase9EvidenceGraphTests.test_malformed_phase8_quality_or_provenance_fails_closed | method | 300-342 |
+| Phase9EvidenceGraphTests.test_quality_weight_is_descriptive_not_a_truth_winner | method | 344-371 |
+| Phase9EvidenceGraphTests.test_empty_input_returns_empty_graph | method | 373-377 |
+
+</details>
+
+<details>
+<summary><code>tests/test_evidence_spans.py</code> — 24 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| document | function | 20-28 |
+| service_for | function | 31-37 |
+| rest_client | function | 40-48 |
+| auth | function | 51-52 |
+| fetch_ref | function | 55-59 |
+| select_spans | function | 62-70 |
+| proposal | function | 73-84 |
+| EvidenceSpanSelectionTests | class | 87-613 |
+| EvidenceSpanSelectionTests.test_reference_tokens_have_distinct_prefixes_and_cross_type_rejection | method | 88-104 |
+| EvidenceSpanSelectionTests.test_span_selection_returns_exact_server_owned_text_and_offsets | method | 106-122 |
+| EvidenceSpanSelectionTests.test_forged_or_expired_span_reference_fails_closed | method | 124-146 |
+| EvidenceSpanSelectionTests.test_flattened_fields_bind_barcode_name_and_brand_from_one_source | method | 148-179 |
+| EvidenceSpanSelectionTests.test_flattened_field_values_cannot_contaminate_another_claim_key | method | 181-200 |
+| EvidenceSpanSelectionTests.test_indonesian_marketplace_labels_bind_valid_gtin_product_fields | method | 202-271 |
+| EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims | method | 273-323 |
+| EvidenceSpanSelectionTests.test_extractive_statement_cannot_verify_structured_product_fields | method | 325-347 |
+| EvidenceSpanSelectionTests.test_navigation_category_is_not_treated_as_a_product_type | method | 349-370 |
+| EvidenceSpanSelectionTests.test_inline_fields_stop_before_marketplace_navigation_and_promotion | method | 372-405 |
+| EvidenceSpanSelectionTests.test_invalid_gtin_in_sku_does_not_bind_a_barcode_claim | method | 407-430 |
+| EvidenceSpanSelectionTests.test_valid_gtin_is_extracted_from_labeled_value_with_page_footer | method | 432-452 |
+| EvidenceSpanSelectionTests.test_barcode_and_product_fields_from_different_sources_do_not_bind | method | 454-484 |
+| EvidenceSpanSelectionTests.test_extractive_statement_uses_server_span_and_rejects_paraphrase | method | 486-539 |
+| EvidenceSpanSelectionTests.test_multiple_extractive_spans_are_not_concatenated_into_one_quote | method | 541-567 |
+| EvidenceSpanSelectionTests.test_same_source_spans_count_as_one_source_but_canonical_urls_are_independent | method | 569-613 |
+
+</details>
+
+<details>
+<summary><code>tests/test_hybrid.py</code> — 15 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| chunk | function | 16-23 |
+| lexical | function | 26-27 |
+| semantic | function | 30-31 |
+| document | function | 34-42 |
+| _EmbeddingProvider | class | 45-53 |
+| _EmbeddingProvider.embed_query | method | 46-47 |
+| _EmbeddingProvider.embed_documents | method | 49-53 |
+| HybridFusionTests | class | 56-164 |
+| HybridFusionTests.test_dual_modality_hit_accumulates_fixed_rrf_score | method | 57-75 |
+| HybridFusionTests.test_equal_fused_scores_use_stable_provenance_order | method | 77-88 |
+| HybridFusionTests.test_rejects_non_contiguous_duplicate_and_over_limit_ranks | method | 90-103 |
+| HybridFusionTests.test_rejects_duplicate_chunk_within_one_modality | method | 105-112 |
+| HybridFusionTests.test_rejects_cross_modality_chunk_identity_conflict | method | 114-132 |
+| HybridFusionTests.test_empty_modalities_return_empty_tuple | method | 134-135 |
+| HybridFusionTests.test_retrieve_hybrid_combines_real_lexical_and_semantic_rankers | method | 137-164 |
+
+</details>
+
+<details>
+<summary><code>tests/test_mcp_server.py</code> — 11 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| runtime | function | 25-72 |
+| Phase12McpTests | class | 75-280 |
+| Phase12McpTests.test_six_explicit_grounding_tools_are_registered | method | 76-92 |
+| Phase12McpTests.test_verify_tool_schema_explains_server_issued_evidence_refs | method | 94-165 |
+| Phase12McpTests.test_span_selection_and_verification_schema_explain_reference_authority | method | 167-198 |
+| Phase12McpTests.test_span_selection_tool_calls_server_service | method | 200-220 |
+| Phase12McpTests.test_span_selection_tool_calls_server_service.invoke | async_method | 208-212 |
+| Phase12McpTests.test_mcp_wrappers_reuse_service_capabilities_and_return_provenance | method | 222-240 |
+| Phase12McpTests.test_mcp_tool_call_returns_structured_content | method | 242-254 |
+| Phase12McpTests.test_mcp_tool_call_returns_structured_content.invoke | async_method | 245-246 |
+| Phase12McpTests.test_search_web_marks_exact_provider_url_for_fetching | method | 256-280 |
+
+</details>
+
+<details>
+<summary><code>tests/test_network_policy.py</code> — 13 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| ResultUrlAdmissionTests | class | 13-57 |
+| ResultUrlAdmissionTests.test_accepts_public_http_and_https_targets | method | 14-16 |
+| ResultUrlAdmissionTests.test_rejects_credentials_and_non_http_schemes | method | 18-21 |
+| ResultUrlAdmissionTests.test_rejects_localhost_names | method | 23-25 |
+| ResultUrlAdmissionTests.test_rejects_literal_non_public_ip_targets | method | 27-44 |
+| ResultUrlAdmissionTests.test_rejects_malformed_ports | method | 46-47 |
+| ResultUrlAdmissionTests.test_rejects_ascii_control_characters_anywhere_in_url | method | 49-57 |
+| ConnectionTargetResolutionTests | class | 60-119 |
+| ConnectionTargetResolutionTests._resolver | method | 62-79 |
+| ConnectionTargetResolutionTests._resolver.resolve_addresses | method | 63-77 |
+| ConnectionTargetResolutionTests.test_accepts_and_deduplicates_only_public_dns_answers | method | 81-92 |
+| ConnectionTargetResolutionTests.test_rejects_mixed_public_and_private_dns_answers | method | 94-100 |
+| ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers | method | 102-119 |
+
+</details>
+
+<details>
+<summary><code>tests/test_ollama_embedding.py</code> — 10 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| vector | function | 16-19 |
+| OllamaEmbeddingProviderTests | class | 22-137 |
+| OllamaEmbeddingProviderTests.test_pinned_runtime_and_model_constants | method | 23-26 |
+| OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported | method | 28-40 |
+| OllamaEmbeddingProviderTests.test_unverified_future_ollama_runtime_is_rejected | method | 42-49 |
+| OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension | method | 51-71 |
+| OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts | method | 73-87 |
+| OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed | method | 89-113 |
+| OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed | method | 115-129 |
+| OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport | method | 131-137 |
+
+</details>
+
+<details>
+<summary><code>tests/test_persistent_semantic.py</code> — 22 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| vector | function | 22-25 |
+| document | function | 28-36 |
+| _Provider | class | 39-53 |
+| _Provider.__init__ | method | 43-45 |
+| _Provider.embed_query | method | 47-49 |
+| _Provider.embed_documents | method | 51-53 |
+| _Store | class | 56-79 |
+| _Store.__init__ | method | 62-69 |
+| _Store._ensure_collection | method | 71-72 |
+| _Store._upsert_chunks | method | 74-75 |
+| _Store._query_chunks | method | 77-79 |
+| PersistentSemanticTests | class | 82-280 |
+| PersistentSemanticTests.test_document_embedding_path_never_calls_query_embedding | method | 83-93 |
+| PersistentSemanticTests.test_query_embedding_path_never_calls_document_embedding | method | 95-101 |
+| PersistentSemanticTests.test_index_documents_builds_chunks_embeds_then_persists_provenance | method | 103-133 |
+| PersistentSemanticTests.test_empty_index_is_noop_without_remote_calls | method | 135-143 |
+| PersistentSemanticTests.test_retrieve_persistent_semantic_uses_query_embedding_and_store | method | 145-180 |
+| PersistentSemanticTests.test_build_semantic_hits_filters_nonpositive_and_stabilizes_ties | method | 182-230 |
+| PersistentSemanticTests.test_provider_store_model_dimension_and_schema_mismatch_fail_closed | method | 232-246 |
+| PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed | method | 248-280 |
+| PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider | class | 249-251 |
+| PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider.embed_query | method | 250-251 |
+
+</details>
+
+<details>
+<summary><code>tests/test_phase11_runtime_isolation.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| Phase11E2EIsolationTests | class | 12-36 |
+| Phase11E2EIsolationTests.test_restart_fixture_has_distinct_collection_identity | method | 13-14 |
+| Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection | method | 16-36 |
+
+</details>
+
+<details>
+<summary><code>tests/test_phase12_dependencies.py</code> — 2 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| Phase12DependencyPinsTests | class | 8-15 |
+| Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned | method | 9-15 |
+
+</details>
+
+<details>
+<summary><code>tests/test_policy.py</code> — 6 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| GroundingPolicyTests | class | 10-43 |
+| GroundingPolicyTests.setUp | method | 11-12 |
+| GroundingPolicyTests.test_rejects_blank_query | method | 14-16 |
+| GroundingPolicyTests.test_rejects_more_than_two_search_rounds | method | 18-22 |
+| GroundingPolicyTests.test_normalizes_query_and_locale | method | 24-33 |
+| GroundingPolicyTests.test_rejects_invalid_evidence_and_result_limits | method | 35-43 |
+
+</details>
+
+<details>
+<summary><code>tests/test_project_source_boundary.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| SourceInventoryIsolationTests | class | 28-66 |
+| SourceInventoryIsolationTests.test_operator_scratch_does_not_enter_structural_code_facts | method | 29-54 |
+| SourceInventoryIsolationTests.test_scratch_files_do_not_change_source_digest | method | 56-66 |
+
+</details>
+
+<details>
+<summary><code>tests/test_qdrant_store.py</code> — 12 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| chunk | function | 24-31 |
+| vector | function | 34-35 |
+| collection_payload | function | 38-60 |
+| QdrantVectorStoreTests | class | 63-280 |
+| QdrantVectorStoreTests.test_pinned_runtime_and_schema_constants | method | 64-68 |
+| QdrantVectorStoreTests.test_point_id_is_deterministic_uuid_from_full_chunk_identity | method | 70-77 |
+| QdrantVectorStoreTests.test_ensure_collection_creates_named_vector_with_metadata_when_missing | method | 79-105 |
+| QdrantVectorStoreTests.test_existing_collection_must_match_vector_and_model_schema | method | 107-132 |
+| QdrantVectorStoreTests.test_upsert_uses_named_vector_and_complete_provenance_payload | method | 134-166 |
+| QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance | method | 168-208 |
+| QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score | method | 210-257 |
+| QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed | method | 259-280 |
+
+</details>
+
+<details>
+<summary><code>tests/test_reranking.py</code> — 20 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| chunk | function | 19-26 |
+| hybrid | function | 29-43 |
+| _Provider | class | 46-56 |
+| _Provider.__init__ | method | 47-50 |
+| _Provider.score | method | 52-56 |
+| _GeneratorProvider | class | 59-61 |
+| _GeneratorProvider.score | method | 60-61 |
+| Phase7RerankingTests | class | 64-275 |
+| Phase7RerankingTests.setUp | method | 65-77 |
+| Phase7RerankingTests.test_reranker_reorders_and_preserves_prior_provenance | method | 79-98 |
+| Phase7RerankingTests.test_equal_provider_scores_preserve_hybrid_rank | method | 100-109 |
+| Phase7RerankingTests.test_empty_candidates_do_not_call_provider | method | 111-114 |
+| Phase7RerankingTests.test_provider_exception_wrong_count_and_invalid_scores_fail_closed | method | 116-128 |
+| Phase7RerankingTests.test_rejects_unbounded_iterable_provider_output | method | 130-136 |
+| Phase7RerankingTests.test_invalid_candidate_rank_identity_score_and_bounds_fail_closed | method | 138-172 |
+| Phase7RerankingTests.test_compression_selects_query_relevant_exact_source_sentence | method | 174-193 |
+| Phase7RerankingTests.test_compression_semantic_fallback_is_still_extractive | method | 195-209 |
+| Phase7RerankingTests.test_compression_hard_budgets_and_determinism | method | 211-239 |
+| Phase7RerankingTests.test_compression_rejects_invalid_budgets | method | 241-258 |
+| Phase7RerankingTests.test_build_grounded_context_runs_rerank_then_extractive_compression | method | 260-275 |
+
+</details>
+
+<details>
+<summary><code>tests/test_retrieval.py</code> — 12 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| document | function | 15-23 |
+| chunk | function | 26-33 |
+| LexicalRetrievalTests | class | 36-177 |
+| LexicalRetrievalTests.test_tokenizer_is_unicode_casefolded_and_punctuation_stable | method | 37-41 |
+| LexicalRetrievalTests.test_chunking_is_bounded_overlapping_and_deterministic | method | 43-73 |
+| LexicalRetrievalTests.test_chunk_limit_stops_work_deterministically | method | 75-89 |
+| LexicalRetrievalTests.test_rank_chunks_returns_only_positive_matches | method | 91-106 |
+| LexicalRetrievalTests.test_equal_scores_use_stable_provenance_order | method | 108-117 |
+| LexicalRetrievalTests.test_no_lexical_match_returns_empty_result | method | 119-121 |
+| LexicalRetrievalTests.test_retrieve_lexical_preserves_document_provenance | method | 123-147 |
+| LexicalRetrievalTests.test_rejects_invalid_query_and_bounds_before_retrieval | method | 149-163 |
+| LexicalRetrievalTests.test_hard_caps_reject_unbounded_internal_requests | method | 165-177 |
+
+</details>
+
+<details>
+<summary><code>tests/test_searxng_provider.py</code> — 17 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _ResponseHandler | class | 18-34 |
+| _ResponseHandler.do_GET | method | 24-31 |
+| _ResponseHandler.log_message | method | 33-34 |
+| _Server | class | 37-67 |
+| _Server.__init__ | method | 38-57 |
+| _Server.__enter__ | method | 59-62 |
+| _Server.__exit__ | method | 64-67 |
+| query | function | 70-78 |
+| SearxngProviderTests | class | 81-202 |
+| SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host | method | 82-130 |
+| SearxngProviderTests.test_operator_trusted_private_endpoint_is_allowed_but_query_cannot_replace_host.fake_fetch | method | 85-102 |
+| SearxngProviderTests.test_base_url_rejects_credentials_query_and_fragment | method | 132-142 |
+| SearxngProviderTests.test_fetch_accepts_bounded_json_object | method | 144-152 |
+| SearxngProviderTests.test_fetch_rejects_redirects | method | 154-161 |
+| SearxngProviderTests.test_fetch_rejects_oversized_response_before_json_decode | method | 163-170 |
+| SearxngProviderTests.test_fetch_rejects_non_json_and_invalid_json | method | 172-185 |
+| SearxngProviderTests.test_provider_rejects_invalid_results_schema | method | 187-202 |
+
+</details>
+
+<details>
+<summary><code>tests/test_secure_fetcher.py</code> — 35 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| _Response | class | 20-40 |
+| _Response.__init__ | method | 21-37 |
+| _Response.read | method | 39-40 |
+| _Connection | class | 43-62 |
+| _Connection.__init__ | method | 44-47 |
+| _Connection.request | method | 49-56 |
+| _Connection.getresponse | method | 58-59 |
+| _Connection.close | method | 61-62 |
+| public_resolver | function | 65-74 |
+| SecureFetcherTests | class | 77-407 |
+| SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority | method | 78-125 |
+| SecureFetcherTests.test_fetch_pins_validated_ip_and_preserves_http_authority.opener | method | 85-100 |
+| SecureFetcherTests.test_fetch_rejects_nonstandard_ports_before_dns | method | 127-132 |
+| SecureFetcherTests.test_fetch_classifies_url_dns_and_transport_failures | method | 134-160 |
+| SecureFetcherTests.test_fetch_classifies_url_dns_and_transport_failures.dns_failure | method | 139-140 |
+| SecureFetcherTests.test_response_failures_have_bounded_categories_and_status | method | 162-176 |
+| SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary | method | 178-246 |
+| SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.CanaryHandler | class | 181-190 |
+| SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.CanaryHandler.do_GET | method | 182-187 |
+| SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.CanaryHandler.log_message | method | 189-190 |
+| SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.RedirectHandler | class | 196-207 |
+| SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.RedirectHandler.do_GET | method | 197-204 |
+| SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.RedirectHandler.log_message | method | 206-207 |
+| SecureFetcherTests.test_redirect_to_private_target_never_reaches_loopback_canary.route_pinned_ip_to_fixture | method | 214-228 |
+| SecureFetcherTests.test_fetch_response_size_limit_on_public_target_path_returns_no_document | method | 248-301 |
+| SecureFetcherTests.test_fetch_response_size_limit_on_public_target_path_returns_no_document.OversizedHandler | class | 252-262 |
+| SecureFetcherTests.test_fetch_response_size_limit_on_public_target_path_returns_no_document.OversizedHandler.do_GET | method | 253-259 |
+| SecureFetcherTests.test_fetch_response_size_limit_on_public_target_path_returns_no_document.OversizedHandler.log_message | method | 261-262 |
+| SecureFetcherTests.test_fetch_response_size_limit_on_public_target_path_returns_no_document.route_pinned_ip_to_fixture | method | 269-283 |
+| SecureFetcherTests.test_read_rejects_missing_content_type | method | 303-307 |
+| SecureFetcherTests.test_read_rejects_redirect_compression_binary_and_oversize | method | 309-320 |
+| SecureFetcherTests.test_extract_html_discards_executable_and_style_content | method | 322-337 |
+| SecureFetcherTests.test_extract_html_preserves_product_table_and_allowlisted_metadata | method | 339-359 |
+| SecureFetcherTests.test_http_connection_dials_pinned_ip_not_hostname | method | 361-375 |
+| SecureFetcherTests.test_https_connection_uses_pinned_ip_and_original_tls_server_name | method | 377-407 |
+
+</details>
+
+<details>
+<summary><code>tests/test_semantic_retrieval.py</code> — 26 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| document | function | 18-26 |
+| chunk | function | 29-36 |
+| keyword_vector | function | 39-45 |
+| KeywordEmbeddingProvider | class | 48-62 |
+| KeywordEmbeddingProvider.__init__ | method | 49-51 |
+| KeywordEmbeddingProvider.embed_query | method | 53-55 |
+| KeywordEmbeddingProvider.embed_documents | method | 57-62 |
+| FixedProvider | class | 65-83 |
+| FixedProvider.__init__ | method | 66-70 |
+| FixedProvider.embed_query | method | 72-76 |
+| FixedProvider.embed_documents | method | 78-83 |
+| SemanticRetrievalTests | class | 86-288 |
+| SemanticRetrievalTests.test_cosine_similarity_is_deterministic | method | 87-93 |
+| SemanticRetrievalTests.test_query_and_documents_use_distinct_embedding_roles | method | 95-109 |
+| SemanticRetrievalTests.test_retrieve_semantic_preserves_provenance_and_ranks_meaning | method | 111-139 |
+| SemanticRetrievalTests.test_embedding_calls_are_batched_and_bounded | method | 141-160 |
+| SemanticRetrievalTests.test_embedding_call_cap_rejects_before_provider_work | method | 162-168 |
+| SemanticRetrievalTests.test_query_provider_exception_is_wrapped_fail_closed | method | 170-173 |
+| SemanticRetrievalTests.test_document_provider_exception_is_wrapped_fail_closed | method | 175-178 |
+| SemanticRetrievalTests.test_rejects_wrong_vector_count | method | 180-183 |
+| SemanticRetrievalTests.test_rejects_inconsistent_dimensions_across_batches | method | 185-199 |
+| SemanticRetrievalTests.test_rejects_non_finite_boolean_zero_and_oversized_vectors | method | 201-213 |
+| SemanticRetrievalTests.test_rank_semantic_returns_positive_hits_with_stable_ties | method | 215-236 |
+| SemanticRetrievalTests.test_build_semantic_chunks_rejects_total_chunk_overflow | method | 238-252 |
+| SemanticRetrievalTests.test_invalid_request_bounds_fail_before_provider | method | 254-269 |
+| SemanticRetrievalTests.test_repeated_retrieval_is_deterministic_for_deterministic_provider | method | 271-288 |
+
+</details>
+
+<details>
+<summary><code>tests/test_service.py</code> — 11 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| doc | function | 33-42 |
+| Phase12ServiceTests | class | 45-241 |
+| Phase12ServiceTests.settings | method | 46-56 |
+| Phase12ServiceTests.service | method | 58-78 |
+| Phase12ServiceTests.test_settings_require_exact_nonempty_runtime_configuration_and_strong_api_key | method | 80-109 |
+| Phase12ServiceTests.test_build_runtime_constructs_only_accepted_phase11_dependencies | method | 111-126 |
+| Phase12ServiceTests.test_service_search_and_fetch_reuse_accepted_core | method | 128-145 |
+| Phase12ServiceTests.test_fetch_failure_category_is_logged_without_url_or_error_text | method | 147-163 |
+| Phase12ServiceTests.test_index_and_query_delegate_to_phase11_persistent_contracts | method | 165-208 |
+| Phase12ServiceTests.test_index_input_is_bounded_and_generators_fail_closed | method | 210-220 |
+| Phase12ServiceTests.test_readiness_checks_local_runtime_dependencies_without_leaking_secrets | method | 222-241 |
+
+</details>
+
+<details>
+<summary><code>tests/test_service_security.py</code> — 3 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| Phase12ServiceSecurityTests | class | 15-46 |
+| Phase12ServiceSecurityTests.test_parent_auth_middleware_protects_mounted_mcp_endpoint | method | 16-31 |
+| Phase12ServiceSecurityTests.test_no_debug_traceback_is_returned_for_unknown_route | method | 33-46 |
+
+</details>
+
+<details>
+<summary><code>tests/test_temporal_scoring.py</code> — 21 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| excerpt | function | 26-41 |
+| metadata | function | 44-63 |
+| _AuthorityProvider | class | 66-76 |
+| _AuthorityProvider.__init__ | method | 67-70 |
+| _AuthorityProvider.score | method | 72-76 |
+| _GeneratorAuthorityProvider | class | 79-81 |
+| _GeneratorAuthorityProvider.score | method | 80-81 |
+| Phase8TemporalScoringTests | class | 84-342 |
+| Phase8TemporalScoringTests.setUp | method | 85-97 |
+| Phase8TemporalScoringTests.test_authority_provider_is_called_once_with_source_context | method | 99-114 |
+| Phase8TemporalScoringTests.test_combined_score_multiplies_authority_freshness_and_validity | method | 116-138 |
+| Phase8TemporalScoringTests.test_published_at_missing_falls_back_to_retrieved_at | method | 140-152 |
+| Phase8TemporalScoringTests.test_not_yet_valid_and_expired_evidence_score_zero_temporally | method | 154-171 |
+| Phase8TemporalScoringTests.test_exact_validity_boundaries_are_inclusive | method | 173-184 |
+| Phase8TemporalScoringTests.test_equal_combined_scores_preserve_prior_rerank_order | method | 186-195 |
+| Phase8TemporalScoringTests.test_empty_input_does_not_call_authority_provider | method | 197-209 |
+| Phase8TemporalScoringTests.test_rejects_unbounded_iterable_inputs | method | 211-229 |
+| Phase8TemporalScoringTests.test_invalid_prior_rerank_rank_fails_closed | method | 231-247 |
+| Phase8TemporalScoringTests.test_provider_failures_and_invalid_scores_fail_closed | method | 249-265 |
+| Phase8TemporalScoringTests.test_invalid_identity_timestamp_and_horizon_fail_closed | method | 267-307 |
+| Phase8TemporalScoringTests.test_more_than_eight_items_and_duplicate_identity_fail_closed | method | 309-342 |
+
+</details>
+
+<details>
+<summary><code>tests/test_verification.py</code> — 14 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| quality | function | 28-60 |
+| assertion | function | 63-87 |
+| claim | function | 90-101 |
+| Phase10VerificationTests | class | 104-438 |
+| Phase10VerificationTests.test_supported_claim_has_claim_level_citations_and_confidence_index | method | 105-159 |
+| Phase10VerificationTests.test_partial_support_is_blocked_when_source_threshold_not_met | method | 161-190 |
+| Phase10VerificationTests.test_conflict_has_precedence_over_strong_support | method | 192-239 |
+| Phase10VerificationTests.test_unsupported_claim_has_zero_confidence_and_no_citations | method | 241-270 |
+| Phase10VerificationTests.test_nonexclusive_alternative_values_do_not_create_conflict | method | 272-307 |
+| Phase10VerificationTests.test_build_claim_citations_preserves_exact_evidence_provenance | method | 309-335 |
+| Phase10VerificationTests.test_generator_duplicate_ids_and_invalid_required_sources_fail_closed | method | 337-354 |
+| Phase10VerificationTests.test_more_than_max_claims_fail_closed | method | 356-368 |
+| Phase10VerificationTests.test_malformed_graph_fails_closed | method | 370-404 |
+| Phase10VerificationTests.test_only_supported_claims_are_synthesis_safe | method | 406-438 |
+
+</details>
+
+<details>
+<summary><code>tests/test_verified_output.py</code> — 45 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| document | function | 27-35 |
+| runtime | function | 38-47 |
+| runtime.fetcher | method | 39-40 |
+| rest_client | function | 50-57 |
+| auth | function | 60-61 |
+| claim | function | 64-69 |
+| fetch_ref | function | 72-81 |
+| VerifiedOutputBoundaryTests | class | 84-1145 |
+| VerifiedOutputBoundaryTests.test_realistic_labeled_source_forms_support_structured_fields | method | 85-129 |
+| VerifiedOutputBoundaryTests.test_inverted_label_statement_is_deterministic_structured_support | method | 131-152 |
+| VerifiedOutputBoundaryTests.test_allowlisted_html_product_metadata_can_support_bound_fields | method | 154-189 |
+| VerifiedOutputBoundaryTests.test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id | method | 191-227 |
+| VerifiedOutputBoundaryTests.test_generic_paraphrase_is_not_supported_by_semantic_similarity | method | 229-256 |
+| VerifiedOutputBoundaryTests.test_numeric_model_claim_id_is_ignored_and_server_generates_id | method | 258-283 |
+| VerifiedOutputBoundaryTests.test_barcode_label_does_not_promote_a_prefixed_sku_to_gtin | method | 285-309 |
+| VerifiedOutputBoundaryTests.test_search_snippet_is_discovery_only_until_fetched_text_supports_it | method | 311-351 |
+| VerifiedOutputBoundaryTests.test_fetch_then_verify_returns_server_canonical_citation | method | 353-377 |
+| VerifiedOutputBoundaryTests.test_unknown_or_forged_evidence_reference_fails_closed | method | 379-394 |
+| VerifiedOutputBoundaryTests.test_caller_cannot_supply_graph_scores_or_citation_identity | method | 396-418 |
+| VerifiedOutputBoundaryTests.test_partial_claim_is_blocked_from_synthesis | method | 420-437 |
+| VerifiedOutputBoundaryTests.test_conflicted_claims_are_blocked_from_synthesis | method | 439-466 |
+| VerifiedOutputBoundaryTests.test_unsupported_claim_is_blocked_without_citation | method | 468-485 |
+| VerifiedOutputBoundaryTests.test_duplicate_canonical_source_counts_once | method | 487-508 |
+| VerifiedOutputBoundaryTests.test_evidence_for_one_field_cannot_support_another_field | method | 510-535 |
+| VerifiedOutputBoundaryTests.test_nearby_unlabeled_words_do_not_establish_structured_field_meaning | method | 537-561 |
+| VerifiedOutputBoundaryTests.test_barcode_binding_does_not_support_a_brand_claim | method | 563-585 |
+| VerifiedOutputBoundaryTests.test_product_fields_require_same_source_barcode_binding | method | 587-615 |
+| VerifiedOutputBoundaryTests.test_product_fields_are_supported_when_same_source_binds_barcode | method | 617-635 |
+| VerifiedOutputBoundaryTests.test_mixed_barcode_identities_are_rejected | method | 637-653 |
+| VerifiedOutputBoundaryTests.test_malformed_evidence_reference_rejected_without_echo | method | 655-668 |
+| VerifiedOutputBoundaryTests.test_oversized_request_is_rejected | method | 670-678 |
+| VerifiedOutputBoundaryTests.test_wrong_authentication_is_rejected_before_verification | method | 680-688 |
+| VerifiedOutputBoundaryTests.test_malformed_request_returns_bounded_error_without_input_echo | method | 690-705 |
+| VerifiedOutputBoundaryTests.test_internal_verification_error_is_bounded | method | 707-722 |
+| VerifiedOutputBoundaryTests.test_mounted_mcp_auth_is_required_for_verify_path | method | 724-730 |
+| VerifiedOutputBoundaryTests.test_expired_or_restarted_registry_rejects_old_reference | method | 732-757 |
+| VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary | method | 759-827 |
+| VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary.invoke | async_method | 795-816 |
+| VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts | method | 829-906 |
+| VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts.invoke | async_method | 865-892 |
+| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_does_not_accept_forged_span_refs | method | 908-935 |
+| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_includes_product_title_spans | method | 937-998 |
+| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_uses_html_product_heading | method | 1000-1074 |
+| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_preserves_caller_selected_field_spans | method | 1076-1137 |
+| VerifiedOutputBoundaryTests.test_missing_verification_auth_is_rejected | method | 1139-1145 |
+
+</details>
 
 ## Coverage
 
-- non-Python symbol extraction requires language-specific parsers or Ctags
+- non-Python symbol extraction requires a stronger language analyzer
 - dynamic dispatch/dependency injection/reflection are not resolved
 - JS/TS function-level semantics are not inferred here

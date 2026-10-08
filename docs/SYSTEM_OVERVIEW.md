@@ -315,7 +315,7 @@ See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 | runtime | GitHub Actions runner matrix | Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority. |
 | acceptance | GitHub Actions required workflows | A phase is accepted only when its required workflow checks pass on the exact candidate commit. |
 | documentation | .workflow/*.json plus deterministic Project Truth Compiler | Structured specs are semantic authority; docs/ is generated projection. |
-| skill_workflow | maxqstudio/Skill_Workflow@024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8 | Pinned latest governance tooling including Python class-method path-symbol validation and Phase 12 route-predecessor support. |
+| skill_workflow | maxqstudio/Skill_Workflow@91b58b98049a7d27ed65169508177ea7dc978ca1 | Exact latest applicable governance source; vendored tools are bound by .workflow/toolchain.lock.json content digest and producer provenance. |
 
 ## Mutable vs immutable
 
@@ -328,7 +328,7 @@ See WORKFLOW_STATE_MACHINE.md for generated lifecycle contracts.
 
 - runtime: Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority.
 - acceptance: A phase is accepted only when its required workflow checks pass on the exact candidate commit.
-- skill_workflow: Pinned latest governance tooling including Python class-method path-symbol validation and Phase 12 route-predecessor support.
+- skill_workflow: Exact latest applicable governance source; vendored tools are bound by .workflow/toolchain.lock.json content digest and producer provenance.
 
 ### Configuration vs execution snapshot
 
@@ -441,7 +441,7 @@ Known blockers:
 
 ## Important limitations
 
-- non-Python symbol extraction requires language-specific parsers or Ctags
+- non-Python symbol extraction requires a stronger language analyzer
 - dynamic dispatch/dependency injection/reflection are not resolved
 - JS/TS function-level semantics are not inferred here
 
