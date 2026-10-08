@@ -25,6 +25,29 @@ class OllamaEmbeddingProviderTests(unittest.TestCase):
         self.assertEqual(OLLAMA_MODEL, "qwen3-embedding:0.6b")
         self.assertEqual(OLLAMA_EMBEDDING_DIMENSION, 1024)
 
+    def test_current_local_ollama_runtime_is_explicitly_supported(self) -> None:
+        provider = OllamaEmbeddingProvider("http://127.0.0.1:11434")
+        with patch(
+            "max_grounding.providers.ollama_embedding.request_ollama_json",
+            side_effect=[
+                {"version": "0.40.0"},
+                {"model": OLLAMA_MODEL, "embeddings": [vector()]},
+            ],
+        ):
+            actual = provider.embed_query("product barcode evidence")
+        self.assertEqual(len(actual), 1024)
+        self.assertEqual(provider.detected_runtime_version, "0.40.0")
+        self.assertEqual(provider.runtime_version, "0.40.0")
+
+    def test_unverified_future_ollama_runtime_is_rejected(self) -> None:
+        provider = OllamaEmbeddingProvider("http://127.0.0.1:11434")
+        with patch(
+            "max_grounding.providers.ollama_embedding.request_ollama_json",
+            return_value={"version": "0.41.0"},
+        ):
+            with self.assertRaises(RuntimeProviderError):
+                provider.embed_query("product barcode evidence")
+
     def test_query_uses_fixed_instruction_and_exact_dimension(self) -> None:
         provider = OllamaEmbeddingProvider("http://127.0.0.1:11434")
         with patch(

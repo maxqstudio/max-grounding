@@ -150,7 +150,7 @@
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "is_test": false,
       "language": "Python",
-      "lines": 247
+      "lines": 258
     },
     {
       "directory": "src/max_grounding/providers",
@@ -297,7 +297,7 @@
       "file": "tests/test_ollama_embedding.py",
       "is_test": true,
       "language": "Python",
-      "lines": 118
+      "lines": 141
     },
     {
       "directory": "tests",
@@ -5157,6 +5157,10 @@
     {
       "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.verify_runtime",
       "target_token": "payload.get"
+    },
+    {
+      "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.verify_runtime",
+      "target_token": "isinstance"
     },
     {
       "caller": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.verify_runtime",
@@ -11377,6 +11381,54 @@
     {
       "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_pinned_runtime_and_model_constants",
       "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported",
+      "target_token": "vector"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported",
+      "target_token": "provider.embed_query"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_unverified_future_ollama_runtime_is_rejected",
+      "target_token": "OllamaEmbeddingProvider"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_unverified_future_ollama_runtime_is_rejected",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_unverified_future_ollama_runtime_is_rejected",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_unverified_future_ollama_runtime_is_rejected",
+      "target_token": "provider.embed_query"
     },
     {
       "caller": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
@@ -19429,80 +19481,80 @@
     {
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "kind": "class",
-      "line_end": 29,
-      "line_start": 27,
+      "line_end": 33,
+      "line_start": 31,
       "locator": "src/max_grounding/providers/ollama_embedding.py::_NoRedirect",
       "symbol": "_NoRedirect"
     },
     {
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "kind": "method",
-      "line_end": 29,
-      "line_start": 28,
+      "line_end": 33,
+      "line_start": 32,
       "locator": "src/max_grounding/providers/ollama_embedding.py::_NoRedirect.redirect_request",
       "symbol": "_NoRedirect.redirect_request"
     },
     {
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "kind": "function",
-      "line_end": 62,
-      "line_start": 32,
+      "line_end": 66,
+      "line_start": 36,
       "locator": "src/max_grounding/providers/ollama_embedding.py::_normalize_base_url",
       "symbol": "_normalize_base_url"
     },
     {
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "kind": "function",
-      "line_end": 131,
-      "line_start": 65,
+      "line_end": 135,
+      "line_start": 69,
       "locator": "src/max_grounding/providers/ollama_embedding.py::request_ollama_json",
       "symbol": "request_ollama_json"
     },
     {
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "kind": "class",
-      "line_end": 247,
-      "line_start": 134,
+      "line_end": 258,
+      "line_start": 138,
       "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider",
       "symbol": "OllamaEmbeddingProvider"
     },
     {
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "kind": "method",
-      "line_end": 155,
-      "line_start": 141,
+      "line_end": 160,
+      "line_start": 145,
       "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.__init__",
       "symbol": "OllamaEmbeddingProvider.__init__"
     },
     {
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "kind": "method",
-      "line_end": 171,
-      "line_start": 157,
+      "line_end": 182,
+      "line_start": 162,
       "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.verify_runtime",
       "symbol": "OllamaEmbeddingProvider.verify_runtime"
     },
     {
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "kind": "method",
-      "line_end": 217,
-      "line_start": 173,
+      "line_end": 228,
+      "line_start": 184,
       "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider._embed",
       "symbol": "OllamaEmbeddingProvider._embed"
     },
     {
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "kind": "method",
-      "line_end": 226,
-      "line_start": 219,
+      "line_end": 237,
+      "line_start": 230,
       "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_query",
       "symbol": "OllamaEmbeddingProvider.embed_query"
     },
     {
       "file": "src/max_grounding/providers/ollama_embedding.py",
       "kind": "method",
-      "line_end": 247,
-      "line_start": 228,
+      "line_end": 258,
+      "line_start": 239,
       "locator": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider.embed_documents",
       "symbol": "OllamaEmbeddingProvider.embed_documents"
     },
@@ -21189,7 +21241,7 @@
     {
       "file": "tests/test_ollama_embedding.py",
       "kind": "class",
-      "line_end": 114,
+      "line_end": 137,
       "line_start": 22,
       "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests",
       "symbol": "OllamaEmbeddingProviderTests"
@@ -21205,40 +21257,56 @@
     {
       "file": "tests/test_ollama_embedding.py",
       "kind": "method",
-      "line_end": 48,
+      "line_end": 40,
       "line_start": 28,
+      "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported",
+      "symbol": "OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported"
+    },
+    {
+      "file": "tests/test_ollama_embedding.py",
+      "kind": "method",
+      "line_end": 49,
+      "line_start": 42,
+      "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_unverified_future_ollama_runtime_is_rejected",
+      "symbol": "OllamaEmbeddingProviderTests.test_unverified_future_ollama_runtime_is_rejected"
+    },
+    {
+      "file": "tests/test_ollama_embedding.py",
+      "kind": "method",
+      "line_end": 71,
+      "line_start": 51,
       "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension",
       "symbol": "OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension"
     },
     {
       "file": "tests/test_ollama_embedding.py",
       "kind": "method",
-      "line_end": 64,
-      "line_start": 50,
+      "line_end": 87,
+      "line_start": 73,
       "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts",
       "symbol": "OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts"
     },
     {
       "file": "tests/test_ollama_embedding.py",
       "kind": "method",
-      "line_end": 90,
-      "line_start": 66,
+      "line_end": 113,
+      "line_start": 89,
       "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed",
       "symbol": "OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed"
     },
     {
       "file": "tests/test_ollama_embedding.py",
       "kind": "method",
-      "line_end": 106,
-      "line_start": 92,
+      "line_end": 129,
+      "line_start": 115,
       "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed",
       "symbol": "OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed"
     },
     {
       "file": "tests/test_ollama_embedding.py",
       "kind": "method",
-      "line_end": 114,
-      "line_start": 108,
+      "line_end": 137,
+      "line_start": 131,
       "locator": "tests/test_ollama_embedding.py::OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport",
       "symbol": "OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport"
     },
@@ -23236,13 +23304,13 @@
     }
   ],
   "schema_version": 1,
-  "source_digest": "f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0",
+  "source_digest": "f05bb52410b7581daa829248779b0ab611b293ebfd6d538e2c669ac3ad4403e0",
   "source_summary": {
     "files": 56,
     "languages": {
       "Python": 56
     },
-    "lines": 13812,
+    "lines": 13846,
     "test_files": 27
   },
   "tests": [

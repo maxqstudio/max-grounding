@@ -1965,7 +1965,7 @@
       "locator": "tests/test_secure_fetcher.py::_Response.read"
     }
   ],
-  "observed_head": "60c3e21069232be93ec7a3ab85b705fd403e4249",
+  "observed_head": "f1f20044a46665ae5a15113ec0ebced3e81639aa",
   "schema_version": 1,
-  "source_digest": "f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0"
+  "source_digest": "f05bb52410b7581daa829248779b0ab611b293ebfd6d538e2c669ac3ad4403e0"
 }

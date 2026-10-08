@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0
+Source digest: f05bb52410b7581daa829248779b0ab611b293ebfd6d538e2c669ac3ad4403e0
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
@@ -220,16 +220,16 @@ Status: CURRENT
 | src/max_grounding/providers/base.py | SearchProvider | class | 10-15 | Observed Python symbol | | | |
 | src/max_grounding/providers/base.py | SearchProvider.search | method | 13-15 | Observed Python symbol | | | |
 | src/max_grounding/providers/base.py | invoke_search | function | 18-23 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | _NoRedirect | class | 27-29 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | _NoRedirect.redirect_request | method | 28-29 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | _normalize_base_url | function | 32-62 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | request_ollama_json | function | 65-131 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider | class | 134-247 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.__init__ | method | 141-155 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.verify_runtime | method | 157-171 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider._embed | method | 173-217 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.embed_query | method | 219-226 | Observed Python symbol | | | |
-| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.embed_documents | method | 228-247 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | _NoRedirect | class | 31-33 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | _NoRedirect.redirect_request | method | 32-33 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | _normalize_base_url | function | 36-66 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | request_ollama_json | function | 69-135 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider | class | 138-258 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.__init__ | method | 145-160 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.verify_runtime | method | 162-182 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider._embed | method | 184-228 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.embed_query | method | 230-237 | Observed Python symbol | | | |
+| src/max_grounding/providers/ollama_embedding.py | OllamaEmbeddingProvider.embed_documents | method | 239-258 | Observed Python symbol | | | |
 | src/max_grounding/providers/qdrant.py | _NoRedirect | class | 33-35 | Observed Python symbol | | | |
 | src/max_grounding/providers/qdrant.py | _NoRedirect.redirect_request | method | 34-35 | Observed Python symbol | | | |
 | src/max_grounding/providers/qdrant.py | _normalize_base_url | function | 38-68 | Observed Python symbol | | | |
@@ -440,13 +440,15 @@ Status: CURRENT
 | tests/test_network_policy.py | ConnectionTargetResolutionTests.test_rejects_mixed_public_and_private_dns_answers | method | 94-100 | Observed Python symbol | | | |
 | tests/test_network_policy.py | ConnectionTargetResolutionTests.test_rejects_private_link_local_reserved_multicast_and_empty_answers | method | 102-119 | Observed Python symbol | | | |
 | tests/test_ollama_embedding.py | vector | function | 16-19 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests | class | 22-114 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests | class | 22-137 | Observed Python symbol | | | |
 | tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_pinned_runtime_and_model_constants | method | 23-26 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension | method | 28-48 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts | method | 50-64 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed | method | 66-90 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed | method | 92-106 | Observed Python symbol | | | |
-| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport | method | 108-114 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_current_local_ollama_runtime_is_explicitly_supported | method | 28-40 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_unverified_future_ollama_runtime_is_rejected | method | 42-49 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_query_uses_fixed_instruction_and_exact_dimension | method | 51-71 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_document_batch_preserves_raw_document_texts | method | 73-87 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_runtime_version_model_count_and_dimension_fail_closed | method | 89-113 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_invalid_base_url_and_batch_bounds_fail_closed | method | 115-129 | Observed Python symbol | | | |
+| tests/test_ollama_embedding.py | OllamaEmbeddingProviderTests.test_empty_document_batch_returns_empty_without_transport | method | 131-137 | Observed Python symbol | | | |
 | tests/test_persistent_semantic.py | vector | function | 22-25 | Observed Python symbol | | | |
 | tests/test_persistent_semantic.py | document | function | 28-36 | Observed Python symbol | | | |
 | tests/test_persistent_semantic.py | _Provider | class | 39-53 | Observed Python symbol | | | |

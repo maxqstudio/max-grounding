@@ -18,7 +18,7 @@ Branch: work/phase12a-production-grounding-hardening
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f
 Current candidate SHA: external final acceptance evidence
-Current source digest: f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0
+Current source digest: f05bb52410b7581daa829248779b0ab611b293ebfd6d538e2c669ac3ad4403e0
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -70,6 +70,7 @@ SEQUENCE_SYNC: NOT_PROVEN
 - Run 004 and Run 005 are preserved historical failed Phase 12A acceptance evidence; neither run is deleted or rewritten. Run 006 is the next current acceptance attempt using the original frozen Run 003 corpus.
 - The original Phase 12A evidence-span BEFORE plan frozen at 835e502075d3a9ce54c0da910647dae06f2967f0 is preserved as historical evidence. DEC-0009 classifies invalid direct SOURCE edges as PLAN_CHANGE; amended source-topology plan was separately frozen at 0a0fe3c560947761036ec2069f46edccb2b91c72 before subsequent acceptance work, not before original implementation.
 - Isolated October 8 PC implementation checkpoint passed 216 local unit tests, Python compile, and 19/19 static sequence sessions; this proves neither a real-stack Run 006 PASS nor a final Phase 12A closure.
+- The owner's Ollama 0.40.0 successfully produced real query and document embeddings with qwen3-embedding:0.6b and exactly 1024 finite dimensions; DEC-0010 records a fail-closed explicit runtime compatibility allowlist. This is an embedding adapter smoke, not whole-service real-stack evidence.
 
 ## Not proven
 - External production hosting/domain provisioning, TLS termination, reverse-proxy configuration, operator secret management, monitoring/SLOs, and a specific operator SearXNG instance remain deployment/operator concerns rather than repository acceptance evidence.

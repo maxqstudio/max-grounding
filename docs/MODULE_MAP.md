@@ -3,7 +3,7 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0
+Source digest: f05bb52410b7581daa829248779b0ab611b293ebfd6d538e2c669ac3ad4403e0
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
@@ -27,7 +27,7 @@ Generated/refreshed: current compiler run
 | src/max_grounding/policy.py | Python | 51 | src/max_grounding | NO |
 | src/max_grounding/providers/__init__.py | Python | 6 | src/max_grounding/providers | NO |
 | src/max_grounding/providers/base.py | Python | 23 | src/max_grounding/providers | NO |
-| src/max_grounding/providers/ollama_embedding.py | Python | 247 | src/max_grounding/providers | NO |
+| src/max_grounding/providers/ollama_embedding.py | Python | 258 | src/max_grounding/providers | NO |
 | src/max_grounding/providers/qdrant.py | Python | 454 | src/max_grounding/providers | NO |
 | src/max_grounding/providers/searxng.py | Python | 221 | src/max_grounding/providers | NO |
 | src/max_grounding/reranking.py | Python | 295 | src/max_grounding | NO |
@@ -48,7 +48,7 @@ Generated/refreshed: current compiler run
 | tests/test_hybrid.py | Python | 168 | tests | YES |
 | tests/test_mcp_server.py | Python | 284 | tests | YES |
 | tests/test_network_policy.py | Python | 123 | tests | YES |
-| tests/test_ollama_embedding.py | Python | 118 | tests | YES |
+| tests/test_ollama_embedding.py | Python | 141 | tests | YES |
 | tests/test_persistent_semantic.py | Python | 284 | tests | YES |
 | tests/test_phase12_dependencies.py | Python | 19 | tests | YES |
 | tests/test_policy.py | Python | 47 | tests | YES |

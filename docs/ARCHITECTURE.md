@@ -2,7 +2,7 @@
 
 # ARCHITECTURE
 
-Current source digest: f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7faa35e0
+Current source digest: f05bb52410b7581daa829248779b0ab611b293ebfd6d538e2c669ac3ad4403e0
 
 ## Components
 
@@ -24,7 +24,7 @@ Current source digest: f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7
 | temporal-authority | Temporal and Source Authority Scoring | Bind explicit UTC temporal/source metadata to bounded evidence, obtain authority scores through an injected policy, and deterministically score freshness and point-in-time validity. | AuthorityProvider protocol, score_authority, score_temporal_components, score_evidence_quality, explicit evaluation-time policy, freshness horizon bounds, temporal validity checks, stable quality ranking | models, rerank-compress |
 | evidence-graph | Evidence Graph | Normalize bounded structured assertions backed by Phase 8 quality evidence, derive deterministic corroboration/contradiction edges, and cluster equivalent values with distinct source-URL accounting without declaring truth. | build_evidence_graph, build_relations, build_clusters, structured assertion normalization, explicit exclusivity semantics, distinct-URL quality-weight accounting, no-winner graph contract | models, temporal-authority |
 | claim-verification | Claim Verification and Synthesis Gate | Verify bounded exact structured answer claims against the accepted evidence graph, bind exact citations, derive a transparent evidence-sufficiency index, and expose only fully supported claims to synthesis. | verify_claims, build_claim_citations, build_synthesis_packet, four-state claim verification, claim-level citation provenance, evidence-sufficiency confidence index, fail-closed synthesis eligibility | models, evidence-graph |
-| ollama-embedding-runtime | Concrete Ollama Embedding Runtime | Call pinned Ollama 0.34.0 through bounded stdlib HTTP and validate qwen3-embedding:0.6b output as exactly 1024-dimensional finite vectors. | OllamaEmbeddingProvider, runtime version check, pinned model identity, query instruction, bounded /api/embed transport | models, semantic-retrieval |
+| ollama-embedding-runtime | Concrete Ollama Embedding Runtime | Use bounded stdlib HTTP to call qwen3-embedding:0.6b through an explicit Ollama runtime compatibility set (0.34.0, 0.35.1, 0.40.0); validate exact model identity and 1024 finite dimensions. | OllamaEmbeddingProvider, runtime version check, pinned model identity, query instruction, bounded /api/embed transport | models, semantic-retrieval |
 | qdrant-vector-store | Persistent Qdrant Vector Store | Create or validate a versioned named-vector schema, persist deterministic chunk provenance, and return bounded validated vector matches. | QdrantVectorStore, Qdrant 1.19.1 runtime check, named-vector collection schema, deterministic point identity, provenance payload validation | models, ollama-embedding-runtime |
 | persistent-semantic | Persistent Semantic Index and Retrieval | Connect accepted deterministic chunks to the concrete embedding runtime and Qdrant store without weakening semantic-hit validation. | index_documents, retrieve_persistent_semantic, embed_documents_concrete, embed_query_concrete, build_semantic_hits | models, semantic-retrieval, ollama-embedding-runtime, qdrant-vector-store |
 | production-service | Production Service Facade | Compose accepted grounding, secure-fetch, deterministic verified-output, and persistent-query capabilities behind bounded production operations. | ProductionSettings, GroundingService, build_production_runtime, readiness, verify_candidate_claims | engine, secure-fetch, persistent-semantic, searxng-provider, ollama-embedding-runtime, qdrant-vector-store |
@@ -92,7 +92,7 @@ Current source digest: f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7
 - Result-page web servers: Untrusted network/content boundary. Phase 3 permits only standard-port HTTP(S), validates all DNS answers as public, pins transport to a validated IP, rejects redirects and compression, bounds bytes, and accepts only approved text media/charset combinations.
 - Embedding provider: Injected Phase 5 boundary with distinct query/document roles. Core code bounds provider calls and validates every returned vector; no concrete model or inference runtime is accepted in Phase 5.
 - Rerank provider: Injected Phase 7 scoring boundary. Core accepts one bounded Sequence of exactly one finite numeric score per candidate; arbitrary iterables, wrong counts, booleans, non-numeric values, non-finite values, or provider exceptions fail closed. No concrete model/runtime is accepted in Phase 7.
-- Ollama service: Phase 11 accepts exactly Ollama 0.34.0 with qwen3-embedding:0.6b through bounded non-redirecting stdlib HTTP. Query/document output must be exactly 1024 finite dimensions; model/runtime mismatch fails closed.
+- Ollama service: Phase 11 acceptance historically proved Ollama 0.34.0 with qwen3-embedding:0.6b through bounded non-redirecting stdlib HTTP. Current Phase 12A compatibility explicitly admits Ollama 0.34.0, 0.35.1, and 0.40.0; unknown runtimes, model mismatch, and vectors not matching exact 1024 finite dimensions fail closed. A local 0.40.0 query/document smoke is narrow evidence, not full real-stack acceptance.
 - Qdrant service: Phase 11 accepts Qdrant 1.19.1 through bounded stdlib REST. Collection vector name/model/dimension/schema and returned provenance payload are revalidated; persistent-volume restart recovery is proven by real-service integration.
 - Production REST clients: Only /healthz is public. /readyz and all /v1 operations require the configured API key; request bodies are capped and internal exception text is not returned.
 - Production MCP clients: Streamable HTTP MCP is protected by parent API-key middleware plus MCP DNS-rebinding/allowed-host policy and exposes exactly search_web, fetch_evidence, index_evidence, and query_evidence.
@@ -101,7 +101,7 @@ Current source digest: f480447f278d54cfcf914488ede18dfbcd3b2bf10397e5e5e984990d7
 ## Observed implementation inventory
 
 Source files: 56
-Source lines: 13812
+Source lines: 13846
 Languages: Python=56
 
 Structural facts come from the code extractor. Component meaning comes from

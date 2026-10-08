@@ -244,7 +244,7 @@
     {
       "method": "PYTHON",
       "path": "OllamaEmbeddingProvider.embed_query(text) / embed_documents(texts)",
-      "purpose": "Produce pinned concrete query/document embeddings through Ollama 0.34.0 and qwen3-embedding:0.6b.",
+      "purpose": "Produce bounded query/document embeddings through the explicitly allowed Ollama runtimes 0.34.0, 0.35.1, and 0.40.0 with fixed qwen3-embedding:0.6b identity and 1024 finite dimensions.",
       "authority": "src/max_grounding/providers/ollama_embedding.py::OllamaEmbeddingProvider",
       "mutation": "bounded network compute to trusted operator-configured Ollama service; no project persistence",
       "error_behavior": "Runtime-version/model/count/vector/dimension/transport defects fail closed with RuntimeProviderError or EmbeddingProviderError."

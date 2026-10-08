@@ -152,7 +152,8 @@
         "Added RED and GREEN regression proving operator scratch directories cannot pollute generated Project Truth or source digests, then passed 216 unit tests and Python compile.",
         "Preserved the original Phase 12A BEFORE plan, recorded its invalid direct SOURCE-edge topology as PLAN_CHANGE, and froze the corrected source topology at 0a0fe3c560947761036ec2069f46edccb2b91c72 with source-verifiable call edges and documented behavior.",
         "Nineteen sequence sessions passed in the isolated local worktree after the corrective freeze. This is intermediate evidence, not real-stack Run 006 or final Phase 12A acceptance.",
-        "Phase 12A remains IN_PROGRESS; PR #29 remains Draft, with no deployment, Pretio integration, or main merge authorized until all blocking Run 006 and GitHub acceptance gates pass."
+        "Phase 12A remains IN_PROGRESS; PR #29 remains Draft, with no deployment, Pretio integration, or main merge authorized until all blocking Run 006 and GitHub acceptance gates pass.",
+        "An additional local Ollama compatibility regression was added with expected RED then GREEN: explicit runtime 0.40.0 is admitted, future unknown 0.41.0 remains rejected, and fixed model/dimension validation is preserved. A real adapter request produced one query and one document vector of 1024 dimensions in the Owner's Ollama 0.40.0 environment. This is an embedding-only smoke, not full-stack acceptance."
       ]
     }
   ]

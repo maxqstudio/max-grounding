@@ -72,6 +72,14 @@
       "date": "2026-10-08",
       "decision": "Preserve the original immutable Phase 12A evidence-span selection BEFORE plan frozen at 835e502075d3a9ce54c0da910647dae06f2967f0, explicitly classify its impossible direct SOURCE edges as PLAN_CHANGE, and freeze a corrective source-verifiable topology plan at 0a0fe3c560947761036ec2069f46edccb2b91c72. The corrective freeze applies only to subsequent acceptance work, not retroactively to initial implementation.",
       "rationale": "The original static sequence declared direct call edges from an external consumer and between operations actually orchestrated through GroundingService, which the source AST cannot truthfully prove. Preserve the historical plan and source/test evidence, verify true direct calls separately from documented behavioral contracts, and never add artificial call sites to force PASS."
+    },
+    {
+      "id": "DEC-0010",
+      "title": "Admit real-tested Ollama 0.40.0 without weakening embedding identity",
+      "status": "ACCEPTED",
+      "date": "2026-10-08",
+      "decision": "Keep historical Phase 11 Ollama 0.34.0 acceptance evidence immutable while extending the Phase 12A embedding adapter to explicitly allow only 0.34.0, 0.35.1, and 0.40.0 runtime versions. Reject unknown versions; continue to require pinned qwen3-embedding:0.6b, no truncation, exact 1024-dimensional finite vectors, bounded HTTP and no redirects. Record the actual detected runtime version.",
+      "rationale": "The Owner's Ollama 0.40.0 produced real query/document 1024-dimensional embeddings on October 8, 2026. A previously hard-pinned 0.35.1 candidate prevented an otherwise valid local deployment. TDD RED/GREEN verifies explicit compatibility and unknown-version failure; real-stack search, Qdrant, and Run 006 remain NOT_PROVEN."
     }
   ]
 }

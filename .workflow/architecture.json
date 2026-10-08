@@ -267,7 +267,7 @@
     {
       "id": "ollama-embedding-runtime",
       "name": "Concrete Ollama Embedding Runtime",
-      "purpose": "Call pinned Ollama 0.34.0 through bounded stdlib HTTP and validate qwen3-embedding:0.6b output as exactly 1024-dimensional finite vectors.",
+      "purpose": "Use bounded stdlib HTTP to call qwen3-embedding:0.6b through an explicit Ollama runtime compatibility set (0.34.0, 0.35.1, 0.40.0); validate exact model identity and 1024 finite dimensions.",
       "owns": [
         "OllamaEmbeddingProvider",
         "runtime version check",
@@ -679,7 +679,7 @@
     },
     {
       "name": "Ollama service",
-      "contract": "Phase 11 accepts exactly Ollama 0.34.0 with qwen3-embedding:0.6b through bounded non-redirecting stdlib HTTP. Query/document output must be exactly 1024 finite dimensions; model/runtime mismatch fails closed."
+      "contract": "Phase 11 acceptance historically proved Ollama 0.34.0 with qwen3-embedding:0.6b through bounded non-redirecting stdlib HTTP. Current Phase 12A compatibility explicitly admits Ollama 0.34.0, 0.35.1, and 0.40.0; unknown runtimes, model mismatch, and vectors not matching exact 1024 finite dimensions fail closed. A local 0.40.0 query/document smoke is narrow evidence, not full real-stack acceptance."
     },
     {
       "name": "Qdrant service",

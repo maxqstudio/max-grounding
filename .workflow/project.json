@@ -31,7 +31,7 @@
     "external_systems": [
       "GitHub Actions",
       "operator-configured SearXNG instance",
-      "Ollama v0.34.0",
+      "Ollama 0.34.0/0.35.1/0.40.0 compatibility allowlist",
       "qwen3-embedding:0.6b",
       "Qdrant v1.19.1",
       "authenticated REST service",
@@ -88,7 +88,7 @@
     {
       "name": "Ollama embedding adapter",
       "path": "src/max_grounding/providers/ollama_embedding.py",
-      "purpose": "pinned stdlib HTTP adapter for Ollama 0.34.0 and qwen3-embedding:0.6b with validated 1024-dimensional query/document embeddings"
+      "purpose": "bounded stdlib HTTP adapter for explicit Ollama 0.34.0, 0.35.1 and 0.40.0 runtimes with fixed qwen3-embedding:0.6b model and validated 1024-dimensional query/document embeddings"
     },
     {
       "name": "Qdrant vector store",
