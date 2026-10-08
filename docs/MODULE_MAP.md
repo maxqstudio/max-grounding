@@ -3,62 +3,67 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
+Source digest: 2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
 |---|---|---:|---|---|
-| integration/phase11_services.py | Python | 146 | integration | NO |
-| integration/phase12_e2e.py | Python | 259 | integration | NO |
+| integration/phase11_services.py | Python | 151 | integration | NO |
+| integration/phase12_e2e.py | Python | 284 | integration | NO |
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
-| src/max_grounding/api.py | Python | 345 | src/max_grounding | NO |
+| src/max_grounding/api.py | Python | 502 | src/max_grounding | NO |
 | src/max_grounding/budget.py | Python | 30 | src/max_grounding | NO |
 | src/max_grounding/engine.py | Python | 57 | src/max_grounding | NO |
-| src/max_grounding/errors.py | Python | 77 | src/max_grounding | NO |
+| src/max_grounding/errors.py | Python | 110 | src/max_grounding | NO |
 | src/max_grounding/evidence.py | Python | 97 | src/max_grounding | NO |
+| src/max_grounding/evidence_authority.py | Python | 1060 | src/max_grounding | NO |
 | src/max_grounding/evidence_graph.py | Python | 223 | src/max_grounding | NO |
-| src/max_grounding/fetcher.py | Python | 298 | src/max_grounding | NO |
+| src/max_grounding/fetcher.py | Python | 441 | src/max_grounding | NO |
 | src/max_grounding/hybrid.py | Python | 149 | src/max_grounding | NO |
-| src/max_grounding/mcp_server.py | Python | 115 | src/max_grounding | NO |
-| src/max_grounding/models.py | Python | 316 | src/max_grounding | NO |
+| src/max_grounding/mcp_server.py | Python | 554 | src/max_grounding | NO |
+| src/max_grounding/models.py | Python | 338 | src/max_grounding | NO |
 | src/max_grounding/network_policy.py | Python | 93 | src/max_grounding | NO |
 | src/max_grounding/persistent.py | Python | 317 | src/max_grounding | NO |
 | src/max_grounding/policy.py | Python | 51 | src/max_grounding | NO |
 | src/max_grounding/providers/__init__.py | Python | 6 | src/max_grounding/providers | NO |
 | src/max_grounding/providers/base.py | Python | 23 | src/max_grounding/providers | NO |
-| src/max_grounding/providers/ollama_embedding.py | Python | 246 | src/max_grounding/providers | NO |
-| src/max_grounding/providers/qdrant.py | Python | 453 | src/max_grounding/providers | NO |
-| src/max_grounding/providers/searxng.py | Python | 220 | src/max_grounding/providers | NO |
+| src/max_grounding/providers/ollama_embedding.py | Python | 258 | src/max_grounding/providers | NO |
+| src/max_grounding/providers/qdrant.py | Python | 454 | src/max_grounding/providers | NO |
+| src/max_grounding/providers/searxng.py | Python | 221 | src/max_grounding/providers | NO |
 | src/max_grounding/reranking.py | Python | 295 | src/max_grounding | NO |
 | src/max_grounding/retrieval.py | Python | 219 | src/max_grounding | NO |
 | src/max_grounding/semantic.py | Python | 285 | src/max_grounding | NO |
-| src/max_grounding/service.py | Python | 231 | src/max_grounding | NO |
+| src/max_grounding/service.py | Python | 440 | src/max_grounding | NO |
 | src/max_grounding/temporal.py | Python | 360 | src/max_grounding | NO |
 | src/max_grounding/verification.py | Python | 308 | src/max_grounding | NO |
 | src/max_grounding/wire.py | Python | 26 | src/max_grounding | NO |
-| tests/test_api.py | Python | 191 | tests | YES |
-| tests/test_bootstrap.py | Python | 24 | tests | YES |
+| tests/test_api.py | Python | 213 | tests | YES |
+| tests/test_bootstrap.py | Python | 26 | tests | YES |
 | tests/test_budget.py | Python | 25 | tests | YES |
 | tests/test_container_contract.py | Python | 30 | tests | YES |
 | tests/test_engine.py | Python | 118 | tests | YES |
 | tests/test_evidence.py | Python | 54 | tests | YES |
 | tests/test_evidence_graph.py | Python | 381 | tests | YES |
+| tests/test_evidence_spans.py | Python | 617 | tests | YES |
 | tests/test_hybrid.py | Python | 168 | tests | YES |
-| tests/test_mcp_server.py | Python | 123 | tests | YES |
+| tests/test_mcp_server.py | Python | 284 | tests | YES |
 | tests/test_network_policy.py | Python | 123 | tests | YES |
-| tests/test_ollama_embedding.py | Python | 118 | tests | YES |
+| tests/test_ollama_embedding.py | Python | 141 | tests | YES |
 | tests/test_persistent_semantic.py | Python | 284 | tests | YES |
+| tests/test_phase11_runtime_isolation.py | Python | 40 | tests | YES |
 | tests/test_phase12_dependencies.py | Python | 19 | tests | YES |
 | tests/test_policy.py | Python | 47 | tests | YES |
+| tests/test_project_source_boundary.py | Python | 70 | tests | YES |
 | tests/test_qdrant_store.py | Python | 284 | tests | YES |
 | tests/test_reranking.py | Python | 279 | tests | YES |
 | tests/test_retrieval.py | Python | 181 | tests | YES |
 | tests/test_searxng_provider.py | Python | 206 | tests | YES |
-| tests/test_secure_fetcher.py | Python | 216 | tests | YES |
+| tests/test_secure_fetcher.py | Python | 411 | tests | YES |
 | tests/test_semantic_retrieval.py | Python | 292 | tests | YES |
-| tests/test_service.py | Python | 222 | tests | YES |
+| tests/test_service.py | Python | 245 | tests | YES |
 | tests/test_service_security.py | Python | 50 | tests | YES |
 | tests/test_temporal_scoring.py | Python | 346 | tests | YES |
 | tests/test_verification.py | Python | 442 | tests | YES |
+| tests/test_verified_output.py | Python | 1149 | tests | YES |
 
 Machine-derived facts do not invent semantic ownership.

@@ -8,10 +8,15 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
+from .. import __version__
 from ..errors import EmbeddingProviderError, RuntimeProviderError
 from ..semantic import MAX_EMBEDDING_BATCH, _validated_vector
 
-OLLAMA_VERSION = "0.34.0"
+OLLAMA_VERSION = "0.35.1"
+# Maintain the accepted model/dimension contract; only versions with explicit
+# compatibility evidence are admitted. 0.40.0 was exercised with real local
+# qwen3-embedding:0.6b inference on October 8, 2026.
+OLLAMA_COMPATIBLE_VERSIONS = frozenset({"0.34.0", OLLAMA_VERSION, "0.40.0"})
 OLLAMA_MODEL = "qwen3-embedding:0.6b"
 OLLAMA_EMBEDDING_DIMENSION = 1024
 QUERY_INSTRUCTION = (
@@ -78,7 +83,7 @@ def request_ollama_json(
     headers = {
         "Accept": "application/json",
         "Accept-Encoding": "identity",
-        "User-Agent": "max-grounding/0.0.1",
+        "User-Agent": f"max-grounding/{__version__}",
     }
     if payload is not None:
         body = json.dumps(payload, separators=(",", ":")).encode("utf-8")
@@ -152,6 +157,7 @@ class OllamaEmbeddingProvider:
         self._timeout_seconds = float(timeout_seconds)
         self._max_response_bytes = int(max_response_bytes)
         self._runtime_verified = False
+        self.detected_runtime_version: str | None = None
 
     def verify_runtime(self) -> None:
         if self._runtime_verified:
@@ -163,10 +169,16 @@ class OllamaEmbeddingProvider:
             timeout_seconds=self._timeout_seconds,
             max_response_bytes=self._max_response_bytes,
         )
-        if payload.get("version") != OLLAMA_VERSION:
+        runtime_version = payload.get("version")
+        if (
+            not isinstance(runtime_version, str)
+            or runtime_version not in OLLAMA_COMPATIBLE_VERSIONS
+        ):
             raise RuntimeProviderError(
-                f"Ollama runtime must be exactly {OLLAMA_VERSION}"
+                "Ollama runtime is not in the explicitly verified compatibility set"
             )
+        self.detected_runtime_version = runtime_version
+        self.runtime_version = runtime_version
         self._runtime_verified = True
 
     def _embed(

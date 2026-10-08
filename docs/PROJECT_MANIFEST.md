@@ -10,10 +10,10 @@ Governance profile: strict
 
 ## Repositories
 Repository: maxqstudio/max-grounding
-Active branch: main
+Active branch: work/phase12a-production-grounding-hardening
 Current authoritative SHA: external final acceptance evidence
-Last accepted SHA: a858cf2117412f42c2784ca31440f3b459416283
-Current source digest: 3959543a3702de284923478b1b2b7c53d6cf556ad57700bb1e89fa1341e06390
+Last accepted SHA: 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f
+Current source digest: 2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.
@@ -27,7 +27,7 @@ Historical/reference authority: see SOURCE_AUTHORITY_MAP.md
 Languages: Python
 Frameworks: Python standard library, FastAPI 0.141.1, Uvicorn 0.54.0, MCP Python SDK 2.2.0
 Persistence: Qdrant 1.19.1 persistent vector index
-External systems: GitHub Actions, operator-configured SearXNG instance, Ollama v0.34.0, qwen3-embedding:0.6b, Qdrant v1.19.1, authenticated REST service, authenticated MCP Streamable HTTP service, Docker/OCI linux/amd64 and linux/arm64 production image
+External systems: GitHub Actions, operator-configured SearXNG instance, Ollama 0.34.0/0.35.1/0.40.0 compatibility allowlist, qwen3-embedding:0.6b, Qdrant v1.19.1, authenticated REST service, authenticated MCP Streamable HTTP service, Docker/OCI linux/amd64 and linux/arm64 production image
 
 ## Entry points
 
@@ -42,12 +42,12 @@ External systems: GitHub Actions, operator-configured SearXNG instance, Ollama v
 | Temporal authority scoring | src/max_grounding/temporal.py | validate explicit temporal/source metadata, obtain injected authority scores, and rank bounded evidence by deterministic freshness and point-in-time validity |
 | Evidence graph | src/max_grounding/evidence_graph.py | build bounded structured corroboration/contradiction relations and distinct-source evidence clusters without selecting truth |
 | Claim verification | src/max_grounding/verification.py | verify exact structured answer claims against the evidence graph, bind claim-level citations, compute a deterministic evidence-sufficiency index, and expose only supported claims for synthesis |
-| Ollama embedding adapter | src/max_grounding/providers/ollama_embedding.py | pinned stdlib HTTP adapter for Ollama 0.34.0 and qwen3-embedding:0.6b with validated 1024-dimensional query/document embeddings |
+| Ollama embedding adapter | src/max_grounding/providers/ollama_embedding.py | bounded stdlib HTTP adapter for explicit Ollama 0.34.0, 0.35.1 and 0.40.0 runtimes with fixed qwen3-embedding:0.6b model and validated 1024-dimensional query/document embeddings |
 | Qdrant vector store | src/max_grounding/providers/qdrant.py | pinned stdlib REST adapter for Qdrant 1.19.1 collection validation, provenance-bound upsert, and bounded vector query |
 | Persistent semantic retrieval | src/max_grounding/persistent.py | orchestrate deterministic chunking, concrete embedding, persistent indexing, and validated Qdrant semantic retrieval |
 | Production service facade | src/max_grounding/service.py | compose accepted search, secure fetch, Ollama embedding, and Qdrant persistence behind bounded production operations |
 | Production REST application | src/max_grounding/api.py | serve authenticated bounded REST operations plus public liveness and authenticated readiness |
-| Production MCP server | src/max_grounding/mcp_server.py | expose exactly four structured provenance-bearing evidence tools over authenticated Streamable HTTP |
+| Production MCP server | src/max_grounding/mcp_server.py | expose four structured retrieval tools and one deterministic verified-output tool over authenticated Streamable HTTP |
 | Production container | Dockerfile | run the production ASGI service as a non-root container on linux/amd64 and linux/arm64 |
 
 ## Critical directories

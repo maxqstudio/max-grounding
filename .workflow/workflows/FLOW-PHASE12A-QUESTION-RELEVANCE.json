@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PHASE12A-QUESTION-RELEVANCE",
+  "title": "Phase 12A question-to-evidence relevance and sufficiency authority",
+  "purpose": "Prevent literal but irrelevant, entity-mismatched, insufficient, stale, conflicted, or unauthorized evidence from being promoted as an answer through REST or MCP verification.",
+  "critical": true,
+  "entry_condition": "Authenticated verification receives bounded candidate claims, server-issued evidence references, and a structured request scope tied to the original user question.",
+  "authority": "The request scope defines requested answer coverage but is not factual evidence. MAX Grounding rechecks detectable hard constraints from the original question; fetched server-owned records, deterministic field relations, exact identifier binding, trusted injected source-authority policy, and temporal metadata alone determine factual eligibility.",
+  "states": [
+    "QUESTION_SCOPE_RECEIVED",
+    "QUESTION_SCOPE_COMPILED",
+    "EVIDENCE_REFERENCES_RESOLVED",
+    "CLAIMS_VERIFIED",
+    "QUESTION_RELEVANCE_ASSESSED",
+    "ANSWER_SUFFICIENCY_ASSESSED",
+    "PACKET_BUILT",
+    "ABSTAINED",
+    "REJECTED"
+  ],
+  "transitions": [
+    {
+      "from": "QUESTION_SCOPE_RECEIVED",
+      "to": "QUESTION_SCOPE_COMPILED",
+      "action": "validate the bounded scope against the original question and derive exact identifiers, explicit authority requirements, temporal requirements, quote intent, and required answer coverage"
+    },
+    {
+      "from": "QUESTION_SCOPE_RECEIVED",
+      "to": "REJECTED",
+      "action": "reject missing, malformed, ambiguous, internally inconsistent, or unbounded question scope"
+    },
+    {
+      "from": "QUESTION_SCOPE_COMPILED",
+      "to": "EVIDENCE_REFERENCES_RESOLVED",
+      "action": "resolve only unexpired server-issued evidence references"
+    },
+    {
+      "from": "EVIDENCE_REFERENCES_RESOLVED",
+      "to": "CLAIMS_VERIFIED",
+      "action": "build evidence assertions from fetched server-owned text and run deterministic field/value, exact-span, source-count, and contradiction checks"
+    },
+    {
+      "from": "CLAIMS_VERIFIED",
+      "to": "QUESTION_RELEVANCE_ASSESSED",
+      "action": "bind every proposed claim to a requested answer key and same-source subject or exact-identifier constraint; standalone extracts are not answers unless an exact quotation was requested"
+    },
+    {
+      "from": "QUESTION_RELEVANCE_ASSESSED",
+      "to": "ANSWER_SUFFICIENCY_ASSESSED",
+      "action": "require complete requested-field coverage, configured distinct-source minimums, trusted required source roles, temporal coverage, and no unresolved contradiction"
+    },
+    {
+      "from": "ANSWER_SUFFICIENCY_ASSESSED",
+      "to": "PACKET_BUILT",
+      "action": "expose synthesis claims only when the complete request scope is satisfied; preserve claim-level results and explicit question-level reason codes"
+    },
+    {
+      "from": "ANSWER_SUFFICIENCY_ASSESSED",
+      "to": "ABSTAINED",
+      "action": "return an insufficient-evidence assessment with an empty synthesis_claims collection when relevance, identity, authority, freshness, coverage, or sufficiency is not proven"
+    }
+  ],
+  "invariants": [
+    "Question text and requested answer keys define scope only; they never establish factual support.",
+    "The server derives detectable exact identifiers and explicit authority/temporal/quote requirements from the question and rejects a scope contract that omits or contradicts them.",
+    "Exact identifiers are compared as complete normalized tokens and are bound to the same canonical source as every dependent product claim; prefixes and partial identifiers never satisfy a full identifier.",
+    "A claim key outside the requested answer scope is excluded from synthesis even when its literal text exists in a fetched source.",
+    "EXACT_EVIDENCE or EXTRACTIVE_STATEMENT cannot satisfy a factual answer field unless the original question explicitly requests an exact quotation and the request scope identifies that answer mode.",
+    "Required source authority is determined only by a trusted server-injected policy; caller-supplied roles, domain appearance, media type, model judgment, and vector similarity cannot establish authority.",
+    "An absent authority policy or unknown source role fails closed when authority is required.",
+    "Freshness-sensitive questions require server-owned temporal metadata sufficient to establish the requested date or horizon; unknown dates fail closed.",
+    "All required answer fields must be supported, entity-bound, source-bound, and non-conflicted before any answer claim is synthesis-safe.",
+    "No LLM judge, embedding similarity, keyword overlap, or citation-text equality is treated as independent semantic or factual authority.",
+    "Existing authentication, source-reference, SSRF, redirect, DNS, payload-size, persistence, and bounded-retry protections remain unchanged."
+  ],
+  "failure_behavior": [
+    "Missing or malformed question scope fails request validation with no authoritative packet.",
+    "Unrequested or irrelevant claims remain excluded from synthesis even when their citation text is exact.",
+    "Unbound exact identifiers, prefix-only matches, missing subject bindings, missing required authority roles, unknown temporal metadata, incomplete required fields, insufficient distinct sources, and conflicts produce an insufficient question assessment and no synthesis claims.",
+    "Provider failures remain provider failures and are never relabeled as insufficient grounding or retried without an explicit bounded retry policy."
+  ],
+  "observability": [
+    "Return bounded machine-readable question-level reason codes without exposing raw fetched content or internal provider exception text.",
+    "Retain the existing per-claim verification states and canonical citations separately from question-level sufficiency.",
+    "Record claim-key coverage, identifier-binding outcome, authority-policy availability, temporal-evidence outcome, distinct-source count, and final sufficiency status in sanitized acceptance evidence."
+  ],
+  "rollback_behavior": [
+    "The change is read-only with respect to fetched and persistent evidence. Rollback reverts the versioned verification-contract changes and restores the previous API shape only in a new candidate; it does not alter benchmark packages, historical run evidence, or indexed source data."
+  ],
+  "source_owners": [
+    "src/max_grounding/api.py::verify_endpoint",
+    "src/max_grounding/mcp_server.py::mcp_verify_claims",
+    "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+    "src/max_grounding/question_relevance.py::compile_question_contract",
+    "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+    "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph",
+    "src/max_grounding/verification.py::build_synthesis_packet"
+  ],
+  "tests": [
+    "tests/test_question_relevance.py",
+    "tests/test_verified_output.py",
+    "tests/test_api.py",
+    "tests/test_mcp_server.py",
+    "tests/test_service_security.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-12a-question-relevance.json"
+}

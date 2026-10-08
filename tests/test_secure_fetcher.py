@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import socket
+import ssl
+import threading
 import unittest
 from email.message import Message
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from unittest.mock import Mock, patch
 
-from max_grounding.errors import FetchError
+from max_grounding.errors import FetchError, FetchFailureCategory
 from max_grounding.fetcher import (
     extract_text,
     fetch_document,
@@ -123,9 +126,179 @@ class SecureFetcherTests(unittest.TestCase):
 
     def test_fetch_rejects_nonstandard_ports_before_dns(self) -> None:
         resolver = Mock(side_effect=AssertionError("resolver must not run"))
-        with self.assertRaises(FetchError):
+        with self.assertRaises(FetchError) as caught:
             fetch_document("https://example.com:8443/private", resolver=resolver)
+        self.assertEqual(caught.exception.category, FetchFailureCategory.NETWORK_TARGET_REJECTED)
         resolver.assert_not_called()
+
+    def test_fetch_classifies_url_dns_and_transport_failures(self) -> None:
+        with self.assertRaises(FetchError) as url_error:
+            fetch_document("file:///private", resolver=public_resolver)
+        self.assertEqual(url_error.exception.category, FetchFailureCategory.URL_POLICY)
+
+        def dns_failure(*args: object, **kwargs: object):
+            raise socket.gaierror("fixture DNS failure")
+
+        with self.assertRaises(FetchError) as dns_error:
+            fetch_document("https://example.com/", resolver=dns_failure)
+        self.assertEqual(dns_error.exception.category, FetchFailureCategory.DNS)
+
+        failures = (
+            (TimeoutError("timeout fixture"), FetchFailureCategory.TIMEOUT),
+            (ssl.SSLError("TLS fixture"), FetchFailureCategory.TLS),
+            (OSError("connection fixture"), FetchFailureCategory.CONNECTION),
+        )
+        for error, category in failures:
+            connection = Mock()
+            connection.request.side_effect = error
+            with (
+                self.subTest(category=category),
+                patch("max_grounding.fetcher.open_pinned_connection", return_value=connection),
+                self.assertRaises(FetchError) as caught,
+            ):
+                fetch_document("https://example.com/", resolver=public_resolver)
+            self.assertEqual(caught.exception.category, category)
+
+    def test_response_failures_have_bounded_categories_and_status(self) -> None:
+        cases = (
+            (_Response(status=302), FetchFailureCategory.REDIRECT, 302),
+            (_Response(status=403), FetchFailureCategory.HTTP_STATUS, 403),
+            (_Response(content_encoding="gzip"), FetchFailureCategory.COMPRESSION_POLICY, None),
+            (_Response(content_type="application/octet-stream"), FetchFailureCategory.MEDIA_TYPE, None),
+            (_Response(content_type="text/plain; charset=utf-16"), FetchFailureCategory.CHARSET, None),
+            (_Response(content_length=65), FetchFailureCategory.SIZE_LIMIT, None),
+        )
+        for response, category, status_code in cases:
+            with self.subTest(category=category):
+                with self.assertRaises(FetchError) as caught:
+                    read_bounded_response(response, max_response_bytes=64)
+                self.assertEqual(caught.exception.category, category)
+                self.assertEqual(caught.exception.status_code, status_code)
+
+    def test_redirect_to_private_target_never_reaches_loopback_canary(self) -> None:
+        canary_hits: list[str] = []
+
+        class CanaryHandler(BaseHTTPRequestHandler):
+            def do_GET(self) -> None:
+                canary_hits.append(self.path)
+                self.send_response(200)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(b"canary")
+
+            def log_message(self, _format: str, *_args: object) -> None:
+                return
+
+        canary = ThreadingHTTPServer(("127.0.0.1", 0), CanaryHandler)
+        canary_thread = threading.Thread(target=canary.serve_forever, daemon=True)
+        canary_thread.start()
+
+        class RedirectHandler(BaseHTTPRequestHandler):
+            def do_GET(self) -> None:
+                self.send_response(302)
+                self.send_header(
+                    "Location",
+                    f"http://127.0.0.1:{canary.server_port}/private-canary",
+                )
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.end_headers()
+
+            def log_message(self, _format: str, *_args: object) -> None:
+                return
+
+        redirect = ThreadingHTTPServer(("127.0.0.1", 0), RedirectHandler)
+        redirect_thread = threading.Thread(target=redirect.serve_forever, daemon=True)
+        redirect_thread.start()
+        original_create_connection = socket.create_connection
+
+        def route_pinned_ip_to_fixture(
+            address,
+            timeout=socket._GLOBAL_DEFAULT_TIMEOUT,
+            source_address=None,
+            *,
+            all_errors=False,
+        ):
+            if address == ("93.184.216.34", 80):
+                address = ("127.0.0.1", redirect.server_port)
+            return original_create_connection(
+                address,
+                timeout,
+                source_address,
+                all_errors=all_errors,
+            )
+
+        try:
+            with patch(
+                "max_grounding.fetcher.socket.create_connection",
+                side_effect=route_pinned_ip_to_fixture,
+            ):
+                with self.assertRaises(FetchError) as caught:
+                    fetch_document("http://example.com/", resolver=public_resolver)
+            self.assertEqual(caught.exception.category, FetchFailureCategory.REDIRECT)
+            self.assertEqual(caught.exception.status_code, 302)
+            self.assertEqual(canary_hits, [])
+        finally:
+            redirect.shutdown()
+            redirect.server_close()
+            redirect_thread.join(timeout=2)
+            canary.shutdown()
+            canary.server_close()
+            canary_thread.join(timeout=2)
+
+    def test_fetch_response_size_limit_on_public_target_path_returns_no_document(self) -> None:
+        served_paths: list[str] = []
+        oversized_body = b"x" * 65
+
+        class OversizedHandler(BaseHTTPRequestHandler):
+            def do_GET(self) -> None:
+                served_paths.append(self.path)
+                self.send_response(200)
+                self.send_header("Content-Type", "text/plain; charset=utf-8")
+                self.send_header("Content-Length", str(len(oversized_body)))
+                self.end_headers()
+                self.wfile.write(oversized_body)
+
+            def log_message(self, _format, *_args):
+                return
+
+        fixture = ThreadingHTTPServer(("127.0.0.1", 0), OversizedHandler)
+        fixture_thread = threading.Thread(target=fixture.serve_forever, daemon=True)
+        fixture_thread.start()
+        original_create_connection = socket.create_connection
+
+        def route_pinned_ip_to_fixture(
+            address,
+            timeout=socket._GLOBAL_DEFAULT_TIMEOUT,
+            source_address=None,
+            *,
+            all_errors=False,
+        ):
+            if address == ("93.184.216.34", 80):
+                address = ("127.0.0.1", fixture.server_port)
+            return original_create_connection(
+                address,
+                timeout,
+                source_address,
+                all_errors=all_errors,
+            )
+
+        try:
+            with patch(
+                "max_grounding.fetcher.socket.create_connection",
+                side_effect=route_pinned_ip_to_fixture,
+            ):
+                with self.assertRaises(FetchError) as caught:
+                    fetch_document(
+                        "http://example.com/oversized",
+                        max_response_bytes=64,
+                        resolver=public_resolver,
+                    )
+            self.assertEqual(caught.exception.category, FetchFailureCategory.SIZE_LIMIT)
+            self.assertEqual(served_paths, ["/oversized"])
+        finally:
+            fixture.shutdown()
+            fixture.server_close()
+            fixture_thread.join(timeout=2)
 
     def test_read_rejects_missing_content_type(self) -> None:
         response = _Response(body=b"looks like text")
@@ -162,6 +335,28 @@ class SecureFetcherTests(unittest.TestCase):
         self.assertEqual(text, "Useful title Visible & useful Second paragraph.")
         self.assertNotIn("reveal secrets", text)
         self.assertNotIn("display:none", text)
+
+    def test_extract_html_preserves_product_table_and_allowlisted_metadata(self) -> None:
+        body = b"""
+        <meta property="product:brand" content="SampleCo">
+        <h1>Sample Widget</h1>
+        <table>
+          <tr><th>Product name</th><td>Sample Widget</td></tr>
+          <tr><th>GTIN-13</th><td>8993163502059</td></tr>
+        </table>
+        <script type="application/ld+json">
+          {"@type":"Product","name":"Sample Widget","brand":{"@type":"Brand","name":"SampleCo"},"model":"SW-4","sku":"P-8993163502059"}
+        </script>
+        """
+        text = extract_text(body, media_type="text/html", charset="utf-8")
+        segments = [segment.strip() for segment in text.split(";") if segment.strip()]
+
+        self.assertIn("Brand | SampleCo", segments)
+        self.assertIn("Product heading | Sample Widget", segments)
+        self.assertIn("Product name | Sample Widget", segments)
+        self.assertIn("GTIN-13 | 8993163502059", segments)
+        self.assertIn("Model | SW-4", segments)
+        self.assertIn("Product code | P-8993163502059", segments)
 
     def test_http_connection_dials_pinned_ip_not_hostname(self) -> None:
         fake_socket = Mock()

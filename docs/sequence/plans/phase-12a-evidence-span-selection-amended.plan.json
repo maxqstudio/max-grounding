@@ -1,0 +1,309 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PHASE12A-EVIDENCE-SPAN-TOPOLOGY-AMENDMENT",
+  "title": "Phase 12A corrective source-callgraph freeze for server owned evidence verification",
+  "status": "FROZEN",
+  "amendment": {
+    "classification": "PLAN_CHANGE",
+    "reason": "Original frozen plan incorrectly asserted direct Python SOURCE edges between an external actor, REST service boundaries and sequential operations performed by one orchestrator. Existing graph extractor verifies direct calls only; inventing edges or no-op calls would weaken source truth.",
+    "original_plan_path": "docs/sequence/plans/phase-12a-evidence-span-selection.plan.json",
+    "original_frozen_commit": "835e502075d3a9ce54c0da910647dae06f2967f0",
+    "original_sha256": "fec56eef4c3fae327f265065897e2559d9a8452c7bf915d1cfdcea7729928a98",
+    "scope": "Correct the source-verifiable topology only. Preserve prior source, TDD RED, corpus, and failed acceptance history. This corrective freeze precedes subsequent safety acceptance work, not initial code implementation.",
+    "acceptance": "All SOURCE edges are actual direct call/HTTP decorator edges; DOCUMENT edges require existing dedicated negative, REST and MCP tests; never treat DOCUMENT as source proof."
+  },
+  "nodes": [
+    {
+      "id": "consumer",
+      "label": "External caller (proposal only)",
+      "locator": "external actor outside code",
+      "kind": "actor"
+    },
+    {
+      "id": "route_fetch",
+      "label": "HTTP POST fetch",
+      "locator": "HTTP /v1/fetch",
+      "kind": "source"
+    },
+    {
+      "id": "fetch",
+      "label": "Authenticated fetch endpoint",
+      "locator": "src/max_grounding/api.py::fetch_endpoint",
+      "kind": "source"
+    },
+    {
+      "id": "fetch_service",
+      "label": "GroundingService.fetch_evidence",
+      "locator": "src/max_grounding/service.py::GroundingService.fetch_evidence",
+      "kind": "source"
+    },
+    {
+      "id": "issue",
+      "label": "EvidenceAuthority.issue",
+      "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.issue",
+      "kind": "source"
+    },
+    {
+      "id": "route_select",
+      "label": "HTTP POST evidence spans",
+      "locator": "HTTP /v1/evidence/spans",
+      "kind": "source"
+    },
+    {
+      "id": "select",
+      "label": "Authenticated span endpoint",
+      "locator": "src/max_grounding/api.py::select_evidence_spans_endpoint",
+      "kind": "source"
+    },
+    {
+      "id": "select_service",
+      "label": "GroundingService.select_evidence_spans",
+      "locator": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
+      "kind": "source"
+    },
+    {
+      "id": "select_authority",
+      "label": "EvidenceAuthority.select_spans",
+      "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.select_spans",
+      "kind": "source"
+    },
+    {
+      "id": "route_verify",
+      "label": "HTTP POST verify",
+      "locator": "HTTP /v1/verify",
+      "kind": "source"
+    },
+    {
+      "id": "verify",
+      "label": "Authenticated verify endpoint",
+      "locator": "src/max_grounding/api.py::verify_endpoint",
+      "kind": "source"
+    },
+    {
+      "id": "verify_service",
+      "label": "GroundingService.verify_candidate_claims",
+      "locator": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "kind": "source"
+    },
+    {
+      "id": "resolve_spans",
+      "label": "EvidenceAuthority.resolve_spans",
+      "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve_spans",
+      "kind": "source"
+    },
+    {
+      "id": "graph",
+      "label": "build_server_owned_evidence_graph",
+      "locator": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph",
+      "kind": "source"
+    },
+    {
+      "id": "core_graph",
+      "label": "build_evidence_graph",
+      "locator": "src/max_grounding/evidence_graph.py::build_evidence_graph",
+      "kind": "source"
+    },
+    {
+      "id": "packet",
+      "label": "build_synthesis_packet",
+      "locator": "src/max_grounding/verification.py::build_synthesis_packet",
+      "kind": "source"
+    },
+    {
+      "id": "core_verify",
+      "label": "verify_claims",
+      "locator": "src/max_grounding/verification.py::verify_claims",
+      "kind": "source"
+    },
+    {
+      "id": "canonical",
+      "label": "build_authoritative_verification_packet",
+      "locator": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet",
+      "kind": "source"
+    },
+    {
+      "id": "packet_object",
+      "label": "SynthesisPacket type",
+      "locator": "src/max_grounding/models.py::SynthesisPacket",
+      "kind": "source"
+    },
+    {
+      "id": "network_fetch",
+      "label": "Network fetch_document (forbidden during claim verification)",
+      "locator": "src/max_grounding/fetcher.py::fetch_document",
+      "kind": "source"
+    }
+  ],
+  "edges": [
+    {
+      "from": "route_fetch",
+      "to": "fetch",
+      "action": "HTTP route binds to authenticated handler",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "fetch",
+      "to": "fetch_service",
+      "action": "Delegate safe fetch to service",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "fetch_service",
+      "to": "issue",
+      "action": "Issue server owned evidence reference",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "route_select",
+      "to": "select",
+      "action": "HTTP span route binds to handler",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "select",
+      "to": "select_service",
+      "action": "Delegate to bounded span service",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "route_verify",
+      "to": "verify",
+      "action": "HTTP verification route binds to handler",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "verify",
+      "to": "verify_service",
+      "action": "Delegate claims to verification service",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "verify_service",
+      "to": "resolve_spans",
+      "action": "Resolve only server issued unexpired spans",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "verify_service",
+      "to": "graph",
+      "action": "Construct scoped evidence graph",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "verify_service",
+      "to": "packet",
+      "action": "Run deterministic claim verification",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "verify_service",
+      "to": "canonical",
+      "action": "Canonically bind verification output",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "graph",
+      "to": "core_graph",
+      "action": "Construct verified evidence graph",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "packet",
+      "to": "core_verify",
+      "action": "Verify claims against evidence graph",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "canonical",
+      "to": "packet_object",
+      "action": "Emit authoritative synthesis packet",
+      "verification": "SOURCE",
+      "requirement": "MUST"
+    },
+    {
+      "from": "verify_service",
+      "to": "network_fetch",
+      "action": "Never request arbitrary network fetches during claim verification",
+      "verification": "SOURCE",
+      "requirement": "MUST_NOT"
+    },
+    {
+      "from": "consumer",
+      "to": "route_fetch",
+      "action": "Submit only a public URL to the secured fetch boundary",
+      "verification": "DOCUMENT",
+      "requirement": "MUST"
+    },
+    {
+      "from": "consumer",
+      "to": "route_select",
+      "action": "Supply a server-issued evidence_ref and bounded query",
+      "verification": "DOCUMENT",
+      "requirement": "MUST"
+    },
+    {
+      "from": "select_service",
+      "to": "select_authority",
+      "action": "Call the server-owned bounded selection authority; tested despite current static collector alias limit",
+      "verification": "DOCUMENT",
+      "requirement": "MUST"
+    },
+    {
+      "from": "consumer",
+      "to": "route_verify",
+      "action": "Submit server-owned span references only",
+      "verification": "DOCUMENT",
+      "requirement": "MUST"
+    },
+    {
+      "from": "resolve_spans",
+      "to": "graph",
+      "action": "Only selected resolved spans may enter graph construction; ordering proven behaviorally",
+      "verification": "DOCUMENT",
+      "requirement": "MUST"
+    },
+    {
+      "from": "graph",
+      "to": "packet",
+      "action": "Constrain support to exact field/value or extractive match",
+      "verification": "DOCUMENT",
+      "requirement": "MUST"
+    },
+    {
+      "from": "packet",
+      "to": "canonical",
+      "action": "Only supported claims appear in canonical synthesis, with independently resolvable citations",
+      "verification": "DOCUMENT",
+      "requirement": "MUST"
+    }
+  ],
+  "authority_invariants": [
+    "Only server-owned fetched evidence produces evidence_ref and evidence_span_ref; unknown/forged/expired/cross-process references fail closed.",
+    "Caller prose is a candidate only, never source identity, exact excerpt, support classification, or canonical citation.",
+    "STRUCTURED_FIELD support requires an actual labeled field/value relation and same-source barcode/product identity; EXTRACTIVE_STATEMENT requires one exact contiguous source span.",
+    "Source counts use canonical URLs, not the count of selected spans or quotes; each authoritative citation resolves to server-owned text and offsets.",
+    "Only SUPPORTED claims may enter synthesis_claims; blocked statuses remain excluded and consumer retries terminate within the accepted budget.",
+    "Verification does not accept caller-supplied URLs or fetch unrelated URLs; security and SSRF restrictions remain unchanged."
+  ],
+  "tests": [
+    "tests/test_api.py",
+    "tests/test_mcp_server.py",
+    "tests/test_evidence_spans.py",
+    "tests/test_verified_output.py",
+    "tests/test_secure_fetcher.py",
+    "tests/test_project_source_boundary.py"
+  ]
+}

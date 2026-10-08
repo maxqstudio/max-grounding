@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "max-grounding"
-version = "0.0.1"
+dynamic = ["version"]
 description = "Self-hostable evidence-first grounding engine for LLMs and agents."
 requires-python = ">=3.11"
 readme = "README.md"
@@ -32,3 +32,6 @@ PayPal = "https://paypal.me/JacksonJackson1501"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "max_grounding.__version__"}

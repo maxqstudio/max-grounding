@@ -125,11 +125,12 @@
     {
       "id": "secure-fetch",
       "name": "Secure Result Fetcher",
-      "purpose": "Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, bound response handling, and extract untrusted visible text.",
+      "purpose": "Fetch one admitted result page through a public-IP-pinned HTTP(S) connection, classify bounded secure-fetch failures internally, bound response handling, and extract untrusted visible text.",
       "owns": [
         "fetch_document",
         "public-IP-pinned HTTP(S) connection",
         "bounded response policy",
+        "secure-fetch failure taxonomy",
         "visible text extraction"
       ],
       "depends_on": [
@@ -266,7 +267,7 @@
     {
       "id": "ollama-embedding-runtime",
       "name": "Concrete Ollama Embedding Runtime",
-      "purpose": "Call pinned Ollama 0.34.0 through bounded stdlib HTTP and validate qwen3-embedding:0.6b output as exactly 1024-dimensional finite vectors.",
+      "purpose": "Use bounded stdlib HTTP to call qwen3-embedding:0.6b through an explicit Ollama runtime compatibility set (0.34.0, 0.35.1, 0.40.0); validate exact model identity and 1024 finite dimensions.",
       "owns": [
         "OllamaEmbeddingProvider",
         "runtime version check",
@@ -316,12 +317,13 @@
     {
       "id": "production-service",
       "name": "Production Service Facade",
-      "purpose": "Compose only accepted grounding/search/fetch/persistent-query capabilities behind bounded production operations.",
+      "purpose": "Compose accepted grounding, secure-fetch, deterministic verified-output, and persistent-query capabilities behind bounded production operations.",
       "owns": [
         "ProductionSettings",
         "GroundingService",
         "build_production_runtime",
-        "readiness"
+        "readiness",
+        "verify_candidate_claims"
       ],
       "depends_on": [
         "engine",
@@ -335,7 +337,7 @@
     {
       "id": "production-rest",
       "name": "Authenticated REST Boundary",
-      "purpose": "Expose health/readiness plus four bounded REST evidence operations with API-key auth, body caps, and fail-closed error serialization.",
+      "purpose": "Expose health/readiness plus five bounded REST operations, including server-owned deterministic verification, with API-key auth, body caps, and fail-closed error serialization.",
       "owns": [
         "create_rest_app",
         "ProductionSecurityMiddleware",
@@ -344,7 +346,8 @@
         "/v1/search",
         "/v1/fetch",
         "/v1/index",
-        "/v1/query"
+        "/v1/query",
+        "/v1/verify"
       ],
       "depends_on": [
         "production-service"
@@ -353,13 +356,14 @@
     {
       "id": "production-mcp",
       "name": "Authenticated MCP Boundary",
-      "purpose": "Expose exactly four structured evidence tools through MCP Streamable HTTP under the parent authentication and transport-security boundary.",
+      "purpose": "Expose four structured retrieval tools and one deterministic server-verified output tool through MCP Streamable HTTP under the parent authentication and transport-security boundary.",
       "owns": [
         "create_mcp_server",
         "search_web",
         "fetch_evidence",
         "index_evidence",
-        "query_evidence"
+        "query_evidence",
+        "verify_claims"
       ],
       "depends_on": [
         "production-service",
@@ -380,6 +384,49 @@
         "production-rest",
         "production-mcp"
       ]
+    },
+    {
+      "id": "question-relevance",
+      "name": "Question Relevance and Answer Sufficiency Authority",
+      "purpose": "Compile bounded original-question scope, enforce deterministic subject/identifier and explicit authority/temporal constraints, and gate complete answers after per-claim verification.",
+      "owns": [
+        "compile_question_contract",
+        "exact question-scope constraints",
+        "question-to-claim answer-key alignment",
+        "same-source entity and exact-identifier relevance",
+        "injected source-role requirement checks",
+        "question-level completeness and abstention reason codes"
+      ],
+      "depends_on": [
+        "models",
+        "evidence-graph",
+        "claim-verification",
+        "temporal-authority"
+      ]
+    },
+    {
+      "id": "verified-output-boundary",
+      "name": "Server-Owned Verification and Citation Boundary",
+      "purpose": "Resolve only server-issued references to accepted fetched evidence, construct evidence assertions server-side, run deterministic claim verification plus question-level relevance/sufficiency authority, and emit canonical citations with explicit abstention.",
+      "owns": [
+        "server-issued evidence references",
+        "15-minute process-local evidence reference registry",
+        "evidence reference resolution",
+        "same-source exact barcode binding for product fields",
+        "bounded candidate claim binding",
+        "authoritative verification packet",
+        "canonical claim citations"
+      ],
+      "depends_on": [
+        "secure-fetch",
+        "evidence-graph",
+        "claim-verification",
+        "production-service",
+        "production-rest",
+        "production-mcp",
+        "question-relevance"
+      ],
+      "authority": "MAX Grounding-owned fetch/provenance plus deterministic Phase 10 verification; external LLM output remains proposal-only."
     }
   ],
   "data_flows": [
@@ -652,7 +699,7 @@
     },
     {
       "name": "Ollama service",
-      "contract": "Phase 11 accepts exactly Ollama 0.34.0 with qwen3-embedding:0.6b through bounded non-redirecting stdlib HTTP. Query/document output must be exactly 1024 finite dimensions; model/runtime mismatch fails closed."
+      "contract": "Phase 11 acceptance historically proved Ollama 0.34.0 with qwen3-embedding:0.6b through bounded non-redirecting stdlib HTTP. Current Phase 12A compatibility explicitly admits Ollama 0.34.0, 0.35.1, and 0.40.0; unknown runtimes, model mismatch, and vectors not matching exact 1024 finite dimensions fail closed. A local 0.40.0 query/document smoke is narrow evidence, not full real-stack acceptance."
     },
     {
       "name": "Qdrant service",

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "current_phase": "PHASE_12_PRODUCTION_API_MCP",
+  "current_phase": "PHASE_12A_PRODUCTION_GROUNDING_HARDENING",
   "phases": [
     {
       "id": "PHASE_00_GOVERNANCE_BASELINE",
@@ -117,13 +117,31 @@
     {
       "id": "PHASE_12_PRODUCTION_API_MCP",
       "title": "REST, MCP, multi-arch containers, E2E/security/load, and production acceptance",
-      "status": "CURRENT",
+      "status": "ACCEPTED",
       "objective": "Maintain the accepted Production V1 REST/MCP, multi-arch container, E2E/security/load-smoke baseline without weakening fail-closed, provenance, or cross-platform contracts.",
       "exit_criteria": [
         "Exact Phase 12 product pull-request head passed permanent Acceptance 13/13.",
         "Merged Phase 12 main passed permanent post-merge Acceptance 13/13.",
         "Production V1 closure is merged and revalidated on main.",
         "Optional Phase 13-16 work remains unpromoted unless explicitly authorized by the Owner."
+      ]
+    },
+    {
+      "id": "PHASE_12A_PRODUCTION_GROUNDING_HARDENING",
+      "title": "Verified production output, citation integrity, fail-closed consumer behavior, and fetch/security hardening",
+      "status": "CURRENT",
+      "objective": "Harden the accepted Production V1 REST/MCP boundary so server-owned retrieved evidence is deterministically bound to structured claims and canonical citations, unsupported claims remain blocked, consumer retries terminate safely, and fetch/security behavior is proven without weakening accepted protections.",
+      "exit_criteria": [
+        "A critical BEFORE sequence plan is frozen before implementation and validates against the final source graph.",
+        "TDD RED evidence proves the production verification boundary is absent before implementation.",
+        "REST /v1/verify and MCP verify_claims accept only server-owned fetched evidence references and return canonical citations.",
+        "Only SUPPORTED claims enter synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims are blocked.",
+        "Caller-fabricated evidence references, source URLs, chunks, excerpts, scores, or citations are rejected.",
+        "The original frozen Run 003 benchmark corpus is preserved unchanged in every Phase 12A acceptance attempt.",
+        "The latest Phase 12A repair candidate passes the current real-stack regression campaign; Run 004 and Run 005 remain recorded as historical failed acceptance evidence, and Run 006 is the next attempt rather than a replacement for either run.",
+        "All blocking verification, citation-integrity, fail-closed, security, and persistence gates pass on the exact candidate under review.",
+        "Sanitized evidence for every attempted acceptance run is preserved, and final passing acceptance evidence is pushed to maxqstudio/pretio-grounding-testing before closure.",
+        "Full local tests, STRICT governance, GitHub Actions Linux/Windows/macOS Python 3.11-3.14 matrix, and exact merged-main revalidation pass."
       ]
     },
     {

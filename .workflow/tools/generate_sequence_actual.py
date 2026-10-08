@@ -9,7 +9,7 @@ Coverage:
 
 This is static structural evidence, not perfect runtime truth. Dynamic dispatch,
 dependency injection, reflection, callbacks, framework magic, and unresolved
-cross-language calls can require runtime trace or semantic audit.
+cross-language calls remain NOT_PROVEN unless stronger evidence exists.
 """
 
 from __future__ import annotations
@@ -20,6 +20,15 @@ import re
 from collections import defaultdict, deque
 from pathlib import Path
 
+from analyzer_contract import (
+    AnalyzerResult,
+    DYNAMIC_BEHAVIOR_LIMITATIONS,
+    coverage_records,
+    generic_fallback,
+    result_by_id,
+    run_analyzers,
+)
+from project_snapshot import ProjectSnapshot
 from sequence_contract import compute_source_digest, git_head, render_graph_mermaid, write_json
 
 EXCLUDED = {
@@ -40,7 +49,7 @@ def call_name(node: ast.AST) -> str:
         return node.id
     if isinstance(node, ast.Attribute):
         left = call_name(node.value)
-        return f"{left}.{node.attr}" if left else node.attr
+        return f"{left}.{node.attr}" if left else ""
     return ""
 
 
@@ -218,10 +227,10 @@ def collect_js_http(root: Path) -> tuple[list[dict], list[dict]]:
 
         module_id = f"{rel}::<module>"
         matches: list[tuple[str, str]] = []
-        for m in FETCH_RE.finditer(text):
-            matches.append(("FETCH", m.group(2)))
-        for m in AXIOS_RE.finditer(text):
-            matches.append((m.group(1).upper(), m.group(3)))
+        for match in FETCH_RE.finditer(text):
+            matches.append(("FETCH", match.group(2)))
+        for match in AXIOS_RE.finditer(text):
+            matches.append((match.group(1).upper(), match.group(3)))
 
         if not matches:
             continue
@@ -259,6 +268,44 @@ def collect_js_http(root: Path) -> tuple[list[dict], list[dict]]:
     return nodes, edges
 
 
+class PythonSequenceAnalyzer:
+    analyzer_id = "python_sequence"
+    claimed_extensions = frozenset({".py"})
+
+    def analyze(self, root: Path, snapshot: ProjectSnapshot) -> AnalyzerResult:
+        nodes, edges, parse_failures = collect_python(root)
+        return AnalyzerResult(
+            analyzer_id=self.analyzer_id,
+            languages=("Python",),
+            claimed_extensions=tuple(sorted(self.claimed_extensions)),
+            semantic_level="python_ast_static",
+            sequence_nodes=nodes,
+            sequence_edges=edges,
+            parse_failures=parse_failures,
+            limitations=[*DYNAMIC_BEHAVIOR_LIMITATIONS],
+        )
+
+
+class JsTsHttpSequenceAnalyzer:
+    analyzer_id = "js_ts_http_sequence"
+    claimed_extensions = frozenset(JS_EXTS)
+
+    def analyze(self, root: Path, snapshot: ProjectSnapshot) -> AnalyzerResult:
+        nodes, edges = collect_js_http(root)
+        return AnalyzerResult(
+            analyzer_id=self.analyzer_id,
+            languages=("JavaScript", "TypeScript"),
+            claimed_extensions=tuple(sorted(self.claimed_extensions)),
+            semantic_level="http_module_static",
+            sequence_nodes=nodes,
+            sequence_edges=edges,
+            limitations=[
+                *DYNAMIC_BEHAVIOR_LIMITATIONS,
+                "JS/TS function-level call ownership is not fully resolved",
+            ],
+        )
+
+
 def dedupe_nodes(nodes: list[dict]) -> list[dict]:
     out: dict[str, dict] = {}
     for node in nodes:
@@ -294,60 +341,68 @@ def filter_reachable(nodes: list[dict], edges: list[dict], entries: list[str], d
         adjacency[str(edge["from"])].append(str(edge["to"]))
 
     keep = set(entries)
-    q = deque((entry, 0) for entry in entries)
-    while q:
-        node, d = q.popleft()
-        if d >= depth:
+    queue = deque((entry, 0) for entry in entries)
+    while queue:
+        node, current_depth = queue.popleft()
+        if current_depth >= depth:
             continue
         for nxt in adjacency.get(node, []):
             if nxt not in keep:
                 keep.add(nxt)
-                q.append((nxt, d + 1))
+                queue.append((nxt, current_depth + 1))
 
-    # Server-side HTTP route nodes are predecessors of handler entrypoints.
-    # Preserve those external predecessors after forward reachability so a
-    # frozen route plan can prove HTTP /path -> handler without declaring
-    # external route nodes as implementation entrypoints.
     changed = True
     while changed:
         changed = False
         for edge in edges:
             source = str(edge.get("from", ""))
             target = str(edge.get("to", ""))
-            if (
-                target in keep
-                and source.startswith("HTTP ")
-                and source not in keep
-            ):
+            if target in keep and source.startswith("HTTP ") and source not in keep:
                 keep.add(source)
                 changed = True
 
     return (
-        [n for n in nodes if n["id"] in keep],
-        [e for e in edges if e["from"] in keep and e["to"] in keep],
+        [node for node in nodes if node["id"] in keep],
+        [edge for edge in edges if edge["from"] in keep and edge["to"] in keep],
     )
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--root", default=".")
-    ap.add_argument("--output-json", required=True)
-    ap.add_argument("--output-mermaid", required=True)
-    ap.add_argument("--entry", action="append", default=[])
-    ap.add_argument("--max-depth", type=int, default=12)
-    args = ap.parse_args()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", default=".")
+    parser.add_argument("--output-json", required=True)
+    parser.add_argument("--output-mermaid", required=True)
+    parser.add_argument("--entry", action="append", default=[])
+    parser.add_argument("--max-depth", type=int, default=12)
+    args = parser.parse_args()
 
     root = Path(args.root).resolve()
     head = git_head(root)
     source_digest = compute_source_digest(root)
 
-    py_nodes, py_edges, py_failures = collect_python(root)
-    js_nodes, js_edges = collect_js_http(root)
+    analyzers = (PythonSequenceAnalyzer(), JsTsHttpSequenceAnalyzer())
+    snapshot, analyzer_results = run_analyzers(root, analyzers)
+    claimed_extensions = frozenset(
+        extension
+        for analyzer in analyzers
+        for extension in analyzer.claimed_extensions
+    )
+    fallback = generic_fallback(root, snapshot, claimed_extensions)
+    analyzer_results.append(fallback)
 
-    nodes = dedupe_nodes(py_nodes + js_nodes)
-    edges = dedupe_edges(py_edges + js_edges)
+    python_result = result_by_id(analyzer_results, "python_sequence")
+    nodes = dedupe_nodes([
+        node
+        for result in analyzer_results
+        for node in result.sequence_nodes
+    ])
+    edges = dedupe_edges([
+        edge
+        for result in analyzer_results
+        for edge in result.sequence_edges
+    ])
 
-    known_ids = {n["id"] for n in nodes}
+    known_ids = {node["id"] for node in nodes}
     missing_entries = [entry for entry in args.entry if entry not in known_ids]
     if missing_entries:
         for entry in missing_entries:
@@ -370,15 +425,14 @@ def main() -> int:
             "python_route_decorators": True,
             "js_ts_http_module_scan": True,
             "runtime_trace": False,
+            "dynamic_behavior": "NOT_PROVEN",
             "limitations": [
-                "dynamic dispatch",
-                "dependency injection",
-                "reflection",
-                "callbacks/events",
-                "framework magic not visible statically",
+                *DYNAMIC_BEHAVIOR_LIMITATIONS,
                 "JS/TS function-level call ownership is not fully resolved",
             ],
-            "python_parse_failures": py_failures,
+            "python_parse_failures": python_result.parse_failures,
+            "analyzers": coverage_records(analyzer_results),
+            "generic_fallback": fallback.coverage_record(),
         },
     }
 
@@ -404,7 +458,8 @@ def main() -> int:
     print(f"SOURCE_DIGEST={source_digest}")
     print(f"NODES={len(nodes)}")
     print(f"EDGES={len(edges)}")
-    print(f"PYTHON_PARSE_FAILURES={len(py_failures)}")
+    print(f"PYTHON_PARSE_FAILURES={len(python_result.parse_failures)}")
+    print(f"GENERIC_UNSUPPORTED_FILES={len(fallback.unsupported_files)}")
     print(f"ACTUAL_JSON={output_json}")
     print(f"ACTUAL_MERMAID={output_mermaid}")
     print("RESULT=PASS")

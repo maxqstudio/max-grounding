@@ -1,0 +1,23 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 4ed08f68d808aee66c3c0b54534f27fe4237fca5e4e5f6039a1853d81d0a0be8
+%% FLOW_ID: FLOW-PHASE12A-QUESTION-RELEVANCE
+sequenceDiagram
+    actor caller_0 as External consumer with original user question
+    participant rest_verify_1 as Authenticated REST verification
+    participant mcp_verify_2 as Structured MCP verification
+    participant service_3 as GroundingService verification orchestration
+    participant compile_scope_4 as Compile bounded question constraints
+    participant evidence_graph_5 as Build server-owned exact evidence graph
+    participant claim_packet_6 as Verify claims and build claim packet
+    participant sufficiency_7 as Assess question relevance and full answer sufficiency
+    participant canonical_8 as Emit canonical question-bound packet
+    caller_0->>rest_verify_1: Submit original question scope and bounded claims to authenticated REST [MUST]
+    caller_0->>mcp_verify_2: Submit the same original question scope and bounded claims to authenticated MCP [MUST]
+    rest_verify_1->>service_3: Delegate verification to GroundingService [MUST]
+    mcp_verify_2->>service_3: Delegate verification to GroundingService [MUST]
+    service_3->>compile_scope_4: Compile/validate explicit request constraints before evidence can be promoted [MUST]
+    service_3->>evidence_graph_5: Pass question-derived complete identifier constraints to evidence graph construction [MUST]
+    service_3->>claim_packet_6: Run deterministic per-claim support and contradiction verification [MUST]
+    service_3->>sufficiency_7: Gate requested-field relevance, subject binding, authority, freshness, source count, and complete coverage [MUST]
+    service_3->>canonical_8: Emit only a complete sufficient packet; otherwise emit abstention with no synthesis claims [MUST]
+    sufficiency_7->>canonical_8: Require complete scope satisfaction before synthesis eligibility [MUST]

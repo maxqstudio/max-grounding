@@ -50,10 +50,50 @@ def read(path: Path) -> str:
 
 
 def has_placeholder(text: str) -> bool:
-    # Generated provenance markers are HTML comments and must not be mistaken
-    # for angle-bracket placeholders.
+    # Generated provenance markers and the narrow HTML presentation vocabulary
+    # used by deterministic generated indexes are not template placeholders.
     visible = re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
+    visible = re.sub(
+        r"</?(?:details|summary|code)>",
+        "",
+        visible,
+        flags=re.IGNORECASE,
+    )
     return any(pattern.search(visible) for pattern in PLACEHOLDER_PATTERNS)
+
+
+def validate_symbol_index_shape(text: str) -> list[str]:
+    """Accept legacy or V2 presentation while failing malformed V2 structure."""
+    if "| File | Symbol |" in text:
+        return []
+
+    v2_markers = (
+        "## File summary",
+        "| File | Symbols | Classes | Functions | Methods |",
+        "## Detailed symbols",
+        "| Symbol | Kind | Lines@SHA |",
+    )
+    present = [marker in text for marker in v2_markers]
+    if not any(present):
+        return ["SYMBOL_INDEX_TABLE_MISSING"]
+
+    failures = [
+        "SYMBOL_INDEX_V2_STRUCTURE_MISSING:" + marker
+        for marker, found in zip(v2_markers, present)
+        if not found
+    ]
+    opened = len(re.findall(r"<details>", text, flags=re.IGNORECASE))
+    closed = len(re.findall(r"</details>", text, flags=re.IGNORECASE))
+    summaries = len(re.findall(r"<summary>", text, flags=re.IGNORECASE))
+    summary_closed = len(re.findall(r"</summary>", text, flags=re.IGNORECASE))
+    if opened != closed or opened != summaries or summaries != summary_closed:
+        failures.append(
+            "SYMBOL_INDEX_V2_DETAILS_UNBALANCED:"
+            + f"open={opened},close={closed},summary={summaries},summary_close={summary_closed}"
+        )
+    if opened == 0 and "_No Python symbols observed._" not in text:
+        failures.append("SYMBOL_INDEX_V2_DETAILS_MISSING")
+    return failures
 
 
 def main() -> int:
@@ -305,8 +345,7 @@ def main() -> int:
         text = read(symbol)
         if "Authority SHA:" not in text:
             failures.append("SYMBOL_INDEX_AUTHORITY_SHA_MISSING")
-        if "| File | Symbol |" not in text:
-            failures.append("SYMBOL_INDEX_TABLE_MISSING")
+        failures.extend(validate_symbol_index_shape(text))
 
     flow = docs_root / "FLOW_INDEX.md"
     if flow.is_file():

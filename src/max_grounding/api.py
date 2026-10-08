@@ -5,15 +5,25 @@ from __future__ import annotations
 import hmac
 import json
 from contextlib import asynccontextmanager
-from typing import Any
+from typing import Annotated, Any, Literal
 
 from fastapi import APIRouter, FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from mcp.server import MCPServer
 from mcp.server.transport_security import TransportSecuritySettings
 from pydantic import BaseModel, ConfigDict, Field
 from starlette.middleware.cors import CORSMiddleware
 
+from . import __version__
+from .evidence_authority import (
+    DEFAULT_REQUIRED_SOURCES,
+    MAX_EVIDENCE_REFERENCE_CHARS,
+    MAX_EVIDENCE_REFERENCES,
+    MAX_EVIDENCE_SPANS_PER_CLAIM,
+    MAX_EVIDENCE_SPANS_PER_SELECTION,
+    MAX_EVIDENCE_SPAN_QUERY_CHARS,
+)
 from .errors import GroundingError, InvalidGroundingRequest, ServiceOperationError
 from .mcp_server import create_mcp_server
 from .policy import MAX_QUERY_CHARACTERS, MAX_RESULTS_PER_CALL, MAX_SEARCH_CALLS
@@ -24,6 +34,12 @@ from .service import (
     GroundingService,
     ProductionSettings,
     build_production_runtime,
+)
+from .verification import (
+    MAX_ANSWER_CLAIMS,
+    MAX_CLAIM_KEY_CHARS,
+    MAX_CLAIM_VALUE_CHARS,
+    MAX_REQUIRED_SOURCES,
 )
 from .wire import to_wire
 
@@ -59,6 +75,114 @@ class QueryRequest(BaseModel):
 
     query: str = Field(min_length=1, max_length=MAX_QUERY_CHARACTERS)
     limit: int = Field(default=5, ge=1, le=MAX_RESULTS)
+
+
+EvidenceReference = Annotated[
+    str,
+    Field(
+        min_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        max_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        pattern=r"^ev_[A-Za-z0-9_-]{40}$",
+        description=(
+            "Use only the ev_-prefixed evidence_ref returned by this service's /v1/fetch; "
+            "source URLs are not evidence references."
+        ),
+    ),
+]
+
+
+EvidenceSpanReference = Annotated[
+    str,
+    Field(
+        min_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        max_length=MAX_EVIDENCE_REFERENCE_CHARS,
+        pattern=r"^sp_[A-Za-z0-9_-]{40}$",
+        description=(
+            "Use only an sp_-prefixed evidence_span_ref returned by this service's "
+            "/v1/evidence/spans endpoint; never provide caller-authored excerpts."
+        ),
+    ),
+]
+
+
+class CandidateClaimRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    claim_id: str | int | None = Field(
+        default=None,
+        description="Optional bookkeeping value; MAX Grounding generates the canonical claim ID.",
+    )
+    claim_key: str = Field(
+        min_length=1,
+        max_length=MAX_CLAIM_KEY_CHARS,
+        description=(
+            "Stable field name, never a field value or source excerpt. For product lookup use "
+            "keys such as barcode_binding, product_name, brand, product_type, and package_size. "
+            "Use exact_evidence only for a literal statement from fetched evidence."
+        ),
+    )
+    value: str = Field(
+        min_length=1,
+        max_length=MAX_CLAIM_VALUE_CHARS,
+        description=(
+            "One proposed value for claim_key, never the whole source excerpt. For example, "
+            "claim_key=brand and value=MONTISS. Values must be explicitly supported; "
+            "for exact_evidence, provide verbatim source text; semantic paraphrases are not accepted as evidence."
+        ),
+    )
+    verification_mode: Literal["STRUCTURED_FIELD", "EXTRACTIVE_STATEMENT"] | None = Field(
+        default=None,
+        description=(
+            "For span-scoped verification, this mode must be provided together with "
+            "a non-empty evidence_span_refs list on the same claim. Leave both absent "
+            "for legacy full-document structured-field verification."
+        ),
+    )
+    evidence_span_refs: tuple[EvidenceSpanReference, ...] = Field(
+        default=(),
+        max_length=MAX_EVIDENCE_SPANS_PER_CLAIM,
+        description=(
+            "Opaque evidence_span_ref values returned by this instance's "
+            "/v1/evidence/spans endpoint. When non-empty, provide verification_mode "
+            "on the same claim; every claim in a span-scoped request must include "
+            "both a mode and at least one span reference."
+        ),
+    )
+
+
+class EvidenceSpanSelectionRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    evidence_ref: EvidenceReference
+    query: str = Field(
+        min_length=1,
+        max_length=MAX_EVIDENCE_SPAN_QUERY_CHARS,
+    )
+    limit: int = Field(
+        default=4,
+        ge=1,
+        le=MAX_EVIDENCE_SPANS_PER_SELECTION,
+        strict=True,
+    )
+
+
+class VerifyRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    claims: tuple[CandidateClaimRequest, ...] = Field(
+        min_length=1,
+        max_length=MAX_ANSWER_CLAIMS,
+    )
+    evidence_refs: tuple[EvidenceReference, ...] = Field(
+        min_length=1,
+        max_length=MAX_EVIDENCE_REFERENCES,
+    )
+    required_sources: int = Field(
+        default=DEFAULT_REQUIRED_SOURCES,
+        ge=1,
+        le=MAX_REQUIRED_SOURCES,
+        strict=True,
+    )
 
 
 def _header_map(scope: dict[str, Any]) -> dict[bytes, bytes]:
@@ -214,6 +338,19 @@ def fetch_endpoint(payload: FetchRequest, request: Request):
     )
 
 
+@router.post("/v1/evidence/spans")
+def select_evidence_spans_endpoint(
+    payload: EvidenceSpanSelectionRequest,
+    request: Request,
+):
+    spans = request.app.state.grounding_service.select_evidence_spans(
+        payload.evidence_ref,
+        query=payload.query,
+        limit=payload.limit,
+    )
+    return {"spans": to_wire(spans)}
+
+
 @router.post("/v1/index")
 def index_endpoint(payload: IndexRequest, request: Request):
     return to_wire(
@@ -227,6 +364,18 @@ def query_endpoint(payload: QueryRequest, request: Request):
         request.app.state.grounding_service.query_evidence(
             payload.query,
             limit=payload.limit,
+        )
+    )
+
+
+@router.post("/v1/verify")
+def verify_endpoint(payload: VerifyRequest, request: Request):
+    claims = tuple(item.model_dump() for item in payload.claims)
+    return to_wire(
+        request.app.state.grounding_service.verify_candidate_claims(
+            claims,
+            evidence_refs=payload.evidence_refs,
+            required_sources=payload.required_sources,
         )
     )
 
@@ -275,7 +424,7 @@ def create_rest_app(
 
     app = FastAPI(
         title="MAX Grounding",
-        version="0.0.1",
+        version=__version__,
         docs_url=None,
         redoc_url=None,
         openapi_url=None,
@@ -312,6 +461,14 @@ def create_rest_app(
         api_key=api_key,
         max_body_bytes=MAX_REQUEST_BODY_BYTES,
     )
+
+    @app.exception_handler(RequestValidationError)
+    async def request_validation_handler(_request: Request, _exc: RequestValidationError):
+        return JSONResponse(
+            status_code=422,
+            content={"error": "invalid_request"},
+            headers={"Cache-Control": "no-store"},
+        )
 
     @app.exception_handler(InvalidGroundingRequest)
     async def invalid_request_handler(_request: Request, _exc: InvalidGroundingRequest):

@@ -1,0 +1,46 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: 718d4e0a16444be044b706ea643cf1f224452af326e932e7c271aaffc4352888
+%% FLOW_ID: FLOW-PHASE12A-EVIDENCE-SPAN-TOPOLOGY-AMENDMENT
+sequenceDiagram
+    actor consumer_0 as External caller (proposal only)
+    participant route_fetch_1 as HTTP POST fetch
+    participant fetch_2 as Authenticated fetch endpoint
+    participant fetch_service_3 as GroundingService.fetch_evidence
+    participant issue_4 as EvidenceAuthority.issue
+    participant route_select_5 as HTTP POST evidence spans
+    participant select_6 as Authenticated span endpoint
+    participant select_service_7 as GroundingService.select_evidence_spans
+    participant select_authority_8 as EvidenceAuthority.select_spans
+    participant route_verify_9 as HTTP POST verify
+    participant verify_10 as Authenticated verify endpoint
+    participant verify_service_11 as GroundingService.verify_candidate_claims
+    participant resolve_spans_12 as EvidenceAuthority.resolve_spans
+    participant graph_13 as build_server_owned_evidence_graph
+    participant core_graph_14 as build_evidence_graph
+    participant packet_15 as build_synthesis_packet
+    participant core_verify_16 as verify_claims
+    participant canonical_17 as build_authoritative_verification_packet
+    participant packet_object_18 as SynthesisPacket type
+    participant network_fetch_19 as Network fetch_document (forbidden during claim verification)
+    route_fetch_1->>fetch_2: HTTP route binds to authenticated handler [MUST]
+    fetch_2->>fetch_service_3: Delegate safe fetch to service [MUST]
+    fetch_service_3->>issue_4: Issue server owned evidence reference [MUST]
+    route_select_5->>select_6: HTTP span route binds to handler [MUST]
+    select_6->>select_service_7: Delegate to bounded span service [MUST]
+    route_verify_9->>verify_10: HTTP verification route binds to handler [MUST]
+    verify_10->>verify_service_11: Delegate claims to verification service [MUST]
+    verify_service_11->>resolve_spans_12: Resolve only server issued unexpired spans [MUST]
+    verify_service_11->>graph_13: Construct scoped evidence graph [MUST]
+    verify_service_11->>packet_15: Run deterministic claim verification [MUST]
+    verify_service_11->>canonical_17: Canonically bind verification output [MUST]
+    graph_13->>core_graph_14: Construct verified evidence graph [MUST]
+    packet_15->>core_verify_16: Verify claims against evidence graph [MUST]
+    canonical_17->>packet_object_18: Emit authoritative synthesis packet [MUST]
+    verify_service_11->>network_fetch_19: Never request arbitrary network fetches during claim verification [MUST_NOT]
+    consumer_0->>route_fetch_1: Submit only a public URL to the secured fetch boundary [MUST]
+    consumer_0->>route_select_5: Supply a server-issued evidence_ref and bounded query [MUST]
+    select_service_7->>select_authority_8: Call the server-owned bounded selection authority; tested despite current static collector alias limit [MUST]
+    consumer_0->>route_verify_9: Submit server-owned span references only [MUST]
+    resolve_spans_12->>graph_13: Only selected resolved spans may enter graph construction; ordering proven behaviorally [MUST]
+    graph_13->>packet_15: Constrain support to exact field/value or extractive match [MUST]
+    packet_15->>canonical_17: Only supported claims appear in canonical synthesis, with independently resolvable citations [MUST]
