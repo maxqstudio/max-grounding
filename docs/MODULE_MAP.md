@@ -3,13 +3,13 @@
 # MODULE MAP
 
 Authority SHA: external final acceptance evidence
-Source digest: f05bb52410b7581daa829248779b0ab611b293ebfd6d538e2c669ac3ad4403e0
+Source digest: 2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1
 Generated/refreshed: current compiler run
 
 | Module / File | Language | Lines | Directory | Test file |
 |---|---|---:|---|---|
-| integration/phase11_services.py | Python | 146 | integration | NO |
-| integration/phase12_e2e.py | Python | 283 | integration | NO |
+| integration/phase11_services.py | Python | 151 | integration | NO |
+| integration/phase12_e2e.py | Python | 284 | integration | NO |
 | src/max_grounding/__init__.py | Python | 15 | src/max_grounding | NO |
 | src/max_grounding/api.py | Python | 502 | src/max_grounding | NO |
 | src/max_grounding/budget.py | Python | 30 | src/max_grounding | NO |
@@ -50,6 +50,7 @@ Generated/refreshed: current compiler run
 | tests/test_network_policy.py | Python | 123 | tests | YES |
 | tests/test_ollama_embedding.py | Python | 141 | tests | YES |
 | tests/test_persistent_semantic.py | Python | 284 | tests | YES |
+| tests/test_phase11_runtime_isolation.py | Python | 40 | tests | YES |
 | tests/test_phase12_dependencies.py | Python | 19 | tests | YES |
 | tests/test_policy.py | Python | 47 | tests | YES |
 | tests/test_project_source_boundary.py | Python | 70 | tests | YES |

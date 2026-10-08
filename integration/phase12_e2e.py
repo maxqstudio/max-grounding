@@ -115,7 +115,7 @@ def _rest_probe(base_url: str) -> None:
         headers=auth,
         json={
             "claims": [{"claim_id": "fake", "claim_key": "name", "value": "Invented"}],
-            "evidence_refs": ["A" * 43],
+            "evidence_refs": ["ev_" + "A" * 40],
             "required_sources": 1,
         },
         timeout=10,
@@ -188,13 +188,14 @@ async def _mcp_probe(base_url: str) -> None:
                     "index_evidence",
                     "query_evidence",
                     "verify_claims",
+                    "select_evidence_spans",
                 }, names
 
                 invalid_verification = await session.call_tool(
                     "verify_claims",
                     {
                         "claims": [{"claim_id": "fake", "claim_key": "name", "value": "Invented"}],
-                        "evidence_refs": ["A" * 43],
+                        "evidence_refs": ["ev_" + "A" * 40],
                         "required_sources": 1,
                     },
                 )

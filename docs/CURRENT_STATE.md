@@ -18,7 +18,7 @@ Branch: work/phase12a-production-grounding-hardening
 Authoritative SHA: external final acceptance evidence
 Last accepted SHA: 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f
 Current candidate SHA: external final acceptance evidence
-Current source digest: f05bb52410b7581daa829248779b0ab611b293ebfd6d538e2c669ac3ad4403e0
+Current source digest: 2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1
 
 ## Runtime
 Environment: see SOURCE_AUTHORITY_MAP.md and RUNBOOK.md
@@ -71,6 +71,8 @@ SEQUENCE_SYNC: NOT_PROVEN
 - The original Phase 12A evidence-span BEFORE plan frozen at 835e502075d3a9ce54c0da910647dae06f2967f0 is preserved as historical evidence. DEC-0009 classifies invalid direct SOURCE edges as PLAN_CHANGE; amended source-topology plan was separately frozen at 0a0fe3c560947761036ec2069f46edccb2b91c72 before subsequent acceptance work, not before original implementation.
 - Isolated October 8 PC implementation checkpoint passed 216 local unit tests, Python compile, and 19/19 static sequence sessions; this proves neither a real-stack Run 006 PASS nor a final Phase 12A closure.
 - The owner's Ollama 0.40.0 successfully produced real query and document embeddings with qwen3-embedding:0.6b and exactly 1024 finite dimensions; DEC-0010 records a fail-closed explicit runtime compatibility allowlist. This is an embedding adapter smoke, not whole-service real-stack evidence.
+- The isolated October 8 Windows real-service campaign verified official SHA-256-matched Qdrant 1.19.1, actual local Ollama 0.40.0 embedding, localhost REST and MCP authentication/invalid-evidence denial, persistent query and bounded load smoke of 16 requests at concurrency 4 (p50 about 0.741s, p95 about 1.725s). These are local smoke observations, not production benchmarks or full Run 006.
+- The separate Phase 11 local test collection was indexed with two documents, Qdrant restarted using the identical isolated storage, and the semantic query after restart ranked the intended gold-reserve document first. The previous shared-default-collection fixture had been polluted by another E2E campaign; the collection is now distinct and regression guarded.
 
 ## Not proven
 - External production hosting/domain provisioning, TLS termination, reverse-proxy configuration, operator secret management, monitoring/SLOs, and a specific operator SearXNG instance remain deployment/operator concerns rather than repository acceptance evidence.

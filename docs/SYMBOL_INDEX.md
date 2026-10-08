@@ -3,16 +3,16 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: f05bb52410b7581daa829248779b0ab611b293ebfd6d538e2c669ac3ad4403e0
+Source digest: 2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1
 Status: CURRENT
 
 | File | Symbol | Kind | Lines@SHA | Responsibility | Reads/Writes | Called By | Tests |
 |---|---|---|---|---|---|---|---|
-| integration/phase11_services.py | document | function | 22-30 | Observed Python symbol | | | |
-| integration/phase11_services.py | services | function | 33-40 | Observed Python symbol | | | |
-| integration/phase11_services.py | run_index | function | 43-105 | Observed Python symbol | | | |
-| integration/phase11_services.py | run_query | function | 108-131 | Observed Python symbol | | | |
-| integration/phase11_services.py | main | function | 134-142 | Observed Python symbol | | | |
+| integration/phase11_services.py | document | function | 20-28 | Observed Python symbol | | | |
+| integration/phase11_services.py | services | function | 36-45 | Observed Python symbol | | | |
+| integration/phase11_services.py | run_index | function | 48-110 | Observed Python symbol | | | |
+| integration/phase11_services.py | run_query | function | 113-136 | Observed Python symbol | | | |
+| integration/phase11_services.py | main | function | 139-147 | Observed Python symbol | | | |
 | integration/phase12_e2e.py | _SearchStub | class | 30-55 | Observed Python symbol | | | |
 | integration/phase12_e2e.py | _SearchStub.do_GET | method | 31-52 | Observed Python symbol | | | |
 | integration/phase12_e2e.py | _SearchStub.log_message | method | 54-55 | Observed Python symbol | | | |
@@ -20,10 +20,10 @@ Status: CURRENT
 | integration/phase12_e2e.py | _seed_index | function | 65-79 | Observed Python symbol | | | |
 | integration/phase12_e2e.py | _wait_health | function | 82-93 | Observed Python symbol | | | |
 | integration/phase12_e2e.py | _rest_probe | function | 96-168 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _mcp_probe | async_function | 171-212 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _bounded_load_probe | function | 215-242 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | _bounded_load_probe.one | method | 218-229 | Observed Python symbol | | | |
-| integration/phase12_e2e.py | main | function | 245-279 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _mcp_probe | async_function | 171-213 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _bounded_load_probe | function | 216-243 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | _bounded_load_probe.one | method | 219-230 | Observed Python symbol | | | |
+| integration/phase12_e2e.py | main | function | 246-280 | Observed Python symbol | | | |
 | src/max_grounding/__init__.py | project_identity | function | 8-15 | Observed Python symbol | | | |
 | src/max_grounding/api.py | SearchRequest | class | 49-58 | Observed Python symbol | | | |
 | src/max_grounding/api.py | FetchRequest | class | 61-64 | Observed Python symbol | | | |
@@ -471,6 +471,9 @@ Status: CURRENT
 | tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed | method | 248-280 | Observed Python symbol | | | |
 | tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider | class | 249-251 | Observed Python symbol | | | |
 | tests/test_persistent_semantic.py | PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider.embed_query | method | 250-251 | Observed Python symbol | | | |
+| tests/test_phase11_runtime_isolation.py | Phase11E2EIsolationTests | class | 12-36 | Observed Python symbol | | | |
+| tests/test_phase11_runtime_isolation.py | Phase11E2EIsolationTests.test_restart_fixture_has_distinct_collection_identity | method | 13-14 | Observed Python symbol | | | |
+| tests/test_phase11_runtime_isolation.py | Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection | method | 16-36 | Observed Python symbol | | | |
 | tests/test_phase12_dependencies.py | Phase12DependencyPinsTests | class | 8-15 | Observed Python symbol | | | |
 | tests/test_phase12_dependencies.py | Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned | method | 9-15 | Observed Python symbol | | | |
 | tests/test_policy.py | GroundingPolicyTests | class | 10-43 | Observed Python symbol | | | |

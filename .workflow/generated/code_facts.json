@@ -17,14 +17,14 @@
       "file": "integration/phase11_services.py",
       "is_test": false,
       "language": "Python",
-      "lines": 146
+      "lines": 151
     },
     {
       "directory": "integration",
       "file": "integration/phase12_e2e.py",
       "is_test": false,
       "language": "Python",
-      "lines": 283
+      "lines": 284
     },
     {
       "directory": "src/max_grounding",
@@ -305,6 +305,13 @@
       "is_test": true,
       "language": "Python",
       "lines": 284
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_phase11_runtime_isolation.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 40
     },
     {
       "directory": "tests",
@@ -11995,6 +12002,42 @@
       "target_token": "_Store"
     },
     {
+      "caller": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_restart_fixture_has_distinct_collection_identity",
+      "target_token": "self.assertNotEqual"
+    },
+    {
+      "caller": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection",
+      "target_token": "patch"
+    },
+    {
+      "caller": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection",
+      "target_token": "patch.dict"
+    },
+    {
+      "caller": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection",
+      "target_token": "services"
+    },
+    {
+      "caller": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection",
+      "target_token": "embedding.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection",
+      "target_token": "store.assert_called_once_with"
+    },
+    {
+      "caller": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection",
+      "target_token": "embedding.return_value.verify_runtime.assert_called_once"
+    },
+    {
+      "caller": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection",
+      "target_token": "store.return_value.verify_runtime.assert_called_once"
+    },
+    {
       "caller": "tests/test_phase12_dependencies.py::Phase12DependencyPinsTests.test_service_dependencies_are_exactly_pinned",
       "target_token": "tomllib.loads"
     },
@@ -17785,40 +17828,40 @@
     {
       "file": "integration/phase11_services.py",
       "kind": "function",
-      "line_end": 30,
-      "line_start": 22,
+      "line_end": 28,
+      "line_start": 20,
       "locator": "integration/phase11_services.py::document",
       "symbol": "document"
     },
     {
       "file": "integration/phase11_services.py",
       "kind": "function",
-      "line_end": 40,
-      "line_start": 33,
+      "line_end": 45,
+      "line_start": 36,
       "locator": "integration/phase11_services.py::services",
       "symbol": "services"
     },
     {
       "file": "integration/phase11_services.py",
       "kind": "function",
-      "line_end": 105,
-      "line_start": 43,
+      "line_end": 110,
+      "line_start": 48,
       "locator": "integration/phase11_services.py::run_index",
       "symbol": "run_index"
     },
     {
       "file": "integration/phase11_services.py",
       "kind": "function",
-      "line_end": 131,
-      "line_start": 108,
+      "line_end": 136,
+      "line_start": 113,
       "locator": "integration/phase11_services.py::run_query",
       "symbol": "run_query"
     },
     {
       "file": "integration/phase11_services.py",
       "kind": "function",
-      "line_end": 142,
-      "line_start": 134,
+      "line_end": 147,
+      "line_start": 139,
       "locator": "integration/phase11_services.py::main",
       "symbol": "main"
     },
@@ -17881,7 +17924,7 @@
     {
       "file": "integration/phase12_e2e.py",
       "kind": "async_function",
-      "line_end": 212,
+      "line_end": 213,
       "line_start": 171,
       "locator": "integration/phase12_e2e.py::_mcp_probe",
       "symbol": "_mcp_probe"
@@ -17889,24 +17932,24 @@
     {
       "file": "integration/phase12_e2e.py",
       "kind": "function",
-      "line_end": 242,
-      "line_start": 215,
+      "line_end": 243,
+      "line_start": 216,
       "locator": "integration/phase12_e2e.py::_bounded_load_probe",
       "symbol": "_bounded_load_probe"
     },
     {
       "file": "integration/phase12_e2e.py",
       "kind": "method",
-      "line_end": 229,
-      "line_start": 218,
+      "line_end": 230,
+      "line_start": 219,
       "locator": "integration/phase12_e2e.py::_bounded_load_probe.one",
       "symbol": "_bounded_load_probe.one"
     },
     {
       "file": "integration/phase12_e2e.py",
       "kind": "function",
-      "line_end": 279,
-      "line_start": 245,
+      "line_end": 280,
+      "line_start": 246,
       "locator": "integration/phase12_e2e.py::main",
       "symbol": "main"
     },
@@ -21487,6 +21530,30 @@
       "symbol": "PersistentSemanticTests.test_bad_vectors_matches_query_and_bounds_fail_closed.BadProvider.embed_query"
     },
     {
+      "file": "tests/test_phase11_runtime_isolation.py",
+      "kind": "class",
+      "line_end": 36,
+      "line_start": 12,
+      "locator": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests",
+      "symbol": "Phase11E2EIsolationTests"
+    },
+    {
+      "file": "tests/test_phase11_runtime_isolation.py",
+      "kind": "method",
+      "line_end": 14,
+      "line_start": 13,
+      "locator": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_restart_fixture_has_distinct_collection_identity",
+      "symbol": "Phase11E2EIsolationTests.test_restart_fixture_has_distinct_collection_identity"
+    },
+    {
+      "file": "tests/test_phase11_runtime_isolation.py",
+      "kind": "method",
+      "line_end": 36,
+      "line_start": 16,
+      "locator": "tests/test_phase11_runtime_isolation.py::Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection",
+      "symbol": "Phase11E2EIsolationTests.test_realstack_fixture_explicitly_uses_isolated_qdrant_collection"
+    },
+    {
       "file": "tests/test_phase12_dependencies.py",
       "kind": "class",
       "line_end": 15,
@@ -23304,14 +23371,14 @@
     }
   ],
   "schema_version": 1,
-  "source_digest": "f05bb52410b7581daa829248779b0ab611b293ebfd6d538e2c669ac3ad4403e0",
+  "source_digest": "2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1",
   "source_summary": {
-    "files": 56,
+    "files": 57,
     "languages": {
-      "Python": 56
+      "Python": 57
     },
-    "lines": 13846,
-    "test_files": 27
+    "lines": 13892,
+    "test_files": 28
   },
   "tests": [
     "tests/test_api.py",
@@ -23327,6 +23394,7 @@
     "tests/test_network_policy.py",
     "tests/test_ollama_embedding.py",
     "tests/test_persistent_semantic.py",
+    "tests/test_phase11_runtime_isolation.py",
     "tests/test_phase12_dependencies.py",
     "tests/test_policy.py",
     "tests/test_project_source_boundary.py",
