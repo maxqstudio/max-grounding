@@ -5,6 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .question_relevance import QuestionAssessment
 
 
 class EvidenceStatus(str, Enum):
@@ -312,6 +316,7 @@ class SynthesisPacket:
     synthesis_claims: tuple[ClaimVerification, ...]
     blocked_claims: tuple[ClaimVerification, ...]
     correction: VerificationCorrection | None = None
+    question_assessment: QuestionAssessment | None = None
 
 
 @dataclass(frozen=True, slots=True)

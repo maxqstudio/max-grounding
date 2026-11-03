@@ -6,6 +6,7 @@ import logging
 import os
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Callable
 
 from .engine import GroundingEngine
@@ -40,6 +41,7 @@ from .models import (
     VerificationCorrection,
 )
 from .persistent import index_documents, retrieve_persistent_semantic
+from .question_relevance import assess_question_sufficiency, compile_question_contract
 from .providers.ollama_embedding import OllamaEmbeddingProvider
 from .providers.qdrant import QdrantVectorStore
 from .providers.searxng import SearxngProvider
@@ -134,12 +136,17 @@ class GroundingService:
         *,
         fetcher: Callable[[str], FetchedDocument] = fetch_document,
         evidence_authority: EvidenceAuthority | None = None,
+        trusted_source_roles: Mapping[str, str] | None = None,
+        trusted_publication_dates: Mapping[str, datetime] | None = None,
     ) -> None:
         self._search_provider = search_provider
         self._embedding_provider = embedding_provider
         self._vector_store = vector_store
         self._fetcher = fetcher
         self._evidence_authority = evidence_authority or EvidenceAuthority()
+        # Trusted operator-side metadata; REST/MCP must not accept these fields.
+        self._trusted_source_roles = dict(trusted_source_roles or {})
+        self._trusted_publication_dates = dict(trusted_publication_dates or {})
         self._engine = GroundingEngine(search_provider)
 
     def search_web(
@@ -246,8 +253,9 @@ class GroundingService:
         *,
         evidence_refs: object,
         required_sources: int = DEFAULT_REQUIRED_SOURCES,
+        question_scope: Mapping[str, object] | None = None,
     ):
-        """Verify bounded proposals only against evidence fetched by this service instance."""
+        """Verify server-owned claims and, when provided, original-question sufficiency."""
         if (
             isinstance(required_sources, bool)
             or not isinstance(required_sources, int)
@@ -255,6 +263,10 @@ class GroundingService:
         ):
             raise InvalidGroundingRequest("required_sources is outside the accepted range")
         try:
+            contract = (
+                compile_question_contract(question_scope, required_sources=required_sources)
+                if question_scope is not None else None
+            )
             proposals = normalize_candidate_proposals(claims)
             normalized_claims = tuple(item.claim for item in proposals)
             barcode_values = {
@@ -267,6 +279,17 @@ class GroundingService:
                     "one verification request cannot mix barcode identities"
                 )
             expected_barcode = next(iter(barcode_values), None)
+            if contract is not None and contract.exact_identifiers:
+                if len(contract.exact_identifiers) != 1:
+                    raise InvalidGroundingRequest(
+                        "multiple exact identifiers require independent verification"
+                    )
+                question_identifier = contract.exact_identifiers[0]
+                if expected_barcode is not None and expected_barcode != question_identifier:
+                    raise InvalidGroundingRequest(
+                        "proposed barcode conflicts with original question"
+                    )
+                expected_barcode = question_identifier
             records = self._evidence_authority.resolve(evidence_refs)
             selected_spans_by_claim = None
             verification_modes_by_claim = None
@@ -341,6 +364,26 @@ class GroundingService:
                     if item.status is not ClaimVerificationStatus.SUPPORTED
                 ),
             )
+            if contract is not None:
+                question_assessment = assess_question_sufficiency(
+                    contract,
+                    packet,
+                    trusted_source_roles=self._trusted_source_roles,
+                    trusted_publication_dates=self._trusted_publication_dates,
+                )
+                packet = SynthesisPacket(
+                    verifications=packet.verifications,
+                    synthesis_claims=(
+                        packet.synthesis_claims
+                        if question_assessment.status == "SUFFICIENT" else ()
+                    ),
+                    blocked_claims=(
+                        packet.blocked_claims
+                        if question_assessment.status == "SUFFICIENT"
+                        else packet.verifications
+                    ),
+                    question_assessment=question_assessment,
+                )
             correction = None
             verification_by_id = {
                 item.claim.claim_id: item

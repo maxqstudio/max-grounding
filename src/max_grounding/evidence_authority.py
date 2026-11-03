@@ -1057,4 +1057,5 @@ def build_authoritative_verification_packet(
         synthesis_claims=preserve(packet.synthesis_claims),
         blocked_claims=preserve(packet.blocked_claims),
         correction=correction,
+        question_assessment=packet.question_assessment,
     )
