@@ -175,9 +175,9 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
             [item["status"] for item in packet["verifications"]],
             ["supported", "supported", "supported"],
         )
-        self.assertEqual(len(packet["synthesis_claims"]), 3)
+        self.assertEqual(len(verified_claims(packet)), 3)
         self.assertTrue(
-            all(item["citations"][0]["source_url"] == url for item in packet["synthesis_claims"])
+            all(item["citations"][0]["source_url"] == url for item in verified_claims(packet))
         )
 
     def test_flattened_field_values_cannot_contaminate_another_claim_key(self) -> None:
@@ -313,13 +313,13 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
             ["supported"] * 4,
         )
         type_claim = next(
-            item for item in packet["synthesis_claims"]
+            item for item in verified_claims(packet)
             if item["claim"]["claim_key"] == "product_type"
         )
         self.assertEqual(type_claim["claim"]["value"], "TISSUE")
-        self.assertEqual(len(packet["synthesis_claims"]), 4)
+        self.assertEqual(len(verified_claims(packet)), 4)
         title_claim = next(
-            item for item in packet["synthesis_claims"]
+            item for item in verified_claims(packet)
             if item["claim"]["claim_key"] == "product_name"
         )
         self.assertEqual(title_claim["citations"][0]["text"], text)
@@ -402,7 +402,7 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
             ["supported", "supported"],
         )
         self.assertEqual(
-            [item["claim"]["value"] for item in response.json()["synthesis_claims"]],
+            [item["claim"]["value"] for item in verified_claims(response.json())],
             ["ADEM SARI", "READY TO DRINK"],
         )
 
@@ -483,7 +483,7 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
         packet = response.json()
         self.assertEqual(packet["verifications"][0]["status"], "supported")
         self.assertEqual(packet["verifications"][1]["status"], "unsupported")
-        self.assertEqual(len(packet["synthesis_claims"]), 1)
+        self.assertEqual(len(verified_claims(packet)), 1)
 
     def test_extractive_statement_uses_server_span_and_rejects_paraphrase(self) -> None:
         url = "https://source.example/docs"
@@ -510,8 +510,8 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
         )
         self.assertEqual(accepted.status_code, 200, accepted.text)
         accepted_packet = accepted.json()
-        self.assertEqual(accepted_packet["synthesis_claims"][0]["status"], "supported")
-        citation = accepted_packet["synthesis_claims"][0]["citations"][0]
+        self.assertEqual(verified_claims(accepted_packet)[0]["status"], "supported")
+        citation = verified_claims(accepted_packet)[0]["citations"][0]
         self.assertEqual(citation["text"], source)
         self.assertEqual(citation["source_url"], url)
 
@@ -564,7 +564,7 @@ class EvidenceSpanSelectionTests(unittest.TestCase):
 
         self.assertEqual(response.status_code, 200, response.text)
         packet = response.json()
-        quotes = [item["citations"][0]["text"] for item in packet["synthesis_claims"]]
+        quotes = [item["citations"][0]["text"] for item in verified_claims(packet)]
         self.assertEqual(quotes, [first, second])
         self.assertNotIn(first + " " + second, quotes)
 

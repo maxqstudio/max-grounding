@@ -120,7 +120,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
             ["supported", "supported", "supported", "supported", "supported"],
         )
         self.assertEqual(
-            [item["citations"][0]["text"] for item in packet["synthesis_claims"]],
+            [item["citations"][0]["text"] for item in verified_claims(packet)],
             [
                 "Brand – SampleCo",
                 "Nama, Sample Widget",
@@ -149,7 +149,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
         packet = response.json()
         self.assertEqual(packet["verifications"][0]["status"], "supported")
         self.assertEqual(
-            packet["synthesis_claims"][0]["citations"][0]["text"],
+            verified_claims(packet)[0]["citations"][0]["text"],
             "SampleCo is the brand.",
         )
 
@@ -220,11 +220,11 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
         packet = response.json()
         self.assertEqual(packet["verifications"][0]["status"], "supported")
         self.assertEqual(
-            packet["synthesis_claims"][0]["claim"]["claim_id"],
+            verified_claims(packet)[0]["claim"]["claim_id"],
             "claim-0001",
         )
         self.assertEqual(
-            packet["synthesis_claims"][0]["citations"][0]["text"],
+            verified_claims(packet)[0]["citations"][0]["text"],
             source_sentence,
         )
 
@@ -377,8 +377,8 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200, response.text)
         packet = response.json()
         self.assertEqual(packet["verifications"][0]["status"], "supported")
-        self.assertEqual(len(packet["synthesis_claims"]), 1)
-        citation = packet["synthesis_claims"][0]["citations"][0]
+        self.assertEqual(len(verified_claims(packet)), 1)
+        citation = verified_claims(packet)[0]["citations"][0]
         self.assertEqual(citation["source_url"], url)
         self.assertTrue(citation["chunk_id"])
         self.assertIn("330 ml", citation["text"])
@@ -537,7 +537,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
         self.assertEqual(verifications[0]["status"], "supported")
         self.assertEqual(verifications[1]["status"], "unsupported")
         self.assertEqual(
-            packet["synthesis_claims"][0]["claim"]["claim_id"],
+            verified_claims(packet)[0]["claim"]["claim_id"],
             "claim-0001",
         )
 
@@ -589,7 +589,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
         verifications = response.json()["verifications"]
         self.assertEqual(verifications[0]["status"], "supported")
         self.assertEqual(verifications[1]["status"], "unsupported")
-        self.assertEqual(len(response.json()["synthesis_claims"]), 1)
+        self.assertEqual(len(verified_claims(response.json())), 1)
 
     def test_product_fields_require_same_source_barcode_binding(self) -> None:
         barcode_url = "https://one.example/barcode"
@@ -619,7 +619,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
         packet = response.json()
         self.assertEqual(packet["verifications"][0]["status"], "supported")
         self.assertEqual(packet["verifications"][1]["status"], "unsupported")
-        self.assertEqual(len(packet["synthesis_claims"]), 1)
+        self.assertEqual(len(verified_claims(packet)), 1)
 
     def test_product_fields_are_supported_when_same_source_binds_barcode(self) -> None:
         url = "https://source.example/product"
@@ -639,7 +639,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
             },
         )
         self.assertEqual(response.status_code, 200, response.text)
-        self.assertEqual(len(response.json()["synthesis_claims"]), 2)
+        self.assertEqual(len(verified_claims(response.json())), 2)
 
     def test_mixed_barcode_identities_are_rejected(self) -> None:
         url = "https://source.example/product"
@@ -826,7 +826,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
         result = asyncio.run(invoke())
         self.assertFalse(result.is_error)
         self.assertEqual(
-            [item["status"] for item in result.structured_content["synthesis_claims"]],
+            [item["status"] for item in verified_claims(result.structured_content)],
             ["supported", "supported"],
         )
         self.assertEqual(
@@ -910,7 +910,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
         self.assertEqual(verifications[1]["supporting_source_count"], 2)
         synthesis_keys = {
             item["claim"]["claim_key"]
-            for item in result.structured_content["synthesis_claims"]
+            for item in verified_claims(result.structured_content)
         }
         self.assertNotIn("package_size", synthesis_keys)
 
