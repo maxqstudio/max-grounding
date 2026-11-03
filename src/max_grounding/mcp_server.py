@@ -490,8 +490,8 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
     def _tool_verify_claims(
         claims: CandidateClaimProposals,
         evidence_refs: EvidenceReferenceProposals,
-        required_sources: int = DEFAULT_REQUIRED_SOURCES,
         question_scope: QuestionScopeProposal,
+        required_sources: int = DEFAULT_REQUIRED_SOURCES,
     ) -> dict[str, Any]:
         """Verify proposals using server-issued evidence_ref and evidence_span_ref values.
 
