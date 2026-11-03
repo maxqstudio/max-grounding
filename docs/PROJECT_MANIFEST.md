@@ -13,7 +13,7 @@ Repository: maxqstudio/max-grounding
 Active branch: work/phase12a-production-grounding-hardening
 Current authoritative SHA: external final acceptance evidence
 Last accepted SHA: 4c45a23c48b7954bbfb0ab86bcc92c975f345a1f
-Current source digest: 67d4364cf99f3401c9f745676efcdf4d131e684d34ddc04fc4febf92190ac38d
+Current source digest: 75213c7e087a3a5d1ce2f547a6a2cb2ac78f9aa3ff738f13ca114c65ad41639d
 
 ## Authorities
 Source authority: Merged main is the source authority after phase acceptance.

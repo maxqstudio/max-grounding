@@ -98,7 +98,7 @@
       "file": "src/max_grounding/api.py",
       "is_test": false,
       "language": "Python",
-      "lines": 518
+      "lines": 514
     },
     {
       "directory": "src/max_grounding",
@@ -161,7 +161,7 @@
       "file": "src/max_grounding/mcp_server.py",
       "is_test": false,
       "language": "Python",
-      "lines": 570
+      "lines": 572
     },
     {
       "directory": "src/max_grounding",
@@ -259,7 +259,7 @@
       "file": "src/max_grounding/service.py",
       "is_test": false,
       "language": "Python",
-      "lines": 483
+      "lines": 481
     },
     {
       "directory": "src/max_grounding",
@@ -305,6 +305,13 @@
     },
     {
       "directory": "tests",
+      "file": "tests/test_claim_scope_fixture.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 65
+    },
+    {
+      "directory": "tests",
       "file": "tests/test_container_contract.py",
       "is_test": true,
       "language": "Python",
@@ -336,7 +343,7 @@
       "file": "tests/test_evidence_spans.py",
       "is_test": true,
       "language": "Python",
-      "lines": 617
+      "lines": 619
     },
     {
       "directory": "tests",
@@ -420,7 +427,7 @@
       "file": "tests/test_question_relevance_integration.py",
       "is_test": true,
       "language": "Python",
-      "lines": 212
+      "lines": 241
     },
     {
       "directory": "tests",
@@ -490,7 +497,7 @@
       "file": "tests/test_verified_output.py",
       "is_test": true,
       "language": "Python",
-      "lines": 1149
+      "lines": 1162
     }
   ],
   "python_calls": [
@@ -4089,6 +4096,10 @@
     {
       "caller": "src/max_grounding/mcp_server.py::mcp_select_evidence_spans",
       "target_token": "to_wire"
+    },
+    {
+      "caller": "src/max_grounding/mcp_server.py::mcp_verify_claims",
+      "target_token": "InvalidGroundingRequest"
     },
     {
       "caller": "src/max_grounding/mcp_server.py::mcp_verify_claims",
@@ -8979,6 +8990,70 @@
       "target_token": "self.assertRaises"
     },
     {
+      "caller": "tests/test_claim_scope_fixture.py::ClaimLevelTestClient.post",
+      "target_token": "copy.deepcopy"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::ClaimLevelTestClient.post",
+      "target_token": "data.get"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::ClaimLevelTestClient.post",
+      "target_token": "fixture_question_scope"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::ClaimLevelTestClient.post",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::ClaimLevelTestClient.post",
+      "target_token": "kwargs.get"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::ClaimLevelTestClient.post",
+      "target_token": "super"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "target_token": "claim.get"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "target_token": "claim.get"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "target_token": "key.strip"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "target_token": "keys.append"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "target_token": "re.fullmatch"
+    },
+    {
+      "caller": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "target_token": "value.strip"
+    },
+    {
       "caller": "tests/test_container_contract.py::Phase12ContainerContractTests.test_dockerignore_excludes_governance_tests_and_repository_metadata",
       "target_token": "line.strip"
     },
@@ -9695,6 +9770,10 @@
       "target_token": "service_for"
     },
     {
+      "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_barcode_and_product_fields_from_different_sources_do_not_bind",
+      "target_token": "verified_claims"
+    },
+    {
       "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_extractive_statement_cannot_verify_structured_product_fields",
       "target_token": "auth"
     },
@@ -9823,6 +9902,14 @@
       "target_token": "service_for"
     },
     {
+      "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_extractive_statement_uses_server_span_and_rejects_paraphrase",
+      "target_token": "verified_claims"
+    },
+    {
+      "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_extractive_statement_uses_server_span_and_rejects_paraphrase",
+      "target_token": "verified_claims"
+    },
+    {
       "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_field_values_cannot_contaminate_another_claim_key",
       "target_token": "auth"
     },
@@ -9943,6 +10030,14 @@
       "target_token": "service_for"
     },
     {
+      "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_fields_bind_barcode_name_and_brand_from_one_source",
+      "target_token": "verified_claims"
+    },
+    {
+      "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_fields_bind_barcode_name_and_brand_from_one_source",
+      "target_token": "verified_claims"
+    },
+    {
       "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims",
       "target_token": "auth"
     },
@@ -10021,6 +10116,18 @@
     {
       "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims",
       "target_token": "service_for"
+    },
+    {
+      "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims",
+      "target_token": "verified_claims"
+    },
+    {
+      "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims",
+      "target_token": "verified_claims"
+    },
+    {
+      "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims",
+      "target_token": "verified_claims"
     },
     {
       "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_forged_or_expired_span_reference_fails_closed",
@@ -10211,6 +10318,10 @@
       "target_token": "service_for"
     },
     {
+      "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_inline_fields_stop_before_marketplace_navigation_and_promotion",
+      "target_token": "verified_claims"
+    },
+    {
       "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_invalid_gtin_in_sku_does_not_bind_a_barcode_claim",
       "target_token": "auth"
     },
@@ -10309,6 +10420,10 @@
     {
       "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_multiple_extractive_spans_are_not_concatenated_into_one_quote",
       "target_token": "service_for"
+    },
+    {
+      "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_multiple_extractive_spans_are_not_concatenated_into_one_quote",
+      "target_token": "verified_claims"
     },
     {
       "caller": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_navigation_category_is_not_treated_as_a_product_type",
@@ -10632,7 +10747,7 @@
     },
     {
       "caller": "tests/test_evidence_spans.py::rest_client",
-      "target_token": "TestClient"
+      "target_token": "ClaimLevelTestClient"
     },
     {
       "caller": "tests/test_evidence_spans.py::rest_client",
@@ -13113,6 +13228,66 @@
     {
       "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
       "target_token": "svc.select_evidence_spans"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_mcp_claim",
+      "target_token": "mcp_verify_claims"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_mcp_claim",
+      "target_token": "proposal"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_mcp_claim",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_mcp_claim",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_mcp_claim",
+      "target_token": "svc.fetch_evidence"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_mcp_claim",
+      "target_token": "svc.select_evidence_spans"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim",
+      "target_token": "api"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim",
+      "target_token": "headers"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim",
+      "target_token": "proposal"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim",
+      "target_token": "refs"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim",
+      "target_token": "response.json"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim",
+      "target_token": "self.assertEqual"
     },
     {
       "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
@@ -16947,6 +17122,10 @@
       "target_token": "self.assertEqual"
     },
     {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_barcode_binding_does_not_support_a_brand_claim",
+      "target_token": "verified_claims"
+    },
+    {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_barcode_label_does_not_promote_a_prefixed_sku_to_gtin",
       "target_token": "auth"
     },
@@ -17189,6 +17368,10 @@
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_evidence_for_one_field_cannot_support_another_field",
       "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_evidence_for_one_field_cannot_support_another_field",
+      "target_token": "verified_claims"
     },
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_expired_or_restarted_registry_rejects_old_reference",
@@ -17303,6 +17486,14 @@
       "target_token": "self.assertTrue"
     },
     {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_fetch_then_verify_returns_server_canonical_citation",
+      "target_token": "verified_claims"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_fetch_then_verify_returns_server_canonical_citation",
+      "target_token": "verified_claims"
+    },
+    {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id",
       "target_token": "auth"
     },
@@ -17349,6 +17540,14 @@
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id",
       "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id",
+      "target_token": "verified_claims"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id",
+      "target_token": "verified_claims"
     },
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_generic_paraphrase_is_not_supported_by_semantic_similarity",
@@ -17483,6 +17682,10 @@
       "target_token": "self.assertEqual"
     },
     {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_inverted_label_statement_is_deterministic_structured_support",
+      "target_token": "verified_claims"
+    },
+    {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_malformed_evidence_reference_rejected_without_echo",
       "target_token": "auth"
     },
@@ -17557,6 +17760,10 @@
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_does_not_accept_forged_span_refs",
       "target_token": "document"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_does_not_accept_forged_span_refs",
+      "target_token": "fixture_question_scope"
     },
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_does_not_accept_forged_span_refs",
@@ -17577,6 +17784,10 @@
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_includes_product_title_spans",
       "target_token": "document"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_includes_product_title_spans",
+      "target_token": "fixture_question_scope"
     },
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_includes_product_title_spans",
@@ -17613,6 +17824,10 @@
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_preserves_caller_selected_field_spans",
       "target_token": "document"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_preserves_caller_selected_field_spans",
+      "target_token": "fixture_question_scope"
     },
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_preserves_caller_selected_field_spans",
@@ -17649,6 +17864,10 @@
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_uses_html_product_heading",
       "target_token": "extract_text"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_uses_html_product_heading",
+      "target_token": "fixture_question_scope"
     },
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_uses_html_product_heading",
@@ -17755,6 +17974,14 @@
       "target_token": "span_refs.append"
     },
     {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary",
+      "target_token": "verified_claims"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary.invoke",
+      "target_token": "fixture_question_scope"
+    },
+    {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary.invoke",
       "target_token": "server.call_tool"
     },
@@ -17817,6 +18044,14 @@
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts",
       "target_token": "span_refs.append"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts",
+      "target_token": "verified_claims"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts.invoke",
+      "target_token": "fixture_question_scope"
     },
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts.invoke",
@@ -18111,6 +18346,10 @@
       "target_token": "self.assertEqual"
     },
     {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_product_fields_are_supported_when_same_source_binds_barcode",
+      "target_token": "verified_claims"
+    },
+    {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_product_fields_require_same_source_barcode_binding",
       "target_token": "auth"
     },
@@ -18175,6 +18414,10 @@
       "target_token": "self.assertEqual"
     },
     {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_product_fields_require_same_source_barcode_binding",
+      "target_token": "verified_claims"
+    },
+    {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_realistic_labeled_source_forms_support_structured_fields",
       "target_token": "auth"
     },
@@ -18233,6 +18476,10 @@
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_realistic_labeled_source_forms_support_structured_fields",
       "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_realistic_labeled_source_forms_support_structured_fields",
+      "target_token": "verified_claims"
     },
     {
       "caller": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_search_snippet_is_discovery_only_until_fetched_text_supports_it",
@@ -18452,7 +18699,7 @@
     },
     {
       "caller": "tests/test_verified_output.py::rest_client",
-      "target_token": "TestClient"
+      "target_token": "ClaimLevelTestClient"
     },
     {
       "caller": "tests/test_verified_output.py::rest_client",
@@ -18849,7 +19096,7 @@
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 396,
+      "line_end": 392,
       "line_start": 383,
       "locator": "src/max_grounding/api.py::verify_endpoint",
       "symbol": "verify_endpoint"
@@ -18857,56 +19104,56 @@
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 505,
-      "line_start": 399,
+      "line_end": 501,
+      "line_start": 395,
       "locator": "src/max_grounding/api.py::create_rest_app",
       "symbol": "create_rest_app"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_method",
+      "line_end": 431,
+      "line_start": 429,
+      "locator": "src/max_grounding/api.py::create_rest_app.lifespan",
+      "symbol": "create_rest_app.lifespan"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_method",
       "line_end": 435,
-      "line_start": 433,
+      "line_start": 434,
       "locator": "src/max_grounding/api.py::create_rest_app.lifespan",
       "symbol": "create_rest_app.lifespan"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_method",
-      "line_end": 439,
-      "line_start": 438,
-      "locator": "src/max_grounding/api.py::create_rest_app.lifespan",
-      "symbol": "create_rest_app.lifespan"
-    },
-    {
-      "file": "src/max_grounding/api.py",
-      "kind": "async_method",
-      "line_end": 487,
-      "line_start": 482,
+      "line_end": 483,
+      "line_start": 478,
       "locator": "src/max_grounding/api.py::create_rest_app.request_validation_handler",
       "symbol": "create_rest_app.request_validation_handler"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_method",
-      "line_end": 495,
-      "line_start": 490,
+      "line_end": 491,
+      "line_start": 486,
       "locator": "src/max_grounding/api.py::create_rest_app.invalid_request_handler",
       "symbol": "create_rest_app.invalid_request_handler"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_method",
-      "line_end": 503,
-      "line_start": 498,
+      "line_end": 499,
+      "line_start": 494,
       "locator": "src/max_grounding/api.py::create_rest_app.grounding_error_handler",
       "symbol": "create_rest_app.grounding_error_handler"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 518,
-      "line_start": 508,
+      "line_end": 514,
+      "line_start": 504,
       "locator": "src/max_grounding/api.py::create_production_app",
       "symbol": "create_production_app"
     },
@@ -19761,7 +20008,7 @@
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 414,
+      "line_end": 416,
       "line_start": 347,
       "locator": "src/max_grounding/mcp_server.py::mcp_verify_claims",
       "symbol": "mcp_verify_claims"
@@ -19769,64 +20016,64 @@
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 533,
-      "line_start": 417,
+      "line_end": 535,
+      "line_start": 419,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools",
       "symbol": "register_mcp_tools"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 439,
-      "line_start": 420,
+      "line_end": 441,
+      "line_start": 422,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_search_web",
       "symbol": "register_mcp_tools._tool_search_web"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 443,
-      "line_start": 441,
+      "line_end": 445,
+      "line_start": 443,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_fetch_evidence",
       "symbol": "register_mcp_tools._tool_fetch_evidence"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 477,
-      "line_start": 445,
+      "line_end": 479,
+      "line_start": 447,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_select_evidence_spans",
       "symbol": "register_mcp_tools._tool_select_evidence_spans"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 481,
-      "line_start": 479,
+      "line_end": 483,
+      "line_start": 481,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_index_evidence",
       "symbol": "register_mcp_tools._tool_index_evidence"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 485,
-      "line_start": 483,
+      "line_end": 487,
+      "line_start": 485,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_query_evidence",
       "symbol": "register_mcp_tools._tool_query_evidence"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 524,
-      "line_start": 488,
+      "line_end": 526,
+      "line_start": 490,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_verify_claims",
       "symbol": "register_mcp_tools._tool_verify_claims"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 570,
-      "line_start": 536,
+      "line_end": 572,
+      "line_start": 538,
       "locator": "src/max_grounding/mcp_server.py::create_mcp_server",
       "symbol": "create_mcp_server"
     },
@@ -20841,7 +21088,7 @@
     {
       "file": "src/max_grounding/service.py",
       "kind": "class",
-      "line_end": 470,
+      "line_end": 468,
       "line_start": 128,
       "locator": "src/max_grounding/service.py::GroundingService",
       "symbol": "GroundingService"
@@ -20897,7 +21144,7 @@
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 413,
+      "line_end": 411,
       "line_start": 250,
       "locator": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "symbol": "GroundingService.verify_candidate_claims"
@@ -20905,32 +21152,32 @@
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 435,
-      "line_start": 415,
+      "line_end": 433,
+      "line_start": 413,
       "locator": "src/max_grounding/service.py::GroundingService.index_evidence",
       "symbol": "GroundingService.index_evidence"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 457,
-      "line_start": 437,
+      "line_end": 455,
+      "line_start": 435,
       "locator": "src/max_grounding/service.py::GroundingService.query_evidence",
       "symbol": "GroundingService.query_evidence"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 470,
-      "line_start": 459,
+      "line_end": 468,
+      "line_start": 457,
       "locator": "src/max_grounding/service.py::GroundingService.readiness",
       "symbol": "GroundingService.readiness"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "function",
-      "line_end": 483,
-      "line_start": 473,
+      "line_end": 481,
+      "line_start": 471,
       "locator": "src/max_grounding/service.py::build_production_runtime",
       "symbol": "build_production_runtime"
     },
@@ -21255,6 +21502,38 @@
       "symbol": "SearchBudgetTests.test_budget_itself_rejects_more_than_product_cap"
     },
     {
+      "file": "tests/test_claim_scope_fixture.py",
+      "kind": "function",
+      "line_end": 37,
+      "line_start": 15,
+      "locator": "tests/test_claim_scope_fixture.py::fixture_question_scope",
+      "symbol": "fixture_question_scope"
+    },
+    {
+      "file": "tests/test_claim_scope_fixture.py",
+      "kind": "function",
+      "line_end": 45,
+      "line_start": 40,
+      "locator": "tests/test_claim_scope_fixture.py::verified_claims",
+      "symbol": "verified_claims"
+    },
+    {
+      "file": "tests/test_claim_scope_fixture.py",
+      "kind": "class",
+      "line_end": 65,
+      "line_start": 48,
+      "locator": "tests/test_claim_scope_fixture.py::ClaimLevelTestClient",
+      "symbol": "ClaimLevelTestClient"
+    },
+    {
+      "file": "tests/test_claim_scope_fixture.py",
+      "kind": "method",
+      "line_end": 65,
+      "line_start": 55,
+      "locator": "tests/test_claim_scope_fixture.py::ClaimLevelTestClient.post",
+      "symbol": "ClaimLevelTestClient.post"
+    },
+    {
       "file": "tests/test_container_contract.py",
       "kind": "class",
       "line_end": 26,
@@ -21521,192 +21800,192 @@
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "function",
-      "line_end": 28,
-      "line_start": 20,
+      "line_end": 30,
+      "line_start": 22,
       "locator": "tests/test_evidence_spans.py::document",
       "symbol": "document"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "function",
-      "line_end": 37,
-      "line_start": 31,
+      "line_end": 39,
+      "line_start": 33,
       "locator": "tests/test_evidence_spans.py::service_for",
       "symbol": "service_for"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "function",
-      "line_end": 48,
-      "line_start": 40,
+      "line_end": 50,
+      "line_start": 42,
       "locator": "tests/test_evidence_spans.py::rest_client",
       "symbol": "rest_client"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "function",
-      "line_end": 52,
-      "line_start": 51,
+      "line_end": 54,
+      "line_start": 53,
       "locator": "tests/test_evidence_spans.py::auth",
       "symbol": "auth"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "function",
-      "line_end": 59,
-      "line_start": 55,
+      "line_end": 61,
+      "line_start": 57,
       "locator": "tests/test_evidence_spans.py::fetch_ref",
       "symbol": "fetch_ref"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "function",
-      "line_end": 70,
-      "line_start": 62,
+      "line_end": 72,
+      "line_start": 64,
       "locator": "tests/test_evidence_spans.py::select_spans",
       "symbol": "select_spans"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "function",
-      "line_end": 84,
-      "line_start": 73,
+      "line_end": 86,
+      "line_start": 75,
       "locator": "tests/test_evidence_spans.py::proposal",
       "symbol": "proposal"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "class",
-      "line_end": 613,
-      "line_start": 87,
+      "line_end": 615,
+      "line_start": 89,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests",
       "symbol": "EvidenceSpanSelectionTests"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 104,
-      "line_start": 88,
+      "line_end": 106,
+      "line_start": 90,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_reference_tokens_have_distinct_prefixes_and_cross_type_rejection",
       "symbol": "EvidenceSpanSelectionTests.test_reference_tokens_have_distinct_prefixes_and_cross_type_rejection"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 122,
-      "line_start": 106,
+      "line_end": 124,
+      "line_start": 108,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_span_selection_returns_exact_server_owned_text_and_offsets",
       "symbol": "EvidenceSpanSelectionTests.test_span_selection_returns_exact_server_owned_text_and_offsets"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 146,
-      "line_start": 124,
+      "line_end": 148,
+      "line_start": 126,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_forged_or_expired_span_reference_fails_closed",
       "symbol": "EvidenceSpanSelectionTests.test_forged_or_expired_span_reference_fails_closed"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 179,
-      "line_start": 148,
+      "line_end": 181,
+      "line_start": 150,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_fields_bind_barcode_name_and_brand_from_one_source",
       "symbol": "EvidenceSpanSelectionTests.test_flattened_fields_bind_barcode_name_and_brand_from_one_source"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 200,
-      "line_start": 181,
+      "line_end": 202,
+      "line_start": 183,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_field_values_cannot_contaminate_another_claim_key",
       "symbol": "EvidenceSpanSelectionTests.test_flattened_field_values_cannot_contaminate_another_claim_key"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 271,
-      "line_start": 202,
+      "line_end": 273,
+      "line_start": 204,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_indonesian_marketplace_labels_bind_valid_gtin_product_fields",
       "symbol": "EvidenceSpanSelectionTests.test_indonesian_marketplace_labels_bind_valid_gtin_product_fields"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 323,
-      "line_start": 273,
+      "line_end": 325,
+      "line_start": 275,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims",
       "symbol": "EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 347,
-      "line_start": 325,
+      "line_end": 349,
+      "line_start": 327,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_extractive_statement_cannot_verify_structured_product_fields",
       "symbol": "EvidenceSpanSelectionTests.test_extractive_statement_cannot_verify_structured_product_fields"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 370,
-      "line_start": 349,
+      "line_end": 372,
+      "line_start": 351,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_navigation_category_is_not_treated_as_a_product_type",
       "symbol": "EvidenceSpanSelectionTests.test_navigation_category_is_not_treated_as_a_product_type"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 405,
-      "line_start": 372,
+      "line_end": 407,
+      "line_start": 374,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_inline_fields_stop_before_marketplace_navigation_and_promotion",
       "symbol": "EvidenceSpanSelectionTests.test_inline_fields_stop_before_marketplace_navigation_and_promotion"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 430,
-      "line_start": 407,
+      "line_end": 432,
+      "line_start": 409,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_invalid_gtin_in_sku_does_not_bind_a_barcode_claim",
       "symbol": "EvidenceSpanSelectionTests.test_invalid_gtin_in_sku_does_not_bind_a_barcode_claim"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 452,
-      "line_start": 432,
+      "line_end": 454,
+      "line_start": 434,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_valid_gtin_is_extracted_from_labeled_value_with_page_footer",
       "symbol": "EvidenceSpanSelectionTests.test_valid_gtin_is_extracted_from_labeled_value_with_page_footer"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 484,
-      "line_start": 454,
+      "line_end": 486,
+      "line_start": 456,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_barcode_and_product_fields_from_different_sources_do_not_bind",
       "symbol": "EvidenceSpanSelectionTests.test_barcode_and_product_fields_from_different_sources_do_not_bind"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 539,
-      "line_start": 486,
+      "line_end": 541,
+      "line_start": 488,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_extractive_statement_uses_server_span_and_rejects_paraphrase",
       "symbol": "EvidenceSpanSelectionTests.test_extractive_statement_uses_server_span_and_rejects_paraphrase"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 567,
-      "line_start": 541,
+      "line_end": 569,
+      "line_start": 543,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_multiple_extractive_spans_are_not_concatenated_into_one_quote",
       "symbol": "EvidenceSpanSelectionTests.test_multiple_extractive_spans_are_not_concatenated_into_one_quote"
     },
     {
       "file": "tests/test_evidence_spans.py",
       "kind": "method",
-      "line_end": 613,
-      "line_start": 569,
+      "line_end": 615,
+      "line_start": 571,
       "locator": "tests/test_evidence_spans.py::EvidenceSpanSelectionTests.test_same_source_spans_count_as_one_source_but_canonical_urls_are_independent",
       "symbol": "EvidenceSpanSelectionTests.test_same_source_spans_count_as_one_source_but_canonical_urls_are_independent"
     },
@@ -22649,7 +22928,7 @@
     {
       "file": "tests/test_question_relevance_integration.py",
       "kind": "class",
-      "line_end": 208,
+      "line_end": 237,
       "line_start": 84,
       "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests",
       "symbol": "ScopedQuestionAcceptanceTests"
@@ -22657,48 +22936,64 @@
     {
       "file": "tests/test_question_relevance_integration.py",
       "kind": "method",
-      "line_end": 104,
+      "line_end": 98,
       "line_start": 85,
+      "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim",
+      "symbol": "ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "method",
+      "line_end": 112,
+      "line_start": 100,
+      "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_mcp_claim",
+      "symbol": "ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_mcp_claim"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "method",
+      "line_end": 133,
+      "line_start": 114,
       "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
       "symbol": "ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient"
     },
     {
       "file": "tests/test_question_relevance_integration.py",
       "kind": "method",
-      "line_end": 125,
-      "line_start": 106,
+      "line_end": 154,
+      "line_start": 135,
       "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
       "symbol": "ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer"
     },
     {
       "file": "tests/test_question_relevance_integration.py",
       "kind": "method",
-      "line_end": 155,
-      "line_start": 127,
+      "line_end": 184,
+      "line_start": 156,
       "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
       "symbol": "ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer"
     },
     {
       "file": "tests/test_question_relevance_integration.py",
       "kind": "method",
-      "line_end": 173,
-      "line_start": 157,
+      "line_end": 202,
+      "line_start": 186,
       "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
       "symbol": "ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true"
     },
     {
       "file": "tests/test_question_relevance_integration.py",
       "kind": "method",
-      "line_end": 194,
-      "line_start": 175,
+      "line_end": 223,
+      "line_start": 204,
       "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
       "symbol": "ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role"
     },
     {
       "file": "tests/test_question_relevance_integration.py",
       "kind": "method",
-      "line_end": 208,
-      "line_start": 196,
+      "line_end": 237,
+      "line_start": 225,
       "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
       "symbol": "ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet"
     },
@@ -23977,378 +24272,379 @@
     {
       "file": "tests/test_verified_output.py",
       "kind": "function",
-      "line_end": 35,
-      "line_start": 27,
+      "line_end": 37,
+      "line_start": 29,
       "locator": "tests/test_verified_output.py::document",
       "symbol": "document"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "function",
-      "line_end": 47,
-      "line_start": 38,
+      "line_end": 49,
+      "line_start": 40,
       "locator": "tests/test_verified_output.py::runtime",
       "symbol": "runtime"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 40,
-      "line_start": 39,
+      "line_end": 42,
+      "line_start": 41,
       "locator": "tests/test_verified_output.py::runtime.fetcher",
       "symbol": "runtime.fetcher"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "function",
-      "line_end": 57,
-      "line_start": 50,
+      "line_end": 59,
+      "line_start": 52,
       "locator": "tests/test_verified_output.py::rest_client",
       "symbol": "rest_client"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "function",
-      "line_end": 61,
-      "line_start": 60,
+      "line_end": 63,
+      "line_start": 62,
       "locator": "tests/test_verified_output.py::auth",
       "symbol": "auth"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "function",
-      "line_end": 69,
-      "line_start": 64,
+      "line_end": 71,
+      "line_start": 66,
       "locator": "tests/test_verified_output.py::claim",
       "symbol": "claim"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "function",
-      "line_end": 81,
-      "line_start": 72,
+      "line_end": 83,
+      "line_start": 74,
       "locator": "tests/test_verified_output.py::fetch_ref",
       "symbol": "fetch_ref"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "class",
-      "line_end": 1145,
-      "line_start": 84,
+      "line_end": 1158,
+      "line_start": 86,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests",
       "symbol": "VerifiedOutputBoundaryTests"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 129,
-      "line_start": 85,
+      "line_end": 131,
+      "line_start": 87,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_realistic_labeled_source_forms_support_structured_fields",
       "symbol": "VerifiedOutputBoundaryTests.test_realistic_labeled_source_forms_support_structured_fields"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 152,
-      "line_start": 131,
+      "line_end": 154,
+      "line_start": 133,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_inverted_label_statement_is_deterministic_structured_support",
       "symbol": "VerifiedOutputBoundaryTests.test_inverted_label_statement_is_deterministic_structured_support"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 189,
-      "line_start": 154,
+      "line_end": 191,
+      "line_start": 156,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_allowlisted_html_product_metadata_can_support_bound_fields",
       "symbol": "VerifiedOutputBoundaryTests.test_allowlisted_html_product_metadata_can_support_bound_fields"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 227,
-      "line_start": 191,
+      "line_end": 229,
+      "line_start": 193,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id",
       "symbol": "VerifiedOutputBoundaryTests.test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 256,
-      "line_start": 229,
+      "line_end": 258,
+      "line_start": 231,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_generic_paraphrase_is_not_supported_by_semantic_similarity",
       "symbol": "VerifiedOutputBoundaryTests.test_generic_paraphrase_is_not_supported_by_semantic_similarity"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 283,
-      "line_start": 258,
+      "line_end": 285,
+      "line_start": 260,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_numeric_model_claim_id_is_ignored_and_server_generates_id",
       "symbol": "VerifiedOutputBoundaryTests.test_numeric_model_claim_id_is_ignored_and_server_generates_id"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 309,
-      "line_start": 285,
+      "line_end": 311,
+      "line_start": 287,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_barcode_label_does_not_promote_a_prefixed_sku_to_gtin",
       "symbol": "VerifiedOutputBoundaryTests.test_barcode_label_does_not_promote_a_prefixed_sku_to_gtin"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 351,
-      "line_start": 311,
+      "line_end": 358,
+      "line_start": 313,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_search_snippet_is_discovery_only_until_fetched_text_supports_it",
       "symbol": "VerifiedOutputBoundaryTests.test_search_snippet_is_discovery_only_until_fetched_text_supports_it"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 377,
-      "line_start": 353,
+      "line_end": 384,
+      "line_start": 360,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_fetch_then_verify_returns_server_canonical_citation",
       "symbol": "VerifiedOutputBoundaryTests.test_fetch_then_verify_returns_server_canonical_citation"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 394,
-      "line_start": 379,
+      "line_end": 401,
+      "line_start": 386,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_unknown_or_forged_evidence_reference_fails_closed",
       "symbol": "VerifiedOutputBoundaryTests.test_unknown_or_forged_evidence_reference_fails_closed"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 418,
-      "line_start": 396,
+      "line_end": 425,
+      "line_start": 403,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_caller_cannot_supply_graph_scores_or_citation_identity",
       "symbol": "VerifiedOutputBoundaryTests.test_caller_cannot_supply_graph_scores_or_citation_identity"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 437,
-      "line_start": 420,
+      "line_end": 444,
+      "line_start": 427,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_partial_claim_is_blocked_from_synthesis",
       "symbol": "VerifiedOutputBoundaryTests.test_partial_claim_is_blocked_from_synthesis"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 466,
-      "line_start": 439,
+      "line_end": 473,
+      "line_start": 446,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_conflicted_claims_are_blocked_from_synthesis",
       "symbol": "VerifiedOutputBoundaryTests.test_conflicted_claims_are_blocked_from_synthesis"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 485,
-      "line_start": 468,
+      "line_end": 492,
+      "line_start": 475,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_unsupported_claim_is_blocked_without_citation",
       "symbol": "VerifiedOutputBoundaryTests.test_unsupported_claim_is_blocked_without_citation"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 508,
-      "line_start": 487,
+      "line_end": 515,
+      "line_start": 494,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_duplicate_canonical_source_counts_once",
       "symbol": "VerifiedOutputBoundaryTests.test_duplicate_canonical_source_counts_once"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 535,
-      "line_start": 510,
+      "line_end": 542,
+      "line_start": 517,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_evidence_for_one_field_cannot_support_another_field",
       "symbol": "VerifiedOutputBoundaryTests.test_evidence_for_one_field_cannot_support_another_field"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 561,
-      "line_start": 537,
+      "line_end": 568,
+      "line_start": 544,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_nearby_unlabeled_words_do_not_establish_structured_field_meaning",
       "symbol": "VerifiedOutputBoundaryTests.test_nearby_unlabeled_words_do_not_establish_structured_field_meaning"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 585,
-      "line_start": 563,
+      "line_end": 592,
+      "line_start": 570,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_barcode_binding_does_not_support_a_brand_claim",
       "symbol": "VerifiedOutputBoundaryTests.test_barcode_binding_does_not_support_a_brand_claim"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 615,
-      "line_start": 587,
+      "line_end": 622,
+      "line_start": 594,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_product_fields_require_same_source_barcode_binding",
       "symbol": "VerifiedOutputBoundaryTests.test_product_fields_require_same_source_barcode_binding"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 635,
-      "line_start": 617,
+      "line_end": 642,
+      "line_start": 624,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_product_fields_are_supported_when_same_source_binds_barcode",
       "symbol": "VerifiedOutputBoundaryTests.test_product_fields_are_supported_when_same_source_binds_barcode"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 653,
-      "line_start": 637,
+      "line_end": 660,
+      "line_start": 644,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mixed_barcode_identities_are_rejected",
       "symbol": "VerifiedOutputBoundaryTests.test_mixed_barcode_identities_are_rejected"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 668,
-      "line_start": 655,
+      "line_end": 675,
+      "line_start": 662,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_malformed_evidence_reference_rejected_without_echo",
       "symbol": "VerifiedOutputBoundaryTests.test_malformed_evidence_reference_rejected_without_echo"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 678,
-      "line_start": 670,
+      "line_end": 685,
+      "line_start": 677,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_oversized_request_is_rejected",
       "symbol": "VerifiedOutputBoundaryTests.test_oversized_request_is_rejected"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 688,
-      "line_start": 680,
+      "line_end": 695,
+      "line_start": 687,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_wrong_authentication_is_rejected_before_verification",
       "symbol": "VerifiedOutputBoundaryTests.test_wrong_authentication_is_rejected_before_verification"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 705,
-      "line_start": 690,
+      "line_end": 712,
+      "line_start": 697,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_malformed_request_returns_bounded_error_without_input_echo",
       "symbol": "VerifiedOutputBoundaryTests.test_malformed_request_returns_bounded_error_without_input_echo"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 722,
-      "line_start": 707,
+      "line_end": 729,
+      "line_start": 714,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_internal_verification_error_is_bounded",
       "symbol": "VerifiedOutputBoundaryTests.test_internal_verification_error_is_bounded"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 730,
-      "line_start": 724,
+      "line_end": 737,
+      "line_start": 731,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mounted_mcp_auth_is_required_for_verify_path",
       "symbol": "VerifiedOutputBoundaryTests.test_mounted_mcp_auth_is_required_for_verify_path"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 757,
-      "line_start": 732,
+      "line_end": 764,
+      "line_start": 739,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_expired_or_restarted_registry_rejects_old_reference",
       "symbol": "VerifiedOutputBoundaryTests.test_expired_or_restarted_registry_rejects_old_reference"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 827,
-      "line_start": 759,
+      "line_end": 835,
+      "line_start": 766,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary",
       "symbol": "VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "async_method",
-      "line_end": 816,
-      "line_start": 795,
+      "line_end": 824,
+      "line_start": 802,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary.invoke",
       "symbol": "VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary.invoke"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 906,
-      "line_start": 829,
+      "line_end": 915,
+      "line_start": 837,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts",
       "symbol": "VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "async_method",
-      "line_end": 892,
-      "line_start": 865,
+      "line_end": 901,
+      "line_start": 873,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts.invoke",
       "symbol": "VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts.invoke"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 935,
-      "line_start": 908,
+      "line_end": 945,
+      "line_start": 917,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_does_not_accept_forged_span_refs",
       "symbol": "VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_does_not_accept_forged_span_refs"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 998,
-      "line_start": 937,
+      "line_end": 1009,
+      "line_start": 947,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_includes_product_title_spans",
       "symbol": "VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_includes_product_title_spans"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 1074,
-      "line_start": 1000,
+      "line_end": 1086,
+      "line_start": 1011,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_uses_html_product_heading",
       "symbol": "VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_uses_html_product_heading"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 1137,
-      "line_start": 1076,
+      "line_end": 1150,
+      "line_start": 1088,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_preserves_caller_selected_field_spans",
       "symbol": "VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_preserves_caller_selected_field_spans"
     },
     {
       "file": "tests/test_verified_output.py",
       "kind": "method",
-      "line_end": 1145,
-      "line_start": 1139,
+      "line_end": 1158,
+      "line_start": 1152,
       "locator": "tests/test_verified_output.py::VerifiedOutputBoundaryTests.test_missing_verification_auth_is_rejected",
       "symbol": "VerifiedOutputBoundaryTests.test_missing_verification_auth_is_rejected"
     }
   ],
   "schema_version": 1,
-  "source_digest": "67d4364cf99f3401c9f745676efcdf4d131e684d34ddc04fc4febf92190ac38d",
+  "source_digest": "75213c7e087a3a5d1ce2f547a6a2cb2ac78f9aa3ff738f13ca114c65ad41639d",
   "source_summary": {
-    "files": 60,
+    "files": 61,
     "languages": {
-      "Python": 60
+      "Python": 61
     },
-    "lines": 14638,
-    "test_files": 30
+    "lines": 14743,
+    "test_files": 31
   },
   "tests": [
     "tests/test_api.py",
     "tests/test_bootstrap.py",
     "tests/test_budget.py",
+    "tests/test_claim_scope_fixture.py",
     "tests/test_container_contract.py",
     "tests/test_engine.py",
     "tests/test_evidence.py",

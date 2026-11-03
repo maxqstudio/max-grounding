@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: 67d4364cf99f3401c9f745676efcdf4d131e684d34ddc04fc4febf92190ac38d
+Source digest: 75213c7e087a3a5d1ce2f547a6a2cb2ac78f9aa3ff738f13ca114c65ad41639d
 Status: CURRENT
 
 The default view summarizes machine-observed symbols by file. Expand a file only
@@ -47,6 +47,7 @@ responsibility, callers, or state ownership.
 | tests/test_api.py | 9 | 1 | 1 | 7 |
 | tests/test_bootstrap.py | 3 | 1 | 0 | 2 |
 | tests/test_budget.py | 3 | 1 | 0 | 2 |
+| tests/test_claim_scope_fixture.py | 4 | 1 | 2 | 1 |
 | tests/test_container_contract.py | 3 | 1 | 0 | 2 |
 | tests/test_engine.py | 14 | 3 | 1 | 10 |
 | tests/test_evidence.py | 3 | 1 | 0 | 2 |
@@ -63,7 +64,7 @@ responsibility, callers, or state ownership.
 | tests/test_project_source_boundary.py | 3 | 1 | 0 | 2 |
 | tests/test_qdrant_store.py | 12 | 1 | 3 | 8 |
 | tests/test_question_relevance.py | 13 | 1 | 2 | 10 |
-| tests/test_question_relevance_integration.py | 14 | 1 | 7 | 6 |
+| tests/test_question_relevance_integration.py | 16 | 1 | 7 | 8 |
 | tests/test_reranking.py | 20 | 3 | 2 | 15 |
 | tests/test_retrieval.py | 12 | 1 | 2 | 9 |
 | tests/test_searxng_provider.py | 17 | 3 | 1 | 13 |
@@ -147,14 +148,14 @@ responsibility, callers, or state ownership.
 | select_evidence_spans_endpoint | function | 353-362 |
 | index_endpoint | function | 366-369 |
 | query_endpoint | function | 373-379 |
-| verify_endpoint | function | 383-396 |
-| create_rest_app | function | 399-505 |
-| create_rest_app.lifespan | async_method | 433-435 |
-| create_rest_app.lifespan | async_method | 438-439 |
-| create_rest_app.request_validation_handler | async_method | 482-487 |
-| create_rest_app.invalid_request_handler | async_method | 490-495 |
-| create_rest_app.grounding_error_handler | async_method | 498-503 |
-| create_production_app | function | 508-518 |
+| verify_endpoint | function | 383-392 |
+| create_rest_app | function | 395-501 |
+| create_rest_app.lifespan | async_method | 429-431 |
+| create_rest_app.lifespan | async_method | 434-435 |
+| create_rest_app.request_validation_handler | async_method | 478-483 |
+| create_rest_app.invalid_request_handler | async_method | 486-491 |
+| create_rest_app.grounding_error_handler | async_method | 494-499 |
+| create_production_app | function | 504-514 |
 
 </details>
 
@@ -333,15 +334,15 @@ responsibility, callers, or state ownership.
 | _select_barcode_spans.add_spans | method | 283-295 |
 | mcp_index_evidence | function | 328-335 |
 | mcp_query_evidence | function | 338-344 |
-| mcp_verify_claims | function | 347-414 |
-| register_mcp_tools | function | 417-533 |
-| register_mcp_tools._tool_search_web | method | 420-439 |
-| register_mcp_tools._tool_fetch_evidence | method | 441-443 |
-| register_mcp_tools._tool_select_evidence_spans | method | 445-477 |
-| register_mcp_tools._tool_index_evidence | method | 479-481 |
-| register_mcp_tools._tool_query_evidence | method | 483-485 |
-| register_mcp_tools._tool_verify_claims | method | 488-524 |
-| create_mcp_server | function | 536-570 |
+| mcp_verify_claims | function | 347-416 |
+| register_mcp_tools | function | 419-535 |
+| register_mcp_tools._tool_search_web | method | 422-441 |
+| register_mcp_tools._tool_fetch_evidence | method | 443-445 |
+| register_mcp_tools._tool_select_evidence_spans | method | 447-479 |
+| register_mcp_tools._tool_index_evidence | method | 481-483 |
+| register_mcp_tools._tool_query_evidence | method | 485-487 |
+| register_mcp_tools._tool_verify_claims | method | 490-526 |
+| create_mcp_server | function | 538-572 |
 
 </details>
 
@@ -572,18 +573,18 @@ responsibility, callers, or state ownership.
 | ProductionSettings.from_mapping | method | 85-113 |
 | ProductionSettings.from_env | method | 116-117 |
 | ServiceReadiness | class | 121-125 |
-| GroundingService | class | 128-470 |
+| GroundingService | class | 128-468 |
 | GroundingService.__init__ | method | 131-150 |
 | GroundingService.search_web | method | 152-173 |
 | GroundingService._fetch_document | method | 175-196 |
 | GroundingService.fetch_evidence | method | 198-207 |
 | GroundingService.select_evidence_spans | method | 209-226 |
 | GroundingService.deduplicate_evidence_span_refs | method | 228-248 |
-| GroundingService.verify_candidate_claims | method | 250-413 |
-| GroundingService.index_evidence | method | 415-435 |
-| GroundingService.query_evidence | method | 437-457 |
-| GroundingService.readiness | method | 459-470 |
-| build_production_runtime | function | 473-483 |
+| GroundingService.verify_candidate_claims | method | 250-411 |
+| GroundingService.index_evidence | method | 413-433 |
+| GroundingService.query_evidence | method | 435-455 |
+| GroundingService.readiness | method | 457-468 |
+| build_production_runtime | function | 471-481 |
 
 </details>
 
@@ -676,6 +677,18 @@ responsibility, callers, or state ownership.
 </details>
 
 <details>
+<summary><code>tests/test_claim_scope_fixture.py</code> — 4 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| fixture_question_scope | function | 15-37 |
+| verified_claims | function | 40-45 |
+| ClaimLevelTestClient | class | 48-65 |
+| ClaimLevelTestClient.post | method | 55-65 |
+
+</details>
+
+<details>
 <summary><code>tests/test_container_contract.py</code> — 3 symbols</summary>
 
 | Symbol | Kind | Lines@SHA |
@@ -745,30 +758,30 @@ responsibility, callers, or state ownership.
 
 | Symbol | Kind | Lines@SHA |
 |---|---|---|
-| document | function | 20-28 |
-| service_for | function | 31-37 |
-| rest_client | function | 40-48 |
-| auth | function | 51-52 |
-| fetch_ref | function | 55-59 |
-| select_spans | function | 62-70 |
-| proposal | function | 73-84 |
-| EvidenceSpanSelectionTests | class | 87-613 |
-| EvidenceSpanSelectionTests.test_reference_tokens_have_distinct_prefixes_and_cross_type_rejection | method | 88-104 |
-| EvidenceSpanSelectionTests.test_span_selection_returns_exact_server_owned_text_and_offsets | method | 106-122 |
-| EvidenceSpanSelectionTests.test_forged_or_expired_span_reference_fails_closed | method | 124-146 |
-| EvidenceSpanSelectionTests.test_flattened_fields_bind_barcode_name_and_brand_from_one_source | method | 148-179 |
-| EvidenceSpanSelectionTests.test_flattened_field_values_cannot_contaminate_another_claim_key | method | 181-200 |
-| EvidenceSpanSelectionTests.test_indonesian_marketplace_labels_bind_valid_gtin_product_fields | method | 202-271 |
-| EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims | method | 273-323 |
-| EvidenceSpanSelectionTests.test_extractive_statement_cannot_verify_structured_product_fields | method | 325-347 |
-| EvidenceSpanSelectionTests.test_navigation_category_is_not_treated_as_a_product_type | method | 349-370 |
-| EvidenceSpanSelectionTests.test_inline_fields_stop_before_marketplace_navigation_and_promotion | method | 372-405 |
-| EvidenceSpanSelectionTests.test_invalid_gtin_in_sku_does_not_bind_a_barcode_claim | method | 407-430 |
-| EvidenceSpanSelectionTests.test_valid_gtin_is_extracted_from_labeled_value_with_page_footer | method | 432-452 |
-| EvidenceSpanSelectionTests.test_barcode_and_product_fields_from_different_sources_do_not_bind | method | 454-484 |
-| EvidenceSpanSelectionTests.test_extractive_statement_uses_server_span_and_rejects_paraphrase | method | 486-539 |
-| EvidenceSpanSelectionTests.test_multiple_extractive_spans_are_not_concatenated_into_one_quote | method | 541-567 |
-| EvidenceSpanSelectionTests.test_same_source_spans_count_as_one_source_but_canonical_urls_are_independent | method | 569-613 |
+| document | function | 22-30 |
+| service_for | function | 33-39 |
+| rest_client | function | 42-50 |
+| auth | function | 53-54 |
+| fetch_ref | function | 57-61 |
+| select_spans | function | 64-72 |
+| proposal | function | 75-86 |
+| EvidenceSpanSelectionTests | class | 89-615 |
+| EvidenceSpanSelectionTests.test_reference_tokens_have_distinct_prefixes_and_cross_type_rejection | method | 90-106 |
+| EvidenceSpanSelectionTests.test_span_selection_returns_exact_server_owned_text_and_offsets | method | 108-124 |
+| EvidenceSpanSelectionTests.test_forged_or_expired_span_reference_fails_closed | method | 126-148 |
+| EvidenceSpanSelectionTests.test_flattened_fields_bind_barcode_name_and_brand_from_one_source | method | 150-181 |
+| EvidenceSpanSelectionTests.test_flattened_field_values_cannot_contaminate_another_claim_key | method | 183-202 |
+| EvidenceSpanSelectionTests.test_indonesian_marketplace_labels_bind_valid_gtin_product_fields | method | 204-273 |
+| EvidenceSpanSelectionTests.test_flattened_marketplace_labels_and_literal_title_bind_product_claims | method | 275-325 |
+| EvidenceSpanSelectionTests.test_extractive_statement_cannot_verify_structured_product_fields | method | 327-349 |
+| EvidenceSpanSelectionTests.test_navigation_category_is_not_treated_as_a_product_type | method | 351-372 |
+| EvidenceSpanSelectionTests.test_inline_fields_stop_before_marketplace_navigation_and_promotion | method | 374-407 |
+| EvidenceSpanSelectionTests.test_invalid_gtin_in_sku_does_not_bind_a_barcode_claim | method | 409-432 |
+| EvidenceSpanSelectionTests.test_valid_gtin_is_extracted_from_labeled_value_with_page_footer | method | 434-454 |
+| EvidenceSpanSelectionTests.test_barcode_and_product_fields_from_different_sources_do_not_bind | method | 456-486 |
+| EvidenceSpanSelectionTests.test_extractive_statement_uses_server_span_and_rejects_paraphrase | method | 488-541 |
+| EvidenceSpanSelectionTests.test_multiple_extractive_spans_are_not_concatenated_into_one_quote | method | 543-569 |
+| EvidenceSpanSelectionTests.test_same_source_spans_count_as_one_source_but_canonical_urls_are_independent | method | 571-615 |
 
 </details>
 
@@ -971,7 +984,7 @@ responsibility, callers, or state ownership.
 </details>
 
 <details>
-<summary><code>tests/test_question_relevance_integration.py</code> — 14 symbols</summary>
+<summary><code>tests/test_question_relevance_integration.py</code> — 16 symbols</summary>
 
 | Symbol | Kind | Lines@SHA |
 |---|---|---|
@@ -982,13 +995,15 @@ responsibility, callers, or state ownership.
 | scope | function | 54-59 |
 | proposal | function | 62-68 |
 | refs | function | 71-81 |
-| ScopedQuestionAcceptanceTests | class | 84-208 |
-| ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient | method | 85-104 |
-| ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer | method | 106-125 |
-| ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer | method | 127-155 |
-| ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true | method | 157-173 |
-| ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role | method | 175-194 |
-| ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet | method | 196-208 |
+| ScopedQuestionAcceptanceTests | class | 84-237 |
+| ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_rest_claim | method | 85-98 |
+| ScopedQuestionAcceptanceTests.test_missing_question_scope_cannot_promote_mcp_claim | method | 100-112 |
+| ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient | method | 114-133 |
+| ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer | method | 135-154 |
+| ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer | method | 156-184 |
+| ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true | method | 186-202 |
+| ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role | method | 204-223 |
+| ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet | method | 225-237 |
 
 </details>
 
@@ -1228,51 +1243,51 @@ responsibility, callers, or state ownership.
 
 | Symbol | Kind | Lines@SHA |
 |---|---|---|
-| document | function | 27-35 |
-| runtime | function | 38-47 |
-| runtime.fetcher | method | 39-40 |
-| rest_client | function | 50-57 |
-| auth | function | 60-61 |
-| claim | function | 64-69 |
-| fetch_ref | function | 72-81 |
-| VerifiedOutputBoundaryTests | class | 84-1145 |
-| VerifiedOutputBoundaryTests.test_realistic_labeled_source_forms_support_structured_fields | method | 85-129 |
-| VerifiedOutputBoundaryTests.test_inverted_label_statement_is_deterministic_structured_support | method | 131-152 |
-| VerifiedOutputBoundaryTests.test_allowlisted_html_product_metadata_can_support_bound_fields | method | 154-189 |
-| VerifiedOutputBoundaryTests.test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id | method | 191-227 |
-| VerifiedOutputBoundaryTests.test_generic_paraphrase_is_not_supported_by_semantic_similarity | method | 229-256 |
-| VerifiedOutputBoundaryTests.test_numeric_model_claim_id_is_ignored_and_server_generates_id | method | 258-283 |
-| VerifiedOutputBoundaryTests.test_barcode_label_does_not_promote_a_prefixed_sku_to_gtin | method | 285-309 |
-| VerifiedOutputBoundaryTests.test_search_snippet_is_discovery_only_until_fetched_text_supports_it | method | 311-351 |
-| VerifiedOutputBoundaryTests.test_fetch_then_verify_returns_server_canonical_citation | method | 353-377 |
-| VerifiedOutputBoundaryTests.test_unknown_or_forged_evidence_reference_fails_closed | method | 379-394 |
-| VerifiedOutputBoundaryTests.test_caller_cannot_supply_graph_scores_or_citation_identity | method | 396-418 |
-| VerifiedOutputBoundaryTests.test_partial_claim_is_blocked_from_synthesis | method | 420-437 |
-| VerifiedOutputBoundaryTests.test_conflicted_claims_are_blocked_from_synthesis | method | 439-466 |
-| VerifiedOutputBoundaryTests.test_unsupported_claim_is_blocked_without_citation | method | 468-485 |
-| VerifiedOutputBoundaryTests.test_duplicate_canonical_source_counts_once | method | 487-508 |
-| VerifiedOutputBoundaryTests.test_evidence_for_one_field_cannot_support_another_field | method | 510-535 |
-| VerifiedOutputBoundaryTests.test_nearby_unlabeled_words_do_not_establish_structured_field_meaning | method | 537-561 |
-| VerifiedOutputBoundaryTests.test_barcode_binding_does_not_support_a_brand_claim | method | 563-585 |
-| VerifiedOutputBoundaryTests.test_product_fields_require_same_source_barcode_binding | method | 587-615 |
-| VerifiedOutputBoundaryTests.test_product_fields_are_supported_when_same_source_binds_barcode | method | 617-635 |
-| VerifiedOutputBoundaryTests.test_mixed_barcode_identities_are_rejected | method | 637-653 |
-| VerifiedOutputBoundaryTests.test_malformed_evidence_reference_rejected_without_echo | method | 655-668 |
-| VerifiedOutputBoundaryTests.test_oversized_request_is_rejected | method | 670-678 |
-| VerifiedOutputBoundaryTests.test_wrong_authentication_is_rejected_before_verification | method | 680-688 |
-| VerifiedOutputBoundaryTests.test_malformed_request_returns_bounded_error_without_input_echo | method | 690-705 |
-| VerifiedOutputBoundaryTests.test_internal_verification_error_is_bounded | method | 707-722 |
-| VerifiedOutputBoundaryTests.test_mounted_mcp_auth_is_required_for_verify_path | method | 724-730 |
-| VerifiedOutputBoundaryTests.test_expired_or_restarted_registry_rejects_old_reference | method | 732-757 |
-| VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary | method | 759-827 |
-| VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary.invoke | async_method | 795-816 |
-| VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts | method | 829-906 |
-| VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts.invoke | async_method | 865-892 |
-| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_does_not_accept_forged_span_refs | method | 908-935 |
-| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_includes_product_title_spans | method | 937-998 |
-| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_uses_html_product_heading | method | 1000-1074 |
-| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_preserves_caller_selected_field_spans | method | 1076-1137 |
-| VerifiedOutputBoundaryTests.test_missing_verification_auth_is_rejected | method | 1139-1145 |
+| document | function | 29-37 |
+| runtime | function | 40-49 |
+| runtime.fetcher | method | 41-42 |
+| rest_client | function | 52-59 |
+| auth | function | 62-63 |
+| claim | function | 66-71 |
+| fetch_ref | function | 74-83 |
+| VerifiedOutputBoundaryTests | class | 86-1158 |
+| VerifiedOutputBoundaryTests.test_realistic_labeled_source_forms_support_structured_fields | method | 87-131 |
+| VerifiedOutputBoundaryTests.test_inverted_label_statement_is_deterministic_structured_support | method | 133-154 |
+| VerifiedOutputBoundaryTests.test_allowlisted_html_product_metadata_can_support_bound_fields | method | 156-191 |
+| VerifiedOutputBoundaryTests.test_generic_exact_evidence_uses_server_excerpt_and_generated_claim_id | method | 193-229 |
+| VerifiedOutputBoundaryTests.test_generic_paraphrase_is_not_supported_by_semantic_similarity | method | 231-258 |
+| VerifiedOutputBoundaryTests.test_numeric_model_claim_id_is_ignored_and_server_generates_id | method | 260-285 |
+| VerifiedOutputBoundaryTests.test_barcode_label_does_not_promote_a_prefixed_sku_to_gtin | method | 287-311 |
+| VerifiedOutputBoundaryTests.test_search_snippet_is_discovery_only_until_fetched_text_supports_it | method | 313-358 |
+| VerifiedOutputBoundaryTests.test_fetch_then_verify_returns_server_canonical_citation | method | 360-384 |
+| VerifiedOutputBoundaryTests.test_unknown_or_forged_evidence_reference_fails_closed | method | 386-401 |
+| VerifiedOutputBoundaryTests.test_caller_cannot_supply_graph_scores_or_citation_identity | method | 403-425 |
+| VerifiedOutputBoundaryTests.test_partial_claim_is_blocked_from_synthesis | method | 427-444 |
+| VerifiedOutputBoundaryTests.test_conflicted_claims_are_blocked_from_synthesis | method | 446-473 |
+| VerifiedOutputBoundaryTests.test_unsupported_claim_is_blocked_without_citation | method | 475-492 |
+| VerifiedOutputBoundaryTests.test_duplicate_canonical_source_counts_once | method | 494-515 |
+| VerifiedOutputBoundaryTests.test_evidence_for_one_field_cannot_support_another_field | method | 517-542 |
+| VerifiedOutputBoundaryTests.test_nearby_unlabeled_words_do_not_establish_structured_field_meaning | method | 544-568 |
+| VerifiedOutputBoundaryTests.test_barcode_binding_does_not_support_a_brand_claim | method | 570-592 |
+| VerifiedOutputBoundaryTests.test_product_fields_require_same_source_barcode_binding | method | 594-622 |
+| VerifiedOutputBoundaryTests.test_product_fields_are_supported_when_same_source_binds_barcode | method | 624-642 |
+| VerifiedOutputBoundaryTests.test_mixed_barcode_identities_are_rejected | method | 644-660 |
+| VerifiedOutputBoundaryTests.test_malformed_evidence_reference_rejected_without_echo | method | 662-675 |
+| VerifiedOutputBoundaryTests.test_oversized_request_is_rejected | method | 677-685 |
+| VerifiedOutputBoundaryTests.test_wrong_authentication_is_rejected_before_verification | method | 687-695 |
+| VerifiedOutputBoundaryTests.test_malformed_request_returns_bounded_error_without_input_echo | method | 697-712 |
+| VerifiedOutputBoundaryTests.test_internal_verification_error_is_bounded | method | 714-729 |
+| VerifiedOutputBoundaryTests.test_mounted_mcp_auth_is_required_for_verify_path | method | 731-737 |
+| VerifiedOutputBoundaryTests.test_expired_or_restarted_registry_rejects_old_reference | method | 739-764 |
+| VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary | method | 766-835 |
+| VerifiedOutputBoundaryTests.test_mcp_exposes_same_verified_output_boundary.invoke | async_method | 802-824 |
+| VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts | method | 837-915 |
+| VerifiedOutputBoundaryTests.test_mcp_span_pool_preserves_barcode_binding_and_detects_field_conflicts.invoke | async_method | 873-901 |
+| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_does_not_accept_forged_span_refs | method | 917-945 |
+| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_includes_product_title_spans | method | 947-1009 |
+| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_uses_html_product_heading | method | 1011-1086 |
+| VerifiedOutputBoundaryTests.test_mcp_barcode_auto_selection_preserves_caller_selected_field_spans | method | 1088-1150 |
+| VerifiedOutputBoundaryTests.test_missing_verification_auth_is_rejected | method | 1152-1158 |
 
 </details>
 
