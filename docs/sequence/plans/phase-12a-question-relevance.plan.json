@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PHASE12A-QUESTION-RELEVANCE",
+  "title": "Phase 12A question-to-evidence relevance and sufficiency authority",
+  "status": "FROZEN",
+  "problem_statement": "Deterministic literal claim support is currently promoted into synthesis without a server-visible original question or complete request scope. FALSE-04 demonstrated that a true quotation about a seven-digit barcode prefix was promoted as an answer to whether an authoritative record binds a complete thirteen-digit barcode to a product.",
+  "root_cause": "REST and MCP verification accept claims and evidence references but not the original question or an explicit answer-coverage contract. GroundingService infers expected barcode context only from proposed barcode claims; an EXTRACTIVE_STATEMENT can therefore be supported by literal source text without proving entity relevance, request coverage, source authority, or answer sufficiency.",
+  "proposed_contract": {
+    "request_scope": "Require bounded original-question text, explicit requested claim keys, and exact subject anchors when the question does not contain a supported exact identifier. The scope is a constraint only, never factual evidence.",
+    "deterministic_constraints": "Re-derive recognized exact identifiers and explicit authority, freshness, multi-source, and quotation requirements from the original question; reject missing or conflicting request-scope declarations. Match complete normalized identifier/entity tokens, never prefixes.",
+    "claim_relevance": "Every candidate claim must map to a requested answer key and a same-source subject or exact-identifier binding. Exact quotes may enter synthesis only for an explicit quotation request.",
+    "authority_and_time": "Required source roles come only from a trusted injected server policy. Missing policy/role or insufficient temporal metadata yields fail-closed abstention.",
+    "sufficiency": "All required keys, identifier/entity constraints, authority requirements, freshness requirements, source-count requirements, and contradiction checks must pass before synthesis_claims is nonempty.",
+    "uncertainty": "When relevance, authority, temporal validity, or completeness cannot be determined deterministically, return an explicit insufficient assessment and no synthesis claims. No LLM judge or vector similarity acts as factual authority."
+  },
+  "source_ownership": {
+    "rest_mcp_contract": "src/max_grounding/api.py::verify_endpoint and src/max_grounding/mcp_server.py::mcp_verify_claims",
+    "orchestration": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+    "pure_scope_authority": "src/max_grounding/question_relevance.py::compile_question_contract and assess_question_sufficiency",
+    "source_binding": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph",
+    "claim_packet": "src/max_grounding/verification.py::build_synthesis_packet and src/max_grounding/models.py::SynthesisPacket"
+  },
+  "threat_model": [
+    "An LLM proposes a plausible but irrelevant verbatim quote as an answer.",
+    "A source discusses a prefix or partial identifier while the question asks about a complete identifier.",
+    "A source describes a different product or entity with similar names or overlapping keywords.",
+    "The consumer omits requested fields or authority/freshness constraints from its proposed answer scope.",
+    "An unauthoritative source is labeled authoritative by caller text or model judgment.",
+    "A single exact citation is mistaken for complete, independent, temporally valid support.",
+    "A model invents evidence references, source roles, entities, identifiers, or citations."
+  ],
+  "invariants": [
+    "Fetched evidence and source metadata remain server-owned; caller prose, claims, scope, authority labels, and citations are proposals only.",
+    "Question scope cannot relax any independently detected hard constraint in the original question.",
+    "A full identifier must be exactly bound in the source; a numeric prefix or substring is insufficient.",
+    "No question-level failure can leave otherwise supported but incomplete claims in synthesis_claims.",
+    "Existing supported positive structured-field behavior remains available when complete scope and source binding are proven.",
+    "No benchmark-specific task, identifier, domain, answer, threshold, or result is hardcoded."
+  ],
+  "acceptance_criteria": [
+    "The baseline reproduces a supported exact quote entering synthesis despite no original-question input.",
+    "REST and MCP require the same bounded question-scope contract and expose the same question-level sufficiency assessment.",
+    "A prefix-only identifier source, unrelated entity, unrequested quote, missing required field, unknown required source role, stale/unknown temporal record, insufficient-source result, or conflict cannot produce synthesis claims.",
+    "A synthetic positive control with an exact identifier/entity, complete required fields, trusted authority role where required, sufficient distinct sources, and current temporal metadata passes.",
+    "Citation text integrity, claim-to-source support, question-to-claim relevance, source-authority satisfaction, and full-task acceptance remain separate evidence fields.",
+    "Targeted, cumulative, security, real-stack, cross-platform, and exact-SHA CI gates retain their existing thresholds and protections."
+  ],
+  "negative_paths": [
+    "Missing/malformed/oversized request scope is rejected.",
+    "Incomplete requested-key coverage, extra claim keys, or non-quotation extractive claims yield no synthesis output.",
+    "Prefix-only, wrong-entity, or wrong-product evidence is blocked even when literal text is supported.",
+    "Missing/unknown authority roles and unavailable authority policy fail closed.",
+    "Missing/out-of-window temporal metadata, insufficient distinct sources, contradictions, and empty evidence fail closed.",
+    "Forged or mutated source roles, entity constraints, identifiers, evidence refs, or span refs cannot be accepted."
+  ],
+  "positive_controls": [
+    "A fetched record with a complete exact GTIN binding and all requested labeled product fields remains synthesis-safe under a non-authority-required question.",
+    "A synthetic trusted source-authority provider plus a complete exact-identifier record passes a question that explicitly requires one of the configured authority roles.",
+    "An exact source quotation remains eligible when the original question explicitly requests that quotation and all other scope requirements pass."
+  ],
+  "observability": [
+    "Question-level outcome is explicit: sufficient or insufficient.",
+    "Reason codes distinguish scope mismatch, unrequested claim, missing identifier/entity binding, missing authority, temporal uncertainty, incomplete coverage, source shortage, and contradiction.",
+    "Per-claim support and question-level sufficiency remain separate; sanitized evidence records both without copying secrets or unbounded raw source bodies."
+  ],
+  "rollback_considerations": [
+    "No persistent evidence schema or source index mutation is required.",
+    "The new request contract changes verification API inputs; rollback requires a new candidate that restores prior input compatibility and removes the new gate coherently.",
+    "Do not revert or rewrite Run 003, Run 004, Run 005, or earlier Run 006 evidence."
+  ],
+  "sequence_requirements": {
+    "must_source_edges": [
+      "REST and MCP pass the original question scope into GroundingService verification.",
+      "GroundingService compiles the deterministic question contract before claim promotion.",
+      "GroundingService passes question-derived exact identifier constraints into server-owned evidence graph construction.",
+      "GroundingService applies question sufficiency after deterministic per-claim verification and before canonical packet emission."
+    ],
+    "must_document_edges": [
+      "Only a complete, relevance-aligned, authority/temporal/source-sufficient question assessment may expose claims to synthesis.",
+      "Any unresolved question-level requirement returns an empty synthesis claim set and explicit reason codes."
+    ]
+  },
+  "nodes": [
+    {"id": "caller", "label": "External consumer with original user question", "locator": "external caller outside repository", "kind": "actor"},
+    {"id": "rest_verify", "label": "Authenticated REST verification", "locator": "src/max_grounding/api.py::verify_endpoint", "kind": "source"},
+    {"id": "mcp_verify", "label": "Structured MCP verification", "locator": "src/max_grounding/mcp_server.py::mcp_verify_claims", "kind": "source"},
+    {"id": "service", "label": "GroundingService verification orchestration", "locator": "src/max_grounding/service.py::GroundingService.verify_candidate_claims", "kind": "source"},
+    {"id": "compile_scope", "label": "Compile bounded question constraints", "locator": "src/max_grounding/question_relevance.py::compile_question_contract", "kind": "source"},
+    {"id": "evidence_graph", "label": "Build server-owned exact evidence graph", "locator": "src/max_grounding/evidence_authority.py::build_server_owned_evidence_graph", "kind": "source"},
+    {"id": "claim_packet", "label": "Verify claims and build claim packet", "locator": "src/max_grounding/verification.py::build_synthesis_packet", "kind": "source"},
+    {"id": "sufficiency", "label": "Assess question relevance and full answer sufficiency", "locator": "src/max_grounding/question_relevance.py::assess_question_sufficiency", "kind": "source"},
+    {"id": "canonical", "label": "Emit canonical question-bound packet", "locator": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet", "kind": "source"}
+  ],
+  "edges": [
+    {"from": "caller", "to": "rest_verify", "action": "Submit original question scope and bounded claims to authenticated REST", "verification": "DOCUMENT", "requirement": "MUST"},
+    {"from": "caller", "to": "mcp_verify", "action": "Submit the same original question scope and bounded claims to authenticated MCP", "verification": "DOCUMENT", "requirement": "MUST"},
+    {"from": "rest_verify", "to": "service", "action": "Delegate verification to GroundingService", "verification": "SOURCE", "requirement": "MUST"},
+    {"from": "mcp_verify", "to": "service", "action": "Delegate verification to GroundingService", "verification": "SOURCE", "requirement": "MUST"},
+    {"from": "service", "to": "compile_scope", "action": "Compile/validate explicit request constraints before evidence can be promoted", "verification": "SOURCE", "requirement": "MUST"},
+    {"from": "service", "to": "evidence_graph", "action": "Pass question-derived complete identifier constraints to evidence graph construction", "verification": "SOURCE", "requirement": "MUST"},
+    {"from": "service", "to": "claim_packet", "action": "Run deterministic per-claim support and contradiction verification", "verification": "SOURCE", "requirement": "MUST"},
+    {"from": "service", "to": "sufficiency", "action": "Gate requested-field relevance, subject binding, authority, freshness, source count, and complete coverage", "verification": "SOURCE", "requirement": "MUST"},
+    {"from": "service", "to": "canonical", "action": "Emit only a complete sufficient packet; otherwise emit abstention with no synthesis claims", "verification": "SOURCE", "requirement": "MUST"},
+    {"from": "sufficiency", "to": "canonical", "action": "Require complete scope satisfaction before synthesis eligibility", "verification": "DOCUMENT", "requirement": "MUST"}
+  ],
+  "tests": [
+    "tests/test_question_relevance.py",
+    "tests/test_verified_output.py",
+    "tests/test_api.py",
+    "tests/test_mcp_server.py",
+    "tests/test_service_security.py"
+  ]
+}

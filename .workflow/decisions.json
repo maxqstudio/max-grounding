@@ -56,6 +56,30 @@
       "date": "2026-09-30",
       "decision": "Phase 11 uses Ollama v0.34.0 with qwen3-embedding:0.6b as the first concrete local embedding service and Qdrant v1.19.1 REST as the persistent vector index. Python core adapters remain stdlib-only and service processes remain external/container boundaries.",
       "rationale": "The 0.6B embedding model is small enough for practical self-hosting while retaining 1024-dimensional multilingual embeddings; Qdrant provides a mature persistent vector service. Keeping both behind HTTP contracts preserves native Linux/Windows/macOS core portability and avoids heavyweight Python ML/vector dependencies."
+    },
+    {
+      "id": "DEC-0008",
+      "title": "Authorize mandatory Phase 12A production grounding hardening",
+      "status": "ACCEPTED",
+      "date": "2026-09-30",
+      "decision": "Treat verified production output, canonical citation integrity, fail-closed consumer behavior, fetch-failure classification, and the unproven redirect-to-private security boundary as a mandatory Phase 12A hardening phase before any Pretio tester integration planning. Phase 13-16 remain OPTIONAL.",
+      "rationale": "Run 003 is a valid accepted black-box campaign but exposed evidence/citation integrity and security evidence gaps that prevent MAX Grounding from being ready for downstream consumer integration."
+    },
+    {
+      "id": "DEC-0009",
+      "title": "Record corrective Phase 12A source topology amendment without rewriting the original freeze",
+      "status": "ACCEPTED",
+      "date": "2026-10-08",
+      "decision": "Preserve the original immutable Phase 12A evidence-span selection BEFORE plan frozen at 835e502075d3a9ce54c0da910647dae06f2967f0, explicitly classify its impossible direct SOURCE edges as PLAN_CHANGE, and freeze a corrective source-verifiable topology plan at 0a0fe3c560947761036ec2069f46edccb2b91c72. The corrective freeze applies only to subsequent acceptance work, not retroactively to initial implementation.",
+      "rationale": "The original static sequence declared direct call edges from an external consumer and between operations actually orchestrated through GroundingService, which the source AST cannot truthfully prove. Preserve the historical plan and source/test evidence, verify true direct calls separately from documented behavioral contracts, and never add artificial call sites to force PASS."
+    },
+    {
+      "id": "DEC-0010",
+      "title": "Admit real-tested Ollama 0.40.0 without weakening embedding identity",
+      "status": "ACCEPTED",
+      "date": "2026-10-08",
+      "decision": "Keep historical Phase 11 Ollama 0.34.0 acceptance evidence immutable while extending the Phase 12A embedding adapter to explicitly allow only 0.34.0, 0.35.1, and 0.40.0 runtime versions. Reject unknown versions; continue to require pinned qwen3-embedding:0.6b, no truncation, exact 1024-dimensional finite vectors, bounded HTTP and no redirects. Record the actual detected runtime version.",
+      "rationale": "The Owner's Ollama 0.40.0 produced real query/document 1024-dimensional embeddings on October 8, 2026. A previously hard-pinned 0.35.1 candidate prevented an otherwise valid local deployment. TDD RED/GREEN verifies explicit compatibility and unknown-version failure; real-stack search, Qdrant, and Run 006 remain NOT_PROVEN."
     }
   ]
 }

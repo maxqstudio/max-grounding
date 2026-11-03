@@ -1,0 +1,28 @@
+%% GENERATED FILE - DO NOT EDIT
+%% PLAN_SHA256: fec56eef4c3fae327f265065897e2559d9a8452c7bf915d1cfdcea7729928a98
+%% FLOW_ID: FLOW-PHASE12A-EVIDENCE-SPAN-SELECTION
+sequenceDiagram
+    actor consumer_0 as External consumer / proposal only
+    participant fetch_1 as POST /v1/fetch
+    participant issue_2 as Issue server-owned evidence_ref
+    participant select_3 as POST /v1/evidence/spans or MCP select_evidence_spans
+    participant select_service_4 as GroundingService.select_evidence_spans
+    participant select_authority_5 as Deterministic lexical/extractive span selection
+    participant verify_6 as POST /v1/verify or MCP verify_claims
+    participant resolve_spans_7 as Resolve server-issued evidence_span_refs
+    participant graph_8 as Build scoped STRUCTURED_FIELD / EXTRACTIVE_STATEMENT evidence graph
+    participant packet_9 as Build deterministic verification packet
+    participant canonical_10 as Emit canonical server-owned excerpts and citations
+    consumer_0->>fetch_1: request secure fetch of a public source URL [MUST]
+    fetch_1->>issue_2: issue an opaque evidence_ref bound to fetched server-owned text [MUST]
+    consumer_0->>select_3: submit only the evidence_ref returned by this instance's fetch_evidence and bounded search terms [MUST]
+    select_3->>select_service_4: authenticate, validate, and delegate span selection [MUST]
+    select_service_4->>select_authority_5: resolve fetched evidence and deterministically select bounded exact source spans [MUST]
+    select_authority_5->>consumer_0: return opaque evidence_span_refs with canonical source URL, exact server excerpt, and offsets [MUST]
+    consumer_0->>verify_6: submit explicit verification modes and span refs without caller-authored citation metadata [MUST]
+    verify_6->>resolve_spans_7: resolve only unexpired span refs issued by this process from fetched evidence [MUST]
+    resolve_spans_7->>graph_8: scope each structured assertion to selected server spans and same-source product binding [MUST]
+    graph_8->>packet_9: classify only deterministic structured field relations or exact extractive statements; never infer semantic paraphrase support [MUST]
+    packet_9->>canonical_10: preserve independent source URLs, block unsupported/partial/conflicted structured claims, and retain separate exact statement citations [MUST]
+    canonical_10->>consumer_0: return server-generated claim IDs, canonical URLs, and server-owned excerpts only [MUST]
+    canonical_10->>consumer_0: return one machine-readable correction reason for eligible blocked proposals; consumer may retry once only when fetched evidence is usable and no tool/security failure occurred [MAY]

@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "phase": "PHASE_12_PRODUCTION_API_MCP",
-  "status": "PRODUCTION_V1_ACCEPTED",
-  "working_branch": "main",
-  "last_accepted_sha": "a858cf2117412f42c2784ca31440f3b459416283",
+  "phase": "PHASE_12A_PRODUCTION_GROUNDING_HARDENING",
+  "status": "IN_PROGRESS",
+  "working_branch": "work/phase12a-production-grounding-hardening",
+  "last_accepted_sha": "4c45a23c48b7954bbfb0ab86bcc92c975f345a1f",
   "last_accepted_branch": "main",
   "proven": [
     "Phase 10 closure main SHA 15bff377b920e6cf7e9198af554b8f7dc31f2119 passed Acceptance run 36609977448 with 13/13 required jobs.",
@@ -31,22 +31,35 @@
     "Skill Workflow class-method path-symbol validator repair PR #4 passed Governance Selftest on Ubuntu and Windows, merged as 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8, passed post-merge main self-test, and is adopted by Phase 12.",
     "Phase 12 exact product PR head 45e75bbb051fbe3b1d2d7b66b95aacbd4fbef9e9 passed permanent Acceptance run 36655589837 with 13/13 required jobs.",
     "Phase 12 merged main SHA a858cf2117412f42c2784ca31440f3b459416283 passed post-merge permanent Acceptance run 36655739294 with 13/13 required jobs.",
-    "Production V1 repository acceptance is complete through Phase 12; optional Phase 13-16 capabilities remain unpromoted."
+    "Production V1 repository acceptance is complete through Phase 12; optional Phase 13-16 capabilities remain unpromoted.",
+    "Run 003 at evidence HEAD 05690c840d8abbc94dcba8e28a5578f3fa2b4f16 is accepted as a valid real-stack black-box campaign, not as Phase 12A acceptance; it observed 18 unresolved citation markers, 9 unsupported assertions, 1 hallucination, and runtime redirect-to-private NOT_PROVEN.",
+    "The stored Run 003 task prompts, source minimums, and indexing permissions were compared against all 27 raw task transcripts; all 27 matched. The Run 003 manifest-recorded corpus hash differs from the stored benchmark blob hash and remains an evidence-integrity discrepancy.",
+    "Run 004 and Run 005 are preserved historical failed Phase 12A acceptance evidence; neither run is deleted or rewritten. Run 006 is the next current acceptance attempt using the original frozen Run 003 corpus.",
+    "The original Phase 12A evidence-span BEFORE plan frozen at 835e502075d3a9ce54c0da910647dae06f2967f0 is preserved as historical evidence. DEC-0009 classifies invalid direct SOURCE edges as PLAN_CHANGE; amended source-topology plan was separately frozen at 0a0fe3c560947761036ec2069f46edccb2b91c72 before subsequent acceptance work, not before original implementation.",
+    "Isolated October 8 PC implementation checkpoint passed 216 local unit tests, Python compile, and 19/19 static sequence sessions; this proves neither a real-stack Run 006 PASS nor a final Phase 12A closure.",
+    "The owner's Ollama 0.40.0 successfully produced real query and document embeddings with qwen3-embedding:0.6b and exactly 1024 finite dimensions; DEC-0010 records a fail-closed explicit runtime compatibility allowlist. This is an embedding adapter smoke, not whole-service real-stack evidence.",
+    "The isolated October 8 Windows real-service campaign verified official SHA-256-matched Qdrant 1.19.1, actual local Ollama 0.40.0 embedding, localhost REST and MCP authentication/invalid-evidence denial, persistent query and bounded load smoke of 16 requests at concurrency 4 (p50 about 0.741s, p95 about 1.725s). These are local smoke observations, not production benchmarks or full Run 006.",
+    "The separate Phase 11 local test collection was indexed with two documents, Qdrant restarted using the identical isolated storage, and the semantic query after restart ranked the intended gold-reserve document first. The previous shared-default-collection fixture had been polluted by another E2E campaign; the collection is now distinct and regression guarded."
   ],
   "not_proven": [
     "External production hosting/domain provisioning, TLS termination, reverse-proxy configuration, operator secret management, monitoring/SLOs, and a specific operator SearXNG instance remain deployment/operator concerns rather than repository acceptance evidence.",
     "The bounded 16-request concurrency smoke is not a capacity benchmark, latency SLO, availability SLA, or proof of internet-scale load.",
-    "Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional Phase 13-16 capabilities and are not part of accepted Production V1."
+    "Browser rendering, multimodal grounding, GraphRAG, and learned-ranking optimization remain optional Phase 13-16 capabilities and are not part of accepted Production V1.",
+    "Phase 12A closure remains NOT_PROVEN until the latest repair candidate passes the current real-stack regression campaign and all blocking verification, citation, fail-closed, security, persistence, CI, exact-main revalidation, and evidence-preservation gates. Run 004 and Run 005 remain failed historical evidence; Run 006 is current."
   ],
-  "blockers": [],
+  "blockers": [
+    "Phase 12A is IN_PROGRESS; merge is prohibited until all Phase 12A blocking acceptance gates pass."
+  ],
   "next_authorized_actions": [
-    "Keep Phase 12 as the accepted Production V1 baseline.",
-    "Do not begin Phase 13-16 unless the Owner explicitly promotes an OPTIONAL phase in the governed roadmap.",
-    "Future maintenance must preserve exact-head GitHub Actions acceptance, post-merge main revalidation, ROADMAP_SYNC, and Skill Workflow 024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8 or an explicitly adopted newer authority."
+    "Maintain both the original immutable Phase 12A evidence-span BEFORE plan at 835e502075d3a9ce54c0da910647dae06f2967f0 and the honestly labeled corrective source-topology PLAN_CHANGE at 0a0fe3c560947761036ec2069f46edccb2b91c72; do not claim that the corrective plan predates initial implementation.",
+    "Review and harden the implemented server-owned span selection, structured/extractive verification, flattened fields, and bounded correction behavior against security, negative-path, provenance, cross-platform and real-service evidence; local unit PASS is not Phase 12A acceptance.",
+    "Run the current real-stack regression as Run 006 on the unchanged Run 003 corpus; preserve Run 004/005 failures and push sanitized evidence for every attempt.",
+    "After Phase 12A is accepted, stop at READY_FOR_PRETIO_TESTER_INTEGRATION_PLANNING; Pretio integration requires a separate Owner-authorized step."
   ],
   "blocked_actions": [
-    "Do not auto-promote Phase 13, 14, 15, or 16.",
-    "Do not claim external hosting/TLS/SLA state from repository acceptance.",
-    "Do not weaken authenticated REST/MCP, provenance, fail-closed, or cross-platform acceptance contracts."
+    "Do not merge Phase 12A while any blocking gate is FAIL or NOT_PROVEN.",
+    "Do not deploy to, configure, or integrate Pretio as part of Phase 12A.",
+    "Do not promote or start optional Phase 13-16 work.",
+    "Do not weaken SSRF, DNS validation, IP pinning, redirect policy, authentication, provenance, or evidence bounds to improve recall."
   ]
 }

@@ -13,9 +13,11 @@
     {"from":"SERVICE_CALLED","to":"TOOL_RESULT","action":"return structured JSON-compatible provenance result"}
   ],
   "invariants": [
-    "Registered tool names are search_web, fetch_evidence, index_evidence, and query_evidence.",
+    "Registered tool names are search_web, fetch_evidence, index_evidence, query_evidence, and verify_claims.",
     "MCP does not expose a fake research, answer, synthesis, shell, arbitrary filesystem, or arbitrary command tool.",
     "MCP tool wrappers reuse the same service methods and request bounds as REST.",
+    "verify_claims accepts only opaque server-issued evidence references, produces citations from server-owned fetch records, and exposes only SUPPORTED claims for synthesis.",
+    "Evidence references are process-local, expire after 15 minutes, and fail closed after a service restart or when resolved by another process.",
     "MCP Streamable HTTP is stateless/JSON-response oriented unless later evidence justifies stateful streaming.",
     "Mounted MCP traffic is covered by the same API authentication and request-size policy as production REST traffic.",
     "Tool results preserve provenance and never reinterpret unsupported evidence as fact."
@@ -31,7 +33,8 @@
     "src/max_grounding/mcp_server.py::mcp_search_web",
     "src/max_grounding/mcp_server.py::mcp_fetch_evidence",
     "src/max_grounding/mcp_server.py::mcp_index_evidence",
-    "src/max_grounding/mcp_server.py::mcp_query_evidence"
+    "src/max_grounding/mcp_server.py::mcp_query_evidence",
+    "src/max_grounding/mcp_server.py::mcp_verify_claims"
   ],
   "tests": ["tests/test_mcp_server.py"],
   "sequence_session": "docs/sequence/sessions/phase-12-mcp-server.json"

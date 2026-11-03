@@ -9,11 +9,9 @@ from max_grounding.persistent import index_documents, retrieve_persistent_semant
 from max_grounding.providers.ollama_embedding import (
     OLLAMA_EMBEDDING_DIMENSION,
     OLLAMA_MODEL,
-    OLLAMA_VERSION,
     OllamaEmbeddingProvider,
 )
 from max_grounding.providers.qdrant import (
-    DEFAULT_COLLECTION,
     QDRANT_VERSION,
     QdrantVectorStore,
 )
@@ -30,11 +28,18 @@ def document(url: str, text: str) -> FetchedDocument:
     )
 
 
+# Keep the restart/persistence fixture isolated from the production collection
+# and other E2E campaigns so ranking cannot be contaminated by unrelated data.
+PHASE11_E2E_COLLECTION = "max_grounding_phase11_restart_e2e"
+
+
 def services():
     ollama = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
     qdrant = os.environ.get("QDRANT_URL", "http://127.0.0.1:6333")
     provider = OllamaEmbeddingProvider(ollama, timeout_seconds=120)
-    store = QdrantVectorStore(qdrant, timeout_seconds=30)
+    store = QdrantVectorStore(
+        qdrant, collection=PHASE11_E2E_COLLECTION, timeout_seconds=30
+    )
     provider.verify_runtime()
     store.verify_runtime()
     return provider, store
@@ -91,11 +96,11 @@ def run_index() -> None:
         json.dumps(
             {
                 "mode": "index",
-                "ollama_version": OLLAMA_VERSION,
+                "ollama_version": provider.detected_runtime_version,
                 "model": OLLAMA_MODEL,
                 "embedding_dimension": OLLAMA_EMBEDDING_DIMENSION,
                 "qdrant_version": QDRANT_VERSION,
-                "collection": DEFAULT_COLLECTION,
+                "collection": store.collection_name,
                 "chunks_indexed": result.chunks_indexed,
                 "top_url": hits[0].chunk.source_url,
                 "top_score": hits[0].score,

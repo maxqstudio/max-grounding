@@ -12,6 +12,7 @@ from urllib.request import (
     build_opener,
 )
 
+from .. import __version__
 from ..errors import InvalidProviderConfiguration, SearchProviderError
 from ..models import SearchQuery, SourceCandidate
 from ..network_policy import is_admissible_result_url
@@ -93,7 +94,7 @@ def fetch_searxng_json(
         headers={
             "Accept": "application/json",
             "Accept-Encoding": "identity",
-            "User-Agent": "max-grounding/0.0.1",
+            "User-Agent": f"max-grounding/{__version__}",
         },
         method="GET",
     )

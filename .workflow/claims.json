@@ -902,6 +902,78 @@
         "Phase 12 Candidate Verify run 36653665732"
       ],
       "status": "PASS"
+    },
+    {
+      "id": "TRUTH-P12A-BOUNDARY-001",
+      "claim": "Production verification accepts only server-issued evidence references resolved to exact MAX Grounding fetched evidence; caller-authored evidence, scores, source identity, and citation fields are never treated as authority.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/service.py::GroundingService",
+        "src/max_grounding/verification.py::build_synthesis_packet"
+      ],
+      "tests": [
+        "tests/test_service.py",
+        "tests/test_verification.py"
+      ],
+      "runtime_evidence": [
+        "NOT_PROVEN"
+      ],
+      "status": "NOT_PROVEN"
+    },
+    {
+      "id": "TRUTH-P12A-SYNTHESIS-001",
+      "claim": "The production authoritative response includes canonical citation provenance and exposes only SUPPORTED claims in synthesis_claims; all partial, conflicted, and unsupported claims remain blocked.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/verification.py::build_synthesis_packet"
+      ],
+      "tests": [
+        "tests/test_verification.py",
+        "tests/test_api.py"
+      ],
+      "runtime_evidence": [
+        "NOT_PROVEN"
+      ],
+      "status": "NOT_PROVEN"
+    },
+    {
+      "id": "TRUTH-P12A-SECURITY-001",
+      "claim": "The authenticated verification boundary is bounded and fail-closed, and the controlled redirect-to-private runtime test proves a redirected private target receives no request.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "src/max_grounding/fetcher.py::fetch_document",
+        "src/max_grounding/api.py::ProductionSecurityMiddleware"
+      ],
+      "tests": [
+        "tests/test_service_security.py"
+      ],
+      "runtime_evidence": [
+        "NOT_PROVEN"
+      ],
+      "status": "NOT_PROVEN"
+    },
+    {
+      "id": "TRUTH-P12A-CONSUMER-001",
+      "claim": "The reference consumer terminates repeated insufficient-evidence loops deterministically and distinguishes MAX Grounding tool failures from external model or harness failures.",
+      "documents": [
+        "PROJECT_TRUTH_SYNC.md"
+      ],
+      "source_owners": [
+        "integration/phase12_e2e.py"
+      ],
+      "tests": [
+        "NOT_PROVEN"
+      ],
+      "runtime_evidence": [
+        "NOT_PROVEN"
+      ],
+      "status": "NOT_PROVEN"
     }
   ],
   "relations": []

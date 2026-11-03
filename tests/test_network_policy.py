@@ -60,7 +60,7 @@ class ResultUrlAdmissionTests(unittest.TestCase):
 class ConnectionTargetResolutionTests(unittest.TestCase):
     @staticmethod
     def _resolver(addresses: list[str]):
-        def resolve(host: str, port: int, *args: object, **kwargs: object):
+        def resolve_addresses(host: str, port: int, *args: object, **kwargs: object):
             rows = []
             for address in addresses:
                 family = socket.AF_INET6 if ":" in address else socket.AF_INET
@@ -76,7 +76,7 @@ class ConnectionTargetResolutionTests(unittest.TestCase):
                 )
             return rows
 
-        return resolve
+        return resolve_addresses
 
     def test_accepts_and_deduplicates_only_public_dns_answers(self) -> None:
         addresses = resolve_public_addresses(

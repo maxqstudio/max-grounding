@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "flow_id": "FLOW-PRODUCTION-VERIFIED-OUTPUT",
+  "title": "Phase 12A verified production output and canonical citations",
+  "purpose": "Accept bounded candidate claims only when they bind to server-owned fetched evidence; run deterministic claim verification; return canonical citations and an explicit fail-closed synthesis packet through authenticated REST and MCP.",
+  "critical": true,
+  "entry_condition": "The authenticated Production V1 runtime is ready and the consumer has bounded candidate claims plus opaque evidence references previously issued by MAX Grounding.",
+  "authority": "MAX Grounding secure-fetch records and server-owned evidence binding followed by deterministic Phase 10 verification. External LLM output is proposal-only and never controls evidence identity, score, source count, status, or citation authority.",
+  "states": [
+    "CANDIDATE_RECEIVED",
+    "EVIDENCE_REFERENCES_RESOLVED",
+    "CLAIMS_BOUND",
+    "CLAIMS_VERIFIED",
+    "PACKET_BUILT",
+    "RESPONSE_RETURNED",
+    "REJECTED"
+  ],
+  "transitions": [
+    {
+      "from": "CANDIDATE_RECEIVED",
+      "to": "EVIDENCE_REFERENCES_RESOLVED",
+      "action": "resolve only opaque references issued for evidence actually fetched and validated by MAX Grounding"
+    },
+    {
+      "from": "EVIDENCE_REFERENCES_RESOLVED",
+      "to": "CLAIMS_BOUND",
+      "action": "construct evidence assertions from server-owned source/chunk/excerpt records; reject unknown, forged, mutated, or mismatched references"
+    },
+    {
+      "from": "CLAIMS_BOUND",
+      "to": "CLAIMS_VERIFIED",
+      "action": "invoke deterministic Phase 10 graph and claim verification with bounded claims and independent-source thresholds"
+    },
+    {
+      "from": "CLAIMS_VERIFIED",
+      "to": "PACKET_BUILT",
+      "action": "attach server-generated canonical citations and place only SUPPORTED claims in synthesis_claims; preserve partial/conflicted/unsupported claims in blocked_claims"
+    },
+    {
+      "from": "PACKET_BUILT",
+      "to": "RESPONSE_RETURNED",
+      "action": "serialize the same authoritative structured packet through authenticated REST or MCP"
+    },
+    {
+      "from": "CANDIDATE_RECEIVED",
+      "to": "REJECTED",
+      "action": "fail closed on malformed, unbounded, duplicate, expired, unknown, forged, or caller-authored evidence/citation material"
+    }
+  ],
+  "invariants": [
+    "The external model may propose bounded claims but has no authority to invent or select evidence identity, source URL, chunk, excerpt, quality score, source count, verification status, or citation.",
+    "The caller supplies only opaque MAX Grounding evidence references; MAX Grounding resolves references to its own accepted fetched evidence.",
+    "Unknown, expired, forged, altered, or mismatched evidence references are rejected without partial authoritative output.",
+    "Canonical source URLs, document/chunk IDs, and exact citations are generated from server-owned evidence records.",
+    "Only SUPPORTED claims enter synthesis_claims; PARTIALLY_SUPPORTED, CONFLICTED, and UNSUPPORTED claims remain blocked.",
+    "Source count uses distinct canonical source URLs and duplicate mirrors do not inflate independent-source count.",
+    "Search, fetch, indexing, Qdrant persistence, REST authentication/body caps, MCP DNS-rebinding protection, SSRF policy, redirect policy, and response bounds remain unchanged unless a separately evidenced secure compatibility repair is required."
+  ],
+  "failure_behavior": [
+    "Invalid/unknown evidence references or malformed candidate claims fail closed with a bounded error and no verification packet.",
+    "A claim with insufficient independent sources is PARTIALLY_SUPPORTED and blocked.",
+    "An exclusive claim with contradictory evidence is CONFLICTED and blocked.",
+    "A claim with no exact bound support is UNSUPPORTED and blocked.",
+    "Only the server-generated canonical citation packet is authoritative; free-form model prose and model-generated citation markers are ignored."
+  ],
+  "restart_behavior": [
+    "Evidence references are valid only for the documented server-owned evidence lifetime; a reference that can no longer be resolved fails closed. Any persistent reference design must pass restart provenance tests."
+  ],
+  "rollback_behavior": [
+    "The verification operation is additive and read-only; rollback removes only the new operation and evidence-reference presentation without altering indexed source data."
+  ],
+  "source_owners": [
+    "src/max_grounding/api.py::create_rest_app",
+    "src/max_grounding/service.py::GroundingService",
+    "src/max_grounding/verification.py::build_synthesis_packet",
+    "src/max_grounding/mcp_server.py::create_mcp_server"
+  ],
+  "tests": [
+    "tests/test_verification.py",
+    "tests/test_api.py",
+    "tests/test_mcp_server.py",
+    "tests/test_service_security.py"
+  ],
+  "sequence_session": "docs/sequence/sessions/phase-12a-verified-output.json"
+}

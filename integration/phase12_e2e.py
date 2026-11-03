@@ -110,6 +110,19 @@ def _rest_probe(base_url: str) -> None:
     )
     assert wrong.status_code == 401, wrong.text
 
+    fabricated_verify = httpx.post(
+        base_url + "/v1/verify",
+        headers=auth,
+        json={
+            "claims": [{"claim_id": "fake", "claim_key": "name", "value": "Invented"}],
+            "evidence_refs": ["ev_" + "A" * 40],
+            "required_sources": 1,
+        },
+        timeout=10,
+    )
+    assert fabricated_verify.status_code == 400, fabricated_verify.text
+    assert fabricated_verify.json() == {"error": "invalid_request"}
+
     mcp_unauth = httpx.post(
         base_url + "/mcp",
         json={"jsonrpc": "2.0", "id": 1, "method": "server/discover"},
@@ -174,7 +187,19 @@ async def _mcp_probe(base_url: str) -> None:
                     "fetch_evidence",
                     "index_evidence",
                     "query_evidence",
+                    "verify_claims",
+                    "select_evidence_spans",
                 }, names
+
+                invalid_verification = await session.call_tool(
+                    "verify_claims",
+                    {
+                        "claims": [{"claim_id": "fake", "claim_key": "name", "value": "Invented"}],
+                        "evidence_refs": ["ev_" + "A" * 40],
+                        "required_sources": 1,
+                    },
+                )
+                assert invalid_verification.is_error, invalid_verification
 
                 result = await session.call_tool(
                     "query_evidence",

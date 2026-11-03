@@ -9,6 +9,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from schema_contract import require_profile_schema_version
+
 PROFILE_FILE = "PROJECT_PROFILE.yaml"
 
 PROFILE_REQUIRED = {
@@ -85,7 +87,7 @@ def _clean(value: str) -> str:
     return value.strip()
 
 
-def parse_profile(path: Path) -> dict:
+def parse_profile(path: Path, require_schema_version: bool = True) -> dict:
     if not path.is_file():
         raise FileNotFoundError(path)
 
@@ -125,6 +127,8 @@ def parse_profile(path: Path) -> dict:
                 f"2-space mappings; invalid line: {raw}"
             )
 
+    if require_schema_version:
+        require_profile_schema_version(data, PROFILE_FILE)
     return data
 
 

@@ -10,7 +10,7 @@ Canonical authority is declared in .workflow/authority.json.
 | runtime | GitHub Actions runner matrix | Linux, Windows, and macOS GitHub-hosted runners are the core runtime acceptance authority. | NO |
 | acceptance | GitHub Actions required workflows | A phase is accepted only when its required workflow checks pass on the exact candidate commit. | NO |
 | documentation | .workflow/*.json plus deterministic Project Truth Compiler | Structured specs are semantic authority; docs/ is generated projection. | YES |
-| skill_workflow | maxqstudio/Skill_Workflow@024e2ea458b25ad9dfb401d3fdeaa994a4cbe1b8 | Pinned latest governance tooling including Python class-method path-symbol validation and Phase 12 route-predecessor support. | NO |
+| skill_workflow | maxqstudio/Skill_Workflow@91b58b98049a7d27ed65169508177ea7dc978ca1 | Exact latest applicable governance source; vendored tools are bound by .workflow/toolchain.lock.json content digest and producer provenance. | NO |
 
 ## Invariants
 

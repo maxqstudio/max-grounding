@@ -231,7 +231,8 @@ def main() -> int:
         git(root, "config", "user.email", "skill-workflow-selftest@example.invalid")
         git(root, "config", "user.name", "Skill Workflow Selftest")
 
-        profile = """profile: strict
+        profile = """schema_version: 1
+profile: strict
 
 contracts:
   api_contracts: required

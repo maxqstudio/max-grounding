@@ -14,6 +14,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import validate_project_docs
 from project_profile import (
     PROFILE_FILE,
     documentation_settings,
@@ -24,6 +25,7 @@ from project_profile import (
     sequence_settings,
     validate_profile,
 )
+from script_runner import invoke_main
 
 REQUIRED_GATES = [
     "SOURCE_TESTS",
@@ -100,6 +102,7 @@ def main() -> int:
     ap.add_argument("--ledger", default="")
     ap.add_argument("--report", default="")
     ap.add_argument("--allow-dirty", action="store_true")
+    ap.add_argument("--project-docs-already-validated", action="store_true")
     args = ap.parse_args()
 
     start = Path(args.root).resolve()
@@ -153,29 +156,14 @@ def main() -> int:
                 "docs_root": "docs",
             }
 
-    if documentation_policy.get("generated", False):
-        tool_dir = Path(__file__).resolve().parent
-        project_docs_validator = tool_dir / "validate_project_docs.py"
-        if not project_docs_validator.is_file():
-            project_docs_validator = root / "scripts" / "validate_project_docs.py"
-        if not project_docs_validator.is_file():
-            failures.append("PROJECT_DOCS_VALIDATOR_MISSING")
-        else:
-            proc = subprocess.run(
-                [
-                    sys.executable,
-                    str(project_docs_validator),
-                    "--root",
-                    str(root),
-                ],
-                cwd=root,
-                text=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                check=False,
-            )
-            if proc.returncode != 0:
-                failures.append("PROJECT_DOCS_COMPILER_VALIDATION_FAILED")
+    if documentation_policy.get("generated", False) and not args.project_docs_already_validated:
+        code, _ = invoke_main(
+            validate_project_docs.main,
+            ["--root", str(root)],
+            program="validate_project_docs.py",
+        )
+        if code != 0:
+            failures.append("PROJECT_DOCS_COMPILER_VALIDATION_FAILED")
 
     docs_root = root / str(documentation_policy.get("docs_root", "docs"))
     ledger_arg = args.ledger.strip()

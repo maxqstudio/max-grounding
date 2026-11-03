@@ -16,10 +16,12 @@
   "invariants": [
     "GET /healthz reveals only liveness and requires no secret.",
     "GET /readyz reports readiness without returning credentials or provider secrets.",
-    "POST /v1/search, /v1/fetch, /v1/index, and /v1/query require authentication.",
+    "POST /v1/search, /v1/fetch, /v1/index, /v1/query, and /v1/verify require authentication.",
     "Request bodies are bounded before JSON parsing and typed validation.",
     "REST routes expose no arbitrary URL fetch bypass beyond accepted fetch_evidence validation.",
     "Error responses do not include raw exception tracebacks, secrets, or untrusted executable content.",
+    "POST /v1/verify accepts only bounded claims and 43-character server-issued evidence references; only SUPPORTED claims enter synthesis_claims.",
+    "Malformed request responses are generic and do not echo request values, and verification references expire after 15 minutes or service-process restart.",
     "REST response fields preserve exact URLs/chunk identities/provenance returned by accepted core types."
   ],
   "failure_behavior": [
@@ -36,7 +38,8 @@
     "src/max_grounding/api.py::search_endpoint",
     "src/max_grounding/api.py::fetch_endpoint",
     "src/max_grounding/api.py::index_endpoint",
-    "src/max_grounding/api.py::query_endpoint"
+    "src/max_grounding/api.py::query_endpoint",
+    "src/max_grounding/api.py::verify_endpoint"
   ],
   "tests": ["tests/test_api.py","tests/test_service_security.py"],
   "sequence_session": "docs/sequence/sessions/phase-12-rest-api.json"
