@@ -82,6 +82,35 @@ def refs(client: TestClient, query: str) -> tuple[str, str]:
 
 
 class ScopedQuestionAcceptanceTests(unittest.TestCase):
+    def test_missing_question_scope_cannot_promote_rest_claim(self) -> None:
+        client = api(runtime(f"Barcode | {CODE} | Brand | SampleCo"))
+        ev, sp = refs(client, CODE)
+        response = client.post(
+            "/v1/verify",
+            headers=headers(),
+            json={
+                "claims": [proposal("brand", "SampleCo", sp)],
+                "evidence_refs": [ev],
+                "required_sources": 1,
+            },
+        )
+        self.assertEqual(response.status_code, 400, response.text)
+        self.assertEqual(response.json(), {"error": "invalid_request"})
+
+    def test_missing_question_scope_cannot_promote_mcp_claim(self) -> None:
+        from max_grounding.errors import InvalidGroundingRequest
+
+        svc = runtime(f"Barcode | {CODE} | Brand | SampleCo")
+        item = svc.fetch_evidence(URL)
+        spans = svc.select_evidence_spans(item.evidence_ref, query=CODE, limit=1)
+        with self.assertRaises(InvalidGroundingRequest):
+            mcp_verify_claims(
+                svc,
+                claims=[proposal("brand", "SampleCo", spans[0].evidence_span_ref)],
+                evidence_refs=[item.evidence_ref],
+                required_sources=1,
+            )
+
     def test_exact_identifier_brand_yields_question_sufficient(self) -> None:
         client = api(runtime(f"Barcode | {CODE} | Brand | SampleCo"))
         ev, sp = refs(client, CODE)
