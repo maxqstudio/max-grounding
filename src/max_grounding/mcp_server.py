@@ -102,6 +102,15 @@ class CandidateClaimProposal(BaseModel):
     )
 
 
+class QuestionScopeProposal(BaseModel):
+    """Original user question; a constraint, not authority or source content."""
+
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    question: str = Field(min_length=8, max_length=2048)
+    requested_claim_keys: tuple[str, ...] = Field(min_length=1, max_length=16)
+    subject_anchors: tuple[str, ...] = Field(default=(), max_length=8)
+
+
 EvidenceReferenceProposal = Annotated[
     str,
     Field(
@@ -341,8 +350,10 @@ def mcp_verify_claims(
     claims: list[dict[str, Any]] | tuple[dict[str, Any], ...],
     evidence_refs: list[str] | tuple[str, ...],
     required_sources: int = DEFAULT_REQUIRED_SOURCES,
+    question_scope: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Return only the server-built verified packet for bounded claim proposals."""
+    scope_kwargs = {"question_scope": question_scope} if question_scope is not None else {}
     barcode = _mcp_barcode_value(claims)
     if barcode is not None:
         # Validate caller tokens and their evidence_ref binding before supplementing them.
@@ -350,6 +361,7 @@ def mcp_verify_claims(
             claims,
             evidence_refs=evidence_refs,
             required_sources=required_sources,
+            **scope_kwargs,
         )
         server_selected_refs = _select_barcode_spans(
             service,
@@ -389,6 +401,7 @@ def mcp_verify_claims(
                 claims,
                 evidence_refs=evidence_refs,
                 required_sources=required_sources,
+                **scope_kwargs,
             )
         )
     return to_wire(
@@ -396,6 +409,7 @@ def mcp_verify_claims(
             _share_structured_claim_span_refs(claims),
             evidence_refs=evidence_refs,
             required_sources=required_sources,
+            **scope_kwargs,
         )
     )
 
@@ -475,6 +489,7 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
         claims: CandidateClaimProposals,
         evidence_refs: EvidenceReferenceProposals,
         required_sources: int = DEFAULT_REQUIRED_SOURCES,
+        question_scope: QuestionScopeProposal | None = None,
     ) -> dict[str, Any]:
         """Verify proposals using server-issued evidence_ref and evidence_span_ref values.
 
@@ -505,6 +520,7 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
             claims=[claim.model_dump(exclude_none=True) for claim in claims],
             evidence_refs=evidence_refs,
             required_sources=required_sources,
+            question_scope=question_scope.model_dump() if question_scope is not None else None,
         )
 
     server.tool(name="search_web", structured_output=True)(_tool_search_web)

@@ -166,8 +166,19 @@ class EvidenceSpanSelectionRequest(BaseModel):
     )
 
 
+class QuestionScopeRequest(BaseModel):
+    """Original-question constraints; never authority or factual evidence."""
+
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    question: str = Field(min_length=8, max_length=2048)
+    requested_claim_keys: tuple[str, ...] = Field(min_length=1, max_length=16)
+    subject_anchors: tuple[str, ...] = Field(default=(), max_length=8)
+
+
 class VerifyRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
+
+    question_scope: QuestionScopeRequest | None = None
 
     claims: tuple[CandidateClaimRequest, ...] = Field(
         min_length=1,
@@ -371,11 +382,16 @@ def query_endpoint(payload: QueryRequest, request: Request):
 @router.post("/v1/verify")
 def verify_endpoint(payload: VerifyRequest, request: Request):
     claims = tuple(item.model_dump() for item in payload.claims)
+    scope_kwargs = (
+        {"question_scope": payload.question_scope.model_dump()}
+        if payload.question_scope is not None else {}
+    )
     return to_wire(
         request.app.state.grounding_service.verify_candidate_claims(
             claims,
             evidence_refs=payload.evidence_refs,
             required_sources=payload.required_sources,
+            **scope_kwargs,
         )
     )
 
