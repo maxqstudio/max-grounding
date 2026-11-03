@@ -103,7 +103,7 @@ class QuestionRelevanceContracts(unittest.TestCase):
 
     def test_irrelevant_literal_quote_is_not_a_supported_answer(self) -> None:
         contract = scoped(
-            f"What brand is associated with barcode {IDENTIFIER}?",
+            f"What does barcode {IDENTIFIER} represent?",
             ["exact_evidence"],
         )
         result = assess_question_sufficiency(
