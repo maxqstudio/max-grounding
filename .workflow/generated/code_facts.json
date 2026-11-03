@@ -98,7 +98,7 @@
       "file": "src/max_grounding/api.py",
       "is_test": false,
       "language": "Python",
-      "lines": 502
+      "lines": 518
     },
     {
       "directory": "src/max_grounding",
@@ -133,7 +133,7 @@
       "file": "src/max_grounding/evidence_authority.py",
       "is_test": false,
       "language": "Python",
-      "lines": 1060
+      "lines": 1061
     },
     {
       "directory": "src/max_grounding",
@@ -161,14 +161,14 @@
       "file": "src/max_grounding/mcp_server.py",
       "is_test": false,
       "language": "Python",
-      "lines": 554
+      "lines": 570
     },
     {
       "directory": "src/max_grounding",
       "file": "src/max_grounding/models.py",
       "is_test": false,
       "language": "Python",
-      "lines": 338
+      "lines": 343
     },
     {
       "directory": "src/max_grounding",
@@ -228,6 +228,13 @@
     },
     {
       "directory": "src/max_grounding",
+      "file": "src/max_grounding/question_relevance.py",
+      "is_test": false,
+      "language": "Python",
+      "lines": 234
+    },
+    {
+      "directory": "src/max_grounding",
       "file": "src/max_grounding/reranking.py",
       "is_test": false,
       "language": "Python",
@@ -252,7 +259,7 @@
       "file": "src/max_grounding/service.py",
       "is_test": false,
       "language": "Python",
-      "lines": 440
+      "lines": 483
     },
     {
       "directory": "src/max_grounding",
@@ -400,6 +407,20 @@
       "is_test": true,
       "language": "Python",
       "lines": 284
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_question_relevance.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 219
+    },
+    {
+      "directory": "tests",
+      "file": "tests/test_question_relevance_integration.py",
+      "is_test": true,
+      "language": "Python",
+      "lines": 212
     },
     {
       "directory": "tests",
@@ -1232,6 +1253,10 @@
     {
       "caller": "src/max_grounding/api.py::verify_endpoint",
       "target_token": "item.model_dump"
+    },
+    {
+      "caller": "src/max_grounding/api.py::verify_endpoint",
+      "target_token": "payload.question_scope.model_dump"
     },
     {
       "caller": "src/max_grounding/api.py::verify_endpoint",
@@ -4206,6 +4231,10 @@
       "target_token": "mcp_verify_claims"
     },
     {
+      "caller": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_verify_claims",
+      "target_token": "question_scope.model_dump"
+    },
+    {
       "caller": "src/max_grounding/network_policy.py::is_admissible_result_url",
       "target_token": "any"
     },
@@ -5914,6 +5943,430 @@
       "target_token": "tuple"
     },
     {
+      "caller": "src/max_grounding/question_relevance.py::_contains_token",
+      "target_token": "re.escape"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::_contains_token",
+      "target_token": "re.search"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "QuestionAssessment"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "QuestionAssessment"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "_contains_token"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "_contains_token"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "all"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "all"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "date.astimezone"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "datetime.now"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "dict.fromkeys"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "item.claim.claim_key.casefold"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "matched.add"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "now.astimezone"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "publications.get"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "reasons.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "required.issubset"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "roles.get"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "QuestionContract"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "_DATE_AFTER.search"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "_FIELD_TERMS.items"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "_IDENTIFIER.finditer"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "_KEY.fullmatch"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "_LATEST.search"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "_MANUFACTURER.search"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "_OFFICIAL.search"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "_QUOTE.search"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "_STANDARD.search"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "_contains_token"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "after_match.group"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "anchor.strip"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "anchor.strip"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "any"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "any"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "any"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "any"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "bool"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "bool"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "datetime.fromisoformat"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "dict.fromkeys"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "expected_keys.issubset"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "isinstance"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "key.strip"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "key.strip"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "len"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "match.group"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "ord"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "pattern.search"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "question.strip"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "question.strip"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "roles.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "roles.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "roles.append"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "set"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "tuple"
+    },
+    {
+      "caller": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "target_token": "x.casefold"
+    },
+    {
       "caller": "src/max_grounding/reranking.py::_best_extractive_sentence",
       "target_token": "_sentences"
     },
@@ -6886,6 +7339,14 @@
       "target_token": "GroundingEngine"
     },
     {
+      "caller": "src/max_grounding/service.py::GroundingService.__init__",
+      "target_token": "dict"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.__init__",
+      "target_token": "dict"
+    },
+    {
       "caller": "src/max_grounding/service.py::GroundingService._fetch_document",
       "target_token": "ServiceOperationError"
     },
@@ -7079,7 +7540,19 @@
     },
     {
       "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "target_token": "InvalidGroundingRequest"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "target_token": "ServiceOperationError"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "target_token": "SynthesisPacket"
     },
     {
       "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
@@ -7096,6 +7569,10 @@
     {
       "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "target_token": "any"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "target_token": "assess_question_sufficiency"
     },
     {
       "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
@@ -7131,6 +7608,10 @@
     },
     {
       "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "target_token": "compile_question_contract"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "target_token": "dict.fromkeys"
     },
     {
@@ -7144,6 +7625,10 @@
     {
       "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "target_token": "iter"
+    },
+    {
+      "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "target_token": "len"
     },
     {
       "caller": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
@@ -12224,6 +12709,614 @@
     {
       "caller": "tests/test_qdrant_store.py::chunk",
       "target_token": "TextChunk"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_conflicted_claims_cannot_pass_question_sufficiency",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_conflicted_claims_cannot_pass_question_sufficiency",
+      "target_token": "packet_for"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_conflicted_claims_cannot_pass_question_sufficiency",
+      "target_token": "scoped"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_conflicted_claims_cannot_pass_question_sufficiency",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_conflicted_claims_cannot_pass_question_sufficiency",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata",
+      "target_token": "datetime"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata",
+      "target_token": "datetime"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata",
+      "target_token": "packet_for"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata",
+      "target_token": "scoped"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_explicit_publication_cutoff_can_be_verified_from_trusted_metadata",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_explicit_publication_cutoff_can_be_verified_from_trusted_metadata",
+      "target_token": "datetime"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_explicit_publication_cutoff_can_be_verified_from_trusted_metadata",
+      "target_token": "datetime"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_explicit_publication_cutoff_can_be_verified_from_trusted_metadata",
+      "target_token": "packet_for"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_explicit_publication_cutoff_can_be_verified_from_trusted_metadata",
+      "target_token": "scoped"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_explicit_publication_cutoff_can_be_verified_from_trusted_metadata",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_full_identifier_and_labeled_requested_field_is_positive_control",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_full_identifier_and_labeled_requested_field_is_positive_control",
+      "target_token": "packet_for"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_full_identifier_and_labeled_requested_field_is_positive_control",
+      "target_token": "scoped"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_full_identifier_and_labeled_requested_field_is_positive_control",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_full_identifier_and_labeled_requested_field_is_positive_control",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_irrelevant_literal_quote_is_not_a_supported_answer",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_irrelevant_literal_quote_is_not_a_supported_answer",
+      "target_token": "packet_for"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_irrelevant_literal_quote_is_not_a_supported_answer",
+      "target_token": "scoped"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_irrelevant_literal_quote_is_not_a_supported_answer",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_irrelevant_literal_quote_is_not_a_supported_answer",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain",
+      "target_token": "packet_for"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain",
+      "target_token": "scoped"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_missing_question_and_unanchored_open_question_fail_closed",
+      "target_token": "compile_question_contract"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_missing_question_and_unanchored_open_question_fail_closed",
+      "target_token": "scoped"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_missing_question_and_unanchored_open_question_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_missing_question_and_unanchored_open_question_fail_closed",
+      "target_token": "self.assertRaises"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_prefix_excerpt_does_not_bind_complete_identifier",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_prefix_excerpt_does_not_bind_complete_identifier",
+      "target_token": "packet_for"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_prefix_excerpt_does_not_bind_complete_identifier",
+      "target_token": "scoped"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_prefix_excerpt_does_not_bind_complete_identifier",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_prefix_excerpt_does_not_bind_complete_identifier",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_requested_field_coverage_blocks_partial_packet",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_requested_field_coverage_blocks_partial_packet",
+      "target_token": "packet_for"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_requested_field_coverage_blocks_partial_packet",
+      "target_token": "scoped"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_requested_field_coverage_blocks_partial_packet",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_requested_field_coverage_blocks_partial_packet",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_without_exact_identifier_subject_anchor_is_required_and_verified",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_without_exact_identifier_subject_anchor_is_required_and_verified",
+      "target_token": "assess_question_sufficiency"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_without_exact_identifier_subject_anchor_is_required_and_verified",
+      "target_token": "packet_for"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_without_exact_identifier_subject_anchor_is_required_and_verified",
+      "target_token": "packet_for"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_without_exact_identifier_subject_anchor_is_required_and_verified",
+      "target_token": "scoped"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_without_exact_identifier_subject_anchor_is_required_and_verified",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_without_exact_identifier_subject_anchor_is_required_and_verified",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::packet_for",
+      "target_token": "AnswerClaim"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::packet_for",
+      "target_token": "ClaimCitation"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::packet_for",
+      "target_token": "ClaimVerification"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::packet_for",
+      "target_token": "SynthesisPacket"
+    },
+    {
+      "caller": "tests/test_question_relevance.py::scoped",
+      "target_token": "compile_question_contract"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "api"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "headers"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "proposal"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "refs"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "resp.json"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "resp.json"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "scope"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "api"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "headers"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "proposal"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "refs"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "response.json"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "scope"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
+      "target_token": "mcp_verify_claims"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
+      "target_token": "proposal"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
+      "target_token": "scope"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
+      "target_token": "svc.fetch_evidence"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
+      "target_token": "svc.select_evidence_spans"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "api"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "headers"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "proposal"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "refs"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "response.json"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "scope"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "api"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "headers"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "proposal"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "refs"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "response.json"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "scope"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "target_token": "self.assertIn"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "target_token": "api"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "target_token": "headers"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "target_token": "proposal"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "target_token": "refs"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "target_token": "response.json"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "target_token": "runtime"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "target_token": "scope"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "target_token": "self.assertEqual"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::api",
+      "target_token": "TestClient"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::api",
+      "target_token": "create_rest_app"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::refs",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::refs",
+      "target_token": "client.post"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::refs",
+      "target_token": "fetched.json"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::refs",
+      "target_token": "headers"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::refs",
+      "target_token": "headers"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::refs",
+      "target_token": "selected.json"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::runtime",
+      "target_token": "GroundingService"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::runtime",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::runtime",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::runtime",
+      "target_token": "MagicMock"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::runtime",
+      "target_token": "source"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::source",
+      "target_token": "FetchedDocument"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::source",
+      "target_token": "len"
+    },
+    {
+      "caller": "tests/test_question_relevance_integration.py::source",
+      "target_token": "text.encode"
     },
     {
       "caller": "tests/test_reranking.py::Phase7RerankingTests.setUp",
@@ -17612,200 +18705,208 @@
     {
       "file": "src/max_grounding/api.py",
       "kind": "class",
-      "line_end": 185,
+      "line_end": 175,
       "line_start": 169,
+      "locator": "src/max_grounding/api.py::QuestionScopeRequest",
+      "symbol": "QuestionScopeRequest"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "class",
+      "line_end": 196,
+      "line_start": 178,
       "locator": "src/max_grounding/api.py::VerifyRequest",
       "symbol": "VerifyRequest"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 192,
-      "line_start": 188,
+      "line_end": 203,
+      "line_start": 199,
       "locator": "src/max_grounding/api.py::_header_map",
       "symbol": "_header_map"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 212,
-      "line_start": 195,
+      "line_end": 223,
+      "line_start": 206,
       "locator": "src/max_grounding/api.py::_extract_token",
       "symbol": "_extract_token"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_function",
-      "line_end": 228,
-      "line_start": 215,
+      "line_end": 239,
+      "line_start": 226,
       "locator": "src/max_grounding/api.py::_send_error",
       "symbol": "_send_error"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "class",
-      "line_end": 232,
-      "line_start": 231,
+      "line_end": 243,
+      "line_start": 242,
       "locator": "src/max_grounding/api.py::_RequestTooLarge",
       "symbol": "_RequestTooLarge"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "class",
-      "line_end": 302,
-      "line_start": 235,
+      "line_end": 313,
+      "line_start": 246,
       "locator": "src/max_grounding/api.py::ProductionSecurityMiddleware",
       "symbol": "ProductionSecurityMiddleware"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "method",
-      "line_end": 251,
-      "line_start": 238,
+      "line_end": 262,
+      "line_start": 249,
       "locator": "src/max_grounding/api.py::ProductionSecurityMiddleware.__init__",
       "symbol": "ProductionSecurityMiddleware.__init__"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_method",
-      "line_end": 302,
-      "line_start": 253,
+      "line_end": 313,
+      "line_start": 264,
       "locator": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__",
       "symbol": "ProductionSecurityMiddleware.__call__"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_method",
-      "line_end": 289,
-      "line_start": 282,
+      "line_end": 300,
+      "line_start": 293,
       "locator": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__.limited_receive",
       "symbol": "ProductionSecurityMiddleware.__call__.limited_receive"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_method",
-      "line_end": 295,
-      "line_start": 291,
+      "line_end": 306,
+      "line_start": 302,
       "locator": "src/max_grounding/api.py::ProductionSecurityMiddleware.__call__.tracked_send",
       "symbol": "ProductionSecurityMiddleware.__call__.tracked_send"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 310,
-      "line_start": 309,
+      "line_end": 321,
+      "line_start": 320,
       "locator": "src/max_grounding/api.py::healthz",
       "symbol": "healthz"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 315,
-      "line_start": 314,
+      "line_end": 326,
+      "line_start": 325,
       "locator": "src/max_grounding/api.py::readyz",
       "symbol": "readyz"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 331,
-      "line_start": 319,
+      "line_end": 342,
+      "line_start": 330,
       "locator": "src/max_grounding/api.py::search_endpoint",
       "symbol": "search_endpoint"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 338,
-      "line_start": 335,
+      "line_end": 349,
+      "line_start": 346,
       "locator": "src/max_grounding/api.py::fetch_endpoint",
       "symbol": "fetch_endpoint"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 351,
-      "line_start": 342,
+      "line_end": 362,
+      "line_start": 353,
       "locator": "src/max_grounding/api.py::select_evidence_spans_endpoint",
       "symbol": "select_evidence_spans_endpoint"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 358,
-      "line_start": 355,
+      "line_end": 369,
+      "line_start": 366,
       "locator": "src/max_grounding/api.py::index_endpoint",
       "symbol": "index_endpoint"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 368,
-      "line_start": 362,
+      "line_end": 379,
+      "line_start": 373,
       "locator": "src/max_grounding/api.py::query_endpoint",
       "symbol": "query_endpoint"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 380,
-      "line_start": 372,
+      "line_end": 396,
+      "line_start": 383,
       "locator": "src/max_grounding/api.py::verify_endpoint",
       "symbol": "verify_endpoint"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 489,
-      "line_start": 383,
+      "line_end": 505,
+      "line_start": 399,
       "locator": "src/max_grounding/api.py::create_rest_app",
       "symbol": "create_rest_app"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_method",
-      "line_end": 419,
-      "line_start": 417,
+      "line_end": 435,
+      "line_start": 433,
       "locator": "src/max_grounding/api.py::create_rest_app.lifespan",
       "symbol": "create_rest_app.lifespan"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_method",
-      "line_end": 423,
-      "line_start": 422,
+      "line_end": 439,
+      "line_start": 438,
       "locator": "src/max_grounding/api.py::create_rest_app.lifespan",
       "symbol": "create_rest_app.lifespan"
-    },
-    {
-      "file": "src/max_grounding/api.py",
-      "kind": "async_method",
-      "line_end": 471,
-      "line_start": 466,
-      "locator": "src/max_grounding/api.py::create_rest_app.request_validation_handler",
-      "symbol": "create_rest_app.request_validation_handler"
-    },
-    {
-      "file": "src/max_grounding/api.py",
-      "kind": "async_method",
-      "line_end": 479,
-      "line_start": 474,
-      "locator": "src/max_grounding/api.py::create_rest_app.invalid_request_handler",
-      "symbol": "create_rest_app.invalid_request_handler"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "async_method",
       "line_end": 487,
       "line_start": 482,
+      "locator": "src/max_grounding/api.py::create_rest_app.request_validation_handler",
+      "symbol": "create_rest_app.request_validation_handler"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_method",
+      "line_end": 495,
+      "line_start": 490,
+      "locator": "src/max_grounding/api.py::create_rest_app.invalid_request_handler",
+      "symbol": "create_rest_app.invalid_request_handler"
+    },
+    {
+      "file": "src/max_grounding/api.py",
+      "kind": "async_method",
+      "line_end": 503,
+      "line_start": 498,
       "locator": "src/max_grounding/api.py::create_rest_app.grounding_error_handler",
       "symbol": "create_rest_app.grounding_error_handler"
     },
     {
       "file": "src/max_grounding/api.py",
       "kind": "function",
-      "line_end": 502,
-      "line_start": 492,
+      "line_end": 518,
+      "line_start": 508,
       "locator": "src/max_grounding/api.py::create_production_app",
       "symbol": "create_production_app"
     },
@@ -18300,7 +19401,7 @@
     {
       "file": "src/max_grounding/evidence_authority.py",
       "kind": "function",
-      "line_end": 1060,
+      "line_end": 1061,
       "line_start": 1038,
       "locator": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet",
       "symbol": "build_authoritative_verification_packet"
@@ -18579,393 +19680,401 @@
     },
     {
       "file": "src/max_grounding/mcp_server.py",
+      "kind": "class",
+      "line_end": 111,
+      "line_start": 105,
+      "locator": "src/max_grounding/mcp_server.py::QuestionScopeProposal",
+      "symbol": "QuestionScopeProposal"
+    },
+    {
+      "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 155,
-      "line_start": 128,
+      "line_end": 164,
+      "line_start": 137,
       "locator": "src/max_grounding/mcp_server.py::mcp_search_web",
       "symbol": "mcp_search_web"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 163,
-      "line_start": 158,
+      "line_end": 172,
+      "line_start": 167,
       "locator": "src/max_grounding/mcp_server.py::mcp_fetch_evidence",
       "symbol": "mcp_fetch_evidence"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 182,
-      "line_start": 166,
+      "line_end": 191,
+      "line_start": 175,
       "locator": "src/max_grounding/mcp_server.py::mcp_select_evidence_spans",
       "symbol": "mcp_select_evidence_spans"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 232,
-      "line_start": 185,
+      "line_end": 241,
+      "line_start": 194,
       "locator": "src/max_grounding/mcp_server.py::_share_structured_claim_span_refs",
       "symbol": "_share_structured_claim_span_refs"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 255,
-      "line_start": 235,
+      "line_end": 264,
+      "line_start": 244,
       "locator": "src/max_grounding/mcp_server.py::_mcp_barcode_value",
       "symbol": "_mcp_barcode_value"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 316,
-      "line_start": 258,
+      "line_end": 325,
+      "line_start": 267,
       "locator": "src/max_grounding/mcp_server.py::_select_barcode_spans",
       "symbol": "_select_barcode_spans"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 286,
-      "line_start": 274,
+      "line_end": 295,
+      "line_start": 283,
       "locator": "src/max_grounding/mcp_server.py::_select_barcode_spans.add_spans",
       "symbol": "_select_barcode_spans.add_spans"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 326,
-      "line_start": 319,
+      "line_end": 335,
+      "line_start": 328,
       "locator": "src/max_grounding/mcp_server.py::mcp_index_evidence",
       "symbol": "mcp_index_evidence"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 335,
-      "line_start": 329,
+      "line_end": 344,
+      "line_start": 338,
       "locator": "src/max_grounding/mcp_server.py::mcp_query_evidence",
       "symbol": "mcp_query_evidence"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 400,
-      "line_start": 338,
+      "line_end": 414,
+      "line_start": 347,
       "locator": "src/max_grounding/mcp_server.py::mcp_verify_claims",
       "symbol": "mcp_verify_claims"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 517,
-      "line_start": 403,
+      "line_end": 533,
+      "line_start": 417,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools",
       "symbol": "register_mcp_tools"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 425,
-      "line_start": 406,
+      "line_end": 439,
+      "line_start": 420,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_search_web",
       "symbol": "register_mcp_tools._tool_search_web"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 429,
-      "line_start": 427,
+      "line_end": 443,
+      "line_start": 441,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_fetch_evidence",
       "symbol": "register_mcp_tools._tool_fetch_evidence"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 463,
-      "line_start": 431,
+      "line_end": 477,
+      "line_start": 445,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_select_evidence_spans",
       "symbol": "register_mcp_tools._tool_select_evidence_spans"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 467,
-      "line_start": 465,
+      "line_end": 481,
+      "line_start": 479,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_index_evidence",
       "symbol": "register_mcp_tools._tool_index_evidence"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 471,
-      "line_start": 469,
+      "line_end": 485,
+      "line_start": 483,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_query_evidence",
       "symbol": "register_mcp_tools._tool_query_evidence"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "method",
-      "line_end": 508,
-      "line_start": 474,
+      "line_end": 524,
+      "line_start": 488,
       "locator": "src/max_grounding/mcp_server.py::register_mcp_tools._tool_verify_claims",
       "symbol": "register_mcp_tools._tool_verify_claims"
     },
     {
       "file": "src/max_grounding/mcp_server.py",
       "kind": "function",
-      "line_end": 554,
-      "line_start": 520,
+      "line_end": 570,
+      "line_start": 536,
       "locator": "src/max_grounding/mcp_server.py::create_mcp_server",
       "symbol": "create_mcp_server"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 15,
-      "line_start": 10,
+      "line_end": 19,
+      "line_start": 14,
       "locator": "src/max_grounding/models.py::EvidenceStatus",
       "symbol": "EvidenceStatus"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 22,
-      "line_start": 18,
+      "line_end": 26,
+      "line_start": 22,
       "locator": "src/max_grounding/models.py::EvidenceRelationType",
       "symbol": "EvidenceRelationType"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 31,
-      "line_start": 25,
+      "line_end": 35,
+      "line_start": 29,
       "locator": "src/max_grounding/models.py::ClaimVerificationStatus",
       "symbol": "ClaimVerificationStatus"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 44,
-      "line_start": 35,
+      "line_end": 48,
+      "line_start": 39,
       "locator": "src/max_grounding/models.py::GroundingRequest",
       "symbol": "GroundingRequest"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 56,
-      "line_start": 48,
+      "line_end": 60,
+      "line_start": 52,
       "locator": "src/max_grounding/models.py::SearchQuery",
       "symbol": "SearchQuery"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 67,
-      "line_start": 60,
+      "line_end": 71,
+      "line_start": 64,
       "locator": "src/max_grounding/models.py::SourceCandidate",
       "symbol": "SourceCandidate"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 79,
-      "line_start": 71,
+      "line_end": 83,
+      "line_start": 75,
       "locator": "src/max_grounding/models.py::EvidenceSource",
       "symbol": "EvidenceSource"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 90,
-      "line_start": 83,
+      "line_end": 94,
+      "line_start": 87,
       "locator": "src/max_grounding/models.py::EvidencePack",
       "symbol": "EvidencePack"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 103,
-      "line_start": 94,
+      "line_end": 107,
+      "line_start": 98,
       "locator": "src/max_grounding/models.py::FetchedDocument",
       "symbol": "FetchedDocument"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 115,
-      "line_start": 107,
+      "line_end": 119,
+      "line_start": 111,
       "locator": "src/max_grounding/models.py::EvidenceSpan",
       "symbol": "EvidenceSpan"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 126,
-      "line_start": 119,
+      "line_end": 130,
+      "line_start": 123,
       "locator": "src/max_grounding/models.py::TextChunk",
       "symbol": "TextChunk"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 135,
-      "line_start": 130,
+      "line_end": 139,
+      "line_start": 134,
       "locator": "src/max_grounding/models.py::LexicalHit",
       "symbol": "LexicalHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 144,
-      "line_start": 139,
+      "line_end": 148,
+      "line_start": 143,
       "locator": "src/max_grounding/models.py::SemanticHit",
       "symbol": "SemanticHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 155,
-      "line_start": 148,
+      "line_end": 159,
+      "line_start": 152,
       "locator": "src/max_grounding/models.py::HybridHit",
       "symbol": "HybridHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 167,
-      "line_start": 159,
+      "line_end": 171,
+      "line_start": 163,
       "locator": "src/max_grounding/models.py::RerankedHit",
       "symbol": "RerankedHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 179,
-      "line_start": 171,
+      "line_end": 183,
+      "line_start": 175,
       "locator": "src/max_grounding/models.py::EvidenceExcerpt",
       "symbol": "EvidenceExcerpt"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 193,
-      "line_start": 183,
+      "line_end": 197,
+      "line_start": 187,
       "locator": "src/max_grounding/models.py::EvidenceMetadata",
       "symbol": "EvidenceMetadata"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 202,
-      "line_start": 197,
+      "line_end": 206,
+      "line_start": 201,
       "locator": "src/max_grounding/models.py::AuthoritySubject",
       "symbol": "AuthoritySubject"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 210,
-      "line_start": 206,
+      "line_end": 214,
+      "line_start": 210,
       "locator": "src/max_grounding/models.py::TemporalComponents",
       "symbol": "TemporalComponents"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 223,
-      "line_start": 214,
+      "line_end": 227,
+      "line_start": 218,
       "locator": "src/max_grounding/models.py::EvidenceQualityScore",
       "symbol": "EvidenceQualityScore"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 234,
-      "line_start": 227,
+      "line_end": 238,
+      "line_start": 231,
       "locator": "src/max_grounding/models.py::EvidenceAssertion",
       "symbol": "EvidenceAssertion"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 243,
-      "line_start": 238,
+      "line_end": 247,
+      "line_start": 242,
       "locator": "src/max_grounding/models.py::EvidenceRelation",
       "symbol": "EvidenceRelation"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 254,
-      "line_start": 247,
+      "line_end": 258,
+      "line_start": 251,
       "locator": "src/max_grounding/models.py::EvidenceCluster",
       "symbol": "EvidenceCluster"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 263,
-      "line_start": 258,
+      "line_end": 267,
+      "line_start": 262,
       "locator": "src/max_grounding/models.py::EvidenceGraph",
       "symbol": "EvidenceGraph"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 273,
-      "line_start": 267,
+      "line_end": 277,
+      "line_start": 271,
       "locator": "src/max_grounding/models.py::AnswerClaim",
       "symbol": "AnswerClaim"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 284,
-      "line_start": 277,
+      "line_end": 288,
+      "line_start": 281,
       "locator": "src/max_grounding/models.py::ClaimCitation",
       "symbol": "ClaimCitation"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 296,
-      "line_start": 288,
+      "line_end": 300,
+      "line_start": 292,
       "locator": "src/max_grounding/models.py::ClaimVerification",
       "symbol": "ClaimVerification"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 304,
-      "line_start": 300,
+      "line_end": 308,
+      "line_start": 304,
       "locator": "src/max_grounding/models.py::VerificationCorrection",
       "symbol": "VerificationCorrection"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 314,
-      "line_start": 308,
+      "line_end": 319,
+      "line_start": 312,
       "locator": "src/max_grounding/models.py::SynthesisPacket",
       "symbol": "SynthesisPacket"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 326,
-      "line_start": 318,
+      "line_end": 331,
+      "line_start": 323,
       "locator": "src/max_grounding/models.py::PersistentVectorHit",
       "symbol": "PersistentVectorHit"
     },
     {
       "file": "src/max_grounding/models.py",
       "kind": "class",
-      "line_end": 338,
-      "line_start": 330,
+      "line_end": 343,
+      "line_start": 335,
       "locator": "src/max_grounding/models.py::PersistentIndexResult",
       "symbol": "PersistentIndexResult"
     },
@@ -19402,6 +20511,46 @@
       "symbol": "SearxngProvider.search"
     },
     {
+      "file": "src/max_grounding/question_relevance.py",
+      "kind": "class",
+      "line_end": 48,
+      "line_start": 39,
+      "locator": "src/max_grounding/question_relevance.py::QuestionContract",
+      "symbol": "QuestionContract"
+    },
+    {
+      "file": "src/max_grounding/question_relevance.py",
+      "kind": "class",
+      "line_end": 55,
+      "line_start": 52,
+      "locator": "src/max_grounding/question_relevance.py::QuestionAssessment",
+      "symbol": "QuestionAssessment"
+    },
+    {
+      "file": "src/max_grounding/question_relevance.py",
+      "kind": "function",
+      "line_end": 64,
+      "line_start": 58,
+      "locator": "src/max_grounding/question_relevance.py::_contains_token",
+      "symbol": "_contains_token"
+    },
+    {
+      "file": "src/max_grounding/question_relevance.py",
+      "kind": "function",
+      "line_end": 144,
+      "line_start": 67,
+      "locator": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "symbol": "compile_question_contract"
+    },
+    {
+      "file": "src/max_grounding/question_relevance.py",
+      "kind": "function",
+      "line_end": 234,
+      "line_start": 147,
+      "locator": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "symbol": "assess_question_sufficiency"
+    },
+    {
       "file": "src/max_grounding/reranking.py",
       "kind": "class",
       "line_end": 35,
@@ -19644,144 +20793,144 @@
     {
       "file": "src/max_grounding/service.py",
       "kind": "function",
-      "line_end": 58,
-      "line_start": 54,
+      "line_end": 60,
+      "line_start": 56,
       "locator": "src/max_grounding/service.py::_required",
       "symbol": "_required"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "function",
-      "line_end": 65,
-      "line_start": 61,
+      "line_end": 67,
+      "line_start": 63,
       "locator": "src/max_grounding/service.py::_csv",
       "symbol": "_csv"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "class",
-      "line_end": 115,
-      "line_start": 69,
+      "line_end": 117,
+      "line_start": 71,
       "locator": "src/max_grounding/service.py::ProductionSettings",
       "symbol": "ProductionSettings"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 111,
-      "line_start": 83,
+      "line_end": 113,
+      "line_start": 85,
       "locator": "src/max_grounding/service.py::ProductionSettings.from_mapping",
       "symbol": "ProductionSettings.from_mapping"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 115,
-      "line_start": 114,
+      "line_end": 117,
+      "line_start": 116,
       "locator": "src/max_grounding/service.py::ProductionSettings.from_env",
       "symbol": "ProductionSettings.from_env"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "class",
-      "line_end": 123,
-      "line_start": 119,
+      "line_end": 125,
+      "line_start": 121,
       "locator": "src/max_grounding/service.py::ServiceReadiness",
       "symbol": "ServiceReadiness"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "class",
-      "line_end": 427,
-      "line_start": 126,
+      "line_end": 470,
+      "line_start": 128,
       "locator": "src/max_grounding/service.py::GroundingService",
       "symbol": "GroundingService"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 143,
-      "line_start": 129,
+      "line_end": 150,
+      "line_start": 131,
       "locator": "src/max_grounding/service.py::GroundingService.__init__",
       "symbol": "GroundingService.__init__"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 166,
-      "line_start": 145,
+      "line_end": 173,
+      "line_start": 152,
       "locator": "src/max_grounding/service.py::GroundingService.search_web",
       "symbol": "GroundingService.search_web"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 189,
-      "line_start": 168,
+      "line_end": 196,
+      "line_start": 175,
       "locator": "src/max_grounding/service.py::GroundingService._fetch_document",
       "symbol": "GroundingService._fetch_document"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 200,
-      "line_start": 191,
+      "line_end": 207,
+      "line_start": 198,
       "locator": "src/max_grounding/service.py::GroundingService.fetch_evidence",
       "symbol": "GroundingService.fetch_evidence"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 219,
-      "line_start": 202,
+      "line_end": 226,
+      "line_start": 209,
       "locator": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
       "symbol": "GroundingService.select_evidence_spans"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 241,
-      "line_start": 221,
+      "line_end": 248,
+      "line_start": 228,
       "locator": "src/max_grounding/service.py::GroundingService.deduplicate_evidence_span_refs",
       "symbol": "GroundingService.deduplicate_evidence_span_refs"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 370,
-      "line_start": 243,
+      "line_end": 413,
+      "line_start": 250,
       "locator": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "symbol": "GroundingService.verify_candidate_claims"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 392,
-      "line_start": 372,
+      "line_end": 435,
+      "line_start": 415,
       "locator": "src/max_grounding/service.py::GroundingService.index_evidence",
       "symbol": "GroundingService.index_evidence"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 414,
-      "line_start": 394,
+      "line_end": 457,
+      "line_start": 437,
       "locator": "src/max_grounding/service.py::GroundingService.query_evidence",
       "symbol": "GroundingService.query_evidence"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "method",
-      "line_end": 427,
-      "line_start": 416,
+      "line_end": 470,
+      "line_start": 459,
       "locator": "src/max_grounding/service.py::GroundingService.readiness",
       "symbol": "GroundingService.readiness"
     },
     {
       "file": "src/max_grounding/service.py",
       "kind": "function",
-      "line_end": 440,
-      "line_start": 430,
+      "line_end": 483,
+      "line_start": 473,
       "locator": "src/max_grounding/service.py::build_production_runtime",
       "symbol": "build_production_runtime"
     },
@@ -21336,6 +22485,222 @@
       "line_start": 259,
       "locator": "tests/test_qdrant_store.py::QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed",
       "symbol": "QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "function",
+      "line_end": 34,
+      "line_start": 26,
+      "locator": "tests/test_question_relevance.py::scoped",
+      "symbol": "scoped"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "function",
+      "line_end": 68,
+      "line_start": 37,
+      "locator": "tests/test_question_relevance.py::packet_for",
+      "symbol": "packet_for"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "class",
+      "line_end": 215,
+      "line_start": 71,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts",
+      "symbol": "QuestionRelevanceContracts"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "method",
+      "line_end": 76,
+      "line_start": 72,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_missing_question_and_unanchored_open_question_fail_closed",
+      "symbol": "QuestionRelevanceContracts.test_missing_question_and_unanchored_open_question_fail_closed"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "method",
+      "line_end": 87,
+      "line_start": 78,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_prefix_excerpt_does_not_bind_complete_identifier",
+      "symbol": "QuestionRelevanceContracts.test_prefix_excerpt_does_not_bind_complete_identifier"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "method",
+      "line_end": 102,
+      "line_start": 89,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_full_identifier_and_labeled_requested_field_is_positive_control",
+      "symbol": "QuestionRelevanceContracts.test_full_identifier_and_labeled_requested_field_is_positive_control"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "method",
+      "line_end": 118,
+      "line_start": 104,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_irrelevant_literal_quote_is_not_a_supported_answer",
+      "symbol": "QuestionRelevanceContracts.test_irrelevant_literal_quote_is_not_a_supported_answer"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "method",
+      "line_end": 130,
+      "line_start": 120,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_requested_field_coverage_blocks_partial_packet",
+      "symbol": "QuestionRelevanceContracts.test_requested_field_coverage_blocks_partial_packet"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "method",
+      "line_end": 150,
+      "line_start": 132,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain",
+      "symbol": "QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "method",
+      "line_end": 170,
+      "line_start": 152,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata",
+      "symbol": "QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "method",
+      "line_end": 188,
+      "line_start": 172,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_explicit_publication_cutoff_can_be_verified_from_trusted_metadata",
+      "symbol": "QuestionRelevanceContracts.test_explicit_publication_cutoff_can_be_verified_from_trusted_metadata"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "method",
+      "line_end": 200,
+      "line_start": 190,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_conflicted_claims_cannot_pass_question_sufficiency",
+      "symbol": "QuestionRelevanceContracts.test_conflicted_claims_cannot_pass_question_sufficiency"
+    },
+    {
+      "file": "tests/test_question_relevance.py",
+      "kind": "method",
+      "line_end": 215,
+      "line_start": 202,
+      "locator": "tests/test_question_relevance.py::QuestionRelevanceContracts.test_without_exact_identifier_subject_anchor_is_required_and_verified",
+      "symbol": "QuestionRelevanceContracts.test_without_exact_identifier_subject_anchor_is_required_and_verified"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "function",
+      "line_end": 28,
+      "line_start": 20,
+      "locator": "tests/test_question_relevance_integration.py::source",
+      "symbol": "source"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "function",
+      "line_end": 38,
+      "line_start": 31,
+      "locator": "tests/test_question_relevance_integration.py::runtime",
+      "symbol": "runtime"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "function",
+      "line_end": 47,
+      "line_start": 41,
+      "locator": "tests/test_question_relevance_integration.py::api",
+      "symbol": "api"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "function",
+      "line_end": 51,
+      "line_start": 50,
+      "locator": "tests/test_question_relevance_integration.py::headers",
+      "symbol": "headers"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "function",
+      "line_end": 59,
+      "line_start": 54,
+      "locator": "tests/test_question_relevance_integration.py::scope",
+      "symbol": "scope"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "function",
+      "line_end": 68,
+      "line_start": 62,
+      "locator": "tests/test_question_relevance_integration.py::proposal",
+      "symbol": "proposal"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "function",
+      "line_end": 81,
+      "line_start": 71,
+      "locator": "tests/test_question_relevance_integration.py::refs",
+      "symbol": "refs"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "class",
+      "line_end": 208,
+      "line_start": 84,
+      "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests",
+      "symbol": "ScopedQuestionAcceptanceTests"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "method",
+      "line_end": 104,
+      "line_start": 85,
+      "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient",
+      "symbol": "ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "method",
+      "line_end": 125,
+      "line_start": 106,
+      "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer",
+      "symbol": "ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "method",
+      "line_end": 155,
+      "line_start": 127,
+      "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer",
+      "symbol": "ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "method",
+      "line_end": 173,
+      "line_start": 157,
+      "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true",
+      "symbol": "ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "method",
+      "line_end": 194,
+      "line_start": 175,
+      "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role",
+      "symbol": "ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role"
+    },
+    {
+      "file": "tests/test_question_relevance_integration.py",
+      "kind": "method",
+      "line_end": 208,
+      "line_start": 196,
+      "locator": "tests/test_question_relevance_integration.py::ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet",
+      "symbol": "ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet"
     },
     {
       "file": "tests/test_reranking.py",
@@ -22971,14 +24336,14 @@
     }
   ],
   "schema_version": 1,
-  "source_digest": "2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1",
+  "source_digest": "67d4364cf99f3401c9f745676efcdf4d131e684d34ddc04fc4febf92190ac38d",
   "source_summary": {
-    "files": 57,
+    "files": 60,
     "languages": {
-      "Python": 57
+      "Python": 60
     },
-    "lines": 13892,
-    "test_files": 28
+    "lines": 14638,
+    "test_files": 30
   },
   "tests": [
     "tests/test_api.py",
@@ -22999,6 +24364,8 @@
     "tests/test_policy.py",
     "tests/test_project_source_boundary.py",
     "tests/test_qdrant_store.py",
+    "tests/test_question_relevance.py",
+    "tests/test_question_relevance_integration.py",
     "tests/test_reranking.py",
     "tests/test_retrieval.py",
     "tests/test_searxng_provider.py",

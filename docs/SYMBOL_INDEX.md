@@ -3,7 +3,7 @@
 # SYMBOL INDEX
 
 Authority SHA: external final acceptance evidence
-Source digest: 2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1
+Source digest: 67d4364cf99f3401c9f745676efcdf4d131e684d34ddc04fc4febf92190ac38d
 Status: CURRENT
 
 The default view summarizes machine-observed symbols by file. Expand a file only
@@ -18,7 +18,7 @@ responsibility, callers, or state ownership.
 | integration/phase11_services.py | 5 | 0 | 5 | 0 |
 | integration/phase12_e2e.py | 11 | 1 | 6 | 3 |
 | src/max_grounding/__init__.py | 1 | 0 | 1 | 0 |
-| src/max_grounding/api.py | 31 | 9 | 12 | 1 |
+| src/max_grounding/api.py | 32 | 10 | 12 | 1 |
 | src/max_grounding/budget.py | 4 | 1 | 0 | 3 |
 | src/max_grounding/engine.py | 3 | 1 | 0 | 2 |
 | src/max_grounding/errors.py | 21 | 20 | 0 | 1 |
@@ -27,7 +27,7 @@ responsibility, callers, or state ownership.
 | src/max_grounding/evidence_graph.py | 8 | 0 | 8 | 0 |
 | src/max_grounding/fetcher.py | 21 | 3 | 6 | 12 |
 | src/max_grounding/hybrid.py | 3 | 0 | 3 | 0 |
-| src/max_grounding/mcp_server.py | 19 | 1 | 11 | 7 |
+| src/max_grounding/mcp_server.py | 20 | 2 | 11 | 7 |
 | src/max_grounding/models.py | 31 | 31 | 0 | 0 |
 | src/max_grounding/network_policy.py | 2 | 0 | 2 | 0 |
 | src/max_grounding/persistent.py | 12 | 2 | 8 | 2 |
@@ -36,6 +36,7 @@ responsibility, callers, or state ownership.
 | src/max_grounding/providers/ollama_embedding.py | 10 | 2 | 2 | 6 |
 | src/max_grounding/providers/qdrant.py | 16 | 2 | 4 | 10 |
 | src/max_grounding/providers/searxng.py | 9 | 2 | 4 | 3 |
+| src/max_grounding/question_relevance.py | 5 | 2 | 3 | 0 |
 | src/max_grounding/reranking.py | 12 | 1 | 10 | 1 |
 | src/max_grounding/retrieval.py | 7 | 0 | 7 | 0 |
 | src/max_grounding/semantic.py | 11 | 1 | 8 | 2 |
@@ -61,6 +62,8 @@ responsibility, callers, or state ownership.
 | tests/test_policy.py | 6 | 1 | 0 | 5 |
 | tests/test_project_source_boundary.py | 3 | 1 | 0 | 2 |
 | tests/test_qdrant_store.py | 12 | 1 | 3 | 8 |
+| tests/test_question_relevance.py | 13 | 1 | 2 | 10 |
+| tests/test_question_relevance_integration.py | 14 | 1 | 7 | 6 |
 | tests/test_reranking.py | 20 | 3 | 2 | 15 |
 | tests/test_retrieval.py | 12 | 1 | 2 | 9 |
 | tests/test_searxng_provider.py | 17 | 3 | 1 | 13 |
@@ -116,7 +119,7 @@ responsibility, callers, or state ownership.
 </details>
 
 <details>
-<summary><code>src/max_grounding/api.py</code> — 31 symbols</summary>
+<summary><code>src/max_grounding/api.py</code> — 32 symbols</summary>
 
 | Symbol | Kind | Lines@SHA |
 |---|---|---|
@@ -126,31 +129,32 @@ responsibility, callers, or state ownership.
 | QueryRequest | class | 73-77 |
 | CandidateClaimRequest | class | 108-150 |
 | EvidenceSpanSelectionRequest | class | 153-166 |
-| VerifyRequest | class | 169-185 |
-| _header_map | function | 188-192 |
-| _extract_token | function | 195-212 |
-| _send_error | async_function | 215-228 |
-| _RequestTooLarge | class | 231-232 |
-| ProductionSecurityMiddleware | class | 235-302 |
-| ProductionSecurityMiddleware.__init__ | method | 238-251 |
-| ProductionSecurityMiddleware.__call__ | async_method | 253-302 |
-| ProductionSecurityMiddleware.__call__.limited_receive | async_method | 282-289 |
-| ProductionSecurityMiddleware.__call__.tracked_send | async_method | 291-295 |
-| healthz | function | 309-310 |
-| readyz | function | 314-315 |
-| search_endpoint | function | 319-331 |
-| fetch_endpoint | function | 335-338 |
-| select_evidence_spans_endpoint | function | 342-351 |
-| index_endpoint | function | 355-358 |
-| query_endpoint | function | 362-368 |
-| verify_endpoint | function | 372-380 |
-| create_rest_app | function | 383-489 |
-| create_rest_app.lifespan | async_method | 417-419 |
-| create_rest_app.lifespan | async_method | 422-423 |
-| create_rest_app.request_validation_handler | async_method | 466-471 |
-| create_rest_app.invalid_request_handler | async_method | 474-479 |
-| create_rest_app.grounding_error_handler | async_method | 482-487 |
-| create_production_app | function | 492-502 |
+| QuestionScopeRequest | class | 169-175 |
+| VerifyRequest | class | 178-196 |
+| _header_map | function | 199-203 |
+| _extract_token | function | 206-223 |
+| _send_error | async_function | 226-239 |
+| _RequestTooLarge | class | 242-243 |
+| ProductionSecurityMiddleware | class | 246-313 |
+| ProductionSecurityMiddleware.__init__ | method | 249-262 |
+| ProductionSecurityMiddleware.__call__ | async_method | 264-313 |
+| ProductionSecurityMiddleware.__call__.limited_receive | async_method | 293-300 |
+| ProductionSecurityMiddleware.__call__.tracked_send | async_method | 302-306 |
+| healthz | function | 320-321 |
+| readyz | function | 325-326 |
+| search_endpoint | function | 330-342 |
+| fetch_endpoint | function | 346-349 |
+| select_evidence_spans_endpoint | function | 353-362 |
+| index_endpoint | function | 366-369 |
+| query_endpoint | function | 373-379 |
+| verify_endpoint | function | 383-396 |
+| create_rest_app | function | 399-505 |
+| create_rest_app.lifespan | async_method | 433-435 |
+| create_rest_app.lifespan | async_method | 438-439 |
+| create_rest_app.request_validation_handler | async_method | 482-487 |
+| create_rest_app.invalid_request_handler | async_method | 490-495 |
+| create_rest_app.grounding_error_handler | async_method | 498-503 |
+| create_production_app | function | 508-518 |
 
 </details>
 
@@ -252,7 +256,7 @@ responsibility, callers, or state ownership.
 | _inline_labeled_values | function | 694-767 |
 | _labeled_values | function | 770-842 |
 | build_server_owned_evidence_graph | function | 845-1035 |
-| build_authoritative_verification_packet | function | 1038-1060 |
+| build_authoritative_verification_packet | function | 1038-1061 |
 | build_authoritative_verification_packet.preserve | method | 1049-1053 |
 
 </details>
@@ -314,29 +318,30 @@ responsibility, callers, or state ownership.
 </details>
 
 <details>
-<summary><code>src/max_grounding/mcp_server.py</code> — 19 symbols</summary>
+<summary><code>src/max_grounding/mcp_server.py</code> — 20 symbols</summary>
 
 | Symbol | Kind | Lines@SHA |
 |---|---|---|
 | CandidateClaimProposal | class | 46-102 |
-| mcp_search_web | function | 128-155 |
-| mcp_fetch_evidence | function | 158-163 |
-| mcp_select_evidence_spans | function | 166-182 |
-| _share_structured_claim_span_refs | function | 185-232 |
-| _mcp_barcode_value | function | 235-255 |
-| _select_barcode_spans | function | 258-316 |
-| _select_barcode_spans.add_spans | method | 274-286 |
-| mcp_index_evidence | function | 319-326 |
-| mcp_query_evidence | function | 329-335 |
-| mcp_verify_claims | function | 338-400 |
-| register_mcp_tools | function | 403-517 |
-| register_mcp_tools._tool_search_web | method | 406-425 |
-| register_mcp_tools._tool_fetch_evidence | method | 427-429 |
-| register_mcp_tools._tool_select_evidence_spans | method | 431-463 |
-| register_mcp_tools._tool_index_evidence | method | 465-467 |
-| register_mcp_tools._tool_query_evidence | method | 469-471 |
-| register_mcp_tools._tool_verify_claims | method | 474-508 |
-| create_mcp_server | function | 520-554 |
+| QuestionScopeProposal | class | 105-111 |
+| mcp_search_web | function | 137-164 |
+| mcp_fetch_evidence | function | 167-172 |
+| mcp_select_evidence_spans | function | 175-191 |
+| _share_structured_claim_span_refs | function | 194-241 |
+| _mcp_barcode_value | function | 244-264 |
+| _select_barcode_spans | function | 267-325 |
+| _select_barcode_spans.add_spans | method | 283-295 |
+| mcp_index_evidence | function | 328-335 |
+| mcp_query_evidence | function | 338-344 |
+| mcp_verify_claims | function | 347-414 |
+| register_mcp_tools | function | 417-533 |
+| register_mcp_tools._tool_search_web | method | 420-439 |
+| register_mcp_tools._tool_fetch_evidence | method | 441-443 |
+| register_mcp_tools._tool_select_evidence_spans | method | 445-477 |
+| register_mcp_tools._tool_index_evidence | method | 479-481 |
+| register_mcp_tools._tool_query_evidence | method | 483-485 |
+| register_mcp_tools._tool_verify_claims | method | 488-524 |
+| create_mcp_server | function | 536-570 |
 
 </details>
 
@@ -345,37 +350,37 @@ responsibility, callers, or state ownership.
 
 | Symbol | Kind | Lines@SHA |
 |---|---|---|
-| EvidenceStatus | class | 10-15 |
-| EvidenceRelationType | class | 18-22 |
-| ClaimVerificationStatus | class | 25-31 |
-| GroundingRequest | class | 35-44 |
-| SearchQuery | class | 48-56 |
-| SourceCandidate | class | 60-67 |
-| EvidenceSource | class | 71-79 |
-| EvidencePack | class | 83-90 |
-| FetchedDocument | class | 94-103 |
-| EvidenceSpan | class | 107-115 |
-| TextChunk | class | 119-126 |
-| LexicalHit | class | 130-135 |
-| SemanticHit | class | 139-144 |
-| HybridHit | class | 148-155 |
-| RerankedHit | class | 159-167 |
-| EvidenceExcerpt | class | 171-179 |
-| EvidenceMetadata | class | 183-193 |
-| AuthoritySubject | class | 197-202 |
-| TemporalComponents | class | 206-210 |
-| EvidenceQualityScore | class | 214-223 |
-| EvidenceAssertion | class | 227-234 |
-| EvidenceRelation | class | 238-243 |
-| EvidenceCluster | class | 247-254 |
-| EvidenceGraph | class | 258-263 |
-| AnswerClaim | class | 267-273 |
-| ClaimCitation | class | 277-284 |
-| ClaimVerification | class | 288-296 |
-| VerificationCorrection | class | 300-304 |
-| SynthesisPacket | class | 308-314 |
-| PersistentVectorHit | class | 318-326 |
-| PersistentIndexResult | class | 330-338 |
+| EvidenceStatus | class | 14-19 |
+| EvidenceRelationType | class | 22-26 |
+| ClaimVerificationStatus | class | 29-35 |
+| GroundingRequest | class | 39-48 |
+| SearchQuery | class | 52-60 |
+| SourceCandidate | class | 64-71 |
+| EvidenceSource | class | 75-83 |
+| EvidencePack | class | 87-94 |
+| FetchedDocument | class | 98-107 |
+| EvidenceSpan | class | 111-119 |
+| TextChunk | class | 123-130 |
+| LexicalHit | class | 134-139 |
+| SemanticHit | class | 143-148 |
+| HybridHit | class | 152-159 |
+| RerankedHit | class | 163-171 |
+| EvidenceExcerpt | class | 175-183 |
+| EvidenceMetadata | class | 187-197 |
+| AuthoritySubject | class | 201-206 |
+| TemporalComponents | class | 210-214 |
+| EvidenceQualityScore | class | 218-227 |
+| EvidenceAssertion | class | 231-238 |
+| EvidenceRelation | class | 242-247 |
+| EvidenceCluster | class | 251-258 |
+| EvidenceGraph | class | 262-267 |
+| AnswerClaim | class | 271-277 |
+| ClaimCitation | class | 281-288 |
+| ClaimVerification | class | 292-300 |
+| VerificationCorrection | class | 304-308 |
+| SynthesisPacket | class | 312-319 |
+| PersistentVectorHit | class | 323-331 |
+| PersistentIndexResult | class | 335-343 |
 
 </details>
 
@@ -490,6 +495,19 @@ responsibility, callers, or state ownership.
 </details>
 
 <details>
+<summary><code>src/max_grounding/question_relevance.py</code> — 5 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| QuestionContract | class | 39-48 |
+| QuestionAssessment | class | 52-55 |
+| _contains_token | function | 58-64 |
+| compile_question_contract | function | 67-144 |
+| assess_question_sufficiency | function | 147-234 |
+
+</details>
+
+<details>
 <summary><code>src/max_grounding/reranking.py</code> — 12 symbols</summary>
 
 | Symbol | Kind | Lines@SHA |
@@ -548,24 +566,24 @@ responsibility, callers, or state ownership.
 
 | Symbol | Kind | Lines@SHA |
 |---|---|---|
-| _required | function | 54-58 |
-| _csv | function | 61-65 |
-| ProductionSettings | class | 69-115 |
-| ProductionSettings.from_mapping | method | 83-111 |
-| ProductionSettings.from_env | method | 114-115 |
-| ServiceReadiness | class | 119-123 |
-| GroundingService | class | 126-427 |
-| GroundingService.__init__ | method | 129-143 |
-| GroundingService.search_web | method | 145-166 |
-| GroundingService._fetch_document | method | 168-189 |
-| GroundingService.fetch_evidence | method | 191-200 |
-| GroundingService.select_evidence_spans | method | 202-219 |
-| GroundingService.deduplicate_evidence_span_refs | method | 221-241 |
-| GroundingService.verify_candidate_claims | method | 243-370 |
-| GroundingService.index_evidence | method | 372-392 |
-| GroundingService.query_evidence | method | 394-414 |
-| GroundingService.readiness | method | 416-427 |
-| build_production_runtime | function | 430-440 |
+| _required | function | 56-60 |
+| _csv | function | 63-67 |
+| ProductionSettings | class | 71-117 |
+| ProductionSettings.from_mapping | method | 85-113 |
+| ProductionSettings.from_env | method | 116-117 |
+| ServiceReadiness | class | 121-125 |
+| GroundingService | class | 128-470 |
+| GroundingService.__init__ | method | 131-150 |
+| GroundingService.search_web | method | 152-173 |
+| GroundingService._fetch_document | method | 175-196 |
+| GroundingService.fetch_evidence | method | 198-207 |
+| GroundingService.select_evidence_spans | method | 209-226 |
+| GroundingService.deduplicate_evidence_span_refs | method | 228-248 |
+| GroundingService.verify_candidate_claims | method | 250-413 |
+| GroundingService.index_evidence | method | 415-435 |
+| GroundingService.query_evidence | method | 437-457 |
+| GroundingService.readiness | method | 459-470 |
+| build_production_runtime | function | 473-483 |
 
 </details>
 
@@ -928,6 +946,49 @@ responsibility, callers, or state ownership.
 | QdrantVectorStoreTests.test_query_validates_point_identity_and_reconstructs_provenance | method | 168-208 |
 | QdrantVectorStoreTests.test_query_rejects_tampered_identity_model_schema_and_nonfinite_score | method | 210-257 |
 | QdrantVectorStoreTests.test_invalid_base_collection_vector_and_limits_fail_closed | method | 259-280 |
+
+</details>
+
+<details>
+<summary><code>tests/test_question_relevance.py</code> — 13 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| scoped | function | 26-34 |
+| packet_for | function | 37-68 |
+| QuestionRelevanceContracts | class | 71-215 |
+| QuestionRelevanceContracts.test_missing_question_and_unanchored_open_question_fail_closed | method | 72-76 |
+| QuestionRelevanceContracts.test_prefix_excerpt_does_not_bind_complete_identifier | method | 78-87 |
+| QuestionRelevanceContracts.test_full_identifier_and_labeled_requested_field_is_positive_control | method | 89-102 |
+| QuestionRelevanceContracts.test_irrelevant_literal_quote_is_not_a_supported_answer | method | 104-118 |
+| QuestionRelevanceContracts.test_requested_field_coverage_blocks_partial_packet | method | 120-130 |
+| QuestionRelevanceContracts.test_manufacturer_authority_is_not_inferred_from_citation_domain | method | 132-150 |
+| QuestionRelevanceContracts.test_current_record_requires_trusted_publication_metadata | method | 152-170 |
+| QuestionRelevanceContracts.test_explicit_publication_cutoff_can_be_verified_from_trusted_metadata | method | 172-188 |
+| QuestionRelevanceContracts.test_conflicted_claims_cannot_pass_question_sufficiency | method | 190-200 |
+| QuestionRelevanceContracts.test_without_exact_identifier_subject_anchor_is_required_and_verified | method | 202-215 |
+
+</details>
+
+<details>
+<summary><code>tests/test_question_relevance_integration.py</code> — 14 symbols</summary>
+
+| Symbol | Kind | Lines@SHA |
+|---|---|---|
+| source | function | 20-28 |
+| runtime | function | 31-38 |
+| api | function | 41-47 |
+| headers | function | 50-51 |
+| scope | function | 54-59 |
+| proposal | function | 62-68 |
+| refs | function | 71-81 |
+| ScopedQuestionAcceptanceTests | class | 84-208 |
+| ScopedQuestionAcceptanceTests.test_exact_identifier_brand_yields_question_sufficient | method | 85-104 |
+| ScopedQuestionAcceptanceTests.test_prefix_only_source_cannot_promote_exact_barcode_answer | method | 106-125 |
+| ScopedQuestionAcceptanceTests.test_true_but_unrequested_quote_must_not_be_question_answer | method | 127-155 |
+| ScopedQuestionAcceptanceTests.test_wrong_declared_keys_are_refused_even_when_quote_is_true | method | 157-173 |
+| ScopedQuestionAcceptanceTests.test_authority_requires_trusted_server_injected_role | method | 175-194 |
+| ScopedQuestionAcceptanceTests.test_mcp_direct_uses_same_question_scope_and_server_packet | method | 196-208 |
 
 </details>
 
