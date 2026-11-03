@@ -37,6 +37,7 @@ from project_profile import (
 EXCLUDED = {
     ".git", ".workflow", ".idea", ".vscode", ".venv", "venv", "node_modules",
     "dist", "build", "coverage", "vendor", "__pycache__",
+    ".runtime", ".evidence", ".local-acceptance", ".pytest_cache",
 }
 
 SOURCE_EXTS = {
