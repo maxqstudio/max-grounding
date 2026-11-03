@@ -6,6 +6,8 @@ from unittest.mock import MagicMock
 
 from fastapi.testclient import TestClient
 
+from test_claim_scope_fixture import ClaimLevelTestClient, verified_claims
+
 from max_grounding.api import create_rest_app
 from max_grounding.evidence_authority import EvidenceAuthority
 from max_grounding.errors import InvalidGroundingRequest
@@ -38,7 +40,7 @@ def service_for(documents: dict[str, FetchedDocument]) -> GroundingService:
 
 
 def rest_client(service: GroundingService) -> TestClient:
-    return TestClient(
+    return ClaimLevelTestClient(
         create_rest_app(
             service,
             api_key=API_KEY,

@@ -7,6 +7,8 @@ from unittest.mock import MagicMock
 
 from fastapi.testclient import TestClient
 
+from test_claim_scope_fixture import ClaimLevelTestClient, fixture_question_scope, verified_claims
+
 from max_grounding.api import MAX_REQUEST_BODY_BYTES, create_rest_app
 from max_grounding.evidence_authority import EvidenceAuthority
 from max_grounding.errors import InvalidGroundingRequest, ServiceOperationError
@@ -54,7 +56,7 @@ def rest_client(service: GroundingService) -> TestClient:
         allowed_hosts=("testserver", "localhost:*", "127.0.0.1:*"),
         allowed_origins=(),
     )
-    return TestClient(app)
+    return ClaimLevelTestClient(app)
 
 
 def auth() -> dict[str, str]:
@@ -345,6 +347,11 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
             ],
             evidence_refs=[fetched.evidence_ref],
             required_sources=1,
+            question_scope={
+                "question": "Which source concerns test record?",
+                "requested_claim_keys": ["exact_evidence"],
+                "subject_anchors": ["test record"],
+            },
         )
 
         self.assertEqual(packet.verifications[0].status.value, "unsupported")
@@ -812,6 +819,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
                     ],
                     "evidence_refs": evidence_refs,
                     "required_sources": 2,
+                    "question_scope": fixture_question_scope([{"claim_key": "brand", "value": "SampleCo"}]),
                 },
             )
 
@@ -888,6 +896,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
                     ],
                     "evidence_refs": evidence_refs,
                     "required_sources": 2,
+                    "question_scope": fixture_question_scope([{"claim_key": "barcode_binding", "value": barcode}]),
                 },
             )
 
@@ -932,6 +941,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
                 ],
                 evidence_refs=[evidence_ref],
                 required_sources=1,
+            question_scope=fixture_question_scope([{"claim_key": "barcode_binding", "value": barcode}]),
             )
 
     def test_mcp_barcode_auto_selection_includes_product_title_spans(self) -> None:
@@ -986,6 +996,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
             ],
             evidence_refs=evidence_refs,
             required_sources=2,
+            question_scope=fixture_question_scope([{"claim_key": "barcode_binding", "value": barcode}]),
         )
 
         by_key = {
@@ -1060,6 +1071,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
             ],
             evidence_refs=evidence_refs,
             required_sources=2,
+            question_scope=fixture_question_scope([{"claim_key": "barcode_binding", "value": barcode}]),
         )
 
         by_key = {
@@ -1127,6 +1139,7 @@ class VerifiedOutputBoundaryTests(unittest.TestCase):
             ],
             evidence_refs=evidence_refs,
             required_sources=2,
+            question_scope=fixture_question_scope([{"claim_key": "barcode_binding", "value": barcode}]),
         )
 
         by_key = {
