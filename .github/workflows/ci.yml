@@ -63,6 +63,41 @@ jobs:
           python .workflow/tools/validate_sequence_sessions.py
           BASE=$(python -c "import json; print(json.load(open('.workflow/state.json', encoding='utf-8'))['last_accepted_sha'])")
           python .workflow/tools/validate_cross_document_consistency.py --base "$BASE" --require-base
+
+      - name: Diagnose stale CURRENT sequence artifacts without weakening acceptance
+        if: failure()
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          generator = Path(".workflow/tools/generate_sequence_actual.py")
+          for session_path in sorted(Path("docs/sequence/sessions").glob("*.json")):
+              session = json.loads(session_path.read_text(encoding="utf-8"))
+              if session.get("scope") != "CURRENT":
+                  continue
+              actual = session["actual"]
+              arguments = [
+                  sys.executable, str(generator), "--root", ".",
+                  "--output-json", actual["graph"],
+                  "--output-mermaid", actual["diagram"],
+              ]
+              for entry in actual.get("entries", []):
+                  arguments.extend(("--entry", entry))
+              subprocess.run(arguments, check=True)
+              graph = json.loads(Path(actual["graph"]).read_text(encoding="utf-8"))
+              actual["source_digest"] = graph["source_digest"]
+              session_path.write_text(
+                  json.dumps(session, indent=2, ensure_ascii=False) + "\n",
+                  encoding="utf-8",
+                  newline="\n",
+              )
+              print("CURRENT_SEQUENCE_REGENERATED=" + session["session_id"])
+          PY
+          git diff -- docs/sequence/generated docs/sequence/sessions
           python .workflow/tools/validate_project_truth.py
       - name: Require clean candidate worktree
         run: test -z "$(git status --porcelain)"
