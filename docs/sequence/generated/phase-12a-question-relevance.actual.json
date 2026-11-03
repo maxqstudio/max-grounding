@@ -571,6 +571,13 @@
       "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
     },
     {
+      "action": "InvalidGroundingRequest",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/mcp_server.py::mcp_verify_claims",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
       "action": "_mcp_barcode_value",
       "evidence": "STATIC",
       "from": "src/max_grounding/mcp_server.py::mcp_verify_claims",
@@ -1046,7 +1053,7 @@
       "kind": "function",
       "label": "src/max_grounding/api.py::verify_endpoint",
       "language": "Python",
-      "line_end": 396,
+      "line_end": 392,
       "line_start": 383,
       "locator": "src/max_grounding/api.py::verify_endpoint"
     },
@@ -1424,7 +1431,7 @@
       "kind": "function",
       "label": "src/max_grounding/mcp_server.py::mcp_verify_claims",
       "language": "Python",
-      "line_end": 414,
+      "line_end": 416,
       "line_start": 347,
       "locator": "src/max_grounding/mcp_server.py::mcp_verify_claims"
     },
@@ -1613,7 +1620,7 @@
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "language": "Python",
-      "line_end": 413,
+      "line_end": 411,
       "line_start": 250,
       "locator": "src/max_grounding/service.py::GroundingService.verify_candidate_claims"
     },
@@ -1789,7 +1796,7 @@
       "locator": "src/max_grounding/wire.py::to_wire"
     }
   ],
-  "observed_head": "ced1db4b777336fcb67d5b5ab9921e0c431b18f3",
+  "observed_head": "8316aa4740473aedb8c2b92416d10d425ff51d4f",
   "schema_version": 1,
-  "source_digest": "67d4364cf99f3401c9f745676efcdf4d131e684d34ddc04fc4febf92190ac38d"
+  "source_digest": "75213c7e087a3a5d1ce2f547a6a2cb2ac78f9aa3ff738f13ca114c65ad41639d"
 }

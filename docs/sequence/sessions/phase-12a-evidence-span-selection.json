@@ -25,7 +25,7 @@
   "actual": {
     "graph": "docs/sequence/generated/phase-12a-evidence-span-selection.actual.json",
     "diagram": "docs/sequence/generated/phase-12a-evidence-span-selection.actual.mmd",
-    "source_digest": "67d4364cf99f3401c9f745676efcdf4d131e684d34ddc04fc4febf92190ac38d",
+    "source_digest": "75213c7e087a3a5d1ce2f547a6a2cb2ac78f9aa3ff738f13ca114c65ad41639d",
     "entries": [
       "src/max_grounding/api.py::fetch_endpoint",
       "src/max_grounding/api.py::select_evidence_spans_endpoint",

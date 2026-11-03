@@ -1,6 +1,6 @@
 %% GENERATED FILE - DO NOT EDIT
-%% SOURCE_DIGEST: 67d4364cf99f3401c9f745676efcdf4d131e684d34ddc04fc4febf92190ac38d
-%% OBSERVED_HEAD: ced1db4b777336fcb67d5b5ab9921e0c431b18f3
+%% SOURCE_DIGEST: 75213c7e087a3a5d1ce2f547a6a2cb2ac78f9aa3ff738f13ca114c65ad41639d
+%% OBSERVED_HEAD: 8316aa4740473aedb8c2b92416d10d425ff51d4f
 %% GENERATED_BY: generate_sequence_actual.py
 sequenceDiagram
     participant HTTP__v1_verify_0 as HTTP /v1/verify
@@ -154,6 +154,7 @@ sequenceDiagram
     src_max_grounding_mcp_server_py___select_barcode_spans_40->>src_max_grounding_mcp_server_py___select_barcode_spans_add_spans_41: add_spans [STATIC]
     src_max_grounding_mcp_server_py___select_barcode_spans_40->>src_max_grounding_service_py__GroundingService_select_evidence_spans_63: service.select_evidence_spans [STATIC]
     src_max_grounding_mcp_server_py___share_structured_claim_span_refs_42->>src_max_grounding_errors_py__InvalidGroundingRequest_4: InvalidGroundingRequest [STATIC]
+    src_max_grounding_mcp_server_py__mcp_verify_claims_43->>src_max_grounding_errors_py__InvalidGroundingRequest_4: InvalidGroundingRequest [STATIC]
     src_max_grounding_mcp_server_py__mcp_verify_claims_43->>src_max_grounding_mcp_server_py___mcp_barcode_value_39: _mcp_barcode_value [STATIC]
     src_max_grounding_mcp_server_py__mcp_verify_claims_43->>src_max_grounding_mcp_server_py___select_barcode_spans_40: _select_barcode_spans [STATIC]
     src_max_grounding_mcp_server_py__mcp_verify_claims_43->>src_max_grounding_mcp_server_py___share_structured_claim_span_refs_42: _share_structured_claim_span_refs [STATIC]
