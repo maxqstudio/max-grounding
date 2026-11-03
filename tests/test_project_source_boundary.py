@@ -28,7 +28,7 @@ SCRATCH_DIRS = (
 class SourceInventoryIsolationTests(unittest.TestCase):
     def test_operator_scratch_does_not_enter_structural_code_facts(self) -> None:
         with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
+            root = Path(folder).resolve()
             (root / "src").mkdir()
             (root / "src" / "app.py").write_text(
                 "def accepted_entry():\n    return True\n", encoding="utf-8"
@@ -55,7 +55,7 @@ class SourceInventoryIsolationTests(unittest.TestCase):
 
     def test_scratch_files_do_not_change_source_digest(self) -> None:
         with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)
+            root = Path(folder).resolve()
             (root / "app.py").write_text("VALUE = 42\n", encoding="utf-8")
             before = compute_source_digest(root)
             for name in SCRATCH_DIRS:
