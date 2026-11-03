@@ -166,7 +166,26 @@ class QuestionRelevanceContracts(unittest.TestCase):
             },
             now=datetime(2026, 11, 3, tzinfo=timezone.utc),
         )
-        self.assertEqual(published.status, "SUFFICIENT")
+        self.assertEqual(published.status, "INSUFFICIENT")
+        self.assertIn("TEMPORAL_NOT_PROVEN", published.reason_codes)
+
+    def test_explicit_publication_cutoff_can_be_verified_from_trusted_metadata(self) -> None:
+        contract = scoped(
+            f"What brand for barcode {IDENTIFIER} was published after 2026-10-01?",
+            ["brand"],
+        )
+        evidence = packet_for(
+            "brand", "SampleCo", f"GTIN {IDENTIFIER} | Brand SampleCo"
+        )
+        result = assess_question_sufficiency(
+            contract,
+            evidence,
+            trusted_publication_dates={
+                SOURCE: datetime(2026, 11, 1, tzinfo=timezone.utc)
+            },
+            now=datetime(2026, 11, 3, tzinfo=timezone.utc),
+        )
+        self.assertEqual(result.status, "SUFFICIENT")
 
     def test_conflicted_claims_cannot_pass_question_sufficiency(self) -> None:
         contract = scoped(f"What brand is linked to barcode {IDENTIFIER}?", ["brand"])
