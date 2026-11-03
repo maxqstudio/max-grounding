@@ -178,7 +178,7 @@ class QuestionScopeRequest(BaseModel):
 class VerifyRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
-    question_scope: QuestionScopeRequest | None = None
+    question_scope: QuestionScopeRequest
 
     claims: tuple[CandidateClaimRequest, ...] = Field(
         min_length=1,
@@ -382,16 +382,12 @@ def query_endpoint(payload: QueryRequest, request: Request):
 @router.post("/v1/verify")
 def verify_endpoint(payload: VerifyRequest, request: Request):
     claims = tuple(item.model_dump() for item in payload.claims)
-    scope_kwargs = (
-        {"question_scope": payload.question_scope.model_dump()}
-        if payload.question_scope is not None else {}
-    )
     return to_wire(
         request.app.state.grounding_service.verify_candidate_claims(
             claims,
             evidence_refs=payload.evidence_refs,
             required_sources=payload.required_sources,
-            **scope_kwargs,
+            question_scope=payload.question_scope.model_dump(),
         )
     )
 

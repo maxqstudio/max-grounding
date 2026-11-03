@@ -352,8 +352,10 @@ def mcp_verify_claims(
     required_sources: int = DEFAULT_REQUIRED_SOURCES,
     question_scope: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Return only the server-built verified packet for bounded claim proposals."""
-    scope_kwargs = {"question_scope": question_scope} if question_scope is not None else {}
+    """Verify only original-question-bound proposals using server-issued refs."""
+    if question_scope is None:
+        raise InvalidGroundingRequest("question_scope is required")
+    scope_kwargs = {"question_scope": question_scope}
     barcode = _mcp_barcode_value(claims)
     if barcode is not None:
         # Validate caller tokens and their evidence_ref binding before supplementing them.
@@ -489,7 +491,7 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
         claims: CandidateClaimProposals,
         evidence_refs: EvidenceReferenceProposals,
         required_sources: int = DEFAULT_REQUIRED_SOURCES,
-        question_scope: QuestionScopeProposal | None = None,
+        question_scope: QuestionScopeProposal,
     ) -> dict[str, Any]:
         """Verify proposals using server-issued evidence_ref and evidence_span_ref values.
 
@@ -520,7 +522,7 @@ def register_mcp_tools(server: MCPServer, service: GroundingService) -> None:
             claims=[claim.model_dump(exclude_none=True) for claim in claims],
             evidence_refs=evidence_refs,
             required_sources=required_sources,
-            question_scope=question_scope.model_dump() if question_scope is not None else None,
+            question_scope=question_scope.model_dump(),
         )
 
     server.tool(name="search_web", structured_output=True)(_tool_search_web)

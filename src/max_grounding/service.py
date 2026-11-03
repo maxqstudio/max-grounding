@@ -255,7 +255,7 @@ class GroundingService:
         required_sources: int = DEFAULT_REQUIRED_SOURCES,
         question_scope: Mapping[str, object] | None = None,
     ):
-        """Verify server-owned claims and, when provided, original-question sufficiency."""
+        """Verify only claims checked against a bounded original question."""
         if (
             isinstance(required_sources, bool)
             or not isinstance(required_sources, int)
@@ -263,9 +263,8 @@ class GroundingService:
         ):
             raise InvalidGroundingRequest("required_sources is outside the accepted range")
         try:
-            contract = (
-                compile_question_contract(question_scope, required_sources=required_sources)
-                if question_scope is not None else None
+            contract = compile_question_contract(
+                question_scope, required_sources=required_sources
             )
             proposals = normalize_candidate_proposals(claims)
             normalized_claims = tuple(item.claim for item in proposals)
@@ -279,7 +278,7 @@ class GroundingService:
                     "one verification request cannot mix barcode identities"
                 )
             expected_barcode = next(iter(barcode_values), None)
-            if contract is not None and contract.exact_identifiers:
+            if contract.exact_identifiers:
                 if len(contract.exact_identifiers) != 1:
                     raise InvalidGroundingRequest(
                         "multiple exact identifiers require independent verification"
@@ -364,26 +363,25 @@ class GroundingService:
                     if item.status is not ClaimVerificationStatus.SUPPORTED
                 ),
             )
-            if contract is not None:
-                question_assessment = assess_question_sufficiency(
-                    contract,
-                    packet,
-                    trusted_source_roles=self._trusted_source_roles,
-                    trusted_publication_dates=self._trusted_publication_dates,
-                )
-                packet = SynthesisPacket(
-                    verifications=packet.verifications,
-                    synthesis_claims=(
-                        packet.synthesis_claims
-                        if question_assessment.status == "SUFFICIENT" else ()
-                    ),
-                    blocked_claims=(
-                        packet.blocked_claims
-                        if question_assessment.status == "SUFFICIENT"
-                        else packet.verifications
-                    ),
-                    question_assessment=question_assessment,
-                )
+            question_assessment = assess_question_sufficiency(
+                contract,
+                packet,
+                trusted_source_roles=self._trusted_source_roles,
+                trusted_publication_dates=self._trusted_publication_dates,
+            )
+            packet = SynthesisPacket(
+                verifications=packet.verifications,
+                synthesis_claims=(
+                    packet.synthesis_claims
+                    if question_assessment.status == "SUFFICIENT" else ()
+                ),
+                blocked_claims=(
+                    packet.blocked_claims
+                    if question_assessment.status == "SUFFICIENT"
+                    else packet.verifications
+                ),
+                question_assessment=question_assessment,
+            )
             correction = None
             verification_by_id = {
                 item.claim.claim_id: item

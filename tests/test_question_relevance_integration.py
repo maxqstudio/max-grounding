@@ -94,7 +94,7 @@ class ScopedQuestionAcceptanceTests(unittest.TestCase):
                 "required_sources": 1,
             },
         )
-        self.assertEqual(response.status_code, 400, response.text)
+        self.assertEqual(response.status_code, 422, response.text)
         self.assertEqual(response.json(), {"error": "invalid_request"})
 
     def test_missing_question_scope_cannot_promote_mcp_claim(self) -> None:
