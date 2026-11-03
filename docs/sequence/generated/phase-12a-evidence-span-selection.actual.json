@@ -1,5 +1,91 @@
 {
   "coverage": {
+    "analyzers": [
+      {
+        "analyzer_id": "python_sequence",
+        "claimed_extensions": [
+          ".py"
+        ],
+        "dynamic_behavior": "NOT_PROVEN",
+        "languages": [
+          "Python"
+        ],
+        "limitations": [
+          "dynamic dispatch",
+          "dependency injection",
+          "reflection",
+          "callbacks/events",
+          "framework magic not visible statically"
+        ],
+        "parse_failures": [],
+        "proof_status": "PROVEN_STATIC_WITH_LIMITATIONS",
+        "semantic_level": "python_ast_static",
+        "unsupported_files": []
+      },
+      {
+        "analyzer_id": "js_ts_http_sequence",
+        "claimed_extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ],
+        "dynamic_behavior": "NOT_PROVEN",
+        "languages": [
+          "JavaScript",
+          "TypeScript"
+        ],
+        "limitations": [
+          "dynamic dispatch",
+          "dependency injection",
+          "reflection",
+          "callbacks/events",
+          "framework magic not visible statically",
+          "JS/TS function-level call ownership is not fully resolved"
+        ],
+        "parse_failures": [],
+        "proof_status": "PROVEN_STATIC_WITH_LIMITATIONS",
+        "semantic_level": "http_module_static",
+        "unsupported_files": []
+      },
+      {
+        "analyzer_id": "generic_inventory",
+        "claimed_extensions": [],
+        "dynamic_behavior": "NOT_PROVEN",
+        "languages": [],
+        "limitations": [
+          "semantic symbols, routes, calls, and runtime ordering are NOT_PROVEN for unsupported languages",
+          "dynamic dispatch",
+          "dependency injection",
+          "reflection",
+          "callbacks/events",
+          "framework magic not visible statically"
+        ],
+        "parse_failures": [],
+        "proof_status": "NOT_APPLICABLE",
+        "semantic_level": "inventory_only",
+        "unsupported_files": []
+      }
+    ],
+    "dynamic_behavior": "NOT_PROVEN",
+    "generic_fallback": {
+      "analyzer_id": "generic_inventory",
+      "claimed_extensions": [],
+      "dynamic_behavior": "NOT_PROVEN",
+      "languages": [],
+      "limitations": [
+        "semantic symbols, routes, calls, and runtime ordering are NOT_PROVEN for unsupported languages",
+        "dynamic dispatch",
+        "dependency injection",
+        "reflection",
+        "callbacks/events",
+        "framework magic not visible statically"
+      ],
+      "parse_failures": [],
+      "proof_status": "NOT_APPLICABLE",
+      "semantic_level": "inventory_only",
+      "unsupported_files": []
+    },
     "js_ts_http_module_scan": true,
     "limitations": [
       "dynamic dispatch",
@@ -702,6 +788,48 @@
       "to": "src/max_grounding/errors.py::FetchError"
     },
     {
+      "action": "InvalidGroundingRequest",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "action": "QuestionAssessment",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::QuestionAssessment"
+    },
+    {
+      "action": "_contains_token",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::_contains_token"
+    },
+    {
+      "action": "InvalidGroundingRequest",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "action": "QuestionContract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::QuestionContract"
+    },
+    {
+      "action": "_contains_token",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::_contains_token"
+    },
+    {
       "action": "ServiceOperationError",
       "evidence": "STATIC",
       "from": "src/max_grounding/service.py::GroundingService._fetch_document",
@@ -805,6 +933,20 @@
       "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "resolver": "python_ast",
       "to": "src/max_grounding/models.py::VerificationCorrection"
+    },
+    {
+      "action": "assess_question_sufficiency",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::assess_question_sufficiency"
+    },
+    {
+      "action": "compile_question_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::compile_question_contract"
     },
     {
       "action": "build_synthesis_packet",
@@ -1114,8 +1256,8 @@
       "kind": "function",
       "label": "src/max_grounding/api.py::fetch_endpoint",
       "language": "Python",
-      "line_end": 338,
-      "line_start": 335,
+      "line_end": 349,
+      "line_start": 346,
       "locator": "src/max_grounding/api.py::fetch_endpoint"
     },
     {
@@ -1123,8 +1265,8 @@
       "kind": "function",
       "label": "src/max_grounding/api.py::select_evidence_spans_endpoint",
       "language": "Python",
-      "line_end": 351,
-      "line_start": 342,
+      "line_end": 362,
+      "line_start": 353,
       "locator": "src/max_grounding/api.py::select_evidence_spans_endpoint"
     },
     {
@@ -1132,8 +1274,8 @@
       "kind": "function",
       "label": "src/max_grounding/api.py::verify_endpoint",
       "language": "Python",
-      "line_end": 380,
-      "line_start": 372,
+      "line_end": 396,
+      "line_start": 383,
       "locator": "src/max_grounding/api.py::verify_endpoint"
     },
     {
@@ -1393,7 +1535,7 @@
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet",
       "language": "Python",
-      "line_end": 1060,
+      "line_end": 1061,
       "line_start": 1038,
       "locator": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet"
     },
@@ -1582,8 +1724,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::AnswerClaim",
       "language": "Python",
-      "line_end": 273,
-      "line_start": 267,
+      "line_end": 277,
+      "line_start": 271,
       "locator": "src/max_grounding/models.py::AnswerClaim"
     },
     {
@@ -1591,8 +1733,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::ClaimCitation",
       "language": "Python",
-      "line_end": 284,
-      "line_start": 277,
+      "line_end": 288,
+      "line_start": 281,
       "locator": "src/max_grounding/models.py::ClaimCitation"
     },
     {
@@ -1600,8 +1742,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::ClaimVerification",
       "language": "Python",
-      "line_end": 296,
-      "line_start": 288,
+      "line_end": 300,
+      "line_start": 292,
       "locator": "src/max_grounding/models.py::ClaimVerification"
     },
     {
@@ -1609,8 +1751,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceAssertion",
       "language": "Python",
-      "line_end": 234,
-      "line_start": 227,
+      "line_end": 238,
+      "line_start": 231,
       "locator": "src/max_grounding/models.py::EvidenceAssertion"
     },
     {
@@ -1618,8 +1760,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceCluster",
       "language": "Python",
-      "line_end": 254,
-      "line_start": 247,
+      "line_end": 258,
+      "line_start": 251,
       "locator": "src/max_grounding/models.py::EvidenceCluster"
     },
     {
@@ -1627,8 +1769,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceExcerpt",
       "language": "Python",
-      "line_end": 179,
-      "line_start": 171,
+      "line_end": 183,
+      "line_start": 175,
       "locator": "src/max_grounding/models.py::EvidenceExcerpt"
     },
     {
@@ -1636,8 +1778,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceGraph",
       "language": "Python",
-      "line_end": 263,
-      "line_start": 258,
+      "line_end": 267,
+      "line_start": 262,
       "locator": "src/max_grounding/models.py::EvidenceGraph"
     },
     {
@@ -1645,8 +1787,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceMetadata",
       "language": "Python",
-      "line_end": 193,
-      "line_start": 183,
+      "line_end": 197,
+      "line_start": 187,
       "locator": "src/max_grounding/models.py::EvidenceMetadata"
     },
     {
@@ -1654,8 +1796,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceQualityScore",
       "language": "Python",
-      "line_end": 223,
-      "line_start": 214,
+      "line_end": 227,
+      "line_start": 218,
       "locator": "src/max_grounding/models.py::EvidenceQualityScore"
     },
     {
@@ -1663,8 +1805,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceRelation",
       "language": "Python",
-      "line_end": 243,
-      "line_start": 238,
+      "line_end": 247,
+      "line_start": 242,
       "locator": "src/max_grounding/models.py::EvidenceRelation"
     },
     {
@@ -1672,8 +1814,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::FetchedDocument",
       "language": "Python",
-      "line_end": 103,
-      "line_start": 94,
+      "line_end": 107,
+      "line_start": 98,
       "locator": "src/max_grounding/models.py::FetchedDocument"
     },
     {
@@ -1681,8 +1823,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::SynthesisPacket",
       "language": "Python",
-      "line_end": 314,
-      "line_start": 308,
+      "line_end": 319,
+      "line_start": 312,
       "locator": "src/max_grounding/models.py::SynthesisPacket"
     },
     {
@@ -1690,8 +1832,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::TemporalComponents",
       "language": "Python",
-      "line_end": 210,
-      "line_start": 206,
+      "line_end": 214,
+      "line_start": 210,
       "locator": "src/max_grounding/models.py::TemporalComponents"
     },
     {
@@ -1699,8 +1841,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::VerificationCorrection",
       "language": "Python",
-      "line_end": 304,
-      "line_start": 300,
+      "line_end": 308,
+      "line_start": 304,
       "locator": "src/max_grounding/models.py::VerificationCorrection"
     },
     {
@@ -1722,12 +1864,57 @@
       "locator": "src/max_grounding/network_policy.py::resolve_public_addresses"
     },
     {
+      "id": "src/max_grounding/question_relevance.py::QuestionAssessment",
+      "kind": "class",
+      "label": "src/max_grounding/question_relevance.py::QuestionAssessment",
+      "language": "Python",
+      "line_end": 55,
+      "line_start": 52,
+      "locator": "src/max_grounding/question_relevance.py::QuestionAssessment"
+    },
+    {
+      "id": "src/max_grounding/question_relevance.py::QuestionContract",
+      "kind": "class",
+      "label": "src/max_grounding/question_relevance.py::QuestionContract",
+      "language": "Python",
+      "line_end": 48,
+      "line_start": 39,
+      "locator": "src/max_grounding/question_relevance.py::QuestionContract"
+    },
+    {
+      "id": "src/max_grounding/question_relevance.py::_contains_token",
+      "kind": "function",
+      "label": "src/max_grounding/question_relevance.py::_contains_token",
+      "language": "Python",
+      "line_end": 64,
+      "line_start": 58,
+      "locator": "src/max_grounding/question_relevance.py::_contains_token"
+    },
+    {
+      "id": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "kind": "function",
+      "label": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "language": "Python",
+      "line_end": 234,
+      "line_start": 147,
+      "locator": "src/max_grounding/question_relevance.py::assess_question_sufficiency"
+    },
+    {
+      "id": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "kind": "function",
+      "label": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "language": "Python",
+      "line_end": 144,
+      "line_start": 67,
+      "locator": "src/max_grounding/question_relevance.py::compile_question_contract"
+    },
+    {
       "id": "src/max_grounding/service.py::GroundingService._fetch_document",
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService._fetch_document",
       "language": "Python",
-      "line_end": 189,
-      "line_start": 168,
+      "line_end": 196,
+      "line_start": 175,
       "locator": "src/max_grounding/service.py::GroundingService._fetch_document"
     },
     {
@@ -1735,8 +1922,8 @@
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService.fetch_evidence",
       "language": "Python",
-      "line_end": 200,
-      "line_start": 191,
+      "line_end": 207,
+      "line_start": 198,
       "locator": "src/max_grounding/service.py::GroundingService.fetch_evidence"
     },
     {
@@ -1744,8 +1931,8 @@
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
       "language": "Python",
-      "line_end": 219,
-      "line_start": 202,
+      "line_end": 226,
+      "line_start": 209,
       "locator": "src/max_grounding/service.py::GroundingService.select_evidence_spans"
     },
     {
@@ -1753,8 +1940,8 @@
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "language": "Python",
-      "line_end": 370,
-      "line_start": 243,
+      "line_end": 413,
+      "line_start": 250,
       "locator": "src/max_grounding/service.py::GroundingService.verify_candidate_claims"
     },
     {
@@ -1965,7 +2152,7 @@
       "locator": "tests/test_secure_fetcher.py::_Response.read"
     }
   ],
-  "observed_head": "315ed78950e98a15bd38b7f62b9d4b2957abea39",
+  "observed_head": "ced1db4b777336fcb67d5b5ab9921e0c431b18f3",
   "schema_version": 1,
-  "source_digest": "2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1"
+  "source_digest": "67d4364cf99f3401c9f745676efcdf4d131e684d34ddc04fc4febf92190ac38d"
 }

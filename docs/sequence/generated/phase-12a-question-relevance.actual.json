@@ -102,13 +102,6 @@
   },
   "edges": [
     {
-      "action": "repo_relative_path",
-      "evidence": "STATIC",
-      "from": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::repo_relative_path"
-    },
-    {
       "action": "POST route",
       "evidence": "STATIC",
       "from": "HTTP /v1/verify",
@@ -135,6 +128,20 @@
       "from": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_expired",
       "resolver": "python_ast",
       "to": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_orphaned_spans"
+    },
+    {
+      "action": "InvalidGroundingRequest",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "action": "self._purge_expired",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_expired"
     },
     {
       "action": "InvalidGroundingRequest",
@@ -240,27 +247,6 @@
       "from": "src/max_grounding/evidence_authority.py::_labeled_values",
       "resolver": "python_ast",
       "to": "src/max_grounding/evidence_authority.py::_segments"
-    },
-    {
-      "action": "unicodedata.normalize",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/evidence_authority.py::_normalize_evidence_span",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/.github/scripts/ci_applicability.py::normalize"
-    },
-    {
-      "action": "unicodedata.normalize",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/evidence_authority.py::_normalized_field_value",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/.github/scripts/ci_applicability.py::normalize"
-    },
-    {
-      "action": "unicodedata.normalize",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/evidence_authority.py::_normalized_text",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/.github/scripts/ci_applicability.py::normalize"
     },
     {
       "action": "InvalidGroundingRequest",
@@ -445,27 +431,6 @@
       "to": "src/max_grounding/errors.py::EvidenceGraphError"
     },
     {
-      "action": "assertion_ids.add",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add"
-    },
-    {
-      "action": "evidence_ids.add",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add"
-    },
-    {
-      "action": "quality_ranks.add",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add"
-    },
-    {
       "action": "EvidenceGraphError",
       "evidence": "STATIC",
       "from": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
@@ -499,13 +464,6 @@
       "from": "src/max_grounding/evidence_graph.py::_normalize_and_validate",
       "resolver": "python_ast",
       "to": "src/max_grounding/models.py::EvidenceAssertion"
-    },
-    {
-      "action": "unicodedata.normalize",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/evidence_graph.py::_normalize_text",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/.github/scripts/ci_applicability.py::normalize"
     },
     {
       "action": "EvidenceGraphError",
@@ -592,13 +550,6 @@
       "to": "src/max_grounding/models.py::EvidenceRelation"
     },
     {
-      "action": "values.add",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/mcp_server.py::_mcp_barcode_value",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add"
-    },
-    {
       "action": "add_spans",
       "evidence": "STATIC",
       "from": "src/max_grounding/mcp_server.py::_select_barcode_spans",
@@ -611,13 +562,6 @@
       "from": "src/max_grounding/mcp_server.py::_select_barcode_spans",
       "resolver": "python_ast",
       "to": "src/max_grounding/service.py::GroundingService.select_evidence_spans"
-    },
-    {
-      "action": "selected_spans.add",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/mcp_server.py::_select_barcode_spans.add_spans",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add"
     },
     {
       "action": "InvalidGroundingRequest",
@@ -669,11 +613,46 @@
       "to": "src/max_grounding/wire.py::to_wire"
     },
     {
-      "action": "seen.add",
+      "action": "InvalidGroundingRequest",
       "evidence": "STATIC",
-      "from": "src/max_grounding/service.py::GroundingService.deduplicate_evidence_span_refs",
+      "from": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
       "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add"
+      "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "action": "QuestionAssessment",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::QuestionAssessment"
+    },
+    {
+      "action": "_contains_token",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::_contains_token"
+    },
+    {
+      "action": "InvalidGroundingRequest",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/errors.py::InvalidGroundingRequest"
+    },
+    {
+      "action": "QuestionContract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::QuestionContract"
+    },
+    {
+      "action": "_contains_token",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::_contains_token"
     },
     {
       "action": "ServiceOperationError",
@@ -709,6 +688,13 @@
       "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "resolver": "python_ast",
       "to": "src/max_grounding/errors.py::ServiceOperationError"
+    },
+    {
+      "action": "self._evidence_authority.resolve",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve"
     },
     {
       "action": "self._evidence_authority.resolve_spans",
@@ -753,6 +739,20 @@
       "to": "src/max_grounding/models.py::VerificationCorrection"
     },
     {
+      "action": "assess_question_sufficiency",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::assess_question_sufficiency"
+    },
+    {
+      "action": "compile_question_contract",
+      "evidence": "STATIC",
+      "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
+      "resolver": "python_ast",
+      "to": "src/max_grounding/question_relevance.py::compile_question_contract"
+    },
+    {
       "action": "build_synthesis_packet",
       "evidence": "STATIC",
       "from": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
@@ -772,13 +772,6 @@
       "from": "src/max_grounding/temporal.py::_bounded_sequence",
       "resolver": "python_ast",
       "to": "src/max_grounding/errors.py::TemporalScoringError"
-    },
-    {
-      "action": "seen.add",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/temporal.py::_validate_basic_metadata",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add"
     },
     {
       "action": "TemporalScoringError",
@@ -865,13 +858,6 @@
       "to": "src/max_grounding/errors.py::ClaimVerificationError"
     },
     {
-      "action": "seen.add",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/verification.py::_normalize_claims",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add"
-    },
-    {
       "action": "ClaimVerificationError",
       "evidence": "STATIC",
       "from": "src/max_grounding/verification.py::_normalize_claims",
@@ -898,13 +884,6 @@
       "from": "src/max_grounding/verification.py::_normalize_claims",
       "resolver": "python_ast",
       "to": "src/max_grounding/verification.py::_normalize_text"
-    },
-    {
-      "action": "unicodedata.normalize",
-      "evidence": "STATIC",
-      "from": "src/max_grounding/verification.py::_normalize_text",
-      "resolver": "python_ast",
-      "to": ".runtime/skill-workflow-91b58b9/.github/scripts/ci_applicability.py::normalize"
     },
     {
       "action": "ClaimVerificationError",
@@ -1056,33 +1035,6 @@
   "generated_by": "generate_sequence_actual.py",
   "nodes": [
     {
-      "id": ".runtime/skill-workflow-91b58b9/.github/scripts/ci_applicability.py::normalize",
-      "kind": "function",
-      "label": ".runtime/skill-workflow-91b58b9/.github/scripts/ci_applicability.py::normalize",
-      "language": "Python",
-      "line_end": 27,
-      "line_start": 25,
-      "locator": ".runtime/skill-workflow-91b58b9/.github/scripts/ci_applicability.py::normalize"
-    },
-    {
-      "id": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add",
-      "kind": "method",
-      "label": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add",
-      "language": "Python",
-      "line_end": 112,
-      "line_start": 109,
-      "locator": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::evidence_paths.add"
-    },
-    {
-      "id": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::repo_relative_path",
-      "kind": "function",
-      "label": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::repo_relative_path",
-      "language": "Python",
-      "line_end": 83,
-      "line_start": 71,
-      "locator": ".runtime/skill-workflow-91b58b9/scripts/validate_sequence_sessions.py::repo_relative_path"
-    },
-    {
       "id": "HTTP /v1/verify",
       "kind": "external",
       "label": "HTTP /v1/verify",
@@ -1094,8 +1046,8 @@
       "kind": "function",
       "label": "src/max_grounding/api.py::verify_endpoint",
       "language": "Python",
-      "line_end": 380,
-      "line_start": 372,
+      "line_end": 396,
+      "line_start": 383,
       "locator": "src/max_grounding/api.py::verify_endpoint"
     },
     {
@@ -1169,6 +1121,15 @@
       "line_end": 362,
       "line_start": 358,
       "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority._purge_orphaned_spans"
+    },
+    {
+      "id": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve",
+      "kind": "method",
+      "label": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve",
+      "language": "Python",
+      "line_end": 425,
+      "line_start": 402,
+      "locator": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve"
     },
     {
       "id": "src/max_grounding/evidence_authority.py::EvidenceAuthority.resolve_spans",
@@ -1319,7 +1280,7 @@
       "kind": "function",
       "label": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet",
       "language": "Python",
-      "line_end": 1060,
+      "line_end": 1061,
       "line_start": 1038,
       "locator": "src/max_grounding/evidence_authority.py::build_authoritative_verification_packet"
     },
@@ -1427,8 +1388,8 @@
       "kind": "function",
       "label": "src/max_grounding/mcp_server.py::_mcp_barcode_value",
       "language": "Python",
-      "line_end": 255,
-      "line_start": 235,
+      "line_end": 264,
+      "line_start": 244,
       "locator": "src/max_grounding/mcp_server.py::_mcp_barcode_value"
     },
     {
@@ -1436,8 +1397,8 @@
       "kind": "function",
       "label": "src/max_grounding/mcp_server.py::_select_barcode_spans",
       "language": "Python",
-      "line_end": 316,
-      "line_start": 258,
+      "line_end": 325,
+      "line_start": 267,
       "locator": "src/max_grounding/mcp_server.py::_select_barcode_spans"
     },
     {
@@ -1445,8 +1406,8 @@
       "kind": "method",
       "label": "src/max_grounding/mcp_server.py::_select_barcode_spans.add_spans",
       "language": "Python",
-      "line_end": 286,
-      "line_start": 274,
+      "line_end": 295,
+      "line_start": 283,
       "locator": "src/max_grounding/mcp_server.py::_select_barcode_spans.add_spans"
     },
     {
@@ -1454,8 +1415,8 @@
       "kind": "function",
       "label": "src/max_grounding/mcp_server.py::_share_structured_claim_span_refs",
       "language": "Python",
-      "line_end": 232,
-      "line_start": 185,
+      "line_end": 241,
+      "line_start": 194,
       "locator": "src/max_grounding/mcp_server.py::_share_structured_claim_span_refs"
     },
     {
@@ -1463,8 +1424,8 @@
       "kind": "function",
       "label": "src/max_grounding/mcp_server.py::mcp_verify_claims",
       "language": "Python",
-      "line_end": 400,
-      "line_start": 338,
+      "line_end": 414,
+      "line_start": 347,
       "locator": "src/max_grounding/mcp_server.py::mcp_verify_claims"
     },
     {
@@ -1472,8 +1433,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::AnswerClaim",
       "language": "Python",
-      "line_end": 273,
-      "line_start": 267,
+      "line_end": 277,
+      "line_start": 271,
       "locator": "src/max_grounding/models.py::AnswerClaim"
     },
     {
@@ -1481,8 +1442,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::ClaimCitation",
       "language": "Python",
-      "line_end": 284,
-      "line_start": 277,
+      "line_end": 288,
+      "line_start": 281,
       "locator": "src/max_grounding/models.py::ClaimCitation"
     },
     {
@@ -1490,8 +1451,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::ClaimVerification",
       "language": "Python",
-      "line_end": 296,
-      "line_start": 288,
+      "line_end": 300,
+      "line_start": 292,
       "locator": "src/max_grounding/models.py::ClaimVerification"
     },
     {
@@ -1499,8 +1460,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceAssertion",
       "language": "Python",
-      "line_end": 234,
-      "line_start": 227,
+      "line_end": 238,
+      "line_start": 231,
       "locator": "src/max_grounding/models.py::EvidenceAssertion"
     },
     {
@@ -1508,8 +1469,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceCluster",
       "language": "Python",
-      "line_end": 254,
-      "line_start": 247,
+      "line_end": 258,
+      "line_start": 251,
       "locator": "src/max_grounding/models.py::EvidenceCluster"
     },
     {
@@ -1517,8 +1478,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceExcerpt",
       "language": "Python",
-      "line_end": 179,
-      "line_start": 171,
+      "line_end": 183,
+      "line_start": 175,
       "locator": "src/max_grounding/models.py::EvidenceExcerpt"
     },
     {
@@ -1526,8 +1487,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceGraph",
       "language": "Python",
-      "line_end": 263,
-      "line_start": 258,
+      "line_end": 267,
+      "line_start": 262,
       "locator": "src/max_grounding/models.py::EvidenceGraph"
     },
     {
@@ -1535,8 +1496,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceMetadata",
       "language": "Python",
-      "line_end": 193,
-      "line_start": 183,
+      "line_end": 197,
+      "line_start": 187,
       "locator": "src/max_grounding/models.py::EvidenceMetadata"
     },
     {
@@ -1544,8 +1505,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceQualityScore",
       "language": "Python",
-      "line_end": 223,
-      "line_start": 214,
+      "line_end": 227,
+      "line_start": 218,
       "locator": "src/max_grounding/models.py::EvidenceQualityScore"
     },
     {
@@ -1553,8 +1514,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::EvidenceRelation",
       "language": "Python",
-      "line_end": 243,
-      "line_start": 238,
+      "line_end": 247,
+      "line_start": 242,
       "locator": "src/max_grounding/models.py::EvidenceRelation"
     },
     {
@@ -1562,8 +1523,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::SynthesisPacket",
       "language": "Python",
-      "line_end": 314,
-      "line_start": 308,
+      "line_end": 319,
+      "line_start": 312,
       "locator": "src/max_grounding/models.py::SynthesisPacket"
     },
     {
@@ -1571,8 +1532,8 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::TemporalComponents",
       "language": "Python",
-      "line_end": 210,
-      "line_start": 206,
+      "line_end": 214,
+      "line_start": 210,
       "locator": "src/max_grounding/models.py::TemporalComponents"
     },
     {
@@ -1580,17 +1541,62 @@
       "kind": "class",
       "label": "src/max_grounding/models.py::VerificationCorrection",
       "language": "Python",
-      "line_end": 304,
-      "line_start": 300,
+      "line_end": 308,
+      "line_start": 304,
       "locator": "src/max_grounding/models.py::VerificationCorrection"
+    },
+    {
+      "id": "src/max_grounding/question_relevance.py::QuestionAssessment",
+      "kind": "class",
+      "label": "src/max_grounding/question_relevance.py::QuestionAssessment",
+      "language": "Python",
+      "line_end": 55,
+      "line_start": 52,
+      "locator": "src/max_grounding/question_relevance.py::QuestionAssessment"
+    },
+    {
+      "id": "src/max_grounding/question_relevance.py::QuestionContract",
+      "kind": "class",
+      "label": "src/max_grounding/question_relevance.py::QuestionContract",
+      "language": "Python",
+      "line_end": 48,
+      "line_start": 39,
+      "locator": "src/max_grounding/question_relevance.py::QuestionContract"
+    },
+    {
+      "id": "src/max_grounding/question_relevance.py::_contains_token",
+      "kind": "function",
+      "label": "src/max_grounding/question_relevance.py::_contains_token",
+      "language": "Python",
+      "line_end": 64,
+      "line_start": 58,
+      "locator": "src/max_grounding/question_relevance.py::_contains_token"
+    },
+    {
+      "id": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "kind": "function",
+      "label": "src/max_grounding/question_relevance.py::assess_question_sufficiency",
+      "language": "Python",
+      "line_end": 234,
+      "line_start": 147,
+      "locator": "src/max_grounding/question_relevance.py::assess_question_sufficiency"
+    },
+    {
+      "id": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "kind": "function",
+      "label": "src/max_grounding/question_relevance.py::compile_question_contract",
+      "language": "Python",
+      "line_end": 144,
+      "line_start": 67,
+      "locator": "src/max_grounding/question_relevance.py::compile_question_contract"
     },
     {
       "id": "src/max_grounding/service.py::GroundingService.deduplicate_evidence_span_refs",
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService.deduplicate_evidence_span_refs",
       "language": "Python",
-      "line_end": 241,
-      "line_start": 221,
+      "line_end": 248,
+      "line_start": 228,
       "locator": "src/max_grounding/service.py::GroundingService.deduplicate_evidence_span_refs"
     },
     {
@@ -1598,8 +1604,8 @@
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService.select_evidence_spans",
       "language": "Python",
-      "line_end": 219,
-      "line_start": 202,
+      "line_end": 226,
+      "line_start": 209,
       "locator": "src/max_grounding/service.py::GroundingService.select_evidence_spans"
     },
     {
@@ -1607,8 +1613,8 @@
       "kind": "method",
       "label": "src/max_grounding/service.py::GroundingService.verify_candidate_claims",
       "language": "Python",
-      "line_end": 370,
-      "line_start": 243,
+      "line_end": 413,
+      "line_start": 250,
       "locator": "src/max_grounding/service.py::GroundingService.verify_candidate_claims"
     },
     {
@@ -1783,7 +1789,7 @@
       "locator": "src/max_grounding/wire.py::to_wire"
     }
   ],
-  "observed_head": "7124e6e393540963a2bcec631a2e64826bfd9a82",
+  "observed_head": "ced1db4b777336fcb67d5b5ab9921e0c431b18f3",
   "schema_version": 1,
-  "source_digest": "2d00ddae4aa578557988d9745a0bc7942b2841cf17f73e7ed1f451c5f2c294d1"
+  "source_digest": "67d4364cf99f3401c9f745676efcdf4d131e684d34ddc04fc4febf92190ac38d"
 }
